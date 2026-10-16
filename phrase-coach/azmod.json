@@ -1,0 +1,18 @@
+{
+  "azmod": 1,
+  "id": "phrase-coach",
+  "name": "Phrase Coach",
+  "version": "0.1.0",
+  "author": "hleawilliams-commits",
+  "summary": "A bar counter on each deck: bar 5 of 8, amber in the last bar, green on the new phrase.",
+  "description": "Test build 0.1.0: validated and harness-tested, not yet run on a deck. Shows where each deck is in its phrase: the bar number (for example 5/8) and one cell per bar that fills beat by beat. The last bar before the next phrase turns amber, and the first beat of a new phrase flashes green.\n\nThe deck's beat grid has no bar position, so the count starts on the beat nearest the moment the deck first plays after a load. Start tracks from a cue on the first downbeat and the count is right. If it is off, Phrase starts now in the Mod Menu sets bar 1 on the deck you started last. Hot cues, loops and beat jumps keep the count; a ? means it was lost.\n\nMod Menu rows: on/off, phrase length (8 or 16 bars), position, and Phrase starts now.\n\nReads deck state and the beat grid through the AZ-MODS core only: no hooks, controls, LEDs, audio, files or network.",
+  "category": "tools",
+  "license": "GPL-3.0-only",
+  "source": "https://github.com/hleawilliams-commits/flow-beat/tree/main/phrase-coach",
+  "api": 1,
+  "firmware": [
+    "any"
+  ],
+  "hooks": false,
+  "min_core": "1.2.3"
+}

@@ -130,6 +130,27 @@
       "description": "Test build 0.1.1: validated and harness-tested, not yet run on a deck. A thin strip over the deck screen with one lane per deck. Each playing deck's beat ticks scroll under a shared playhead line; ticks that line up across lanes are decks in phase. The official Phase Meter covers the 2 DECK view; this one also works in 4 DECK, with no hook into the deck's layout.\n\nMod Menu rows turn it on or off, show it only in the 4 DECK view or always, and pick where it sits. The deck's grid has no bar position, so every tick is a beat.\n\nReads deck state and beat phase through the AZ-MODS core only: no hooks, controls, LEDs, audio, files or network."
     },
     {
+      "id": "phrase-coach",
+      "name": "Phrase Coach",
+      "version": "0.1.0",
+      "author": "hleawilliams-commits",
+      "summary": "A bar counter on each deck: bar 5 of 8, amber in the last bar, green on the new phrase.",
+      "icon": "https://github.com/hleawilliams-commits/flow-beat/releases/download/phrase-coach-0.1.0/phrase-coach-0.1.0-icon.png",
+      "package": "https://github.com/hleawilliams-commits/flow-beat/releases/download/phrase-coach-0.1.0/phrase-coach-0.1.0.azmod",
+      "sha256": "8e086bc2f4d3952a8a6fbf9c3e2624e669e9413eef9f2e4428b2f11aa740b239",
+      "size": 71642,
+      "firmware": [
+        "any"
+      ],
+      "hooks": false,
+      "source": "https://github.com/hleawilliams-commits/flow-beat/tree/main/phrase-coach",
+      "updated": "2026-10-16",
+      "category": "tools",
+      "license": "GPL-3.0-only",
+      "min_core": "1.2.3",
+      "description": "Test build 0.1.0: validated and harness-tested, not yet run on a deck. Shows where each deck is in its phrase: the bar number (for example 5/8) and one cell per bar that fills beat by beat. The last bar before the next phrase turns amber, and the first beat of a new phrase flashes green.\n\nThe deck's beat grid has no bar position, so the count starts on the beat nearest the moment the deck first plays after a load. Start tracks from a cue on the first downbeat and the count is right. If it is off, Phrase starts now in the Mod Menu sets bar 1 on the deck you started last. Hot cues, loops and beat jumps keep the count; a ? means it was lost.\n\nMod Menu rows: on/off, phrase length (8 or 16 bars), position, and Phrase starts now.\n\nReads deck state and the beat grid through the AZ-MODS core only: no hooks, controls, LEDs, audio, files or network."
+    },
+    {
       "id": "set-clock",
       "name": "Set Clock",
       "version": "0.1.0",
