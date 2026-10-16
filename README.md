@@ -18,6 +18,7 @@ control or audio, or write files. Needs AZ-MODS 1.2.3 or newer.
 | `mashup-helper/` | **Mashup Helper**: Camelot match and pitch gap for the two decks in play | test build 0.1.0, not yet run on a deck |
 | `stem-badge/` | **Stem Badge**: STEMS or NO STEMS on each deck | test build 0.1.0, not yet run on a deck |
 | `set-log/` | **Set Log**: every track you play, written to a CSV on the USB | test build 0.1.0, not yet run on a deck |
+| `harmonic-picks/` | **Harmonic Picks**: a Mod Menu page of tracks that fit the playing deck by key and BPM | test build 0.1.0, not yet run on a deck |
 | `deck-meters/` | **Deck Meters**: a level meter per deck with clip warning, and a flash on the drop | test build 0.1.0, not yet run on a deck |
 | `set-clock/` | **Set Clock**: time left in the set, and a warning as the playing track ends | test build 0.1.0, not yet run on a deck |
 

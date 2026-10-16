@@ -46,6 +46,27 @@
       "description": "Adds one row to the Mod Menu: Send beat to FLOW (on by default).\n\nWhile it is on, the mod sends small UDP packets on the deck's network (Wi-Fi or LINK cable), broadcast to port 9100 unless flow-beat:host in MODS/azmods.cfg names one computer: the moment each playing deck starts a new beat, each deck's BPM and position in the beat 50 times a second, and each deck's track title and artist. FLOW VJ (or any program) listens for them.\n\nIt uses the network. It only reads deck state through the core's services: it does not patch the deck's code, change any control or audio, or write files."
     },
     {
+      "id": "harmonic-picks",
+      "name": "Harmonic Picks",
+      "version": "0.1.0",
+      "author": "hleawilliams-commits",
+      "summary": "A Mod Menu page listing tracks on your stick that fit the playing deck by key and BPM.",
+      "icon": "https://github.com/hleawilliams-commits/flow-beat/releases/download/harmonic-picks-0.1.0/harmonic-picks-0.1.0-icon.png",
+      "package": "https://github.com/hleawilliams-commits/flow-beat/releases/download/harmonic-picks-0.1.0/harmonic-picks-0.1.0.azmod",
+      "sha256": "a8f97a409c242837cb1fb41ebf9858c7c616cd2e41569cbf361fc8c09f741638",
+      "size": 88990,
+      "firmware": [
+        "any"
+      ],
+      "hooks": false,
+      "source": "https://github.com/hleawilliams-commits/flow-beat/tree/main/harmonic-picks",
+      "updated": "2026-10-16",
+      "category": "tools",
+      "license": "GPL-3.0-only",
+      "min_core": "1.2.3",
+      "description": "Test build 0.1.0: validated and harness-tested, not yet run on a deck. Open Mod Menu > Community Mods > Installed > Harmonic Picks. It takes the deck that started playing last and lists up to 40 tracks from your USB sticks in the same key, a neighbour key or the relative key, within 6% BPM (half and double time count). Same key shows green. Each row shows key, BPM, BPM gap and the track; VOX marks acapellas.\n\nTurn the knob to scroll. Press to switch between all tracks and acapellas only.\n\nReads deck state and the stick's library through the AZ-MODS core only: no hooks, controls, LEDs, audio, files or network."
+    },
+    {
       "id": "key-next-to-bpm",
       "name": "Key next to BPM",
       "version": "0.1.1",
