@@ -7,13 +7,13 @@
     {
       "id": "flow-beat",
       "name": "FLOW Beat Link",
-      "version": "0.2.0",
+      "version": "0.2.1",
       "author": "hleawilliams-commits",
       "summary": "Sends each deck's beat, BPM, play state and track to FLOW VJ over the network, to lock visuals and lights.",
-      "icon": "https://github.com/hleawilliams-commits/flow-beat/releases/download/flow-beat-0.2.0/flow-beat-0.2.0-icon.png",
-      "package": "https://github.com/hleawilliams-commits/flow-beat/releases/download/flow-beat-0.2.0/flow-beat-0.2.0.azmod",
-      "sha256": "7559370b9335a10c9c464a903279c90222d739ed1dc1c8640b413c56b96a49fc",
-      "size": 49792,
+      "icon": "https://github.com/hleawilliams-commits/flow-beat/releases/download/flow-beat-0.2.1/flow-beat-0.2.1-icon.png",
+      "package": "https://github.com/hleawilliams-commits/flow-beat/releases/download/flow-beat-0.2.1/flow-beat-0.2.1.azmod",
+      "sha256": "38359036af9158f0061620f58ea6ecaf01255b5b104040d2bca800229b2967c0",
+      "size": 50800,
       "firmware": [
         "any"
       ],
