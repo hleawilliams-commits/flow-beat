@@ -1,0 +1,15 @@
+{
+  "azmod": 1,
+  "id": "flow-beat",
+  "name": "FLOW Beat Link",
+  "version": "0.2.0",
+  "author": "hleawilliams-commits",
+  "summary": "Sends each deck's beat, BPM, play state and track to FLOW VJ over the network, to lock visuals and lights.",
+  "description": "Adds one row to the Mod Menu: Send beat to FLOW (on by default).\n\nWhile it is on, the mod sends small UDP packets on the deck's network (Wi-Fi or LINK cable), broadcast to port 9100 unless flow-beat:host in MODS/azmods.cfg names one computer: the moment each playing deck starts a new beat, each deck's BPM and position in the beat 50 times a second, and each deck's track title and artist. FLOW VJ (or any program) listens for them.\n\nIt uses the network. It only reads deck state through the core's services: it does not patch the deck's code, change any control or audio, or write files.",
+  "license": "GPL-3.0-only",
+  "source": "https://github.com/hleawilliams-commits/flow-beat",
+  "api": 1,
+  "firmware": ["any"],
+  "hooks": false,
+  "min_core": "1.2.3"
+}
