@@ -23,11 +23,14 @@
  * Nothing is sent while "Send beat to FLOW" is off.
  *
  * Settings in MODS/azmods.cfg on the USB, read every 2 s:
- *   flow-beat:host = "192.168.1.20"     where to send (an IPv4 address; default broadcast)
+ *   flow-beat:host = "192.168.1.20"     where to send (an IPv4 address; default: broadcast on
+ *                                       every network the deck is on, Wi-Fi and LINK)
  *   flow-beat:port = 9100
  */
 #include <arpa/inet.h>
 #include <errno.h>
+#include <ifaddrs.h>
+#include <net/if.h>
 #include <netinet/in.h>
 #include <stdint.h>
 #include <stdio.h>
@@ -77,9 +80,28 @@ static int put_str(char *buf, int pos, int cap, const char *s)
 /* ---- the network ------------------------------------------------------------------------- */
 
 static int sock = -1;
-static struct sockaddr_in dest;
 static char dest_host[64];
 static int dest_port;
+
+/* Where packets go. With the default host (broadcast), one address per network the deck is
+ * on (each interface's own broadcast, e.g. 192.168.1.255 on Wi-Fi and the LINK network's),
+ * because 255.255.255.255 leaves by one interface only: on the AZ that can be the LINK port
+ * while FLOW listens on Wi-Fi. A host set in azmods.cfg is used alone. */
+#define MAX_DESTS 8
+static struct sockaddr_in dests[MAX_DESTS];
+static int ndests;
+
+static void add_dest(struct in_addr a, int port)
+{
+    for (int i = 0; i < ndests; i++)
+        if (dests[i].sin_addr.s_addr == a.s_addr) return;
+    if (ndests >= MAX_DESTS) return;
+    memset(&dests[ndests], 0, sizeof dests[ndests]);
+    dests[ndests].sin_family = AF_INET;
+    dests[ndests].sin_port = htons((uint16_t)port);
+    dests[ndests].sin_addr = a;
+    ndests++;
+}
 
 /* Logs only from init (quiet = 0): the worker re-reads silently. */
 static void read_cfg(int quiet)
@@ -96,15 +118,37 @@ static void read_cfg(int quiet)
         snprintf(host, sizeof host, "%s", DEFAULT_HOST);
         inet_pton(AF_INET, host, &a);
     }
-    if (strcmp(host, dest_host) == 0 && port == dest_port) return;
 
-    memset(&dest, 0, sizeof dest);
-    dest.sin_family = AF_INET;
-    dest.sin_port = htons((uint16_t)port);
-    dest.sin_addr = a;
+    int changed = strcmp(host, dest_host) != 0 || port != dest_port;
+    int old_n = ndests;
+    struct sockaddr_in old[MAX_DESTS];
+    memcpy(old, dests, sizeof old);
+    ndests = 0;
+    if (a.s_addr == htonl(INADDR_BROADCAST)) {
+        struct ifaddrs *ifs = NULL;
+        if (getifaddrs(&ifs) == 0) {
+            for (struct ifaddrs *i = ifs; i; i = i->ifa_next) {
+                if (!i->ifa_addr || i->ifa_addr->sa_family != AF_INET) continue;
+                if (!(i->ifa_flags & IFF_UP) || (i->ifa_flags & IFF_LOOPBACK)) continue;
+                if (!(i->ifa_flags & IFF_BROADCAST) || !i->ifa_broadaddr) continue;
+                add_dest(((struct sockaddr_in *)i->ifa_broadaddr)->sin_addr, port);
+            }
+            freeifaddrs(ifs);
+        }
+    }
+    if (ndests == 0) add_dest(a, port);   /* a set host, or no network found yet */
+
+    if (!changed && ndests == old_n && memcmp(old, dests, sizeof dests[0] * (size_t)ndests) == 0)
+        return;
     snprintf(dest_host, sizeof dest_host, "%s", host);
     dest_port = port;
-    if (!quiet) C->log(MOD_ID, "sending to %s:%d", dest_host, dest_port);
+    if (!quiet || changed) {
+        for (int i = 0; i < ndests; i++) {
+            char ip[INET_ADDRSTRLEN];
+            inet_ntop(AF_INET, &dests[i].sin_addr, ip, sizeof ip);
+            C->log(MOD_ID, "sending to %s:%d", ip, dest_port);
+        }
+    }
 }
 
 static void send_pkt(const char *buf, int len)
@@ -115,12 +159,18 @@ static void send_pkt(const char *buf, int len)
         int on = 1;
         setsockopt(sock, SOL_SOCKET, SO_BROADCAST, &on, sizeof on);
     }
-    if (sendto(sock, buf, (size_t)len, MSG_DONTWAIT, (const struct sockaddr *)&dest, sizeof dest) < 0) {
+    int sent = 0;
+    for (int i = 0; i < ndests; i++) {
+        if (sendto(sock, buf, (size_t)len, MSG_DONTWAIT, (const struct sockaddr *)&dests[i],
+                   sizeof dests[i]) >= 0)
+            sent = 1;
+        else if (errno == EAGAIN || errno == EWOULDBLOCK)
+            sent = 1;   /* busy, not broken */
+    }
+    if (!sent && ndests > 0) {
         /* no network yet, or it changed: try a fresh socket next time; never wait */
-        if (errno != EAGAIN && errno != EWOULDBLOCK) {
-            close(sock);
-            sock = -1;
-        }
+        close(sock);
+        sock = -1;
     }
 }
 

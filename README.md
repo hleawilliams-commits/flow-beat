@@ -18,7 +18,7 @@ On the deck: **Mod Menu > Community Mods > Repositories > Add**, enter
 In `MODS/azmods.cfg` on the USB (read every 2 s):
 
 ```
-flow-beat:host = "192.168.1.20"     where to send (an IPv4 address; default 255.255.255.255, broadcast)
+flow-beat:host = "192.168.1.20"     where to send (an IPv4 address; default: broadcast on every network the deck is on, Wi-Fi and LINK)
 flow-beat:port = 9100
 ```
 
