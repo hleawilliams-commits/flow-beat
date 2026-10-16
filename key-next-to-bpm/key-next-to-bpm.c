@@ -362,10 +362,10 @@ static int init(const az_core_v1 *core)
     }
 
     if (AZ_HAS(C, register_row) && AZ_HAS(C, row_value)) {
-    static const char *const NOTATIONS[] = { "As exported", "Camelot", "Classic" };
-    static const char *const SIZES[] = { "Small", "Medium", "Large" };
-    static const char *const POSITIONS[] = { "Right of waveform", "Left of waveform", "Screen top" };
-    static const char *const NUDGES[] = { "None", "Up 24 px", "Down 24 px", "Down 48 px" };
+    static const char *const NOTATIONS[] = { "Raw", "8A", "Am" };
+    static const char *const SIZES[] = { "S", "M", "L" };
+    static const char *const POSITIONS[] = { "Right", "Left", "Top" };
+    static const char *const NUDGES[] = { "0", "Up", "Dn", "Dn2" };
     az_row_v1 row;
     memset(&row, 0, sizeof row);
     row.size = sizeof row;
@@ -376,16 +376,16 @@ static int init(const az_core_v1 *core)
     memset(&row, 0, sizeof row); row.size = sizeof row; row.parent = "show";
     row.key = "notation"; row.label = "Notation"; row.kind = AZ_ROW_CHOICE;
     row.choices = NOTATIONS; row.n_choices = 3; row.default_choice = 0;
-    row.help = "As rekordbox exported it, Camelot (8A), or classic (Am).";
+    row.help = "Raw = as exported, 8A = Camelot, Am = classic.";
     r_notation = C->register_row(MOD_ID, &row);
     row.key = "size"; row.label = "Size"; row.choices = SIZES; row.n_choices = 3; row.default_choice = 1;
     row.help = "Text size of the key.";
     r_size = C->register_row(MOD_ID, &row);
     row.key = "position"; row.label = "Position"; row.choices = POSITIONS; row.n_choices = 3; row.default_choice = 0;
-    row.help = "Where the key sits. Decks 3/4 in the 2/4 DECK view always use the screen top.";
+    row.help = "Right or left of the waveform, or screen top.";
     r_pos = C->register_row(MOD_ID, &row);
     row.key = "nudge"; row.label = "Nudge"; row.choices = NUDGES; row.n_choices = 4; row.default_choice = 0;
-    row.help = "Move the key up or down to line it up with the BPM on your firmware.";
+    row.help = "Move the key up or down to line up with BPM.";
     r_nudge = C->register_row(MOD_ID, &row);
     if (AZ_HAS(C, row_lookup)) r_phase_official = C->row_lookup("phase-meter");
     } else {

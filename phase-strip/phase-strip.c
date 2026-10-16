@@ -139,19 +139,19 @@ static int init(const az_core_v1 *core)
     }
 
     if (AZ_HAS(C, register_row) && AZ_HAS(C, row_value)) {
-    static const char *const WHEN[] = { "4 DECK view only", "Always" };
-    static const char *const POS[] = { "Top strip", "Band above waveforms", "Bottom" };
+    static const char *const WHEN[] = { "4 DK", "All" };
+    static const char *const POS[] = { "Top", "Band", "Low" };
     az_row_v1 row;
     memset(&row, 0, sizeof row);
     row.size = sizeof row;
     row.key = "show"; row.label = "4-deck phase strip"; row.kind = AZ_ROW_TOGGLE;
     row.flags = AZ_ROW_DEFAULT_ON;
-    row.help = "Beat ticks for every playing deck under one playhead. Lined up = in phase.";
+    row.help = "Beat ticks for every playing deck. Lined up = in phase.";
     r_show = C->register_row(MOD_ID, &row);
     memset(&row, 0, sizeof row); row.size = sizeof row; row.parent = "show";
     row.key = "when"; row.label = "Show"; row.kind = AZ_ROW_CHOICE;
     row.choices = WHEN; row.n_choices = 2; row.default_choice = 0;
-    row.help = "Only in the 4 DECK view, or on every deck view.";
+    row.help = "4 DK = 4 DECK view only, All = every view.";
     r_when = C->register_row(MOD_ID, &row);
     row.key = "position"; row.label = "Position"; row.choices = POS; row.n_choices = 3; row.default_choice = 0;
     row.help = "Where the strip sits on the screen.";
