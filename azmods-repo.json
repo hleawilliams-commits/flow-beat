@@ -23,6 +23,48 @@
       "license": "GPL-3.0-only",
       "min_core": "1.2.3",
       "description": "Adds one row to the Mod Menu: Send beat to FLOW (on by default).\n\nWhile it is on, the mod sends small UDP packets on the deck's network (Wi-Fi or LINK cable), broadcast to port 9100 unless flow-beat:host in MODS/azmods.cfg names one computer: the moment each playing deck starts a new beat, each deck's BPM and position in the beat 50 times a second, and each deck's track title and artist. FLOW VJ (or any program) listens for them.\n\nIt uses the network. It only reads deck state through the core's services: it does not patch the deck's code, change any control or audio, or write files."
+    },
+    {
+      "id": "key-next-to-bpm",
+      "name": "Key next to BPM",
+      "version": "0.1.0",
+      "author": "hleawilliams-commits",
+      "summary": "The loaded track's key on each deck, next to the BPM, as Camelot (8A) or classic (Am).",
+      "icon": "https://github.com/hleawilliams-commits/flow-beat/releases/download/key-next-to-bpm-0.1.0/key-next-to-bpm-0.1.0-icon.png",
+      "package": "https://github.com/hleawilliams-commits/flow-beat/releases/download/key-next-to-bpm-0.1.0/key-next-to-bpm-0.1.0.azmod",
+      "sha256": "b465a924f10ba49b678cae6feb0ea68ab677a311f721e9feed2b1b5e96771afa",
+      "size": 84038,
+      "firmware": [
+        "any"
+      ],
+      "hooks": false,
+      "source": "https://github.com/hleawilliams-commits/flow-beat/tree/main/key-next-to-bpm",
+      "updated": "2026-10-16",
+      "category": "visual",
+      "license": "GPL-3.0-only",
+      "min_core": "1.2.3",
+      "description": "Test build 0.1.0: validated and harness-tested, not yet run on a deck. Shows the key of the track loaded on each deck as a small badge on the deck screen, so the key tray on the left can stay collapsed. Mod Menu rows pick the notation (as exported, Camelot like 8A, classic like Am), the text size, the position (right or left of the waveform, or the screen top) and a nudge up or down to line it up with the BPM.\n\nThe key comes from the stick's rekordbox library, read on the mod's own thread. With decks 3 or 4 in use in the 2/4 DECK view the badges carry their deck number and sit in one strip at the top, never over the wrong deck.\n\nReads deck state and the library through the AZ-MODS core only: no hooks, controls, LEDs, audio, files or network."
+    },
+    {
+      "id": "phase-strip",
+      "name": "4-Deck Phase Strip",
+      "version": "0.1.0",
+      "author": "hleawilliams-commits",
+      "summary": "A phase meter for all four decks: beat ticks for every playing deck under one playhead.",
+      "icon": "https://github.com/hleawilliams-commits/flow-beat/releases/download/phase-strip-0.1.0/phase-strip-0.1.0-icon.png",
+      "package": "https://github.com/hleawilliams-commits/flow-beat/releases/download/phase-strip-0.1.0/phase-strip-0.1.0.azmod",
+      "sha256": "8b7f07d1d149d6d1d597a56d3b1042d882a778c8825c4ce63f114155607e79cc",
+      "size": 61934,
+      "firmware": [
+        "any"
+      ],
+      "hooks": false,
+      "source": "https://github.com/hleawilliams-commits/flow-beat/tree/main/phase-strip",
+      "updated": "2026-10-16",
+      "category": "visual",
+      "license": "GPL-3.0-only",
+      "min_core": "1.2.3",
+      "description": "Test build 0.1.0: validated and harness-tested, not yet run on a deck. A thin strip over the deck screen with one lane per deck. Each playing deck's beat ticks scroll under a shared playhead line; ticks that line up across lanes are decks in phase. The official Phase Meter covers the 2 DECK view; this one also works in 4 DECK, with no hook into the deck's layout.\n\nMod Menu rows turn it on or off, show it only in the 4 DECK view or always, and pick where it sits. The deck's grid has no bar position, so every tick is a beat.\n\nReads deck state and beat phase through the AZ-MODS core only: no hooks, controls, LEDs, audio, files or network."
     }
   ]
 }
