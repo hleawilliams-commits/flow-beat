@@ -32,8 +32,8 @@
       "summary": "The loaded track's key on each deck, next to the BPM, as Camelot (8A) or classic (Am).",
       "icon": "https://github.com/hleawilliams-commits/flow-beat/releases/download/key-next-to-bpm-0.1.1/key-next-to-bpm-0.1.1-icon.png",
       "package": "https://github.com/hleawilliams-commits/flow-beat/releases/download/key-next-to-bpm-0.1.1/key-next-to-bpm-0.1.1.azmod",
-      "sha256": "4c4cb1e58f36e97c4759e932b50b48dca81cbb347b2bc6d9ff892fa07044e64e",
-      "size": 83774,
+      "sha256": "c48f200828408588352701d9450b283cc0b232396b1d9293632320482bca7ce7",
+      "size": 84014,
       "firmware": [
         "any"
       ],
@@ -44,6 +44,27 @@
       "license": "GPL-3.0-only",
       "min_core": "1.2.3",
       "description": "Test build 0.1.1: validated and harness-tested, not yet run on a deck. Shows the key of the track loaded on each deck as a small badge on the deck screen, so the key tray on the left can stay collapsed. Mod Menu rows pick the notation (as exported, Camelot like 8A, classic like Am), the text size, the position (right or left of the waveform, or the screen top) and a nudge up or down to line it up with the BPM.\n\nThe key comes from the stick's rekordbox library, read on the mod's own thread. With decks 3 or 4 in use in the 2/4 DECK view the badges carry their deck number and sit in one strip at the top, never over the wrong deck.\n\nReads deck state and the library through the AZ-MODS core only: no hooks, controls, LEDs, audio, files or network."
+    },
+    {
+      "id": "mashup-helper",
+      "name": "Mashup Helper",
+      "version": "0.1.0",
+      "author": "hleawilliams-commits",
+      "summary": "Do the two decks in play go together? Camelot key match and the pitch gap, on one line.",
+      "icon": "https://github.com/hleawilliams-commits/flow-beat/releases/download/mashup-helper-0.1.0/mashup-helper-0.1.0-icon.png",
+      "package": "https://github.com/hleawilliams-commits/flow-beat/releases/download/mashup-helper-0.1.0/mashup-helper-0.1.0.azmod",
+      "sha256": "360049420f1cb4fb5edf422e2642c7dfccc3a799ec520286acd698374f26f55e",
+      "size": 79883,
+      "firmware": [
+        "any"
+      ],
+      "hooks": false,
+      "source": "https://github.com/hleawilliams-commits/flow-beat/tree/main/mashup-helper",
+      "updated": "2026-10-16",
+      "category": "visual",
+      "license": "GPL-3.0-only",
+      "min_core": "1.2.3",
+      "description": "Test build 0.1.0: validated and harness-tested, not yet run on a deck. One line for the two decks you are mixing (the two that started playing last): both keys in Camelot, then SAME or MATCH in green (same key, a neighbour, or the relative key), BOOST in amber (two steps round the wheel) or CLASH in red, and the pitch gap between the two tracks' original tempos, half and double time included.\n\nKeys and tempos come from the stick's rekordbox library, read on the mod's own thread. Mod Menu rows: on/off, pitch gap on/off, top or bottom.\n\nReads deck state and the library through the AZ-MODS core only: no hooks, controls, LEDs, audio, files or network."
     },
     {
       "id": "phase-strip",
@@ -65,6 +86,48 @@
       "license": "GPL-3.0-only",
       "min_core": "1.2.3",
       "description": "Test build 0.1.1: validated and harness-tested, not yet run on a deck. A thin strip over the deck screen with one lane per deck. Each playing deck's beat ticks scroll under a shared playhead line; ticks that line up across lanes are decks in phase. The official Phase Meter covers the 2 DECK view; this one also works in 4 DECK, with no hook into the deck's layout.\n\nMod Menu rows turn it on or off, show it only in the 4 DECK view or always, and pick where it sits. The deck's grid has no bar position, so every tick is a beat.\n\nReads deck state and beat phase through the AZ-MODS core only: no hooks, controls, LEDs, audio, files or network."
+    },
+    {
+      "id": "set-clock",
+      "name": "Set Clock",
+      "version": "0.1.0",
+      "author": "hleawilliams-commits",
+      "summary": "Time left in your set, plus a warning in the last minute of the playing track.",
+      "icon": "https://github.com/hleawilliams-commits/flow-beat/releases/download/set-clock-0.1.0/set-clock-0.1.0-icon.png",
+      "package": "https://github.com/hleawilliams-commits/flow-beat/releases/download/set-clock-0.1.0/set-clock-0.1.0.azmod",
+      "sha256": "7ea99bdd122e68a8b2ddc5bcff4d8ab12af4df4660df360615abac5a746b7166",
+      "size": 66818,
+      "firmware": [
+        "any"
+      ],
+      "hooks": false,
+      "source": "https://github.com/hleawilliams-commits/flow-beat/tree/main/set-clock",
+      "updated": "2026-10-16",
+      "category": "tools",
+      "license": "GPL-3.0-only",
+      "min_core": "1.2.3",
+      "description": "Test build 0.1.0: validated and harness-tested, not yet run on a deck. Shows SET and the time left in your set, counting down from the set length you pick (1 to 4 hours) once the first deck plays. Amber in the last 10 minutes, red once you run over. In the last minute of the playing track it adds END and that deck's time left, flashing red in the last 20 seconds.\n\nMod Menu rows: on/off, set length, track warning on/off, position, and Restart set timer.\n\nReads deck state through the AZ-MODS core only: no hooks, controls, LEDs, audio, files or network."
+    },
+    {
+      "id": "stem-badge",
+      "name": "Stem Badge",
+      "version": "0.1.0",
+      "author": "hleawilliams-commits",
+      "summary": "A badge on each deck that says whether the loaded track has stems, and if they play.",
+      "icon": "https://github.com/hleawilliams-commits/flow-beat/releases/download/stem-badge-0.1.0/stem-badge-0.1.0-icon.png",
+      "package": "https://github.com/hleawilliams-commits/flow-beat/releases/download/stem-badge-0.1.0/stem-badge-0.1.0.azmod",
+      "sha256": "9397f86cd3414c9cf859207181eecb2babbfaaa535103bf7193de2403cf5813e",
+      "size": 66710,
+      "firmware": [
+        "any"
+      ],
+      "hooks": false,
+      "source": "https://github.com/hleawilliams-commits/flow-beat/tree/main/stem-badge",
+      "updated": "2026-10-16",
+      "category": "visual",
+      "license": "GPL-3.0-only",
+      "min_core": "1.2.3",
+      "description": "Test build 0.1.0: validated and harness-tested, not yet run on a deck. A small badge on each deck: STEMS in green when the track has stems and the stems engine plays them, STEMS in grey when it has stems but they are off, NO STEMS in red when there are none, so you never reach for a stem pad on a track without stems.\n\nMod Menu rows: on/off, every deck or only tracks with no stems, and on the deck's row or at the screen top. With decks 3 or 4 in use in the 2/4 DECK view the badges carry their deck number and sit at the top.\n\nReads deck state through the AZ-MODS core only: no hooks, controls, LEDs, audio, files or network."
     }
   ]
 }

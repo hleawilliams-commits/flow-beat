@@ -1,0 +1,18 @@
+{
+  "azmod": 1,
+  "id": "stem-badge",
+  "name": "Stem Badge",
+  "version": "0.1.0",
+  "author": "hleawilliams-commits",
+  "summary": "A badge on each deck that says whether the loaded track has stems, and if they play.",
+  "description": "Test build 0.1.0: validated and harness-tested, not yet run on a deck. A small badge on each deck: STEMS in green when the track has stems and the stems engine plays them, STEMS in grey when it has stems but they are off, NO STEMS in red when there are none, so you never reach for a stem pad on a track without stems.\n\nMod Menu rows: on/off, every deck or only tracks with no stems, and on the deck's row or at the screen top. With decks 3 or 4 in use in the 2/4 DECK view the badges carry their deck number and sit at the top.\n\nReads deck state through the AZ-MODS core only: no hooks, controls, LEDs, audio, files or network.",
+  "category": "visual",
+  "license": "GPL-3.0-only",
+  "source": "https://github.com/hleawilliams-commits/flow-beat/tree/main/stem-badge",
+  "api": 1,
+  "firmware": [
+    "any"
+  ],
+  "hooks": false,
+  "min_core": "1.2.3"
+}

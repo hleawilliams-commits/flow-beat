@@ -235,6 +235,14 @@ static int text_px(void)
     return size == 0 ? 18 : size == 2 ? 34 : 26;
 }
 
+/* The text's width, estimated: text_width belongs to the paint call (the SDK's harness checks
+ * that), and the layout is decided on the UI thread before any paint. Wide enough for the
+ * deck font's capitals and digits. */
+static int est_width(const char *s, int px)
+{
+    return (int)strlen(s) * px * 64 / 100 + 2;
+}
+
 static void paint(az_draw *d, az_rect a, void *user)
 {
     int deck = (int)(intptr_t)user;
@@ -289,7 +297,7 @@ static void refresh(void)
             visible = g_combined || g_count == 4 || d < 2;
         }
         if (!visible) text[0] = 0;
-        int w = text[0] ? C->text_width(text, px) + 12 : 0;
+        int w = text[0] ? est_width(text, px) + 12 : 0;
         az_rect r = text[0] ? place_for(d, w, h) : (az_rect){ 0, 0, 0, 0 };
         int changed = strcmp(text, g_d[d].text) != 0 || memcmp(&r, &g_d[d].where, sizeof r) != 0;
         snprintf(g_d[d].text, sizeof g_d[d].text, "%s", text);
@@ -355,8 +363,7 @@ static int init(const az_core_v1 *core)
     C = core;
     if (!AZ_HAS(C, deck_count) || !AZ_HAS(C, deck_info) || !AZ_HAS(C, surface_create) ||
         !AZ_HAS(C, surface_place) || !AZ_HAS(C, surface_show) || !AZ_HAS(C, surface_redraw) ||
-        !AZ_HAS(C, draw_text) || !AZ_HAS(C, fill_rect) || !AZ_HAS(C, text_width) ||
-        !AZ_HAS(C, color)) {
+        !AZ_HAS(C, draw_text) || !AZ_HAS(C, fill_rect) || !AZ_HAS(C, color)) {
         C->log(MOD_ID, "this AZ-MODS lacks the deck or surface services (1.2.3 or newer)");
         return 2;
     }

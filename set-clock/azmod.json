@@ -1,0 +1,18 @@
+{
+  "azmod": 1,
+  "id": "set-clock",
+  "name": "Set Clock",
+  "version": "0.1.0",
+  "author": "hleawilliams-commits",
+  "summary": "Time left in your set, plus a warning in the last minute of the playing track.",
+  "description": "Test build 0.1.0: validated and harness-tested, not yet run on a deck. Shows SET and the time left in your set, counting down from the set length you pick (1 to 4 hours) once the first deck plays. Amber in the last 10 minutes, red once you run over. In the last minute of the playing track it adds END and that deck's time left, flashing red in the last 20 seconds.\n\nMod Menu rows: on/off, set length, track warning on/off, position, and Restart set timer.\n\nReads deck state through the AZ-MODS core only: no hooks, controls, LEDs, audio, files or network.",
+  "category": "tools",
+  "license": "GPL-3.0-only",
+  "source": "https://github.com/hleawilliams-commits/flow-beat/tree/main/set-clock",
+  "api": 1,
+  "firmware": [
+    "any"
+  ],
+  "hooks": false,
+  "min_core": "1.2.3"
+}

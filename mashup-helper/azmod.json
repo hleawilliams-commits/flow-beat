@@ -1,0 +1,18 @@
+{
+  "azmod": 1,
+  "id": "mashup-helper",
+  "name": "Mashup Helper",
+  "version": "0.1.0",
+  "author": "hleawilliams-commits",
+  "summary": "Do the two decks in play go together? Camelot key match and the pitch gap, on one line.",
+  "description": "Test build 0.1.0: validated and harness-tested, not yet run on a deck. One line for the two decks you are mixing (the two that started playing last): both keys in Camelot, then SAME or MATCH in green (same key, a neighbour, or the relative key), BOOST in amber (two steps round the wheel) or CLASH in red, and the pitch gap between the two tracks' original tempos, half and double time included.\n\nKeys and tempos come from the stick's rekordbox library, read on the mod's own thread. Mod Menu rows: on/off, pitch gap on/off, top or bottom.\n\nReads deck state and the library through the AZ-MODS core only: no hooks, controls, LEDs, audio, files or network.",
+  "category": "visual",
+  "license": "GPL-3.0-only",
+  "source": "https://github.com/hleawilliams-commits/flow-beat/tree/main/mashup-helper",
+  "api": 1,
+  "firmware": [
+    "any"
+  ],
+  "hooks": false,
+  "min_core": "1.2.3"
+}
