@@ -8,6 +8,16 @@ It adds one row to the Mod Menu: **Send beat to FLOW** (on by default). It only 
 state through the AZ-MODS core's services: it does not patch the deck's code, change any
 control or audio, or write files. Needs AZ-MODS 1.2.3 or newer.
 
+## Mods in this repository
+
+| Folder | Mod | Status |
+|---|---|---|
+| `/` (root) | **FLOW Beat Link** (`flow-beat`): beat, BPM, play state and track to FLOW VJ over UDP | released, 0.2.0 |
+| `key-next-to-bpm/` | **Key next to BPM**: the loaded track's key as a badge on each deck, Camelot or classic | test build 0.1.0, not yet run on a deck |
+| `phase-strip/` | **4-Deck Phase Strip**: beat ticks for every playing deck under one playhead, works in 4 DECK | test build 0.1.0, not yet run on a deck |
+
+Every mod has its own entry in `azmods-repo.json`; add `hleawilliams-commits/flow-beat` once on the deck and all of them show under Browse. Each mod's folder has its own README. Each mod has its SDK release workflow in `ci/release-<id>.yml`, like `ci/release.yml` for FLOW Beat Link: move it to `.github/workflows/` to release that mod on an `<id>-<version>` tag.
+
 ## Install
 
 On the deck: **Mod Menu > Community Mods > Repositories > Add**, enter
