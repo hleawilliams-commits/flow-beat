@@ -5,6 +5,27 @@
   "homepage": "https://github.com/hleawilliams-commits/flow-beat",
   "mods": [
     {
+      "id": "deck-meters",
+      "name": "Deck Meters",
+      "version": "0.1.0",
+      "author": "hleawilliams-commits",
+      "summary": "A level meter for each deck with a clip warning, and a flash in the deck color when a drop hits.",
+      "icon": "https://github.com/hleawilliams-commits/flow-beat/releases/download/deck-meters-0.1.0/deck-meters-0.1.0-icon.png",
+      "package": "https://github.com/hleawilliams-commits/flow-beat/releases/download/deck-meters-0.1.0/deck-meters-0.1.0.azmod",
+      "sha256": "145166df8996930b360dc84ba39b82708ae466c42722ff6fee1b44d3880e3f72",
+      "size": 67687,
+      "firmware": [
+        "any"
+      ],
+      "hooks": false,
+      "source": "https://github.com/hleawilliams-commits/flow-beat/tree/main/deck-meters",
+      "updated": "2026-10-16",
+      "category": "visual",
+      "license": "GPL-3.0-only",
+      "min_core": "1.2.3",
+      "description": "Test build 0.1.0: validated and harness-tested, not yet run on a deck. One bar per deck from the deck's own output before the mixer: green, amber near the top, and a red mark held for a second when the track hits full scale. When a playing deck's energy jumps after a quieter stretch, a band in that deck's color flashes across the top of the screen.\n\nMod Menu rows: meters on/off and position, drop flash on/off and its sensitivity.\n\nReads each deck's audio through the core's audio tap, read-only: no hooks, controls, LEDs, files or network."
+    },
+    {
       "id": "flow-beat",
       "name": "FLOW Beat Link",
       "version": "0.2.1",
@@ -107,6 +128,27 @@
       "license": "GPL-3.0-only",
       "min_core": "1.2.3",
       "description": "Test build 0.1.0: validated and harness-tested, not yet run on a deck. Shows SET and the time left in your set, counting down from the set length you pick (1 to 4 hours) once the first deck plays. Amber in the last 10 minutes, red once you run over. In the last minute of the playing track it adds END and that deck's time left, flashing red in the last 20 seconds.\n\nMod Menu rows: on/off, set length, track warning on/off, position, and Restart set timer.\n\nReads deck state through the AZ-MODS core only: no hooks, controls, LEDs, audio, files or network."
+    },
+    {
+      "id": "set-log",
+      "name": "Set Log",
+      "version": "0.1.0",
+      "author": "hleawilliams-commits",
+      "summary": "Writes every track you play to a CSV on your USB stick: your tracklist, ready after the gig.",
+      "icon": "https://github.com/hleawilliams-commits/flow-beat/releases/download/set-log-0.1.0/set-log-0.1.0-icon.png",
+      "package": "https://github.com/hleawilliams-commits/flow-beat/releases/download/set-log-0.1.0/set-log-0.1.0.azmod",
+      "sha256": "fb2af110cfc7fa83ab393f44ccef8d1e8fa8a3a944311e9fbda60132ba5f0c06",
+      "size": 69966,
+      "firmware": [
+        "any"
+      ],
+      "hooks": false,
+      "source": "https://github.com/hleawilliams-commits/flow-beat/tree/main/set-log",
+      "updated": "2026-10-16",
+      "category": "tools",
+      "license": "GPL-3.0-only",
+      "min_core": "1.2.3",
+      "description": "Test build 0.1.0: validated and harness-tested, not yet run on a deck. A track counts once it has played for 30 seconds in one go, so cueing and previewing don't. Each one becomes a line in a CSV in MODS/community-mods/set-log/data on the stick: number, time into the set, clock time, deck, artist, title, BPM, length and rekordbox id. A new file starts after a reboot, after 30 minutes with nothing playing, or from Start a new set in the Mod Menu.\n\nMod Menu rows: on/off, a short note on screen when a track is logged, and Start a new set.\n\nReads deck state through the AZ-MODS core and writes only its own data folder: no hooks, controls, LEDs, audio or network."
     },
     {
       "id": "stem-badge",

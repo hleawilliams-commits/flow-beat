@@ -17,6 +17,8 @@ control or audio, or write files. Needs AZ-MODS 1.2.3 or newer.
 | `phase-strip/` | **4-Deck Phase Strip**: beat ticks for every playing deck under one playhead, works in 4 DECK | test build 0.1.1, installed on a deck, menu checked |
 | `mashup-helper/` | **Mashup Helper**: Camelot match and pitch gap for the two decks in play | test build 0.1.0, not yet run on a deck |
 | `stem-badge/` | **Stem Badge**: STEMS or NO STEMS on each deck | test build 0.1.0, not yet run on a deck |
+| `set-log/` | **Set Log**: every track you play, written to a CSV on the USB | test build 0.1.0, not yet run on a deck |
+| `deck-meters/` | **Deck Meters**: a level meter per deck with clip warning, and a flash on the drop | test build 0.1.0, not yet run on a deck |
 | `set-clock/` | **Set Clock**: time left in the set, and a warning as the playing track ends | test build 0.1.0, not yet run on a deck |
 
 `tools/flow_link_bridge.py` runs on the Mac: it turns FLOW Beat Link's packets into an Ableton Link session, so AUTO/PILOT, Ableton and other Link apps lock to the deck (`python3 -m pip install aalink`, then `python3 tools/flow_link_bridge.py`).
