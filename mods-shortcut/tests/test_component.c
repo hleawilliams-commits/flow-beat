@@ -95,7 +95,9 @@ static az_core_v1 fixture_core = {
 };
 static void reset(void)
 {
-    gp_shortcut_ready = gp_shortcut_pending = gp_shortcut_phase = gp_shortcut_sent = 0;
+    gp_shortcut_ready = 0;
+    gp_shortcut_request_word = gp_shortcut_completion = 0;
+    gp_shortcut_pulse_token = gp_shortcut_until = gp_shortcut_notice_token = 0;
     gp_shortcut_notice = gp_shortcut_knob_known = 0;
     gp_shortcut_last_request = -10000;
     gp_button = NULL; gp_button_shown = gp_button_available = 0; gp_button_row = -1;
@@ -124,29 +126,29 @@ int main(void)
     tick(); CHECK(fixture_shown);
     struct az_draw draw = {0}; fixture_paint_rect = fixture_rect; fixture_desc.on_paint(&draw, fixture_rect, fixture_desc.user);
     CHECK(!strcmp(fixture_label, "MODS"));
-    CHECK(input(AZ_EV_DOWN, 1100, 60) == 0 && !gp_shortcut_pending);
-    CHECK(input(AZ_EV_TAP, 1079, 60) == 1 && !gp_shortcut_pending);
-    CHECK(input(AZ_EV_TAP, 1190, 60) == 1 && !gp_shortcut_pending);
-    CHECK(input(AZ_EV_TAP, 1100, 49) == 1 && !gp_shortcut_pending);
-    CHECK(input(AZ_EV_TAP, 1100, 80) == 1 && !gp_shortcut_pending);
-    CHECK(input(AZ_EV_TAP, 1100, 60) == 1 && gp_shortcut_pending);
-    long started = gp_shortcut_requested_at;
-    CHECK(input(AZ_EV_TAP, 1100, 60) == 1 && gp_shortcut_requested_at == started);
+    CHECK(input(AZ_EV_DOWN, 1100, 60) == 0 && !gp_shortcut_request_word);
+    CHECK(input(AZ_EV_TAP, 1079, 60) == 1 && !gp_shortcut_request_word);
+    CHECK(input(AZ_EV_TAP, 1190, 60) == 1 && !gp_shortcut_request_word);
+    CHECK(input(AZ_EV_TAP, 1100, 49) == 1 && !gp_shortcut_request_word);
+    CHECK(input(AZ_EV_TAP, 1100, 80) == 1 && !gp_shortcut_request_word);
+    CHECK(input(AZ_EV_TAP, 1100, 60) == 1 && gp_shortcut_request_word);
+    long started = gp_shortcut_last_request;
+    CHECK(input(AZ_EV_TAP, 1100, 60) == 1 && gp_shortcut_last_request == started);
     CHECK(input(AZ_EV_UP, 1100, 60) == 0);
     unsigned char f[152] = {0}; f[6] = 8;
     CHECK(fixture_filter(AZ_BUS_MIXER_IN, f, sizeof f, fixture_filter_user) == AZ_FRAME_OK);
     CHECK(f[32] == 0x80 && f[6] == 0);
     fixture_view = AZ_VIEW_SOURCE; memset(f, 0, sizeof f); f[6] = 8;
     fixture_filter(AZ_BUS_MIXER_IN, f, sizeof f, fixture_filter_user);
-    CHECK(f[32] == 0 && f[6] == 8 && !gp_shortcut_pending);
+    CHECK(f[32] == 0 && f[6] == 8 && !gp_shortcut_request_word);
     tick(); CHECK(!fixture_shown && fixture_banners == 1);
     tick(); CHECK(fixture_banners == 1);
-    CHECK(input(AZ_EV_TAP, 1100, 60) == 1 && !gp_shortcut_pending);
+    CHECK(input(AZ_EV_TAP, 1100, 60) == 1 && !gp_shortcut_request_word);
     fixture_view = AZ_VIEW_DECK; fixture_count = 2; tick();
     CHECK(fixture_shown && fixture_rect.x == 900 && fixture_rect.w == 110);
     fixture_paint_rect = fixture_rect; fixture_desc.on_paint(&draw, fixture_rect, fixture_desc.user);
     fixture_row = 0; tick(); CHECK(!fixture_shown);
-    CHECK(input(AZ_EV_TAP, 950, 60) == 1 && !gp_shortcut_pending);
+    CHECK(input(AZ_EV_TAP, 950, 60) == 1 && !gp_shortcut_request_word);
     fixture_row = 1; tick(); CHECK(fixture_shown);
     int views[] = {AZ_VIEW_SOURCE, AZ_VIEW_BROWSE, AZ_VIEW_SEARCH, AZ_VIEW_OTHER, AZ_VIEW_MENU};
     for (unsigned i = 0; i < sizeof views / sizeof *views; i++) {
@@ -179,7 +181,7 @@ int main(void)
     CHECK(init(&fixture_core) == 0); tick(); CHECK(fixture_shown && gp_heading == NULL);
     reset(); absent = fixture_core; absent.frame_filter = NULL;
     CHECK(init(&absent) == 0); tick(); CHECK(!fixture_shown);
-    CHECK(input(AZ_EV_TAP, 1100, 60) == 1 && !gp_shortcut_pending);
+    CHECK(input(AZ_EV_TAP, 1100, 60) == 1 && !gp_shortcut_request_word);
     reset(); fixture_fail_filter = 1;
     CHECK(init(&fixture_core) == 0); tick(); CHECK(!fixture_shown);
     printf("PASS: %d MODS component assertions\n", checks);

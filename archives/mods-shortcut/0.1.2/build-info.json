@@ -1,0 +1,22 @@
+{
+  "date": "2026-10-17",
+  "version": "0.1.2",
+  "binary_sha256": "c5d5e564b6e7006faf20dd372c077adba537105026850b6d04ee6d8294ed9aef",
+  "package_sha256": "30b25a22ace70d7b4fb3abc5324d0986956360a93be33c7fa62bebe67eeaf57c",
+  "package_size": 52661,
+  "physical_test": "pending",
+  "source_sha256": {
+    "mods-shortcut/LICENSE": "e57f1c320b8cf8798a7d2ff83a6f9e06a33a03585f6e065fea97f1d86db84052",
+    "mods-shortcut/Makefile": "16d8d677c31d2b0ad75522244945a9e8cb6246ff572e517b2e3fbe8ce8dbfb86",
+    "mods-shortcut/README.md": "95269009b1173e0bb05e79724c48f5578baedeb427149e0c9ae50e0f60eadec4",
+    "mods-shortcut/azmod.json": "6bf456fe0b6d20347d0409c2bc9eb25c555a6c71a556d6da66c735e00f49d9fa",
+    "mods-shortcut/icon.png": "ac95f840f374259f6c9f54d1aa8929b471ed2756bdd1d3f3a3424bcddde015e7",
+    "mods-shortcut/mods-shortcut.c": "dfce3c34e9477110c98a582bb76b4105b481d7cf9b7e16aa76d0b6d82637d287",
+    "mods-shortcut/shortcut.h": "72d12aa4814bdac09dc1415206eda613ee439da4b7429b3fbe361bc614f00e00",
+    "mods-shortcut/tests/run-focused.sh": "021869ab88941020f330cab1ba55e7d104fdcecc6243e456df092947d6eadfc4",
+    "mods-shortcut/tests/scenarios.c": "df3f7f9976ef4ba865725424051b9bdcdc5af1fbe2c4db402b352389f88a190e",
+    "mods-shortcut/tests/test_component.c": "a903dfb9722e228cb34ca54599c1c8f333255a6467fc83c6e976a549e2472bdf",
+    "mods-shortcut/tests/test_concurrency.c": "d8709db3ee3c6e0ac3ce71e35b19dce7d18022e731787b79f8f18b0484852912",
+    "mods-shortcut/tests/test_shortcut.c": "b9b7f5def4c7834aea64bb50b330323529961ea7aaa18f44f95100c9802b9ff8"
+  }
+}
