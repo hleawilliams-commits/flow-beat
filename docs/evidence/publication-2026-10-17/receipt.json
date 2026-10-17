@@ -1,0 +1,40 @@
+{
+  "date": "2026-10-17",
+  "source_commit": "fa6a07e1107ee52f862882fb4b3086c4dae93ce2",
+  "main_commit": "32d02063a1bb24e2c000eb0172b7e50cde75de39",
+  "preserved_unrelated_catalog_entries": 9,
+  "packages": [
+    {
+      "id": "grouped-panels",
+      "version": "0.1.0",
+      "sha256": "cc6195af6daffde92a3595d7763b59531f15bc4d350c51a30b6d190fe7de12f4",
+      "size": 65776
+    },
+    {
+      "id": "phase-strip",
+      "version": "0.1.2",
+      "sha256": "4fab5ed7c50247f2e1724fb31a4ee15582551d65e3da6c7498bf9a00b45a1034",
+      "size": 51633
+    },
+    {
+      "id": "mods-shortcut",
+      "version": "0.1.1",
+      "sha256": "d04a4c616c7fbb3f627d85bd34a6ae034f33dda13b89939a0048035f87caa117",
+      "size": 52603
+    }
+  ],
+  "checks": [
+    "SDK package validation passed for all three exact archives",
+    "Uploaded draft assets downloaded and matched local SHA-256",
+    "Source trees on main exactly match tested source commit",
+    "No core, firmware, trust or update-helper files included",
+    "Live default-branch catalog SDK repo check --download passed for all 12 entries, including source URLs, icons, package hashes and manifest agreement"
+  ],
+  "physical_changes": "None during publication",
+  "excluded": [
+    "USB1/USB2 shortcuts",
+    "FLOW Neon core theme",
+    "stems-engine patch",
+    "Deck 2 phrase fix"
+  ]
+}

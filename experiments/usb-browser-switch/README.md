@@ -2,7 +2,7 @@
 
 Goal: one deliberate USB 1 / USB 2 action for B2B browsing that returns to each medium's previous playlist and row. This is an activation workflow, not another shortcut that merely opens SOURCE.
 
-Status, 2026-10-17: static local source/disassembly investigation plus a successful manual native-switch test on two emulator USBs. No USB-switch mod or native hooks have been built or installed. Physical hardware is unchanged.
+Status, 2026-10-17: static local source/disassembly investigation, a successful manual native-switch test on two emulator USBs, and an [observation-only probe](probe/README.md) loaded and then removed from the emulator. The probe cannot activate USBs. No complete USB-switch mod has been built or installed; physical hardware is unchanged. The next activation work and requested heading placement are recorded in [USB Buttons next update](../../usb-buttons/NEXT-UPDATE.md).
 
 ## What the public SDK supports
 

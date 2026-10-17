@@ -4,6 +4,8 @@ This folder currently contains a bounded native SOURCE request helper and focuse
 
 `source_request.h` requests SOURCE through the SDK's mixer input filter. It can begin only from `AZ_VIEW_DECK`. It emits at most one 200 ms SOURCE press, then releases it; it never sends row selections, knob steps, LOAD or USB STOP. A request expires one second after acceptance. Accepted requests are debounced for 500 ms, and only one request can be live.
 
+The requested button location and the next native activation work are recorded in [NEXT-UPDATE.md](NEXT-UPDATE.md). Henry deferred this feature to the next release; the current catalog update does not include USB buttons.
+
 ## API and thread ownership
 
 Include the header in one translation unit. The owner calls init/request/tick/end on the core UI thread; the SDK calls the registered filter on the mixer bus thread. Shared lifecycle state is atomic. Pulse phase and knob history belong only to the mixer thread.
