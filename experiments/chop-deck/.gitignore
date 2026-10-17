@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+*.als
+*.wav
+*.mp3
+*.ogg
+.venv*/
+chop-preview.html
+assets/
+Samples/

@@ -19,6 +19,7 @@ The physical XDJ-AZ keeps its existing working community mods and official core.
 | Stems memory-refusal recovery | [experiment](../experiments/stems-memory-retry/) | Separate upstream core patch. Reproduced a plausible cause; each of four decks recovered in controlled emulator tests after memory returned and playback paused. Physical incident has not been diagnosed from logs. |
 | Camelot jog artwork | [experiment](../experiments/camelot-jog/) | Static artwork for two test tracks reached emulated jog displays. Stored key only; **does not follow Key Shift**. Not a finished community mod. |
 | Recovery tooling | [tools/recovery](../tools/recovery/) | Verified backup and community-only restore algorithm, with tests on temporary folders. Private USB registration and real backups remain on Henry's Mac. |
+| Chop Deck / Ableton | [performance experiment](../experiments/chop-deck/) | Playable browser audio demo and separate Live Session generator; FLOW Beat Link dependency checks pass. Actual AZ MIDI/audio, timing and Flow VJ coexistence remain unverified. No physical install. |
 | Original SDK starter | [experiment](../experiments/sdk-starter/) | Template learning mod, not a published product. Author/source placeholders remain. |
 
 Existing FLOW Beat Link, Key next to BPM, Mashup Helper, Stem Badge, Set Log and Deck Meters source is retained. Existing release history and catalog are separate from this preview branch.
