@@ -4,7 +4,9 @@ static int harness_scenarios(const char *id)
 {
     if (strcmp(id, "mods-shortcut")) return 0;
     D.view = AZ_VIEW_DECK; D.count = 4; ticks(1);
-    expect(nsurf == 1, "one SDK surface only");
+    expect(nsurf == 2, "button and input-transparent heading mask surfaces");
+    expect(surfs[1].shown && surfs[1].r.x == 0 && surfs[1].r.w == 174, "blank mask occupies only the old heading");
+    expect(!surfs[1].d.on_input, "heading passes touches through");
     expect(surfs[0].r.x == 1080 && surfs[0].r.y == 50, "four-deck header position");
     expect(!surfs[0].shown, "missing frame_filter hides inert shortcut");
     D.count = 2; ticks(1);

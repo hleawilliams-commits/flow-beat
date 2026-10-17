@@ -25,7 +25,7 @@ control or audio, or write files. Needs AZ-MODS 1.2.3 or newer.
 | `phrase-coach/` | **Phrase Coach**: a bar counter on each deck, amber in the last bar of the phrase | unpublished layout changes based on 0.1.0; emulator checked |
 | `set-clock/` | **Set Clock**: time left in the set, and a warning as the playing track ends | disabled in emulator at user request |
 | `grouped-panels/` | **Grouped Deck Panels**: original Camelot key, phrase and physical-side selection beside native BPM | 0.1.0 emulator preview; 4 DECK only; replaces three older header overlays |
-| `mods-shortcut/` | **MODS Shortcut**: header button opens SOURCE for native Mod Menu selection and confirmation | 0.1.0 emulator preview; checked in 2 and 4 DECK |
+| `mods-shortcut/` | **MODS Shortcut**: SOURCE shortcut and optional removal of the WAVEFORM heading | 0.1.1 emulator preview; independent heading/button toggles |
 | `deck-focus/` | **Selected Deck Highlight**: cyan numbers/edges show left 1/3 and right 2/4 selection | 0.1.0 emulator preview; 4 DECK view only |
 
 `tools/flow_link_bridge.py` runs on the Mac: it turns FLOW Beat Link's packets into an Ableton Link session, so AUTO/PILOT, Ableton and other Link apps lock to the deck (`python3 -m pip install aalink`, then `python3 tools/flow_link_bridge.py`).

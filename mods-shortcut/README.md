@@ -1,29 +1,42 @@
-# MODS Shortcut 0.1.0
+# MODS Shortcut 0.1.1
 
-A small **MODS** button above the waveforms opens the native **SOURCE** list. Tap the official **MOD MENU** row to select it, then tap it again or press the browse knob to open the menu. The native preview asks for that confirmation. The button does not open Mod Menu directly: the pinned SDK has no public operation for that. A banner directs you to the MOD MENU row once SOURCE appears.
+**Hide WAVEFORM heading** leaves the title area blank. It adds no replacement text, diagram or deck indicator. Turn that setting off to restore the stock WAVEFORM title.
 
-This is a separate community mod, with no firmware hooks or core replacement. It uses one SDK surface and an editable mixer-input filter. It does not load tracks, change playback or modify audio. It remains an emulator preview until separately tested on hardware.
+The existing **MODS** button opens the native **SOURCE** list. Tap **MOD MENU** to select it, then tap it again or press the browse knob to open the menu. The native preview asks for that confirmation. The pinned SDK has no direct Mod Menu-open operation; the button sends SOURCE and shows a banner directing you to the official row.
 
-## Layout and controls
+This is an emulator preview community mod. It does not change playback, load tracks, read deck-selection LEDs, or patch the official core. Physical testing remains separate.
 
-| View | Button rectangle |
+## Layout and settings
+
+| Surface | Rectangle | Setting |
+|---|---|---|
+| Blank heading mask | `(0, 0, 174, 46)` | **Hide WAVEFORM heading**, `mods-shortcut:hide-heading` |
+| MODS, 4 DECK | `(1080, 50, 110, 30)` | **MODS source shortcut**, `mods-shortcut:show` |
+| MODS, 2 DECK / 2/4 | `(900, 50, 110, 30)` | Same button setting |
+
+Both settings default on and work independently. The surfaces appear only on the deck screen. The heading mask is input-transparent and stops before the native tabs at x180 and phase strip at y46. It sends stock black (`#000000`) to the SDK fill primitive. The core applies the active theme once, producing the same ground color as the native heading:
+
+| SDK theme key | Native background |
 |---|---|
-| 4 DECK | `(1080, 50, 110, 30)` |
-| 2 DECK / 2/4 | `(900, 50, 110, 30)` |
+| 0, stock | `#000000` |
+| 1, Day | `#DCDCDC` |
+| 2, AZ-MODS | `#000000` |
+| 3, Midnight | `#050B18` |
+| 4, Ember | `#0D0605` |
+| 5, Forest | `#040D08` |
+| 6, this workspace's Flow Neon extension | `#090611` |
 
-The button is shown only on the deck screen, outside waveform pixels. Coordinates leave space after the current STEM PICKS and TAG MIX buttons in 4 DECK; in 2 DECK it sits before them. Disable **MODS source shortcut** in Mod Menu to hide it. Its namespaced setting is `mods-shortcut:show`.
+These displayed values come from the pinned core's `day_mode.c` theme table, `DM_GROUND` and `azmod_dm_key()`. They are not passed back as fill colors: `azcm_fill_rect` reaches `ui_draw.c`'s themed `fill_rect`, so supplying an already-themed value tints it a second time. The mask redraws when the theme key changes. An unknown theme or missing theme service leaves the mask hidden, preserving the stock title. If the optional second surface or redraw service is unavailable, the mask is omitted while the MODS button remains usable.
 
-The parent grouped-panels mod uses four surfaces, the SDK per-mod maximum. Keeping this shortcut separate gives it its own single surface and independent toggle. Check the global 16-surface allowance when enabling both with other mods.
+This component uses two of the SDK's 16 global surfaces. Grouped Panels separately uses its per-mod maximum of four.
 
-## Input behavior
+## SOURCE shortcut behavior
 
-One tap requests one SOURCE press. It lasts at most 200 milliseconds, stops once SOURCE is observed, and is discarded if it waits more than one second to run. Duplicate requests are suppressed while pending and for 500 milliseconds after the accepted tap.
+One tap requests one SOURCE press, bounded to 200 milliseconds. Arrival at SOURCE ends it; a request delayed more than one second is discarded. Pending requests and duplicate taps within 500 milliseconds are suppressed.
 
-Physical screen buttons, LOAD, BACK, knob click or knob movement cancel the request without changing their incoming frame. Navigation away from the deck screen cancels the press too. The helper changes only mixer byte 32's SOURCE bit (`0x80`) and byte 6's native panel-press latch (`0x08`), leaving every other byte unchanged; the SDK recomputes the frame CRC. Incoming frames release the synthetic press. There are no pointer injections, guessed row coordinates, automatic knob turns or calls into core-private menu state.
+Physical screen buttons, LOAD, BACK, knob click or movement cancel the request without changing their incoming frame. Navigation away from the deck screen cancels it too. Only mixer byte 32's SOURCE bit (`0x80`) and byte 6's panel-press latch (`0x08`) are changed; the SDK recomputes the CRC. Incoming frames release the synthetic press. There are no automatic knob turns, pointer injections or calls into private core state. If the input service is absent or refuses registration, the button stays hidden.
 
-SOURCE is sent only from the deck view: sending SOURCE while already on SOURCE would toggle native navigation. If the SDK input service is absent or refuses registration, the button stays hidden.
-
-## Build and verification
+## Build and checks
 
 From this folder:
 
@@ -33,20 +46,11 @@ python3 ../../az-mods-sdk/tools/azmod-pack build .
 make test AZ_SDK=../../az-mods-sdk
 ```
 
-Current host checks:
+- ARM64 Docker build and SDK validation pass.
+- 264 SOURCE-shortcut assertions and 232 component assertions pass plain and ASan/UBSan. They cover bounded input, cancellation, the actual registered filter, independent settings, a blank input-transparent mask, native background colors, unknown-theme hiding and optional-service failures.
+- Official SDK harness passes plain, ASan/UBSan and TSan, with 9 measured checks per macOS pass.
+- Linux plain harness passes 11 checks, including measured no-I/O and no-allocation gates.
 
-- 264 shortcut assertions cover bounded press/release, duplicate requests, every screen/LOAD/BACK bit, knob click and movement, delayed/reversed time, other views, no unrelated frame edits and banner delivery only after SOURCE appears.
-- 125 component assertions invoke the actual surface and registered mixer callback, including label drawing, both layouts, contact event handling, bounds, hiding, row toggle and missing/refused input services.
-- Focused suites pass plain and AddressSanitizer/UndefinedBehaviorSanitizer.
-- Official SDK harness passes plain, ASan/UBSan and TSan. **That harness lacks `frame_filter`**; its scenarios specifically check the hidden fallback and layout. It does not exercise synthetic SOURCE input. The focused full-component test supplies that SDK service.
-- Docker ARM64 build and SDK package validation pass.
+The official harness lacks `frame_filter`: it tests the hidden SOURCE-button fallback and the active mask drawing/layout. Its gates do not cover an active SOURCE pulse; the focused full-component test supplies that service. macOS does not measure no-I/O/no-allocation. Host checks do not establish physical-device behavior. The [exact corrected build is visually verified on the native 4 DECK emulator screen](../docs/evidence/clean-heading/README.md): mask and adjacent background samples all match Flow Neon RGB `(9,6,17)`. Other layouts are not claimed as visually verified for this build.
 
-Linux plain-harness checks also pass in the existing `az-mods-sdk:1` ARM64 container using GCC: **11 checks passed**, including measured no-I/O and no-allocation gates. The SDK and source were mounted read-only. This Linux run retains the same harness limitation: it checks the hidden fallback because `frame_filter` is absent, so these measured gates do not cover an active SOURCE pulse. The dedicated full-component tests exercise the registered mixer callback; emulator testing checks native navigation.
-
-macOS harness checks do not measure the SDK's no-I/O/no-allocation gates. Host tests do not establish physical-device behavior. The root task records emulator navigation and layout results separately.
-
-## Sources and limits
-
-The source-button mapping is present in the pinned upstream core `src/azmod/bus_interpose.c` (`mixer_screen_buttons`) and emulator `az-preview/src/controls.rs` (`TOP_SOURCE`). Official Mod Menu entry is a native row implemented by upstream `src/azmod/source_list_entry.c`; this package leaves its state and selection to the official core.
-
-The key preview, device images, firmware, music and USB state are not part of this package. Disable or remove this community mod to remove its surface and input action; preserve newer official AZ-MODS core files.
+Disable either setting independently or remove this community package to restore the underlying stock UI. Preserve newer official AZ-MODS core files.

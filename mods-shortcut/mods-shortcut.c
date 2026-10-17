@@ -12,6 +12,62 @@ static az_surface *gp_button;
 static az_rect gp_button_where;
 static int gp_button_shown, gp_button_available, gp_button_row = -1;
 
+/* Optional input-transparent mask for the stock WAVEFORM title only. */
+static az_surface *gp_heading;
+static int gp_heading_row = -1, gp_heading_shown;
+static int gp_heading_theme = -1;
+
+static uint32_t gp_heading_background(void)
+{
+    /* SDK fill_rect already applies azm_theme(): pass stock black, not an
+     * already-themed ground color. The latter gets tinted twice. Pinned keys
+     * 0..5 are stock/official themes; 6 is this workspace's Flow Neon extension. */
+    int theme = AZ_HAS(C, ui_theme) ? C->ui_theme() : -1;
+    return theme >= 0 && theme <= 6 ? 0x000000u : 0xffffffffu;
+}
+static void gp_heading_paint(az_draw *d, az_rect a, void *user)
+{
+    (void)user;
+    uint32_t color = gp_heading_background();
+    if (color != 0xffffffffu) C->fill_rect(d, a.x, a.y, a.w, a.h, color);
+}
+static void gp_heading_update(void)
+{
+    if (!gp_heading) return;
+    uint32_t color = gp_heading_background();
+    int want = color != 0xffffffffu && C->view() == AZ_VIEW_DECK &&
+               (gp_heading_row < 0 || C->row_value(gp_heading_row) == 1);
+    if (want != gp_heading_shown) {
+        gp_heading_shown = want;
+        C->surface_show(gp_heading, want);
+    }
+    int theme = AZ_HAS(C, ui_theme) ? C->ui_theme() : -1;
+    if (theme != gp_heading_theme) {
+        gp_heading_theme = theme;
+        if (want) C->surface_redraw(gp_heading);
+    }
+}
+static void gp_heading_init(void)
+{
+    if (!AZ_HAS(C, surface_redraw)) return;
+    const az_surface_v1 s = {
+        .size = sizeof s, .layer = AZ_LAYER_OVER_EP147, .views = AZ_VIEW_BIT(AZ_VIEW_DECK),
+        .on_paint = gp_heading_paint, /* no on_input: touches pass through */
+    };
+    gp_heading = C->surface_create(MOD_ID, &s);
+    if (!gp_heading) return; /* No spare surface: preserve the working MODS button. */
+    C->surface_place(gp_heading, (az_rect){0, 0, 174, 46});
+    C->surface_show(gp_heading, 0);
+    if (AZ_HAS(C, register_row) && AZ_HAS(C, row_value)) {
+        const az_row_v1 row = {
+            .size = sizeof row, .key = "hide-heading", .label = "Hide WAVEFORM heading",
+            .kind = AZ_ROW_TOGGLE, .flags = AZ_ROW_DEFAULT_ON,
+            .help = "Leave the WAVEFORM title area blank. The mask passes touches through and leaves tabs and waveforms clear. Off restores the stock heading.",
+        };
+        gp_heading_row = C->register_row(MOD_ID, &row);
+    }
+}
+
 static az_rect gp_button_rect(void)
 {
     return C->deck_count() == 4 ? (az_rect){1080, 50, 110, 30}
@@ -53,6 +109,7 @@ static void tick(void)
         C->surface_show(gp_button, want);
     }
     gp_shortcut_tick();
+    gp_heading_update();
 }
 static int init(const az_core_v1 *core)
 {
@@ -81,6 +138,7 @@ static int init(const az_core_v1 *core)
     /* Older services or a refused filter mean an inert hidden surface. Never show
      * a button that cannot carry out its advertised SOURCE action. */
     C->surface_show(gp_button, 0);
+    gp_heading_init();
     return 0;
 }
 static const char *const TAGS[] = {"any", NULL};

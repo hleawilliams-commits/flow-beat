@@ -1,0 +1,66 @@
+{
+  "mod": "mods-shortcut",
+  "version": "0.1.1",
+  "status": "host-validated and actual 4 DECK emulator visual verified; not published or physically tested",
+  "repository_base": "91ab801548f0311a0d27abd5175f8c9250383072",
+  "sdk_revision": "6563e8e657a4ef113696de9d0f9327a6c8d0fab7",
+  "binary_sha256": "48159c3165c07f66c9ace13f1cbb75939cae589527b375aa982b9ba7a45262ca",
+  "package_sha256": "d04a4c616c7fbb3f627d85bd34a6ae034f33dda13b89939a0048035f87caa117",
+  "source_sha256": {
+    "LICENSE": "e57f1c320b8cf8798a7d2ff83a6f9e06a33a03585f6e065fea97f1d86db84052",
+    "Makefile": "16d8d677c31d2b0ad75522244945a9e8cb6246ff572e517b2e3fbe8ce8dbfb86",
+    "README.md": "ec383ded630bb2647a4c25cd7de5801e85ddb78dbbefaa981e4873cdbb66704b",
+    "azmod.json": "599bb57ef486276e9c0911b57ee5e99f9499669090ddc56298bd38aac8e1ee46",
+    "icon.png": "ac95f840f374259f6c9f54d1aa8929b471ed2756bdd1d3f3a3424bcddde015e7",
+    "mods-shortcut.c": "d5c49e628732653c2de87c740b476e0e35f0d095fcca45765f05185d54cfe752",
+    "shortcut.h": "e70873119dad1a86901b94838cbfe000bca5df50ca98409eaa10acfc11e200b8",
+    "tests/run-focused.sh": "bf59ec3c43150239ae6eece44eaebf5cd0162339621f6717b50ae439c1aea380",
+    "tests/scenarios.c": "df3f7f9976ef4ba865725424051b9bdcdc5af1fbe2c4db402b352389f88a190e",
+    "tests/test_component.c": "5f934ebe04a1347f42e170c64955bf29c9f6a136647a462ba98dcdee41b8ab90",
+    "tests/test_shortcut.c": "a8bc0dd65baf8fb067ebc13cad44a6d469f938daceaa376db0f5acef45b90ad4"
+  },
+  "validation": {
+    "focused_shortcut_assertions": 264,
+    "focused_component_assertions": 232,
+    "focused_passes": [
+      "plain",
+      "asan-ubsan"
+    ],
+    "macos_sdk_harness": {
+      "passes": [
+        "plain",
+        "asan-ubsan",
+        "tsan"
+      ],
+      "checks_each": 9,
+      "unmeasured": [
+        "no-io",
+        "no-alloc"
+      ]
+    },
+    "linux_sdk_harness": {
+      "pass": "plain",
+      "checks": 11,
+      "no_io": "PASS",
+      "no_alloc": "PASS"
+    },
+    "exact_build_emulator_visual_qa": {
+      "result": "PASS",
+      "view": "4 DECK",
+      "theme": "Flow Neon",
+      "heading_and_adjacent_sample_rgb": [
+        9,
+        6,
+        17
+      ],
+      "staged_and_emulated_usb_binary_match": true,
+      "evidence": "docs/evidence/clean-heading/README.md",
+      "other_layouts_visually_verified": false
+    }
+  },
+  "physical_usb_changed": false,
+  "emulator_core_unchanged": {
+    "azmod.so": "f8d4ba67ccad9e3386c78dc2ca377bf3263221875d65578a1d893e9c2f3f5668",
+    "azstem.so": "cd95ce64bd1e4cbd4c7710aa77adc7546623e9782baf8fa9bd8d4acbe562a1d3"
+  }
+}

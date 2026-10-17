@@ -35,7 +35,7 @@ Missing metadata stays unknown. Conflicting title/key matches for the same conte
 
 The separate [MODS Shortcut](../mods-shortcut/) package adds a **MODS** button above the waveforms. It opens native **SOURCE**. Select the official **MOD MENU** row, then tap the selected row again or press the browse knob to enter. Selecting and then entering the row follows the native list behavior. The pinned SDK does not expose a direct Mod Menu opening operation. The shortcut has its own toggle and bounded input handling; it is not part of these input-transparent headers.
 
-The SDK allows four surfaces per mod and 16 across all mods. Grouped Panels consumes four, and MODS Shortcut consumes one. Before trying this layout in the emulator, disable these three superseded community packages from loading:
+The SDK allows four surfaces per mod and 16 across all mods. Grouped Panels consumes four, and MODS Shortcut 0.1.1 consumes two (button plus optional blank-heading mask). Before trying this layout in the emulator, disable these three superseded community packages from loading:
 
 - `key-next-to-bpm` — four surfaces.
 - `phrase-coach` — four surfaces.
