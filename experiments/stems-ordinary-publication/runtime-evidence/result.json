@@ -1,0 +1,134 @@
+{
+  "date": "2026-10-17",
+  "upstream_commit": "3e0c5cb010454228f4ee63226b60d060494eeaae",
+  "patch_sha256": "b4ff1224d1f0faaa4e248d564d9a053877b644e277eb2d5d0ebe011623501a34",
+  "candidate_sha256": "f1dd479b11b7551903de899e8513b962ab8d943b5b5adcf9f68c27d2d055c0fe",
+  "unstripped_candidate_sha256": "5e13ae59ead15f62d2ca928310d3db146abff2baa430b6bf9d9199c1efe12752",
+  "stack": [
+    "ordinary-publication.patch"
+  ],
+  "ui_core_changed": false,
+  "native_all_four_load_sequences": 1,
+  "fixture": "One existing Vorbis-stem fixture, same source loaded on all four decks; titles and paths retained privately.",
+  "same_intended_track_source_on_all_four_decks": true,
+  "load_samples": 6,
+  "load_sampling_span_seconds": 2.64687,
+  "final_frames_by_deck": [
+    8599552,
+    8599552,
+    8599552,
+    8599552
+  ],
+  "final_present_masks": [
+    15,
+    15,
+    15,
+    15
+  ],
+  "final_decoded_counts": [
+    8599552,
+    8599552,
+    8599552,
+    8599552,
+    8599552,
+    8599552,
+    8599552,
+    8599552,
+    8599552,
+    8599552,
+    8599552,
+    8599552,
+    8599552,
+    8599552,
+    8599552,
+    8599552
+  ],
+  "final_holds": [
+    0,
+    0,
+    0,
+    0
+  ],
+  "final_stale": [
+    0,
+    0,
+    0,
+    0
+  ],
+  "final_loading": [
+    0,
+    0,
+    0,
+    0
+  ],
+  "final_pending": [
+    0,
+    0,
+    0,
+    0
+  ],
+  "final_env_ready": [
+    1,
+    1,
+    1,
+    1
+  ],
+  "final_env_final": [
+    1,
+    1,
+    1,
+    1
+  ],
+  "final_env_frames": [
+    8599552,
+    8599552,
+    8599552,
+    8599552
+  ],
+  "runtime_checks": {
+    "same_pid_through_load_play_pause": true,
+    "verification": "same single LOAD; corrected native-basename oracle; JSON sequence comparison normalized",
+    "four_decks_final": true,
+    "progressive_public_frames_observed_by_deck": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "sampling_not_atomic": true,
+    "playheads_advanced_and_paused": true,
+    "samples": 6,
+    "audio_quality_measured": false,
+    "physical_validation": false,
+    "memory_recovery_or_staging_tested": false
+  },
+  "restoration": {
+    "baseline_regular_files": 124,
+    "absent_paths": 2,
+    "cores": {
+      "azmod.so": "f8d4ba67ccad9e3386c78dc2ca377bf3263221875d65578a1d893e9c2f3f5668",
+      "azstem.so": "cd95ce64bd1e4cbd4c7710aa77adc7546623e9782baf8fa9bd8d4acbe562a1d3"
+    },
+    "root_inventory_and_tar_modes_identical": true,
+    "loaded_set_identical": true,
+    "envelope_caches_restored": true,
+    "clean_restart_empty_decks": true,
+    "startup_marker_never_deleted": true
+  },
+  "created_cache_files_removed_count": 0,
+  "initialization_barrier": "Fresh loaded-file mtime after current process start, current candidate mapping, same loaded set, then natural startup-marker absence. Restore helper requires fresh mtime before marker wait.",
+  "test_corrections": [
+    "Initial readiness helper could accept a prior loaded status; detected before LOAD and corrected.",
+    "Native filename basename differs from UI title by numeric prefix; original oracle stopped before playback. Corrected verification reused the same load and PID.",
+    "JSON reload converts tuple to list; continuation numeric-mask comparison normalized container type before any playback controls."
+  ],
+  "limitations": [
+    "One fixture repeated across four decks, one load event.",
+    "Telemetry fields are not an atomic snapshot.",
+    "Observed positions show native playback motion/pause; audio quality and audible stem isolation were not measured.",
+    "No four arbitrary tracks or low-memory refusal/retry/recovery/staging activation tested.",
+    "No physical device changes or validation.",
+    "No complete audio-reader lifetime, timing, or ordinary track replacement/ejection proof."
+  ],
+  "release_or_package_created": false
+}

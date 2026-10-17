@@ -1,0 +1,25 @@
+{"base": "3e0c5cb010454228f4ee63226b60d060494eeaae", "patch_order": ["ordinary-publication.patch"], "patch_sha256": "b4ff1224d1f0faaa4e248d564d9a053877b644e277eb2d5d0ebe011623501a34", "production_sha256": "90f21cb685253c8297744c2ff66431089ced045c4b88b0f97466420a87ac063a"}
+plain:
+deck 1: ordinary producers, failure slots, prefix bounds, joined finalization checked
+deck 2: ordinary producers, failure slots, prefix bounds, joined finalization checked
+deck 3: ordinary producers, failure slots, prefix bounds, joined finalization checked
+deck 4: ordinary producers, failure slots, prefix bounds, joined finalization checked
+308 passed, 0 failed
+asan-ubsan:
+deck 1: ordinary producers, failure slots, prefix bounds, joined finalization checked
+deck 2: ordinary producers, failure slots, prefix bounds, joined finalization checked
+deck 3: ordinary producers, failure slots, prefix bounds, joined finalization checked
+deck 4: ordinary producers, failure slots, prefix bounds, joined finalization checked
+302 passed, 6 failed
+FAIL: slow slot limits prefix
+FAIL: envelope stops at acquired prefix
+FAIL: offset reader sees acquired samples
+FAIL: slow slot limits prefix
+FAIL: envelope stops at acquired prefix
+FAIL: offset reader sees acquired samples
+Traceback (most recent call last):
+  File "<REPO>/experiments/stems-ordinary-publication/run-tests.py", line 113, in <module>
+    main()
+  File "<REPO>/experiments/stems-ordinary-publication/run-tests.py", line 109, in main
+    raise RuntimeError(mode + " failed: " + str(result.returncode))
+RuntimeError: asan-ubsan failed: 1

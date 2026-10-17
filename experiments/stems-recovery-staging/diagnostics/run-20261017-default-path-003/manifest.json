@@ -1,0 +1,68 @@
+{
+  "upstream_commit": "3e0c5cb010454228f4ee63226b60d060494eeaae",
+  "patches": [
+    {
+      "path": "experiments/stems-memory-retry/memory-retry.patch",
+      "sha256": "5905b0f514cf33e2dafbbdecccf18125e5352108515eded6b424f4dbc6138f1b"
+    },
+    {
+      "path": "experiments/stems-retry-activity/activity-followup.patch",
+      "sha256": "69ed45bf1d8b645a574379be0c8b1389eaaec2b919e8de1529d6e75f6751c30c"
+    },
+    {
+      "path": "experiments/stems-recovery-staging/staging-only.patch",
+      "sha256": "c8d8122ec0af65ebd478ebea1fedbb5b030c77ac186d2d9a5c7818ae01d6a03b"
+    }
+  ],
+  "source_sha256": {
+    "src/azstem/azstem.c": "dee2be34bd6af5d3eca6716aa8e6516a12cd49f3258d762f3b96e95b56a3f993",
+    "src/azstem/stem_playback.c": "0df5427c4ed91160bb13282be6079501297b219e21cedbefd07067723fd01764",
+    "src/azstem/key_shift.c": "1b43bcefcd8f714aefe268ed076343f6ac8a059b006d1a75aef90052afd91747",
+    "src/azstem/stem_envelopes.c": "051416a9c926914cd2e1320e5664b1f73fb6ad8caaecc53528be0c3f0188f0b3",
+    "src/azstem/ofsload.c": "b2a674da2306964e4233eacfbf32e64e86d7205c113fe575d7c2a03cbf888e97",
+    "src/azstem/azstem_internal.h": "1ff125ae054d507312b30ad267a77b46b4c4fc1a35430da0ebc792792aed6fee",
+    "src/azstem/ep147rate.h": "2ea7d250c4c8d32b2083ef61442a1d3759688048c66e5dcd94cc1cc7a9fa74c5",
+    "tests/unit/run.sh": "2ff1685c08f4af74bc6410484d3b026c78edc65b64b1d9d6224b4e395446858a",
+    "tests/unit/trackgen_test.c": "33836b77fb2c75f4a1fd791efc22f206f553c811e23912b946852a424f512a58",
+    "tests/unit/check.h": "fb3eb6496c0aa38b4bac0425327f131311fb8a065e0cbc262170cd5e296d6726"
+  },
+  "extracted_functions": [
+    "recovery_hidden",
+    "stem_decode_target",
+    "recovery_free_buffers",
+    "free_stems",
+    "env_cache_path",
+    "env_cache_save",
+    "env_progress",
+    "env_cache_load",
+    "build_env",
+    "azstem_env_gen",
+    "azstem_env_final",
+    "azstem_frames",
+    "azstem_wave",
+    "azstem_present",
+    "advance_stem_frames",
+    "decode_stem_progressive",
+    "dth_prog",
+    "ofs_stems_decoded",
+    "load_stems_ogg",
+    "loader_thread",
+    "deck_track_changed",
+    "drop_stems",
+    "start_load_mode",
+    "start_load",
+    "stem_play_observe",
+    "stem_retry_play_activity",
+    "memory_retry_ready",
+    "stems_tick",
+    "stem_gains",
+    "stems_play_original",
+    "pbread_hook"
+  ],
+  "production_sha256": "c14d7c3504a92a08135219dcb8e5df81bf506e715307c924aefcda044888bef9",
+  "exact_production_sha256": "c14d7c3504a92a08135219dcb8e5df81bf506e715307c924aefcda044888bef9",
+  "test_source_sha256": "12655da90b48ba2b474c1c06bc857238ffefab99f237c224d03ab480d0a6ff46",
+  "diagnostic_inputs_sha256": {},
+  "fixture_dependency_sha256": "dfd3dc082242f4d1c2ee28b859889a00b388d0866c1534465113212d739f25de",
+  "partial_function": "ofs_load_measure actual out tail; earlier codec/correlation represented by fixture locals"
+}

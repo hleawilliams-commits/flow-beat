@@ -1,0 +1,59 @@
+{
+  "firmware_sha256": "6577f42532375936c7e3fa830efa35b7daa9cde8e0a265c1fc7143f824321925",
+  "event_handler": {
+    "address": "0x1ffb6c8",
+    "fde_extent": "0x20dc"
+  },
+  "candidate": {
+    "address": "0x1fd3a18",
+    "fde_extent": "0x2c8",
+    "call": "0x1ffbecc",
+    "native_return": "0x1ffbed0",
+    "prologue_sha256_16": "31322cb097aea59ed756f1e08adc5126752beb154804d62d31a59338463e9ceb",
+    "abi": "int (void *request_agent, uint64_t packed_request)",
+    "agent_source": "live MediaChangeEvent +0x28",
+    "packed_fields": {
+      "0:31": "MediaID type",
+      "32:47": "MediaID identity",
+      "48:55": "opaque native per-media category byte; no expected value compared",
+      "56:63": "zero"
+    }
+  },
+  "normal_cfg": {
+    "commit_store_dominates_candidate": true,
+    "empty_list_equality_edge_dominates_candidate": true,
+    "nonzero_helper_result_can_rejoin_outer_return_0": true
+  },
+  "helper_abi": {
+    "instruction_count": 178,
+    "normal_reachable_count": 145,
+    "incoming_extra_register_reads_before_write_or_call": [],
+    "first_calls": [
+      {
+        "site": "0x1fd3a58",
+        "target": "0x24a1180"
+      },
+      {
+        "site": "0x1fd3af8",
+        "target": "0x1fc5590"
+      },
+      {
+        "site": "0x1fd3bf0",
+        "target": "0x24a1180"
+      }
+    ]
+  },
+  "cancellation": {
+    "media_event_type": 0,
+    "replacement_predicate_permits_new_type_0": true,
+    "executor_can_replace_and_delete_prior_event": true,
+    "final_async_cancellation_completion_proven": false
+  },
+  "limits": [
+    "Scalar branch observation is not committed identity or final completion",
+    "Static branch dominance covers ordinary native control flow only",
+    "Additional native callbacks can re-enter, fail or throw",
+    "No captured pointer may be dereferenced after original return",
+    "First-call helper ABI annotations are in README; not a whole-program proof"
+  ]
+}

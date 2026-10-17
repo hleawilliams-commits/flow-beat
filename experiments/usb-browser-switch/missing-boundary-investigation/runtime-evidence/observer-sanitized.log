@@ -1,0 +1,47 @@
+claim_hook 0x1b296c0 ok
+claim_hook 0x1ffb6c8 ok
+claim_hook 0x2014a88 ok
+claim_hook 0x1fd3a18 ok
+UV4 ready: manual native interactions only; PID=main-thread; no activation API
+loaded 0.0.1 on ep147-9e9454e357389ece (4 hooks)
+UV4 parent seq=1 tid=main-thread status=1 parent=<pointer-omitted> child=<pointer-omitted> mode=0 rows=4
+UV4 row seq=1 index=0 kind=1 valid=1 media=0102 focus=1 active=1
+UV4 row seq=1 index=1 kind=1 valid=1 media=0122 focus=0 active=0
+UV4 row seq=1 index=2 kind=3 valid=0 media=0000 focus=0 active=0
+UV4 row seq=1 index=3 kind=0 valid=0 media=0000 focus=0 active=0
+UV4 parent seq=2 tid=main-thread status=1 parent=<pointer-omitted> child=<pointer-omitted> mode=1 rows=4
+UV4 row seq=2 index=0 kind=1 valid=1 media=0102 focus=1 active=0
+UV4 row seq=2 index=1 kind=1 valid=1 media=0122 focus=0 active=0
+UV4 row seq=2 index=2 kind=3 valid=0 media=0000 focus=0 active=0
+UV4 row seq=2 index=3 kind=0 valid=0 media=0000 focus=0 active=0
+UV4 event-entry seq=3 tid=main-thread status=1 event=<pointer-omitted> browser=<pointer-omitted> request=1:0102 committed-at-entry=0:0000/0
+UV4 empty-path-entry seq=4 entry=3 tid=main-thread status=13 request=1:0102 argument=1:0102 category-byte=1 category-match=unknown packed=0001010200000001 path-only=1 native-reads=none
+UV4 empty-path-result seq=5 observation=4 entry=3 tid=main-thread rc=0 post-read=none completion=unknown
+UV4 event-result seq=6 entry=3 tid=main-thread status=8 rc=0 post-read=none
+UV4 parent seq=7 tid=main-thread status=1 parent=<pointer-omitted> child=<pointer-omitted> mode=0 rows=4
+UV4 row seq=7 index=0 kind=1 valid=1 media=0102 focus=0 active=0
+UV4 row seq=7 index=1 kind=1 valid=1 media=0122 focus=1 active=1
+UV4 row seq=7 index=2 kind=3 valid=0 media=0000 focus=0 active=0
+UV4 row seq=7 index=3 kind=0 valid=0 media=0000 focus=0 active=0
+UV4 parent seq=8 tid=main-thread status=1 parent=<pointer-omitted> child=<pointer-omitted> mode=1 rows=4
+UV4 row seq=8 index=0 kind=1 valid=1 media=0102 focus=0 active=0
+UV4 row seq=8 index=1 kind=1 valid=1 media=0122 focus=1 active=0
+UV4 row seq=8 index=2 kind=3 valid=0 media=0000 focus=0 active=0
+UV4 row seq=8 index=3 kind=0 valid=0 media=0000 focus=0 active=0
+UV4 event-entry seq=9 tid=main-thread status=1 event=<pointer-omitted> browser=<pointer-omitted> request=1:0122 committed-at-entry=1:0102/0
+UV4 empty-path-entry seq=10 entry=9 tid=main-thread status=13 request=1:0122 argument=1:0122 category-byte=1 category-match=unknown packed=0001012200000001 path-only=1 native-reads=none
+UV4 empty-path-result seq=11 observation=10 entry=9 tid=main-thread rc=0 post-read=none completion=unknown
+UV4 event-result seq=12 entry=9 tid=main-thread status=8 rc=0 post-read=none
+UV4 parent seq=13 tid=main-thread status=1 parent=<pointer-omitted> child=<pointer-omitted> mode=0 rows=4
+UV4 row seq=13 index=0 kind=1 valid=1 media=0102 focus=1 active=1
+UV4 row seq=13 index=1 kind=1 valid=1 media=0122 focus=0 active=0
+UV4 row seq=13 index=2 kind=3 valid=0 media=0000 focus=0 active=0
+UV4 row seq=13 index=3 kind=0 valid=0 media=0000 focus=0 active=0
+UV4 parent seq=14 tid=main-thread status=1 parent=<pointer-omitted> child=<pointer-omitted> mode=1 rows=4
+UV4 row seq=14 index=0 kind=1 valid=1 media=0102 focus=1 active=0
+UV4 row seq=14 index=1 kind=1 valid=1 media=0122 focus=0 active=0
+UV4 row seq=14 index=2 kind=3 valid=0 media=0000 focus=0 active=0
+UV4 row seq=14 index=3 kind=0 valid=0 media=0000 focus=0 active=0
+UV4 event-entry seq=15 tid=main-thread status=1 event=<pointer-omitted> browser=<pointer-omitted> request=1:0102 committed-at-entry=1:0122/0
+UV4 commit-entry seq=16 entry=15 tid=main-thread status=10 request=1:0102 committed-at-entry=1:0102/0 boundary-only=1
+UV4 event-result seq=17 entry=15 tid=main-thread status=8 rc=0 post-read=none

@@ -1,0 +1,143 @@
+Pinned upstream: 3e0c5cb010454228f4ee63226b60d060494eeaae
+Staging patch SHA256: c8d8122ec0af65ebd478ebea1fedbb5b030c77ac186d2d9a5c7818ae01d6a03b
+Production extraction SHA256: d22512d7b6a8ee4b3a61fe5f0be37d849c136439950443d59b089b5e16c4c1c2
+Exact uninstrumented extraction SHA256: c14d7c3504a92a08135219dcb8e5df81bf506e715307c924aefcda044888bef9
+Diagnostic harness SHA256: 7ee24f23956eebdd8fbad4bb0d7c9dffe07f02e5a17f41c6b4a616a25a886666
+asan-ubsan-restart-diagnostic:
+TRACE attempt=0 deck=1 threads=10
+thread=0 role=loader deck=1 slot=-1 recovery=1 started=1 ended=1 joined=1 join_rc=0 final_frames=0 loading=0 mode=0 stale=0 hold=0
+  event=0 kind=2 deck=1 slot=-3 value=1
+  event=1 kind=2 deck=1 slot=-3 value=1
+  event=2 kind=1 deck=1 slot=0 value=0
+  event=3 kind=1 deck=1 slot=1 value=0
+  event=4 kind=1 deck=1 slot=2 value=0
+  event=5 kind=1 deck=1 slot=3 value=0
+  event=6 kind=1 deck=1 slot=-1 value=1
+  event=7 kind=2 deck=1 slot=-3 value=1
+  event=8 kind=2 deck=1 slot=-3 value=1
+  event=9 kind=2 deck=1 slot=-3 value=1
+  event=10 kind=2 deck=1 slot=-3 value=1
+  event=11 kind=3 deck=1 slot=0 value=0
+  event=12 kind=2 deck=1 slot=-3 value=1
+  event=13 kind=4 deck=1 slot=0 value=0
+  event=14 kind=2 deck=1 slot=0 value=4096
+  event=15 kind=2 deck=1 slot=1 value=4096
+  event=16 kind=2 deck=1 slot=2 value=4096
+  event=17 kind=2 deck=1 slot=3 value=4096
+  event=18 kind=2 deck=1 slot=0 value=4096
+  event=19 kind=2 deck=1 slot=1 value=4096
+  event=20 kind=2 deck=1 slot=2 value=4096
+  event=21 kind=2 deck=1 slot=3 value=4096
+  event=22 kind=6 deck=1 slot=1 value=4096
+  event=23 kind=1 deck=1 slot=-1 value=0
+  event=24 kind=1 deck=1 slot=-2 value=0
+  event=25 kind=2 deck=1 slot=-3 value=1
+  event=26 kind=1 deck=1 slot=-3 value=0
+thread=1 role=decoder deck=1 slot=0 recovery=1 started=1 ended=1 joined=1 join_rc=0 final_frames=0 loading=0 mode=0 stale=0 hold=0
+  event=0 kind=2 deck=1 slot=-3 value=1
+  event=1 kind=2 deck=1 slot=-3 value=1
+  event=2 kind=1 deck=1 slot=0 value=4096
+  event=3 kind=3 deck=1 slot=0 value=0
+  event=4 kind=2 deck=1 slot=-3 value=1
+  event=5 kind=4 deck=1 slot=0 value=0
+thread=2 role=decoder deck=1 slot=1 recovery=1 started=1 ended=1 joined=1 join_rc=0 final_frames=0 loading=0 mode=0 stale=0 hold=0
+  event=0 kind=2 deck=1 slot=-3 value=1
+  event=1 kind=2 deck=1 slot=-3 value=1
+  event=2 kind=1 deck=1 slot=1 value=4096
+  event=3 kind=3 deck=1 slot=0 value=0
+  event=4 kind=2 deck=1 slot=-3 value=1
+  event=5 kind=4 deck=1 slot=0 value=0
+thread=3 role=decoder deck=1 slot=2 recovery=1 started=1 ended=1 joined=1 join_rc=0 final_frames=0 loading=0 mode=0 stale=0 hold=0
+  event=0 kind=2 deck=1 slot=-3 value=1
+  event=1 kind=2 deck=1 slot=-3 value=1
+  event=2 kind=1 deck=1 slot=2 value=4096
+  event=3 kind=3 deck=1 slot=0 value=0
+  event=4 kind=2 deck=1 slot=-3 value=1
+  event=5 kind=4 deck=1 slot=0 value=0
+thread=4 role=decoder deck=1 slot=3 recovery=1 started=1 ended=1 joined=1 join_rc=0 final_frames=0 loading=0 mode=0 stale=0 hold=0
+  event=0 kind=2 deck=1 slot=-3 value=1
+  event=1 kind=2 deck=1 slot=-3 value=1
+  event=2 kind=1 deck=1 slot=3 value=4096
+  event=3 kind=3 deck=1 slot=0 value=0
+  event=4 kind=2 deck=1 slot=-3 value=1
+  event=5 kind=4 deck=1 slot=0 value=0
+thread=5 role=loader deck=1 slot=-1 recovery=0 started=1 ended=1 joined=1 join_rc=0 final_frames=4096 loading=0 mode=0 stale=0 hold=0
+  event=0 kind=2 deck=1 slot=-3 value=0
+  event=1 kind=2 deck=1 slot=-3 value=0
+  event=2 kind=2 deck=1 slot=-3 value=0
+  event=3 kind=1 deck=1 slot=0 value=0
+  event=4 kind=1 deck=1 slot=1 value=0
+  event=5 kind=1 deck=1 slot=2 value=0
+  event=6 kind=1 deck=1 slot=3 value=0
+  event=7 kind=1 deck=1 slot=-1 value=1
+  event=8 kind=2 deck=1 slot=-3 value=0
+  event=9 kind=2 deck=1 slot=-3 value=0
+  event=10 kind=2 deck=1 slot=-3 value=0
+  event=11 kind=2 deck=1 slot=-3 value=0
+  event=12 kind=1 deck=1 slot=-1 value=0
+  event=13 kind=3 deck=1 slot=0 value=0
+  event=14 kind=2 deck=1 slot=-3 value=0
+  event=15 kind=2 deck=1 slot=0 value=0
+  event=16 kind=2 deck=1 slot=1 value=0
+  event=17 kind=2 deck=1 slot=2 value=0
+  event=18 kind=2 deck=1 slot=3 value=0
+  event=19 kind=4 deck=1 slot=0 value=0
+  event=20 kind=2 deck=1 slot=0 value=4096
+  event=21 kind=2 deck=1 slot=1 value=4096
+  event=22 kind=2 deck=1 slot=2 value=4096
+  event=23 kind=2 deck=1 slot=3 value=4096
+  event=24 kind=6 deck=1 slot=0 value=4096
+  event=25 kind=2 deck=1 slot=-3 value=0
+  event=26 kind=1 deck=1 slot=-2 value=0
+thread=6 role=decoder deck=1 slot=0 recovery=0 started=1 ended=1 joined=1 join_rc=0 final_frames=0 loading=0 mode=0 stale=0 hold=0
+  event=0 kind=2 deck=1 slot=-3 value=0
+  event=1 kind=2 deck=1 slot=-3 value=0
+  event=2 kind=1 deck=1 slot=0 value=4096
+  event=3 kind=3 deck=1 slot=0 value=0
+  event=4 kind=2 deck=1 slot=-3 value=0
+  event=5 kind=2 deck=1 slot=0 value=4096
+  event=6 kind=2 deck=1 slot=1 value=0
+  event=7 kind=2 deck=1 slot=2 value=0
+  event=8 kind=2 deck=1 slot=3 value=0
+  event=9 kind=4 deck=1 slot=0 value=0
+thread=7 role=decoder deck=1 slot=1 recovery=0 started=1 ended=1 joined=1 join_rc=0 final_frames=0 loading=0 mode=0 stale=0 hold=0
+  event=0 kind=2 deck=1 slot=-3 value=0
+  event=1 kind=2 deck=1 slot=-3 value=0
+  event=2 kind=1 deck=1 slot=1 value=4096
+  event=3 kind=3 deck=1 slot=0 value=0
+  event=4 kind=2 deck=1 slot=-3 value=0
+  event=5 kind=2 deck=1 slot=0 value=4096
+  event=6 kind=2 deck=1 slot=1 value=4096
+  event=7 kind=2 deck=1 slot=2 value=0
+  event=8 kind=2 deck=1 slot=3 value=4096
+  event=9 kind=4 deck=1 slot=0 value=0
+thread=8 role=decoder deck=1 slot=2 recovery=0 started=1 ended=1 joined=1 join_rc=0 final_frames=0 loading=0 mode=0 stale=0 hold=0
+  event=0 kind=2 deck=1 slot=-3 value=0
+  event=1 kind=2 deck=1 slot=-3 value=0
+  event=2 kind=1 deck=1 slot=2 value=4096
+  event=3 kind=3 deck=1 slot=0 value=0
+  event=4 kind=2 deck=1 slot=-3 value=0
+  event=5 kind=2 deck=1 slot=0 value=4096
+  event=6 kind=2 deck=1 slot=1 value=4096
+  event=7 kind=2 deck=1 slot=2 value=4096
+  event=8 kind=2 deck=1 slot=3 value=4096
+  event=9 kind=2 deck=1 slot=-1 value=0
+  event=10 kind=5 deck=1 slot=0 value=4096
+  event=11 kind=2 deck=1 slot=-3 value=0
+  event=12 kind=2 deck=1 slot=0 value=4096
+  event=13 kind=2 deck=1 slot=1 value=4096
+  event=14 kind=2 deck=1 slot=2 value=4096
+  event=15 kind=2 deck=1 slot=3 value=4096
+  event=16 kind=4 deck=1 slot=0 value=0
+thread=9 role=decoder deck=1 slot=3 recovery=0 started=1 ended=1 joined=1 join_rc=0 final_frames=0 loading=0 mode=0 stale=0 hold=0
+  event=0 kind=2 deck=1 slot=-3 value=0
+  event=1 kind=2 deck=1 slot=-3 value=0
+  event=2 kind=1 deck=1 slot=3 value=4096
+  event=3 kind=3 deck=1 slot=0 value=0
+  event=4 kind=2 deck=1 slot=-3 value=0
+  event=5 kind=2 deck=1 slot=0 value=4096
+  event=6 kind=2 deck=1 slot=1 value=0
+  event=7 kind=2 deck=1 slot=2 value=0
+  event=8 kind=2 deck=1 slot=3 value=4096
+  event=9 kind=4 deck=1 slot=0 value=0
+focused restart cases=1000; 15000 passed, 0 failed

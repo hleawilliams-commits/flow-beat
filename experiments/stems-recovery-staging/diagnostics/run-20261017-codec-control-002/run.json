@@ -1,0 +1,23 @@
+{
+  "command": [
+    "python3",
+    "experiments/stems-recovery-staging/run-tests.py",
+    "--upstream",
+    "<PINNED_CHECKOUT>",
+    "--restart-diagnostic",
+    "1",
+    "--diagnostic-empty-ordinary",
+    "--manifest",
+    "<RUN>/manifest.json"
+  ],
+  "exit_code": 1,
+  "expected": "original restart assertion fails after real codec returns no frames; every worker still joins",
+  "input_sha256": {
+    "run-tests.py": "448a38bff9f114704397a9ef1a304d4c7726b8fbb3a22bea121a1cd673e6d8b3",
+    "test_staging.c": "12655da90b48ba2b474c1c06bc857238ffefab99f237c224d03ab480d0a6ff46",
+    "diagnostics/restart-trace.h": "95fddcd765529a33ad87730003a0524381f3f2a19560ce6283f4b11a59f52aef",
+    "diagnostics/restart-main.c": "1c32748dd345cda7ced73b8db570f7dbe58dbec23df93a58e5cacf7a035905cc",
+    "staging-only.patch": "c8d8122ec0af65ebd478ebea1fedbb5b030c77ac186d2d9a5c7818ae01d6a03b"
+  },
+  "output_sha256": "d20e42f7257ef0d8fa5206026c4fd38d604301093e1da0ce380d6799ff023d82"
+}

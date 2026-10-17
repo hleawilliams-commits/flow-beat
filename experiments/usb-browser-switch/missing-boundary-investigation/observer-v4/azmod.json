@@ -1,0 +1,18 @@
+{
+  "azmod": 1,
+  "id": "usb-observer-v4",
+  "name": "USB Browser Observer V4",
+  "version": "0.0.1",
+  "author": "hleawilliams-commits",
+  "summary": "Emulator-only USB boundary and request-admission observer.",
+  "description": "Unpublished exact-firmware observer. Adds a scalar-only empty-list request entry/result to V3 boundary evidence; no activation or final completion claim. No physical installation.",
+  "category": "tools",
+  "license": "GPL-3.0-only",
+  "source": "https://github.com/hleawilliams-commits/flow-beat/tree/codex/az-mods-handoff-2026-10-16/experiments/usb-browser-switch/completion-contract/observer-v3",
+  "api": 1,
+  "firmware": [
+    "ep147-9e9454e357389ece"
+  ],
+  "hooks": true,
+  "min_core": "1.2.3"
+}

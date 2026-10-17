@@ -1,0 +1,94 @@
+{"base": "3e0c5cb010454228f4ee63226b60d060494eeaae", "patch_order": [], "patch_sha256": null, "production_sha256": "555a6c97f21f105c202c2200276e048b1c1f2a2290375dfcf9df003fb14a33b0"}
+plain:
+deck 1: ordinary producers, failure slots, prefix bounds, joined finalization checked
+deck 2: ordinary producers, failure slots, prefix bounds, joined finalization checked
+deck 3: ordinary producers, failure slots, prefix bounds, joined finalization checked
+deck 4: ordinary producers, failure slots, prefix bounds, joined finalization checked
+308 passed, 0 failed
+asan-ubsan:
+deck 1: ordinary producers, failure slots, prefix bounds, joined finalization checked
+deck 2: ordinary producers, failure slots, prefix bounds, joined finalization checked
+deck 3: ordinary producers, failure slots, prefix bounds, joined finalization checked
+deck 4: ordinary producers, failure slots, prefix bounds, joined finalization checked
+308 passed, 0 failed
+tsan:
+deck 1: ordinary producers, failure slots, prefix bounds, joined finalization checked
+deck 2: ordinary producers, failure slots, prefix bounds, joined finalization checked
+deck 3: ordinary producers, failure slots, prefix bounds, joined finalization checked
+deck 4: ordinary producers, failure slots, prefix bounds, joined finalization checked
+308 passed, 0 failed
+==56264==WARNING: external symbolizer didn't start up correctly!
+==56264==WARNING: Can't write to symbolizer at fd 4
+==56264==WARNING: external symbolizer didn't start up correctly!
+==56264==WARNING: Can't write to symbolizer at fd 5
+==56264==WARNING: external symbolizer didn't start up correctly!
+==56264==WARNING: Can't write to symbolizer at fd 6
+==56264==WARNING: external symbolizer didn't start up correctly!
+==56264==WARNING: Can't write to symbolizer at fd 7
+==56264==WARNING: external symbolizer didn't start up correctly!
+==56264==WARNING: Failed to use and restart external symbolizer!
+==================
+WARNING: ThreadSanitizer: data race (pid=56264)
+  Read of size 4 at 0x000106c9c000 by thread T9 (mutexes: write M0):
+    #0 env_progress <null> (tsan:arm64+0x100007398)
+    #1 decode_stem_progressive <null> (tsan:arm64+0x100006e00)
+    #2 dth_prog <null> (tsan:arm64+0x100006414)
+
+  Previous write of size 4 at 0x000106c9c000 by thread T7:
+    #0 decode_stem_progressive <null> (tsan:arm64+0x100006cf0)
+    #1 dth_prog <null> (tsan:arm64+0x100006414)
+
+  Location is heap block of size 530296 at 0x000106c9c000 allocated by thread T7:
+    #0 malloc <null> (libclang_rt.tsan_osx_dynamic.dylib:arm64e+0x55fb4)
+    #1 decode_stem_progressive <null> (tsan:arm64+0x1000068e4)
+    #2 dth_prog <null> (tsan:arm64+0x100006414)
+
+  Mutex M0 (0x000102fd0088) created at:
+    #0 pthread_mutex_lock <null> (libclang_rt.tsan_osx_dynamic.dylib:arm64e+0x319bc)
+    #1 decode_stem_progressive <null> (tsan:arm64+0x10000676c)
+    #2 dth_prog <null> (tsan:arm64+0x100006414)
+
+  Thread T9 (tid=17740474, running) created by thread T6 at:
+    #0 pthread_create <null> (libclang_rt.tsan_osx_dynamic.dylib:arm64e+0x309d8)
+    #1 loader_thread <null> (tsan:arm64+0x100005828)
+    #2 loader_thread <null> (tsan:arm64+0x100004fe0)
+
+  Thread T7 (tid=17740472, running) created by thread T6 at:
+    #0 pthread_create <null> (libclang_rt.tsan_osx_dynamic.dylib:arm64e+0x309d8)
+    #1 loader_thread <null> (tsan:arm64+0x100005828)
+    #2 loader_thread <null> (tsan:arm64+0x100004fe0)
+
+SUMMARY: ThreadSanitizer: data race (/private<TEMP>/tsan:arm64+0x100007398) in env_progress+0x224
+==================
+==================
+WARNING: ThreadSanitizer: data race (pid=56264)
+  Read of size 8 at 0x000102fd01a0 by thread T30 (mutexes: write M0):
+    #0 env_progress <null> (tsan:arm64+0x100007364)
+    #1 decode_stem_progressive <null> (tsan:arm64+0x100006e00)
+    #2 dth_prog <null> (tsan:arm64+0x100006414)
+
+  Previous write of size 8 at 0x000102fd01a0 by thread T29:
+    #0 decode_stem_progressive <null> (tsan:arm64+0x100006e98)
+    #1 dth_prog <null> (tsan:arm64+0x100006414)
+
+  Location is global 'g_dk' at 0x000102fd0190 (tsan+0x10000c1a0)
+
+  Mutex M0 (0x000102fd0088) created at:
+    #0 pthread_mutex_lock <null> (libclang_rt.tsan_osx_dynamic.dylib:arm64e+0x319bc)
+    #1 decode_stem_progressive <null> (tsan:arm64+0x10000676c)
+    #2 dth_prog <null> (tsan:arm64+0x100006414)
+
+  Thread T30 (tid=17740635, running) created by thread T26 at:
+    #0 pthread_create <null> (libclang_rt.tsan_osx_dynamic.dylib:arm64e+0x309d8)
+    #1 loader_thread <null> (tsan:arm64+0x100005828)
+    #2 loader_thread <null> (tsan:arm64+0x100004fe0)
+
+  Thread T29 (tid=17740634, finished) created by thread T26 at:
+    #0 pthread_create <null> (libclang_rt.tsan_osx_dynamic.dylib:arm64e+0x309d8)
+    #1 loader_thread <null> (tsan:arm64+0x100005828)
+    #2 loader_thread <null> (tsan:arm64+0x100004fe0)
+
+SUMMARY: ThreadSanitizer: data race (/private<TEMP>/tsan:arm64+0x100007364) in env_progress+0x1f0
+==================
+ThreadSanitizer: reported 2 warnings
+Baseline TSan race reproduced; no candidate fix applied.

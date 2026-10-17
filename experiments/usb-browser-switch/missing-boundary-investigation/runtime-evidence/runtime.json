@@ -1,0 +1,192 @@
+{
+  "date": "2026-10-17",
+  "observer_id": "usb-observer-v4",
+  "version": "0.0.1",
+  "firmware": "ep147-9e9454e357389ece",
+  "binary_sha256": "6b7c1e0f892aeef7fd16ad3beecd50e3d59328b52cbf4c61afc37d423dd791fd",
+  "scope": "localhost emulator only; native UI source selections; no custom activation",
+  "transport_assertions": {
+    "ssh_host": "127.0.0.1",
+    "ssh_port": 2222,
+    "qmp_host": "127.0.0.1",
+    "qmp_port": 4446
+  },
+  "hook_claims_accepted": [
+    "0x1b296c0",
+    "0x1ffb6c8",
+    "0x2014a88",
+    "0x1fd3a18"
+  ],
+  "native_selection_sequence": [
+    "USB1",
+    "USB2",
+    "USB1"
+  ],
+  "counts": {
+    "parent": 6,
+    "event_entry": 3,
+    "event_result": 3,
+    "empty_path_entry": 2,
+    "empty_path_result": 2,
+    "commit_entry": 1
+  },
+  "all_observed_tids_equal_process_pid": true,
+  "empty_path_category_bytes": [
+    1,
+    1
+  ],
+  "empty_path_match_scope": "MediaID and agent pointer value only; category unknown",
+  "empty_path_results": [
+    0,
+    0
+  ],
+  "outer_results": [
+    0,
+    0,
+    0
+  ],
+  "missing_boundary_result": "First two selections in this run used exact empty-list call path; third reached copied commit boundary. Earlier V3 run is not retroactively instrumented.",
+  "final_transaction_completion": "UNKNOWN",
+  "native_reads_after_original_return": false,
+  "visible_ui": {
+    "source_labels": [
+      "USB 1",
+      "USB 2",
+      "USB 1"
+    ],
+    "library_rows_visible_each": true,
+    "all_four_decks_empty": true,
+    "proof_of_generation_correlated_completion": false
+  },
+  "wrong_thread_refusal_observed": false,
+  "queue_drop_report_observed": false,
+  "budget_exhaustion_observed": false,
+  "runtime_failure_or_cancellation_injected": false,
+  "physical_access": false,
+  "core_changed": false,
+  "activation_implemented": false,
+  "published_release": false,
+  "records": [
+    {
+      "kind": "event-entry",
+      "seq": "3",
+      "status": "1",
+      "request": "1:0102",
+      "committed-at-entry": "0:0000/0"
+    },
+    {
+      "kind": "empty-path-entry",
+      "seq": "4",
+      "entry": "3",
+      "status": "13",
+      "request": "1:0102",
+      "argument": "1:0102",
+      "category-byte": "1",
+      "category-match": "unknown",
+      "packed": "0001010200000001",
+      "path-only": "1",
+      "native-reads": "none"
+    },
+    {
+      "kind": "empty-path-result",
+      "seq": "5",
+      "observation": "4",
+      "entry": "3",
+      "rc": "0",
+      "post-read": "none",
+      "completion": "unknown"
+    },
+    {
+      "kind": "event-result",
+      "seq": "6",
+      "entry": "3",
+      "status": "8",
+      "rc": "0",
+      "post-read": "none"
+    },
+    {
+      "kind": "event-entry",
+      "seq": "9",
+      "status": "1",
+      "request": "1:0122",
+      "committed-at-entry": "1:0102/0"
+    },
+    {
+      "kind": "empty-path-entry",
+      "seq": "10",
+      "entry": "9",
+      "status": "13",
+      "request": "1:0122",
+      "argument": "1:0122",
+      "category-byte": "1",
+      "category-match": "unknown",
+      "packed": "0001012200000001",
+      "path-only": "1",
+      "native-reads": "none"
+    },
+    {
+      "kind": "empty-path-result",
+      "seq": "11",
+      "observation": "10",
+      "entry": "9",
+      "rc": "0",
+      "post-read": "none",
+      "completion": "unknown"
+    },
+    {
+      "kind": "event-result",
+      "seq": "12",
+      "entry": "9",
+      "status": "8",
+      "rc": "0",
+      "post-read": "none"
+    },
+    {
+      "kind": "event-entry",
+      "seq": "15",
+      "status": "1",
+      "request": "1:0102",
+      "committed-at-entry": "1:0122/0"
+    },
+    {
+      "kind": "commit-entry",
+      "seq": "16",
+      "entry": "15",
+      "status": "10",
+      "request": "1:0102",
+      "committed-at-entry": "1:0102/0",
+      "boundary-only": "1"
+    },
+    {
+      "kind": "event-result",
+      "seq": "17",
+      "entry": "15",
+      "status": "8",
+      "rc": "0",
+      "post-read": "none"
+    }
+  ],
+  "restoration": {
+    "baseline_file_count": 124,
+    "all_bytes_and_modes_match": true,
+    "core_hashes": {
+      "azmod.so": "f8d4ba67ccad9e3386c78dc2ca377bf3263221875d65578a1d893e9c2f3f5668",
+      "azstem.so": "cd95ce64bd1e4cbd4c7710aa77adc7546623e9782baf8fa9bd8d4acbe562a1d3"
+    },
+    "loaded_list_identical": true,
+    "probe_unmapped": true,
+    "opt_in_absent": true,
+    "startup_guard_cleared_naturally": true,
+    "absent_paths_verified": 2,
+    "root_inventory_identical": true,
+    "new_files_removed": 8,
+    "baseline_lists_restored": 3
+  },
+  "limits": [
+    "one native sequence only",
+    "no missing-media or already-current matrix",
+    "no injected native failure or cancellation",
+    "no asynchronous reply ownership or stale-generation contract",
+    "no physical validation"
+  ]
+}

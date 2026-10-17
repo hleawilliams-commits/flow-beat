@@ -1,0 +1,34 @@
+{
+  "upstream_commit": "3e0c5cb010454228f4ee63226b60d060494eeaae",
+  "patch_order": [
+    "ordinary-publication.patch"
+  ],
+  "patch_sha256": "b4ff1224d1f0faaa4e248d564d9a053877b644e277eb2d5d0ebe011623501a34",
+  "changed_sources": {
+    "src/azstem/stem_playback.c": {
+      "before": "1f57adbda81b6be975ccd8bde3ccf0a0219ee8791151999e750d8853573e10ac",
+      "after": "253afb1323b4f34cf8afc9fa89b2fdcbe8ee21189c3f22b7118c9e86554dd85c"
+    },
+    "src/azstem/stem_envelopes.c": {
+      "before": "cdd07b709d5239ac387341c752f163fdd2b6b00136294001cc52392ceb8a4e31",
+      "after": "14b5a0a5d24af27d1c15f542dc2b0bcb0bdabe57c5333a45b99fac58345778f1"
+    },
+    "src/azstem/ofsload.c": {
+      "before": "04c0cc0f338cc55f1dd22f93a0ed4de94227ec5f95d88122704c86abdf1728eb",
+      "after": "490d9945a2cea440dfd35521eca671df73cc72c75e7ad8b659513900e4f89a56"
+    }
+  },
+  "build_image": "azmod-build:18.04",
+  "build_image_id": "sha256:c7e3893c4f03e0ff30555c2120b3d9ec53834eaa2c8ce376a2da09b70fd23a90",
+  "compiler": "gcc (Ubuntu/Linaro 7.5.0-3ubuntu1~18.04) 7.5.0",
+  "command": "docker run --rm --platform=linux/arm64 -v <pinned-patched-tree>/src:/g azmod-build:18.04 make -C /g CC=gcc azstem",
+  "result": "compiled",
+  "binary_format": "ELF64 little-endian AArch64",
+  "local_binary_sha256": "f1dd479b11b7551903de899e8513b962ab8d943b5b5adcf9f68c27d2d055c0fe",
+  "unstripped_binary_sha256": "5e13ae59ead15f62d2ca928310d3db146abff2baa430b6bf9d9199c1efe12752",
+  "binary_included": false,
+  "emulator_installation": true,
+  "physical_changes": false,
+  "scope": "Standalone ordinary publication candidate; excludes memory retry, activity follow-up and private staging.",
+  "runtime_evidence": "runtime-evidence/README.md"
+}

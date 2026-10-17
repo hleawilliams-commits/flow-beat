@@ -1,0 +1,28 @@
+{
+  "note": "Hashes identify private scripts/raw artifacts retained with the exact backup. Contents with music titles, paths, process maps or machine details are not published. Observed failure excerpt is explicitly not a full raw log.",
+  "files": {
+    "common.py": "022c03c0b95bd13836dbc5d745769f3071f2bb84cd207af78664b716138203bb",
+    "emulator_check.py": "9b942bcea956089d2b774748f057917573c8416a5972649d5958a0f55e1a6e8d",
+    "emulator_check.identity-oracle-failure.py": "9b942bcea956089d2b774748f057917573c8416a5972649d5958a0f55e1a6e8d",
+    "finish_existing_load.py": "3b4ea47825a68c8935a3eaff67a53fb58ec92577bd82549a97158cf720461f4c",
+    "finish_existing_load.json-sequence-oracle.py": "2bb4743bb22ae6c288f1bae8d72aefd393f1fd69466ca803b2a09a8f3e55ea3e",
+    "prepare_symbols.py": "74c4c4a2ce7f877a574426901b6ea792abff58f06bd6952fca3ec5d00090d5ac",
+    "prepare_symbols_with_identity.py": "2cbc2de86e3493ae9a29f638e9315b2296d4677323f27bc51bdb271a2a72e9f9",
+    "symbols.json": "1b42bb702ddc8dbbcf2ec20264273bc3dea4289836ff2ddc00f90d53b1909f6f",
+    "symbols-with-identity.json": "cdb663a6fd7a5e2e149756433d626e3c012cd7041b9930c286986901b6d08f55",
+    "installed.json": "e72539a93971e9232c4932244a45829b3333241e5feed68fffce3e42c0b7fdcc",
+    "load-started.json": "1c75e59b3ae0d655eccac52e5fe108adbb3a574992a97317b0827ec9b88a6059",
+    "runtime-result.json": "def4710ee14f59fe939c08c8d03e3569636d343c89757bdd8d72332652a3c409",
+    "restored.json": "90aa7ab21408153b03a50661acbf46885be5e3d9be99e8a9cb8905ced48c42a5",
+    "raw/events.jsonl": "43fb7389b5a913d29c9dc823e674875f702fa42a3442379241371472ebbd5c55",
+    "raw/candidate-initialization-proof.json": "9838ccc792762c3fc96dd1c3af623a981a95b3252ed7f6aa11c4c2f18a563d2c",
+    "raw/startup-events.jsonl": "d6dc332613374353ba5b3753ffdfcff3b0c681a244cdc9e5009250efcd3c7f08",
+    "private-timeline.md": "30d267cf8d91967f4ae4c7716d9f8d5a766aeeab0fec51b7eb6150d3efe0cf62",
+    "identity-oracle-failure-observed.txt": "86a1c828710bf1ffa6f5dd07ddf15946d1499f705396694b748cc8eb05297f27"
+  },
+  "source_header_sha256": "1ff125ae054d507312b30ad267a77b46b4c4fc1a35430da0ebc792792aed6fee",
+  "symbols_verified_from_exact_unstripped_candidate": true,
+  "read_range_bytes": 29440,
+  "read_object_count": 16,
+  "backup_tar_sha256": "685e27bc927a99c633255056cf939f373b6593e611d20f966b8e1f7d32efc639"
+}

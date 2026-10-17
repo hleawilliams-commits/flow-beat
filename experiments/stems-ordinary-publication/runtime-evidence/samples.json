@@ -1,0 +1,2051 @@
+{
+  "sampling": "Sequential /proc memory copies; fields are not an atomic snapshot.",
+  "deck_array_order": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "samples": [
+    {
+      "label": "before-native-load",
+      "decoded": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "present": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "pending": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "loading": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "hold": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "stale": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "env_total": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "env_frames": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "env_filled": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "env_ready": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "env_final": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "env_gen": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "playheads": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "observed_positions": [
+        -1,
+        -1,
+        -1,
+        -1
+      ],
+      "seconds_from_first_loading_sample": -0.414154,
+      "decks": [
+        {
+          "frames": 0,
+          "pointers": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "allocated_bytes": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "ctrl": 0,
+          "offset": 0
+        },
+        {
+          "frames": 0,
+          "pointers": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "allocated_bytes": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "ctrl": 0,
+          "offset": 0
+        },
+        {
+          "frames": 0,
+          "pointers": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "allocated_bytes": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "ctrl": 0,
+          "offset": 0
+        },
+        {
+          "frames": 0,
+          "pointers": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "allocated_bytes": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "ctrl": 0,
+          "offset": 0
+        }
+      ]
+    },
+    {
+      "label": "ordinary-loading",
+      "decoded": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "present": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "pending": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "loading": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "hold": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "stale": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "env_total": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "env_frames": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "env_filled": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "env_ready": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "env_final": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "env_gen": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "playheads": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "observed_positions": [
+        -1,
+        -1,
+        -1,
+        -1
+      ],
+      "seconds_from_first_loading_sample": 0.0,
+      "decks": [
+        {
+          "frames": 0,
+          "pointers": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "allocated_bytes": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "ctrl": 0,
+          "offset": 0
+        },
+        {
+          "frames": 0,
+          "pointers": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "allocated_bytes": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "ctrl": 0,
+          "offset": 0
+        },
+        {
+          "frames": 0,
+          "pointers": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "allocated_bytes": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "ctrl": 0,
+          "offset": 0
+        },
+        {
+          "frames": 0,
+          "pointers": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "allocated_bytes": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "ctrl": 0,
+          "offset": 0
+        }
+      ]
+    },
+    {
+      "label": "ordinary-loading",
+      "decoded": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "present": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "pending": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "loading": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "hold": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "stale": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "env_total": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "env_frames": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "env_filled": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "env_ready": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "env_final": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "env_gen": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "playheads": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "observed_positions": [
+        4116,
+        4116,
+        4116,
+        4116
+      ],
+      "seconds_from_first_loading_sample": 0.496495,
+      "decks": [
+        {
+          "frames": 0,
+          "pointers": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "allocated_bytes": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "ctrl": 0,
+          "offset": 0
+        },
+        {
+          "frames": 0,
+          "pointers": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "allocated_bytes": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "ctrl": 0,
+          "offset": 0
+        },
+        {
+          "frames": 0,
+          "pointers": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "allocated_bytes": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "ctrl": 0,
+          "offset": 0
+        },
+        {
+          "frames": 0,
+          "pointers": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "allocated_bytes": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "ctrl": 0,
+          "offset": 0
+        }
+      ]
+    },
+    {
+      "label": "ordinary-loading",
+      "decoded": [
+        683550,
+        837900,
+        529200,
+        485100,
+        1124550,
+        1058400,
+        1389150,
+        837900,
+        859950,
+        441000,
+        463050,
+        815850,
+        396900,
+        970200,
+        639450,
+        529200
+      ],
+      "present": [
+        15,
+        15,
+        15,
+        15
+      ],
+      "pending": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "loading": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "hold": [
+        1,
+        0,
+        1,
+        1
+      ],
+      "stale": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "env_total": [
+        8599552,
+        8599552,
+        8599552,
+        8599552
+      ],
+      "env_frames": [
+        8599552,
+        8599552,
+        8599552,
+        8599552
+      ],
+      "env_filled": [
+        4369,
+        6721,
+        3864,
+        3528
+      ],
+      "env_ready": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "env_final": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "env_gen": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "playheads": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "observed_positions": [
+        4116,
+        4116,
+        4116,
+        4116
+      ],
+      "seconds_from_first_loading_sample": 1.045318,
+      "decks": [
+        {
+          "frames": 0,
+          "pointers": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "allocated_bytes": [
+            68796416,
+            68796416,
+            68796416,
+            68796416
+          ],
+          "ctrl": 143,
+          "offset": 0
+        },
+        {
+          "frames": 0,
+          "pointers": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "allocated_bytes": [
+            68796416,
+            68796416,
+            68796416,
+            68796416
+          ],
+          "ctrl": 143,
+          "offset": 0
+        },
+        {
+          "frames": 0,
+          "pointers": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "allocated_bytes": [
+            68796416,
+            68796416,
+            68796416,
+            68796416
+          ],
+          "ctrl": 143,
+          "offset": 0
+        },
+        {
+          "frames": 0,
+          "pointers": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "allocated_bytes": [
+            68796416,
+            68796416,
+            68796416,
+            68796416
+          ],
+          "ctrl": 143,
+          "offset": 0
+        }
+      ]
+    },
+    {
+      "label": "ordinary-loading",
+      "decoded": [
+        3263400,
+        2800350,
+        2381400,
+        2601900,
+        3153150,
+        3417750,
+        3550050,
+        2271150,
+        3704400,
+        2359350,
+        2271150,
+        2712150,
+        2623950,
+        3704400,
+        2932650,
+        2734200
+      ],
+      "present": [
+        15,
+        15,
+        15,
+        15
+      ],
+      "pending": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "loading": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "hold": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "stale": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "env_total": [
+        8599552,
+        8599552,
+        8599552,
+        8599552
+      ],
+      "env_frames": [
+        8599552,
+        8599552,
+        8599552,
+        8599552
+      ],
+      "env_filled": [
+        18652,
+        18484,
+        18148,
+        20836
+      ],
+      "env_ready": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "env_final": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "env_gen": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "playheads": [
+        4116,
+        4116,
+        4116,
+        4116
+      ],
+      "observed_positions": [
+        4116,
+        4116,
+        4116,
+        4116
+      ],
+      "seconds_from_first_loading_sample": 1.571761,
+      "decks": [
+        {
+          "frames": 2381400,
+          "pointers": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "allocated_bytes": [
+            68796416,
+            68796416,
+            68796416,
+            68796416
+          ],
+          "ctrl": 143,
+          "offset": 2257
+        },
+        {
+          "frames": 2293200,
+          "pointers": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "allocated_bytes": [
+            68796416,
+            68796416,
+            68796416,
+            68796416
+          ],
+          "ctrl": 143,
+          "offset": 2257
+        },
+        {
+          "frames": 2293200,
+          "pointers": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "allocated_bytes": [
+            68796416,
+            68796416,
+            68796416,
+            68796416
+          ],
+          "ctrl": 143,
+          "offset": 2257
+        },
+        {
+          "frames": 2646000,
+          "pointers": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "allocated_bytes": [
+            68796416,
+            68796416,
+            68796416,
+            68796416
+          ],
+          "ctrl": 143,
+          "offset": 2257
+        }
+      ]
+    },
+    {
+      "label": "ordinary-loading",
+      "decoded": [
+        7033950,
+        5997600,
+        5490450,
+        6372450,
+        7122150,
+        6284250,
+        6835500,
+        5446350,
+        8158500,
+        5269950,
+        6306300,
+        5997600,
+        6438600,
+        7717500,
+        6328350,
+        5710950
+      ],
+      "present": [
+        15,
+        15,
+        15,
+        15
+      ],
+      "pending": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "loading": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "hold": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "stale": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "env_total": [
+        8599552,
+        8599552,
+        8599552,
+        8599552
+      ],
+      "env_frames": [
+        8599552,
+        8599552,
+        8599552,
+        8599552
+      ],
+      "env_filled": [
+        43354,
+        43018,
+        41337,
+        45874
+      ],
+      "env_ready": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "env_final": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "env_gen": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "playheads": [
+        4116,
+        4116,
+        4116,
+        4116
+      ],
+      "observed_positions": [
+        4116,
+        4116,
+        4116,
+        4116
+      ],
+      "seconds_from_first_loading_sample": 2.122916,
+      "decks": [
+        {
+          "frames": 5490450,
+          "pointers": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "allocated_bytes": [
+            68796416,
+            68796416,
+            68796416,
+            68796416
+          ],
+          "ctrl": 143,
+          "offset": 2257
+        },
+        {
+          "frames": 5446350,
+          "pointers": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "allocated_bytes": [
+            68796416,
+            68796416,
+            68796416,
+            68796416
+          ],
+          "ctrl": 143,
+          "offset": 2257
+        },
+        {
+          "frames": 5269950,
+          "pointers": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "allocated_bytes": [
+            68796416,
+            68796416,
+            68796416,
+            68796416
+          ],
+          "ctrl": 143,
+          "offset": 2257
+        },
+        {
+          "frames": 5710950,
+          "pointers": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "allocated_bytes": [
+            68796416,
+            68796416,
+            68796416,
+            68796416
+          ],
+          "ctrl": 143,
+          "offset": 2257
+        }
+      ]
+    },
+    {
+      "label": "ordinary-loading",
+      "decoded": [
+        8599552,
+        8599552,
+        8599552,
+        8599552,
+        8599552,
+        8599552,
+        8599552,
+        8599552,
+        8599552,
+        8599552,
+        8599552,
+        8599552,
+        8599552,
+        8599552,
+        8599552,
+        8599552
+      ],
+      "present": [
+        15,
+        15,
+        15,
+        15
+      ],
+      "pending": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "loading": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "hold": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "stale": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "env_total": [
+        8599552,
+        8599552,
+        8599552,
+        8599552
+      ],
+      "env_frames": [
+        8599552,
+        8599552,
+        8599552,
+        8599552
+      ],
+      "env_filled": [
+        65536,
+        65536,
+        65536,
+        65536
+      ],
+      "env_ready": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "env_final": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "env_gen": [
+        3,
+        3,
+        3,
+        3
+      ],
+      "playheads": [
+        4116,
+        4116,
+        4116,
+        4116
+      ],
+      "observed_positions": [
+        4116,
+        4116,
+        4116,
+        4116
+      ],
+      "seconds_from_first_loading_sample": 2.64687,
+      "decks": [
+        {
+          "frames": 8599552,
+          "pointers": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "allocated_bytes": [
+            68796416,
+            68796416,
+            68796416,
+            68796416
+          ],
+          "ctrl": 143,
+          "offset": 2257
+        },
+        {
+          "frames": 8599552,
+          "pointers": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "allocated_bytes": [
+            68796416,
+            68796416,
+            68796416,
+            68796416
+          ],
+          "ctrl": 143,
+          "offset": 2257
+        },
+        {
+          "frames": 8599552,
+          "pointers": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "allocated_bytes": [
+            68796416,
+            68796416,
+            68796416,
+            68796416
+          ],
+          "ctrl": 143,
+          "offset": 2257
+        },
+        {
+          "frames": 8599552,
+          "pointers": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "allocated_bytes": [
+            68796416,
+            68796416,
+            68796416,
+            68796416
+          ],
+          "ctrl": 143,
+          "offset": 2257
+        }
+      ]
+    },
+    {
+      "label": "paused-before-play",
+      "decoded": [
+        8599552,
+        8599552,
+        8599552,
+        8599552,
+        8599552,
+        8599552,
+        8599552,
+        8599552,
+        8599552,
+        8599552,
+        8599552,
+        8599552,
+        8599552,
+        8599552,
+        8599552,
+        8599552
+      ],
+      "present": [
+        15,
+        15,
+        15,
+        15
+      ],
+      "pending": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "loading": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "hold": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "stale": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "env_total": [
+        8599552,
+        8599552,
+        8599552,
+        8599552
+      ],
+      "env_frames": [
+        8599552,
+        8599552,
+        8599552,
+        8599552
+      ],
+      "env_filled": [
+        65536,
+        65536,
+        65536,
+        65536
+      ],
+      "env_ready": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "env_final": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "env_gen": [
+        3,
+        3,
+        3,
+        3
+      ],
+      "playheads": [
+        4116,
+        4116,
+        4116,
+        4116
+      ],
+      "observed_positions": [
+        4116,
+        4116,
+        4116,
+        4116
+      ],
+      "seconds_from_first_loading_sample": -0.424732,
+      "decks": [
+        {
+          "frames": 8599552,
+          "pointers": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "allocated_bytes": [
+            68796416,
+            68796416,
+            68796416,
+            68796416
+          ],
+          "ctrl": 143,
+          "offset": 2257
+        },
+        {
+          "frames": 8599552,
+          "pointers": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "allocated_bytes": [
+            68796416,
+            68796416,
+            68796416,
+            68796416
+          ],
+          "ctrl": 143,
+          "offset": 2257
+        },
+        {
+          "frames": 8599552,
+          "pointers": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "allocated_bytes": [
+            68796416,
+            68796416,
+            68796416,
+            68796416
+          ],
+          "ctrl": 143,
+          "offset": 2257
+        },
+        {
+          "frames": 8599552,
+          "pointers": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "allocated_bytes": [
+            68796416,
+            68796416,
+            68796416,
+            68796416
+          ],
+          "ctrl": 143,
+          "offset": 2257
+        }
+      ]
+    },
+    {
+      "label": "playing",
+      "decoded": [
+        8599552,
+        8599552,
+        8599552,
+        8599552,
+        8599552,
+        8599552,
+        8599552,
+        8599552,
+        8599552,
+        8599552,
+        8599552,
+        8599552,
+        8599552,
+        8599552,
+        8599552,
+        8599552
+      ],
+      "present": [
+        15,
+        15,
+        15,
+        15
+      ],
+      "pending": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "loading": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "hold": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "stale": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "env_total": [
+        8599552,
+        8599552,
+        8599552,
+        8599552
+      ],
+      "env_frames": [
+        8599552,
+        8599552,
+        8599552,
+        8599552
+      ],
+      "env_filled": [
+        65536,
+        65536,
+        65536,
+        65536
+      ],
+      "env_ready": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "env_final": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "env_gen": [
+        3,
+        3,
+        3,
+        3
+      ],
+      "playheads": [
+        153428,
+        64618,
+        109396,
+        17364
+      ],
+      "observed_positions": [
+        155220,
+        66449,
+        111188,
+        19284
+      ],
+      "seconds_from_first_loading_sample": 3.95745,
+      "decks": [
+        {
+          "frames": 8599552,
+          "pointers": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "allocated_bytes": [
+            68796416,
+            68796416,
+            68796416,
+            68796416
+          ],
+          "ctrl": 143,
+          "offset": 2257
+        },
+        {
+          "frames": 8599552,
+          "pointers": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "allocated_bytes": [
+            68796416,
+            68796416,
+            68796416,
+            68796416
+          ],
+          "ctrl": 143,
+          "offset": 2257
+        },
+        {
+          "frames": 8599552,
+          "pointers": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "allocated_bytes": [
+            68796416,
+            68796416,
+            68796416,
+            68796416
+          ],
+          "ctrl": 143,
+          "offset": 2257
+        },
+        {
+          "frames": 8599552,
+          "pointers": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "allocated_bytes": [
+            68796416,
+            68796416,
+            68796416,
+            68796416
+          ],
+          "ctrl": 143,
+          "offset": 2257
+        }
+      ]
+    },
+    {
+      "label": "playing-later",
+      "decoded": [
+        8599552,
+        8599552,
+        8599552,
+        8599552,
+        8599552,
+        8599552,
+        8599552,
+        8599552,
+        8599552,
+        8599552,
+        8599552,
+        8599552,
+        8599552,
+        8599552,
+        8599552,
+        8599552
+      ],
+      "present": [
+        15,
+        15,
+        15,
+        15
+      ],
+      "pending": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "loading": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "hold": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "stale": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "env_total": [
+        8599552,
+        8599552,
+        8599552,
+        8599552
+      ],
+      "env_frames": [
+        8599552,
+        8599552,
+        8599552,
+        8599552
+      ],
+      "env_filled": [
+        65536,
+        65536,
+        65536,
+        65536
+      ],
+      "env_ready": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "env_final": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "env_gen": [
+        3,
+        3,
+        3,
+        3
+      ],
+      "playheads": [
+        248404,
+        161683,
+        204372,
+        112340
+      ],
+      "observed_positions": [
+        249172,
+        162599,
+        205268,
+        113236
+      ],
+      "seconds_from_first_loading_sample": 6.104451,
+      "decks": [
+        {
+          "frames": 8599552,
+          "pointers": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "allocated_bytes": [
+            68796416,
+            68796416,
+            68796416,
+            68796416
+          ],
+          "ctrl": 143,
+          "offset": 2257
+        },
+        {
+          "frames": 8599552,
+          "pointers": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "allocated_bytes": [
+            68796416,
+            68796416,
+            68796416,
+            68796416
+          ],
+          "ctrl": 143,
+          "offset": 2257
+        },
+        {
+          "frames": 8599552,
+          "pointers": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "allocated_bytes": [
+            68796416,
+            68796416,
+            68796416,
+            68796416
+          ],
+          "ctrl": 143,
+          "offset": 2257
+        },
+        {
+          "frames": 8599552,
+          "pointers": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "allocated_bytes": [
+            68796416,
+            68796416,
+            68796416,
+            68796416
+          ],
+          "ctrl": 143,
+          "offset": 2257
+        }
+      ]
+    },
+    {
+      "label": "paused-again",
+      "decoded": [
+        8599552,
+        8599552,
+        8599552,
+        8599552,
+        8599552,
+        8599552,
+        8599552,
+        8599552,
+        8599552,
+        8599552,
+        8599552,
+        8599552,
+        8599552,
+        8599552,
+        8599552,
+        8599552
+      ],
+      "present": [
+        15,
+        15,
+        15,
+        15
+      ],
+      "pending": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "loading": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "hold": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "stale": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "env_total": [
+        8599552,
+        8599552,
+        8599552,
+        8599552
+      ],
+      "env_frames": [
+        8599552,
+        8599552,
+        8599552,
+        8599552
+      ],
+      "env_filled": [
+        65536,
+        65536,
+        65536,
+        65536
+      ],
+      "env_ready": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "env_final": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "env_gen": [
+        3,
+        3,
+        3,
+        3
+      ],
+      "playheads": [
+        287379,
+        294069,
+        287891,
+        287251
+      ],
+      "observed_positions": [
+        287379,
+        294069,
+        287891,
+        287251
+      ],
+      "seconds_from_first_loading_sample": 10.939278,
+      "decks": [
+        {
+          "frames": 8599552,
+          "pointers": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "allocated_bytes": [
+            68796416,
+            68796416,
+            68796416,
+            68796416
+          ],
+          "ctrl": 143,
+          "offset": 2257
+        },
+        {
+          "frames": 8599552,
+          "pointers": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "allocated_bytes": [
+            68796416,
+            68796416,
+            68796416,
+            68796416
+          ],
+          "ctrl": 143,
+          "offset": 2257
+        },
+        {
+          "frames": 8599552,
+          "pointers": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "allocated_bytes": [
+            68796416,
+            68796416,
+            68796416,
+            68796416
+          ],
+          "ctrl": 143,
+          "offset": 2257
+        },
+        {
+          "frames": 8599552,
+          "pointers": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "allocated_bytes": [
+            68796416,
+            68796416,
+            68796416,
+            68796416
+          ],
+          "ctrl": 143,
+          "offset": 2257
+        }
+      ]
+    },
+    {
+      "label": "paused-again-later",
+      "decoded": [
+        8599552,
+        8599552,
+        8599552,
+        8599552,
+        8599552,
+        8599552,
+        8599552,
+        8599552,
+        8599552,
+        8599552,
+        8599552,
+        8599552,
+        8599552,
+        8599552,
+        8599552,
+        8599552
+      ],
+      "present": [
+        15,
+        15,
+        15,
+        15
+      ],
+      "pending": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "loading": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "hold": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "stale": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "env_total": [
+        8599552,
+        8599552,
+        8599552,
+        8599552
+      ],
+      "env_frames": [
+        8599552,
+        8599552,
+        8599552,
+        8599552
+      ],
+      "env_filled": [
+        65536,
+        65536,
+        65536,
+        65536
+      ],
+      "env_ready": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "env_final": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "env_gen": [
+        3,
+        3,
+        3,
+        3
+      ],
+      "playheads": [
+        287379,
+        294069,
+        287891,
+        287251
+      ],
+      "observed_positions": [
+        287379,
+        294069,
+        287891,
+        287251
+      ],
+      "seconds_from_first_loading_sample": 12.094988,
+      "decks": [
+        {
+          "frames": 8599552,
+          "pointers": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "allocated_bytes": [
+            68796416,
+            68796416,
+            68796416,
+            68796416
+          ],
+          "ctrl": 143,
+          "offset": 2257
+        },
+        {
+          "frames": 8599552,
+          "pointers": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "allocated_bytes": [
+            68796416,
+            68796416,
+            68796416,
+            68796416
+          ],
+          "ctrl": 143,
+          "offset": 2257
+        },
+        {
+          "frames": 8599552,
+          "pointers": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "allocated_bytes": [
+            68796416,
+            68796416,
+            68796416,
+            68796416
+          ],
+          "ctrl": 143,
+          "offset": 2257
+        },
+        {
+          "frames": 8599552,
+          "pointers": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "allocated_bytes": [
+            68796416,
+            68796416,
+            68796416,
+            68796416
+          ],
+          "ctrl": 143,
+          "offset": 2257
+        }
+      ]
+    }
+  ]
+}

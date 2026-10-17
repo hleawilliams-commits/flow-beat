@@ -1,0 +1,21 @@
+{
+  "command": [
+    "python3",
+    "experiments/stems-recovery-staging/run-tests.py",
+    "--upstream",
+    "<PINNED_CHECKOUT>",
+    "--restart-diagnostic",
+    "1000",
+    "--manifest",
+    "<RUN>/manifest.json"
+  ],
+  "exit_code": 0,
+  "input_sha256": {
+    "run-tests.py": "cdff84aeca38dab92b4fe6c95bf3a90d0cdd0afe2052c2288d10a02190f1e1b3",
+    "test_staging.c": "12655da90b48ba2b474c1c06bc857238ffefab99f237c224d03ab480d0a6ff46",
+    "diagnostics/restart-trace.h": "82d461d095df2a2de3c10cd72b166703baa318b812f5ec921cc5a003cda6d497",
+    "diagnostics/restart-main.c": "1c32748dd345cda7ced73b8db570f7dbe58dbec23df93a58e5cacf7a035905cc",
+    "staging-only.patch": "c8d8122ec0af65ebd478ebea1fedbb5b030c77ac186d2d9a5c7818ae01d6a03b"
+  },
+  "output_sha256": "e3b54bd66a1236a82d365c19ca2daa450336a4547095847b4bbd35c2df28f5a9"
+}

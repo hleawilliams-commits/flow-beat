@@ -1,0 +1,46 @@
+{
+  "base": "3e0c5cb010454228f4ee63226b60d060494eeaae",
+  "patches": {
+    "ordinary": "b4ff1224d1f0faaa4e248d564d9a053877b644e277eb2d5d0ebe011623501a34",
+    "memory": "5905b0f514cf33e2dafbbdecccf18125e5352108515eded6b424f4dbc6138f1b",
+    "activity": "69ed45bf1d8b645a574379be0c8b1389eaaec2b919e8de1529d6e75f6751c30c",
+    "staging": "c8d8122ec0af65ebd478ebea1fedbb5b030c77ac186d2d9a5c7818ae01d6a03b"
+  },
+  "results": [
+    {
+      "order": [
+        "ordinary"
+      ],
+      "applied": [
+        "ordinary"
+      ]
+    },
+    {
+      "order": [
+        "memory",
+        "activity",
+        "ordinary"
+      ],
+      "applied": [
+        "memory",
+        "activity",
+        "ordinary"
+      ]
+    },
+    {
+      "order": [
+        "memory",
+        "activity",
+        "staging",
+        "ordinary"
+      ],
+      "applied": [
+        "memory",
+        "activity",
+        "staging"
+      ],
+      "failed_at": "ordinary",
+      "reason": "error: patch failed: src/azstem/stem_playback.c:409\nerror: src/azstem/stem_playback.c: patch does not apply\nerror: patch failed: src/azstem/stem_envelopes.c:32\nerror: src/azstem/stem_envelopes.c: patch does not apply\n"
+    }
+  ]
+}

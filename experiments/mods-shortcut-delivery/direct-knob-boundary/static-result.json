@@ -1,0 +1,34 @@
+{
+  "upstream_commit": "3e0c5cb010454228f4ee63226b60d060494eeaae",
+  "firmware_sha256": "6577f42532375936c7e3fa830efa35b7daa9cde8e0a265c1fc7143f824321925",
+  "address_table_sha256": "ca75114d28f586daed5bb70a06e3fbc19449c939b4549942acdf7c8ba16b3fb3",
+  "source_symbol_mapping": {
+    "19ac568": "0x1b10860",
+    "29d67a0": "0x2d4ea68",
+    "19d6760": "0x1b3aaa0"
+  },
+  "waveform_typeinfo": "0x2d616d0",
+  "waveform_primary_vtable": "0x2d61ae0",
+  "shared_slot_offset": "0x198",
+  "waveform_candidate": "0x1b3ab60",
+  "candidate_body_sha256": "549922d0a2716372fbaf40cbd9537a15fdd1debd195b8c354b7985f913d31769",
+  "fde_extents": {
+    "0x1adea38": "0x4a8",
+    "0x1adeee0": "0x588",
+    "0x1b10860": "0x140",
+    "0x1b3ab60": "0x84"
+  },
+  "candidate_uses_four_integer_arguments": true,
+  "dispatcher_virtual_call_sites": [
+    "0x1adeaac",
+    "0x1adef54"
+  ],
+  "runtime_validation": false,
+  "new_hook_or_core_patch": false,
+  "limits": [
+    "Matching interface slot is not proof of physical knob provenance",
+    "Native counter update and queued-event ownership remain unproven",
+    "Watchdog release, view cancellation, modal precedence and return semantics remain open",
+    "Do not install or replace the existing Browse knob hook from these anchors"
+  ]
+}

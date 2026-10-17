@@ -40,7 +40,13 @@ def main():
                     help="reproduce ordinary-path TSan finding with only the preceding two patches")
     ap.add_argument("--asan-repeat", type=int, default=0,
                     help="diagnose a flaky fixture by repeating its ASan/UBSan executable")
+    ap.add_argument("--restart-diagnostic", type=int, default=0,
+                    help="bounded focused restart cases with per-thread traces; ASan/UBSan only")
+    ap.add_argument("--diagnostic-empty-ordinary", action="store_true",
+                    help="negative control: ordinary codec returns EOF; original restart assertion must fail")
     args = ap.parse_args()
+    if args.diagnostic_empty_ordinary and not args.restart_diagnostic:
+        ap.error("--diagnostic-empty-ordinary requires --restart-diagnostic")
     files = ["src/azstem/" + p for p in ["azstem.c", "stem_playback.c", "key_shift.c", "stem_envelopes.c",
              "ofsload.c", "azstem_internal.h", "ep147rate.h"]]
     files += ["tests/unit/" + p for p in ["run.sh", "trackgen_test.c", "check.h"]]
@@ -109,17 +115,56 @@ def main():
         production += "".join(function(s, n) for s, names in ordered[4:] for n in names)
         if args.baseline_ordinary:
             production += "static void start_load_mode(int d,const char *t,int r){(void)r;start_load(d,t);}\n"
+        exact_production = production
+        test_source = HERE / "test_staging.c"
+        if args.restart_diagnostic:
+            assert not args.baseline_ordinary and args.restart_diagnostic > 0
+            def replace_once(value, old, new):
+                assert value.count(old) == 1, old
+                return value.replace(old, new)
+            production = replace_once(production, "static void advance_stem_frames(int deck) {",
+                "static void advance_stem_frames_body(int deck);\n"
+                "static void advance_stem_frames(int deck) {\n"
+                "diag_event(DIAG_ADV_BEGIN,deck,0,0);advance_stem_frames_body(deck);\n"
+                "diag_event(DIAG_ADV_END,deck,0,0);}\n"
+                "static void advance_stem_frames_body(int deck) {")
+            production = replace_once(production, "dk->stem_frames = m;", "dk->stem_frames = m;diag_event(DIAG_PUBLISH,deck,0,m);")
+            production = replace_once(production, "long minfr = recovery ? ofs_stems_decoded(deck) : dk->stem_frames;",
+                "long minfr = recovery ? ofs_stems_decoded(deck) : dk->stem_frames;diag_result(deck,recovery,minfr);")
+            harness = test_source.read_text()
+            (root / "restart-trace.h").write_bytes((HERE / "diagnostics/restart-trace.h").read_bytes())
+            harness = replace_once(harness, "static int az_thread_create(", '#include "restart-trace.h"\nstatic int az_thread_create(')
+            harness = replace_once(harness, "int result = pthread_create(thread, attr, fn, arg);", "int result = diag_create(thread, attr, fn, arg);")
+            harness = replace_once(harness, "int rc=pthread_join(thread,result);", "int rc=pthread_join(thread,result);diag_join(thread,rc);")
+            harness = replace_once(harness, "static void after_store(const void *p,long long value) {",
+                "static void after_store(const void *p,long long value) {diag_atomic(DIAG_STORE,p,value);")
+            harness = replace_once(harness, "#include PRODUCTION_INC", "#undef atomic_load_explicit\n"
+                "#define atomic_load_explicit(P,O) ({ __auto_type diag_value=__c11_atomic_load((P),(O)); diag_atomic(DIAG_LOAD,(P),(long long)diag_value);diag_value; })\n"
+                "#include PRODUCTION_INC")
+            harness = replace_once(harness, 'printf("deck %d: completion boundary %s passed\\n",d+1,restart?"restart":"drop");', "/* Diagnostic summary is emitted after independent join verification. */")
+            harness = replace_once(harness, "int main(void) {", "static int inherited_main(void) {")
+            harness += "\n" + (HERE / "diagnostics/restart-main.c").read_text()
+            test_source = root / "diagnostic-harness.c"; test_source.write_text(harness)
         (root / "production.inc").write_text(production)
         print("Pinned upstream: " + BASE, flush=True)
         print(("Baseline: no staging patch applied" if args.baseline_ordinary else
                "Staging patch SHA256: " + hashlib.sha256(patches[-1].read_bytes()).hexdigest()), flush=True)
         print("Production extraction SHA256: " + hashlib.sha256(production.encode()).hexdigest(), flush=True)
+        if args.restart_diagnostic:
+            print("Exact uninstrumented extraction SHA256: " + hashlib.sha256(exact_production.encode()).hexdigest(), flush=True)
+            print("Diagnostic harness SHA256: " + hashlib.sha256(harness.encode()).hexdigest(), flush=True)
+            print("Diagnostic control: " + ("ordinary codec EOF; original assertion expected to fail" if args.diagnostic_empty_ordinary else "none"), flush=True)
         if args.manifest:
             args.manifest.write_text(json.dumps({"upstream_commit": BASE,
                 "patches": [{"path": str(p.relative_to(HERE.parent.parent)), "sha256": hashlib.sha256(p.read_bytes()).hexdigest()} for p in patches],
                 "source_sha256": {p: hashlib.sha256((root/p).read_bytes()).hexdigest() for p in files},
                 "extracted_functions": [n for _, names in ordered for n in names],
                 "production_sha256": hashlib.sha256(production.encode()).hexdigest(),
+                "exact_production_sha256": hashlib.sha256(exact_production.encode()).hexdigest(),
+                "test_source_sha256": hashlib.sha256(test_source.read_bytes()).hexdigest(),
+                "diagnostic_inputs_sha256": {p: hashlib.sha256((HERE/p).read_bytes()).hexdigest()
+                    for p in ["run-tests.py", "test_staging.c", "diagnostics/restart-trace.h", "diagnostics/restart-main.c"]}
+                    if args.restart_diagnostic else {},
                 "fixture_dependency_sha256": hashlib.sha256(fixture.encode()).hexdigest(),
                 "partial_function": "ofs_load_measure actual out tail; earlier codec/correlation represented by fixture locals"}, indent=2) + "\n")
         flags = [os.environ.get("CC", "cc"), "-std=c11", "-Wall", "-Wextra", "-Werror", "-Wno-unused-function", "-O1", "-g", "-pthread"]
@@ -132,9 +177,12 @@ def main():
             modes = [("tsan-ordinary-baseline", ["-fsanitize=thread", "-fno-omit-frame-pointer"])]
         if args.asan_repeat:
             modes = [("asan-ubsan-repeat", ["-fsanitize=address,undefined", "-fno-omit-frame-pointer"])]
+        if args.restart_diagnostic:
+            modes = [("asan-ubsan-restart-diagnostic", ["-DDIAGNOSTIC_ATTEMPTS="+str(args.restart_diagnostic), "-fsanitize=address,undefined", "-fno-omit-frame-pointer"])]
+            if args.diagnostic_empty_ordinary:modes[0][1].append("-DDIAGNOSTIC_EMPTY_ORDINARY")
         for mode, extra in modes:
             exe = root / mode
-            subprocess.run(flags + extra + defines + [str(HERE / "test_staging.c"), "-lm", "-o", str(exe)], check=True)
+            subprocess.run(flags + extra + defines + [str(test_source), "-lm", "-o", str(exe)], check=True)
             print(mode + ":", flush=True)
             if args.baseline_ordinary and not args.plain_only:
                 result = subprocess.run([str(exe)], capture_output=True, text=True)

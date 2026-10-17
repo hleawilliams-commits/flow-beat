@@ -1,0 +1,46 @@
+{
+  "date": "2026-10-17",
+  "id": "usb-observer-v4",
+  "version": "0.0.1",
+  "assertions_per_pass": 1035,
+  "scenarios": {
+    "normal": 244,
+    "commit": 279,
+    "empty": 351,
+    "empty-concurrent-free": 41,
+    "commit-concurrent-free": 30,
+    "thread": 17,
+    "concurrent-free": 26,
+    "env": 3,
+    "firmware": 3,
+    "prologue": 3,
+    "worker": 3,
+    "claim0": 5,
+    "claim1": 7,
+    "claim2": 10,
+    "claim3": 13
+  },
+  "host_passes": [
+    "plain",
+    "asan+ubsan",
+    "tsan"
+  ],
+  "arm64_sdk_build": true,
+  "sdk_directory_validation": true,
+  "binary_sha256": "a9b28150393fb289df044c626bf2755bae1a7315d15eb8f976be847af0e59435",
+  "source_sha256": {
+    "observer.cpp": "d9ba4cd69a235ddf200538d5202189272a8c0bd58b2b863c3a830be7917c3639",
+    "mod.c": "ff0b42cecddaea7a04996fea6cd90f6f7ac0138c424cb25b76438f47a356677f",
+    "Makefile": "7bd78afa5bf9e7759647c5857b210b2668be2ff582971ef443a1d1ab4abe407a",
+    "azmod.json": "5fc7ce54618e4e6a2ebd564fecb094e2640e94185ab63bd0019b5f59809d24d0",
+    "tests/test_observer.cpp": "1c5bbe29b04bc97b69fb0b504ff435b57684fbbf3e5d1655b9233940a57868b7",
+    "tests/run-focused.sh": "ce79d801c12b9da170ccbefa509ff000d64069c1f15fc0e2b75ed27b11a4f619"
+  },
+  "static_verifier_passed": true,
+  "runtime_validated": false,
+  "physical_access": false,
+  "activation_implemented": false,
+  "completion_implemented": false,
+  "superseded": true,
+  "reason": "Matching status did not explicitly disclose that the category byte was not compared with an expected value. Replaced by partial MediaID+agent status and category-unknown record; no runtime had occurred."
+}

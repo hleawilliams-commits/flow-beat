@@ -1,0 +1,25 @@
+Pinned upstream: 3e0c5cb010454228f4ee63226b60d060494eeaae
+Staging patch SHA256: c8d8122ec0af65ebd478ebea1fedbb5b030c77ac186d2d9a5c7818ae01d6a03b
+Production extraction SHA256: c14d7c3504a92a08135219dcb8e5df81bf506e715307c924aefcda044888bef9
+plain:
+deck 1: resume, private retained prefix, unchanged public/audio state, drop passed
+deck 1: in-flight replacement joins, discards, ordinary reload passed
+deck 1: completion boundary drop passed
+deck 1: completion boundary restart passed
+deck 1: actual flusher eject/new track avoids duplicate reload
+deck 2: resume, private retained prefix, unchanged public/audio state, drop passed
+deck 2: in-flight replacement joins, discards, ordinary reload passed
+deck 2: completion boundary drop passed
+deck 2: completion boundary restart passed
+deck 2: actual flusher eject/new track avoids duplicate reload
+deck 3: resume, private retained prefix, unchanged public/audio state, drop passed
+deck 3: in-flight replacement joins, discards, ordinary reload passed
+deck 3: completion boundary drop passed
+deck 3: completion boundary restart passed
+deck 3: actual flusher eject/new track avoids duplicate reload
+deck 4: resume, private retained prefix, unchanged public/audio state, drop passed
+deck 4: in-flight replacement joins, discards, ordinary reload passed
+deck 4: completion boundary drop passed
+deck 4: completion boundary restart passed
+deck 4: actual flusher eject/new track avoids duplicate reload
+528 passed, 0 failed

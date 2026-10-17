@@ -1,0 +1,43 @@
+{
+  "base": "3e0c5cb010454228f4ee63226b60d060494eeaae",
+  "patch_order": [
+    "ordinary-publication.patch"
+  ],
+  "patch_sha256": "b4ff1224d1f0faaa4e248d564d9a053877b644e277eb2d5d0ebe011623501a34",
+  "sources": {
+    "azstem.c": "beaa3e7c6deac1448b5d50861acb688fd19acffe47538e549ebe7cae1457ae03",
+    "stem_playback.c": "253afb1323b4f34cf8afc9fa89b2fdcbe8ee21189c3f22b7118c9e86554dd85c",
+    "stem_envelopes.c": "14b5a0a5d24af27d1c15f542dc2b0bcb0bdabe57c5333a45b99fac58345778f1",
+    "ofsload.c": "490d9945a2cea440dfd35521eca671df73cc72c75e7ad8b659513900e4f89a56",
+    "key_shift.c": "cc32c0e5bacddf4b0d54796d7d5a265a99d73f0a2d30ed182e8ce287ae11e2ae",
+    "azstem_internal.h": "1ff125ae054d507312b30ad267a77b46b4c4fc1a35430da0ebc792792aed6fee",
+    "ep147rate.h": "2ea7d250c4c8d32b2083ef61442a1d3759688048c66e5dcd94cc1cc7a9fa74c5"
+  },
+  "functions": [
+    "free_stems",
+    "env_cache_path",
+    "env_cache_save",
+    "env_progress",
+    "env_cache_load",
+    "build_env",
+    "azstem_env_gen",
+    "azstem_env_final",
+    "azstem_frames",
+    "azstem_wave",
+    "publish_stem_prefix",
+    "azstem_present",
+    "advance_stem_frames",
+    "decode_stem_progressive",
+    "dth_prog",
+    "ofs_stems_decoded",
+    "ofs_stem_mono_lim",
+    "load_stems_ogg",
+    "loader_thread",
+    "deck_track_changed",
+    "drop_stems",
+    "start_load"
+  ],
+  "production_sha256": "90f21cb685253c8297744c2ff66431089ced045c4b88b0f97466420a87ac063a",
+  "fixture_sha256": "44d2f6f0548f919743ee2703791075e9e56194c439d5b3401dc3be267de52b5c",
+  "partial_function": "ofs_load_measure actual out tail only; no codec/calibration work"
+}
