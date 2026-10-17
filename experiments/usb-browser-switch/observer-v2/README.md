@@ -2,9 +2,9 @@
 
 This is a separate, unpublished observation experiment. It records the native source selector's parent mode and the browser's already-committed media identity at entry to a native media-change callback. The native return value is logged separately, correlated to that entry snapshot. **It does not activate a USB, select a row, navigate, load a track, inject input, or change library state.** The existing `../probe/` is untouched.
 
-Host validation and an ARM64 SDK build pass. **No v2 emulator run or physical installation has been performed; runtime readiness is unproven.** In particular, the media-change callback's thread and these hook claims have not been proven at runtime. A safe completion observer and activation path are still unresolved. This is not the USB 1/USB 2 button implementation.
+Host validation and an ARM64 SDK build pass. The [2026-10-17 emulator run](runtime-evidence/README.md) accepted both hook claims and recorded native parent/media callbacks on Linux TID == PID, with distinct USB selections retained in the native browser. A safe completion observer and activation path are still unresolved. This is not the USB 1/USB 2 button implementation, and there has been no physical installation.
 
-The [completion ownership follow-up](COMPLETION-OWNERSHIP.md) identifies the exact native caller, queued route and owning handler. It narrows the remaining reentrancy/destruction questions and explains why the core's existing browser snapshots are not switch-completion results. It adds static evidence only; v2 remains unchanged.
+The [completion ownership follow-up](COMPLETION-OWNERSHIP.md) identifies the exact native caller, queued route and owning handler. It narrows the remaining reentrancy/destruction questions and explains why the core's existing browser snapshots are not switch-completion results. It adds static evidence only; the later runtime check used the unchanged v2 binary.
 
 ## Exact static anchors
 
@@ -38,7 +38,7 @@ A review found that a destructor notification plus an atomic “invalid” flag 
 
 Numeric pointer-range checks do not establish mapping or lifetime. There is no heap scan, `/proc` read, refcount mutation, getter call through a discovered vtable, or arbitrary pointer call.
 
-All observing callbacks must run on Linux TID == PID, as v1's source callbacks did. An unexpected thread makes v2 inert and records the TID without reading native objects. **MediaChangeEvent's execution thread is unproven:** a refusal there is useful evidence, not permission to weaken the guard. Establish its actual native scheduling/ownership before considering a separate event-thread design.
+All observing callbacks must run on Linux TID == PID, as v1's source callbacks did. An unexpected thread makes v2 inert and records the TID without reading native objects. The bounded emulator run observed MediaChangeEvent on that thread; this does not prove all runtime paths or physical-device behavior. A refusal remains useful evidence, not permission to weaken the guard. Establish actual native scheduling/ownership before considering a separate event-thread design.
 
 Callbacks copy bounded records into a single-producer/single-consumer queue. They do not log, explicitly allocate, or wait on locks. A worker logs up to 128 records; queue overflow is counted. Missing SDK ticks suspend observation after about 2.5 seconds. All original callbacks continue unchanged. Native exceptions unwind using the deck's existing C++ runtime.
 
@@ -57,7 +57,7 @@ The `concurrent-free` regression uses a test-only barrier immediately after the 
 
 The SDK's ARM64 container build and directory validation also passed. It links against the deck's C++ runtime and exports only the SDK entry point. Local `out/`, `out-tests/`, and package files are ignored; no generated binary is intended for Git or the community catalog.
 
-## Deferred emulator review/run
+## Emulator procedure and remaining validation
 
 The mod ID is `usb-observer-v2`, version 0.0.1. Startup also requires the exact environment variable `AZ_USB_OBSERVER_V2_EMULATOR=1` **inside EP147's guest environment**. This is an explicit operator opt-in, not automatic proof of an emulator. Do not set it on a physical deck. Do not publish this experiment in the live catalog or install it on a physical USB.
 

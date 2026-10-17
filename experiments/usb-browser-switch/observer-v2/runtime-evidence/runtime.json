@@ -1,0 +1,125 @@
+{
+  "date": "2026-10-17",
+  "scope": "localhost emulator, observation-only native switching",
+  "firmware_tag": "ep147-9e9454e357389ece",
+  "mod_version": "0.0.1",
+  "mod_sha256": "51a719d54cfe19cd7da9bb42ff90523e5c9d15a81266478ceb7767277f985a3b",
+  "source_sha256": {
+    "mod.c": "1a01c41ab875b466781e96c5e0a2fd9e7df1b39a26beb05486705bbf8f0bb1f3",
+    "observer.cpp": "67cbe069a73b606945a9cf0b82ad5807845a984031576a7299d1c5a5ac825b68",
+    "azmod.json": "130c6de4c8b45beee3951068ab1ffa9cf3fab0e3dffe1eebb23802e68c925db4",
+    "Makefile": "709c3e935a3f5251f06c050267dfc28061b8281d32cb11c8d46c58b953fc6110"
+  },
+  "core_sha256": {
+    "azmod.so": "f8d4ba67ccad9e3386c78dc2ca377bf3263221875d65578a1d893e9c2f3f5668",
+    "azstem.so": "cd95ce64bd1e4cbd4c7710aa77adc7546623e9782baf8fa9bd8d4acbe562a1d3"
+  },
+  "sdk_build_directory_validation": "passed; existing binary unchanged",
+  "hook_claims": {
+    "0x1b296c0": "accepted",
+    "0x1ffb6c8": "accepted"
+  },
+  "runtime": {
+    "pid": 876423,
+    "parent_records": 8,
+    "parent_modes": [
+      0,
+      1
+    ],
+    "parent_statuses": [
+      1
+    ],
+    "media_entries": [
+      {
+        "sequence": 1,
+        "tid": 876423,
+        "status": 1,
+        "request_type": 1,
+        "request_id": "0102",
+        "prior_type": 0,
+        "prior_id": "0000",
+        "prior_busy": 0
+      },
+      {
+        "sequence": 5,
+        "tid": 876423,
+        "status": 1,
+        "request_type": 1,
+        "request_id": "0122",
+        "prior_type": 1,
+        "prior_id": "0102",
+        "prior_busy": 0
+      },
+      {
+        "sequence": 9,
+        "tid": 876423,
+        "status": 1,
+        "request_type": 1,
+        "request_id": "0102",
+        "prior_type": 1,
+        "prior_id": "0122",
+        "prior_busy": 0
+      },
+      {
+        "sequence": 13,
+        "tid": 876423,
+        "status": 1,
+        "request_type": 1,
+        "request_id": "0122",
+        "prior_type": 1,
+        "prior_id": "0102",
+        "prior_busy": 0
+      },
+      {
+        "sequence": 17,
+        "tid": 876423,
+        "status": 1,
+        "request_type": 1,
+        "request_id": "0102",
+        "prior_type": 1,
+        "prior_id": "0122",
+        "prior_busy": 0
+      }
+    ],
+    "media_results": 5,
+    "all_results_rc": 0,
+    "all_result_statuses": 8,
+    "all_callbacks_tid_equals_pid": true,
+    "post_return_native_reads": false,
+    "wrong_thread_reported": false,
+    "dropped_records_reported": false,
+    "observation_budget_reached": false
+  },
+  "native_ui": {
+    "both_usb_sources_visible": true,
+    "usb1_browse_visible": true,
+    "usb2_browse_visible": true,
+    "same_test_playlist_retained": true,
+    "usb1_selected_row_retained": 2,
+    "usb2_selected_row_retained": 3,
+    "load_or_play_requested": false,
+    "initial_loaded_tracks": 0,
+    "music_and_playlist_names_published": false
+  },
+  "limits": [
+    "No custom USB activation implementation or native-pointer call",
+    "Entry state and scalar return do not prove correlated switch completion",
+    "Missing media/unplug and disable/re-enable not exercised",
+    "Already-current/error event return paths not exercised in this run",
+    "No physical device installation or test",
+    "Same existing export database on both emulator USBs; distinct databases and scroll/sort retention not tested"
+  ],
+  "restoration": {
+    "baseline_files_verified": 122,
+    "changed_files_restored": [
+      "/home/root/settings/az-usbload/community/enabled",
+      "/home/root/settings/azmod-community/approved"
+    ],
+    "observer_files_and_environment_removed": true,
+    "all_baseline_hashes_match": true,
+    "both_cores_unchanged": true,
+    "loaded_list_identical": true,
+    "observer_unmapped": true,
+    "opt_in_removed": true
+  }
+}

@@ -1,0 +1,54 @@
+claim_hook 0x1b296c0 ok
+claim_hook 0x1ffb6c8 ok
+UV2 ready: manual native interactions only; PID=876423; no activation API
+loaded 0.0.1 on ep147-9e9454e357389ece (2 hooks)
+UV2 event-entry seq=1 tid=876423 status=1 event=<address omitted> browser=<address omitted> request=1:0102 committed-at-entry=0:0000/0
+UV2 event-result seq=2 entry=1 tid=876423 status=8 rc=0 post-read=none
+UV2 parent seq=3 tid=876423 status=1 parent=<address omitted> child=<address omitted> mode=0 rows=4
+UV2 row seq=3 index=0 kind=1 valid=1 media=0102 focus=0 active=0
+UV2 row seq=3 index=1 kind=1 valid=1 media=0122 focus=1 active=1
+UV2 row seq=3 index=2 kind=3 valid=0 media=0000 focus=0 active=0
+UV2 row seq=3 index=3 kind=0 valid=0 media=0000 focus=0 active=0
+UV2 parent seq=4 tid=876423 status=1 parent=<address omitted> child=<address omitted> mode=1 rows=4
+UV2 row seq=4 index=0 kind=1 valid=1 media=0102 focus=0 active=0
+UV2 row seq=4 index=1 kind=1 valid=1 media=0122 focus=1 active=0
+UV2 row seq=4 index=2 kind=3 valid=0 media=0000 focus=0 active=0
+UV2 row seq=4 index=3 kind=0 valid=0 media=0000 focus=0 active=0
+UV2 event-entry seq=5 tid=876423 status=1 event=<address omitted> browser=<address omitted> request=1:0122 committed-at-entry=1:0102/0
+UV2 event-result seq=6 entry=5 tid=876423 status=8 rc=0 post-read=none
+UV2 parent seq=7 tid=876423 status=1 parent=<address omitted> child=<address omitted> mode=0 rows=4
+UV2 row seq=7 index=0 kind=1 valid=1 media=0102 focus=1 active=1
+UV2 row seq=7 index=1 kind=1 valid=1 media=0122 focus=0 active=0
+UV2 row seq=7 index=2 kind=3 valid=0 media=0000 focus=0 active=0
+UV2 row seq=7 index=3 kind=0 valid=0 media=0000 focus=0 active=0
+UV2 parent seq=8 tid=876423 status=1 parent=<address omitted> child=<address omitted> mode=1 rows=4
+UV2 row seq=8 index=0 kind=1 valid=1 media=0102 focus=1 active=0
+UV2 row seq=8 index=1 kind=1 valid=1 media=0122 focus=0 active=0
+UV2 row seq=8 index=2 kind=3 valid=0 media=0000 focus=0 active=0
+UV2 row seq=8 index=3 kind=0 valid=0 media=0000 focus=0 active=0
+UV2 event-entry seq=9 tid=876423 status=1 event=<address omitted> browser=<address omitted> request=1:0102 committed-at-entry=1:0122/0
+UV2 event-result seq=10 entry=9 tid=876423 status=8 rc=0 post-read=none
+UV2 parent seq=11 tid=876423 status=1 parent=<address omitted> child=<address omitted> mode=0 rows=4
+UV2 row seq=11 index=0 kind=1 valid=1 media=0102 focus=0 active=0
+UV2 row seq=11 index=1 kind=1 valid=1 media=0122 focus=1 active=1
+UV2 row seq=11 index=2 kind=3 valid=0 media=0000 focus=0 active=0
+UV2 row seq=11 index=3 kind=0 valid=0 media=0000 focus=0 active=0
+UV2 parent seq=12 tid=876423 status=1 parent=<address omitted> child=<address omitted> mode=1 rows=4
+UV2 row seq=12 index=0 kind=1 valid=1 media=0102 focus=0 active=0
+UV2 row seq=12 index=1 kind=1 valid=1 media=0122 focus=1 active=0
+UV2 row seq=12 index=2 kind=3 valid=0 media=0000 focus=0 active=0
+UV2 row seq=12 index=3 kind=0 valid=0 media=0000 focus=0 active=0
+UV2 event-entry seq=13 tid=876423 status=1 event=<address omitted> browser=<address omitted> request=1:0122 committed-at-entry=1:0102/0
+UV2 event-result seq=14 entry=13 tid=876423 status=8 rc=0 post-read=none
+UV2 parent seq=15 tid=876423 status=1 parent=<address omitted> child=<address omitted> mode=0 rows=4
+UV2 row seq=15 index=0 kind=1 valid=1 media=0102 focus=1 active=1
+UV2 row seq=15 index=1 kind=1 valid=1 media=0122 focus=0 active=0
+UV2 row seq=15 index=2 kind=3 valid=0 media=0000 focus=0 active=0
+UV2 row seq=15 index=3 kind=0 valid=0 media=0000 focus=0 active=0
+UV2 parent seq=16 tid=876423 status=1 parent=<address omitted> child=<address omitted> mode=1 rows=4
+UV2 row seq=16 index=0 kind=1 valid=1 media=0102 focus=1 active=0
+UV2 row seq=16 index=1 kind=1 valid=1 media=0122 focus=0 active=0
+UV2 row seq=16 index=2 kind=3 valid=0 media=0000 focus=0 active=0
+UV2 row seq=16 index=3 kind=0 valid=0 media=0000 focus=0 active=0
+UV2 event-entry seq=17 tid=876423 status=1 event=<address omitted> browser=<address omitted> request=1:0102 committed-at-entry=1:0122/0
+UV2 event-result seq=18 entry=17 tid=876423 status=8 rc=0 post-read=none
