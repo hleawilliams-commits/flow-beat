@@ -40,6 +40,8 @@ See `test-results.txt`, `emulator-activity.jsonl` and `build-info.json`. The hos
 
 This patch gates **when recovery is scheduled**. It does not guarantee that playback remains paused while a worker decodes, measures offset and publishes stems. The DJ can resume playback during that interval. A resume-during-recovery test and an appropriate activation/publication guard are still needed before claiming that recovery cannot switch stems on during playback.
 
+Publication alone does not prove an audible transition. Pinned upstream's `stems_play_original()` (`src/azstem/stem_envelopes.c`) returns true when all four stem buffers are present and enabled, their gains are unity, and `g_allsum` is off; the `pbread_hook` injection path uses that result to retain native PCM. The remaining regression must therefore cover both that ordinary case and an already-muted stem, non-unity gain, missing stem and forced-sum mode. Capture the actual injection path as well as frame availability; a counter becoming positive is not an audio-quality measurement. Do not treat a passing all-on/unity case as proof for the other cases.
+
 Fresh equal position observations establish observed stillness, not an authoritative transport-pause signal. A native position that remains stale while callbacks continue is a separate unresolved limitation. Do not present this as a complete safety guarantee or deploy it to a practicing board.
 
 The earlier experiment's successful moving-deck tests remain historical evidence for those particular runs. This follow-up narrows the claim and records additional cases that must be covered. The physical memory evidence remains in [the incident note](../../docs/evidence/physical-stems-2026-10-17/README.md).

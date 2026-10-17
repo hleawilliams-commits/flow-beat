@@ -4,6 +4,8 @@ Goal: one deliberate USB 1 / USB 2 action for B2B browsing that returns to each 
 
 Status, 2026-10-17: static local source/disassembly investigation, a successful manual native-switch test on two emulator USBs, and an [observation-only probe](probe/README.md) loaded and then removed from the emulator. The probe cannot activate USBs. No complete USB-switch mod has been built or installed; physical hardware is unchanged. The next activation work and requested heading placement are recorded in [USB Buttons next update](../../usb-buttons/NEXT-UPDATE.md).
 
+A separate [observer v2](observer-v2/README.md) now has host/sanitizer coverage and an ARM64 build. It copies entry-time source identity and a separately correlated native return, with no post-return pointer reads. V2 has not run in the emulator; neither its entry snapshot nor its return record establishes switch completion. It is not an activation implementation.
+
 ## What the public SDK supports
 
 The pinned `azmod-mod.h` provides read-only library enumeration, a coarse current view, input filtering, and guarded native hook claims. It has **no direct USB activation service, active browser MediaID getter, or browser history/cursor restore service**. `post_ui` is drained on the core overlay UI thread; it is **not** EP147's JUCE message thread and cannot safely host arbitrary native browser calls.

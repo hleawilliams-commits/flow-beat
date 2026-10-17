@@ -1,0 +1,14 @@
+{
+  "upstream": "https://github.com/Kyle-Hosman/xdj-az-mods",
+  "commit": "3e0c5cb010454228f4ee63226b60d060494eeaae",
+  "path": "src/azstem/drumroll.c",
+  "baseline_sha256": "5ff8b90d64dedec588d1a9bdfc46a378f91b5fdc235314ca3f6122d25c9584c3",
+  "patched_sha256": "d5488d12a91e2394c83c9f1a99ba5d0eba21a52a2e6de27f6f29cf1c2845942f",
+  "scope": "Source and tests for an isolated core experiment, ARM64 emulator smoke-tested then restored; no distributable core binary or physical installation",
+  "validation": {
+    "host": "112 assertions per patched build in plain and ASan/UBSan; baseline failure reproduced",
+    "emulator_evidence": "emulator-evidence.json",
+    "arm64_core_sha256": "d61e4d87e73cd997cb051367bf34a3e835d7e771191fa8cb9c6974be4052e6c9",
+    "physical_test": false
+  }
+}

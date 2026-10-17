@@ -4,6 +4,8 @@ This is a separate, unpublished observation experiment. It records the native so
 
 Host validation and an ARM64 SDK build pass. **No v2 emulator run or physical installation has been performed; runtime readiness is unproven.** In particular, the media-change callback's thread and these hook claims have not been proven at runtime. A safe completion observer and activation path are still unresolved. This is not the USB 1/USB 2 button implementation.
 
+The [completion ownership follow-up](COMPLETION-OWNERSHIP.md) identifies the exact native caller, queued route and owning handler. It narrows the remaining reentrancy/destruction questions and explains why the core's existing browser snapshots are not switch-completion results. It adds static evidence only; v2 remains unchanged.
+
 ## Exact static anchors
 
 All addresses refer to firmware tag `ep147-9e9454e357389ece`, EP147 MD5 `8daa1de55d7328f458f6d855cdc3cdde`, SHA-256 `6577f42532375936c7e3fa830efa35b7daa9cde8e0a265c1fc7143f824321925`. Static inspection used the private local ELF; no firmware, disassembly dump, music, database, or key is included here.

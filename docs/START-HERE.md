@@ -31,6 +31,8 @@ Existing FLOW Beat Link, Key next to BPM, Mashup Helper, Stem Badge, Set Log and
 
 ## What to do next
 
+Latest follow-up work is recorded in [October 17 investigation progress](INVESTIGATION-2026-10-17.md). It adds an emulator reproduction of the MODS callback-gap failure, a tested late-grid retry patch, a stems retry activity guard, and a second USB observer. These are separate experiments; the live community catalog remains Phase Strip 0.1.3, Grouped Panels 0.1.0 and MODS Shortcut 0.1.1. No new physical fix is implied.
+
 1. Preserve this baseline. Check repository/branch status before changing anything. Read each mod's README and the evidence before claiming a feature works.
 2. The selected Grouped panels design is now an [actual emulator preview](evidence/grouped-panels/README.md). Review its native layout and metadata limits before hardware testing. The [earlier browser mockups](designs/main-screen/README.md) remain design studies; the implementation preserves native BPM, time and overview controls instead of replacing the whole lower screen.
 3. Physical testing is still pending. Before any USB change, use Henry's existing local recovery kit, verify its backup and preserve its selected restore point. Test one community mod at a time away from a live set. Keep Kyle's official updater and core intact.
