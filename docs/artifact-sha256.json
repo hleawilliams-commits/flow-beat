@@ -286,5 +286,9 @@
   "experiments/stems-memory-retry/final-verification.txt": "d13b896a3cdc162dd0f98e82d915e3b3ff376a65c5cad942d8d6986f00e37104",
   "experiments/stems-memory-retry/memory-retry.patch": "5905b0f514cf33e2dafbbdecccf18125e5352108515eded6b424f4dbc6138f1b",
   "experiments/stems-memory-retry/sanitizer-tests.txt": "f09cae8f4ca990df2f8571fa4c9b8e62bf63a14954c346b693ae344f48284ab3",
-  "experiments/stems-memory-retry/unit-tests.txt": "d6661db2301e4e4cc96e0c0f95d13781dfc058e8ef931eabaf14754af3cb0d2f"
+  "experiments/stems-memory-retry/unit-tests.txt": "d6661db2301e4e4cc96e0c0f95d13781dfc058e8ef931eabaf14754af3cb0d2f",
+  "experiments/usb-browser-switch/README.md": "5c332145371504808a9512930dc3af65e55f04dcae8fc4461e589a4bbba50a82",
+  "experiments/usb-browser-switch/evidence/manual-switch-results.json": "95bada52e6ba8559e10808e318692542b09da16ec2522c8116884a16306f64e9",
+  "experiments/usb-browser-switch/evidence/usb1-restored.png": "8f660be46e1baa9a751c4f80752bae6de6d1dc8991fe25a3825262570e1ee671",
+  "experiments/usb-browser-switch/evidence/usb2-restored.png": "22fe2ed2727054f2a15672e63e23cc02fb5b577faa90e9a6ce442b54553b242b"
 }

@@ -9,6 +9,7 @@ The physical XDJ-AZ keeps its existing working community mods and official core.
 | Work | Location | Verified state / limits |
 |---|---|---|
 | Grouped Deck Panels 0.1.0 | [grouped-panels](../grouped-panels/) | Actual 4 DECK emulator preview: title, original Camelot key and relative phrase beside native BPM; cyan LEFT/RIGHT selection. All four decks and selection pairs checked. Replaces three older overlays in emulator; physical testing pending. |
+| B2B USB browser switch research | [research and manual evidence](../experiments/usb-browser-switch/) | Two emulator USBs independently restore selected tracks through native switching. Direct USB1/USB2 buttons are not implemented; current public SDK lacks activation/state services. |
 | MODS Shortcut 0.1.1 | [mods-shortcut](../mods-shortcut/) | Optional clean heading removes WAVEFORM. MODS still opens SOURCE for native Mod Menu selection and confirmation. Separate toggles; emulator only. |
 | FLOW Neon theme | [theme experiment](../experiments/flow-neon-theme/) | Purple panels and pink native accents; sixth native theme in a separate emulator UI core build. Physical board unchanged. |
 | Selected Deck Highlight 0.1.0 | [deck-focus](../deck-focus/) | Cyan lower-panel number and top edge follow left 1/3 and right 2/4 selection. All four pairs checked in emulator. 4 DECK view only; no waveform coverage. Reads native LED state, independent of PLAY/MASTER. |
