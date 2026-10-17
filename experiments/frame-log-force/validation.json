@@ -1,0 +1,56 @@
+{
+  "date": "2026-10-17",
+  "upstream_commit": "3e0c5cb010454228f4ee63226b60d060494eeaae",
+  "scope": "source-only core experiment; no deployment",
+  "host_compiler": "Apple Clang 16.0.0 (clang-1600.0.26.6)",
+  "host_target": "arm64-apple-darwin25.2.0",
+  "production_source_sha256": {
+    "src/azmod/community.c": "4b2b72e2b623dcb1ecb0ef108a473815adab45a516a6aa13adb6cce512b80866",
+    "src/azmod/sdk_input.c": "1c7541354fc9c660c506123476f82afec2361f9334d5a5bf260729e9100d510e",
+    "src/common/azlogcap.h": "6c80fd4e3c2421aa4b844b6ad60f239a45af4e1c463b9093db36009b73721f4a"
+  },
+  "experiment_source_sha256": {
+    "frame-log-force.patch": "44e7217a083a62bbcd43b55934ca9d427ecb59cf00dcbebf8f57074a329568df",
+    "run-tests.py": "c1b9159accbc5bd8dab1880e8cd3395528eefde28f285ad8b146a285fc5af0e0",
+    "test_frame_log.c": "5cdf05ea6cd9ccfaabf8a18d430b05bad6a18a543274feef64901740776c16b8",
+    "README.md": "a85541710d93e9b1f47a9912525351159443fe8d975b9ce4d50b46e1417a7572"
+  },
+  "checks": {
+    "patch_applies_to_pinned_source": true,
+    "cm_mod_layout_unchanged_except_comment": true,
+    "original_control": {
+      "checks": 48,
+      "failed": 9,
+      "expected_failure": true
+    },
+    "patched_plain": {
+      "checks": 48,
+      "failed": 0
+    },
+    "patched_asan_ubsan": {
+      "checks": 48,
+      "failed": 0
+    }
+  },
+  "tested_production_code": [
+    "cm_mod typedef",
+    "cm_vlog",
+    "cm_logf",
+    "community_tick queue-drain block",
+    "sdk_strike",
+    "azlogcap.h"
+  ],
+  "not_tested": [
+    "whole-core ARM64 Linux build",
+    "community_tick scheduling",
+    "real-time timing",
+    "concurrent queue stress",
+    "emulator runtime",
+    "physical hardware"
+  ],
+  "queue_or_sdk_protection_rewrite": false,
+  "core_checkout_modified": false,
+  "installed_on_emulator": false,
+  "installed_on_physical_deck": false,
+  "persistent_binaries": false
+}

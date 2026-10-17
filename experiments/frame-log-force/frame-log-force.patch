@@ -1,0 +1,37 @@
+--- a/src/azmod/community.c
++++ b/src/azmod/community.c
+@@ -93,7 +93,7 @@
+     long cfg_flushed_at;          /* last settings write (rate limit) */
+     struct {                      /* log lines from on_frame (the bus thread must never write files) */
+         char line[8][160];
+-        int ready[8];             /* __atomic: the slot holds a line for the tick to write */
++        int ready[8];             /* __atomic: 0 empty, 1 ordinary line, 2 forced line */
+         unsigned w;               /* __atomic: next slot to fill */
+         unsigned dropped, refused;/* __atomic: lines that did not fit; services refused in on_frame */
+     } fq;
+@@ -1183,7 +1183,7 @@
+             return;
+         }
+         vsnprintf(c->fq.line[k], sizeof c->fq.line[k], fmt, ap);
+-        __atomic_store_n(&c->fq.ready[k], 1, __ATOMIC_RELEASE);
++        __atomic_store_n(&c->fq.ready[k], force ? 2 : 1, __ATOMIC_RELEASE);
+         return;
+     }
+     char line[400];
+@@ -2114,11 +2114,13 @@
+     }
+     for (int i = 0; i < g_cm_n; i++) {   /* on_frame's queued log lines and refusals, written here */
+         cm_mod *c = &g_cm[i];
+-        for (int k = 0; k < 8; k++)
+-            if (__atomic_load_n(&c->fq.ready[k], __ATOMIC_ACQUIRE)) {
+-                cm_logf(c, 0, "%s", c->fq.line[k]);
++        for (int k = 0; k < 8; k++) {
++            int ready = __atomic_load_n(&c->fq.ready[k], __ATOMIC_ACQUIRE);
++            if (ready) {
++                cm_logf(c, ready == 2, "%s", c->fq.line[k]);
+                 __atomic_store_n(&c->fq.ready[k], 0, __ATOMIC_RELEASE);
+             }
++        }
+         unsigned dr = __atomic_exchange_n(&c->fq.dropped, 0, __ATOMIC_RELAXED);
+         if (dr) cm_logf(c, 0, "(%u log lines from on_frame dropped: log less there)", dr);
+         unsigned rf = __atomic_exchange_n(&c->fq.refused, 0, __ATOMIC_RELAXED);
