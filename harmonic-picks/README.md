@@ -1,10 +1,10 @@
-# Harmonic Picks
+# Stem Picks
 
-Version 0.3.0 is an emulator preview. Physical-deck testing is pending.
+Version 0.4.0 is an emulator preview. Physical-deck testing is pending.
 
 ## Playable native browser shortcut
 
-The **PICKS** button sits at the top left of the waveform screen, above Phase Strip.
+The **STEM PICKS** button sits at the top left of the waveform screen, above Phase Strip.
 It opens the native browser. Select a track, then press **LOAD 1, 2, 3 or 4** to load it
 onto that deck; press PLAY when ready. The shortcut never loads or starts a track itself.
 
@@ -14,25 +14,30 @@ Set up native matching once for each USB:
 2. Hold **TRACK FILTER/EDIT**. Enable **BPM** and **KEY**, set the desired BPM range,
    and enable the orange **MASTER DECK** button. Disable other conditions unless wanted.
 3. Return to the list and enable Track Filter with a short press. Check for the funnel icon.
-4. After loading a track, tap **PICKS** on the waveform screen to return to this list.
+4. After loading a track, tap **STEM PICKS** on the waveform screen to return to this list.
 
 Native MASTER following was observed updating the reference BPM when MASTER tempo changed.
-PICKS preserves the current source, category and filter state. It does **not** enable a
+STEM PICKS preserves the current source, category and filter state. It does **not** enable a
 filter you turned off, reset your conditions, select TRACK, or refresh a different source.
-If you browse elsewhere, PICKS returns there. This is a shortcut to stock matching, not
+If you browse elsewhere, STEM PICKS returns there. This is a shortcut to stock matching, not
 an automatic custom ranking or acapella-loading integration. The native list's results
 and settings are separate from the custom suggestions below. Some USB filter settings
 persist; verify the funnel and MASTER state after selecting a source/restarting.
 
-Disable the button through **PICKS native browser shortcut** in this mod's settings.
+Disable the button through **STEM PICKS browser shortcut** in this mod's settings.
 The implementation uses the SDK mixer frame filter for a bounded 200 ms BROWSE press.
 It edits only that button and its latch, preserves current faders/other controls, yields
 to physical panel input, and never sends LOAD, PLAY, filter toggles or pointer taps.
 There are no firmware hooks and no core replacements.
 
-## Harmonic and acapella suggestions (Mod Menu)
+## Regular-track stem ideas (Mod Menu)
 
-Open **Mod Menu > Harmonic Picks**, then tap **Match deck 1, 2, 3 or 4**.
+Use ordinary tracks with prepared stems. The page suggests compatible library keys and
+tempo and gives ideas such as vocals over instrumental or swapping drums. Stem availability
+of library results is not known. Use the pads yourself to isolate parts. Save a successful
+pairing with the separate Mix Bookmark mod. Vocal titles is only an optional text filter.
+
+Open **Mod Menu > Stem Picks**, then tap **Match deck 1, 2, 3 or 4**.
 Choose the deck marked MASTER yourself: SDK 1.2.3 does not expose tempo MASTER.
 The reference stays selected even if another deck starts playing.
 
@@ -43,7 +48,7 @@ The reference stays selected even if another deck starts playing.
 - **Time** explicitly labels 1x, 2x or 1/2x beat interpretation. For example,
   a 60 BPM track matches a 120 BPM reference at 2x interpretation and 0% pitch.
 - **USB** identifies the source library. VOX is inferred from the title, not audio analysis.
-- Tap **All tracks / Acapellas** or press the browse knob to change the filter.
+- Tap **All tracks / Vocal titles** or press the browse knob to change the filter.
 - Tap **Previous / Next** or turn the browse knob to scroll.
 
 The page only suggests tracks; it does not load a track or change playback. The buttons
@@ -85,5 +90,5 @@ touch paging, acapella filtering, and empty-deck behavior.
 
 This is a community-only package: no official core, stems engine, firmware or boot files.
 The prior 0.1.0 and 0.2.0 packages and sources are retained in the workspace recovery artifacts.
-The 0.3.0 preview is installed only in the emulator. Follow the parent AGENTS.md before a
+The 0.4.0 preview is installed only in the emulator. Follow the parent AGENTS.md before a
 physical USB change, including a verified backup and a separate test before promotion.

@@ -365,7 +365,7 @@ static void draw(az_draw *d, az_rect a, void *user)
     int rh = AZ_HAS(C, row_height) ? C->row_height(d) : 50;
     if (rh < 30) rh = 30;
     uint32_t text = C->color(AZ_COL_TEXT), dim = C->color(AZ_COL_TEXT_DIM), hi = C->color(AZ_COL_HI);
-    C->draw_header(d, "Harmonic Picks - find your next track");
+    C->draw_header(d, "Stem Picks - regular tracks, new combinations");
     int y = a.y + rh + 6;
     int bw = (a.w - 32 - 4 * 8) / 5;
     for (int i = 0; i < 4; i++) {
@@ -374,15 +374,19 @@ static void draw(az_draw *d, az_rect a, void *user)
         button(d, a, i, a.x + 16 + i * (bw + 8), y, bw, label, g_reference == i);
     }
     button(d, a, 4, a.x + 16 + 4 * (bw + 8), y, bw,
-           g_vox_only ? "Acapellas" : "All tracks", g_vox_only);
+           g_vox_only ? "Vocal titles" : "All tracks", g_vox_only);
     y += 58;
     put(d, a, a.x + 16, y, g_seed_text, 20, hi);
-    y += 36;
+    y += 30;
+    put(d, a, a.x + 16, y, "Try vocals over instrumental, or swap drums. Prepare stems first; use pads to choose parts.", 17, dim);
+    y += 28;
+    put(d, a, a.x + 16, y, "To play: return to waveform > STEM PICKS > native BPM/KEY filter > select track > LOAD 1-4.", 17, hi);
+    y += 34;
     int bottom = a.y + a.h - 62;
     button(d, a, 5, a.x + 16, bottom, 120, "Previous", 0);
     button(d, a, 6, a.x + 148, bottom, 120, "Next", 0);
     char foot[112];
-    snprintf(foot, sizeof foot, "%d picks | knob: scroll / press: filter | library key; key shifts not tracked", g_nshow);
+    snprintf(foot, sizeof foot, "%d ideas | title filter only | library key; key shifts not tracked", g_nshow);
     put(d, a, a.x + 284, bottom + 12, foot, 14, dim);
     const char *message = NULL;
     if (!g_reader_ok) message = "No library service on this AZ-MODS";
@@ -445,7 +449,7 @@ static int input(const az_event *ev, void *user)
     return 1;
 }
 
-#define QUICK_LABEL "PICKS"
+#define QUICK_LABEL "STEM PICKS"
 #define QUICK_X 12
 #include "quick-page.h"
 
@@ -479,7 +483,7 @@ static int init(const az_core_v1 *core)
     if (C->register_screen(MOD_ID, &scr) != 0) { C->log(MOD_ID, "screen refused"); return 3; }
     if (AZ_HAS(C, register_row)) {
         static const az_row_v1 row = {
-            .size = sizeof(az_row_v1), .key = "find-tracks", .label = "Harmonic Picks",
+            .size = sizeof(az_row_v1), .key = "find-tracks", .label = "Stem Picks",
             .kind = AZ_ROW_SCREEN, .screen = &scr,
             .help = "Choose a reference deck; find compatible keys and live BPM matches.",
         };

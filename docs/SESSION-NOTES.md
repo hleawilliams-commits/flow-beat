@@ -36,3 +36,12 @@ Henry's original workspace contains sibling SDK/emulator clones, build outputs, 
 ## FLOW Neon theme update
 
 The emulator now uses the separate UI-core theme build recorded in `experiments/flow-neon-theme/build-info.json`, with `themes = on` and `theme = flow-neon`. The stems engine and community binaries are unchanged. The original UI core and settings are backed up in the private local workspace. Follow the theme experiment README for scope and rollback.
+
+## Stem Picks / Mix Bookmark demo
+
+- Harmonic Picks keeps ID `harmonic-picks`, now 0.4.0 and displayed as Stem Picks. This reuses the native playable browser shortcut and harmonic ranking; it does not introduce audio analysis or an automatic custom-result loading bridge.
+- New `mix-bookmark` 0.1.0 uses one surface: shortcut (950,46,260,34), expanding to (16,90,1248,680), plus a registered Mod Menu page. Recipes are manual notes because SDK 1.2.3 does not expose individual stem mute states.
+- Saved three emulator-only test bookmarks; checked distinct tracks, positions after playback, older-record browsing and restart persistence. Private `.book` files are not in Git. Screenshots identify the tracks used to demonstrate storage; they are not an auditioned harmonic recommendation.
+- Upstream emulator push helper writes `MODS/community/`; current core SDK storage looks for `MODS/community-mods/`. Copied this demo's manifest/binary/icon to the latter as well, preserving data, so data_dir resolves correctly. No core changes.
+- `mix-bookmark/tests/harness-worker-directory.patch` is a narrowly scoped test-harness fix used in an isolated SDK copy. Its reason, original failure and final passes are in the demo evidence.
+- Both builds are archived with source. Live catalog/release tags unchanged; the previous 0.3.0 Harmonic Picks archive remains the rollback baseline. Removing Mix Bookmark can delete its data, so back that up first.

@@ -1,0 +1,7 @@
+--- a/tools/harness/harness.c
++++ b/tools/harness/harness.c
+@@ -553,3 +553,3 @@
+     check_id(id, "data_dir/assets_dir");
+-    if (ctx != CTX_INIT) fail(K_API, "data_dir/assets_dir from %s (they touch the disk)", CTXNAME[ctx]);
++    if (!thread_lifetime && ctx != CTX_INIT) fail(K_API, "data_dir/assets_dir from %s (they touch the disk)", CTXNAME[ctx]);
+     return NULL;

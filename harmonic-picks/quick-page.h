@@ -57,7 +57,7 @@ static void quick_init(void)
     C->surface_place(quick_surface, (az_rect){QUICK_X, 8, 156, 36});
     if (AZ_HAS(C, register_row) && AZ_HAS(C, row_value)) {
         static const az_row_v1 row = {
-            .size = sizeof(az_row_v1), .key = "quick-button", .label = "PICKS native browser shortcut",
+            .size = sizeof(az_row_v1), .key = "quick-button", .label = "STEM PICKS browser shortcut",
             .kind = AZ_ROW_TOGGLE, .flags = AZ_ROW_DEFAULT_ON,
             .help = "Set native Track Filter: BPM + KEY + MASTER DECK. Enable filter. PICKS opens the current browser; LOAD 1-4 loads your choice. It preserves filter on/off and category.",
         };
