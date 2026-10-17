@@ -1,0 +1,73 @@
+{
+  "upstream_commit": "3e0c5cb010454228f4ee63226b60d060494eeaae",
+  "patches_in_order": [
+    {
+      "path": "experiments/stems-memory-retry/memory-retry.patch",
+      "sha256": "5905b0f514cf33e2dafbbdecccf18125e5352108515eded6b424f4dbc6138f1b"
+    },
+    {
+      "path": "experiments/stems-retry-activity/activity-followup.patch",
+      "sha256": "69ed45bf1d8b645a574379be0c8b1389eaaec2b919e8de1529d6e75f6751c30c"
+    }
+  ],
+  "patched_source_files": {
+    "src/azstem/azstem.c": "dee2be34bd6af5d3eca6716aa8e6516a12cd49f3258d762f3b96e95b56a3f993",
+    "src/azstem/stem_playback.c": "fdacbe50a21d2b8818b3d266b04c1880091c491698757a01b83a605c6846a645",
+    "src/azstem/stem_envelopes.c": "cdd07b709d5239ac387341c752f163fdd2b6b00136294001cc52392ceb8a4e31",
+    "src/azstem/key_shift.c": "1b43bcefcd8f714aefe268ed076343f6ac8a059b006d1a75aef90052afd91747",
+    "src/azstem/ofsload.c": "04c0cc0f338cc55f1dd22f93a0ed4de94227ec5f95d88122704c86abdf1728eb",
+    "src/azstem/azstem_internal.h": "1ff125ae054d507312b30ad267a77b46b4c4fc1a35430da0ebc792792aed6fee",
+    "src/azstem/ep147rate.h": "2ea7d250c4c8d32b2083ef61442a1d3759688048c66e5dcd94cc1cc7a9fa74c5",
+    "tests/unit/run.sh": "2ff1685c08f4af74bc6410484d3b026c78edc65b64b1d9d6224b4e395446858a",
+    "tests/unit/trackgen_test.c": "33836b77fb2c75f4a1fd791efc22f206f553c811e23912b946852a424f512a58",
+    "tests/unit/check.h": "fb3eb6496c0aa38b4bac0425327f131311fb8a065e0cbc262170cd5e296d6726"
+  },
+  "complete_function_sha256": {
+    "key_shift.c:stem_play_observe": "5be56ceea8096627e292d80f1decd0db721b54d2bd87ed4737403b65629f9cd1",
+    "key_shift.c:stem_retry_play_activity": "fec181c3c2e62432c19e04104066a5fb4b6e865a2d9429c8bf2a1af84c4b2f42",
+    "key_shift.c:playhead_obs_ok": "ee43d1567dac1d5c1f56b48c31788d99bdefc076ca8df553c22e6cf04f4c5772",
+    "key_shift.c:pbread_hook": "33ed4ab8fa386dd99b8e408c338c739ee868133b2fe719511cff39fbf512cc5f",
+    "key_shift.c:hook_pbi": "8acc90efa0e6b599e85afdc9e324c0a1f524e878e1c35c5ba4365ad2350b280b",
+    "stem_playback.c:memory_retry_ready": "44646f7f53922273e3e3f871dcf1001b29cc9b4d0cb1327c1d01341263b651ed",
+    "stem_playback.c:advance_stem_frames": "9d179ecd374ba6b76d624c6bee668fede19dec0279262f1a8ec578d0b0434d1e",
+    "stem_playback.c:deck_track_changed": "d3c3c07b9625dc27a0f5728cef2c85562c3a6a5cdcbb707b0a3bbcf36a8fcd2f",
+    "stem_playback.c:drop_stems": "e43d9eab03380b8946952590ee50e9cf829ddf30b3ac8cd85f2c8c4815ef8abf",
+    "stem_envelopes.c:stem_gains": "37702c6436563e045c5788fabf27aac6588d994945725e9b8b7f6d6f4df38a7d",
+    "stem_envelopes.c:stems_play_original": "e580c2c68a7b549e0a951a8cd27d93a63d47d20fedaf24845900c952f6266673",
+    "ofsload.c:ofs_load_measure": "59252707845b0fb3643bebb53e5461ee4903cf31828202808b198b8d598442ed"
+  },
+  "compiled_production_inc_sha256": "9be7241458f34ffbc99bbb105f2c9be2306957ca9a75e80b52ab183d328b00f2",
+  "compiled_types_inc_sha256": "947c3f6af50c61b584d896c2f2a5657e5ecaf2c4c76044f45e1f89daa27c7493",
+  "compiled_constants_inc_sha256": "67e389a708402f71b0717477de6a52cebc5b7b99ab0de6bf6dd0b27ccb17e323",
+  "production_constants_extracted_unchanged": {
+    "azstem_internal.h": [
+      "NDECK",
+      "NSTEM"
+    ],
+    "ep147rate.h": [
+      "AZ_EP147_RATE"
+    ],
+    "stem_envelopes.c": [
+      "XF_ORIG"
+    ],
+    "stem_playback.c": [
+      "OFS_N",
+      "AZSTEM_MEM_FLOOR_MB"
+    ],
+    "key_shift.c": [
+      "POS_SAMPLE_OFF",
+      "PLAYHEAD_MAX"
+    ]
+  },
+  "fixture_constants": {
+    "BLOCK": 2048,
+    "FRAMES": 4096,
+    "MAX_DECKS": "NDECK: test only the four stem decks",
+    "OFF_POS_PTR/OFF_POS/OFF_NUMCH/OFF_NUMSAMP/OFF_CHANS": "host offsetof NativeDeck/NativeBuffer; not firmware offsets"
+  },
+  "partial_blocks": {
+    "hook_pbi": "unchanged prefix through stem_play_observe; enclosing function renamed",
+    "ofs_load_measure": "unchanged final gate-release block in fixture wrapper"
+  },
+  "modified_production_files": []
+}

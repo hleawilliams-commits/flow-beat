@@ -1,0 +1,148 @@
+Pinned upstream: 3e0c5cb010454228f4ee63226b60d060494eeaae
+Complete pbread_hook extracted unchanged; offset completion block extracted unchanged.
+hook_pbi prefix extracted through observation: native render precedes activity publish.
+Extracted production SHA-256: 9be7241458f34ffbc99bbb105f2c9be2306957ca9a75e80b52ab183d328b00f2
+
+plain:
+deck 1 | all-on unity  | previous=sum | frames=4096 | first changed=1024 | next changed=0
+deck 1 | all-on unity  | previous=original | frames=4096 | first changed=0 | next changed=0
+deck 1 | muted vocal   | previous=sum | frames=4096 | first changed=2048 | next changed=2048
+deck 1 | muted vocal   | previous=original | frames=4096 | first changed=2048 | next changed=2048
+deck 1 | gain 0.5      | previous=sum | frames=4096 | first changed=2048 | next changed=2048
+deck 1 | gain 0.5      | previous=original | frames=4096 | first changed=2048 | next changed=2048
+deck 1 | missing drum  | previous=sum | frames=4096 | first changed=2048 | next changed=2048
+deck 1 | missing drum  | previous=original | frames=4096 | first changed=2048 | next changed=2048
+deck 1 | forced sum    | previous=sum | frames=4096 | first changed=2048 | next changed=2048
+deck 1 | forced sum    | previous=original | frames=4096 | first changed=2048 | next changed=2048
+deck 1 | delayed observation | first resumed changed=2048 before activity publish
+deck 2 | all-on unity  | previous=sum | frames=4096 | first changed=1024 | next changed=0
+deck 2 | all-on unity  | previous=original | frames=4096 | first changed=0 | next changed=0
+deck 2 | muted vocal   | previous=sum | frames=4096 | first changed=2048 | next changed=2048
+deck 2 | muted vocal   | previous=original | frames=4096 | first changed=2048 | next changed=2048
+deck 2 | gain 0.5      | previous=sum | frames=4096 | first changed=2048 | next changed=2048
+deck 2 | gain 0.5      | previous=original | frames=4096 | first changed=2048 | next changed=2048
+deck 2 | missing drum  | previous=sum | frames=4096 | first changed=2048 | next changed=2048
+deck 2 | missing drum  | previous=original | frames=4096 | first changed=2048 | next changed=2048
+deck 2 | forced sum    | previous=sum | frames=4096 | first changed=2048 | next changed=2048
+deck 2 | forced sum    | previous=original | frames=4096 | first changed=2048 | next changed=2048
+deck 2 | delayed observation | first resumed changed=2048 before activity publish
+deck 3 | all-on unity  | previous=sum | frames=4096 | first changed=1024 | next changed=0
+deck 3 | all-on unity  | previous=original | frames=4096 | first changed=0 | next changed=0
+deck 3 | muted vocal   | previous=sum | frames=4096 | first changed=2048 | next changed=2048
+deck 3 | muted vocal   | previous=original | frames=4096 | first changed=2048 | next changed=2048
+deck 3 | gain 0.5      | previous=sum | frames=4096 | first changed=2048 | next changed=2048
+deck 3 | gain 0.5      | previous=original | frames=4096 | first changed=2048 | next changed=2048
+deck 3 | missing drum  | previous=sum | frames=4096 | first changed=2048 | next changed=2048
+deck 3 | missing drum  | previous=original | frames=4096 | first changed=2048 | next changed=2048
+deck 3 | forced sum    | previous=sum | frames=4096 | first changed=2048 | next changed=2048
+deck 3 | forced sum    | previous=original | frames=4096 | first changed=2048 | next changed=2048
+deck 3 | delayed observation | first resumed changed=2048 before activity publish
+deck 4 | all-on unity  | previous=sum | frames=4096 | first changed=1024 | next changed=0
+deck 4 | all-on unity  | previous=original | frames=4096 | first changed=0 | next changed=0
+deck 4 | muted vocal   | previous=sum | frames=4096 | first changed=2048 | next changed=2048
+deck 4 | muted vocal   | previous=original | frames=4096 | first changed=2048 | next changed=2048
+deck 4 | gain 0.5      | previous=sum | frames=4096 | first changed=2048 | next changed=2048
+deck 4 | gain 0.5      | previous=original | frames=4096 | first changed=2048 | next changed=2048
+deck 4 | missing drum  | previous=sum | frames=4096 | first changed=2048 | next changed=2048
+deck 4 | missing drum  | previous=original | frames=4096 | first changed=2048 | next changed=2048
+deck 4 | forced sum    | previous=sum | frames=4096 | first changed=2048 | next changed=2048
+deck 4 | forced sum    | previous=original | frames=4096 | first changed=2048 | next changed=2048
+deck 4 | delayed observation | first resumed changed=2048 before activity publish
+560 passed, 0 failed (existing resume gap intentionally reproduced)
+Existing production stems_tick identity/retry suite: ----  trackgen: 46 passed, 0 failed
+
+asan-ubsan:
+deck 1 | all-on unity  | previous=sum | frames=4096 | first changed=1024 | next changed=0
+deck 1 | all-on unity  | previous=original | frames=4096 | first changed=0 | next changed=0
+deck 1 | muted vocal   | previous=sum | frames=4096 | first changed=2048 | next changed=2048
+deck 1 | muted vocal   | previous=original | frames=4096 | first changed=2048 | next changed=2048
+deck 1 | gain 0.5      | previous=sum | frames=4096 | first changed=2048 | next changed=2048
+deck 1 | gain 0.5      | previous=original | frames=4096 | first changed=2048 | next changed=2048
+deck 1 | missing drum  | previous=sum | frames=4096 | first changed=2048 | next changed=2048
+deck 1 | missing drum  | previous=original | frames=4096 | first changed=2048 | next changed=2048
+deck 1 | forced sum    | previous=sum | frames=4096 | first changed=2048 | next changed=2048
+deck 1 | forced sum    | previous=original | frames=4096 | first changed=2048 | next changed=2048
+deck 1 | delayed observation | first resumed changed=2048 before activity publish
+deck 2 | all-on unity  | previous=sum | frames=4096 | first changed=1024 | next changed=0
+deck 2 | all-on unity  | previous=original | frames=4096 | first changed=0 | next changed=0
+deck 2 | muted vocal   | previous=sum | frames=4096 | first changed=2048 | next changed=2048
+deck 2 | muted vocal   | previous=original | frames=4096 | first changed=2048 | next changed=2048
+deck 2 | gain 0.5      | previous=sum | frames=4096 | first changed=2048 | next changed=2048
+deck 2 | gain 0.5      | previous=original | frames=4096 | first changed=2048 | next changed=2048
+deck 2 | missing drum  | previous=sum | frames=4096 | first changed=2048 | next changed=2048
+deck 2 | missing drum  | previous=original | frames=4096 | first changed=2048 | next changed=2048
+deck 2 | forced sum    | previous=sum | frames=4096 | first changed=2048 | next changed=2048
+deck 2 | forced sum    | previous=original | frames=4096 | first changed=2048 | next changed=2048
+deck 2 | delayed observation | first resumed changed=2048 before activity publish
+deck 3 | all-on unity  | previous=sum | frames=4096 | first changed=1024 | next changed=0
+deck 3 | all-on unity  | previous=original | frames=4096 | first changed=0 | next changed=0
+deck 3 | muted vocal   | previous=sum | frames=4096 | first changed=2048 | next changed=2048
+deck 3 | muted vocal   | previous=original | frames=4096 | first changed=2048 | next changed=2048
+deck 3 | gain 0.5      | previous=sum | frames=4096 | first changed=2048 | next changed=2048
+deck 3 | gain 0.5      | previous=original | frames=4096 | first changed=2048 | next changed=2048
+deck 3 | missing drum  | previous=sum | frames=4096 | first changed=2048 | next changed=2048
+deck 3 | missing drum  | previous=original | frames=4096 | first changed=2048 | next changed=2048
+deck 3 | forced sum    | previous=sum | frames=4096 | first changed=2048 | next changed=2048
+deck 3 | forced sum    | previous=original | frames=4096 | first changed=2048 | next changed=2048
+deck 3 | delayed observation | first resumed changed=2048 before activity publish
+deck 4 | all-on unity  | previous=sum | frames=4096 | first changed=1024 | next changed=0
+deck 4 | all-on unity  | previous=original | frames=4096 | first changed=0 | next changed=0
+deck 4 | muted vocal   | previous=sum | frames=4096 | first changed=2048 | next changed=2048
+deck 4 | muted vocal   | previous=original | frames=4096 | first changed=2048 | next changed=2048
+deck 4 | gain 0.5      | previous=sum | frames=4096 | first changed=2048 | next changed=2048
+deck 4 | gain 0.5      | previous=original | frames=4096 | first changed=2048 | next changed=2048
+deck 4 | missing drum  | previous=sum | frames=4096 | first changed=2048 | next changed=2048
+deck 4 | missing drum  | previous=original | frames=4096 | first changed=2048 | next changed=2048
+deck 4 | forced sum    | previous=sum | frames=4096 | first changed=2048 | next changed=2048
+deck 4 | forced sum    | previous=original | frames=4096 | first changed=2048 | next changed=2048
+deck 4 | delayed observation | first resumed changed=2048 before activity publish
+560 passed, 0 failed (existing resume gap intentionally reproduced)
+Existing production stems_tick identity/retry suite: ----  trackgen: 46 passed, 0 failed
+
+tsan:
+deck 1 | all-on unity  | previous=sum | frames=4096 | first changed=1024 | next changed=0
+deck 1 | all-on unity  | previous=original | frames=4096 | first changed=0 | next changed=0
+deck 1 | muted vocal   | previous=sum | frames=4096 | first changed=2048 | next changed=2048
+deck 1 | muted vocal   | previous=original | frames=4096 | first changed=2048 | next changed=2048
+deck 1 | gain 0.5      | previous=sum | frames=4096 | first changed=2048 | next changed=2048
+deck 1 | gain 0.5      | previous=original | frames=4096 | first changed=2048 | next changed=2048
+deck 1 | missing drum  | previous=sum | frames=4096 | first changed=2048 | next changed=2048
+deck 1 | missing drum  | previous=original | frames=4096 | first changed=2048 | next changed=2048
+deck 1 | forced sum    | previous=sum | frames=4096 | first changed=2048 | next changed=2048
+deck 1 | forced sum    | previous=original | frames=4096 | first changed=2048 | next changed=2048
+deck 1 | delayed observation | first resumed changed=2048 before activity publish
+deck 2 | all-on unity  | previous=sum | frames=4096 | first changed=1024 | next changed=0
+deck 2 | all-on unity  | previous=original | frames=4096 | first changed=0 | next changed=0
+deck 2 | muted vocal   | previous=sum | frames=4096 | first changed=2048 | next changed=2048
+deck 2 | muted vocal   | previous=original | frames=4096 | first changed=2048 | next changed=2048
+deck 2 | gain 0.5      | previous=sum | frames=4096 | first changed=2048 | next changed=2048
+deck 2 | gain 0.5      | previous=original | frames=4096 | first changed=2048 | next changed=2048
+deck 2 | missing drum  | previous=sum | frames=4096 | first changed=2048 | next changed=2048
+deck 2 | missing drum  | previous=original | frames=4096 | first changed=2048 | next changed=2048
+deck 2 | forced sum    | previous=sum | frames=4096 | first changed=2048 | next changed=2048
+deck 2 | forced sum    | previous=original | frames=4096 | first changed=2048 | next changed=2048
+deck 2 | delayed observation | first resumed changed=2048 before activity publish
+deck 3 | all-on unity  | previous=sum | frames=4096 | first changed=1024 | next changed=0
+deck 3 | all-on unity  | previous=original | frames=4096 | first changed=0 | next changed=0
+deck 3 | muted vocal   | previous=sum | frames=4096 | first changed=2048 | next changed=2048
+deck 3 | muted vocal   | previous=original | frames=4096 | first changed=2048 | next changed=2048
+deck 3 | gain 0.5      | previous=sum | frames=4096 | first changed=2048 | next changed=2048
+deck 3 | gain 0.5      | previous=original | frames=4096 | first changed=2048 | next changed=2048
+deck 3 | missing drum  | previous=sum | frames=4096 | first changed=2048 | next changed=2048
+deck 3 | missing drum  | previous=original | frames=4096 | first changed=2048 | next changed=2048
+deck 3 | forced sum    | previous=sum | frames=4096 | first changed=2048 | next changed=2048
+deck 3 | forced sum    | previous=original | frames=4096 | first changed=2048 | next changed=2048
+deck 3 | delayed observation | first resumed changed=2048 before activity publish
+deck 4 | all-on unity  | previous=sum | frames=4096 | first changed=1024 | next changed=0
+deck 4 | all-on unity  | previous=original | frames=4096 | first changed=0 | next changed=0
+deck 4 | muted vocal   | previous=sum | frames=4096 | first changed=2048 | next changed=2048
+deck 4 | muted vocal   | previous=original | frames=4096 | first changed=2048 | next changed=2048
+deck 4 | gain 0.5      | previous=sum | frames=4096 | first changed=2048 | next changed=2048
+deck 4 | gain 0.5      | previous=original | frames=4096 | first changed=2048 | next changed=2048
+deck 4 | missing drum  | previous=sum | frames=4096 | first changed=2048 | next changed=2048
+deck 4 | missing drum  | previous=original | frames=4096 | first changed=2048 | next changed=2048
+deck 4 | forced sum    | previous=sum | frames=4096 | first changed=2048 | next changed=2048
+deck 4 | forced sum    | previous=original | frames=4096 | first changed=2048 | next changed=2048
+deck 4 | delayed observation | first resumed changed=2048 before activity publish
+560 passed, 0 failed (existing resume gap intentionally reproduced)
+Existing production stems_tick identity/retry suite: ----  trackgen: 46 passed, 0 failed
