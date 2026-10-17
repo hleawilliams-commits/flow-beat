@@ -1,6 +1,6 @@
 # Physical missing-stems incident — October 17, 2026
 
-Read-only observations from Henry's XDJ-AZ during practice. Raw captures remain private outside this repository. Track A, Track B and Track C are anonymous labels; no music, source paths, access configuration or raw logs are included here.
+Read-only observations from Henry's XDJ-AZ during practice. Raw captures remain private outside this repository. Track A, Track B, Track C and Track D are anonymous labels; no music, source paths, access configuration or raw logs are included here.
 
 ## Running setup
 
@@ -60,3 +60,31 @@ The current confirmed issue is **physical Deck 4 remaining without decoded stems
 The controlled capacity test proposed for Deck 4 was **not executed**: wait until the user is ready, unload an unused deck to release its stem buffers, then load a distinct track on Deck 4 before returning Deck 4 to the target track. Capture memory, availability and decoded-frame state around each step. That test concerns Deck 4's unavailable stems and does not promise that four arbitrary tracks' stems will fit or work together. Revisit native pad mode only if a yellow-pad symptom is confirmed while that same deck has decoded stems.
 
 The separate [emulator memory-refusal investigation](../../../experiments/stems-memory-retry/README.md) demonstrates recovery after a refused load. It remains an emulator-only core experiment, not a deployed physical fix.
+
+
+## Later incident: failure moves to Deck 1
+
+At **18:59:44 UTC**, physical **Deck 1** had Track D loaded but zero decoded stem frames, availability 0 and control mask `0x00`. Decks 2–4 had decoded stems and availability 1, including the previously failing Deck 4. Master stems remained enabled, with no hold or stale-load flags. This confirms the unavailable-stems symptom can occur on different decks. The process remained PID 152791; MODS Shortcut 0.1.1 and Phase Strip 0.1.2 were loaded.
+
+| Deck | Decoded frames | Availability | Control mask |
+|---|---:|---:|---|
+| 1 | 0 | 0 | `0x00` |
+| 2 | 12,585,038 | 1 | `0x83` |
+| 3 | 20,422,815 | 1 | `0x8e` |
+| 4 | 15,214,500 | 1 | `0x81` |
+
+Track D's matching folder contained four nonempty Ogg files, and its source metadata matched the original path and size. A bounded inspection read only the first 512 and last 65,536 bytes of each stem: **264,192 bytes total**. All four identification headers reported stereo at 44,100 Hz, and all final granule positions were **19,341,081 frames**. Identification and final-page CRCs were valid, with complete end-of-stream pages at EOF. These checks establish declared duration and boundary-page integrity, not full decode integrity.
+
+| Track D capacity check | Value |
+|---|---:|
+| Declared duration | 438.573 seconds |
+| Four decoded stereo float buffers | 618,914,592 bytes / **590.24 MiB** |
+| Engine safety reserve | 400 MiB |
+| Required available memory | **990.24 MiB** |
+| Snapshot available memory | **514.53 MiB** |
+| Snapshot headroom after reserve | **114.53 MiB** |
+| Shortfall | **475.71 MiB** |
+
+Under the pinned engine's admission rule, a fresh Track D load would be refused at this snapshot state. This supports capacity pressure as the leading explanation, but the historical load-refusal log remains unavailable. The upstream admission calculation credits the destination deck's existing buffers because they are released before decoding a replacement. Thus a track can be refused on an empty-stems deck yet fit when replacing a long stem-loaded track on another deck; this does not establish a hardware-channel fault. No replacement test was performed by the assistant.
+
+No controls, configuration, process state or physical files were changed. Raw captures and bounded Ogg bytes remain private. The retry patch remains emulator-only and does not make four arbitrary long tracks fit in memory.

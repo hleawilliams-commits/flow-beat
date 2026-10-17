@@ -12,6 +12,6 @@ Top uses the original y46–92 placement and may overlap the first part of the w
 
 ## Still unresolved
 
-MODS Shortcut 0.1.1 intentionally hides on the native browser and appears on the waveform screen. Its physical touch handler accepted a request but cancelled before the SOURCE pulse. The precise cancellation reason remains unknown; a diagnosis-only experiment is saved separately and has not been installed on the board. No MODS fix is claimed by this phase release.
+MODS Shortcut 0.1.1 intentionally hides on the native browser and appears on the waveform screen. Its physical touch handler accepted a request but cancelled before the SOURCE pulse. The precise cancellation reason remains unknown; a diagnosis-only experiment is saved separately and has not been installed on the board. No MODS fix is claimed by this phase release. A later missing-button report on the actual waveform screen was separately traced to the **MODS source shortcut** toggle being OFF. Turn that row ON in SOURCE → MOD MENU to restore visibility; no Reload is required.
 
 USB shortcuts, FLOW Neon, the stems core experiment and the Deck 2 phrase report remain separate. Publication did not modify the physical board or USB.
