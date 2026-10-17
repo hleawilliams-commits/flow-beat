@@ -1,0 +1,15 @@
+fw=ep147-9e9454e357389ece
+suspended=0
+off=0
+mod=flow-beat|1|0.2.1|
+mod=harmonic-picks|1|0.4.1|
+mod=phase-strip|1|0.1.2|
+mod=set-clock|2||Turned off
+mod=mix-bookmark|1|0.1.2|
+mod=grouped-panels|1|0.1.0|
+mod=mods-shortcut|1|0.1.1|
+
+f8d4ba67ccad9e3386c78dc2ca377bf3263221875d65578a1d893e9c2f3f5668  /home/root/settings/az-usbload/azmod.so
+cd95ce64bd1e4cbd4c7710aa77adc7546623e9782baf8fa9bd8d4acbe562a1d3  /home/root/settings/az-usbload/azstem.so
+48159c3165c07f66c9ace13f1cbb75939cae589527b375aa982b9ba7a45262ca  /home/root/settings/az-usbload/community/mods-shortcut/mods-shortcut.so
+48159c3165c07f66c9ace13f1cbb75939cae589527b375aa982b9ba7a45262ca  /media/usb/sda1/MODS/community/mods-shortcut/mods-shortcut.so

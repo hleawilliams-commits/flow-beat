@@ -1,0 +1,18 @@
+{
+  "azmod": 1,
+  "id": "harmonic-picks",
+  "name": "Harmonic Picks",
+  "version": "0.2.1",
+  "author": "hleawilliams-commits",
+  "summary": "Choose a deck and find USB tracks with compatible keys and pitch changes within 6% of its live BPM.",
+  "description": "Emulator preview. Tap PICKS in the WAVEFORM title area to open suggestions; Close or BACK returns. Choose your reference deck manually. Matches compatible library keys and live BPM within +/-6% required pitch; labels half/double time. Tap All tracks/Acapellas to filter; Previous/Next or knob to scroll; knob press changes filter. Suggestions only: no track loading. Keys do not follow Key Shift. Reload mods after changing USB libraries. Mod Menu > Harmonic Picks also opens the page. Disable the shortcut with PICKS waveform button.",
+  "category": "tools",
+  "license": "GPL-3.0-only",
+  "source": "https://github.com/hleawilliams-commits/flow-beat/tree/main/harmonic-picks",
+  "api": 1,
+  "firmware": [
+    "any"
+  ],
+  "hooks": false,
+  "min_core": "1.2.3"
+}

@@ -1,0 +1,118 @@
+<div id="az-screen-concept">
+  <div class="az-preview-label">SCREEN CONCEPT · SAMPLE TRACK DATA</div>
+  <div class="viz-carousel" aria-label="XDJ-AZ main screen layouts">
+    <section data-variant="Grouped panels" aria-label="Grouped panels screen"><div class="az-console" data-layout="grouped" aria-label="Grouped panels"></div></section>
+    <section data-variant="Waveform first" aria-label="Waveform first screen" hidden><div class="az-console" data-layout="compact" aria-label="Waveform first"></div></section>
+  </div>
+</div>
+<style>
+#az-screen-concept { color-scheme:light dark; font-family:Arial,Helvetica,sans-serif; }
+#az-screen-concept .az-preview-label { color:light-dark(#4d5966,#b6bec8); font-size:11px; letter-spacing:.12em; padding:4px 0 12px; }
+#az-screen-concept .az-console { --az-bg:light-dark(#f4f6f8,#080b0f); --az-panel:light-dark(#e7ecf1,#13191f); --az-fg:light-dark(#101820,#edf3f8); --az-muted:light-dark(#4c5b69,#9caab8); --az-line:light-dark(#b7c3cd,#303c47); --az-cyan:light-dark(#007d9c,#32d5ff); --az-cyan-ink:light-dark(#fff,#041014); --az-amber:light-dark(#9e4c00,#ffab44); --az-wave:light-dark(#20769b,#64bde6); --az-green:light-dark(#146d37,#80d79c); background:var(--az-bg); color:var(--az-fg); padding:10px; position:relative; border:1px solid var(--az-line); font-size:14px; font-variant-numeric:tabular-nums; }
+#az-screen-concept * { box-sizing:border-box; }
+#az-screen-concept .az-console div, #az-screen-concept .az-console span, #az-screen-concept .az-console button, #az-screen-concept .az-console small { line-height:1.2; }
+#az-screen-concept button { font:inherit; color:inherit; touch-action:manipulation; }
+#az-screen-concept .az-toolbar { display:flex; align-items:center; gap:8px; min-height:44px; padding-right:90px; padding-bottom:8px; flex-wrap:wrap; }
+#az-screen-concept .az-action { border:1px solid var(--az-line); background:var(--az-panel); min-height:40px; padding:8px 18px; border-radius:2px; }
+#az-screen-concept .az-action.primary { color:var(--az-amber); border-color:var(--az-amber); }
+#az-screen-concept .az-mode { color:var(--az-cyan); font-size:12px; padding:0 12px; }
+#az-screen-concept .az-status { margin-left:auto; color:var(--az-muted); font-size:11px; }
+#az-screen-concept .az-phase { display:grid; grid-template-columns:36px 1fr; min-height:44px; margin-bottom:5px; background:var(--az-panel); position:relative; }
+#az-screen-concept .az-phase-labels { font-size:11px; line-height:10px; padding:3px 0 2px 14px; color:var(--az-muted); }
+#az-screen-concept .az-phase-lines { display:grid; grid-template-rows:repeat(4,1fr); position:relative; }
+#az-screen-concept .az-phase-line { border-bottom:1px solid var(--az-line); background:repeating-linear-gradient(90deg,transparent 0,transparent 33px,var(--az-wave) 33px,var(--az-wave) 35px,transparent 35px,transparent 68px); opacity:.7; }
+#az-screen-concept .az-phase-line:nth-child(2) { background-position:1px; }
+#az-screen-concept .az-phase-line:nth-child(4) { background-position:7px; }
+#az-screen-concept .az-phase-lines:after { content:''; position:absolute; left:30%; top:0; bottom:0; width:2px; background:var(--az-fg); }
+#az-screen-concept .az-waves { display:grid; grid-template-rows:repeat(4,1fr); height:332px; }
+#az-screen-concept [data-layout="compact"] .az-waves { height:416px; }
+#az-screen-concept .az-wave-row { display:grid; grid-template-columns:40px minmax(0,1fr); border-bottom:1px solid var(--az-line); position:relative; min-height:0; }
+#az-screen-concept .az-wave-id { display:flex; justify-content:center; align-items:center; color:var(--az-muted); font-size:22px; border-left:3px solid transparent; }
+#az-screen-concept .az-wave-row.is-active .az-wave-id { color:var(--az-cyan); border-left-color:var(--az-cyan); }
+#az-screen-concept .az-wave-picture { position:relative; min-width:0; overflow:hidden; }
+#az-screen-concept .az-wave-picture svg { display:block; width:100%; height:100%; }
+#az-screen-concept .az-wave-picture:after { position:absolute; content:''; top:0; bottom:0; left:30%; width:2px; background:var(--az-fg); }
+#az-screen-concept .az-wave-phrase { position:absolute; top:4px; left:32%; font-size:11px; color:var(--az-muted); }
+#az-screen-concept .az-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:6px; margin-top:8px; }
+#az-screen-concept .az-deck { border:1px solid var(--az-line); border-top:3px solid var(--az-line); background:var(--az-panel); min-width:0; padding:8px; }
+#az-screen-concept .az-deck.is-active { border-top-color:var(--az-cyan); }
+#az-screen-concept .az-deck-heading { display:flex; align-items:center; gap:9px; }
+#az-screen-concept .az-number { flex:0 0 36px; height:36px; background:var(--az-bg); border:1px solid var(--az-line); font-size:25px; }
+#az-screen-concept .az-number[aria-pressed="true"] { background:var(--az-cyan); border-color:var(--az-cyan); color:var(--az-cyan-ink); }
+#az-screen-concept .az-track { min-width:0; flex:1; }
+#az-screen-concept .az-title { font-size:15px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+#az-screen-concept .az-artist { font-size:11px; color:var(--az-muted); margin-top:3px; }
+#az-screen-concept .az-role { font-size:11px; color:var(--az-cyan); white-space:nowrap; min-width:50px; text-align:right; }
+#az-screen-concept .az-master { color:var(--az-amber); font-size:11px; display:block; margin-top:4px; }
+#az-screen-concept .az-readouts { display:grid; grid-template-columns:1.15fr .8fr 1fr auto; gap:10px; align-items:end; padding-top:8px; }
+#az-screen-concept .az-label { font-size:11px; letter-spacing:.06em; color:var(--az-muted); display:block; margin-bottom:2px; }
+#az-screen-concept .az-value { font-size:25px; font-weight:400; }
+#az-screen-concept .az-key .az-value { font-size:25px; }
+#az-screen-concept .az-bars .az-value { font-size:22px; }
+#az-screen-concept .az-time .az-value { font-size:18px; }
+#az-screen-concept .az-cells { display:flex; gap:2px; margin-top:6px; height:5px; }
+#az-screen-concept .az-cells span { background:var(--az-line); flex:1; }
+#az-screen-concept .az-cells span.filled { background:var(--az-wave); }
+#az-screen-concept .az-stems { display:flex; gap:6px; color:var(--az-green); font-size:11px; margin-top:7px; }
+#az-screen-concept .az-stems span { border-bottom:2px solid currentColor; padding-bottom:2px; }
+#az-screen-concept .az-overview { flex:1; margin-left:10px; background:var(--az-line); position:relative; height:5px; align-self:center; }
+#az-screen-concept .az-overview:before { content:''; position:absolute; height:100%; width:34%; background:var(--az-wave); }
+#az-screen-concept [data-layout="compact"] .az-grid { grid-template-columns:repeat(4,minmax(0,1fr)); }
+#az-screen-concept [data-layout="compact"] .az-deck { padding:7px; }
+#az-screen-concept [data-layout="compact"] .az-deck-heading { gap:6px; }
+#az-screen-concept [data-layout="compact"] .az-number { flex-basis:30px; height:32px; font-size:22px; }
+#az-screen-concept [data-layout="compact"] .az-role { min-width:0; font-size:11px; }
+#az-screen-concept [data-layout="compact"] .az-title { font-size:12px; }
+#az-screen-concept [data-layout="compact"] .az-readouts { grid-template-columns:1fr 1fr; gap:8px; }
+#az-screen-concept [data-layout="compact"] .az-value { font-size:22px; }
+#az-screen-concept [data-layout="compact"] .az-cells { margin-top:7px; }
+#az-screen-concept .az-dialog { position:absolute; inset:58px 12px 12px; background:var(--az-bg); z-index:5; border:1px solid var(--az-line); padding:16px; overflow:auto; }
+#az-screen-concept .az-dialog[hidden] { display:none; }
+#az-screen-concept .az-dialog-top { display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; gap:10px; }
+#az-screen-concept .az-dialog h3 { font-size:18px; margin:0; font-weight:500; }
+#az-screen-concept .az-menu-item { display:flex; align-items:center; justify-content:space-between; min-height:54px; border-bottom:1px solid var(--az-line); gap:12px; }
+#az-screen-concept .az-demo-list { width:100%; border-collapse:collapse; }
+#az-screen-concept .az-demo-list td,#az-screen-concept .az-demo-list th { padding:16px 8px; text-align:left; border-bottom:1px solid var(--az-line); font-size:14px; font-weight:400; }
+#az-screen-concept .az-dialog-subtitle { color:var(--az-muted); font-size:12px; margin-bottom:14px; }
+@media(max-width:640px) {
+#az-screen-concept .az-toolbar { padding-right:0; gap:5px; }
+#az-screen-concept .az-status { display:none; }
+#az-screen-concept .az-action { padding:8px 12px; }
+#az-screen-concept .az-console { padding:6px; }
+#az-screen-concept .az-grid,#az-screen-concept [data-layout="compact"] .az-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+#az-screen-concept .az-readouts { grid-template-columns:repeat(2,minmax(0,1fr)); gap:6px; }
+#az-screen-concept .az-role { font-size:11px; min-width:0; }
+#az-screen-concept .az-title { font-size:12px; }
+#az-screen-concept .az-deck { padding:6px; }
+#az-screen-concept .az-number { flex-basis:28px; font-size:20px; height:32px; }
+#az-screen-concept .az-artist { display:none; }
+#az-screen-concept .az-value,#az-screen-concept .az-key .az-value,#az-screen-concept .az-bars .az-value { font-size:22px; }
+#az-screen-concept .az-time .az-value { font-size:19px; }
+#az-screen-concept .az-waves,#az-screen-concept [data-layout="compact"] .az-waves { height:300px; }
+#az-screen-concept .az-dialog { inset:60px 6px 6px; padding:10px; }
+#az-screen-concept .az-demo-list td,#az-screen-concept .az-demo-list th { padding:12px 4px; font-size:12px; }
+}
+@media(pointer:coarse) { #az-screen-concept .az-number { min-height:44px; flex-basis:44px; } }
+</style>
+<script>
+(()=>{
+const root=document.getElementById('az-screen-concept');
+const decks=[{id:1,title:'Access Denied',artist:'Hypho',bpm:'76.2',key:'7A',bar:12,time:'02:08',master:true},{id:2,title:'Confetti',artist:'player dave',bpm:'76.2',key:'2A',bar:8,time:'01:42'},{id:3,title:'Backchat',artist:'ENiGMA Dubz',bpm:'76.2',key:'7A',bar:4,time:'03:16'},{id:4,title:'Access Denied',artist:'Hypho',bpm:'76.2',key:'7A',bar:16,time:'00:56'}];
+const saved=window.openai?.widgetState?.modelContent || {};
+const state={left:[1,3].includes(saved.left)?saved.left:3,right:[2,4].includes(saved.right)?saved.right:2,phase:saved.phase!==false};
+function save(){window.openai?.setWidgetState?.({modelContent:{left:state.left,right:state.right,phase:state.phase,concept:'AZ main screen'},privateContent:null})?.catch(()=>{});}
+function wave(id){let marks='';for(let i=0;i<250;i++){const n=(Math.sin(i*1.71+id)*Math.sin(i*.13+id)+1)/2;const envelope=.2+.8*Math.abs(Math.sin(i*.021+id*.7));const h=5+58*n*envelope;marks+=`<rect x="${i*4}" y="${45-h/2}" width="2.8" height="${h.toFixed(1)}" fill="var(--az-wave)" opacity="${(.5+n*.45).toFixed(2)}"/>`;}let grid='';for(let i=0;i<16;i++)grid+=`<line x1="${i*66.7}" y1="0" x2="${i*66.7}" y2="90" stroke="var(--az-line)" opacity=".6"/>`;return `<svg viewBox="0 0 1000 90" preserveAspectRatio="none" role="img" aria-label="Illustrative waveform for deck ${id}">${grid}${marks}</svg>`;}
+function deckPanel(d){return `<article class="az-deck" data-deck="${d.id}"><div class="az-deck-heading"><button type="button" class="az-number" data-select="${d.id}" aria-label="Preview controls selecting deck ${d.id}" aria-pressed="false">${d.id}</button><div class="az-track"><div class="az-title" data-tooltip="${d.title}">${d.title}</div><div class="az-artist">${d.artist}</div></div><div><span class="az-role"></span>${d.master?'<span class="az-master">MASTER</span>':''}</div></div><div class="az-readouts"><div><span class="az-label">BPM</span><span class="az-value">${d.bpm}</span></div><div class="az-key"><span class="az-label">KEY</span><span class="az-value">${d.key}</span></div><div class="az-bars"><span class="az-label">PHRASE</span><span class="az-value">${d.bar}<small>/16</small></span></div><div class="az-time"><span class="az-label">REMAIN</span><span class="az-value">${d.time}</span></div></div><div class="az-cells" role="img" aria-label="Bar ${d.bar} of 16">${Array.from({length:16},(_,i)=>`<span class="${i<d.bar?'filled':''}"></span>`).join('')}</div><div class="az-stems" aria-label="Example enabled stem pads"><span>VO</span><span>IN</span><span>BA</span><span>DR</span><div class="az-overview" aria-hidden="true"></div></div></article>`;}
+root.querySelectorAll('.az-console').forEach(screen=>{
+const order=screen.dataset.layout==='compact'?[1,3,2,4]:[1,2,3,4];
+screen.innerHTML=`<nav class="az-toolbar" aria-label="Screen shortcuts"><button class="az-action primary" type="button" data-open="picks">PICKS</button><button class="az-action" type="button" data-open="mods">MODS</button><span class="az-mode">4 DECK</span><span class="az-status">USB 1 · LINK</span></nav><div class="az-phase" aria-label="Four-deck phase alignment"><div class="az-phase-labels">3<br>1<br>2<br>4</div><div class="az-phase-lines">${'<div class="az-phase-line"></div>'.repeat(4)}</div></div><div class="az-waves">${[3,1,2,4].map(id=>`<div class="az-wave-row" data-wave="${id}"><div class="az-wave-id">${id}</div><div class="az-wave-picture">${wave(id)}<span class="az-wave-phrase">${id===1?'1':id===2?'9':id===3?'5':'13'}</span></div></div>`).join('')}</div><div class="az-grid">${order.map(id=>deckPanel(decks[id-1])).join('')}</div><section class="az-dialog" role="dialog" aria-label="Shortcut preview" hidden></section>`;
+screen.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;if(b.dataset.select){const id=Number(b.dataset.select);state[id%2?'left':'right']=id;render();save();}if(b.dataset.open)open(screen,b.dataset.open,b);if(b.dataset.close!==undefined){const dialog=screen.querySelector('.az-dialog');dialog.hidden=true;screen.querySelector(`[data-open="${dialog.dataset.trigger}"]`)?.focus();}if(b.dataset.phase!==undefined){state.phase=!state.phase;render();b.textContent=state.phase?'On':'Off';save();}});
+screen.addEventListener('keydown',e=>{if(e.key==='Escape'){const dialog=screen.querySelector('.az-dialog');if(!dialog.hidden){dialog.hidden=true;screen.querySelector(`[data-open="${dialog.dataset.trigger}"]`)?.focus();}}});
+});
+function open(screen,kind){const dialog=screen.querySelector('.az-dialog');dialog.dataset.trigger=kind;dialog.innerHTML=`<div class="az-dialog-top"><h3>${kind==='picks'?'Harmonic Picks':'Mods'}</h3><button class="az-action" type="button" data-close>Back</button></div>`+(kind==='picks'?'<div class="az-dialog-subtitle">BROWSER PREVIEW · MASTER 1 · 76 BPM ±6% · 7A</div><table class="az-demo-list"><thead><tr><th>Track</th><th>BPM</th><th>Key</th></tr></thead><tbody><tr><td>Access Denied</td><td>76.2</td><td>7A</td></tr><tr><td>Backchat</td><td>76.2</td><td>7A</td></tr></tbody></table>':'<div class="az-dialog-subtitle">SHORTCUT CONCEPT</div><div class="az-menu-item"><span>Phase strip</span><button class="az-action" type="button" data-phase>'+(state.phase?'On':'Off')+'</button></div><div class="az-menu-item"><span>Selected deck highlight</span><span>On</span></div><div class="az-menu-item"><span>Phrase counters</span><span>16 bars</span></div>');dialog.hidden=false;dialog.querySelector('button').focus();}
+function render(){root.querySelectorAll('[data-deck]').forEach(panel=>{const id=Number(panel.dataset.deck);const active=id===state.left||id===state.right;panel.classList.toggle('is-active',active);panel.querySelector('.az-number').setAttribute('aria-pressed',String(active));panel.querySelector('.az-role').textContent=active?(id%2?'LEFT':'RIGHT'):'';});root.querySelectorAll('[data-wave]').forEach(row=>row.classList.toggle('is-active',[state.left,state.right].includes(Number(row.dataset.wave))));root.querySelectorAll('.az-phase').forEach(p=>p.style.visibility=state.phase?'visible':'hidden');}
+render();
+window.addEventListener('openai:set_globals',e=>{const s=e.detail?.globals?.widgetState?.modelContent;if(!s)return;if([1,3].includes(s.left))state.left=s.left;if([2,4].includes(s.right))state.right=s.right;state.phase=s.phase!==false;render();});
+if(globalThis.Tweak){root.querySelectorAll('.az-console').forEach(screen=>{const style={accent:'#32d5ff'};const tweak=new Tweak({container:screen,onChange:()=>screen.style.setProperty('--az-cyan',style.accent)});tweak.addColorPicker(style,'accent',{label:'Selected deck accent',reference:'--az-cyan'});});}
+})();
+</script>

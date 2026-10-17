@@ -1,0 +1,10 @@
+CC=clang CXX=clang++ sh ../../../../work/bookmark-harness-sdk/tools/harness/sanitize.sh --passes "plain asan tsan" \
+	    mix-bookmark:8:mix-bookmark.c
+== plain
+no-io and no-alloc are not measured on macOS (iocount.c interposes glibc)
+mix-bookmark (plain): 8 checks passed, not measured: no-io no-alloc functional
+== asan
+mix-bookmark (asan): 8 checks passed, not measured: no-io no-alloc functional
+== tsan
+mix-bookmark (tsan): 8 checks passed, not measured: no-io no-alloc functional
+ALL SANITIZER GATES PASS

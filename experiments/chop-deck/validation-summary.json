@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "checks": [
+    "Audio decoded",
+    "Beat audible",
+    "Pad audible",
+    "Crossfader endpoints",
+    "Keyboard hold repeat and release",
+    "Stop all silences",
+    "Automatic demo runs",
+    "No JS errors",
+    "Responsive layouts"
+  ],
+  "backingPeak": 0.057859331369400024,
+  "slicePeak": 0.06995430588722229,
+  "minimum_tested_content_width": 288,
+  "live": "Corrected generated project accepted by Live 12.4.2; no Live playback or hardware validation",
+  "flow_link": "Nine compatibility checks with real aalink 0.2.3 and networking disabled; no incoming deck packets during passive check"
+}

@@ -1,0 +1,89 @@
+<div id="flow-chop-demo">
+  <style>
+    #flow-chop-demo { color:#f5efff; background:#14101e; border-radius:16px; padding:22px; font:14px/1.5 system-ui,sans-serif; }
+    #flow-chop-demo * { box-sizing:border-box; }
+    #flow-chop-demo .heading { display:flex; flex-wrap:wrap; align-items:baseline; gap:12px; padding-right:80px; }
+    #flow-chop-demo h3 { margin:0; font-size:20px; font-weight:600; letter-spacing:.06em; }
+    #flow-chop-demo .sub { color:#c5b8d9; }
+    #flow-chop-demo .transport { display:flex; gap:8px; flex-wrap:wrap; margin:18px 0; }
+    #flow-chop-demo button, #flow-chop-demo select { font:inherit; color:#f5efff; background:#2c223c; border:1px solid #51415f; border-radius:8px; padding:10px 14px; min-height:44px; }
+    #flow-chop-demo button:focus-visible, #flow-chop-demo input:focus-visible, #flow-chop-demo select:focus-visible { outline:3px solid #ed8bcf; outline-offset:3px; }
+    #flow-chop-demo button[data-on="true"] { background:#823c93; border-color:#ef9ada; }
+    #flow-chop-demo #chop-demo-play { background:#67368e; }
+    #flow-chop-demo button:disabled { opacity:.5; }
+    #flow-chop-demo .pads { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; }
+    #flow-chop-demo .pad { min-height:91px; touch-action:none; display:flex; flex-direction:column; justify-content:center; align-items:center; gap:4px; }
+    #flow-chop-demo .pad span { color:#d1bfe1; }
+    #flow-chop-demo .pad[data-on="true"] span { color:#fff; }
+    #flow-chop-demo .mix-label { display:flex; justify-content:space-between; gap:14px; margin-top:22px; }
+    #flow-chop-demo input[type="range"] { width:100%; margin:12px 0 8px; accent-color:#e782cf; min-height:28px; }
+    #flow-chop-demo .foot { display:flex; gap:14px; justify-content:space-between; align-items:center; flex-wrap:wrap; margin-top:10px; }
+    #flow-chop-demo .repeat { display:flex; gap:9px; align-items:center; }
+    #flow-chop-demo .status { margin:16px 0 0; min-height:22px; color:#e8badc; }
+    @media(max-width:440px) { #flow-chop-demo { padding:14px; } #flow-chop-demo .pads { gap:7px; } #flow-chop-demo .pad { padding:8px 3px; min-height:78px; } #flow-chop-demo .pad span { font-size:12px; } }
+  </style>
+  <div class="heading"><h3>CHOP DECK</h3><span class="sub" id="chop-tempo">110 BPM · audio preview</span></div>
+  <div class="transport">
+    <button id="chop-demo-play" class="cursor-interaction" type="button">Hear demo</button>
+    <button id="chop-beat" class="cursor-interaction" type="button" aria-pressed="false">Start beat</button>
+    <button id="chop-stop" class="cursor-interaction" type="button">Stop all</button>
+  </div>
+  <div class="pads" role="group" aria-label="Eight playable vocal slices">
+    <button class="pad cursor-interaction" type="button" data-pad="0" aria-label="Play slice 1"><strong>1</strong><span>Slice 1</span></button>
+    <button class="pad cursor-interaction" type="button" data-pad="1" aria-label="Play slice 2"><strong>2</strong><span>Slice 2</span></button>
+    <button class="pad cursor-interaction" type="button" data-pad="2" aria-label="Play slice 3"><strong>3</strong><span>Slice 3</span></button>
+    <button class="pad cursor-interaction" type="button" data-pad="3" aria-label="Play slice 4"><strong>4</strong><span>Slice 4</span></button>
+    <button class="pad cursor-interaction" type="button" data-pad="4" aria-label="Play slice 5"><strong>5</strong><span>Slice 5</span></button>
+    <button class="pad cursor-interaction" type="button" data-pad="5" aria-label="Play slice 6"><strong>6</strong><span>Slice 6</span></button>
+    <button class="pad cursor-interaction" type="button" data-pad="6" aria-label="Play slice 7"><strong>7</strong><span>Slice 7</span></button>
+    <button class="pad cursor-interaction" type="button" data-pad="7" aria-label="Play slice 8"><strong>8</strong><span>Slice 8</span></button>
+  </div>
+  <div class="mix-label"><label for="chop-crossfade">A · Beat</label><span id="chop-mix-value">Blend</span><span>B · Chops</span></div>
+  <input id="chop-crossfade" type="range" min="0" max="100" step="1" value="50" aria-label="Crossfader: left beat, right vocal chops">
+  <div class="foot"><span class="sub">Pads / keys 1–8</span><label class="repeat" for="chop-repeat">Hold repeat <select id="chop-repeat"><option value="0">Off</option><option value="2">1/8</option><option value="4">1/16</option></select></label></div>
+  <p id="chop-status" class="status" role="status" aria-live="polite">Ready · Confetti vocal + instrumental stems</p>
+  <script type="application/json" id="chop-audio-data">__AUDIO_DATA__</script>
+  <script>
+  (() => {
+    const root=document.getElementById('flow-chop-demo');
+    const $=s=>root.querySelector(s), pads=[...root.querySelectorAll('[data-pad]')];
+    const data=JSON.parse($('#chop-audio-data').textContent);
+    const bpm=data.bpm, beat=60/bpm, status=$('#chop-status'), slider=$('#chop-crossfade'), repeat=$('#chop-repeat');
+    let ctx, readyPromise, buffers, master, beatGain, chopGain, beatSource=null, scheduler=null, demoStart=null, nextDemo=0, demoEvents=[], repeatState=null, padUi=[], active= new Set(), epoch=0, pressedIndex=null;
+    $('#chop-tempo').textContent=`${Math.round(bpm)} BPM · audio preview`;
+    function save(){ try { const p=window.openai?.setWidgetState?.({modelContent:{concept:'Chop Deck',crossfader:Number(slider.value),repeat:repeat.value},privateContent:null});p?.catch(()=>{}); }catch(_){} }
+    function restore(state){const s=state?.modelContent;if(s?.concept!=='Chop Deck')return; if(Number.isFinite(s.crossfader))slider.value=Math.max(0,Math.min(100,s.crossfader));if(['0','2','4'].includes(s.repeat))repeat.value=s.repeat;mix();}
+    function mix(){ const x=Number(slider.value)/100;$('#chop-mix-value').textContent=x===0?'Beat only':x===1?'Chops only':`${Math.round((1-x)*100)} / ${Math.round(x*100)}`;if(ctx){beatGain.gain.setTargetAtTime(Math.cos(x*Math.PI/2),ctx.currentTime,.012);chopGain.gain.setTargetAtTime(Math.sin(x*Math.PI/2),ctx.currentTime,.012);} }
+    async function ready(){
+      if(!ctx){ctx=new (window.AudioContext||window.webkitAudioContext)();master=ctx.createGain();master.gain.value=.65;master.connect(ctx.destination);beatGain=ctx.createGain();chopGain=ctx.createGain();beatGain.connect(master);chopGain.connect(master);mix();}
+      await ctx.resume();
+      if(!readyPromise){status.textContent='Preparing audio…';readyPromise=Promise.all(data.audio.map(async b64=>{const raw=atob(b64),bytes=new Uint8Array(raw.length);for(let i=0;i<raw.length;i++)bytes[i]=raw.charCodeAt(i);return ctx.decodeAudioData(bytes.buffer);})).then(x=>{buffers=x;status.textContent='Ready · tap a pad or start the beat';});}
+      await readyPromise;
+    }
+    async function act(fn){const token=epoch;try{await ready();if(token===epoch)fn();}catch(e){status.textContent='Audio could not start in this view. Try the Ableton project.';console.error(e);}}
+    function node(buffer,destination,time,loop=false,duration){const s=ctx.createBufferSource();s.buffer=buffer;s.loop=loop;if(loop)s.loopEnd=data.loopSeconds;const g=ctx.createGain();g.gain.setValueAtTime(0,time);g.gain.linearRampToValueAtTime(1,time+.004);s.connect(g);g.connect(destination);const entry={s,g,time,end:Infinity};active.add(entry);s.onended=()=>{active.delete(entry);s.disconnect();g.disconnect();};if(duration){const d=Math.min(duration,buffer.duration);g.gain.setValueAtTime(1,time+Math.max(.005,d-.008));g.gain.linearRampToValueAtTime(0,time+d);s.start(time);s.stop(time+d);entry.end=time+d;}else s.start(time);return entry;}
+    function silence(entry,when){if(!entry||entry.end<=when)return;const t=Math.max(ctx.currentTime,when);entry.g.gain.cancelScheduledValues(t);entry.g.gain.setValueAtTime(1,t);entry.g.gain.linearRampToValueAtTime(0,t+.006);try{entry.s.stop(t+.007);}catch(_){}entry.end=t+.007;}
+    let lastChop=null;
+    function chop(index,time){if(lastChop)silence(lastChop,time);lastChop=node(buffers[index+1],chopGain,time,false,buffers[index+1].duration);padUi.push({index,time});}
+    function beatOn(time){if(beatSource)return;beatSource=node(buffers[0],beatGain,time,true);$('#chop-beat').textContent='Stop beat';$('#chop-beat').setAttribute('aria-pressed','true');$('#chop-beat').dataset.on='true';}
+    function beatOff(){if(beatSource)silence(beatSource,ctx.currentTime);beatSource=null;$('#chop-beat').textContent='Start beat';$('#chop-beat').setAttribute('aria-pressed','false');$('#chop-beat').dataset.on='false';}
+    function endDemo(){demoStart=null;demoEvents=[];nextDemo=0;$('#chop-demo-play').dataset.on='false';}
+    function runScheduler(){if(scheduler)return;scheduler=setInterval(()=>{if(!ctx)return;const now=ctx.currentTime;
+      if(demoStart!==null){while(nextDemo<demoEvents.length&&demoStart+demoEvents[nextDemo].t<now+.08){const e=demoEvents[nextDemo++];chop(e.i,demoStart+e.t);}const b=(now-demoStart)/beat;if(b>=32){endDemo();beatOff();status.textContent='Your turn · start the beat and play pads 1–8';}else{if(b>16){slider.value=Math.round(50+45*Math.sin((b-16)*Math.PI/8));mix();}status.textContent=b<8?'Demo · slices in order':b<16?'Demo · rearranging the chops':'Demo · crossfader cuts';}}
+      if(repeatState){while(repeatState.next<now+.08){chop(repeatState.index,repeatState.next);repeatState.next+=beat/repeatState.div;}}
+      let latest=null;while(padUi.length&&padUi[0].time<=now)latest=padUi.shift();if(latest){pads.forEach((p,i)=>p.dataset.on=String(i===latest.index));root.dataset.lastPad=String(latest.index+1);root.dataset.lastPadTime=String(now);}if(Number(root.dataset.lastPadTime)+.15<now)pads.forEach(p=>p.dataset.on='false');
+    },25);}
+    function stop(){epoch++;pressedIndex=null;endDemo();repeatState=null;padUi=[];if(ctx){for(const e of active)silence(e,ctx.currentTime);beatOff();}lastChop=null;if(scheduler)clearInterval(scheduler);scheduler=null;pads.forEach(p=>p.dataset.on='false');status.textContent='Stopped';}
+    function playPad(index,hold=true){pressedIndex=hold?index:null;act(()=>{endDemo();runScheduler();const t=ctx.currentTime+.012;chop(index,t);const div=Number(repeat.value);repeatState=div&&pressedIndex===index?{index,div,next:t+beat/div}:null;status.textContent=`Slice ${index+1}${div?' · hold repeat':''}`;});}
+    function release(index){if(pressedIndex===index)pressedIndex=null;if(repeatState?.index===index)repeatState=null;}
+    $('#chop-demo-play').onclick=()=>act(()=>{stop();runScheduler();slider.value=50;mix();demoStart=ctx.currentTime+.08;beatOn(demoStart);demoEvents=[];for(let b=0;b<8;b+=.5)demoEvents.push({t:b*beat,i:Math.round(b*2)%8});const sequence=[0,0,3,1,6,6,4,2,7,3,3,5,0,6,1,7];for(let b=8;b<32;b+=.5)demoEvents.push({t:b*beat,i:sequence[Math.round((b-8)*2)%sequence.length]});nextDemo=0;$('#chop-demo-play').dataset.on='true';});
+    $('#chop-beat').onclick=()=>act(()=>{endDemo();runScheduler();if(beatSource){beatOff();status.textContent='Beat stopped';}else{beatOn(ctx.currentTime+.015);status.textContent='Beat playing · tap pads 1–8';}});
+    $('#chop-stop').onclick=stop;
+    slider.oninput=()=>{endDemo();mix();};slider.onchange=save;repeat.onchange=()=>{repeatState=null;save();};
+    pads.forEach((p,i)=>{p.onpointerdown=e=>{e.preventDefault();p.focus();p.setPointerCapture(e.pointerId);playPad(i);};p.onpointerup=()=>release(i);p.onpointercancel=()=>release(i);p.onlostpointercapture=()=>release(i);p.onclick=e=>{if(e.detail===0)playPad(i,false);};});
+    const held=new Set();root.addEventListener('keydown',e=>{if(e.target.matches('input,select'))return;if(e.key>='1'&&e.key<='8'&&!held.has(e.key)){e.preventDefault();held.add(e.key);playPad(Number(e.key)-1);}if(e.key==='Escape')stop();});root.addEventListener('keyup',e=>{held.delete(e.key);if(e.key>='1'&&e.key<='8')release(Number(e.key)-1);});
+    window.addEventListener('blur',()=>{held.clear();pressedIndex=null;repeatState=null;});document.addEventListener('visibilitychange',()=>{if(document.hidden)stop();});window.addEventListener('pagehide',stop);
+    window.addEventListener('openai:set_globals',e=>restore(e.detail?.globals?.widgetState));restore(window.openai?.widgetState);mix();
+  })();
+  </script>
+</div>

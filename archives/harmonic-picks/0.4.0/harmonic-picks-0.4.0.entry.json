@@ -1,0 +1,21 @@
+{
+  "id": "harmonic-picks",
+  "name": "Stem Picks",
+  "version": "0.4.0",
+  "author": "hleawilliams-commits",
+  "summary": "Native playable browser shortcut plus regular-track harmonic ideas and stem recipe guidance.",
+  "icon": "https://github.com/hleawilliams-commits/flow-beat/releases/download/harmonic-picks-0.4.0/harmonic-picks-0.4.0-icon.png",
+  "package": "https://github.com/hleawilliams-commits/flow-beat/releases/download/harmonic-picks-0.4.0/harmonic-picks-0.4.0.azmod",
+  "sha256": "2888144e93048942553e997a9acc40f0ba534f30b83893a44dc7726a3242ffd6",
+  "size": 68052,
+  "firmware": [
+    "any"
+  ],
+  "hooks": false,
+  "source": "https://github.com/hleawilliams-commits/flow-beat/tree/codex/az-mods-handoff-2026-10-16/harmonic-picks",
+  "updated": "2026-10-16",
+  "category": "tools",
+  "license": "GPL-3.0-only",
+  "min_core": "1.2.3",
+  "description": "Emulator preview. STEM PICKS opens the current native browser; use its BPM + KEY + MASTER Track Filter and LOAD 1-4. Filtering must be configured and enabled first; the shortcut preserves current category/filter state. Custom Mod Menu suggestions are read-only harmonic ideas for regular tracks, with stem recipe guidance. Vocal titles is an optional title-text filter, not vocal detection. Stem readiness of library results is unknown. Use the deck pads yourself; this mod does not mute stems. Library keys do not follow Key Shift."
+}

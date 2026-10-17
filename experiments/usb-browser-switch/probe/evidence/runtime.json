@@ -1,0 +1,32 @@
+{
+  "scope": "local emulator only; manual native SOURCE interactions",
+  "firmware": "ep147-9e9454e357389ece",
+  "version": "0.0.1",
+  "binary_sha256": "229d90c09ded1f87584f067183dceac26724bd113d29d49bf9224c7e99cd685c",
+  "all_four_hook_claims_accepted": true,
+  "constructor_capture": true,
+  "timer_source_constructor_same_tid_as_pid": true,
+  "destructor_observed": false,
+  "sources": [
+    {
+      "label": "USB1",
+      "kind": 1,
+      "media_valid": 1,
+      "media_id": "0102"
+    },
+    {
+      "label": "USB2",
+      "kind": 1,
+      "media_valid": 1,
+      "media_id": "0122"
+    }
+  ],
+  "manual_local_library_browse_usb1": true,
+  "manual_local_library_browse_usb2": true,
+  "automatic_activation_implemented": false,
+  "native_layout_flag_is_not_browser_source_proof": true,
+  "core_hashes_unchanged": true,
+  "probe_unloaded_after_run": true,
+  "diagnostic_flag_restored_to_off": true,
+  "physical_probe_installation": false
+}

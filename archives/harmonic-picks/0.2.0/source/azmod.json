@@ -1,0 +1,18 @@
+{
+  "azmod": 1,
+  "id": "harmonic-picks",
+  "name": "Harmonic Picks",
+  "version": "0.2.0",
+  "author": "hleawilliams-commits",
+  "summary": "Choose a deck and find USB tracks with compatible keys and pitch changes within 6% of its live BPM.",
+  "description": "Emulator preview 0.2.0; physical testing pending. Open Mod Menu > Harmonic Picks. Tap Match deck 1-4 (choose your MASTER manually). Lists up to 40 compatible library keys within +/-6% pitch of the selected deck live BPM. Shows signed pitch, half/double time and USB number. Tap All tracks/Acapellas to filter; Previous/Next or knob to scroll; knob press changes filter. Suggestions only; no auto-loading. Live key changes are not tracked. Reload mods after changing USB libraries. Uses SDK services; no hooks or audio changes.",
+  "category": "tools",
+  "license": "GPL-3.0-only",
+  "source": "https://github.com/hleawilliams-commits/flow-beat/tree/main/harmonic-picks",
+  "api": 1,
+  "firmware": [
+    "any"
+  ],
+  "hooks": false,
+  "min_core": "1.2.3"
+}

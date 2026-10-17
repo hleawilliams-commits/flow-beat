@@ -1,0 +1,37 @@
+--- a/src/azmod/day_mode.c
++++ b/src/azmod/day_mode.c
+@@ -187,6 +187,7 @@
+     {"midnight", 0, 0x050b18, 0x16233f, 0xe6eeff, -1}, /* deep navy, slate blue, ice white */
+     {"ember", 0, 0x0d0605, 0x2f1a16, 0xfbeee8, 8},     /* near-black red, oxblood, coral */
+     {"forest", 0, 0x040d08, 0x15291d, 0xe8f5ec, 150},  /* pine black, moss, mint */
++    {"flow-neon", 0, 0x090611, 0x251337, 0xf5ebff, 320}, /* violet black, purple, pink */
+ };
+ #define DM_NTHEMES ((int) (sizeof g_dm_themes / sizeof g_dm_themes[0]))
+ static _Atomic int g_dm_theme; /* index into g_dm_themes, read at switch-on */
+--- a/src/azmod/screen_themes.c
++++ b/src/azmod/screen_themes.c
+@@ -8,20 +8,21 @@
+  * day_mode.c's watcher reads twice a second; picking one also turns the switch on. */
+ #define C_THEME_ROW0 0x200
+ _Static_assert(C_THEME_ROW0 > AZI_COUNT, "theme pseudo rows must not collide with item ids");
+-#define C_THEME_N 5
+-static const char *const C_THEME_KEY[C_THEME_N] = {"day", "azmods", "midnight", "ember", "forest"};
++#define C_THEME_N 6
++static const char *const C_THEME_KEY[C_THEME_N] = {"day", "azmods", "midnight", "ember", "forest", "flow-neon"};
+ int azmod_theme_keys(const char *const **keys) { /* the words azmod.conf's "theme" holds */
+     *keys = C_THEME_KEY;
+     return C_THEME_N;
+ }
+ static const char *const C_THEME_NAME[C_THEME_N] = {"Day", "AZ-MODS", "Midnight", "Ember",
+-                                                    "Forest"};
++                                                    "Forest", "FLOW Neon"};
+ static const char *const C_THEME_DESC[C_THEME_N] = {
+     "Light gray and white, for daylight.",
+     "Black and charcoal with AZ-MODS orange.",
+     "Deep navy and slate blue with ice-white text.",
+     "Near-black reds with a coral accent.",
+     "Pine and moss greens with a mint accent.",
++    "Violet black and purple panels with pink highlights.",
+ };
+ int g_azmod_theme; /* menu.h: azmod.conf's "theme", as an index; __atomic builtins only */
+ static bool c_is_theme(int it) {

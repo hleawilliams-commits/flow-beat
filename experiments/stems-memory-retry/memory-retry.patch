@@ -1,0 +1,242 @@
+diff --git a/src/azstem/azstem.c b/src/azstem/azstem.c
+index adb3ad5..b2259c7 100644
+--- a/src/azstem/azstem.c
++++ b/src/azstem/azstem.c
+@@ -653,7 +653,7 @@ static void probestat_write(void) {
+         for (int d = 0; d < NDECK; d++)
+             fprintf(f,
+                     "deck%d ctrl=0x%02x frames=%ld play_S=%lld peakL=%.5f peakR=%.5f fgpr=0x%lx "
+-                    "gain=%d/%d/%d/%d\n",
++                    "gain=%d/%d/%d/%d obs=%lld retry_bytes=%lld\n",
+                     d, atomic_load_explicit(&g_dk[d].ctrl, memory_order_relaxed),
+                     g_dk[d].stem_frames,
+                     (long long) atomic_load_explicit(&g_play_S[d], memory_order_relaxed),
+@@ -663,7 +663,9 @@ static void probestat_write(void) {
+                     atomic_load_explicit(&g_sgain_k[d][0], memory_order_relaxed),
+                     atomic_load_explicit(&g_sgain_k[d][1], memory_order_relaxed),
+                     atomic_load_explicit(&g_sgain_k[d][2], memory_order_relaxed),
+-                    atomic_load_explicit(&g_sgain_k[d][3], memory_order_relaxed));
++                    atomic_load_explicit(&g_sgain_k[d][3], memory_order_relaxed),
++                    azstem_play_obs(d),
++                    atomic_load_explicit(&g_retry_bytes[d], memory_order_relaxed));
+     }
+     for (int i = 0; i < NPROBE; i++)
+         fprintf(f, "probe[%d] @0x%lx installed=%d hits=%ld\n", i, (unsigned long) g_probe_addr[i],
+diff --git a/src/azstem/stem_playback.c b/src/azstem/stem_playback.c
+index 799e4e1..3e13e6b 100644
+--- a/src/azstem/stem_playback.c
++++ b/src/azstem/stem_playback.c
+@@ -71,6 +71,13 @@ static _Atomic int g_stem_loading[NDECK];
+ static _Atomic int g_gate_hold[NDECK];
+ static _Atomic int g_load_stale[NDECK];
+ static _Atomic int g_load_again[NDECK];
++/* A memory refusal is temporary, not proof that this file has no stems.
++ * The worker publishes its required bytes; only the flusher schedules retries. */
++static _Atomic long long g_retry_bytes[NDECK];
++static long long g_retry_pos[NDECK];
++static int g_retry_still[NDECK];
++static long g_retry_after[NDECK];
++long long azstem_play_obs(int deck); /* key_shift.c, lock-free observed playhead */
+ static long g_ofs_load[NDECK]; /* the load-time offset in effect (probestat) */
+ 
+ /* Progressive (head-first) decode. Each stem decodes in 0.5 s chunks into a
+@@ -1147,6 +1154,8 @@ static int load_stems_ogg(int deck, const char *track, const char *src) {
+             need += fr * 2 * (long long) sizeof(float);
+         }
+         if (avail < 0 || avail + held - need < ((long long) AZSTEM_MEM_FLOOR_MB << 20)) {
++            atomic_store_explicit(&g_retry_bytes[deck], need > 0 ? need : 1,
++                                  memory_order_relaxed);
+             logln("stems REFUSED d%d for '%s': need %lld MB, MemAvailable %lld MB (+%lld MB held), "
+                   "floor %d MB -- playing without stems",
+                   deck, track, need >> 20, avail >> 20, held >> 20, AZSTEM_MEM_FLOOR_MB);
+@@ -1390,7 +1399,7 @@ static void *loader_thread(void *arg) {
+     }
+     int d = j->deck; /* read before the free: j is not valid after it */
+     free(j);
+-    atomic_store_explicit(&g_stem_loading[d], 0, memory_order_relaxed);
++    atomic_store_explicit(&g_stem_loading[d], 0, memory_order_release);
+     return NULL;
+ }
+ 
+@@ -1418,6 +1427,8 @@ static int lti_read(int deck, unsigned char id16[16], char *title, size_t tn, ch
+  * are still writing the buffers, so freeing here would be a use-after-free:
+  * close the gate, mark the load stale, and let loader_thread free after join. */
+ static void drop_stems(int deck) {
++    atomic_store_explicit(&g_retry_bytes[deck], 0, memory_order_relaxed);
++    g_retry_still[deck] = 0;
+     if (!atomic_load_explicit(&g_stem_loading[deck], memory_order_acquire)) {
+         free_stems(deck);
+         return;
+@@ -1450,6 +1461,10 @@ static void loaded_track_path(int deck, char *out, size_t n) {
+ }
+ 
+ static void start_load(int deck, const char *tr) {
++    atomic_store_explicit(&g_retry_bytes[deck], 0, memory_order_relaxed);
++    g_retry_pos[deck] = -1;
++    g_retry_still[deck] = 0;
++    g_retry_after[deck] = ms_now() + 2000;
+     loadjob_t *j = malloc(sizeof *j);
+     if (!j)
+         return;
+@@ -1465,6 +1480,35 @@ static void start_load(int deck, const char *tr) {
+     } /* thread exhausted: decode inline */
+ }
+ 
++/* Retry only a memory-refused track, after a known playhead has stayed still
++ * for ~2 s. No switch to stems under a moving track and no repeated USB scans
++ * while RAM is low. Serialize these recovery loads so a second retry observes
++ * the first one's allocated buffers. Ordinary new-track loads stay unchanged. */
++static int memory_retry_ready(int deck) {
++    long long need = atomic_load_explicit(&g_retry_bytes[deck], memory_order_relaxed);
++    if (need <= 0)
++        return 0;
++    long long pos = azstem_play_obs(deck);
++    if (pos < 0 || pos != g_retry_pos[deck]) {
++        g_retry_pos[deck] = pos;
++        g_retry_still[deck] = 0;
++        return 0;
++    }
++    if (g_retry_still[deck] < 10) {
++        g_retry_still[deck]++;
++        return 0;
++    }
++    long now = ms_now();
++    if (now < g_retry_after[deck])
++        return 0;
++    g_retry_after[deck] = now + 2000;
++    for (int d = 0; d < NDECK; d++)
++        if (atomic_load_explicit(&g_stem_loading[d], memory_order_acquire))
++            return 0;
++    long long avail = mem_available_bytes();
++    return avail >= 0 && avail - need >= ((long long) AZSTEM_MEM_FLOOR_MB << 20);
++}
++
+ static void stems_tick(void) {
+     /* Discover the stems base at most every ~5 s: with no stems present the walk
+      * can cover a large library, and this runs every 200 ms. Cached once found. */
+@@ -1528,9 +1572,14 @@ static void stems_tick(void) {
+                 publish_src(deck);
+             }
+             /* a load discarded because the track changed under it: start this track's */
+-            if (!atomic_load_explicit(&g_stem_loading[deck], memory_order_acquire) &&
+-                atomic_exchange_explicit(&g_load_again[deck], 0, memory_order_acq_rel))
+-                start_load(deck, tr);
++            if (!atomic_load_explicit(&g_stem_loading[deck], memory_order_acquire)) {
++                if (atomic_exchange_explicit(&g_load_again[deck], 0, memory_order_acq_rel))
++                    start_load(deck, tr);
++                else if (memory_retry_ready(deck)) {
++                    logln("stems: retry d%d for '%s' after memory recovered", deck, tr);
++                    start_load(deck, tr);
++                }
++            }
+             continue;
+         }
+ 
+diff --git a/tests/unit/run.sh b/tests/unit/run.sh
+index 1f62033..d3d0ca2 100755
+--- a/tests/unit/run.sh
++++ b/tests/unit/run.sh
+@@ -2345,6 +2345,7 @@ suite "sdk: claim_vslot" "$d/real"
+ 
+ d="$OUT/trackgen"; mkdir -p "$d"
+ { extract guest/azstem/stem_playback.c '^static void deck_track_changed\('
++  extract guest/azstem/stem_playback.c '^static int memory_retry_ready\('
+   extract guest/azstem/stem_playback.c '^static void stems_tick\(' ; } > "$d/real.inc"
+ grep -q 'deck_track_changed(deck); /\* generation + identity: ejected \*/' "$d/real.inc" || { echo "extraction of stems_tick failed"; exit 2; }
+ # control 1: the eject path does not bump the generation (the old code)
+diff --git a/tests/unit/trackgen_test.c b/tests/unit/trackgen_test.c
+index 80cccf2..de1c9c9 100644
+--- a/tests/unit/trackgen_test.c
++++ b/tests/unit/trackgen_test.c
+@@ -28,6 +28,15 @@ static _Atomic(void *) g_deck_self[MAX_DECKS];
+ static const int STEM_SLOT[NDECK] = {0, 1, 2, 3};
+ static _Atomic unsigned g_deck_trackgen[NDECK];
+ static _Atomic int g_stem_pending[NDECK], g_stem_loading[NDECK], g_load_again[NDECK];
++static _Atomic long long g_retry_bytes[NDECK];
++static long long g_retry_pos[NDECK], g_observed_pos[NDECK];
++static int g_retry_still[NDECK], g_load_calls[NDECK];
++static long g_retry_after[NDECK], g_now;
++#define AZSTEM_MEM_FLOOR_MB 400
++static long long g_available;
++static long ms_now(void) { return g_now; }
++static long long mem_available_bytes(void) { return g_available; }
++static long long azstem_play_obs(int d) { return g_observed_pos[d]; }
+ static char g_stems_base[512] = "/media/usb/STEMS";
+ static int g_eject_empty[NDECK];
+ static char g_pending_name[NDECK][512], g_loaded_src[NDECK][600], g_pending_src[NDECK][600];
+@@ -49,10 +58,18 @@ static void loaded_track_path(int d, char *out, size_t n) {
+     snprintf(out, n, "/media/usb/%s.mp3", g_name[d] ? g_name[d] : "");
+     if (!g_name[d] || !g_name[d][0]) out[0] = 0;
+ }
+-static void drop_stems(int d) { g_dk[d].stem_frames = 0; }
++static void drop_stems(int d) {
++    g_dk[d].stem_frames = 0;
++    atomic_store(&g_retry_bytes[d], 0);
++    g_retry_still[d] = 0;
++}
+ static void start_load(int d, const char *tr) {
+-    (void) d;
+     (void) tr;
++    g_load_calls[d]++;
++    atomic_store(&g_retry_bytes[d], 0);
++    g_retry_pos[d] = -1;
++    g_retry_still[d] = 0;
++    g_retry_after[d] = ms_now() + 2000;
+ }
+ static void publish_src(int d) { (void) d; }
+ static void publish_deck_file(int d, const char *what, const char *v) {
+@@ -66,7 +83,10 @@ static void publish_deck_file(int d, const char *what, const char *v) {
+ 
+ static unsigned gen(int d) { return atomic_load(&g_deck_trackgen[d]); }
+ static void ticks(int n) {
+-    while (n-- > 0) stems_tick();
++    while (n-- > 0) {
++        g_now += 200;
++        stems_tick();
++    }
+ }
+ 
+ int main(void) {
+@@ -98,5 +118,42 @@ int main(void) {
+     CHECK("reloading the same track after an eject bumps again", gen(0) == g1 + 2 && (int) gen(0) == 3);
+     CHECK("other decks never moved", gen(1) == 0 && gen(2) == 0 && gen(3) == 0 &&
+                                          !(int) gen(1) && !(int) gen(2) && !(int) gen(3));
++
++    for (int d = 0; d < NDECK; d++) {
++        g_name[d] = "Track A";
++        ticks(3);
++        int calls = g_load_calls[d];
++        unsigned before = gen(d);
++        atomic_store(&g_retry_bytes[d], 300LL << 20);
++        g_available = 699LL << 20;
++        ticks(100);
++        CHECK("memory below reserve: no retry", g_load_calls[d] == calls);
++        g_available = -1;
++        ticks(30);
++        CHECK("unreadable memory budget: no retry", g_load_calls[d] == calls);
++        g_available = 900LL << 20;
++        for (int i = 0; i < 30; i++) {
++            g_observed_pos[d] += 8820;
++            ticks(1);
++        }
++        CHECK("moving deck: no automatic retry", g_load_calls[d] == calls);
++        g_observed_pos[d] = -1;
++        ticks(30);
++        CHECK("unknown playhead: no automatic retry", g_load_calls[d] == calls);
++        g_observed_pos[d] = 0;
++        atomic_store(&g_stem_loading[(d + 1) % NDECK], 1);
++        ticks(30);
++        CHECK("another load in flight: retry waits", g_load_calls[d] == calls);
++        atomic_store(&g_stem_loading[(d + 1) % NDECK], 0);
++        ticks(30);
++        CHECK("stopped deck with memory recovers once", g_load_calls[d] == calls + 1);
++        CHECK("retry keeps the same track generation", gen(d) == before);
++        ticks(100);
++        CHECK("successful or missing-stems track does not loop", g_load_calls[d] == calls + 1);
++        atomic_store(&g_retry_bytes[d], 300LL << 20);
++        g_name[d] = "";
++        ticks(EJECT_EMPTY_TICKS + 1);
++        CHECK("eject cancels pending memory retry", atomic_load(&g_retry_bytes[d]) == 0);
++    }
+     return ut_summary();
+ }

@@ -1,0 +1,104 @@
+--- a/mods-shortcut/shortcut.h
++++ b/mods-shortcut/shortcut.h
+@@ -24,6 +24,35 @@
+ static long gp_shortcut_requested_at;
+ static int gp_shortcut_sent;
+ 
++/* Diagnosis only. These words retain the last first-frame/cancel observation;
++ * the bus path does no I/O, formatting, allocation or UI work. */
++enum gp_cancel_reason {
++    GP_CANCEL_NONE, GP_CANCEL_SCREEN, GP_CANCEL_CORNER, GP_CANCEL_CLICK,
++    GP_CANCEL_KNOB, GP_CANCEL_CLOCK, GP_CANCEL_EXPIRED, GP_CANCEL_VIEW, GP_CANCEL_VIEW_AFTER_SEND
++};
++static int gp_shortcut_cancel_reason;
++static unsigned long long gp_shortcut_observed_input;
++static long gp_shortcut_observed_delay;
++static int gp_shortcut_observed_view;
++static int gp_shortcut_saw_frame;
++static int gp_shortcut_wait_notice;
++
++static const char *gp_shortcut_cancel_text(int reason)
++{
++    switch (reason) {
++    case GP_CANCEL_SCREEN: return "MODS: screen button active";
++    case GP_CANCEL_CORNER: return "MODS: LOAD/BACK button active";
++    case GP_CANCEL_CLICK: return "MODS: knob pressed";
++    case GP_CANCEL_KNOB: return "MODS: knob moved";
++    case GP_CANCEL_CLOCK: return "MODS: clock unavailable";
++    case GP_CANCEL_EXPIRED: return "MODS: input arrived too late";
++    case GP_CANCEL_VIEW: return "MODS: deck view changed";
++    case GP_CANCEL_VIEW_AFTER_SEND: return "MODS: SOURCE press sent";
++    default: return NULL;
++    }
++}
++
++
+ /* UI-only feedback/debounce state. */
+ static int gp_shortcut_notice;
+ static long gp_shortcut_notice_until;
+@@ -60,6 +89,9 @@
+     gp_shortcut_requested_at = now;
+     gp_shortcut_notice_until = now + 1500;
+     gp_shortcut_notice = 1;
++    gp_shortcut_wait_notice = 0;
++    __atomic_store_n(&gp_shortcut_cancel_reason, GP_CANCEL_NONE, __ATOMIC_RELEASE);
++    __atomic_store_n(&gp_shortcut_saw_frame, 0, __ATOMIC_RELEASE);
+     __atomic_store_n(&gp_shortcut_sent, 0, __ATOMIC_RELEASE);
+     __atomic_store_n(&gp_shortcut_pending, 1, __ATOMIC_RELEASE);
+     return 1;
+@@ -75,13 +107,27 @@
+ 
+     /* Native screen/LOAD/BACK/knob input always wins, unchanged. Stop injecting
+      * immediately; the real incoming frame supplies the synthetic button release. */
+-    if (f[32] || f[33] || (f[31] & 1) || knob_moved ||
+-        now < gp_shortcut_requested_at || now - gp_shortcut_requested_at > 1000) {
++    int view = gp_shortcut_core->view();
++    unsigned long long input = (unsigned long long)f[6] |
++        ((unsigned long long)f[31] << 8) | ((unsigned long long)f[32] << 16) |
++        ((unsigned long long)f[33] << 24) | ((unsigned long long)f[34] << 32) |
++        ((unsigned long long)f[35] << 40);
++    __atomic_store_n(&gp_shortcut_observed_input, input, __ATOMIC_RELAXED);
++    __atomic_store_n(&gp_shortcut_observed_delay, now - gp_shortcut_requested_at, __ATOMIC_RELAXED);
++    __atomic_store_n(&gp_shortcut_observed_view, view, __ATOMIC_RELAXED);
++    __atomic_store_n(&gp_shortcut_saw_frame, 1, __ATOMIC_RELEASE);
++    int reason = f[32] ? GP_CANCEL_SCREEN : f[33] ? GP_CANCEL_CORNER :
++        (f[31] & 1) ? GP_CANCEL_CLICK : knob_moved ? GP_CANCEL_KNOB :
++        now < gp_shortcut_requested_at ? GP_CANCEL_CLOCK :
++        now - gp_shortcut_requested_at > 1000 ? GP_CANCEL_EXPIRED : GP_CANCEL_NONE;
++    if (reason) {
++        __atomic_store_n(&gp_shortcut_cancel_reason, reason, __ATOMIC_RELEASE);
+         gp_shortcut_finish(0);
+         return AZ_FRAME_OK;
+     }
+-    int view = gp_shortcut_core->view();
+     if (view != AZ_VIEW_DECK) {
++        if (!(gp_shortcut_phase && view == AZ_VIEW_SOURCE))
++            __atomic_store_n(&gp_shortcut_cancel_reason, gp_shortcut_phase ? GP_CANCEL_VIEW_AFTER_SEND : GP_CANCEL_VIEW, __ATOMIC_RELEASE);
+         gp_shortcut_finish(gp_shortcut_phase && view == AZ_VIEW_SOURCE);
+         return AZ_FRAME_OK;
+     }
+@@ -108,6 +154,24 @@
+ static void gp_shortcut_tick_at(long now)
+ {
+     if (!gp_shortcut_ready || !gp_shortcut_notice) return;
++    int reason = __atomic_load_n(&gp_shortcut_cancel_reason, __ATOMIC_ACQUIRE);
++    const char *why = gp_shortcut_cancel_text(reason);
++    if (why) {
++        gp_shortcut_notice = 0;
++        if (AZ_HAS(gp_shortcut_core, banner))
++            gp_shortcut_core->banner(gp_shortcut_id, why, 3500);
++        return;
++    }
++    if (!gp_shortcut_wait_notice && now >= gp_shortcut_requested_at &&
++        now - gp_shortcut_requested_at > 1000 &&
++        __atomic_load_n(&gp_shortcut_pending, __ATOMIC_ACQUIRE) &&
++        !__atomic_load_n(&gp_shortcut_saw_frame, __ATOMIC_ACQUIRE)) {
++        gp_shortcut_wait_notice = 1;
++        if (AZ_HAS(gp_shortcut_core, banner))
++            gp_shortcut_core->banner(gp_shortcut_id,
++                                    "MODS: waiting for mixer input", 3500);
++        /* Observation only: the mixer remains the sole request consumer. */
++    }
+     if (now < gp_shortcut_requested_at || now > gp_shortcut_notice_until) {
+         gp_shortcut_notice = 0;
+         return;

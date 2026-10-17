@@ -1,0 +1,21 @@
+{
+  "id": "mods-shortcut",
+  "name": "MODS Shortcut",
+  "version": "0.1.1",
+  "author": "hleawilliams-commits",
+  "summary": "Hide the WAVEFORM heading and use MODS to open SOURCE for the official Mod Menu.",
+  "icon": "https://github.com/hleawilliams-commits/flow-beat/releases/download/mods-shortcut-0.1.1/mods-shortcut-0.1.1-icon.png",
+  "package": "https://github.com/hleawilliams-commits/flow-beat/releases/download/mods-shortcut-0.1.1/mods-shortcut-0.1.1.azmod",
+  "sha256": "d04a4c616c7fbb3f627d85bd34a6ae034f33dda13b89939a0048035f87caa117",
+  "size": 52603,
+  "firmware": [
+    "any"
+  ],
+  "hooks": false,
+  "source": "https://github.com/hleawilliams-commits/flow-beat/tree/codex/az-mods-handoff-2026-10-16/mods-shortcut",
+  "updated": "2026-10-17",
+  "category": "visual",
+  "license": "GPL-3.0-only",
+  "min_core": "1.2.3",
+  "description": "SDK-only emulator preview. Hide WAVEFORM heading leaves its title area blank, with a separate toggle to restore it. The mask passes touches through and matches the pinned native theme backgrounds, including Flow Neon. MODS opens SOURCE; tap MOD MENU to select it, then tap again or press the browse knob to open. Physical navigation and LOAD input cancel the shortcut. Two small surfaces avoid waveforms and native tabs. No deck selection, LED reads, LOAD, PLAY, audio, library writes or firmware hooks."
+}

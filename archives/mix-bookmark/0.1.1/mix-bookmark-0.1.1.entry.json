@@ -1,0 +1,21 @@
+{
+  "id": "mix-bookmark",
+  "name": "Mix Bookmark",
+  "version": "0.1.1",
+  "author": "hleawilliams-commits",
+  "summary": "Save a two-deck pairing, playhead positions and a manual stem recipe on your USB.",
+  "icon": "https://github.com/hleawilliams-commits/flow-beat/releases/download/mix-bookmark-0.1.1/mix-bookmark-0.1.1-icon.png",
+  "package": "https://github.com/hleawilliams-commits/flow-beat/releases/download/mix-bookmark-0.1.1/mix-bookmark-0.1.1.azmod",
+  "sha256": "543348b6cc3297e5b251a1673e0b9955e45d1257dcd43349ffbf21b9ab53bf90",
+  "size": 66295,
+  "firmware": [
+    "any"
+  ],
+  "hooks": false,
+  "source": "https://github.com/hleawilliams-commits/flow-beat/tree/codex/az-mods-handoff-2026-10-16/mix-bookmark",
+  "updated": "2026-10-16",
+  "category": "tools",
+  "license": "GPL-3.0-only",
+  "min_core": "1.2.3",
+  "description": "Emulator preview. MIX BOOKMARK opens a review panel. Choose two decks and stem recipe notes, then save a bookmark on the USB. Reads deck snapshots and writes only its own data folder. Recipes are manual notes, not detected pad states. No automatic track loading, cue restore or audio changes. Maximum 64 bookmarks; corrupt or full storage fails closed."
+}

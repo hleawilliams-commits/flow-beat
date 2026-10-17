@@ -1,0 +1,18 @@
+{
+  "azmod": 1,
+  "id": "mix-bookmark",
+  "name": "Tag Mix",
+  "version": "0.1.2",
+  "author": "hleawilliams-commits",
+  "summary": "Tag good track combinations during practice and revisit them later.",
+  "description": "Emulator preview. TAG MIX opens your practice tags. Choose two loaded decks and tap TAG COMBO to remember a combination that sounds good. Saves the tracks, BPM and approximate positions on your USB, with manual stem notes. Browse earlier combos with Next combo. Tags do not change playback or apply stem settings. Uses the same mix-bookmark ID and file format, preserving earlier saved pairs. Maximum 64 tags.",
+  "category": "tools",
+  "license": "GPL-3.0-only",
+  "source": "https://github.com/hleawilliams-commits/flow-beat/tree/codex/az-mods-handoff-2026-10-16/mix-bookmark",
+  "api": 1,
+  "firmware": [
+    "any"
+  ],
+  "hooks": false,
+  "min_core": "1.2.3"
+}

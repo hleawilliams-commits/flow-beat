@@ -1,0 +1,18 @@
+{
+  "azmod": 1,
+  "id": "usb-buttons",
+  "name": "USB Browser Observer",
+  "version": "0.0.1",
+  "author": "hleawilliams-commits",
+  "summary": "Emulator-only observation of native USB source state; does not switch sources.",
+  "description": "Firmware-pinned native callback probe. Observes source controller lifetime, message-thread identity and source row descriptors. No source activation, input injection, playback control or library writes. Emulator validation only; not for physical installation.",
+  "category": "tools",
+  "license": "GPL-3.0-only",
+  "source": "https://github.com/hleawilliams-commits/flow-beat/tree/codex/az-mods-handoff-2026-10-16/experiments/usb-browser-switch/probe",
+  "api": 1,
+  "firmware": [
+    "ep147-9e9454e357389ece"
+  ],
+  "hooks": true,
+  "min_core": "1.2.3"
+}

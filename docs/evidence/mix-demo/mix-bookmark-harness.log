@@ -1,0 +1,29 @@
+CC=clang CXX=clang++ sh ../../az-mods-sdk/tools/harness/sanitize.sh --passes "plain asan tsan" \
+	    mix-bookmark:8:mix-bookmark.c
+== plain
+no-io and no-alloc are not measured on macOS (iocount.c interposes glibc)
+MISMATCH: mix-bookmark (plain): CHECK api FAIL data_dir/assets_dir from on_draw (they touch the disk);
+mix-bookmark (plain): 7 checks passed, not measured: no-io no-alloc functional
+== asan
+MISMATCH: mix-bookmark (asan): CHECK api FAIL data_dir/assets_dir from on_draw (they touch the disk);
+mix-bookmark (asan): 7 checks passed, not measured: no-io no-alloc functional
+== tsan
+MISMATCH: mix-bookmark (tsan): CHECK no-crash FAIL killed by signal 6;
+WARNING: ThreadSanitizer: data race (pid=7406)
+    #0 load_mod harness.c:1073 (harness:arm64+0x10000665c)
+    #1 run harness.c:1407 (harness:arm64+0x1000049a0)
+    #2 main harness.c:1457 (harness:arm64+0x100004790)
+    #0 s_disk_dir harness.c:554 (harness:arm64+0x100008114)
+    #1 writer mix-bookmark.c:71 (mix-bookmark.so:arm64+0x63b4)
+    #2 writer mix-bookmark.c:64 (mix-bookmark.so:arm64+0x62ac)
+    #0 pthread_create <null>:79698608 (libclang_rt.tsan_osx_dynamic.dylib:arm64e+0x309d8)
+    #1 s_thread_start harness.c:951 (harness:arm64+0x1000096fc)
+    #2 init mix-bookmark.c:200 (mix-bookmark.so:arm64+0x430c)
+    #3 load_mod harness.c:1072 (harness:arm64+0x100006650)
+    #4 run harness.c:1407 (harness:arm64+0x1000049a0)
+    #5 main harness.c:1457 (harness:arm64+0x100004790)
+SUMMARY: ThreadSanitizer: data race harness.c:1073 in load_mod
+MISMATCH: mix-bookmark (tsan): no-crash did not report PASS
+mix-bookmark (tsan): 0 checks passed
+SOME SANITIZER GATES FAILED
+make: *** [test] Error 1

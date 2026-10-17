@@ -1,0 +1,8 @@
+{
+  "version": "0.1.2",
+  "display_name": "Tag Mix",
+  "emulator_only": true,
+  "binary_sha256": "5b85963e86d2426c9f39956d856b4879626ffc1a157701d1b9dc4d9b9af87f06",
+  "package_sha256": "99b519ccdd221ffc25451b4e9039948835e1d04f7af76e59096b4c3a8219b5fa",
+  "sdk_commit": "6563e8e657a4ef113696de9d0f9327a6c8d0fab7"
+}

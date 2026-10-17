@@ -1,0 +1,27 @@
+{
+  "upstream": "https://github.com/Kyle-Hosman/xdj-az-mods",
+  "base_commit": "3e0c5cb010454228f4ee63226b60d060494eeaae",
+  "requires_patch": "../stems-memory-retry/memory-retry.patch",
+  "followup_patch": "activity-followup.patch",
+  "compiler": "SDK ARM64 Ubuntu 18.04 / GCC 7.5; make -C src CC=gcc azstem; -Wall -Wextra -Werror",
+  "tested_binary_sha256": "0d07d5675c478ebf74a4e9f29f300d5a5ab97f7a0f3b69f9ad5da643082acb06",
+  "glibc_max_required": "2.17",
+  "external_atomic_helpers": false,
+  "host_checks_per_mode": {
+    "activity": 52,
+    "track_generation_and_retry": 46
+  },
+  "host_modes": [
+    "plain",
+    "ASan/UBSan"
+  ],
+  "old_control_expected_failures": 8,
+  "emulator": "All four test tracks decoded; all four audio hooks showed fresh observations while paused, movement while playing, and fresh still observations after pause. Previous emulator core restored and verified.",
+  "physical_test": "None; no physical device access",
+  "remaining": [
+    "Resume during recovery decode/publication",
+    "Fresh-but-stuck native position versus true transport pause",
+    "Hardware audio deadline/contended atomic cost",
+    "Repeated memory-pressure recovery of this follow-up build"
+  ]
+}

@@ -1,0 +1,57 @@
+Late native beat-grid retry — host and isolated emulator validation, October 17, 2026
+
+Baseline: pinned xdj-az-mods 3e0c5cb010454228f4ee63226b60d060494eeaae.
+Runner extracts production drum_grid_service, grid state/publisher,
+azstem_deck_beat_phase and Grouped Panels gp_follow_step; native grid availability
+and optional settings-file access are stubbed. Patch is applied only to temporary
+source; baseline/patched source SHA-256 checked against provenance.json.
+
+baseline plain: REPRODUCED — one failed native read consumes Deck 2's generation;
+20 later service calls never retry, SDK phase unavailable, phrase cannot anchor.
+baseline ASan/UBSan: same reproduction, no sanitizer findings.
+patched plain: PASS, 112 assertions.
+patched ASan/UBSan: PASS, 112 assertions, no sanitizer findings.
+
+Cases: late arrival independently on Decks 1–4; correct per-deck phase;
+Group Panels follower anchors after recovery; valid grids remain cached;
+new generation immediately invalidates old grid and bypasses cooldown;
+missing/permanently invalid grids remain unavailable; every-fifth-visit retry
+bound; one generic unavailable log per generation; demand-off suspension;
+Beat Sync-only demand; unsigned generation wrap.
+
+ARM64 build: PASS, linux/arm64, local azmod-build:18.04, make CC=gcc azstem.
+Project warning policy: -Wall -Wextra -Werror.
+Compared all 133 src files to pinned git archive: only drumroll.c differs.
+Patched source SHA-256 matches provenance.json.
+Core SHA-256: d61e4d87e73cd997cb051367bf34a3e835d7e771191fa8cb9c6974be4052e6c9.
+Only this phrase-grid patch was applied to pinned upstream; no stems recovery patch.
+
+Actual emulator SDK consumer: PASS, all four logical decks.
+One ordinary native track loaded onto all four decks; valid native grids and actual
+Grouped Panels 0.1.0 phrase consumers known and advancing while all decks play.
+First phrase beat indices: [4, 1, 2, 0]; later: [7, 4, 5, 4].
+All four grid publication sequences stayed 6; existing valid grids remain cached.
+
+Actual emulator Drum Roll consumer: PASS, all four logical decks.
+Native deck selection, SLIP LOOP pads and X-PAD input; Beat Sync on.
+Temporary generated stereo PCM16 tone bank, four slots of 4,410 frames at 44.1 kHz.
+Each target alone armed/touched; moving transport, valid grid, no anchor wait,
+active sample voice, retrigger ages and released touch verified in three snapshots.
+All four gates/touches off at end of measured sequence.
+Bounded live-state reads are not an atomic trace, sample-accurate audio measurement,
+or real-time deadline evidence.
+
+Emulator restoration: PASS.
+Stems core and both config files restored exactly; UI core, Grouped Panels binary
+and existing log still match before-test hashes. Logging/sync-offset flags remain
+absent. Generated sample bank removed. Restart leaves all decks empty.
+Sanitized numeric observations and hashes: emulator-evidence.json.
+Core binaries, samples, screenshots, private backups and library details excluded.
+
+Not reproduced on native firmware: grid arriving after its generation was consumed.
+Observed native loads acquired valid grids on their first new generation.
+Delayed acquisition recovery remains proven by the deterministic host test.
+No native pointer manipulation, physical test, additional native-lifetime stress
+run or full-core concurrency sanitizer was performed in this validation.
+The reported physical Deck 2 phrase failure remains unconfirmed as this cause.
+No upstream checkout, official physical core or production community mod changed.

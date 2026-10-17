@@ -30,21 +30,21 @@
 #define STEP_MS 10
 #define PX 16
 
-/* Geometry, as in Stem Badge: waveform rows x 212..1050; 2 DECK rows at y 81 and 286 (130
- * and 308 with the official Phase Meter on); 4 DECK rows are a first guess. The counter sits
- * right of where Stem Badge draws, at the left end of the row. */
+/* Keep counters in the track-details headers, below the scrolling waveforms and above
+ * the overview waveforms. Measured in the emulator's 1280 x 800 2/4-deck layouts.
+ * The four-deck waveform order is 3,1,2,4; the details panels are 1,2 / 3,4. */
 #define ROW_X0 212
-#define BOX_X (ROW_X0 + 112)
-static const int ROW2_Y[2] = { 81, 286 };
-static const int ROW2_PHASE_Y[2] = { 130, 308 };
-static const int ROW4_Y[4] = { 81, 253, 425, 597 };
+#define DETAIL_X 320
+#define DETAIL_Y 566
+#define DETAIL_COL 640
+#define DETAIL_ROW 120
 #define TOP_Y 46
 #define BOX_W 196
 #define BOX_H 26
 
 static const az_core_v1 *C;
 static az_surface *box[NDECK];
-static int r_show = -1, r_len = -1, r_pos = -1, r_phase_official = -1;
+static int r_show = -1, r_len = -1, r_pos = -1;
 
 /* thread -> UI, all atomics */
 static int g_known[NDECK];      /* 1 = counting */
@@ -239,7 +239,6 @@ static void tick(void)
     int show = r_show < 0 || C->row_value(r_show) == 1;
     int bars = r_len >= 0 && C->row_value(r_len) == 1 ? 16 : 8;
     int top_pick = r_pos >= 0 && C->row_value(r_pos) == 1;
-    int phase_on = r_phase_official >= 0 && C->row_value(r_phase_official) == 1;
     int n = C->deck_count();
     int high_in_use = 0;
     int st[NDECK];
@@ -280,8 +279,8 @@ static void tick(void)
         if (s) {
             if (top) { r = (az_rect){ x_top, TOP_Y, BOX_W, BOX_H }; x_top += BOX_W + 6; }
             else {
-                int y = n == 4 ? ROW4_Y[d] : (phase_on ? ROW2_PHASE_Y[d & 1] : ROW2_Y[d & 1]);
-                r = (az_rect){ BOX_X, y + 4, BOX_W, BOX_H };
+                r = (az_rect){ DETAIL_X + (d & 1) * DETAIL_COL,
+                               DETAIL_Y + (d / 2) * DETAIL_ROW, BOX_W, BOX_H };
             }
         }
         int moved = memcmp(&r, &g_d[d].where, sizeof r) != 0;
@@ -314,7 +313,7 @@ static int init(const az_core_v1 *core)
     }
     if (AZ_HAS(C, register_row) && AZ_HAS(C, row_value)) {
         static const char *const LEN[] = { "8 bars", "16 bars" };
-        static const char *const POS[] = { "On the deck", "Screen top" };
+        static const char *const POS[] = { "Deck details", "Screen top" };
         az_row_v1 row;
         memset(&row, 0, sizeof row);
         row.size = sizeof row;
@@ -328,16 +327,15 @@ static int init(const az_core_v1 *core)
         row.help = "Bars in one phrase.";
         r_len = C->register_row(MOD_ID, &row);
         row.key = "position"; row.label = "Position"; row.choices = POS; row.n_choices = 2; row.default_choice = 0;
-        row.help = "Left end of each deck's row, or the screen top.";
+        row.help = "Track-details header below the waveforms, or the screen top.";
         r_pos = C->register_row(MOD_ID, &row);
         memset(&row, 0, sizeof row); row.size = sizeof row; row.parent = "show";
         row.key = "now"; row.label = "Phrase starts now"; row.kind = AZ_ROW_ACTION;
         row.help = "Sets bar 1 on the deck you started last.";
         row.on_activate = phrase_now;
         C->register_row(MOD_ID, &row);
-        if (AZ_HAS(C, row_lookup)) r_phase_official = C->row_lookup("phase-meter");
     } else {
-        C->log(MOD_ID, "no Mod Menu rows on this core: defaults (on, 8 bars, on the row)");
+        C->log(MOD_ID, "no Mod Menu rows on this core: defaults (on, 8 bars, deck details)");
     }
     for (int d = 0; d < NDECK; d++) {
         az_surface_v1 desc;

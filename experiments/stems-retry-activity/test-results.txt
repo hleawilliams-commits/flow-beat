@@ -1,0 +1,16 @@
+Original retry control (expected failure):
+36 passed, 8 failed
+FAIL deck 1: moving loop cannot look paused at sampling boundary
+FAIL deck 1: stale playhead without fresh audio observations does not retry
+FAIL deck 2: moving loop cannot look paused at sampling boundary
+FAIL deck 2: stale playhead without fresh audio observations does not retry
+FAIL deck 3: moving loop cannot look paused at sampling boundary
+FAIL deck 3: stale playhead without fresh audio observations does not retry
+FAIL deck 4: moving loop cannot look paused at sampling boundary
+FAIL deck 4: stale playhead without fresh audio observations does not retry
+Follow-up plain:
+52 passed, 0 failed
+----  trackgen: 46 passed, 0 failed
+Follow-up asan-ubsan:
+52 passed, 0 failed
+----  trackgen: 46 passed, 0 failed

@@ -1,0 +1,18 @@
+{
+  "source_base_revision": "dd1ef7cdcc646507f36f7f686ef27aa71c7cef19",
+  "tracked_patch_sha256": "ddf5f2daf8a26958f02548ae21943362f7167e99b5dfa07c80da19a12e70b687",
+  "source_files_sha256": {
+    "LICENSE": "e57f1c320b8cf8798a7d2ff83a6f9e06a33a03585f6e065fea97f1d86db84052",
+    "Makefile": "b13f29970058bcc2f9a9f708db080fcfafcd16181a830c58eeea2d2953014649",
+    "README.md": "ea8aeffb24a7a8c5ba4096f35124ac79d434e48da8822f29e0d1a65d6f5be1b4",
+    "azmod.json": "801b68a6672d45cda2b516ba38d819506e351abc0b2a0ed69bf87b5cba844de6",
+    "harmonic-picks.c": "3fa161c18e537ba53ee2cb45b3ed0ceab7cc10092454e01eab00f93503fd1d86",
+    "icon.png": "7ce9d2bd25edec9d4dcb9c62a60fdd136241536683aa3d2d88910d604a7a474f",
+    "tests/test_matches.c": "21bff14e38875134b06f845ebc1130e4b6326a97053b6c8e49b8449ddec48b84"
+  },
+  "sdk_revision": "6563e8e657a4ef113696de9d0f9327a6c8d0fab7",
+  "binary_sha256": "7147413572aabc23deebe87a6d07f1fec2d9fe897b2dd56e56d960433a5679b6",
+  "package_sha256": "8fd0c41806c3b5fa8163a8ffe7c12e6b531e99f5fb82ef834e0436d1683e50f8",
+  "installation": "emulator only",
+  "core_hashes_unchanged": true
+}

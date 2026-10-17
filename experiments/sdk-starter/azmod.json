@@ -1,0 +1,17 @@
+{
+  "azmod": 1,
+  "id": "first-mod",
+  "name": "First Mod",
+  "version": "0.1.0",
+  "author": "your-name",
+  "summary": "Live BPM and track titles for all four decks.",
+  "description": "A starter Community Mod with a Mod Menu page showing the loaded decks, their BPM and track titles. Track titles can be switched on or off. Uses read-only deck services and follows the selected theme.",
+  "license": "GPL-3.0-only",
+  "source": "https://github.com/your-name/first-mod",
+  "api": 1,
+  "firmware": [
+    "any"
+  ],
+  "hooks": false,
+  "min_core": "1.2.3"
+}

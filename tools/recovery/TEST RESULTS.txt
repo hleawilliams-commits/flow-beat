@@ -1,0 +1,9 @@
+PASS complete backup verified against source and SHA-256 manifest
+PASS disable only changes community switch, leaving official core intact
+PASS community rollback preserves a newer official core, loader, and unrelated settings
+PASS corrupt backup refused before USB writes
+PASS wrong USB backup identity refused before writes
+PASS future settings version refused without rewriting it
+PASS failed swap restores prior community files and leaves them disabled
+PASS symlink payload refused
+All restore/disable tests ran on temporary folders, not the physical USB.

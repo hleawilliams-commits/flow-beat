@@ -1,0 +1,12 @@
+{
+  "gp_shortcut_phase": 0,
+  "gp_shortcut_sent": 0,
+  "gp_shortcut_pending": 0,
+  "gp_shortcut_observed_delay": 0,
+  "gp_shortcut_requested_at": 0,
+  "gp_shortcut_observed_view": 0,
+  "gp_shortcut_saw_frame": 0,
+  "gp_shortcut_cancel_reason": 0,
+  "gp_shortcut_until": 0,
+  "gp_shortcut_wait_notice": 0
+}

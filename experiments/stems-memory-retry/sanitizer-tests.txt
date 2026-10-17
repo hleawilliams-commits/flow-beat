@@ -1,0 +1,47 @@
+PASS  trackgen: load: generation bumped once
+PASS  trackgen: load: azmod sees the new generation with the new name
+PASS  trackgen: a short probe miss: no change
+PASS  trackgen: the miss recovered: still the same track
+PASS  trackgen: eject: generation bumped
+PASS  trackgen: eject: generation bumped (to empty)
+PASS  trackgen: eject: the deck's track state is cleared
+PASS  trackgen: an empty deck stays put
+PASS  trackgen: reloading the same track after an eject bumps again
+PASS  trackgen: other decks never moved
+PASS  trackgen: memory below reserve: no retry
+PASS  trackgen: unreadable memory budget: no retry
+PASS  trackgen: moving deck: no automatic retry
+PASS  trackgen: unknown playhead: no automatic retry
+PASS  trackgen: another load in flight: retry waits
+PASS  trackgen: stopped deck with memory recovers once
+PASS  trackgen: retry keeps the same track generation
+PASS  trackgen: successful or missing-stems track does not loop
+PASS  trackgen: eject cancels pending memory retry
+PASS  trackgen: memory below reserve: no retry
+PASS  trackgen: unreadable memory budget: no retry
+PASS  trackgen: moving deck: no automatic retry
+PASS  trackgen: unknown playhead: no automatic retry
+PASS  trackgen: another load in flight: retry waits
+PASS  trackgen: stopped deck with memory recovers once
+PASS  trackgen: retry keeps the same track generation
+PASS  trackgen: successful or missing-stems track does not loop
+PASS  trackgen: eject cancels pending memory retry
+PASS  trackgen: memory below reserve: no retry
+PASS  trackgen: unreadable memory budget: no retry
+PASS  trackgen: moving deck: no automatic retry
+PASS  trackgen: unknown playhead: no automatic retry
+PASS  trackgen: another load in flight: retry waits
+PASS  trackgen: stopped deck with memory recovers once
+PASS  trackgen: retry keeps the same track generation
+PASS  trackgen: successful or missing-stems track does not loop
+PASS  trackgen: eject cancels pending memory retry
+PASS  trackgen: memory below reserve: no retry
+PASS  trackgen: unreadable memory budget: no retry
+PASS  trackgen: moving deck: no automatic retry
+PASS  trackgen: unknown playhead: no automatic retry
+PASS  trackgen: another load in flight: retry waits
+PASS  trackgen: stopped deck with memory recovers once
+PASS  trackgen: retry keeps the same track generation
+PASS  trackgen: successful or missing-stems track does not loop
+PASS  trackgen: eject cancels pending memory retry
+----  trackgen: 46 passed, 0 failed

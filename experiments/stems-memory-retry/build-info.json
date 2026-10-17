@@ -1,0 +1,9 @@
+{
+  "base_commit": "3e0c5cb010454228f4ee63226b60d060494eeaae",
+  "upstream": "https://github.com/Kyle-Hosman/xdj-az-mods",
+  "license": "GPL-3.0-only",
+  "fixed_sha256": "cd95ce64bd1e4cbd4c7710aa77adc7546623e9782baf8fa9bd8d4acbe562a1d3",
+  "original_sha256": "3e0205320a0dda69a72e1de5070be82c89fb9e73ec21ce3f561c1dbb23d60ea6",
+  "build": "GCC 7.5 / glibc 2.27, arm64, az-mods-sdk:1; make -C src CC=gcc azstem",
+  "installation": "emulator staging directory only"
+}

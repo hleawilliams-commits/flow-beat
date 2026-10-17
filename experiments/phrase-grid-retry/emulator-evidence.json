@@ -1,0 +1,263 @@
+{
+  "date": "2026-10-17",
+  "scope": "Local emulator only; no physical AZ access; sanitized numeric observations",
+  "build": {
+    "upstream_commit": "3e0c5cb010454228f4ee63226b60d060494eeaae",
+    "changed_upstream_source_paths": [
+      "src/azstem/drumroll.c"
+    ],
+    "source_files_compared_to_git_archive": 133,
+    "patch_sha256": "d6046e69e251923465bf1af22dadbe98763a976f326c6c188de57c395df37d4b",
+    "azstem_so_sha256": "d61e4d87e73cd997cb051367bf34a3e835d7e771191fa8cb9c6974be4052e6c9",
+    "target": "linux/arm64",
+    "container_image": "azmod-build:18.04",
+    "make_arguments": [
+      "-C",
+      "/g",
+      "CC=gcc",
+      "azstem"
+    ],
+    "werror_build": "PASS"
+  },
+  "observations": {
+    "same_native_track_loaded_on_all_four_decks": true,
+    "early_load_generation": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "early_load_valid": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "first_valid_generation": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "first_valid_grids": [
+      {
+        "seq": 6,
+        "anchor": 23329,
+        "beat": 34731.14574898785,
+        "valid": 1
+      },
+      {
+        "seq": 6,
+        "anchor": 23329,
+        "beat": 34731.14574898785,
+        "valid": 1
+      },
+      {
+        "seq": 6,
+        "anchor": 23329,
+        "beat": 34731.14574898785,
+        "valid": 1
+      },
+      {
+        "seq": 6,
+        "anchor": 23329,
+        "beat": 34731.14574898785,
+        "valid": 1
+      }
+    ],
+    "phrase_observations_elapsed_seconds": 2.487,
+    "phase_consumer": "Actual installed Grouped Panels 0.1.0 gp_follow_step via SDK deck_grid",
+    "first_phrase_known": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "first_phrase_beat_index": [
+      4,
+      1,
+      2,
+      0
+    ],
+    "later_phrase_known": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "later_phrase_beat_index": [
+      7,
+      4,
+      5,
+      4
+    ],
+    "playheads_advanced_all_four": true,
+    "valid_grid_sequence_unchanged_all_four": true,
+    "native_delayed_grid_after_consumed_generation_reproduced": false
+  },
+  "drum_roll": {
+    "beat_sync_enabled": true,
+    "test_bank": "Generated synthetic damped tones; stereo PCM16, 44100 Hz, 4410 frames per slot",
+    "all_four_sample_slots_frames": [
+      4410,
+      4410,
+      4410,
+      4410
+    ],
+    "per_deck": [
+      {
+        "deck": 1,
+        "observations": 3,
+        "only_target_gate_and_touch_active": true,
+        "grid_valid_all_samples": true,
+        "beat_sync_enabled_all_samples": true,
+        "moving_transport_all_samples": true,
+        "wait_anchor_all_samples": [
+          0,
+          0,
+          0
+        ],
+        "hit_age_frames": [
+          4142,
+          1070,
+          227
+        ],
+        "sample_voice_positions": [
+          763,
+          1269,
+          464
+        ],
+        "voice_sample_frames": [
+          4410,
+          4410,
+          4410
+        ],
+        "release_cleared_all_touches": true
+      },
+      {
+        "deck": 2,
+        "observations": 3,
+        "only_target_gate_and_touch_active": true,
+        "grid_valid_all_samples": true,
+        "beat_sync_enabled_all_samples": true,
+        "moving_transport_all_samples": true,
+        "wait_anchor_all_samples": [
+          0,
+          0,
+          0
+        ],
+        "hit_age_frames": [
+          2471,
+          816,
+          3728
+        ],
+        "sample_voice_positions": [
+          1553,
+          1110,
+          91
+        ],
+        "voice_sample_frames": [
+          4410,
+          4410,
+          4410
+        ],
+        "release_cleared_all_touches": true
+      },
+      {
+        "deck": 3,
+        "observations": 3,
+        "only_target_gate_and_touch_active": true,
+        "grid_valid_all_samples": true,
+        "beat_sync_enabled_all_samples": true,
+        "moving_transport_all_samples": true,
+        "wait_anchor_all_samples": [
+          0,
+          0,
+          0
+        ],
+        "hit_age_frames": [
+          3709,
+          1010,
+          3741
+        ],
+        "sample_voice_positions": [
+          2139,
+          855,
+          51
+        ],
+        "voice_sample_frames": [
+          4410,
+          4410,
+          4410
+        ],
+        "release_cleared_all_touches": true
+      },
+      {
+        "deck": 4,
+        "observations": 3,
+        "only_target_gate_and_touch_active": true,
+        "grid_valid_all_samples": true,
+        "beat_sync_enabled_all_samples": true,
+        "moving_transport_all_samples": true,
+        "wait_anchor_all_samples": [
+          0,
+          0,
+          0
+        ],
+        "hit_age_frames": [
+          987,
+          3078,
+          1211
+        ],
+        "sample_voice_positions": [
+          812,
+          1856,
+          1499
+        ],
+        "voice_sample_frames": [
+          4410,
+          4410,
+          4410
+        ],
+        "release_cleared_all_touches": true
+      }
+    ],
+    "final_gates": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "final_touches": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "restoration": {
+    "all_saved_files_matched_before": true,
+    "sha256": {
+      "/home/root/settings/az-usbload/azmod.so": "f8d4ba67ccad9e3386c78dc2ca377bf3263221875d65578a1d893e9c2f3f5668",
+      "/home/root/settings/az-usbload/azstem.so": "cd95ce64bd1e4cbd4c7710aa77adc7546623e9782baf8fa9bd8d4acbe562a1d3",
+      "/home/root/settings/azmod.conf": "7a503290a60301c303011d018eb2b5278d286c58ad9bd83185961639d647e509",
+      "/home/root/settings/azmod.cfg": "5fd188cfaca04949be5f1a99da7849ce0226f786770d0e39e32a479919163d6b",
+      "/tmp/azstem.log": "a3937049dd31e54d4ba93141327b9679b78bdcea67a9a93a595ca640d779419d",
+      "/home/root/settings/az-usbload/community/grouped-panels/grouped-panels.so": "3d2b4199da2e80178035aa86a71a15f2219dfbe262358fce756dcc068e6be120"
+    },
+    "previously_absent_paths_still_absent": [
+      "/home/root/settings/azmod-logs.on",
+      "/home/root/settings/azstem.drumsyncoffset"
+    ],
+    "generated_drum_bank_removed": true,
+    "all_decks_empty": true
+  },
+  "limits": [
+    "Native delayed-grid recovery remains deterministic host-test coverage; the observed firmware loads acquired valid grids on their first new generation.",
+    "Consumer snapshots are bounded reads from live process data, not an atomic trace; no sample-accurate timing or real-time deadline conclusion.",
+    "Only one ordinary track fixture was loaded on all four decks.",
+    "No changes to native pointer/reference code, no new native-lifetime or full-core concurrency sanitizer test in this validation.",
+    "Physical Deck 2 failure is not diagnosed and no physical fix is claimed.",
+    "Core binaries, track/library metadata, full captures, screenshots, samples, private backups and diagnostics are excluded from this repository."
+  ]
+}

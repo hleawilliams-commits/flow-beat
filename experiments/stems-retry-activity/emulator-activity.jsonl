@@ -1,0 +1,6 @@
+{"pid": 820617, "observations": [37906, 37906, 37906, 37906], "motion": [1, 1, 1, 1], "positions": [4116, 4116, 4116, 4116], "retry_bytes": [0, 0, 0, 0], "label": "initial-paused"}
+{"pid": 820617, "observations": [39389, 39389, 39389, 39389], "motion": [1, 1, 1, 1], "positions": [4116, 4116, 4116, 4116], "retry_bytes": [0, 0, 0, 0], "label": "initial-paused-later"}
+{"pid": 820617, "observations": [40800, 40800, 40800, 40800], "motion": [570, 264, 413, 90], "positions": [78676, 40352, 58580, 17236], "retry_bytes": [0, 0, 0, 0], "label": "playing"}
+{"pid": 820617, "observations": [42302, 42302, 42302, 42302], "motion": [1321, 1015, 1164, 841], "positions": [174548, 138333, 154452, 113108], "retry_bytes": [0, 0, 0, 0], "label": "playing-later"}
+{"pid": 820617, "observations": [44022, 44022, 44022, 44022], "motion": [1454, 1448, 1447, 1426], "positions": [189779, 193144, 188883, 186195], "retry_bytes": [0, 0, 0, 0], "label": "paused-again"}
+{"pid": 820617, "observations": [45524, 45524, 45524, 45524], "motion": [1454, 1448, 1447, 1426], "positions": [189779, 193144, 188883, 186195], "retry_bytes": [0, 0, 0, 0], "label": "paused-again-later"}

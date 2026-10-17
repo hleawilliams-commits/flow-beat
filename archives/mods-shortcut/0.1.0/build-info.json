@@ -1,0 +1,26 @@
+{
+  "mod": "mods-shortcut",
+  "version": "0.1.0",
+  "status": "emulator-only; not published or physically tested",
+  "repository_base": "ed67d9376faa3b812f8de327bc505b7eb61d30e8",
+  "sdk_revision": "6563e8e657a4ef113696de9d0f9327a6c8d0fab7",
+  "binary_sha256": "20501596efe07143e4339a95dbf1f9b6b8de3cc3b53e4915e6370f0e0b67822b",
+  "package_sha256": "5bb5bdc1629248a720ef372d4b93d5481cfcf2e8b24296cd511c895aa16ee04a",
+  "source_sha256": {
+    "LICENSE": "e57f1c320b8cf8798a7d2ff83a6f9e06a33a03585f6e065fea97f1d86db84052",
+    "Makefile": "16d8d677c31d2b0ad75522244945a9e8cb6246ff572e517b2e3fbe8ce8dbfb86",
+    "README.md": "3c05b064df0ebd43603a452822b4688776b199ba20952e075f96e1982c7cab2a",
+    "azmod.json": "f2436f22398a388c9ed31b5344470a3d5fc9f74b5ce940b3797add9353cfe498",
+    "icon.png": "ac95f840f374259f6c9f54d1aa8929b471ed2756bdd1d3f3a3424bcddde015e7",
+    "mods-shortcut.c": "3343b1837cbcdfd6976f71ccca6a7fabb5b7eb4b333f73412e70034863262139",
+    "shortcut.h": "e70873119dad1a86901b94838cbfe000bca5df50ca98409eaa10acfc11e200b8",
+    "tests/run-focused.sh": "bf59ec3c43150239ae6eece44eaebf5cd0162339621f6717b50ae439c1aea380",
+    "tests/scenarios.c": "3af923cdee20d4efbb774cd9d63bffbeacad489b670ae747920ec416409b96fa",
+    "tests/test_component.c": "79bdec65b67e6e80676ee60527392c932b0a09e20f44572c0a6d544aec738135",
+    "tests/test_shortcut.c": "a8bc0dd65baf8fb067ebc13cad44a6d469f938daceaa376db0f5acef45b90ad4"
+  },
+  "emulator_core_unchanged": {
+    "azmod.so": "f8d4ba67ccad9e3386c78dc2ca377bf3263221875d65578a1d893e9c2f3f5668",
+    "azstem.so": "cd95ce64bd1e4cbd4c7710aa77adc7546623e9782baf8fa9bd8d4acbe562a1d3"
+  }
+}

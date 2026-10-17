@@ -1,0 +1,9 @@
+{
+  "version": "0.3.0",
+  "status": "emulator-preview",
+  "sdk": "1.2.3",
+  "hooks": false,
+  "base_commit": "dd1ef7cdcc646507f36f7f686ef27aa71c7cef19",
+  "binary_sha256": "1ee0bf040eacb85611e24a8c6cc006b982dc4cd2e4e2b96c1e0850ab11bf8926",
+  "package_sha256": "1ba06438c56462effa44d104cc32d02e4d782cfc6d01a151d5f4bfc93833782b"
+}

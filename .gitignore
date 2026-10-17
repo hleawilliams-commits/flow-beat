@@ -5,3 +5,25 @@ __pycache__/
 *.pyc
 out-debug/
 a.out
+
+# Private device state, credentials, and generated runtime payloads
+.DS_Store
+*.dSYM/
+.env
+.env.*
+*.pem
+*.key
+*.qcow2
+*.img
+*.dmg
+*.wav
+*.mp3
+*.flac
+*.ogg
+*.db
+*.pdb
+*.so
+tools/recovery/backups/
+tools/recovery/registered-usb.json
+tools/recovery/restore-point.json
+tools/recovery/.operation.lock

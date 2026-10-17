@@ -1,0 +1,37 @@
+cd95ce64bd1e4cbd4c7710aa77adc7546623e9782baf8fa9bd8d4acbe562a1d3  /home/root/settings/az-usbload/azstem.so
+azdecks 1
+pid 23329
+up 1864.05
+decks LLLL
+pbi_gen=601240 PBREAD=12959 FGPRread=0 setsrc=0
+pbread_tls_set=12731 pbread_tls_unset=228
+inj_start=0 inj_cnt=0 inj_adv=0
+play_S=337478 readahead_gap=-337478 gap_sec=-7.65
+gap_min=0.00s gap_max=0.00s gap_closest=0.000s
+ra_caller=0x0
+op_pos_vs_play=-7.65s pitch_buf_span=0.00s (bufpos=0 buflim=0) op_caller=0x0
+operate=0 op_ratio=1.00000 nativekey_subst=0
+ts_src=0x0 ts_vtbl=0x0 ts_buf=0x0 ts_cap=0 ts_ws=0 ts_fill=0 ts_win_vs_play=-7.65s
+evict_calls=0 evict_req=15
+ring_base=0x0 captured=0 mask1=0x0(=0.00s) mask2=0x0(=0.00s) cap=0(=0.00s) trklen=0 ptr1=0x0 ptr2=0x0
+rs_caller=0x0 rs_pos_vs_play=-7.65s rs_size=0
+fill: read=0 L-read=0.00s fill1-read=0.00s fill2-read=0.00s | mult=0 cnt0=0 capA=0(=0.00s) ratA=0
+flusher: maskpoll=UP worst_stall=step -1 0ms
+pb_deck_of: struct=0 alias_refused=179 target(HARDWIRED d0)=0 table=0 miss=49
+fgpr_hooks: ringfill=HOOKED fgpr_op=HOOKED
+stemofs d0 load_off=0 hold=0 stale=0 | verify state=0 base=0 captured=0 tries=0 off=0
+stemofs d1 load_off=0 hold=0 stale=0 | verify state=0 base=0 captured=0 tries=0 off=0
+stemofs d2 load_off=0 hold=0 stale=0 | verify state=0 base=0 captured=0 tries=0 off=0
+stemofs d3 load_off=0 hold=0 stale=0 | verify state=0 base=0 captured=0 tries=0 off=0
+deck0 ctrl=0x8f frames=10209856 play_S=337478 peakL=0.00000 peakR=0.00000 fgpr=0xffff4a884700 gain=1000/1000/1000/1000 obs=337478 retry_bytes=0
+deck1 ctrl=0x8f frames=10209856 play_S=339294 peakL=0.00000 peakR=0.00000 fgpr=0xffff4b1f8900 gain=1000/1000/1000/1000 obs=339294 retry_bytes=0
+deck2 ctrl=0x8f frames=10209856 play_S=332097 peakL=0.00000 peakR=0.00000 fgpr=0xffff4baad340 gain=1000/1000/1000/1000 obs=332097 retry_bytes=0
+deck3 ctrl=0x8f frames=10209856 play_S=334081 peakL=0.00000 peakR=0.00000 fgpr=0xffff4c3562c0 gain=1000/1000/1000/1000 obs=334081 retry_bytes=0
+probe[0] @0x7a8928 installed=0 hits=0
+probe[1] @0x7c6b28 installed=0 hits=0
+probe[2] @0x7c6790 installed=0 hits=0
+probe[3] @0x7c46c0 installed=0 hits=0
+probe[4] @0x7bfb60 installed=0 hits=0
+probe[5] @0x7c4910 installed=0 hits=0
+probe[6] @0xe2b4f0 installed=0 hits=0
+probe[7] @0xde3c08 installed=0 hits=0

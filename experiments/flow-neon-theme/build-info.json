@@ -1,0 +1,16 @@
+{
+  "theme": "FLOW Neon",
+  "key": "flow-neon",
+  "status": "emulator-only core theme experiment",
+  "upstream": "https://github.com/Kyle-Hosman/xdj-az-mods",
+  "base_commit": "3e0c5cb010454228f4ee63226b60d060494eeaae",
+  "ground": "#090611",
+  "surface": "#251337",
+  "text": "#F5EBFF",
+  "accent_hue": 320,
+  "azmod_before_sha256": "5f444898d258cb92bd78499b7d4a0631d9f29279cc47ae5d46df7b7d0c8efc84",
+  "azmod_theme_sha256": "f8d4ba67ccad9e3386c78dc2ca377bf3263221875d65578a1d893e9c2f3f5668",
+  "azstem_unchanged_sha256": "cd95ce64bd1e4cbd4c7710aa77adc7546623e9782baf8fa9bd8d4acbe562a1d3",
+  "build": "azmod-build:18.04; make -C /g CC=gcc azmod; -Wall -Wextra -Werror",
+  "physical_installation": false
+}

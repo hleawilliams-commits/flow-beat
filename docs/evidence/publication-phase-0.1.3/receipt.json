@@ -1,0 +1,31 @@
+{
+  "date": "2026-10-17",
+  "source_commit": "9578d6c774797868fec61f1c4301aedcec2c78a5",
+  "main_commit": "a210767fb7b7c8564a745e6abab6596990a7041d",
+  "preserved_unrelated_catalog_entries": 11,
+  "packages": [
+    {
+      "id": "phase-strip",
+      "version": "0.1.3",
+      "sha256": "5d0a27cf76323f0535a2fc4438b9cfea1f11ac717afcbb09486515737438a8a9",
+      "size": 51714
+    }
+  ],
+  "checks": [
+    "ARM64 build and SDK package validation passed",
+    "123 focused paint scenarios passed in plain and ASan/UBSan",
+    "SDK harness: 8 measured checks in each of plain, ASan/UBSan and TSan",
+    "Exact package exercised in actual emulator with four decks playing and default 2 DECK/4 DECK visibility",
+    "Uploaded draft package and icon downloaded and matched local bytes",
+    "Phase source on main exactly matches tested source commit",
+    "Live default-branch SDK repo check --download passed across all 12 entries"
+  ],
+  "physical_test": "Pending; no physical changes during publication",
+  "excluded": [
+    "MODS shortcut tap fix",
+    "USB1/USB2 shortcuts",
+    "FLOW Neon core theme",
+    "stems-engine patch",
+    "Deck 2 phrase fix"
+  ]
+}

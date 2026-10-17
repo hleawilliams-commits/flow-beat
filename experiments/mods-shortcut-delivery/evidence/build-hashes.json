@@ -1,0 +1,16 @@
+{
+  "normal": {
+    "azmod.json": "81cde2847d43866be2404ecc0cbe5728d831e481c48c969185207b8018a8491c",
+    "mods-shortcut-delivery.c": "4faa56c82411c8855d20a7fa451b834ff6a0fc7a2ad58290e2491aba09282c52",
+    "shortcut.h": "f02e653fc677d8200f8090d6d33ed843bfac2df6d612e413a9240fd4c0556e4f",
+    "frame-gap.h": "3039def6149e3773f3f80e0144c80560e7818eb87ae8d14bf4f01b625f12586a",
+    "out/mods-shortcut-delivery.so": "f2b08afebcddbd93033101ddd7fc7f8f137c424a3b9aa4ff766f4f0f70831eea"
+  },
+  "gap": {
+    "azmod.json": "b5734bc1f46d5fc1ab8f49b2f546d6ebb54661f307440518b977e03a2e539145",
+    "mods-shortcut-delivery.c": "4faa56c82411c8855d20a7fa451b834ff6a0fc7a2ad58290e2491aba09282c52",
+    "shortcut.h": "8adc78f514e5a6e7372941c07b0e29c80d1e8abb0fa8b624204e9782f1127fe2",
+    "frame-gap.h": "3039def6149e3773f3f80e0144c80560e7818eb87ae8d14bf4f01b625f12586a",
+    "out/mods-shortcut-delivery.so": "00abd8d90a3f1d10333e7fff73ff53476bf5b833e6977038311a9752fe0a9c7b"
+  }
+}

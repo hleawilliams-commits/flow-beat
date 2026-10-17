@@ -1,0 +1,7 @@
+{
+  "version": "0.1.0",
+  "emulator_only": true,
+  "binary_sha256": "fedaa744eb320af9d3de5b6b3af989f9ab5c22066ce6e13aff0abc32f90d38bf",
+  "package_sha256": "e5086e1d088415da5ba9f5b100c197fc02fef86bf084e87c8e46c12a68dd14cf",
+  "sdk_commit": "6563e8e657a4ef113696de9d0f9327a6c8d0fab7"
+}

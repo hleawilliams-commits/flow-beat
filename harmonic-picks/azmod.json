@@ -1,14 +1,14 @@
 {
   "azmod": 1,
   "id": "harmonic-picks",
-  "name": "Harmonic Picks",
-  "version": "0.1.0",
+  "name": "Stem Picks",
+  "version": "0.4.1",
   "author": "hleawilliams-commits",
-  "summary": "A Mod Menu page listing tracks on your stick that fit the playing deck by key and BPM.",
-  "description": "Test build 0.1.0: validated and harness-tested, not yet run on a deck. Open Mod Menu > Community Mods > Installed > Harmonic Picks. It takes the deck that started playing last and lists up to 40 tracks from your USB sticks in the same key, a neighbour key or the relative key, within 6% BPM (half and double time count). Same key shows green. Each row shows key, BPM, BPM gap and the track; VOX marks acapellas.\n\nTurn the knob to scroll. Press to switch between all tracks and acapellas only.\n\nReads deck state and the stick's library through the AZ-MODS core only: no hooks, controls, LEDs, audio, files or network.",
+  "summary": "Native playable browser shortcut plus regular-track harmonic ideas and stem recipe guidance.",
+  "description": "Emulator preview. STEM PICKS opens the current native browser; use its BPM + KEY + MASTER Track Filter and LOAD 1-4. Filtering must be configured and enabled first; the shortcut preserves current category/filter state. Custom Mod Menu suggestions are read-only harmonic ideas for regular tracks, with stem recipe guidance. Vocal titles is an optional title-text filter, not vocal detection. Stem readiness of library results is unknown. Use the deck pads yourself; this mod does not mute stems. Library keys do not follow Key Shift.",
   "category": "tools",
   "license": "GPL-3.0-only",
-  "source": "https://github.com/hleawilliams-commits/flow-beat/tree/main/harmonic-picks",
+  "source": "https://github.com/hleawilliams-commits/flow-beat/tree/codex/az-mods-handoff-2026-10-16/harmonic-picks",
   "api": 1,
   "firmware": [
     "any"

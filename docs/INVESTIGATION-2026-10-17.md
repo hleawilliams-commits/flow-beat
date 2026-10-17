@@ -1,0 +1,23 @@
+# Follow-up investigation — October 17
+
+The physical XDJ-AZ was left untouched during this follow-up. No new community release was published. Phase Strip 0.1.3 remains the current phase correction; source and experimental evidence below are shared for review, not installation on the practicing board.
+
+| Work | New evidence | Remaining gate |
+|---|---|---|
+| [MODS delivery](../experiments/mods-shortcut-delivery/README.md) | Normal emulator callback delivery opens SOURCE. Suppressing delivery to the shortcut for 1250 ms reproduces acceptance followed by expiry before any SOURCE pulse. A separate [direct-menu design](../experiments/mods-shortcut-delivery/DIRECT-MENU-DESIGN.md) maps the core changes required to avoid that dependency. | Physical callback timing is unconfirmed. Direct menu opening is not implemented; knob handback and native-view cancellation still need solutions and tests. Don't weaken native-input guards or publish the gap adapter. |
+| [Phrase grid retry](../experiments/phrase-grid-retry/README.md) | Extracted production functions reproduce a grid arriving after the one attempted read. A bounded retry patch passes 112 assertions in plain and ASan/UBSan. Its isolated ARM64 build ran actual Grouped Panels phrase consumers and Drum Roll Beat Sync on all four emulator decks. | Native delayed-grid recovery was not reproduced: emulator loads had grids on their first attempt. Drum Roll checks establish consumer operation, not sample-accurate timing. Physical Deck 2 attribution remains unconfirmed. |
+| [Stems activity guard](../experiments/stems-retry-activity/README.md) | The original retry mistakes sampled moving loops or a stale playhead for stillness. The follow-up passes 98 focused assertions per mode and an ARM64 build. All four emulator decks show fresh still observations while paused and motion while playing. | Resume during recovery decoding/publication is still unguarded. Observed stillness is not authoritative transport pause; hardware timing cost is unmeasured. The follow-up does not increase memory capacity. |
+| [USB observer V2](../experiments/usb-browser-switch/observer-v2/README.md) | A separate two-hook probe copies source identity at callback entry and records the native return separately. Review removed unsafe post-return pointer reads. 299 assertions pass in plain, ASan/UBSan and TSan, including concurrent freeing after return; ARM64 SDK build/validation pass. | No emulator run yet. Callback thread/claim acceptance and safe post-commit observation remain unproven. Entry snapshots and native return codes do not verify switch completion. No USB buttons or activation operation are implemented. |
+
+The missing MODS button itself was previously explained by its **MODS source shortcut** toggle being OFF. Whole-mod enable is separate. Turning that row ON requires no Reload; that finding does not explain the earlier accepted but cancelled tap.
+
+The physical stems incident is still documented [separately](evidence/physical-stems-2026-10-17/README.md). The later long track's 590.24 MiB decoded requirement exceeded the 114.53 MiB headroom in its snapshot. Recovery logic can address a refusal that stays cached after memory returns; it cannot make an oversized combination fit.
+
+The emulator's original UI/stems core hashes and preview community set were restored after the temporary tests. Restarts unloaded the emulator tracks. No experimental core binaries, private music, raw physical captures, credentials or USB backups are included in this handoff.
+
+## Next development pass
+
+1. Turn the resume-during-stems-recovery review finding into a reproducible regression, covering actual injection as well as availability. Design the activation guard from the engine's real transport and publication paths. Preserve the reserve and test the cases listed in the activity experiment; do not promote a scheduling-only patch as a complete fix.
+2. Review and run USB observer V2 only in the emulator with its explicit opt-in. Verify claim acceptance and native callback threads using manual USB switching. Keep post-return reads absent; a safe copied completion result and native activation contract are still prerequisites to custom USB buttons.
+3. Implement the direct-menu service only after resolving the design's knob handback and view-cancellation questions. Treat the SDK/core change separately from the community shortcut, and retain all native input regression coverage.
+4. Preserve the isolated phrase-grid results. When composing a candidate engine, apply patches explicitly and test their interaction. The physical Deck 2 report still needs evidence; no physical reload is required for this development work.

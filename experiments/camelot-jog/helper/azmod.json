@@ -1,0 +1,17 @@
+{
+  "azmod": 1,
+  "id": "camelot-preview-helper",
+  "name": "Camelot preview helper",
+  "version": "0.1.0",
+  "author": "hleawilliams-commits",
+  "summary": "Emulator-only helper to apply the prepared test artwork spool.",
+  "description": "Development helper for the emulator test USB. Requests application of a prepared artwork SQL spool once; does not draw over the main screen.",
+  "license": "GPL-3.0-only",
+  "source": "https://github.com/hleawilliams-commits/flow-beat",
+  "api": 1,
+  "firmware": [
+    "any"
+  ],
+  "hooks": false,
+  "min_core": "1.2.3"
+}
