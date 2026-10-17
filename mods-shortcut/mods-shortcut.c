@@ -131,12 +131,12 @@ static int init(const az_core_v1 *core)
         const az_row_v1 row = {
             .size = sizeof row, .key = "show", .label = "MODS source shortcut",
             .kind = AZ_ROW_TOGGLE, .flags = AZ_ROW_DEFAULT_ON,
-            .help = "MODS opens SOURCE. Tap the official MOD MENU entry to open your mods. No track loading or playback changes.",
+            .help = "MODS opens SOURCE. Tap the official MOD MENU entry to open your mods. If MODS times out, use SOURCE > MOD MENU. No track loading or playback changes.",
         };
         gp_button_row = C->register_row(MOD_ID, &row);
     }
-    /* Older services or a refused filter mean an inert hidden surface. Never show
-     * a button that cannot carry out its advertised SOURCE action. */
+    /* Missing/refused services keep the button hidden. A later filter quarantine
+     * is not exposed by the SDK; request timeout supplies the manual fallback. */
     C->surface_show(gp_button, 0);
     gp_heading_init();
     return 0;

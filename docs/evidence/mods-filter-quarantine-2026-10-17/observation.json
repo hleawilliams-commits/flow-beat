@@ -1,0 +1,43 @@
+{
+  "observation_utc": "2026-10-17T19:39:38.271457+00:00",
+  "source": "bounded read-only physical-process observation; private raw capture retained locally",
+  "core_sha256": "5f444898d258cb92bd78499b7d4a0631d9f29279cc47ae5d46df7b7d0c8efc84",
+  "mod_sha256": "48159c3165c07f66c9ace13f1cbb75939cae589527b375aa982b9ba7a45262ca",
+  "firmware_md5": "8daa1de55d7328f458f6d855cdc3cdde",
+  "mod_version": "0.1.1",
+  "shortcut_state": {
+    "available": 1,
+    "ready": 1,
+    "shown": 1,
+    "shortcut_setting": 1,
+    "view": "DECK",
+    "pending": 1,
+    "phase": 0,
+    "sent": 0,
+    "request_age_lower_bound_seconds": 1856
+  },
+  "registered_filter_count": 1,
+  "filters": [
+    {
+      "owner_id": "mods-shortcut",
+      "owner_state": "LOADED",
+      "mask": 8,
+      "callback_matches_exact_mod_symbol": true,
+      "off": 1,
+      "strikes": 8
+    }
+  ],
+  "core_inert": false,
+  "filter_table_unchanged_at_end": true,
+  "watchdog": {
+    "budget_ticks": 4800,
+    "configured_microseconds": 200,
+    "strike_limit": 8
+  },
+  "limits": [
+    "No per-callback timing trace was captured.",
+    "The later user reply did not coincide with a confirmed fresh tap in the bounded observation window.",
+    "The earlier accepted-then-cancelled request remains a distinct incident with unknown exact cancellation guard.",
+    "No physical writes, controls, reload or restart."
+  ]
+}

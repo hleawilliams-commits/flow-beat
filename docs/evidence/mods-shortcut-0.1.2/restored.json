@@ -1,0 +1,6 @@
+{
+  "all_backed_up_files_verified": true,
+  "file_paths_checked": 14,
+  "cores_unchanged": true,
+  "loaded": "fw=ep147-9e9454e357389ece\nsuspended=0\noff=0\nmod=flow-beat|1|0.2.1|\nmod=harmonic-picks|1|0.4.1|\nmod=phase-strip|1|0.1.3|\nmod=set-clock|2||Turned off\nmod=mix-bookmark|1|0.1.2|\nmod=grouped-panels|1|0.1.0|\nmod=mods-shortcut|1|0.1.1|\n"
+}

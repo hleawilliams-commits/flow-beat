@@ -1,0 +1,34 @@
+{
+  "label": "four-source-2",
+  "filters": [
+    {
+      "id": "harmonic-picks",
+      "off": 0,
+      "strikes": 0,
+      "exact_mod_callback": false
+    },
+    {
+      "id": "mods-shortcut",
+      "off": 0,
+      "strikes": 0,
+      "exact_mod_callback": true
+    }
+  ],
+  "state": {
+    "gp_shortcut_last_request": 72790354,
+    "gp_shortcut_notice": 0,
+    "gp_shortcut_until": 0,
+    "gp_shortcut_completion": 291161420,
+    "gp_shortcut_request_word": 0,
+    "gp_button_available": 1,
+    "gp_button_shown": 0,
+    "gp_shortcut_ready": 1,
+    "gp_shortcut_notice_token": 291161420,
+    "gp_shortcut_notice_until": 72791854,
+    "gp_shortcut_knob_known": 1,
+    "gp_shortcut_pulse_token": 291161420
+  },
+  "mod_sha256": "c5d5e564b6e7006faf20dd372c077adba537105026850b6d04ee6d8294ed9aef",
+  "core_sha256": "f8d4ba67ccad9e3386c78dc2ca377bf3263221875d65578a1d893e9c2f3f5668",
+  "time_monotonic": 80.745100583
+}
