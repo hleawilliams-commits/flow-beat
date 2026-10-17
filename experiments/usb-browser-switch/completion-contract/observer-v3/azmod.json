@@ -1,0 +1,18 @@
+{
+  "azmod": 1,
+  "id": "usb-observer-v3",
+  "name": "USB Browser Observer V3",
+  "version": "0.0.1",
+  "author": "hleawilliams-commits",
+  "summary": "Emulator-only native in-handler committed-identity observer.",
+  "description": "Unpublished exact-firmware observer with an ordinary function-entry post-commit snapshot. Boundary evidence only, not transaction completion or activation. No physical installation.",
+  "category": "tools",
+  "license": "GPL-3.0-only",
+  "source": "https://github.com/hleawilliams-commits/flow-beat/tree/codex/az-mods-handoff-2026-10-16/experiments/usb-browser-switch/completion-contract/observer-v3",
+  "api": 1,
+  "firmware": [
+    "ep147-9e9454e357389ece"
+  ],
+  "hooks": true,
+  "min_core": "1.2.3"
+}

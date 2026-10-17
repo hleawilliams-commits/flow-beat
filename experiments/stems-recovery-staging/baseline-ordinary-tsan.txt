@@ -1,0 +1,50 @@
+Pinned upstream: 3e0c5cb010454228f4ee63226b60d060494eeaae
+Baseline: no staging patch applied
+Production extraction SHA256: fc1f6fc01b5b4cfe4d326c70f728f7854ddc9f7c655ad1ce3e3606eac2ca572a
+tsan-ordinary-baseline:
+28 passed, 0 failed
+==53406==WARNING: external symbolizer didn't start up correctly!
+==53406==WARNING: Can't write to symbolizer at fd 4
+==53406==WARNING: external symbolizer didn't start up correctly!
+==53406==WARNING: Can't write to symbolizer at fd 5
+==53406==WARNING: external symbolizer didn't start up correctly!
+==53406==WARNING: Can't write to symbolizer at fd 6
+==53406==WARNING: external symbolizer didn't start up correctly!
+==53406==WARNING: Can't write to symbolizer at fd 7
+==53406==WARNING: external symbolizer didn't start up correctly!
+==53406==WARNING: Failed to use and restart external symbolizer!
+==================
+WARNING: ThreadSanitizer: data race (pid=53406)
+  Read of size 4 at 0x000105f08000 by thread T5 (mutexes: write M0):
+    #0 advance_stem_frames <null> (tsan-ordinary-baseline:arm64+0x100003644)
+    #1 decode_stem_progressive <null> (tsan-ordinary-baseline:arm64+0x100003254)
+    #2 dth_prog <null> (tsan-ordinary-baseline:arm64+0x100002e88)
+
+  Previous write of size 4 at 0x000105f08000 by thread T2:
+    #0 decode_stem_progressive <null> (tsan-ordinary-baseline:arm64+0x100003218)
+    #1 dth_prog <null> (tsan-ordinary-baseline:arm64+0x100002e88)
+
+  Location is heap block of size 32768 at 0x000105f08000 allocated by thread T2:
+    #0 malloc <null> (libclang_rt.tsan_osx_dynamic.dylib:arm64e+0x55fb4)
+    #1 decode_stem_progressive <null> (tsan-ordinary-baseline:arm64+0x100002fe4)
+    #2 dth_prog <null> (tsan-ordinary-baseline:arm64+0x100002e88)
+
+  Mutex M0 (0x000102d80160) created at:
+    #0 pthread_mutex_lock <null> (libclang_rt.tsan_osx_dynamic.dylib:arm64e+0x319bc)
+    #1 decode_stem_progressive <null> (tsan-ordinary-baseline:arm64+0x100002f68)
+    #2 dth_prog <null> (tsan-ordinary-baseline:arm64+0x100002e88)
+
+  Thread T5 (tid=17696447, running) created by thread T1 at:
+    #0 pthread_create <null> (libclang_rt.tsan_osx_dynamic.dylib:arm64e+0x309d8)
+    #1 loader_thread <null> (tsan-ordinary-baseline:arm64+0x100001fcc)
+    #2 loader_thread <null> (tsan-ordinary-baseline:arm64+0x10000172c)
+
+  Thread T2 (tid=17696444, finished) created by thread T1 at:
+    #0 pthread_create <null> (libclang_rt.tsan_osx_dynamic.dylib:arm64e+0x309d8)
+    #1 loader_thread <null> (tsan-ordinary-baseline:arm64+0x100001fcc)
+    #2 loader_thread <null> (tsan-ordinary-baseline:arm64+0x10000172c)
+
+SUMMARY: ThreadSanitizer: data race (<TEMP>/tsan-ordinary-baseline:arm64+0x100003644) in advance_stem_frames+0x340
+==================
+ThreadSanitizer: reported 1 warnings
+Expected ordinary-path TSan finding reproduced without staging patch.

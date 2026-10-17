@@ -1,0 +1,393 @@
+diff --git a/src/azstem/stem_playback.c b/src/azstem/stem_playback.c
+--- a/src/azstem/stem_playback.c
++++ b/src/azstem/stem_playback.c
+@@ -92,6 +92,42 @@
+  * prepared off-deck. */
+ static pthread_mutex_t g_adv_lock = PTHREAD_MUTEX_INITIALIZER;
+ 
++/* Experimental memory recovery is preparation only: no activation exists.
++ * A retry decodes into private buffers, never the deck observed by audio.
++ * mode remains fixed from launch until every decoder has joined. The flusher
++ * owns launch/drop; the worker owns private buffers until its loading=0 release.
++ * Completion and drop meet under g_adv_lock, including the loading transition. */
++static deck_stems g_recovery_dk[NDECK];
++static _Atomic int g_recovery_mode[NDECK], g_recovery_ready[NDECK];
++static _Atomic unsigned long long g_recovery_token[NDECK];
++static unsigned long long g_recovery_next[NDECK]; /* flusher only; never reused */
++static int recovery_hidden(int deck) {
++    return atomic_load_explicit(&g_recovery_mode[deck], memory_order_acquire);
++}
++static deck_stems *stem_decode_target(int deck) {
++    return recovery_hidden(deck) ? &g_recovery_dk[deck] : &g_dk[deck];
++}
++/* Only before child creation or after all children join; never from audio.
++ * This has no public offset/envelope/frame/cache side effects. */
++static void recovery_free_buffers(int deck) {
++    deck_stems *dk = &g_recovery_dk[deck];
++    for (int k = 0; k < NSTEM; k++) {
++        void *p = (void *) dk->stem[k];
++        size_t n = dk->stem_bytes[k];
++        if (p) {
++            if (n)
++                munlock(p, n);
++            free(p); /* recovery only uses the ogg malloc path, never mmap */
++        }
++        dk->stem[k] = NULL;
++        dk->stem_bytes[k] = 0;
++        dk->stem_mmap[k] = 0;
++    }
++    dk->stem_frames = 0;
++    atomic_store_explicit(&dk->stem_off, 0, memory_order_relaxed);
++    atomic_store_explicit(&g_recovery_ready[deck], 0, memory_order_relaxed);
++}
++
+ /* ---- USB stems discovery + Ogg decode (all off-RT) ----------------------- *
+  * The firmware mounts USB media at /media/usb/sd*. Per track folder:
+  *   *Vocals*.ogg *Instruments*.ogg *Bass*.ogg *Drum*.ogg
+@@ -417,6 +453,8 @@
+  * written and locked. Off-RT. */
+ static void env_progress(int deck); /* progressive envelope, defined below */
+ static void advance_stem_frames(int deck) {
++    if (recovery_hidden(deck))
++        return; /* private min is collected after joins; no PCM or envelope publication */
+     deck_stems *dk = &g_dk[deck];
+     unsigned present = atomic_load_explicit(&g_stem_present[deck], memory_order_relaxed);
+     long m = -1;
+@@ -448,7 +486,7 @@
+     char path[1600];
+ } pjob_t;
+ static void decode_stem_progressive(int deck, int slot, const char *path) {
+-    deck_stems *dk = &g_dk[deck];
++    deck_stems *dk = stem_decode_target(deck);
+     int err = 0;
+     stb_vorbis *v = stb_vorbis_open_filename(path, &err, NULL);
+     if (!v)
+@@ -484,13 +522,15 @@
+ 
+     /* Seed the progressive envelope with the final length and a uniform lane, so
+      * the undecoded tail reads att = on_count/NSTEM, not silence. First stem only. */
+-    pthread_mutex_lock(&g_envp_lock);
+-    if (g_env_total[deck] <= 0 || (long) total > g_env_total[deck]) {
+-        g_env_total[deck] = (long) total;
+-        g_env_filled[deck] = 0;
+-        memset(g_env[deck], 128, sizeof g_env[deck]);
+-    }
+-    pthread_mutex_unlock(&g_envp_lock);
++    if (!recovery_hidden(deck)) {
++        pthread_mutex_lock(&g_envp_lock);
++        if (g_env_total[deck] <= 0 || (long) total > g_env_total[deck]) {
++            g_env_total[deck] = (long) total;
++            g_env_filled[deck] = 0;
++            memset(g_env[deck], 128, sizeof g_env[deck]);
++        }
++        pthread_mutex_unlock(&g_envp_lock);
++    }
+     long cap = (long) total;
+     float *buf = malloc((size_t) cap * 2 * sizeof(float)); /* tail is never read past stem_frames */
+     if (!buf) {
+@@ -1061,6 +1101,7 @@
+     return ts.tv_sec * 1000L + ts.tv_nsec / 1000000L;
+ }
+ static void ofs_load_measure(int deck, const char *track, const char *src); /* ofsload.c */
++static long ofs_stems_decoded(int deck); /* private min, ignores the publication gate */
+ /* RAM that must remain free after a deck's stems are allocated. */
+ #ifndef AZSTEM_MEM_FLOOR_MB
+ #define AZSTEM_MEM_FLOOR_MB 400
+@@ -1085,6 +1126,7 @@
+ static int load_stems_ogg(int deck, const char *track, const char *src) {
+     if (!track || !track[0])
+         return 0;
++    const int recovery = recovery_hidden(deck); /* fixed until all children join */
+     long t_entry = ms_now(), t_folder = 0, t_cache = 0, t_scan = 0, t_dec = 0;
+ 
+     /* Search every mounted stick: a track's stems may live on another USB. */
+@@ -1098,8 +1140,10 @@
+     logln("ogg: matched folder '%s' for '%s' (file '%s') identity=%s  [folder search %ldms]",
+           folder, track, src ? src : "?", ident ? "this-file" : "unknown", t_folder - t_entry);
+     /* Publish a cached envelope before decoding so the waveform is live at once. */
+-    snprintf(g_env_dir[deck], sizeof g_env_dir[deck], "%s", folder);
+-    env_cache_load(deck);
++    if (!recovery) {
++        snprintf(g_env_dir[deck], sizeof g_env_dir[deck], "%s", folder);
++        env_cache_load(deck);
++    }
+     t_cache = ms_now();
+     struct dirent *de; /* reused by the ogg-file scan below */
+ 
+@@ -1165,7 +1209,7 @@
+ 
+     /* Publish availability now: the decode below takes seconds and azmod's
+      * strips must not wait for it. */
+-    {
++    if (!recovery) {
+         int any = 0;
+         unsigned found = 0;
+         for (int k = 0; k < NSTEM; k++)
+@@ -1183,8 +1227,11 @@
+ 
+     /* Drop the old stems first (RT passes native audio meanwhile), then decode
+      * each present stem in parallel (RK3399: 6 cores). */
+-    free_stems(deck);
+-    deck_stems *dk = &g_dk[deck];
++    if (recovery)
++        recovery_free_buffers(deck);
++    else
++        free_stems(deck);
++    deck_stems *dk = stem_decode_target(deck);
+     unsigned present = 0;
+     for (int k = 0; k < NSTEM; k++) {
+         atomic_store_explicit(&g_stem_dec[deck][k], 0, memory_order_relaxed);
+@@ -1194,7 +1241,8 @@
+     atomic_store_explicit(&g_stem_present[deck], present, memory_order_relaxed);
+     if (!present) {
+         atomic_store_explicit(&g_stem_pending[deck], 0, memory_order_relaxed);
+-        publish_deck_file(deck, "avail", "0");
++        if (!recovery)
++            publish_deck_file(deck, "avail", "0");
+         logln("stems: no .ogg slots in '%s'", folder);
+         return 0;
+     }
+@@ -1216,24 +1264,36 @@
+             else
+                 nth++;
+         }
+-        ofs_load_measure(deck, track, src); /* always releases the hold */
++        if (!recovery)
++            ofs_load_measure(deck, track, src); /* ordinary progressive publication */
+         for (int i = 0; i < nth; i++)
+             pthread_join(th[i], NULL);
++        if (recovery)
++            ofs_load_measure(deck, track, src); /* private buffers now have no writers */
+     }
+     t_dec = ms_now();
+     for (int k = 0; k < NSTEM; k++)
+         logln("ogg: decode slot %d -> %s frames=%ld", k, dk->stem[k] ? "ok" : "(none)",
+               atomic_load_explicit(&g_stem_dec[deck][k], memory_order_relaxed));
+-    long minfr = dk->stem_frames; /* advanced progressively during the decode above */
++    /* A recovery never advances public frames. All writers have joined now;
++     * retain their actual decoded prefix privately, even if decoding was short. */
++    long minfr = recovery ? ofs_stems_decoded(deck) : dk->stem_frames;
+     if (minfr <= 0) {
+-        free_stems(deck);
++        if (recovery)
++            recovery_free_buffers(deck);
++        else
++            free_stems(deck);
+         atomic_store_explicit(&g_stem_pending[deck], 0, memory_order_relaxed);
+-        publish_deck_file(deck, "avail", "0");
++        if (!recovery)
++            publish_deck_file(deck, "avail", "0");
+         logln("stems: no decodable .ogg in '%s'", folder);
+         return 0;
+     }
+     atomic_store_explicit(&g_stem_pending[deck], 0, memory_order_relaxed);
+-    build_env(deck); /* full-buffer peak lanes: every decode has joined here */
++    if (recovery)
++        dk->stem_frames = minfr; /* private only: no reader is given this pointer */
++    else
++        build_env(deck); /* full-buffer peak lanes: every decode has joined here */
+     {
+         long t_env = ms_now();
+         logln("PHASES d%d: folder=%ldms cache=%ldms scan=%ldms decode=%ldms env=%ldms TOTAL=%ldms",
+@@ -1367,12 +1427,42 @@
+ /* Decode a deck's newly-matched song off the flusher thread (see stems_tick). */
+ typedef struct {
+     int deck;
++    int recovery;
++    unsigned generation;
++    unsigned long long token;
+     char track[256];
+     char src[600];
+ } loadjob_t;
+ static void *loader_thread(void *arg) {
+     loadjob_t *j = arg;
+     int ok = load_stems_ogg(j->deck, j->track, j->src) > 0;
++    if (j->recovery) {
++        int d = j->deck;
++        pthread_mutex_lock(&g_adv_lock);
++        int stale = atomic_load_explicit(&g_load_stale[d], memory_order_acquire) ||
++                    atomic_load_explicit(&g_recovery_token[d], memory_order_relaxed) != j->token ||
++                    atomic_load_explicit(&g_deck_trackgen[d], memory_order_relaxed) != j->generation;
++        if (stale || !ok) {
++            recovery_free_buffers(d); /* load_stems_ogg joined every decoder */
++            atomic_store_explicit(&g_recovery_token[d], 0, memory_order_relaxed);
++            if (stale)
++                atomic_store_explicit(&g_load_again[d], 1, memory_order_release);
++        } else {
++            atomic_store_explicit(&g_recovery_ready[d], 1, memory_order_release);
++            logln("stems d%d PREPARED token=%llu frames=%ld; inactive (no activation API)",
++                  d, j->token, g_recovery_dk[d].stem_frames);
++        }
++        atomic_store_explicit(&g_load_stale[d], 0, memory_order_release);
++        atomic_store_explicit(&g_gate_hold[d], 0, memory_order_release);
++        /* Keep this transition in the same lock as drop. Otherwise a drop
++         * after the decision could strand a stale prepared job indefinitely. */
++        atomic_store_explicit(&g_stem_loading[d], 0, memory_order_release);
++        if (stale || !ok)
++            atomic_store_explicit(&g_recovery_mode[d], 0, memory_order_release);
++        pthread_mutex_unlock(&g_adv_lock);
++        free(j);
++        return NULL; /* recovery never overwrites the flusher's loaded identity */
++    }
+     if (atomic_load_explicit(&g_load_stale[j->deck], memory_order_acquire)) {
+         /* Track replaced mid-load. The decode threads have joined, so the buffers
+          * may be freed now (and only now); stems_tick then loads the new track. */
+@@ -1429,6 +1519,19 @@
+ static void drop_stems(int deck) {
+     atomic_store_explicit(&g_retry_bytes[deck], 0, memory_order_relaxed);
+     g_retry_still[deck] = 0;
++    if (recovery_hidden(deck)) {
++        pthread_mutex_lock(&g_adv_lock);
++        atomic_store_explicit(&g_recovery_token[deck], 0, memory_order_relaxed);
++        atomic_store_explicit(&g_recovery_ready[deck], 0, memory_order_relaxed);
++        if (atomic_load_explicit(&g_stem_loading[deck], memory_order_acquire)) {
++            atomic_store_explicit(&g_load_stale[deck], 1, memory_order_release);
++            pthread_mutex_unlock(&g_adv_lock);
++            return; /* private writers still own the buffers; worker joins/frees */
++        }
++        recovery_free_buffers(deck);
++        atomic_store_explicit(&g_recovery_mode[deck], 0, memory_order_release);
++        pthread_mutex_unlock(&g_adv_lock);
++    }
+     if (!atomic_load_explicit(&g_stem_loading[deck], memory_order_acquire)) {
+         free_stems(deck);
+         return;
+@@ -1460,24 +1563,65 @@
+     snprintf(out, n, "%s", g_dk[deck].track_path);
+ }
+ 
+-static void start_load(int deck, const char *tr) {
++static void start_load_mode(int deck, const char *tr, int recovery) {
++    /* Completion may have released loading while it still owns private mode.
++     * Serialize this decision so a consumed load_again cannot be lost in that
++     * window. Never hold the lock across thread creation or inline decoding. */
++    pthread_mutex_lock(&g_adv_lock);
++    if (!recovery && recovery_hidden(deck)) {
++        pthread_mutex_unlock(&g_adv_lock);
++        return; /* ordinary work must follow drop/join, never inherit private routing */
++    }
++    /* Retrying is only valid after the failed ordinary load finished and
++     * released every public PCM buffer. Never replace a usable live deck. */
++    if (recovery) {
++        if (atomic_load_explicit(&g_stem_loading[deck], memory_order_acquire) ||
++            atomic_load_explicit(&g_stem_pending[deck], memory_order_acquire) ||
++            g_dk[deck].stem_frames > 0 || recovery_hidden(deck) ||
++            g_recovery_next[deck] == ~0ULL) {
++            pthread_mutex_unlock(&g_adv_lock);
++            return;
++        }
++        for (int k = 0; k < NSTEM; k++)
++            if (g_dk[deck].stem[k]) {
++                pthread_mutex_unlock(&g_adv_lock);
++                return;
++            }
++    }
+     atomic_store_explicit(&g_retry_bytes[deck], 0, memory_order_relaxed);
+     g_retry_activity[deck] = 0;
+     g_retry_still[deck] = 0;
+     g_retry_after[deck] = ms_now() + 2000;
+     loadjob_t *j = malloc(sizeof *j);
+-    if (!j)
++    if (!j) {
++        pthread_mutex_unlock(&g_adv_lock);
+         return;
++    }
+     j->deck = deck;
++    j->recovery = recovery;
++    j->generation = atomic_load_explicit(&g_deck_trackgen[deck], memory_order_relaxed);
++    j->token = recovery ? ++g_recovery_next[deck] : 0;
+     snprintf(j->track, sizeof j->track, "%s", tr);
+     loaded_track_path(deck, j->src, sizeof j->src);
++    /* A newly accepted job satisfies any older stale-load restart request,
++     * including one left through an eject's empty-name ticks. */
++    atomic_store_explicit(&g_load_again[deck], 0, memory_order_relaxed);
++    if (recovery) {
++        atomic_store_explicit(&g_recovery_token[deck], j->token, memory_order_relaxed);
++        atomic_store_explicit(&g_recovery_ready[deck], 0, memory_order_relaxed);
++        atomic_store_explicit(&g_recovery_mode[deck], 1, memory_order_release);
++    }
+     atomic_store_explicit(&g_stem_loading[deck], 1, memory_order_relaxed);
++    pthread_mutex_unlock(&g_adv_lock);
+     pthread_t th;
+     if (az_thread_create(&th, NULL, loader_thread, j) == 0)
+         pthread_detach(th);
+     else {
+         loader_thread(j);
+     } /* thread exhausted: decode inline */
++}
++static void start_load(int deck, const char *tr) {
++    start_load_mode(deck, tr, 0);
+ }
+ 
+ /* Retry only a memory-refused track, after fresh audio observations have shown
+@@ -1581,7 +1725,7 @@
+                     start_load(deck, tr);
+                 else if (memory_retry_ready(deck)) {
+                     logln("stems: retry d%d for '%s' after memory recovered", deck, tr);
+-                    start_load(deck, tr);
++                    start_load_mode(deck, tr, 1);
+                 }
+             }
+             continue;
+diff --git a/src/azstem/ofsload.c b/src/azstem/ofsload.c
+--- a/src/azstem/ofsload.c
++++ b/src/azstem/ofsload.c
+@@ -626,7 +626,7 @@
+ /* Loader thread, while this load's stem decode threads run. Measures and sets
+  * dk->stem_off, then opens the gate. Every path ends in the release at `out`. */
+ static void ofs_load_measure(int deck, const char *track, const char *src) {
+-    deck_stems *dk = &g_dk[deck];
++    deck_stems *dk = stem_decode_target(deck);
+     long t0 = ms_now();
+     char vendor[16] = "", kind[64] = "not-mp3/m4a";
+     int rate = 0, proven = 0;
+@@ -746,7 +746,8 @@
+     apply = 1;
+ out:
+     atomic_store_explicit(&dk->stem_off, apply ? lag : 0, memory_order_relaxed);
+-    g_ofs_load[deck] = apply ? lag : 0;
++    if (!recovery_hidden(deck))
++        g_ofs_load[deck] = apply ? lag : 0;
+     logln("STEMOFS-LOAD d%d '%s' %s %dHz tag='%s' base=%lld lag=%ld (%.1f ms) fine=%.3f "
+           "coarse=%.3f runnerup=%.3f -> %s [%ldms]",
+           deck, track, kind, rate, vendor, base, lag, lag / 44.1, fine, coarse, second,
+@@ -758,7 +759,8 @@
+     /* Open the gate, unless the track was replaced meanwhile (drop_stems): then
+      * the hold stays and the loader frees these buffers after its threads join. */
+     pthread_mutex_lock(&g_adv_lock);
+-    if (!atomic_load_explicit(&g_load_stale[deck], memory_order_acquire))
++    if (!recovery_hidden(deck) &&
++        !atomic_load_explicit(&g_load_stale[deck], memory_order_acquire))
+         atomic_store_explicit(&g_gate_hold[deck], 0, memory_order_release);
+     pthread_mutex_unlock(&g_adv_lock);
+     advance_stem_frames(deck); /* publishes whatever is decoded now (no-op while held) */
+diff --git a/src/azstem/stem_envelopes.c b/src/azstem/stem_envelopes.c
+--- a/src/azstem/stem_envelopes.c
++++ b/src/azstem/stem_envelopes.c
+@@ -32,6 +32,8 @@
+ static int g_env_filled[NDECK];  /* buckets computed so far */
+ static pthread_mutex_t g_envp_lock = PTHREAD_MUTEX_INITIALIZER;
+ static void env_progress(int deck) {
++    if (recovery_hidden(deck))
++        return;
+     long total = g_env_total[deck];
+     if (total <= 0)
+         return;
+@@ -134,6 +136,8 @@
+ }
+ /* Returns 1 and publishes the envelope if a valid cache exists for this folder. */
+ static int env_cache_load(int deck) {
++    if (recovery_hidden(deck))
++        return 0;
+     if (!g_env_dir[deck][0])
+         return 0;
+     char path[1152];
+@@ -165,6 +169,8 @@
+  * one so relative levels survive (per-stem normalization would draw a quiet vocal
+  * as large as the drums). Off-RT, once per load. */
+ static void build_env(int deck) {
++    if (recovery_hidden(deck))
++        return;
+     const deck_stems *dk = &g_dk[deck];
+     const float *nb[NSTEM];
+     long nf[NSTEM];

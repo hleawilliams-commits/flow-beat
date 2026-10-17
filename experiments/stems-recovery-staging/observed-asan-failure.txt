@@ -1,0 +1,26 @@
+Retained observed failure excerpt — not a complete original log
+Recorded from the failed run's tool output and contemporaneous parent review.
+The original test-results.txt was overwritten by a subsequent run. Its full
+stdout/stderr, failing deck, and failure-state counters are no longer available.
+Do not treat the metadata and observations below as a reconstructed raw log.
+
+Observed run metadata:
+  Pinned upstream: 3e0c5cb010454228f4ee63226b60d060494eeaae
+  Staging patch SHA256: c8d8122ec0af65ebd478ebea1fedbb5b030c77ac186d2d9a5c7818ae01d6a03b
+  Production extraction SHA256: c14d7c3504a92a08135219dcb8e5df81bf506e715307c924aefcda044888bef9
+  Plain run: 528 passed, 0 failed
+  ASan/UBSan run: 527 passed, 1 failed
+
+Observed assertion excerpt:
+FAIL: consumed restart still launches ordinary load
+
+This was an assertion failure in a sanitizer-instrumented run, not an observed
+ASan memory-error diagnostic. No complete raw sanitizer report was retained.
+The assertion checked that the ordinary replacement load after a consumed
+restart produced FRAMES public frames and cleared private recovery routing.
+Which operand failed cannot be determined from the retained evidence.
+
+Later 30 ASan/UBSan repeats passed 528 assertions each, using the same production
+patch and extraction. Fixture bookkeeping/assertion changes and additional
+failure-state diagnostics preceded those repeats. No cause or fix was proven.
+The staging emulator-installation gate remains closed.

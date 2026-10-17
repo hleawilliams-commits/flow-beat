@@ -1,6 +1,6 @@
 # Stems recovery: activation contract still required
 
-Source review against upstream `3e0c5cb010454228f4ee63226b60d060494eeaae`, with the separate [memory retry](../experiments/stems-memory-retry/) and [activity guard](../experiments/stems-retry-activity/) experiments. This is a design record, not an implementation or permission to install a core. It does not explain every physical missing-stems incident or increase memory capacity.
+Source review against upstream `3e0c5cb010454228f4ee63226b60d060494eeaae`, with the separate [memory retry](../experiments/stems-memory-retry/) and [activity guard](../experiments/stems-retry-activity/) experiments. This design record now has a separate [private-staging draft](../experiments/stems-recovery-staging/); no activation implementation or permission to install a core follows from it. It does not explain every physical missing-stems incident or increase memory capacity.
 
 The [production-path regression](../experiments/stems-retry-publication/) now demonstrates a gap after recovery has been scheduled. The paused-observation test is a scheduling condition; it cannot establish that the deck remains paused through decoding and publication. Do not promote the current retry patches as a finished stems fix.
 
@@ -42,4 +42,8 @@ Any intentional pad-based design would need a distinct visible prepared state, v
 
 ## Next evidence
 
-First retain the exact injection reproduction and its limits. An implementation must then demonstrate native PCM preservation until its justified activation point, track-token ownership and writer/reader lifetime under forced schedules. Measure audio costs separately. Until that contract exists, keep these patches as source-only development work and preserve the official physical core.
+The private-staging draft routes retry decoders into separate buffers, with a monotonic job token and captured track generation. It joins every decoder before measuring the private offset and retaining the actual decoded prefix. It suppresses public pending/frame/envelope publication and never activates recovered stems. It also tests cancellation, replacement, eject and the completion/start lock boundary. A prepared prefix remains private even if playback resumes; the motion-cancellation requirement above applies to any future automatic activation design, not permission to publish this draft's retained buffers.
+
+This is not a useful installed recovery feature yet: prepared memory stays allocated until replacement/drop, no activation API exists, and its emulator runtime gate is closed. An early ASan/UBSan run failed one ordinary-restart outcome assertion. Subsequent diagnostic repetitions passed without reproducing its state, so the original failure remains unresolved. A separate TSan control reproduces a progressive ordinary-load race with the staging patch absent; it does not identify the cause of that assertion failure. Read the draft's exact test scope and retained failure before further implementation.
+
+Next isolate the unexplained restart outcome without weakening its assertion. Then exercise the draft in the emulator if that gate is resolved. Any activation implementation must demonstrate native PCM preservation until a justified activation point, track-token ownership and writer/reader lifetime under forced schedules. Measure audio costs separately. Until that contract exists, keep these patches as source-only development work and preserve the official physical core.

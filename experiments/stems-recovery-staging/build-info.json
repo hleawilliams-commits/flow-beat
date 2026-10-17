@@ -1,0 +1,67 @@
+{
+  "upstream_commit": "3e0c5cb010454228f4ee63226b60d060494eeaae",
+  "patches": [
+    {
+      "path": "experiments/stems-memory-retry/memory-retry.patch",
+      "sha256": "5905b0f514cf33e2dafbbdecccf18125e5352108515eded6b424f4dbc6138f1b"
+    },
+    {
+      "path": "experiments/stems-retry-activity/activity-followup.patch",
+      "sha256": "69ed45bf1d8b645a574379be0c8b1389eaaec2b919e8de1529d6e75f6751c30c"
+    },
+    {
+      "path": "experiments/stems-recovery-staging/staging-only.patch",
+      "sha256": "c8d8122ec0af65ebd478ebea1fedbb5b030c77ac186d2d9a5c7818ae01d6a03b"
+    }
+  ],
+  "changed_sources": {
+    "tests/unit/run.sh": {
+      "before": "0be3269bcc3b23e95edf1d61b771bf5bee42aa4722c0d48ef70a961cdd92dc61",
+      "after": "2ff1685c08f4af74bc6410484d3b026c78edc65b64b1d9d6224b4e395446858a"
+    },
+    "tests/unit/trackgen_test.c": {
+      "before": "5a02e78fa90826d785448194e9dd28857feaf4aef7e62a6232d280956df39cdb",
+      "after": "33836b77fb2c75f4a1fd791efc22f206f553c811e23912b946852a424f512a58"
+    },
+    "src/azstem/key_shift.c": {
+      "before": "cc32c0e5bacddf4b0d54796d7d5a265a99d73f0a2d30ed182e8ce287ae11e2ae",
+      "after": "1b43bcefcd8f714aefe268ed076343f6ac8a059b006d1a75aef90052afd91747"
+    },
+    "src/azstem/stem_playback.c": {
+      "before": "1f57adbda81b6be975ccd8bde3ccf0a0219ee8791151999e750d8853573e10ac",
+      "after": "0df5427c4ed91160bb13282be6079501297b219e21cedbefd07067723fd01764"
+    },
+    "src/azstem/azstem.c": {
+      "before": "beaa3e7c6deac1448b5d50861acb688fd19acffe47538e549ebe7cae1457ae03",
+      "after": "dee2be34bd6af5d3eca6716aa8e6516a12cd49f3258d762f3b96e95b56a3f993"
+    },
+    "src/azstem/stem_envelopes.c": {
+      "before": "cdd07b709d5239ac387341c752f163fdd2b6b00136294001cc52392ceb8a4e31",
+      "after": "051416a9c926914cd2e1320e5664b1f73fb6ad8caaecc53528be0c3f0188f0b3"
+    },
+    "src/azstem/ofsload.c": {
+      "before": "04c0cc0f338cc55f1dd22f93a0ed4de94227ec5f95d88122704c86abdf1728eb",
+      "after": "b2a674da2306964e4233eacfbf32e64e86d7205c113fe575d7c2a03cbf888e97"
+    }
+  },
+  "build_image": "azmod-build:18.04",
+  "build_image_id": "sha256:c7e3893c4f03e0ff30555c2120b3d9ec53834eaa2c8ce376a2da09b70fd23a90",
+  "compiler": "gcc (Ubuntu/Linaro 7.5.0-3ubuntu1~18.04) 7.5.0",
+  "command": "docker run --rm --platform=linux/arm64 -v <pinned-patched-tree>/src:/g azmod-build:18.04 make -C /g CC=gcc azstem",
+  "flags": [
+    "-O2",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-fexceptions",
+    "-fasynchronous-unwind-tables"
+  ],
+  "result": "compiled",
+  "binary_format": "ELF64 little-endian AArch64",
+  "local_binary_sha256": "97e9b685cee873c97e7386756309dea6f04b02a98d77478ec50f02d377d45797",
+  "unstripped_binary_sha256": "38161e65aaf34847bbc6693ee2e287f4b1490eb6e892d0e407ceb6251b02f593",
+  "binary_included": false,
+  "emulator_installation": false,
+  "runtime_gate": "closed: earlier ordinary-restart assertion remains unexplained",
+  "physical_changes": false
+}

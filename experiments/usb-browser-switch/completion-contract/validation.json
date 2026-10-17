@@ -1,0 +1,22 @@
+{
+  "firmware": "ep147-9e9454e357389ece",
+  "observer_id": "usb-observer-v3",
+  "observer_version": "0.0.1",
+  "arm64_sha256": "0e6663d317635c62e510cc530be3cfb14b7b9c90e08bd6e8e770d3988fcc883f",
+  "assertions_per_pass": 620,
+  "host_passes": [
+    "plain",
+    "asan+ubsan",
+    "tsan"
+  ],
+  "arm64_sdk_build": true,
+  "sdk_directory_validation": true,
+  "source_sha256": {
+    "observer.cpp": "25341319cfff46a75e6cb14339a3567a9dad66dd8c19b2997a160461bcf98eea",
+    "mod.c": "7c038799e9f0681c130fc3c76e0d30e895961545a4796371b2ede71d35a39e9c",
+    "azmod.json": "bd1667c9fff55cae1f7db548c4ae0592a7edb954fbe3ab024cc5f3801bcf5acb",
+    "Makefile": "a0255a31e590668b558618c94b87a11d9d443cd7c45afa8750e8eeee590a1b83",
+    "tests/test_observer.cpp": "2ab5114a65a546c0e64f64068630914ceb1af57980d39ef1126c2928c1cce011",
+    "tests/run-focused.sh": "c0f487d35eb85965bfcd3e5f162e65b196121e2dd62506849ff48f6d686ce9e1"
+  }
+}

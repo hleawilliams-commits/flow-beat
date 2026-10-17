@@ -1,0 +1,86 @@
+{
+  "date": "2026-10-17",
+  "environment": "localhost emulator only",
+  "ssh_endpoint": "127.0.0.1:2222",
+  "qmp_endpoint": "127.0.0.1:4446",
+  "id": "usb-observer-v3",
+  "version": "0.0.1",
+  "binary_sha256": "0e6663d317635c62e510cc530be3cfb14b7b9c90e08bd6e8e770d3988fcc883f",
+  "firmware_tag": "ep147-9e9454e357389ece",
+  "claims_accepted": [
+    "0x1b296c0",
+    "0x1ffb6c8",
+    "0x2014a88"
+  ],
+  "pid": 901130,
+  "all_recorded_tids_match_pid": true,
+  "records": {
+    "parent": 8,
+    "parent_mode_0": 3,
+    "parent_mode_1": 5,
+    "event_entry": 3,
+    "commit_entry": 1,
+    "scalar_result": 3
+  },
+  "requests": [
+    {
+      "entry_sequence": 3,
+      "request": "1:0102",
+      "entry_prior_committed": "0:0000",
+      "commit_observation": "UNKNOWN",
+      "result_sequence": 4,
+      "result_status": 8,
+      "return_code": 0
+    },
+    {
+      "entry_sequence": 9,
+      "request": "1:0122",
+      "entry_prior_committed": "1:0102",
+      "commit_observation": "UNKNOWN",
+      "result_sequence": 10,
+      "result_status": 8,
+      "return_code": 0
+    },
+    {
+      "entry_sequence": 13,
+      "request": "1:0102",
+      "entry_prior_committed": "1:0122",
+      "commit_observation": "COMMITTED_AT_ENTRY",
+      "commit_sequence": 14,
+      "committed_at_boundary": "1:0102",
+      "busy_at_boundary": 0,
+      "result_sequence": 15,
+      "result_status": 8,
+      "return_code": 0
+    }
+  ],
+  "no_drop_or_thread_refusal_or_budget_exhaustion_reported": true,
+  "native_browser_usb_labels_visually_verified": [
+    "USB1",
+    "USB2",
+    "USB1"
+  ],
+  "four_decks_empty_throughout": true,
+  "custom_activation_calls": false,
+  "physical_access": false,
+  "post_original_native_reads": false,
+  "restoration": {
+    "baseline_file_count": 124,
+    "all_bytes_and_modes_match": true,
+    "core_hashes": {
+      "azmod.so": "f8d4ba67ccad9e3386c78dc2ca377bf3263221875d65578a1d893e9c2f3f5668",
+      "azstem.so": "cd95ce64bd1e4cbd4c7710aa77adc7546623e9782baf8fa9bd8d4acbe562a1d3"
+    },
+    "loaded_list_identical": true,
+    "probe_unmapped": true,
+    "opt_in_absent": true,
+    "startup_guard_cleared_naturally": true
+  },
+  "limits": [
+    "One boundary observation is not final transaction completion",
+    "Two requests produced no boundary; uninstrumented cause remains unknown",
+    "Missing media, already-current, cancellation and alternate-library matrix not exercised",
+    "No activation or USB buttons implemented",
+    "Physical behavior untested"
+  ]
+}

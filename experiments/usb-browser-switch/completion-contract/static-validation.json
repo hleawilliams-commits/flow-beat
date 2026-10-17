@@ -1,0 +1,171 @@
+{
+  "firmware_sha256": "6577f42532375936c7e3fa830efa35b7daa9cde8e0a265c1fc7143f824321925",
+  "handler": {
+    "start": "0x1ffb6c8",
+    "fde_extent": "0x20dc",
+    "instruction_count": 2103,
+    "normal_reachable_count": 1804
+  },
+  "candidate": {
+    "callee": "0x2014a88",
+    "native_call": "0x1ffbca4",
+    "native_return": "0x1ffbca8",
+    "argument0": "current native event (x19)",
+    "argument1": 0,
+    "prologue_sha256_16": "6b16bc53b0ab1720bcdaa89e8587fe1bf9f710ee06fe892e3612ca9fece2bcd4"
+  },
+  "final_identity_store_dominates_call_on_normal_paths": true,
+  "normal_return_path_can_revisit_commit": false,
+  "verified_nonreturning_plt": {
+    "0x4271c0": "_ZSt25__throw_bad_function_callv",
+    "0x426540": "_Unwind_Resume",
+    "0x428930": "__cxa_rethrow"
+  },
+  "intervening_calls": [
+    {
+      "site": "0x1ffbb2c",
+      "target": "0x2511a90"
+    },
+    {
+      "site": "0x1ffbb34",
+      "target": "0x2511a90"
+    },
+    {
+      "site": "0x1ffbb3c",
+      "target": "0x2469aa0"
+    },
+    {
+      "site": "0x1ffbb44",
+      "target": "0x2469aa0"
+    },
+    {
+      "site": "0x1ffbb4c",
+      "target": "0x2469aa0"
+    },
+    {
+      "site": "0x1ffbb58",
+      "target": "0x2469aa0"
+    },
+    {
+      "site": "0x1ffbb70",
+      "target": "0x426680"
+    },
+    {
+      "site": "0x1ffbb7c",
+      "target": "0x4280a0"
+    },
+    {
+      "site": "0x1ffbb9c",
+      "target": "0x2511a90"
+    },
+    {
+      "site": "0x1ffbba4",
+      "target": "0x2511a90"
+    },
+    {
+      "site": "0x1ffbbac",
+      "target": "0x2469aa0"
+    },
+    {
+      "site": "0x1ffbbb4",
+      "target": "0x2469aa0"
+    },
+    {
+      "site": "0x1ffbbbc",
+      "target": "0x2469aa0"
+    },
+    {
+      "site": "0x1ffbbc8",
+      "target": "0x2469aa0"
+    },
+    {
+      "site": "0x1ffbbe0",
+      "target": "0x426680"
+    },
+    {
+      "site": "0x1ffbbec",
+      "target": "0x4280a0"
+    },
+    {
+      "site": "0x1ffbc00",
+      "target": "0x2511a90"
+    },
+    {
+      "site": "0x1ffbc08",
+      "target": "0x2511a90"
+    },
+    {
+      "site": "0x1ffbc20",
+      "target": "0x2469aa0"
+    },
+    {
+      "site": "0x1ffbc38",
+      "target": "0x426680"
+    },
+    {
+      "site": "0x1ffbc44",
+      "target": "0x4280a0"
+    },
+    {
+      "site": "0x1ffc16c",
+      "target": "0x427c50"
+    },
+    {
+      "site": "0x1ffc19c",
+      "target": "0x428270"
+    },
+    {
+      "site": "0x1ffc1b4",
+      "target": "0x428920"
+    }
+  ],
+  "direct_identity_stores": [
+    "0x1ffbaf8",
+    "0x1ffbafc",
+    "0x1ffbb0c"
+  ],
+  "helper_abi": {
+    "fde_extent": "0x844",
+    "instruction_count": 529,
+    "normal_reachable_count": 467,
+    "wrapper_type": "int (void *native_event, unsigned mode)",
+    "mode_consumption": "w1 masked to byte at 0x2014aac",
+    "native_caller_result": "w0 consumed by cbnz at 0x1ffbca8",
+    "additional_argument_registers_checked": [
+      "v0",
+      "v1",
+      "v2",
+      "v3",
+      "v4",
+      "v5",
+      "v6",
+      "v7",
+      "x2",
+      "x3",
+      "x4",
+      "x5",
+      "x6",
+      "x7",
+      "x8"
+    ],
+    "explicit_read_before_write_or_call_clobber": [],
+    "first_calls_while_extra_registers_unused": [
+      {
+        "site": "0x2014ab0",
+        "target": "0x2018870"
+      },
+      {
+        "site": "0x201504c",
+        "target": "0x24a1180"
+      }
+    ],
+    "limits": "Explicit function-register dataflow; first callee ABI anchors are documented separately"
+  },
+  "proof_limits": [
+    "Not a whole-program ownership or final transaction-completion proof",
+    "Intervening native calls may re-enter; live argument/context must be revalidated",
+    "Exception landing-pad entry is outside normal CFG dominance",
+    "Native helper callees may modify identity later; no post-return snapshot authorized",
+    "Empty-list/already-current paths may produce no candidate callback"
+  ]
+}

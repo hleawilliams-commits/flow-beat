@@ -1,0 +1,52 @@
+claim_hook 0x1b296c0 ok
+claim_hook 0x1ffb6c8 ok
+claim_hook 0x2014a88 ok
+UV3 ready: manual native interactions only; PID=901130; no activation API
+loaded 0.0.1 on ep147-9e9454e357389ece (3 hooks)
+UV3 parent seq=1 tid=901130 status=1 mode=0 rows=4
+UV3 row seq=1 index=0 kind=1 valid=1 media=0102 focus=1 active=1
+UV3 row seq=1 index=1 kind=1 valid=1 media=0122 focus=0 active=0
+UV3 row seq=1 index=2 kind=3 valid=0 media=0000 focus=0 active=0
+UV3 row seq=1 index=3 kind=0 valid=0 media=0000 focus=0 active=0
+UV3 parent seq=2 tid=901130 status=1 mode=1 rows=4
+UV3 row seq=2 index=0 kind=1 valid=1 media=0102 focus=1 active=0
+UV3 row seq=2 index=1 kind=1 valid=1 media=0122 focus=0 active=0
+UV3 row seq=2 index=2 kind=3 valid=0 media=0000 focus=0 active=0
+UV3 row seq=2 index=3 kind=0 valid=0 media=0000 focus=0 active=0
+UV3 event-entry seq=3 tid=901130 status=1 request=1:0102 committed-at-entry=0:0000/0
+UV3 event-result seq=4 entry=3 tid=901130 status=8 rc=0 post-read=none
+UV3 parent seq=5 tid=901130 status=1 mode=1 rows=4
+UV3 row seq=5 index=0 kind=1 valid=1 media=0102 focus=1 active=0
+UV3 row seq=5 index=1 kind=1 valid=1 media=0122 focus=0 active=0
+UV3 row seq=5 index=2 kind=3 valid=0 media=0000 focus=0 active=0
+UV3 row seq=5 index=3 kind=0 valid=0 media=0000 focus=0 active=0
+UV3 parent seq=6 tid=901130 status=1 mode=1 rows=4
+UV3 row seq=6 index=0 kind=1 valid=1 media=0102 focus=1 active=0
+UV3 row seq=6 index=1 kind=1 valid=1 media=0122 focus=0 active=0
+UV3 row seq=6 index=2 kind=3 valid=0 media=0000 focus=0 active=0
+UV3 row seq=6 index=3 kind=0 valid=0 media=0000 focus=0 active=0
+UV3 parent seq=7 tid=901130 status=1 mode=0 rows=4
+UV3 row seq=7 index=0 kind=1 valid=1 media=0102 focus=0 active=0
+UV3 row seq=7 index=1 kind=1 valid=1 media=0122 focus=1 active=1
+UV3 row seq=7 index=2 kind=3 valid=0 media=0000 focus=0 active=0
+UV3 row seq=7 index=3 kind=0 valid=0 media=0000 focus=0 active=0
+UV3 parent seq=8 tid=901130 status=1 mode=1 rows=4
+UV3 row seq=8 index=0 kind=1 valid=1 media=0102 focus=0 active=0
+UV3 row seq=8 index=1 kind=1 valid=1 media=0122 focus=1 active=0
+UV3 row seq=8 index=2 kind=3 valid=0 media=0000 focus=0 active=0
+UV3 row seq=8 index=3 kind=0 valid=0 media=0000 focus=0 active=0
+UV3 event-entry seq=9 tid=901130 status=1 request=1:0122 committed-at-entry=1:0102/0
+UV3 event-result seq=10 entry=9 tid=901130 status=8 rc=0 post-read=none
+UV3 parent seq=11 tid=901130 status=1 mode=0 rows=4
+UV3 row seq=11 index=0 kind=1 valid=1 media=0102 focus=1 active=1
+UV3 row seq=11 index=1 kind=1 valid=1 media=0122 focus=0 active=0
+UV3 row seq=11 index=2 kind=3 valid=0 media=0000 focus=0 active=0
+UV3 row seq=11 index=3 kind=0 valid=0 media=0000 focus=0 active=0
+UV3 parent seq=12 tid=901130 status=1 mode=1 rows=4
+UV3 row seq=12 index=0 kind=1 valid=1 media=0102 focus=1 active=0
+UV3 row seq=12 index=1 kind=1 valid=1 media=0122 focus=0 active=0
+UV3 row seq=12 index=2 kind=3 valid=0 media=0000 focus=0 active=0
+UV3 row seq=12 index=3 kind=0 valid=0 media=0000 focus=0 active=0
+UV3 event-entry seq=13 tid=901130 status=1 request=1:0102 committed-at-entry=1:0122/0
+UV3 commit-entry seq=14 entry=13 tid=901130 status=10 request=1:0102 committed-at-entry=1:0102/0 boundary-only=1
+UV3 event-result seq=15 entry=13 tid=901130 status=8 rc=0 post-read=none
