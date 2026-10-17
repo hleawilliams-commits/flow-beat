@@ -13,7 +13,7 @@ The physical XDJ-AZ keeps its existing working community mods and official core.
 | MODS Shortcut 0.1.1 | [mods-shortcut](../mods-shortcut/) | Optional clean heading removes WAVEFORM. MODS still opens SOURCE for native Mod Menu selection and confirmation. Separate toggles; emulator only. |
 | FLOW Neon theme | [theme experiment](../experiments/flow-neon-theme/) | Purple panels and pink native accents; sixth native theme in a separate emulator UI core build. Physical board unchanged. |
 | Selected Deck Highlight 0.1.0 | [deck-focus](../deck-focus/) | Cyan lower-panel number and top edge follow left 1/3 and right 2/4 selection. All four pairs checked in emulator. 4 DECK view only; no waveform coverage. Reads native LED state, independent of PLAY/MASTER. |
-| Stem Picks 0.4.1 | [harmonic-picks](../harmonic-picks/) | Same community ID, renamed STEM PICKS shortcut to the playable native browser; regular-track stem recipe guidance added to custom harmonic suggestions. Configure native BPM + KEY + MASTER filter, then physical LOAD 1–4. Custom suggestions remain read-only; no per-result stem availability check. |
+| Stem Picks 0.4.1 | [harmonic-picks](../harmonic-picks/) | Header button disabled in the emulator at Henry's request; [verified screen and saved setting](evidence/stem-picks-hidden/README.md). Source and custom suggestions retained. It only opened the current native browser; automatic matching/loading remains unfinished. |
 | Tag Mix 0.1.2 | [mix-bookmark](../mix-bookmark/) | Short TAG MIX button for tagging good combinations during practice. TAG COMBO saves two loaded tracks, approximate positions, BPM and manual stem notes. Saved-file checksums and UI verified across an emulator restart; older bookmarks browsed. No automatic audio changes or recall. |
 | Phase Strip 0.1.2 | [phase-strip](../phase-strip/) | Compact 680×34 strip at (48,46), lanes 3–1–2–4, above waveforms. Playhead x396 matches the native left playhead, not the optional centered playhead. |
 | Phrase Coach layout update | [phrase-coach](../phrase-coach/) | Counters moved into lower details headers; emulator checked with all four decks playing. Manifest still says 0.1.0: this is an unpublished source change and needs a distinct version before release. |
@@ -27,7 +27,7 @@ The physical XDJ-AZ keeps its existing working community mods and official core.
 
 Existing FLOW Beat Link, Key next to BPM, Mashup Helper, Stem Badge, Set Log and Deck Meters source is retained. Existing release history and catalog are separate from this preview branch.
 
-![Clean heading with grouped panels, left deck 3 and right deck 2 selected](evidence/clean-heading/clean-heading-final.png)
+![Main screen with STEM PICKS hidden](evidence/stem-picks-hidden/main-screen.png)
 
 ## What to do next
 
@@ -39,7 +39,7 @@ Existing FLOW Beat Link, Key next to BPM, Mashup Helper, Stem Badge, Set Log and
 
 Other requests still open: touch scrolling on the core Community Mods page; a live Key-Shift-aware Camelot display on physical jog screens; fully automatic one-button harmonic matching and custom result loading; further four-deck BPM/key/phrase layout refinement. Acapella filtering exists in the custom suggestion page but does not load tracks. CDJ integration was discussed; no integration patch was made. Replacing SINGLE/CONTINUE, SMART CUE or AUTO CUE has not been implemented.
 
-Latest implemented screen: [clean heading with MODS Shortcut 0.1.1](evidence/clean-heading/README.md). The WAVEFORM title area is blank and input-transparent. [Grouped panels and original MODS shortcut evidence](evidence/grouped-panels/README.md) records the original-key/relative-phrase limits and emulator rollback. The old Key next to BPM, Phrase Coach and Selected Deck Highlight packages are retained but unloaded in this preview.
+Latest screen: [STEM PICKS hidden using its existing setting](evidence/stem-picks-hidden/README.md), with the [clean heading from MODS Shortcut 0.1.1](evidence/clean-heading/README.md). The WAVEFORM title area is blank and input-transparent. [Grouped panels and original MODS shortcut evidence](evidence/grouped-panels/README.md) records the original-key/relative-phrase limits and emulator rollback. The old Key next to BPM, Phrase Coach and Selected Deck Highlight packages are retained but unloaded in this preview.
 
 Previous layout fix: [separated header shortcuts](evidence/header-layout-fix/README.md), checked in 2, 2/4 and 4 DECK views.
 
