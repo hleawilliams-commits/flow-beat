@@ -4,7 +4,7 @@ This branch saves Henry's development work from October 16, 2026 (America/Denver
 
 ## Current state
 
-For Henry and Jackson’s practice session, Grouped Deck Panels 0.1.0 has been staged on the physical FLOWMATIC USB after a verified backup. Read-only SSH status now confirms it is loaded on the physical deck; visual/selection validation remains pending. [Start with the practice guide](PRACTICE-NIGHT.md). The older key/phrase overlays and Set Clock are disabled but retained. The official core is unchanged. Grouped Deck Panels 0.1.0, Phase Strip 0.1.2 and MODS Shortcut 0.1.1 were published to the live GitHub catalog on October 17 as practice previews, with their tested source on main. [Release and install notes](RELEASE-2026-10-17.md) explain the physical install caveat. Other changes below remain emulator experiments. The stems issue is not fixed by these UI releases.
+For Henry and Jackson’s practice session, Grouped Deck Panels 0.1.0 has been staged on the physical FLOWMATIC USB after a verified backup. Read-only SSH status now confirms it is loaded on the physical deck; visual/selection validation remains pending. [Start with the practice guide](PRACTICE-NIGHT.md). The older key/phrase overlays and Set Clock are disabled but retained. The official core is unchanged. Grouped Deck Panels 0.1.0, Phase Strip 0.1.2 and MODS Shortcut 0.1.1 were published to the live GitHub catalog on October 17 as practice previews, with their tested source on main. [Release and install notes](RELEASE-2026-10-17.md) explain the physical install caveat. Other changes below remain emulator experiments. The stems issue is not fixed by these UI releases. **Phase Strip 0.1.3 now supersedes 0.1.2** after Henry requested the old layout back; [current update instructions](RELEASE-PHASE-0.1.3.md) use normal Update from the remotely installed 0.1.2.
 
 | Work | Location | Verified state / limits |
 |---|---|---|
@@ -15,7 +15,7 @@ For Henry and Jackson’s practice session, Grouped Deck Panels 0.1.0 has been s
 | Selected Deck Highlight 0.1.0 | [deck-focus](../deck-focus/) | Cyan lower-panel number and top edge follow left 1/3 and right 2/4 selection. All four pairs checked in emulator. 4 DECK view only; no waveform coverage. Reads native LED state, independent of PLAY/MASTER. |
 | Stem Picks 0.4.1 | [harmonic-picks](../harmonic-picks/) | Header button disabled in the emulator at Henry's request; [verified screen and saved setting](evidence/stem-picks-hidden/README.md). Source and custom suggestions retained. It only opened the current native browser; automatic matching/loading remains unfinished. |
 | Tag Mix 0.1.2 | [mix-bookmark](../mix-bookmark/) | Short TAG MIX button for tagging good combinations during practice. TAG COMBO saves two loaded tracks, approximate positions, BPM and manual stem notes. Saved-file checksums and UI verified across an emulator restart; older bookmarks browsed. No automatic audio changes or recall. |
-| Phase Strip 0.1.3 correction | [phase-strip](../phase-strip/) | Restores the larger 0.1.1 geometry/placement controls with 3–1–2–4 order after Henry disliked 0.1.2 on hardware. [Emulator checked](evidence/phase-classic-0.1.3/README.md); physical test pending. Marker is independent of native waveform alignment. Publication status is recorded with the release. |
+| Phase Strip 0.1.3 correction | [phase-strip](../phase-strip/) | Restores the larger 0.1.1 geometry/placement controls with 3–1–2–4 order after Henry disliked 0.1.2 on hardware. [Emulator checked](evidence/phase-classic-0.1.3/README.md); physical test pending. Marker is independent of native waveform alignment. Published in the live catalog; [release/install instructions](RELEASE-PHASE-0.1.3.md). |
 | Phrase Coach layout update | [phrase-coach](../phrase-coach/) | Counters moved into lower details headers; emulator checked with all four decks playing. Manifest still says 0.1.0: this is an unpublished source change and needs a distinct version before release. |
 | Wider four-deck waveforms | Native UI | Collapse the left controls and right Beat FX panel. No waveform renderer patch or increase in vertical waveform height. Native waveform order 3–1–2–4; lower panels 1,2 / 3,4. |
 | Set Clock | [set-clock](../set-clock/) | Disabled in the emulator at Henry's request; source retained. |
@@ -67,12 +67,12 @@ Original emulator automation recipes are in [tools/emulator-recipes](../tools/em
 
 - [Selected Deck Highlight 0.1.0](../archives/deck-focus/0.1.0/): source snapshot, package, hashes, test notes.
 - [Harmonic Picks 0.3.0](../archives/harmonic-picks/0.3.0/): source/package, 204 shortcut and 55 matching assertions, SDK results and emulator evidence. Earlier 0.1.0 and 0.2.0 artifacts retained; unshipped 0.2.1 prototype under experiments.
-- [Phase Strip 0.1.2](../archives/phase-strip/0.1.2/) and [prior 0.1.1](../archives/phase-strip/0.1.1/).
+- [Phase Strip 0.1.3](../archives/phase-strip/0.1.3/), [0.1.2](../archives/phase-strip/0.1.2/) and [prior 0.1.1](../archives/phase-strip/0.1.1/).
 - [Screenshots and historical reports](evidence/).
 - [Stems patch/results](../experiments/stems-memory-retry/): 46 focused checks and four-deck recovery test; no core binaries included.
 - [Artifact inventory](artifact-sha256.json): SHA-256 for archived files and selected evidence.
 
-Historical reports preserve what was true at their test time, including “GitHub not changed.” This handoff now shares that work on a development branch. Archived `.entry.json` files originally contained prospective URLs. Grouped Panels 0.1.0, Phase Strip 0.1.2 and MODS Shortcut 0.1.1 are now published; other prospective entries still do not prove a release exists. See the October 17 release note for the exact promoted artifacts. Some archived instructions refer to the original local folder layout; use this index for the current paths.
+Historical reports preserve what was true at their test time, including “GitHub not changed.” This handoff now shares that work on a development branch. Archived `.entry.json` files originally contained prospective URLs. Grouped Panels 0.1.0, Phase Strip 0.1.2/0.1.3 and MODS Shortcut 0.1.1 are now published; other prospective entries still do not prove a release exists. See the October 17 release note for the exact promoted artifacts. Some archived instructions refer to the original local folder layout; use this index for the current paths.
 
 ## Collaboration
 
