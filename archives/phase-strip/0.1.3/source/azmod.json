@@ -1,0 +1,18 @@
+{
+  "azmod": 1,
+  "id": "phase-strip",
+  "name": "4-Deck Phase Strip",
+  "version": "0.1.3",
+  "author": "hleawilliams-commits",
+  "summary": "Classic-size phase meter restored, with 3-1-2-4 lane order.",
+  "description": "Restores the larger 0.1.1 meter (838 by 47 px), centered marker and saved Top/Band/Low positions, retaining lanes 3, 1, 2, 4. Top spans y46-92 and may overlap the waveform band; Band and Low can overlap other native content. The marker is independent of native left/center playhead settings. Mod Menu: on/off, 4 DECK only or all layouts, and position. Ticks show beats, not phrases. SDK services only; input-transparent display, no hooks or audio/control changes. Physical testing of this correction is pending.",
+  "category": "visual",
+  "license": "GPL-3.0-only",
+  "source": "https://github.com/hleawilliams-commits/flow-beat/tree/main/phase-strip",
+  "api": 1,
+  "firmware": [
+    "any"
+  ],
+  "hooks": false,
+  "min_core": "1.2.3"
+}

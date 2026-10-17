@@ -24,24 +24,23 @@
 #define NDECK 4
 #define REDRAW_MS 40          /* 25 a second at most */
 
-/* Measured in the emulator's 1280 x 800 view, with side panels open and closed.
- * Keep the whole meter between the toolbar (ends y=46) and waves (start y=81).
- * End at x=728, before the right-aligned Set Clock (including its ready/end text).
- * The phase playhead lands at x=396, matching the native left-position playhead.
- * Lane order follows the native waveforms. */
-#define STRIP_X 48
-#define STRIP_W 680
-#define STRIP_Y 46
-#define LANE_H 6
-#define LANE_STEP 8
-#define STRIP_H 34
+/* Restore the 0.1.1 geometry and saved position choices. This is an independent
+ * phase ruler: its center at x631 does not follow the native waveform playhead.
+ * Top spans y46..92 and may overlap the first 12 px of the native waveform band;
+ * Band and Low retain their original positions for users who chose them. */
+#define STRIP_X 212
+#define STRIP_W 838
+#define LANE_H 10
+#define STRIP_H (NDECK * (LANE_H + 1) + 3)
 #define BEAT_PX 64            /* one beat across the lane */
+static const int STRIP_Y[3] = { 46, 72, 752 };
+/* Native four-deck waveform order, with SDK deck indices (zero based). */
 static const int LANE_DECK[NDECK] = { 2, 0, 1, 3 };
 
 static const az_core_v1 *C;
 static az_surface *strip;
-static int r_show = -1, r_when = -1;
-static int shown, placed;
+static int r_show = -1, r_when = -1, r_pos = -1;
+static int shown, placed_y = -1;
 static long last_redraw_ms = -REDRAW_MS;
 static int any_playing_last = -1;
 
@@ -60,28 +59,24 @@ static void paint(az_draw *d, az_rect a, void *user)
     (void)user;
     const uint32_t dim = C->color(AZ_COL_TEXT_DIM);
     const uint32_t text = C->color(AZ_COL_TEXT);
-    int mid = a.x + 18 + (a.w - 20) / 2;
+    int mid = a.x + a.w / 2;
     for (int lane = 0; lane < NDECK; lane++) {
         int deck = LANE_DECK[lane];
-        int y = a.y + 1 + lane * LANE_STEP;
+        int y = a.y + 2 + lane * (LANE_H + 1);
         az_deck_info di;
         memset(&di, 0, sizeof di);
         di.size = (int)sizeof di;
         if (C->deck_info(deck, &di) != 0 || di.loaded != 1) continue;
         char num[16];
         snprintf(num, sizeof num, "%d", deck + 1);
-        /* draw_text reserves 1.5x font height; keep even its padding inside the band. */
-        int label_y = y - 2;
-        if (label_y < a.y) label_y = a.y;
-        if (label_y > a.y + a.h - 12) label_y = a.y + a.h - 12;
-        C->draw_text(d, a.x + 3, label_y, num, 8, di.playing == 1 ? DECK_RGB[deck] : dim);
+        C->draw_text(d, a.x + 2, y - 2, num, 8, di.playing == 1 ? DECK_RGB[deck] : dim);
         /* the lane */
-        C->fill_rect(d, a.x + 18, y + LANE_H / 2, a.w - 20, 1, dim);
+        C->fill_rect(d, a.x + 14, y + LANE_H / 2, a.w - 16, 1, dim);
         double beat = -1.0, bar = -1.0;
         if (di.playing != 1 || C->deck_grid(deck, &beat, &bar) != 0 || beat < 0.0 || beat > 1.0)
             continue;
         /* beat ticks: the current beat's start is `beat` beats behind the playhead */
-        int lane_x0 = a.x + 18, lane_x1 = a.x + a.w - 2;
+        int lane_x0 = a.x + 14, lane_x1 = a.x + a.w - 2;
         for (int k = -8; k <= 8; k++) {
             int x = mid + (int)(((double)k - beat) * BEAT_PX);
             if (x < lane_x0 || x >= lane_x1) continue;
@@ -92,23 +87,19 @@ static void paint(az_draw *d, az_rect a, void *user)
     C->fill_rect(d, mid - 1, a.y, 2, a.h, text);
 }
 
-static int input(const az_event *ev, void *user)
-{
-    (void)ev; (void)user;
-    return 0;   /* taps go through to the deck */
-}
-
 static void tick(void)
 {
     if (!strip) return;
     int show = r_show < 0 || C->row_value(r_show) == 1;
     int when = r_when >= 0 ? C->row_value(r_when) : 0;       /* 0 = 4 decks only, 1 = always */
+    int pos = r_pos >= 0 ? C->row_value(r_pos) : 0;
     int n = C->deck_count();
     int want = show && (when == 1 || n == 4);
 
-    if (want && !placed) {
-        C->surface_place(strip, (az_rect){ STRIP_X, STRIP_Y, STRIP_W, STRIP_H });
-        placed = 1;
+    int y = STRIP_Y[(pos >= 0 && pos < 3) ? pos : 0];
+    if (want && y != placed_y) {
+        C->surface_place(strip, (az_rect){ STRIP_X, y, STRIP_W, STRIP_H });
+        placed_y = y;
     }
     if (want != shown) {
         C->surface_show(strip, want);
@@ -147,18 +138,22 @@ static int init(const az_core_v1 *core)
 
     if (AZ_HAS(C, register_row) && AZ_HAS(C, row_value)) {
     static const char *const WHEN[] = { "4 DK", "All" };
+    static const char *const POS[] = { "Top", "Band", "Low" };
     az_row_v1 row;
     memset(&row, 0, sizeof row);
     row.size = sizeof row;
     row.key = "show"; row.label = "4-deck phase strip"; row.kind = AZ_ROW_TOGGLE;
     row.flags = AZ_ROW_DEFAULT_ON;
-    row.help = "Compact lanes above the waves, ordered 3-1-2-4. Aligned ticks = beat phase.";
+    row.help = "Classic size, lanes 3-1-2-4. Aligned beat ticks = decks in phase.";
     r_show = C->register_row(MOD_ID, &row);
     memset(&row, 0, sizeof row); row.size = sizeof row; row.parent = "show";
     row.key = "when"; row.label = "Show"; row.kind = AZ_ROW_CHOICE;
     row.choices = WHEN; row.n_choices = 2; row.default_choice = 0;
     row.help = "4 DK = 4 DECK view only, All = every view.";
     r_when = C->register_row(MOD_ID, &row);
+    row.key = "position"; row.label = "Position"; row.choices = POS; row.n_choices = 3; row.default_choice = 0;
+    row.help = "Classic Top, Band or Low placement. These can overlap native content.";
+    r_pos = C->register_row(MOD_ID, &row);
     } else {
         C->log(MOD_ID, "no Mod Menu rows on this core: defaults (on, 4 DECK only, top)");
     }
@@ -169,7 +164,7 @@ static int init(const az_core_v1 *core)
     desc.layer = AZ_LAYER_OVER_EP147;
     desc.views = AZ_VIEW_BIT(AZ_VIEW_DECK);
     desc.on_paint = paint;
-    desc.on_input = input;
+    desc.on_input = NULL; /* Display only: leave the native touch targets available. */
     strip = C->surface_create(MOD_ID, &desc);
     if (!strip) { C->log(MOD_ID, "surface refused"); return 3; }
     return 0;
