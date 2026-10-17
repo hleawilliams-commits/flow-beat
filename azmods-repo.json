@@ -111,23 +111,23 @@
     {
       "id": "phase-strip",
       "name": "4-Deck Phase Strip",
-      "version": "0.1.1",
+      "version": "0.1.2",
       "author": "hleawilliams-commits",
-      "summary": "A phase meter for all four decks: beat ticks for every playing deck under one playhead.",
-      "icon": "https://github.com/hleawilliams-commits/flow-beat/releases/download/phase-strip-0.1.1/phase-strip-0.1.1-icon.png",
-      "package": "https://github.com/hleawilliams-commits/flow-beat/releases/download/phase-strip-0.1.1/phase-strip-0.1.1.azmod",
-      "sha256": "94e795066de854ef9bcf4788e962df7868248b5caa1b080d46511e4ac1614d62",
-      "size": 61814,
+      "summary": "Compact beat-phase lanes in 3-1-2-4 order, above the waveforms.",
+      "icon": "https://github.com/hleawilliams-commits/flow-beat/releases/download/phase-strip-0.1.2/phase-strip-0.1.2-icon.png",
+      "package": "https://github.com/hleawilliams-commits/flow-beat/releases/download/phase-strip-0.1.2/phase-strip-0.1.2.azmod",
+      "sha256": "4fab5ed7c50247f2e1724fb31a4ee15582551d65e3da6c7498bf9a00b45a1034",
+      "size": 51633,
       "firmware": [
         "any"
       ],
       "hooks": false,
       "source": "https://github.com/hleawilliams-commits/flow-beat/tree/main/phase-strip",
-      "updated": "2026-10-16",
+      "updated": "2026-10-17",
       "category": "visual",
       "license": "GPL-3.0-only",
       "min_core": "1.2.3",
-      "description": "Test build 0.1.1: validated and harness-tested, not yet run on a deck. A thin strip over the deck screen with one lane per deck. Each playing deck's beat ticks scroll under a shared playhead line; ticks that line up across lanes are decks in phase. The official Phase Meter covers the 2 DECK view; this one also works in 4 DECK, with no hook into the deck's layout.\n\nMod Menu rows turn it on or off, show it only in the 4 DECK view or always, and pick where it sits. The deck's grid has no bar position, so every tick is a beat.\n\nReads deck state and beat phase through the AZ-MODS core only: no hooks, controls, LEDs, audio, files or network."
+      "description": "Restores compact phase lanes in 3-1-2-4 order, top to bottom, matching the native waveforms. The 680 by 34 pixel strip sits above the waveforms and ignores the old Top/Band/Low placement setting.\n\nThe exact 0.1.2 archive passed ARM64 build, SDK validation, all eight measurable harness checks in plain/ASan+UBSan/TSan, and emulator layout checks. Physical layout testing is pending. Its shared playhead follows the native left playhead, not the optional centered playhead. Ticks represent beats; this does not repair missing core grid data or a phrase counter.\n\nIf the existing mod was installed from this catalog, use Update. If it was copied by hand without repository ownership metadata, the native installer requires Remove followed by Install; do this only between playback after preserving the old package/settings. Previous 0.1.1 remains available for recovery.\n\nNo stems fix, theme, or USB shortcuts included. Reload only between playback. Keep your USB backup and prior release."
     },
     {
       "id": "phrase-coach",
@@ -212,6 +212,48 @@
       "license": "GPL-3.0-only",
       "min_core": "1.2.3",
       "description": "Test build 0.1.0: validated and harness-tested, not yet run on a deck. A small badge on each deck: STEMS in green when the track has stems and the stems engine plays them, STEMS in grey when it has stems but they are off, NO STEMS in red when there are none, so you never reach for a stem pad on a track without stems.\n\nMod Menu rows: on/off, every deck or only tracks with no stems, and on the deck's row or at the screen top. With decks 3 or 4 in use in the 2/4 DECK view the badges carry their deck number and sit at the top.\n\nReads deck state through the AZ-MODS core only: no hooks, controls, LEDs, audio, files or network."
+    },
+    {
+      "id": "grouped-panels",
+      "name": "Grouped Deck Panels",
+      "version": "0.1.0",
+      "author": "hleawilliams-commits",
+      "summary": "Groups original Camelot key and phrase beside native BPM, with clear left/right deck selection.",
+      "icon": "https://github.com/hleawilliams-commits/flow-beat/releases/download/grouped-panels-0.1.0/grouped-panels-0.1.0-icon.png",
+      "package": "https://github.com/hleawilliams-commits/flow-beat/releases/download/grouped-panels-0.1.0/grouped-panels-0.1.0.azmod",
+      "sha256": "cc6195af6daffde92a3595d7763b59531f15bc4d350c51a30b6d190fe7de12f4",
+      "size": 65776,
+      "firmware": [
+        "any"
+      ],
+      "hooks": false,
+      "source": "https://github.com/hleawilliams-commits/flow-beat/tree/codex/az-mods-handoff-2026-10-16/grouped-panels",
+      "updated": "2026-10-17",
+      "category": "visual",
+      "license": "GPL-3.0-only",
+      "min_core": "1.2.3",
+      "description": "Groups title, original Camelot key and relative phrase beside native BPM in 4 DECK view. Cyan LEFT/RIGHT marks the selected decks. Native remaining time, overview waveforms and controls remain visible.\n\nThis is the exact 0.1.0 emulator-tested archive, now published for practice testing. It is already loaded on Henry's physical AZ; physical visual checks are incomplete. A report of Deck 2 phrase counting failing remains unresolved. Phrase timing depends on the core beat grid and a relative anchor; this release does not fix the stems engine or native beat-grid acquisition. Key is the stored key and does not follow Key Shift.\n\nBefore enabling, disable Key next to BPM, Phrase Coach and Selected Deck Highlight to avoid duplicate overlays. A hand-copied 0.1.0 install can remain in place; it is the same package and does not need reinstalling.\n\nNo stems fix, theme, or USB shortcuts included. Reload only between playback. Keep your USB backup and prior release."
+    },
+    {
+      "id": "mods-shortcut",
+      "name": "MODS Shortcut",
+      "version": "0.1.1",
+      "author": "hleawilliams-commits",
+      "summary": "Hide the WAVEFORM heading and use MODS to open SOURCE for the official Mod Menu.",
+      "icon": "https://github.com/hleawilliams-commits/flow-beat/releases/download/mods-shortcut-0.1.1/mods-shortcut-0.1.1-icon.png",
+      "package": "https://github.com/hleawilliams-commits/flow-beat/releases/download/mods-shortcut-0.1.1/mods-shortcut-0.1.1.azmod",
+      "sha256": "d04a4c616c7fbb3f627d85bd34a6ae034f33dda13b89939a0048035f87caa117",
+      "size": 52603,
+      "firmware": [
+        "any"
+      ],
+      "hooks": false,
+      "source": "https://github.com/hleawilliams-commits/flow-beat/tree/codex/az-mods-handoff-2026-10-16/mods-shortcut",
+      "updated": "2026-10-17",
+      "category": "visual",
+      "license": "GPL-3.0-only",
+      "min_core": "1.2.3",
+      "description": "Adds the optional clean heading that hides WAVEFORM, plus a MODS button opening the native SOURCE screen. Select MOD MENU there and confirm to open it. Separate settings control the button and heading.\n\nThe exact 0.1.1 archive passed SDK validation, focused and sanitizer tests, and emulator UI checks. Physical navigation is not yet tested. This is not a direct one-tap Mod Menu opener. It does not add USB 1/USB 2 buttons; those are still in development.\n\nReload only between playback. Keep your USB backup and prior release."
     }
   ]
 }
