@@ -26,7 +26,7 @@ Existing FLOW Beat Link, Key next to BPM, Mashup Helper, Stem Badge, Set Log and
 ## What to do next
 
 1. Preserve this baseline. Check repository/branch status before changing anything. Read each mod's README and the evidence before claiming a feature works.
-2. Next design candidate: make a main-screen mockup with wide 3–1–2–4 waveforms, selected-deck highlights, BPM/key/phrase grouped in lower panels, PICKS and a proposed MODS shortcut at the top, and the phase strip underneath. MODS shortcut and regrouped layout are proposals, not implemented features. Keep controls usable and avoid covering waveforms.
+2. [Main-screen mockup is now available](designs/main-screen/README.md): compare Grouped panels (recommended) with Waveform first. It includes illustrative wide 3–1–2–4 waveforms, selection highlights, grouped BPM/key/phrase, PICKS and a proposed MODS shortcut. These are interactive browser design studies, not installed device features. Preserve stock controls and overview waveforms when translating a design to SDK/native layout work.
 3. Physical testing is still pending. Before any USB change, use Henry's existing local recovery kit, verify its backup and preserve its selected restore point. Test one community mod at a time away from a live set. Keep Kyle's official updater and core intact.
 4. For stems, obtain physical logs if the symptom returns; compare the failure with the emulator memory-refusal case. Do not silently install the experimental engine.
 5. Preserve earlier versions, give changed packages distinct versions, build/validate, exercise the emulator, then make an explicit hardware-test/release decision.
