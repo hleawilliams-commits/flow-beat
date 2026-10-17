@@ -25,10 +25,14 @@ The physical USB's original engine hash was `3e0205320a0dda69a72e1de5070be82c89f
 
 Emulator experimental azstem.so: `cd95ce64bd1e4cbd4c7710aa77adc7546623e9782baf8fa9bd8d4acbe562a1d3`.
 
-Emulator azmod.so at latest check: `5f444898d258cb92bd78499b7d4a0631d9f29279cc47ae5d46df7b7d0c8efc84`.
+Emulator azmod.so before FLOW Neon: `5f444898d258cb92bd78499b7d4a0631d9f29279cc47ae5d46df7b7d0c8efc84`.
 
 The memory retry experiment preserves the 400 MiB reserve. It waits for sufficient memory, no other load in flight, and a known playhead still for roughly two seconds. While playing it keeps native audio. It cannot fit unlimited stems into RAM, and a memory-refusal reproduction does not diagnose every missing-stems incident. The published patch and evidence are for review; engine binaries and system images remain local.
 
 ## Local-only material
 
 Henry's original workspace contains sibling SDK/emulator clones, build outputs, the verified deck system copy, private test library, and recovery-kit backups. The shareable recovery algorithm is in tools/recovery; its registration/restore-point data stays with the original local kit. Do not reconstruct or replace that restore point from this Git repository.
+
+## FLOW Neon theme update
+
+The emulator now uses the separate UI-core theme build recorded in `experiments/flow-neon-theme/build-info.json`, with `themes = on` and `theme = flow-neon`. The stems engine and community binaries are unchanged. The original UI core and settings are backed up in the private local workspace. Follow the theme experiment README for scope and rollback.

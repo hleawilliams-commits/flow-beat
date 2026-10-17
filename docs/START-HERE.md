@@ -8,6 +8,7 @@ The physical XDJ-AZ keeps its existing working community mods and official core.
 
 | Work | Location | Verified state / limits |
 |---|---|---|
+| FLOW Neon theme | [theme experiment](../experiments/flow-neon-theme/) | Purple panels and pink native accents; sixth native theme in a separate emulator UI core build. Physical board unchanged. |
 | Selected Deck Highlight 0.1.0 | [deck-focus](../deck-focus/) | Cyan lower-panel number and top edge follow left 1/3 and right 2/4 selection. All four pairs checked in emulator. 4 DECK view only; no waveform coverage. Reads native LED state, independent of PLAY/MASTER. |
 | Harmonic Picks 0.3.0 | [harmonic-picks](../harmonic-picks/) | Top-left PICKS opens the native browser. Configure native BPM + KEY + MASTER filter first, then use physical LOAD 1–4. Repeated return to matches and LOAD 3 tested. Custom Mod Menu harmonic/acapella suggestions remain read-only. |
 | Phase Strip 0.1.2 | [phase-strip](../phase-strip/) | Compact 680×34 strip at (48,46), lanes 3–1–2–4, above waveforms. Playhead x396 matches the native left playhead, not the optional centered playhead. |
