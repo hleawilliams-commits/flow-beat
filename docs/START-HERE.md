@@ -8,6 +8,8 @@ The physical XDJ-AZ keeps its existing working community mods and official core.
 
 | Work | Location | Verified state / limits |
 |---|---|---|
+| Grouped Deck Panels 0.1.0 | [grouped-panels](../grouped-panels/) | Actual 4 DECK emulator preview: title, original Camelot key and relative phrase beside native BPM; cyan LEFT/RIGHT selection. All four decks and selection pairs checked. Replaces three older overlays in emulator; physical testing pending. |
+| MODS Shortcut 0.1.0 | [mods-shortcut](../mods-shortcut/) | Header button opens SOURCE; select MOD MENU and confirm with another tap or knob. Action checked in 2 and 4 DECK; no direct SDK menu-opening operation. |
 | FLOW Neon theme | [theme experiment](../experiments/flow-neon-theme/) | Purple panels and pink native accents; sixth native theme in a separate emulator UI core build. Physical board unchanged. |
 | Selected Deck Highlight 0.1.0 | [deck-focus](../deck-focus/) | Cyan lower-panel number and top edge follow left 1/3 and right 2/4 selection. All four pairs checked in emulator. 4 DECK view only; no waveform coverage. Reads native LED state, independent of PLAY/MASTER. |
 | Stem Picks 0.4.1 | [harmonic-picks](../harmonic-picks/) | Same community ID, renamed STEM PICKS shortcut to the playable native browser; regular-track stem recipe guidance added to custom harmonic suggestions. Configure native BPM + KEY + MASTER filter, then physical LOAD 1–4. Custom suggestions remain read-only; no per-result stem availability check. |
@@ -24,19 +26,21 @@ The physical XDJ-AZ keeps its existing working community mods and official core.
 
 Existing FLOW Beat Link, Key next to BPM, Mashup Helper, Stem Badge, Set Log and Deck Meters source is retained. Existing release history and catalog are separate from this preview branch.
 
-![Selected left deck 3 and right deck 2](evidence/deck-focus/wide-selected-3-2.png)
+![Grouped panels with left deck 3 and right deck 2 selected](evidence/grouped-panels/grouped-panels-final.png)
 
 ## What to do next
 
 1. Preserve this baseline. Check repository/branch status before changing anything. Read each mod's README and the evidence before claiming a feature works.
-2. [Main-screen mockup is now available](designs/main-screen/README.md): compare Grouped panels (recommended) with Waveform first. It includes illustrative wide 3–1–2–4 waveforms, selection highlights, grouped BPM/key/phrase, PICKS and a proposed MODS shortcut. These are interactive browser design studies, not installed device features. Preserve stock controls and overview waveforms when translating a design to SDK/native layout work.
+2. The selected Grouped panels design is now an [actual emulator preview](evidence/grouped-panels/README.md). Review its native layout and metadata limits before hardware testing. The [earlier browser mockups](designs/main-screen/README.md) remain design studies; the implementation preserves native BPM, time and overview controls instead of replacing the whole lower screen.
 3. Physical testing is still pending. Before any USB change, use Henry's existing local recovery kit, verify its backup and preserve its selected restore point. Test one community mod at a time away from a live set. Keep Kyle's official updater and core intact.
 4. For stems, obtain physical logs if the symptom returns; compare the failure with the emulator memory-refusal case. Do not silently install the experimental engine.
 5. Preserve earlier versions, give changed packages distinct versions, build/validate, exercise the emulator, then make an explicit hardware-test/release decision.
 
 Other requests still open: touch scrolling on the core Community Mods page; a live Key-Shift-aware Camelot display on physical jog screens; fully automatic one-button harmonic matching and custom result loading; further four-deck BPM/key/phrase layout refinement. Acapella filtering exists in the custom suggestion page but does not load tracks. CDJ integration was discussed; no integration patch was made. Replacing SINGLE/CONTINUE, SMART CUE or AUTO CUE has not been implemented.
 
-Latest layout fix: [separated header shortcuts](evidence/header-layout-fix/README.md), checked in 2, 2/4 and 4 DECK views.
+Latest implemented screen: [Grouped panels and MODS shortcut](evidence/grouped-panels/README.md), including original-key/relative-phrase limits and emulator rollback. The old Key next to BPM, Phrase Coach and Selected Deck Highlight packages are retained but unloaded in this preview.
+
+Previous layout fix: [separated header shortcuts](evidence/header-layout-fix/README.md), checked in 2, 2/4 and 4 DECK views.
 
 Latest demo evidence: [Mix Bookmark and Stem Picks](evidence/mix-demo/README.md). Both are emulator-only community builds; this turn did not change the existing experimental UI/stems cores or physical USB.
 
@@ -56,6 +60,8 @@ For a fresh emulator, follow the pinned [upstream emulator guide](https://github
 Original emulator automation recipes are in [tools/emulator-recipes](../tools/emulator-recipes/). They are development records, not general installers: read their prerequisites and paths before running. They alter emulator UI/playback and some perform memory-pressure tests or emulator library edits.
 
 ## Evidence and rollback artifacts
+
+- [Grouped Deck Panels 0.1.0](../archives/grouped-panels/0.1.0/) and [MODS Shortcut 0.1.0](../archives/mods-shortcut/0.1.0/): community packages, source snapshots, hashes and [actual emulator evidence](evidence/grouped-panels/README.md).
 
 - [Selected Deck Highlight 0.1.0](../archives/deck-focus/0.1.0/): source snapshot, package, hashes, test notes.
 - [Harmonic Picks 0.3.0](../archives/harmonic-picks/0.3.0/): source/package, 204 shortcut and 55 matching assertions, SDK results and emulator evidence. Earlier 0.1.0 and 0.2.0 artifacts retained; unshipped 0.2.1 prototype under experiments.

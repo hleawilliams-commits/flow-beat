@@ -1,0 +1,16 @@
+{
+  "azmod": 1,
+  "id": "mods-shortcut",
+  "name": "MODS Shortcut",
+  "version": "0.1.0",
+  "author": "hleawilliams-commits",
+  "summary": "A waveform-header MODS button opens SOURCE so you can tap the official MOD MENU.",
+  "description": "SDK-only emulator preview. MODS sends one bounded native SOURCE press, then displays Tap MOD MENU in the source list. It does not open Mod Menu directly: choose its official SOURCE-list row. Physical navigation and LOAD input cancel the shortcut. One small surface above the waveforms, with separate positions for 2 and 4 DECK layouts. No LOAD, PLAY, audio, library writes or firmware hooks. Disable MODS source shortcut to hide the button.",
+  "category": "visual",
+  "license": "GPL-3.0-only",
+  "source": "https://github.com/hleawilliams-commits/flow-beat/tree/codex/az-mods-handoff-2026-10-16/mods-shortcut",
+  "api": 1,
+  "firmware": ["any"],
+  "hooks": false,
+  "min_core": "1.2.3"
+}

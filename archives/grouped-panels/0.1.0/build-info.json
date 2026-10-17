@@ -1,0 +1,27 @@
+{
+  "mod": "grouped-panels",
+  "version": "0.1.0",
+  "status": "emulator-only; not published or physically tested",
+  "repository_base": "ed67d9376faa3b812f8de327bc505b7eb61d30e8",
+  "sdk_revision": "6563e8e657a4ef113696de9d0f9327a6c8d0fab7",
+  "binary_sha256": "3d2b4199da2e80178035aa86a71a15f2219dfbe262358fce756dcc068e6be120",
+  "package_sha256": "cc6195af6daffde92a3595d7763b59531f15bc4d350c51a30b6d190fe7de12f4",
+  "source_sha256": {
+    "LICENSE": "e57f1c320b8cf8798a7d2ff83a6f9e06a33a03585f6e065fea97f1d86db84052",
+    "Makefile": "3d63b808f2f45f0ccfe68d23a8579c4616b92867446a028124d6563eed485630",
+    "README.md": "71bd9870410d6fec7d4050af57d811aaf6ffafab020604eeb0399ae5507b7e8d",
+    "azmod.json": "65b975c8741154d67506c0979c5f476529ba2c2bf81d308967a0a0df0a023e7b",
+    "data.h": "97842d906584a824c7ea8ea73a1abae6e643177c8596ab00f1cb85d09c77c31e",
+    "grouped-panels.c": "079888f553b416b734c7784d8d03f9b59d4426c79040f2fa699caa72ec5180aa",
+    "icon.png": "ac95f840f374259f6c9f54d1aa8929b471ed2756bdd1d3f3a3424bcddde015e7",
+    "layout.h": "8c81125b97bb680a8b300f8c740a4c4a52022086e7150e6d6c5927a0235184cc",
+    "tests/run-focused.sh": "943a27af7918e1f261c8ede9bbf98bbbd97d166ba226093ca744b57c58b85ccb",
+    "tests/test_data.c": "b26e8e1209982057d46d75f60f3655af41864e58875cb49c56f9e18bc10fb553",
+    "tests/test_layout.c": "71aff0a20314f991e5b0f6ab3eb9035fed06b16b94a94e659774f9b19ac2f26f",
+    "tests/test_paint.c": "3c597431370df8dfa9060d633b7ec9f1bc100dc5e571c92ce32b08dd2e5a3e98"
+  },
+  "emulator_core_unchanged": {
+    "azmod.so": "f8d4ba67ccad9e3386c78dc2ca377bf3263221875d65578a1d893e9c2f3f5668",
+    "azstem.so": "cd95ce64bd1e4cbd4c7710aa77adc7546623e9782baf8fa9bd8d4acbe562a1d3"
+  }
+}
