@@ -1,6 +1,6 @@
 # MODS Shortcut 0.1.2: timeout recovery
 
-This update removes clock/view work from idle input callbacks and clears stranded UI requests with a visible **“MODS timed out. Use SOURCE > MOD MENU”** message. It preserves native input priority, the existing SOURCE pulse deadlines and the official core's timing protection. The button still opens SOURCE; select the native MOD MENU entry to enter the menu.
+[MODS Shortcut 0.1.2 is published](https://github.com/hleawilliams-commits/flow-beat/releases/tag/mods-shortcut-0.1.2) in the existing FLOW Beat Link catalog. This update removes clock/view work from idle input callbacks and clears stranded UI requests with a visible **“MODS timed out. Use SOURCE > MOD MENU”** message. It preserves native input priority, the existing SOURCE pulse deadlines and the official core's timing protection. The button still opens SOURCE; select the native MOD MENU entry to enter the menu.
 
 The confirmed physical failure in 0.1.1 was a quarantined input filter after eight timing overruns, with a stale request left pending. The new timeout cannot reactivate that running filter. Less idle work is a mitigation, not evidence that the AZ will never hit the watchdog again. Physical long-run testing remains pending.
 
@@ -12,4 +12,4 @@ Keep the verified USB backup and prior [0.1.1 package](https://github.com/hleawi
 
 The package contains only its manifest, license, icon and `mods-shortcut.so`. It includes no stems engine, firmware, core logging patch, USB1/USB2 buttons or theme. Stems capacity/retry and the other requested work remain separate.
 
-[Build, concurrency and emulator evidence](evidence/mods-shortcut-0.1.2/README.md) and [physical incident evidence](evidence/mods-filter-quarantine-2026-10-17/README.md) state the checks and limitations. Publication status and package hashes are recorded in the publication receipt when completed.
+[Build, concurrency and emulator evidence](evidence/mods-shortcut-0.1.2/README.md) and [physical incident evidence](evidence/mods-filter-quarantine-2026-10-17/README.md) state the checks and limitations. The [publication receipt](evidence/publication-mods-0.1.2/receipt.json) records package hashes and catalog verification.

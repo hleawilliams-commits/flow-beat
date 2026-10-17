@@ -1,0 +1,34 @@
+{
+  "verified_utc": "2026-10-17T20:01:42.144590+00:00",
+  "source_commit": "7932e6bfc25554d4aee06387b8868bb0ff6995ef",
+  "catalog_publish_commit": "84ad8c5a324283728823b10a48c350b604730fe0",
+  "separate_core_log_patch_commit": "5bb5eb2",
+  "preserved_unrelated_catalog_entries": 11,
+  "release_url": "https://github.com/hleawilliams-commits/flow-beat/releases/tag/mods-shortcut-0.1.2",
+  "package": {
+    "id": "mods-shortcut",
+    "version": "0.1.2",
+    "sha256": "30b25a22ace70d7b4fb3abc5324d0986956360a93be33c7fa62bebe67eeaf57c",
+    "size": 52661,
+    "binary_sha256": "c5d5e564b6e7006faf20dd372c077adba537105026850b6d04ee6d8294ed9aef"
+  },
+  "checks": [
+    "ARM64 SDK build/validation passed",
+    "302 shortcut and 232 component assertions plain/ASan+UBSan passed",
+    "35 concurrent/idle assertions plain/ASan+UBSan/TSan passed",
+    "Official macOS SDK harness 9 measured checks per plain/ASan+UBSan/TSan pass",
+    "Exact binary exercised in emulator; native SOURCE navigation and disabled-dispatch timeout/reacceptance passed",
+    "Three MODS requests opened SOURCE during an 80.75-second four-deck playback test",
+    "Draft package and icon downloaded and matched local bytes",
+    "Live SDK repo check --download passed for all 12 entries",
+    "Public raw main catalog explicitly confirmed version0.1.2; public package downloaded and matched size/checksum",
+    "Original emulator community package/settings restored and both core hashes unchanged"
+  ],
+  "physical_test": "Pending; physical device was read-only during diagnosis and not changed/reloaded/controlled",
+  "limits": [
+    "Lower idle work does not guarantee freedom from future watchdog overruns",
+    "Timeout feedback does not reactivate an already quarantined filter",
+    "No strict wall-clock guarantee under thread suspension",
+    "No stems-engine, USB button, theme or core logging patch in the package"
+  ]
+}
