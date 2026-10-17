@@ -1,6 +1,6 @@
 # Follow-up investigation — October 17
 
-The physical XDJ-AZ was not changed, reloaded, restarted or controlled during this follow-up. Later read-only observations established the MODS filter quarantine described below. No new community release was published. Phase Strip 0.1.3 remains the current phase correction; source and experimental evidence below are shared for review, not installation on the practicing board.
+The physical XDJ-AZ was not changed, reloaded, restarted or controlled during this follow-up. Later read-only observations established the MODS filter quarantine described below. MODS Shortcut 0.1.2 was published after the later diagnosis and emulator checks; no physical install was performed. Phase Strip 0.1.3 remains the current phase correction; source and experimental evidence below are shared for review, not installation on the practicing board.
 
 | Work | New evidence | Remaining gate |
 |---|---|---|

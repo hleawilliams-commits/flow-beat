@@ -237,13 +237,13 @@
     {
       "id": "mods-shortcut",
       "name": "MODS Shortcut",
-      "version": "0.1.1",
+      "version": "0.1.2",
       "author": "hleawilliams-commits",
       "summary": "Hide the WAVEFORM heading and use MODS to open SOURCE for the official Mod Menu.",
-      "icon": "https://github.com/hleawilliams-commits/flow-beat/releases/download/mods-shortcut-0.1.1/mods-shortcut-0.1.1-icon.png",
-      "package": "https://github.com/hleawilliams-commits/flow-beat/releases/download/mods-shortcut-0.1.1/mods-shortcut-0.1.1.azmod",
-      "sha256": "d04a4c616c7fbb3f627d85bd34a6ae034f33dda13b89939a0048035f87caa117",
-      "size": 52603,
+      "icon": "https://github.com/hleawilliams-commits/flow-beat/releases/download/mods-shortcut-0.1.2/mods-shortcut-0.1.2-icon.png",
+      "package": "https://github.com/hleawilliams-commits/flow-beat/releases/download/mods-shortcut-0.1.2/mods-shortcut-0.1.2.azmod",
+      "sha256": "30b25a22ace70d7b4fb3abc5324d0986956360a93be33c7fa62bebe67eeaf57c",
+      "size": 52661,
       "firmware": [
         "any"
       ],
@@ -253,7 +253,7 @@
       "category": "visual",
       "license": "GPL-3.0-only",
       "min_core": "1.2.3",
-      "description": "Adds the optional clean heading that hides WAVEFORM, plus a MODS button opening the native SOURCE screen. Select MOD MENU there and confirm to open it. Separate settings control the button and heading.\n\nThe exact 0.1.1 archive passed SDK validation, focused and sanitizer tests, and emulator UI checks. Physical navigation is not yet tested. This is not a direct one-tap Mod Menu opener. It does not add USB 1/USB 2 buttons; those are still in development.\n\nReload only between playback. Keep your USB backup and prior release."
+      "description": "SDK-only community mod. MODS opens SOURCE; select MOD MENU to open the official menu. Idle callbacks skip clock reads. A stranded request times out with a SOURCE > MOD MENU fallback. Physical navigation and LOAD cancel the shortcut. Hide WAVEFORM heading blanks only its title area; touches pass through. Official core timing protections remain unchanged, and a timeout cannot re-enable a quarantined filter. Physical long-run timing remains unvalidated. No track loading, audio or library writes."
     }
   ]
 }
