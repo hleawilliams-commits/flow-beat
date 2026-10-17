@@ -1,0 +1,24 @@
+{
+  "mod": "deck-focus",
+  "version": "0.1.0",
+  "status": "emulator-only; not published or physically tested",
+  "binary_sha256": "0dbf12b67b4c4de57af63dc1dcc68c5f1c396e06d300f575b44a8b231e218878",
+  "package_sha256": "b55b1a546e808f716ae259452a89fc87dee2600e2994f06bfc4c5619a653ccc4",
+  "repository_base": "dd1ef7cdcc646507f36f7f686ef27aa71c7cef19",
+  "sdk_version": "1.2.3",
+  "sdk_revision": "6563e8e",
+  "source_sha256": {
+    "LICENSE": "e57f1c320b8cf8798a7d2ff83a6f9e06a33a03585f6e065fea97f1d86db84052",
+    "Makefile": "0fe17c55af6d917b461e244cf89befab4da4c68cb2869a333fc3277efaf145da",
+    "README.md": "6388960342af94b8539bfade6d78f206b1687350463d5452c76022a60287365e",
+    "azmod.json": "889f975ab97f858a4e269de5082dd2101781c2cb8e315828d2ab1741f9c4120f",
+    "deck-focus.c": "72bb8feda5637a2b4762d3d14cfddd81a61866aad01dfb695a6851e915107f7e",
+    "icon.png": "ac95f840f374259f6c9f54d1aa8929b471ed2756bdd1d3f3a3424bcddde015e7",
+    "tests/scenarios.c": "8d0b5272e7dcc394831b5b99dd41350dd9ca1bdd9b96811ac0bdae6faa7e0667",
+    "tests/test_selection.c": "f2d5cdff16ed796d91ba7e3ea9bddccd54f55dfc3107d22ce61296feca7ba330"
+  },
+  "emulator_core_unchanged": {
+    "azmod.so": "5f444898d258cb92bd78499b7d4a0631d9f29279cc47ae5d46df7b7d0c8efc84",
+    "azstem.so": "cd95ce64bd1e4cbd4c7710aa77adc7546623e9782baf8fa9bd8d4acbe562a1d3"
+  }
+}

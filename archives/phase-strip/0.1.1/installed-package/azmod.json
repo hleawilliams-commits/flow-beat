@@ -1,0 +1,18 @@
+{
+  "azmod": 1,
+  "id": "phase-strip",
+  "name": "4-Deck Phase Strip",
+  "version": "0.1.1",
+  "author": "hleawilliams-commits",
+  "summary": "A phase meter for all four decks: beat ticks for every playing deck under one playhead.",
+  "description": "Test build 0.1.1: validated and harness-tested, not yet run on a deck. A thin strip over the deck screen with one lane per deck. Each playing deck's beat ticks scroll under a shared playhead line; ticks that line up across lanes are decks in phase. The official Phase Meter covers the 2 DECK view; this one also works in 4 DECK, with no hook into the deck's layout.\n\nMod Menu rows turn it on or off, show it only in the 4 DECK view or always, and pick where it sits. The deck's grid has no bar position, so every tick is a beat.\n\nReads deck state and beat phase through the AZ-MODS core only: no hooks, controls, LEDs, audio, files or network.",
+  "category": "visual",
+  "license": "GPL-3.0-only",
+  "source": "https://github.com/hleawilliams-commits/flow-beat/tree/main/phase-strip",
+  "api": 1,
+  "firmware": [
+    "any"
+  ],
+  "hooks": false,
+  "min_core": "1.2.3"
+}

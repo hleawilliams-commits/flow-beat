@@ -1,0 +1,21 @@
+{
+  "id": "harmonic-picks",
+  "name": "Harmonic Picks",
+  "version": "0.3.0",
+  "author": "hleawilliams-commits",
+  "summary": "PICKS waveform shortcut to the playable native browser, plus harmonic and acapella suggestions in Mod Menu.",
+  "icon": "https://github.com/hleawilliams-commits/flow-beat/releases/download/harmonic-picks-0.3.0/harmonic-picks-0.3.0-icon.png",
+  "package": "https://github.com/hleawilliams-commits/flow-beat/releases/download/harmonic-picks-0.3.0/harmonic-picks-0.3.0.azmod",
+  "sha256": "1ba06438c56462effa44d104cc32d02e4d782cfc6d01a151d5f4bfc93833782b",
+  "size": 68084,
+  "firmware": [
+    "any"
+  ],
+  "hooks": false,
+  "source": "https://github.com/hleawilliams-commits/flow-beat/tree/main/harmonic-picks",
+  "updated": "2026-10-16",
+  "category": "tools",
+  "license": "GPL-3.0-only",
+  "min_core": "1.2.3",
+  "description": "Emulator preview. Set up the native Track Filter once: BPM, KEY and MASTER DECK, then enable filtering on the desired track list. PICKS opens that native browser with its current category and filter state, where LOAD 1\u20134 loads the selected track. It does not turn a disabled filter back on, choose a source/category, or change your filter settings. Native MASTER following updates BPM/key. Mod Menu keeps the manual-reference harmonic/acapella suggestions; those remain read-only. No firmware hooks or core changes. Keys in the custom suggestions do not follow Key Shift."
+}

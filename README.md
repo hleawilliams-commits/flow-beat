@@ -1,5 +1,7 @@
 # FLOW Beat Link (flow-beat)
 
+**Claude / Grok / collaborator handoff:** start with [docs/START-HERE.md](docs/START-HERE.md). This development branch includes emulator previews, tests, screenshots and versioned archives. The live community catalog and existing releases are unchanged.
+
 An [AZ-MODS](https://github.com/Kyle-Hosman/xdj-az-mods) mod for the Pioneer XDJ-AZ. It sends
 each deck's beat, BPM, play state, playhead and track to FLOW VJ (or any program) over UDP
 port 9100, so visuals and lights lock to the decks.
@@ -12,20 +14,21 @@ control or audio, or write files. Needs AZ-MODS 1.2.3 or newer.
 
 | Folder | Mod | Status |
 |---|---|---|
-| `/` (root) | **FLOW Beat Link** (`flow-beat`): beat, BPM, play state and track to FLOW VJ over UDP | released, 0.2.0 |
+| `/` (root) | **FLOW Beat Link** (`flow-beat`): beat, BPM, play state and track to FLOW VJ over UDP | source 0.2.1; existing releases unchanged |
 | `key-next-to-bpm/` | **Key next to BPM**: the loaded track's key as a badge on each deck, Camelot or classic | test build 0.1.1, installed on a deck, menu checked |
-| `phase-strip/` | **4-Deck Phase Strip**: beat ticks for every playing deck under one playhead, works in 4 DECK | test build 0.1.1, installed on a deck, menu checked |
+| `phase-strip/` | **4-Deck Phase Strip**: beat ticks for every playing deck under one playhead, works in 4 DECK | 0.1.2 emulator preview; hardware testing pending |
 | `mashup-helper/` | **Mashup Helper**: Camelot match and pitch gap for the two decks in play | test build 0.1.0, not yet run on a deck |
 | `stem-badge/` | **Stem Badge**: STEMS or NO STEMS on each deck | test build 0.1.0, not yet run on a deck |
 | `set-log/` | **Set Log**: every track you play, written to a CSV on the USB | test build 0.1.0, not yet run on a deck |
-| `harmonic-picks/` | **Harmonic Picks**: a Mod Menu page of tracks that fit the playing deck by key and BPM | test build 0.1.0, not yet run on a deck |
+| `harmonic-picks/` | **Harmonic Picks**: native browser shortcut plus custom harmonic/acapella suggestion page | 0.3.0 emulator preview; custom suggestions do not load tracks |
 | `deck-meters/` | **Deck Meters**: a level meter per deck with clip warning, and a flash on the drop | test build 0.1.0, not yet run on a deck |
-| `phrase-coach/` | **Phrase Coach**: a bar counter on each deck, amber in the last bar of the phrase | test build 0.1.0, not yet run on a deck |
-| `set-clock/` | **Set Clock**: time left in the set, and a warning as the playing track ends | test build 0.1.0, not yet run on a deck |
+| `phrase-coach/` | **Phrase Coach**: a bar counter on each deck, amber in the last bar of the phrase | unpublished layout changes based on 0.1.0; emulator checked |
+| `set-clock/` | **Set Clock**: time left in the set, and a warning as the playing track ends | disabled in emulator at user request |
+| `deck-focus/` | **Selected Deck Highlight**: cyan numbers/edges show left 1/3 and right 2/4 selection | 0.1.0 emulator preview; 4 DECK view only |
 
 `tools/flow_link_bridge.py` runs on the Mac: it turns FLOW Beat Link's packets into an Ableton Link session, so AUTO/PILOT, Ableton and other Link apps lock to the deck (`python3 -m pip install aalink`, then `python3 tools/flow_link_bridge.py`).
 
-Every mod has its own entry in `azmods-repo.json`; add `hleawilliams-commits/flow-beat` once on the deck and all of them show under Browse. Each mod's folder has its own README. Each mod has its SDK release workflow in `ci/release-<id>.yml`, like `ci/release.yml` for FLOW Beat Link: move it to `.github/workflows/` to release that mod on an `<id>-<version>` tag.
+The existing published mods have entries in `azmods-repo.json`; the new previews on this branch are not promoted there. For the published versions, add `hleawilliams-commits/flow-beat` once on the deck and all of them show under Browse. Each mod's folder has its own README. Each mod has its SDK release workflow in `ci/release-<id>.yml`, like `ci/release.yml` for FLOW Beat Link: move it to `.github/workflows/` to release that mod on an `<id>-<version>` tag.
 
 ## Install
 

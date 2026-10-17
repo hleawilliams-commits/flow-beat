@@ -1,0 +1,10 @@
+Phase Strip 0.1.2 — emulator preview
+
+ARM64 build and package validation: PASS.
+SDK harness: 8 checks passed in each of plain, ASan/UBSan and TSan runs.
+No-I/O and no-allocation measurements are unavailable in the macOS harness.
+Visual check: 3-1-2-4 lane order; 680x34 rectangle at (48,46), ends at y80 before waveforms; shared marker at x396 matches current native left playhead. Checked with side panels open and collapsed, timer ready and running.
+The native centered-playhead option is not tracked by this mod.
+Set Clock subsequently disabled at user request, retained for re-enabling. No timer library mapped in restarted EP147.
+Official core and experimental emulator stems binary hashes unchanged. No physical USB/deck changes.
+Previous version: releases/0.1.1 contains source, package and exact previous emulator binary. New package/source: releases/0.1.2.

@@ -1,0 +1,31 @@
+CAMELOT JOG DISPLAY — EMULATOR PROTOTYPE
+
+The deck's native artwork path sends a highlighted Camelot wheel to its jog
+screens. It uses the track's exported key, not a live key-shift measurement.
+The wheel also appears as artwork in the emulated library.
+
+Test tracks:
+  Deck 1: Access Denied — D minor / 7A
+  Deck 2: Confetti — E-flat minor / 2A
+
+In AZ-EMU's full panel, double-click the SHIFT button on each side to switch
+that jog display from waveform to artwork. This is the app's SHIFT button:
+sending SHIFT through az-drive only changes the emulated deck's button state,
+not the host app's separate display-view preference.
+
+The library copy in the emulator was changed. The physical FLOWMATIC USB,
+original staged library, and GitHub repository were not modified by this test.
+The core made verified paired backups before applying the artwork update:
+  /media/usb/sda1/PIONEER/rekordbox/exportLibrary-BACKUP.db
+  /media/usb/sda1/PIONEER/rekordbox/export-BACKUP.pdb
+The changes use the emulator's OneLibrary database. This prototype is not a
+finished installable community mod and has not been tested on physical jog LCDs.
+
+artwork/: original 512px JPEGs and 160px library thumbnails.
+jog-1-received.jpg and jog-2-received.jpg: JPEGs reconstructed from the actual
+emulator jog-display messages, after the deck resized the artwork to 181px.
+draw-camelot.py: reproducible original chart artwork (Python/Pillow; Mac fonts).
+
+Key numbering and compatible-neighbour rules checked against Mixed In Key:
+https://mixedinkey.com/camelot-wheel/
+The chart artwork is original, not a copy of their published graphic.

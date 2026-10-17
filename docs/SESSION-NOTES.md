@@ -1,0 +1,34 @@
+# Reproduction notes
+
+## Recorded environment
+
+XDJ-AZ firmware 2.00 / EP147 `ep147-9e9454e357389ece`, AZ-MODS SDK/core 1.2.3. Pin full upstream revisions from dependencies.json. Emulator source itself was unchanged. The Mac setup used Homebrew, Colima/Docker and a separate Python environment for the QEMU build. Machine-specific dependency repair details and compiled tools remain local.
+
+Emulator SSH is localhost:2222; QMP automation localhost:4446. Use upstream azemu/az-drive helpers, one QMP client at a time. Screen screenshots are 1280×800; az-drive touch coordinates use 2560×1600. A 0.7-second deck-select press worked reliably; very short pulses could be missed. UI methods depend on the current screen.
+
+The emulator USB has library metadata for many tracks but audio for only Access Denied, Confetti and Backchat feat. Mystic State. Missing-file errors for other results do not demonstrate a harmonic matching bug. No music or database files are in this repository.
+
+Current emulator loaded mods at the last check: flow-beat 0.2.1, harmonic-picks 0.3.0, key-next-to-bpm 0.1.1, phase-strip 0.1.2, phrase-coach 0.1.0 local layout build, deck-focus 0.1.0. Set Clock is off. Other original mods are retained but disabled. Enabling everything together previously hit the core's global 16-surface limit; budget surfaces when redesigning.
+
+## Geometry and selection
+
+- Native waveform rows: 3,1,2,4. Lower information panels: 1,2 / 3,4. Do not use the waveform order to index those panels.
+- PICKS: x12, y8, width156, height36.
+- Phase Strip: x48, y46, width680, height34; native left playhead x396. It does not follow the optional centered playhead.
+- Phrase Coach deck-details placement: x320 + column×640, y566 + row×120, 196×26.
+- Deck Focus badge: x10 + column×640, y561 + row×120, 44×46. Cyan edge: x54 + column×640, same y, 574×3. Click-through surfaces, four total.
+- Deck Focus reads native ErP LED callback bytes 0x0c/0x44. Low-nibble 6 means left1/right2; 9 means left3/right4. Unknown/stale state hides. All 256 byte values covered by focused tests. It does not change physical LEDs or input.
+
+## Stems distinction
+
+The physical USB's original engine hash was `3e0205320a0dda69a72e1de5070be82c89fb9e73ec21ce3f561c1dbb23d60ea6`.
+
+Emulator experimental azstem.so: `cd95ce64bd1e4cbd4c7710aa77adc7546623e9782baf8fa9bd8d4acbe562a1d3`.
+
+Emulator azmod.so at latest check: `5f444898d258cb92bd78499b7d4a0631d9f29279cc47ae5d46df7b7d0c8efc84`.
+
+The memory retry experiment preserves the 400 MiB reserve. It waits for sufficient memory, no other load in flight, and a known playhead still for roughly two seconds. While playing it keeps native audio. It cannot fit unlimited stems into RAM, and a memory-refusal reproduction does not diagnose every missing-stems incident. The published patch and evidence are for review; engine binaries and system images remain local.
+
+## Local-only material
+
+Henry's original workspace contains sibling SDK/emulator clones, build outputs, the verified deck system copy, private test library, and recovery-kit backups. The shareable recovery algorithm is in tools/recovery; its registration/restore-point data stays with the original local kit. Do not reconstruct or replace that restore point from this Git repository.

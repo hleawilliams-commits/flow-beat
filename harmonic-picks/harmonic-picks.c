@@ -3,18 +3,20 @@
  * harmonic-picks: a page in the Mod Menu with the tracks on your sticks that fit what is
  * playing now.
  *
- * Mod Menu > Community Mods > Installed > Harmonic Picks. The page takes the deck that started
- * playing last (or deck 1 when nothing plays) and lists up to 40 tracks from the sticks'
+ * Mod Menu > Harmonic Picks. Choose the reference deck explicitly; the SDK does not expose
+ * tempo MASTER. Lists up to 40 tracks from the sticks'
  * rekordbox libraries with a Camelot-compatible key (same, a neighbour, the relative key)
- * and an original tempo within 6% (half and double time count), closest first. Acapellas
+ * and a required pitch change within 6% of its live tempo (half and double time count). Acapellas
  * (by title) are marked VOX. Turn the browse knob to scroll; press it to switch between all
  * tracks and acapellas only. The list follows the decks while the page is open.
  *
  * The libraries are read once on the mod's own thread, which also does the ranking; the UI
- * thread only hands over the playing track and draws the result. No hooks, controls, LEDs,
- * audio, files or network. "firmware": ["any"].
+ * thread only hands over the playing track and draws the result. The PICKS surface opens
+ * the native browser through one BROWSE input pulse. No LOAD/PLAY, firmware hooks, LEDs,
+ * audio, library writes or network. "firmware": ["any"].
  */
 #include <pthread.h>
+#include <math.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <string.h>
@@ -31,6 +33,7 @@
 #define MAX_GAP 6.0
 
 static const az_core_v1 *C;
+static void redraw(void);
 
 /* ---- key notation ----------------------------------------------------------------------
  * rekordbox exports the key in whatever notation its settings chose: classic ("Am", "F#m",
@@ -66,7 +69,10 @@ static int parse_key(const char *s, int *idx, int *minor)
     /* Camelot "8A" / "12B", Open Key "1m" / "12d" */
     if (b[0] >= '0' && b[0] <= '9') {
         int num = 0; size_t i = 0;
-        while (b[i] >= '0' && b[i] <= '9') num = num * 10 + (b[i++] - '0');
+        while (b[i] >= '0' && b[i] <= '9') {
+            num = num * 10 + (b[i++] - '0');
+            if (num > 12) return 0;
+        }
         if (num < 1 || num > 12 || b[i] == 0 || b[i + 1] != 0) return 0;
         char c = b[i];
         if (c == 'A' || c == 'a') { *idx = num - 1; *minor = 1; return 1; }
@@ -121,7 +127,8 @@ static int on_track(const az_track *t, void *user)
     int stick = *(int *)user;
     if (g_nlib >= MAX_TRACKS) return 1;
     int idx, minor;
-    if (!t || !t->key || !parse_key(t->key, &idx, &minor) || t->bpm <= 0) return 0;
+    if (!t || !t->key || !parse_key(t->key, &idx, &minor) ||
+        !isfinite(t->bpm) || t->bpm <= 0 || t->bpm > 1000) return 0;
     struct tr *r = &g_lib[g_nlib++];
     r->id = t->id;
     r->stick = (signed char)stick;
@@ -135,26 +142,27 @@ static int on_track(const az_track *t, void *user)
 }
 
 /* ---- seed and result: UI thread <-> reader thread, under g_mu ---------------------------- */
-struct pick { uint32_t id; signed char idx, minor, vox, step; float bpm, gap; char title[56]; char artist[36]; };
+struct pick { uint32_t id; signed char idx, minor, vox, step, stick; float bpm, gap, pitch, factor; char title[56]; char artist[36]; };
 static pthread_mutex_t g_mu = PTHREAD_MUTEX_INITIALIZER;
 static uint32_t g_seed_id;          /* the playing track; 0 = none */
 static int g_seed_idx = -1, g_seed_minor, g_seed_vox_only, g_seed_gen;
 static float g_seed_bpm;
 static struct pick g_res[NPICKS];
-static int g_nres, g_res_gen = -1, g_lib_ready;
+static int g_nres, g_res_gen = -1, g_lib_ready, g_lib_done;
 static int g_new_result;            /* atomic: reader -> UI */
 
-static float gap_pct(float a, float b)
+/* Signed pitch needed on the candidate, with its beat interpretation stated separately. */
+static float match_pitch(float target, float candidate, float *factor)
 {
     float best = 1e9f;
+    float pitch = 0;
     static const float F[3] = { 0.5f, 1.0f, 2.0f };
     for (int i = 0; i < 3; i++) {
-        float d = b * F[i] - a;
-        if (d < 0) d = -d;
-        d = d / a * 100.0f;
-        if (d < best) best = d;
+        float p = (target / (candidate * F[i]) - 1.0f) * 100.0f;
+        float d = p < 0 ? -p : p;
+        if (d < best) { best = d; pitch = p; *factor = F[i]; }
     }
-    return best;
+    return pitch;
 }
 
 /* 0 same, 1 neighbour or relative, -1 no fit */
@@ -169,12 +177,18 @@ static int key_step(int ia, int ma, int ib, int mb)
 static void rank(uint32_t seed_id, int sidx, int smin, float sbpm, int vox_only, struct pick *out, int *nout)
 {
     int n = 0;
+    if (sidx < 0 || sidx >= 12 || !isfinite(sbpm) || sbpm <= 0 || sbpm > 1000) {
+        *nout = 0;
+        return;
+    }
     for (int i = 0; i < g_nlib; i++) {
         const struct tr *t = &g_lib[i];
         if (t->id == seed_id || (vox_only && !t->vox)) continue;
         int step = key_step(sidx, smin, t->idx, t->minor);
         if (step < 0) continue;
-        float g = gap_pct(sbpm, t->bpm);
+        float factor = 1;
+        float pitch = match_pitch(sbpm, t->bpm, &factor);
+        float g = pitch < 0 ? -pitch : pitch;
         if (g > MAX_GAP) continue;
         float score = g + step * 2.0f;
         /* insertion into the sorted top NPICKS; the same title and artist only once */
@@ -190,6 +204,7 @@ static void rank(uint32_t seed_id, int sidx, int smin, float sbpm, int vox_only,
         struct pick *p = &out[pos];
         p->id = t->id; p->idx = t->idx; p->minor = t->minor; p->vox = t->vox;
         p->step = (signed char)step; p->bpm = t->bpm; p->gap = g;
+        p->pitch = pitch; p->factor = factor; p->stick = t->stick;
         memcpy(p->title, t->title, sizeof p->title);
         memcpy(p->artist, t->artist, sizeof p->artist);
     }
@@ -207,6 +222,7 @@ static void *reader(void *arg)
     }
     pthread_mutex_lock(&g_mu);
     g_lib_ready = g_nlib;
+    g_lib_done = 1;
     pthread_mutex_unlock(&g_mu);
     __atomic_store_n(&g_new_result, 1, __ATOMIC_RELEASE);
     int done_gen = -1;
@@ -235,13 +251,13 @@ static void *reader(void *arg)
 
 /* ---- the page (UI thread) ---------------------------------------------------------------- */
 static int g_page_on, g_scroll, g_vox_only, g_reader_ok;
-static int g_seed_deck = -1;
+static int g_seed_deck = -1, g_reference = -1;
 static uint32_t g_ui_seed_id;
 static long last_poll_ms = -POLL_MS, g_page_seen_ms = -100000;
-static int started_seq[NDECK], was_playing[NDECK], seq_counter;
 /* what on_draw shows: a copy taken on the UI thread */
 static struct pick g_show[NPICKS];
-static int g_nshow, g_show_lib;
+static int g_nshow, g_show_lib, g_show_done, g_show_gen = -1, g_fit = 1;
+static az_rect g_buttons[7];  /* decks 1..4, filter, previous page, next page */
 static char g_seed_text[96];
 
 static long now_ms(void)
@@ -253,44 +269,41 @@ static long now_ms(void)
 
 static void set_seed(void)
 {
-    /* the deck that started playing last, else the first loaded deck */
-    int best = -1;
-    az_deck_info pick_di;
-    for (int d = 0; d < NDECK; d++) {
-        az_deck_info di;
-        memset(&di, 0, sizeof di);
-        di.size = (int)sizeof di;
-        int ok = C->deck_info(d, &di) == 0 && di.loaded == 1;
-        int playing = ok && di.playing == 1;
-        if (playing && !was_playing[d]) started_seq[d] = ++seq_counter;
-        if (!playing) started_seq[d] = 0;
-        was_playing[d] = playing;
-        if (!ok) continue;
-        int better = best < 0 || started_seq[d] > started_seq[best];
-        if (better) { best = d; pick_di = di; }
-    }
-    uint32_t id = best >= 0 ? pick_di.content_id : 0;
-    if (best == g_seed_deck && id == g_ui_seed_id) return;
-    g_seed_deck = best;
-    g_ui_seed_id = id;
-    g_scroll = 0;
-    /* the seed's key and original tempo: look the id up in the table under the lock */
+    az_deck_info di = { .size = sizeof di };
+    int best = g_reference;
+    int loaded = best >= 0 && C->deck_info(best, &di) == 0 && di.loaded == 1;
+    uint32_t id = loaded ? di.content_id : 0;
     int idx = -1, minor = 0;
-    float bpm = 0;
-    char title[56] = "";
+    float bpm = loaded && isfinite(di.bpm) && di.bpm > 0 && di.bpm <= 1000 ? (float)di.bpm : 0;
+    /* Prefer deck metadata. An id alone is not unique across USB libraries. Only use a
+     * library fallback if title/artist agree and all matching entries agree on key. */
+    if (loaded && !parse_key(di.key, &idx, &minor)) idx = -1;
     pthread_mutex_lock(&g_mu);
     int ready = g_lib_ready;
     pthread_mutex_unlock(&g_mu);
-    if (id && ready) {
-        for (int i = 0; i < ready; i++)
-            if (g_lib[i].id == id) { idx = g_lib[i].idx; minor = g_lib[i].minor; bpm = g_lib[i].bpm; memcpy(title, g_lib[i].title, sizeof title); break; }
+    if (loaded && idx < 0 && id && di.title[0]) {
+        for (int i = 0; i < ready; i++) {
+            const struct tr *t = &g_lib[i];
+            if (t->id != id || strncmp(t->title, di.title, sizeof t->title - 1) ||
+                strncmp(t->artist, di.artist, sizeof t->artist - 1)) continue;
+            if (idx >= 0 && (idx != t->idx || minor != t->minor)) { idx = -1; break; }
+            idx = t->idx; minor = t->minor;
+        }
     }
-    if (idx < 0 && best >= 0 && pick_di.key[0] && parse_key(pick_di.key, &idx, &minor)) bpm = (float)pick_di.bpm;
-    if (best < 0) snprintf(g_seed_text, sizeof g_seed_text, "Load a track to see picks");
+    if (best < 0) snprintf(g_seed_text, sizeof g_seed_text, "Choose the deck to match above (select your MASTER)");
+    else if (!loaded) snprintf(g_seed_text, sizeof g_seed_text, "Deck %d: load a track to see picks", best + 1);
     else if (idx < 0) snprintf(g_seed_text, sizeof g_seed_text, "Deck %d: no key for this track", best + 1);
-    else snprintf(g_seed_text, sizeof g_seed_text, "Deck %d  %s%s  %.1f BPM  %.40s", best + 1,
-                  WHEEL[idx].camelot, minor ? "A" : "B", bpm, title);
+    else if (bpm <= 0) snprintf(g_seed_text, sizeof g_seed_text, "Deck %d: waiting for current BPM", best + 1);
+    else snprintf(g_seed_text, sizeof g_seed_text, "Deck %d  %s%s  %.1f BPM live  %.36s", best + 1,
+                  WHEEL[idx].camelot, minor ? "A" : "B", bpm, di.title);
     pthread_mutex_lock(&g_mu);
+    float change = bpm - g_seed_bpm;
+    if (best == g_seed_deck && id == g_ui_seed_id && idx == g_seed_idx &&
+        minor == g_seed_minor && change > -0.05f && change < 0.05f && g_seed_vox_only == g_vox_only) {
+        pthread_mutex_unlock(&g_mu);
+        return;
+    }
+    g_seed_deck = best; g_ui_seed_id = id; g_scroll = 0;
     g_seed_id = id; g_seed_idx = idx; g_seed_minor = minor; g_seed_bpm = bpm;
     g_seed_vox_only = g_vox_only;
     g_seed_gen++;
@@ -303,6 +316,8 @@ static void take_result(void)
     memcpy(g_show, g_res, sizeof g_show[0] * (size_t)g_nres);
     g_nshow = g_nres;
     g_show_lib = g_lib_ready;
+    g_show_done = g_lib_done;
+    g_show_gen = g_res_gen;
     pthread_mutex_unlock(&g_mu);
 }
 
@@ -314,7 +329,7 @@ static void on_enter(void *user)
     g_ui_seed_id = (uint32_t)-1;     /* force a fresh seed */
     g_seed_deck = -2;
     set_seed();
-    if (AZ_HAS(C, request_redraw)) C->request_redraw();
+    redraw();
 }
 
 /* draw text only if it fits inside the page area, cutting it short to the area width */
@@ -332,44 +347,79 @@ static int put(az_draw *d, az_rect a, int x, int y, const char *s, int px, uint3
     return 1;
 }
 
+static void button(az_draw *d, az_rect a, int n, int x, int y, int w, const char *label, int active)
+{
+    az_rect r = { x, y, w, 48 };
+    if (x < a.x || x + w > a.x + a.w || y < a.y || y + r.h > a.y + a.h) return;
+    g_buttons[n] = r;
+    uint32_t col = C->color(active ? AZ_COL_HI : AZ_COL_TEXT_DIM);
+    if (AZ_HAS(C, draw_rect)) C->draw_rect(d, x, y, w, r.h, active ? 3 : 1, col);
+    put(d, r, x + 10, y + 8, label, 18, col);
+}
+
 static void draw(az_draw *d, az_rect a, void *user)
 {
     (void)user;
     g_page_seen_ms = now_ms();
+    memset(g_buttons, 0, sizeof g_buttons);
     int rh = AZ_HAS(C, row_height) ? C->row_height(d) : 50;
     if (rh < 30) rh = 30;
     uint32_t text = C->color(AZ_COL_TEXT), dim = C->color(AZ_COL_TEXT_DIM), hi = C->color(AZ_COL_HI);
-    C->draw_header(d, g_vox_only ? "Harmonic picks: acapellas" : "Harmonic picks");
+    C->draw_header(d, "Harmonic Picks - find your next track");
     int y = a.y + rh + 6;
+    int bw = (a.w - 32 - 4 * 8) / 5;
+    for (int i = 0; i < 4; i++) {
+        char label[24];
+        snprintf(label, sizeof label, "Match deck %d", i + 1);
+        button(d, a, i, a.x + 16 + i * (bw + 8), y, bw, label, g_reference == i);
+    }
+    button(d, a, 4, a.x + 16 + 4 * (bw + 8), y, bw,
+           g_vox_only ? "Acapellas" : "All tracks", g_vox_only);
+    y += 58;
     put(d, a, a.x + 16, y, g_seed_text, 20, hi);
     y += 36;
-    if (!g_reader_ok) { put(d, a, a.x + 16, y, "No library service on this AZ-MODS", 20, dim); return; }
-    if (!g_show_lib) { put(d, a, a.x + 16, y, "Reading the library...", 20, dim); return; }
-    if (g_nshow == 0) { put(d, a, a.x + 16, y, "Nothing fits within 6%", 20, dim); return; }
-    int line = 34;
-    int fit = (a.y + a.h - y - 24) / line;
-    if (fit < 1) fit = 1;
-    if (g_scroll > g_nshow - fit) g_scroll = g_nshow - fit;
+    int bottom = a.y + a.h - 62;
+    button(d, a, 5, a.x + 16, bottom, 120, "Previous", 0);
+    button(d, a, 6, a.x + 148, bottom, 120, "Next", 0);
+    char foot[112];
+    snprintf(foot, sizeof foot, "%d picks | knob: scroll / press: filter | library key; key shifts not tracked", g_nshow);
+    put(d, a, a.x + 284, bottom + 12, foot, 14, dim);
+    const char *message = NULL;
+    if (!g_reader_ok) message = "No library service on this AZ-MODS";
+    else if (!g_show_done) message = "Reading the USB libraries...";
+    else if (!g_show_lib) message = "No usable key/BPM metadata. Reload mods after connecting USB.";
+    else if (g_reference < 0) message = "Tap Match deck 1, 2, 3 or 4 to find compatible songs.";
+    else if (g_seed_idx < 0 || g_seed_bpm <= 0) message = "Waiting for the selected deck's key and live BPM.";
+    else if (g_show_gen != g_seed_gen) message = "Finding matches...";
+    else if (g_nshow == 0) message = "No compatible keys within +/-6% pitch. Try All tracks or another deck.";
+    if (message) { put(d, a, a.x + 16, y, message, 18, dim); return; }
+    static const int cols[] = { 16, 86, 176, 276, 358, 426 };
+    static const char *const labels[] = { "Key", "BPM", "Pitch", "Time", "USB", "Artist / track" };
+    for (int c = 0; c < 6; c++) put(d, a, a.x + cols[c], y, labels[c], 16, dim);
+    y += 30;
+    int line = 36;
+    g_fit = (bottom - y - 8) / line;
+    if (g_fit < 1) return;
+    int max_scroll = g_nshow > g_fit ? g_nshow - g_fit : 0;
+    if (g_scroll > max_scroll) g_scroll = max_scroll;
     if (g_scroll < 0) g_scroll = 0;
-    for (int i = g_scroll; i < g_nshow && i < g_scroll + fit; i++) {
+    for (int i = g_scroll; i < g_nshow && i < g_scroll + g_fit; i++) {
         const struct pick *p = &g_show[i];
-        char k[8], b[16], g[16], name[100];
+        char k[8], b[16], pitch[16], usb[8], name[104];
         snprintf(k, sizeof k, "%s%s", WHEEL[p->idx].camelot, p->minor ? "A" : "B");
         snprintf(b, sizeof b, "%.1f", p->bpm);
-        snprintf(g, sizeof g, "%.1f%%", p->gap);
-        snprintf(name, sizeof name, "%s%s%s", p->artist, p->artist[0] ? " - " : "", p->title);
-        put(d, a, a.x + 16, y, k, 20, p->step == 0 ? 0x3CCB5A : text);
-        put(d, a, a.x + 76, y, b, 20, text);
-        put(d, a, a.x + 156, y, g, 20, dim);
-        int nx = a.x + 236;
-        if (p->vox) { put(d, a, nx, y, "VOX", 20, 0xF2C230); nx += 56; }
-        put(d, a, nx, y, name, 20, text);
+        snprintf(pitch, sizeof pitch, "%+.1f%%", p->pitch);
+        snprintf(usb, sizeof usb, "%d", p->stick + 1);
+        snprintf(name, sizeof name, "%s%s%s%s", p->vox ? "VOX " : "", p->artist,
+                 p->artist[0] ? " - " : "", p->title);
+        put(d, a, a.x + cols[0], y, k, 20, p->step == 0 ? 0x3CCB5A : text);
+        put(d, a, a.x + cols[1], y, b, 20, text);
+        put(d, a, a.x + cols[2], y, pitch, 20, dim);
+        put(d, a, a.x + cols[3], y, p->factor == 1 ? "1x" : p->factor == 2 ? "2x" : "1/2x", 18, dim);
+        put(d, a, a.x + cols[4], y, usb, 20, dim);
+        put(d, a, a.x + cols[5], y, name, 20, text);
         y += line;
     }
-    char foot[64];
-    snprintf(foot, sizeof foot, "%d-%d of %d   knob: scroll   press: %s", g_scroll + 1,
-             g_scroll + fit < g_nshow ? g_scroll + fit : g_nshow, g_nshow, g_vox_only ? "all tracks" : "acapellas only");
-    put(d, a, a.x + 16, a.y + a.h - 28, foot, 14, dim);
 }
 
 static int input(const az_event *ev, void *user)
@@ -377,32 +427,43 @@ static int input(const az_event *ev, void *user)
     (void)user;
     if (!ev) return 0;
     if (ev->kind == AZ_EV_BACK) { g_page_on = 0; return 0; }
-    if (ev->kind == AZ_EV_KNOB) { g_scroll += ev->dir; if (g_scroll < 0) g_scroll = 0; }
-    else if (ev->kind == AZ_EV_CLICK) {
-        g_vox_only = !g_vox_only;
-        g_ui_seed_id = (uint32_t)-1;
-        g_seed_deck = -2;
-        set_seed();
+    if (ev->kind == AZ_EV_KNOB) g_scroll += ev->dir;
+    else if (ev->kind == AZ_EV_CLICK) { g_vox_only = !g_vox_only; set_seed(); }
+    else if (ev->kind == AZ_EV_TAP) {
+        int hit = -1;
+        for (int i = 0; i < 7; i++) {
+            az_rect r = g_buttons[i];
+            if (ev->x >= r.x && ev->x < r.x + r.w && ev->y >= r.y && ev->y < r.y + r.h) { hit = i; break; }
+        }
+        if (hit < 0) return 0;
+        if (hit < 4) { g_reference = hit; set_seed(); }
+        else if (hit == 4) { g_vox_only = !g_vox_only; set_seed(); }
+        else g_scroll += hit == 5 ? -g_fit : g_fit;
     } else return 0;
-    if (AZ_HAS(C, request_redraw)) C->request_redraw();
+    if (g_scroll < 0) g_scroll = 0;
+    redraw();
     return 1;
 }
 
+#define QUICK_LABEL "PICKS"
+#define QUICK_X 12
+#include "quick-page.h"
+
 static void tick(void)
 {
+    quick_tick();
     long now = now_ms();
     if (__atomic_exchange_n(&g_new_result, 0, __ATOMIC_ACQ_REL)) {
         take_result();
-        if (g_page_on && AZ_HAS(C, request_redraw)) C->request_redraw();
+        if (g_page_on) redraw();
     }
     /* the page counts as open while it is being drawn; it is drawn when shown */
     if (g_page_on && now - g_page_seen_ms > 5000) g_page_on = 0;
     if (!g_page_on || now - last_poll_ms < POLL_MS) return;
     last_poll_ms = now;
-    uint32_t before = g_ui_seed_id;
-    int before_deck = g_seed_deck;
+    int before = g_seed_gen;
     set_seed();
-    if ((before != g_ui_seed_id || before_deck != g_seed_deck) && AZ_HAS(C, request_redraw)) C->request_redraw();
+    if (before != g_seed_gen) redraw();
 }
 
 static int init(const az_core_v1 *core)
@@ -416,13 +477,22 @@ static int init(const az_core_v1 *core)
     }
     static const az_screen_v1 scr = { sizeof(az_screen_v1), draw, input, on_enter, NULL };
     if (C->register_screen(MOD_ID, &scr) != 0) { C->log(MOD_ID, "screen refused"); return 3; }
-    snprintf(g_seed_text, sizeof g_seed_text, "Load a track to see picks");
+    if (AZ_HAS(C, register_row)) {
+        static const az_row_v1 row = {
+            .size = sizeof(az_row_v1), .key = "find-tracks", .label = "Harmonic Picks",
+            .kind = AZ_ROW_SCREEN, .screen = &scr,
+            .help = "Choose a reference deck; find compatible keys and live BPM matches.",
+        };
+        if (C->register_row(MOD_ID, &row) < 0) C->log(MOD_ID, "menu shortcut unavailable; use Installed page");
+    }
+    snprintf(g_seed_text, sizeof g_seed_text, "Choose a reference deck");
     if (AZ_HAS(C, lib_tracks) && AZ_HAS(C, thread_start)) {
         if (C->thread_start(MOD_ID, "picks reader", reader, NULL) == 0) g_reader_ok = 1;
         else C->log(MOD_ID, "thread_start refused: no picks");
     } else {
         C->log(MOD_ID, "no library service: no picks");
     }
+    quick_init();
     return 0;
 }
 

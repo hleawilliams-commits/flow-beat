@@ -1,0 +1,32 @@
+Stems recovery fix — 2026-10-16
+
+Implemented and installed in the emulator. All four decks passed the controlled low-memory reproduction and recovery test. The physical XDJ-AZ and physical USB have not been changed.
+
+What changed
+A stems load refused for insufficient memory is now remembered as recoverable. Once enough RAM is available, the affected deck retries after its observed playhead has been still for roughly two seconds. It keeps the same track, preserves the existing 400 MiB memory reserve, and waits for other stem loads to finish. Successful loads and tracks without stem files are not repeatedly decoded. Changing/ejecting a track clears its pending recovery.
+
+While the track is playing, it keeps native audio rather than starting an automatic stems recovery. Pause the affected deck once memory is available; the stems can then load without needing to switch songs. This fixes the stuck state after a memory refusal. It cannot fit four stem sets into less RAM than they require, and it does not claim to fix every possible missing-stems cause.
+
+Validation
+- Four simultaneous initial Confetti stem loads succeeded.
+- Individually on Decks 1, 2, 3 and 4: a bounded 900 MiB emulator process forced a logged memory refusal when replacing Access Denied with Confetti.
+- Each failed deck had zero stem frames. No decode retry loop occurred while memory remained low, including a same-track reload.
+- After releasing the extra memory during playback, each deck's observed playhead continued advancing and stems remained off.
+- After pausing, each deck automatically loaded 10,209,856 stem frames, enabled all four stems (ctrl=0x8f), and cleared its retry state.
+- All four decks finished with stems available. EP147 kept one PID during the test.
+- 46 focused checks passed, also under AddressSanitizer/UndefinedBehaviorSanitizer. The original implementation fails the new recovery checks.
+- Release build passed -Wall -Wextra -Werror. Formatting and patch checks passed. The ARM64 shared library requires GLIBC_2.17 or newer; the emulated deck uses 2.29.
+
+Files
+memory-retry.patch: complete changes against upstream commit in build-info.json.
+fixed/azstem.so: tested engine build (core patch, not a community-mod package).
+original/azstem.so: exact engine backup from before this task.
+Restore original emulator stems.command: restores that backup and restarts only the emulator's deck program.
+unit-tests.txt / sanitizer-tests.txt: focused checks and original-code regression control.
+emulator-events.json / emulator-azstem.log: final successful live test.
+all-four-recovered.png / final-verification.txt: final screen and engine state.
+
+Rebuild from the upstream repository at the recorded base commit: apply memory-retry.patch, then build the azstem target following BUILDING.md. The SDK's Ubuntu 18.04 ARM64 toolchain was used here. The patch includes the regression checks in the existing test suite. License: GPL-3.0-only; LICENSE included.
+
+Limits
+The original physical incident has not been diagnosed from device logs. This fixes the matching memory-refusal mechanism reproduced in the emulator. Firmware tested: EP147 2.00. This remains a locally tested custom core build; no GitHub release or physical-device installation was made. Diagnostic logging was disabled for future starts; the current process can retain its bounded logging until the next restart. The temporary pressure process was stopped and its guest executable removed.

@@ -1,0 +1,18 @@
+{
+  "azmod": 1,
+  "id": "deck-focus",
+  "name": "Selected Deck Highlight",
+  "version": "0.1.0",
+  "author": "hleawilliams-commits",
+  "summary": "Bright deck numbers and panel edges show which decks the left and right controls select.",
+  "description": "Emulator preview for the 4 DECK waveform layout. Reads the native deck-select LED output: left 1/3 and right 2/4. Selected deck numbers turn cyan and their lower info panels get a cyan top edge. Independent of PLAY and MASTER. Hides on other layouts or unknown/stale selection. No controls, audio, library writes or firmware hooks. Disable Selected deck highlight to restore stock indicators.",
+  "category": "visual",
+  "license": "GPL-3.0-only",
+  "source": "https://github.com/hleawilliams-commits/flow-beat/tree/main/deck-focus",
+  "api": 1,
+  "firmware": [
+    "any"
+  ],
+  "hooks": false,
+  "min_core": "1.2.3"
+}

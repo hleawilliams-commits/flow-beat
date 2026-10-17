@@ -1,0 +1,9 @@
+{
+  "base_revision": "dd1ef7cdcc646507f36f7f686ef27aa71c7cef19",
+  "version": "0.1.2",
+  "scope": "phase-strip community mod, emulator only",
+  "sha256": {
+    "phase-strip.so": "daa9710927d7f23dafb7b21a6ac909269e5224f068417cc5b68fc5bed77fee5f",
+    "phase-strip-0.1.2.azmod": "4fab5ed7c50247f2e1724fb31a4ee15582551d65e3da6c7498bf9a00b45a1034"
+  }
+}

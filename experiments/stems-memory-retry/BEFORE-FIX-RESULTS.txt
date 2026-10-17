@@ -1,0 +1,36 @@
+XDJ-AZ per-deck missing-stems investigation — 2026-10-16
+
+Result: reproduced the reported pattern in the emulator using controlled low-memory fault injection. This establishes a possible mechanism, not the cause on the physical XDJ-AZ. Physical SSH at 192.168.1.212 timed out; no physical deck changes were made.
+
+Baseline
+Four simultaneous loads of Access Denied succeeded, followed by loading Confetti on deck 4 and then decks 2/3 while other decks played. All four decks had decoded stems. A 206-second eight-channel capture had zero dropped frames; EP147 PID stayed 2933. No sustained all-zero audio gaps appeared on the continuing decks during the measured load windows. This was two short tracks reused across four decks, not a long-track stress test or proof against all audio glitches.
+
+Targeted reproduction
+1. Start with Access Denied on deck 1 and Confetti on decks 2–4, all with stems.
+2. Reserve and touch 900 MiB in a separate, bounded emulator process. It checks for a minimum 350 MiB remaining before allocating and exits automatically after 90 seconds; it was stopped manually sooner. No AZ-MODS binaries were changed.
+3. Load Confetti on deck 1. The original stem buffers are released, but available memory remains too low for the new stem buffers plus the engine's 400 MiB reserve.
+4. Log: stems REFUSED d0 for '01 player dave - Confetti': need 311 MB, MemAvailable 647 MB (+0 MB held), floor 400 MB -- playing without stems
+5. Deck 1 reports ctrl=0x00, frames=0; decks 2–4 retain ctrl=0x8f, frames=10209856. In the four-deck screen, deck 1 has USB1 where the other decks show colored stem buttons. d0 in the log is physical deck number 1.
+6. Stop the pressure process. Available memory recovers to roughly 1550 MiB. After 30 seconds deck 1 still has no stems.
+7. Reload the SAME track on deck 1: still frames=0. No new stem load is attempted.
+8. Load Access Denied and then Confetti on deck 2: both load stems successfully, while deck 1 still lacks them for Confetti. This is a fresh load, not just retained old buffers.
+
+Code evidence
+Inspected upstream source commit 3e0c5cb010454228f4ee63226b60d060494eeaae in work/xdj-az-mods/src/azstem/stem_playback.c:
+- Lines 1127–1154: memory floor refuses a load before publishing stem availability.
+- Lines 1386–1389: failed load still records loaded_track.
+- Lines 1524–1537: the unchanged name/file path skips loading, except for a stale-load retry flag. A normal failed load does not set that flag.
+This explains how a temporary load refusal can leave one deck stuck without stems while another succeeds. It does not establish which failure triggered the user's real incident.
+
+Evidence
+missing-stems-deck1.png: matching visual symptom.
+memory-load-failure.txt: explicit memory refusal and deck state.
+memory-released-30sec.txt: no recovery despite available memory.
+same-track-reload.txt: same-track reload does not retry.
+other-deck-fresh-load.txt: another deck loads the same stem set successfully.
+telemetry.jsonl / audio-analysis.json: earlier baseline test.
+
+No core fix has been implemented or deployed. Physical USB contents and GitHub were not changed by these tests.
+
+Recovery verified
+On the failed deck 1, loading a DIFFERENT track (Access Denied) and then returning to Confetti restored stems: ctrl=0x8f, frames=10209856. All four decks finish with stems available. This workaround was verified after memory recovered; it cannot overcome continuing memory pressure. See different-track-then-back-recovery.txt and recovered-all-four.png. The pressure process is stopped, its guest executable removed, and the diagnostic logging flag removed. Current EP147 may retain cached logging until next restart; logs are bounded. No restart was needed for recovery.

@@ -1,0 +1,42 @@
+Harmonic Picks 0.3.0 — emulator preview
+
+PASS: ARM64 SDK build, manifest and packaged release validation.
+PASS: 204 focused shortcut assertions under AddressSanitizer + UndefinedBehaviorSanitizer.
+PASS: 55 existing matching/metadata/tempo/input assertions under ASan + UBSan.
+PASS: SDK harness plain, ASan/UBSan and TSan: 8 checks each.
+      macOS harness does not measure no-I/O/no-allocation; these tests do not prove physical behavior.
+PASS: PICKS surface fits x12..168, y8..44, above Phase Strip y46..80.
+PASS: touch PICKS opens the native browser from WAVEFORM.
+PASS: native BPM + KEY + MASTER DECK settings survived the emulator restart.
+PASS: native master-follow filter updated 76 -> 79 BPM after changing MASTER tempo
+      during the earlier native-filter experiment. This is native behavior, not custom ranking.
+PASS: native filtered TRACK list shows funnel and 181 matching records at 76 BPM +/-6%, Dm.
+PASS: selecting Access Denied in that list and pressing LOAD 3 loads deck 3, paused at 3:14,
+      while deck 1 continues playing. No track load is sent by the shortcut.
+PASS: two subsequent PICKS presses from WAVEFORM return to the filtered 181-track list.
+PASS: running emulator harmonic-picks.so matches packaged binary SHA256:
+      1ee0bf040eacb85611e24a8c6cc006b982dc4cd2e4e2b96c1e0850ab11bf8926
+PASS: emulator core hashes unchanged:
+      azmod.so 5f444898d258cb92bd78499b7d4a0631d9f29279cc47ae5d46df7b7d0c8efc84
+      azstem.so cd95ce64bd1e4cbd4c7710aa77adc7546623e9782baf8fa9bd8d4acbe562a1d3
+      The emulator already contains a separate experimental stems fix.
+PASS: prior 0.2.0 release/source retained; unshipped 0.2.1 read-only shortcut prototype saved
+      under prototypes/0.2.1-read-only-shortcut before replacement.
+
+Initial emulator failure corrected: control transport frames are padded to 152 bytes,
+whereas core input frames can be shorter. Final code requires at least 98 bytes (the CRC
+protected mixer frame), not exactly 152. The focused test now exercises a 98-byte frame.
+
+Scope and limits:
+- This is a shortcut to the existing native browser, NOT the complete automatic one-button
+  MASTER matching feature originally envisioned. The user sets BPM/KEY/MASTER and enables
+  Track Filter first. PICKS preserves filter state, source, category and other conditions.
+  If the filter is off or another category is selected, PICKS opens that current view.
+- Custom harmonic/acapella suggestions remain in Mod Menu and remain read-only.
+  No custom suggestion-to-native-track transfer or automatic acapella loading exists.
+- Native matching, available files and loading rules belong to EP147. The emulator has a
+  full metadata library but only a few copied audio files; playback proof uses Access Denied.
+- No firmware hooks, library writes, simulated LOAD/PLAY or pointer taps in the package.
+- Physical board/USB: no changes, no installation, no physical test.
+- GitHub: no push or release publication. Local release entry URLs are publication targets only.
+- No verification that native filtering follows Key Shift; the custom page uses stored keys.

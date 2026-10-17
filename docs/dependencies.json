@@ -1,0 +1,18 @@
+{
+  "az-mods-sdk": {
+    "url": "https://github.com/Kyle-Hosman/az-mods-sdk",
+    "commit": "6563e8e657a4ef113696de9d0f9327a6c8d0fab7"
+  },
+  "xdj-az-emu": {
+    "url": "https://github.com/Kyle-Hosman/xdj-az-emu",
+    "commit": "06fc981707e69982c0554bb508e0c646c005a979"
+  },
+  "az-mods-examples": {
+    "url": "https://github.com/Kyle-Hosman/az-mods-examples",
+    "commit": "b1dc7269a8e9ca73305132a9139175d0d577accc"
+  },
+  "xdj-az-mods": {
+    "url": "https://github.com/Kyle-Hosman/xdj-az-mods",
+    "commit": "3e0c5cb010454228f4ee63226b60d060494eeaae"
+  }
+}

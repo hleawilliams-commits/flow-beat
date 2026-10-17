@@ -1,0 +1,18 @@
+{
+  "azmod": 1,
+  "id": "phase-strip",
+  "name": "4-Deck Phase Strip",
+  "version": "0.1.2",
+  "author": "hleawilliams-commits",
+  "summary": "Compact beat-phase lanes in 3-1-2-4 order, above the waveforms.",
+  "description": "Emulator preview 0.1.2. Four compact beat-phase lanes follow the native waveform order: 3, 1, 2, 4. The strip fits between the toolbar and waveform area, leaving space for Set Clock. The old Top/Band/Low placement setting is no longer used. Mod Menu controls turn the strip on/off and choose 4 DECK only or all deck layouts. Each tick is a beat, not a phrase or downbeat marker. Reads the SDK deck state and beat grid only; no hooks or audio/control changes. Physical-deck layout testing is still required.",
+  "category": "visual",
+  "license": "GPL-3.0-only",
+  "source": "https://github.com/hleawilliams-commits/flow-beat/tree/main/phase-strip",
+  "api": 1,
+  "firmware": [
+    "any"
+  ],
+  "hooks": false,
+  "min_core": "1.2.3"
+}
