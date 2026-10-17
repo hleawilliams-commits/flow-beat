@@ -450,7 +450,6 @@ static int input(const az_event *ev, void *user)
 }
 
 #define QUICK_LABEL "STEM PICKS"
-#define QUICK_X 12
 #include "quick-page.h"
 
 static void tick(void)

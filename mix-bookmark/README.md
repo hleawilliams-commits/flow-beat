@@ -1,6 +1,8 @@
-# Mix Bookmark 0.1.0
+# Mix Bookmark 0.1.1
 
 Emulator preview. **MIX BOOKMARK** sits above the waveforms next to the phase strip.
+In two-deck view the button is labelled **MIX** and sits beside the compact **PICKS** button.
+Both layouts keep the buttons above the waveforms, with separate hit areas.
 Tap it to review two loaded decks. Select a recipe for each side, then **SAVE THIS PAIR**.
 The panel is also under Mod Menu > Mix Bookmark. Close (or physical BACK) returns to the waveform.
 **Next saved mix** cycles through saved pairs, newest first.

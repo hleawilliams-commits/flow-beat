@@ -1,0 +1,16 @@
+fw=ep147-9e9454e357389ece
+suspended=0
+off=0
+mod=flow-beat|1|0.2.1|
+mod=harmonic-picks|1|0.4.1|
+mod=key-next-to-bpm|1|0.1.1|
+mod=phase-strip|1|0.1.2|
+mod=phrase-coach|1|0.1.0|
+mod=set-clock|2||Turned off
+mod=deck-focus|1|0.1.0|
+mod=mix-bookmark|1|0.1.1|
+f8d4ba67ccad9e3386c78dc2ca377bf3263221875d65578a1d893e9c2f3f5668  /home/root/settings/az-usbload/azmod.so
+cd95ce64bd1e4cbd4c7710aa77adc7546623e9782baf8fa9bd8d4acbe562a1d3  /home/root/settings/az-usbload/azstem.so
+8d61ce88080c3454d4cf7f8c71e850615dea2bd37cad0a002a82d3badb977eee  /media/usb/sda1/MODS/community-mods/mix-bookmark/data/mix-01.book
+9686b7d2390cdcf61088144ba687a6736d81fb4682980bcd068d84fcbaa56b83  /media/usb/sda1/MODS/community-mods/mix-bookmark/data/mix-02.book
+c2c3b6a89e820106ce0c9fdb1f617fd50e876be8f9d72c118c7a0b45ea63d748  /media/usb/sda1/MODS/community-mods/mix-bookmark/data/mix-03.book

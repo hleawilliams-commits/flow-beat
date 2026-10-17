@@ -45,3 +45,9 @@ The emulator now uses the separate UI-core theme build recorded in `experiments/
 - Upstream emulator push helper writes `MODS/community/`; current core SDK storage looks for `MODS/community-mods/`. Copied this demo's manifest/binary/icon to the latter as well, preserving data, so data_dir resolves correctly. No core changes.
 - `mix-bookmark/tests/harness-worker-directory.patch` is a narrowly scoped test-harness fix used in an isolated SDK copy. Its reason, original failure and final passes are in the demo evidence.
 - Both builds are archived with source. Live catalog/release tags unchanged; the previous 0.3.0 Harmonic Picks archive remains the rollback baseline. Removing Mix Bookmark can delete its data, so back that up first.
+
+## Header shortcut spacing fix
+
+Stem Picks 0.4.1 and Mix Bookmark 0.1.1 now reserve separate header rectangles. Four-deck: PICKS (746,50,184,30), BOOKMARK (950,50,260,30), with 20px between them. Two-deck / 2/4-deck: compact PICKS (1064,50,100,30), MIX (1174,50,96,30), with 10px between, right of the native phase display. Rectangles update when deck_count changes, and closing Bookmark restores the current layout. Top-left WAVEFORM is visible again.
+
+Both builds installed only in emulator. Visuals checked in all three native layouts; both touch targets checked in two- and four-deck modes. Existing SDK harnesses pass all three sanitizer modes (8 gates each, same isolated directory-worker harness correction for Bookmark). Original core and bookmark record hashes unchanged. Previous 0.4.0/0.1.0 packages retained.

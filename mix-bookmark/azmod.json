@@ -2,7 +2,7 @@
   "azmod": 1,
   "id": "mix-bookmark",
   "name": "Mix Bookmark",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "hleawilliams-commits",
   "summary": "Save a two-deck pairing, playhead positions and a manual stem recipe on your USB.",
   "description": "Emulator preview. MIX BOOKMARK opens a review panel. Choose two decks and stem recipe notes, then save a bookmark on the USB. Reads deck snapshots and writes only its own data folder. Recipes are manual notes, not detected pad states. No automatic track loading, cue restore or audio changes. Maximum 64 bookmarks; corrupt or full storage fails closed.",

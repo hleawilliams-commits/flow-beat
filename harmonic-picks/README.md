@@ -1,10 +1,12 @@
 # Stem Picks
 
-Version 0.4.0 is an emulator preview. Physical-deck testing is pending.
+Version 0.4.1 is an emulator preview. Physical-deck testing is pending.
 
 ## Playable native browser shortcut
 
-The **STEM PICKS** button sits at the top left of the waveform screen, above Phase Strip.
+The **STEM PICKS** button sits beside Mix Bookmark in its own header slot, clear of
+Phase Strip and the native top-row controls. Two-deck view uses compact **PICKS** / **MIX**
+buttons to the right of the longer native phase meter.
 It opens the native browser. Select a track, then press **LOAD 1, 2, 3 or 4** to load it
 onto that deck; press PLAY when ready. The shortcut never loads or starts a track itself.
 
@@ -90,5 +92,5 @@ touch paging, acapella filtering, and empty-deck behavior.
 
 This is a community-only package: no official core, stems engine, firmware or boot files.
 The prior 0.1.0 and 0.2.0 packages and sources are retained in the workspace recovery artifacts.
-The 0.4.0 preview is installed only in the emulator. Follow the parent AGENTS.md before a
+The 0.4.1 preview is installed only in the emulator. Follow the parent AGENTS.md before a
 physical USB change, including a verified backup and a separate test before promotion.

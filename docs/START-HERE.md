@@ -10,8 +10,8 @@ The physical XDJ-AZ keeps its existing working community mods and official core.
 |---|---|---|
 | FLOW Neon theme | [theme experiment](../experiments/flow-neon-theme/) | Purple panels and pink native accents; sixth native theme in a separate emulator UI core build. Physical board unchanged. |
 | Selected Deck Highlight 0.1.0 | [deck-focus](../deck-focus/) | Cyan lower-panel number and top edge follow left 1/3 and right 2/4 selection. All four pairs checked in emulator. 4 DECK view only; no waveform coverage. Reads native LED state, independent of PLAY/MASTER. |
-| Stem Picks 0.4.0 | [harmonic-picks](../harmonic-picks/) | Same community ID, renamed STEM PICKS shortcut to the playable native browser; regular-track stem recipe guidance added to custom harmonic suggestions. Configure native BPM + KEY + MASTER filter, then physical LOAD 1–4. Custom suggestions remain read-only; no per-result stem availability check. |
-| Mix Bookmark 0.1.0 | [mix-bookmark](../mix-bookmark/) | New top-screen button and review panel. Saves two loaded tracks, approximate positions, BPM, aggregate stem state and manual recipe notes. Saved-file checksums and UI verified across an emulator restart; older bookmarks browsed. No automatic audio changes or recall. |
+| Stem Picks 0.4.1 | [harmonic-picks](../harmonic-picks/) | Same community ID, renamed STEM PICKS shortcut to the playable native browser; regular-track stem recipe guidance added to custom harmonic suggestions. Configure native BPM + KEY + MASTER filter, then physical LOAD 1–4. Custom suggestions remain read-only; no per-result stem availability check. |
+| Mix Bookmark 0.1.1 | [mix-bookmark](../mix-bookmark/) | New top-screen button and review panel. Saves two loaded tracks, approximate positions, BPM, aggregate stem state and manual recipe notes. Saved-file checksums and UI verified across an emulator restart; older bookmarks browsed. No automatic audio changes or recall. |
 | Phase Strip 0.1.2 | [phase-strip](../phase-strip/) | Compact 680×34 strip at (48,46), lanes 3–1–2–4, above waveforms. Playhead x396 matches the native left playhead, not the optional centered playhead. |
 | Phrase Coach layout update | [phrase-coach](../phrase-coach/) | Counters moved into lower details headers; emulator checked with all four decks playing. Manifest still says 0.1.0: this is an unpublished source change and needs a distinct version before release. |
 | Wider four-deck waveforms | Native UI | Collapse the left controls and right Beat FX panel. No waveform renderer patch or increase in vertical waveform height. Native waveform order 3–1–2–4; lower panels 1,2 / 3,4. |
@@ -34,6 +34,8 @@ Existing FLOW Beat Link, Key next to BPM, Mashup Helper, Stem Badge, Set Log and
 5. Preserve earlier versions, give changed packages distinct versions, build/validate, exercise the emulator, then make an explicit hardware-test/release decision.
 
 Other requests still open: touch scrolling on the core Community Mods page; a live Key-Shift-aware Camelot display on physical jog screens; fully automatic one-button harmonic matching and custom result loading; further four-deck BPM/key/phrase layout refinement. Acapella filtering exists in the custom suggestion page but does not load tracks. CDJ integration was discussed; no integration patch was made. Replacing SINGLE/CONTINUE, SMART CUE or AUTO CUE has not been implemented.
+
+Latest layout fix: [separated header shortcuts](evidence/header-layout-fix/README.md), checked in 2, 2/4 and 4 DECK views.
 
 Latest demo evidence: [Mix Bookmark and Stem Picks](evidence/mix-demo/README.md). Both are emulator-only community builds; this turn did not change the existing experimental UI/stems cores or physical USB.
 

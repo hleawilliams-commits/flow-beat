@@ -7,6 +7,18 @@
 static const az_core_v1 *C;
 static az_surface *surface;
 static int expanded, page_on, writer_ok, chosen[2] = {0, 1}, recipes[2] = {1, 2};
+static az_rect button_where;
+
+static az_rect bookmark_button_rect(void)
+{
+    int four = AZ_HAS(C, deck_count) && C->deck_count() == 4;
+    return four ? (az_rect){950, 50, 260, 30} : (az_rect){1174, 50, 96, 30};
+}
+static void place_button(void)
+{
+    button_where = bookmark_button_rect();
+    C->surface_place(surface, button_where);
+}
 static const char *const recipe_names[] = {"Full track", "Vocals", "Instrumental", "Drums", "Bass"};
 static az_rect buttons[13];
 static az_deck_info decks[4], prior[4];
@@ -150,7 +162,7 @@ static void panel(az_draw*d,az_rect a,void*u)
 }
 static void collapse(void)
 {
-    expanded=0;if(surface){C->surface_focus(surface,0);C->surface_place(surface,(az_rect){950,46,260,34});}redraw();
+    expanded=0;if(surface){C->surface_focus(surface,0);place_button();}redraw();
 }
 static int input(const az_event*ev,void*u)
 {
@@ -172,7 +184,7 @@ static void paint(az_draw*d,az_rect a,void*u)
 {
     if(expanded){panel(d,a,u);return;}
     C->fill_rect(d,a.x,a.y,a.w,a.h,C->color(AZ_COL_BG));C->draw_rect(d,a.x,a.y,a.w,a.h,1,C->color(AZ_COL_HI));
-    text(d,a,a.x+10,a.y+4,"MIX BOOKMARK",18,C->color(AZ_COL_HI));
+    text(d,a,a.x+10,a.y+3,a.w<150?"MIX":"MIX BOOKMARK",16,C->color(AZ_COL_HI));
 }
 static int surface_input(const az_event*ev,void*u)
 {
@@ -186,6 +198,10 @@ static void tick(void)
 {
     long now=now_ms();if(now-last_tick<250)return;last_tick=now;poll_decks(now);
     if(expanded && C->view()!=AZ_VIEW_DECK)collapse();
+    if(surface && !expanded){
+        az_rect r=bookmark_button_rect();
+        if(memcmp(&r,&button_where,sizeof r)!=0)place_button();
+    }
     if(page_on && now-page_seen>2000)page_on=0;
     pthread_mutex_lock(&mu);int change=changed;changed=0;pthread_mutex_unlock(&mu);
     if(expanded || page_on || change)redraw();
@@ -208,7 +224,7 @@ static int init(const az_core_v1*core)
        AZ_HAS(C,surface_focus)&&AZ_HAS(C,view)&&AZ_HAS(C,surface_redraw)){
         static const az_surface_v1 s={.size=sizeof s,.layer=AZ_LAYER_OVER_EP147,.views=AZ_VIEW_BIT(AZ_VIEW_DECK),.on_paint=paint,.on_input=surface_input};
         surface=C->surface_create(MOD_ID,&s);
-        if(surface){C->surface_place(surface,(az_rect){950,46,260,34});C->surface_show(surface,1);}
+        if(surface){place_button();C->surface_show(surface,1);}
     }
     return 0;
 }

@@ -5,6 +5,15 @@
 #include "native-shortcut.h"
 static az_surface *quick_surface;
 static int quick_shown, quick_row = -1;
+static az_rect quick_where;
+
+/* Second header row: clear the native controls and leave a gap before Bookmark.
+ * Two-deck view has a longer native phase meter, so use compact right-hand slots. */
+static az_rect quick_rect(void)
+{
+    int four = AZ_HAS(C, deck_count) && C->deck_count() == 4;
+    return four ? (az_rect){746, 50, 184, 30} : (az_rect){1064, 50, 100, 30};
+}
 
 static void redraw(void)
 {
@@ -15,9 +24,9 @@ static void quick_paint(az_draw *d, az_rect a, void *user)
 {
     (void)user;
     C->fill_rect(d, a.x, a.y, a.w, a.h, C->color(AZ_COL_BG));
-    if (a.w < 70 || a.h < 32) return;
+    if (a.w < 70 || a.h < 30) return;
     C->draw_rect(d, a.x, a.y, a.w, a.h, 1, C->color(AZ_COL_HI));
-    C->draw_text(d, a.x + 10, a.y + 6, QUICK_LABEL, 16, C->color(AZ_COL_HI));
+    C->draw_text(d, a.x + 10, a.y + 3, a.w < 150 ? "PICKS" : QUICK_LABEL, 16, C->color(AZ_COL_HI));
 }
 
 static int quick_input(const az_event *ev, void *user)
@@ -33,6 +42,11 @@ static int quick_input(const az_event *ev, void *user)
 static void quick_tick(void)
 {
     if (!quick_surface) return;
+    az_rect r = quick_rect();
+    if (memcmp(&r, &quick_where, sizeof r) != 0) {
+        C->surface_place(quick_surface, r);
+        quick_where = r;
+    }
     int want = native_filter_ok && (quick_row < 0 || C->row_value(quick_row) == 1);
     if (want != quick_shown) {
         C->surface_show(quick_surface, want);
@@ -53,8 +67,8 @@ static void quick_init(void)
     };
     quick_surface = C->surface_create(MOD_ID, &surface);
     if (!quick_surface) return;
-    /* End at y=44, above Phase Strip's y=46; clear of native deck/view controls. */
-    C->surface_place(quick_surface, (az_rect){QUICK_X, 8, 156, 36});
+    quick_where = quick_rect();
+    C->surface_place(quick_surface, quick_where);
     if (AZ_HAS(C, register_row) && AZ_HAS(C, row_value)) {
         static const az_row_v1 row = {
             .size = sizeof(az_row_v1), .key = "quick-button", .label = "STEM PICKS browser shortcut",
