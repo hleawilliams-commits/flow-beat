@@ -51,3 +51,7 @@ The emulator now uses the separate UI-core theme build recorded in `experiments/
 Stem Picks 0.4.1 and Mix Bookmark 0.1.1 now reserve separate header rectangles. Four-deck: PICKS (746,50,184,30), BOOKMARK (950,50,260,30), with 20px between them. Two-deck / 2/4-deck: compact PICKS (1064,50,100,30), MIX (1174,50,96,30), with 10px between, right of the native phase display. Rectangles update when deck_count changes, and closing Bookmark restores the current layout. Top-left WAVEFORM is visible again.
 
 Both builds installed only in emulator. Visuals checked in all three native layouts; both touch targets checked in two- and four-deck modes. Existing SDK harnesses pass all three sanitizer modes (8 gates each, same isolated directory-worker harness correction for Bookmark). Original core and bookmark record hashes unchanged. Previous 0.4.0/0.1.0 packages retained.
+
+## Tag Mix practice tags
+
+Henry clarified that this is for tagging good combinations during practice. Mix Bookmark is now displayed as **Tag Mix 0.1.2**; the header says TAG MIX, the action says TAG COMBO, and earlier pairs are under Next combo. Four-deck header button shortened to120px at(950,50); compact modes retain96px at(1174,50), both30px high. Display/menu/manifest wording changed, while the mix-bookmark ID, save logic and v1 file format remain unchanged. Previous saved combinations and packages are preserved. Emulator only.

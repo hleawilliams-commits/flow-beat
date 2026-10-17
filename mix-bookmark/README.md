@@ -1,13 +1,18 @@
-# Mix Bookmark 0.1.1
+# Tag Mix 0.1.2
 
-Emulator preview. **MIX BOOKMARK** sits above the waveforms next to the phase strip.
-In two-deck view the button is labelled **MIX** and sits beside the compact **PICKS** button.
-Both layouts keep the buttons above the waveforms, with separate hit areas.
-Tap it to review two loaded decks. Select a recipe for each side, then **SAVE THIS PAIR**.
-The panel is also under Mod Menu > Mix Bookmark. Close (or physical BACK) returns to the waveform.
-**Next saved mix** cycles through saved pairs, newest first.
+Tag good combinations while practising, so you can find them again.
 
-A bookmark saves title, artist, content ID, deck number, current BPM, playhead position,
+Tap the short **TAG MIX** button above the waveforms, choose the two decks you like
+together, then tap **TAG COMBO**. **Next combo** browses previous tags, newest first.
+The panel is also under Mod Menu > Tag Mix. Close (or physical BACK) returns to the waveform.
+Stem notes are manual reminders about the parts you want to use; check the displayed
+notes before tagging. They are not detected from the pads.
+
+The mod keeps the `mix-bookmark` ID and existing file format, so earlier saved pairs remain
+available. Its four-deck shortcut is now 120px wide; the compact views use the same short
+TAG MIX label in the existing 96px slot.
+
+A tag saves title, artist, content ID, deck number, current BPM, playhead position,
 aggregate stem availability/on state, timestamp, and a **manual recipe note** for each track.
 Choices: Full track, Vocals, Instrumental, Drums, Bass. These notes do not read individual
 pad states or change audio. Load tracks and set pads manually when recreating a pairing.

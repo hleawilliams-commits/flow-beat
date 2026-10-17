@@ -4,8 +4,8 @@ Version 0.4.1 is an emulator preview. Physical-deck testing is pending.
 
 ## Playable native browser shortcut
 
-The **STEM PICKS** button sits beside Mix Bookmark in its own header slot, clear of
-Phase Strip and the native top-row controls. Two-deck view uses compact **PICKS** / **MIX**
+The **STEM PICKS** button sits beside Tag Mix in its own header slot, clear of
+Phase Strip and the native top-row controls. Two-deck view uses compact **PICKS** / **TAG MIX**
 buttons to the right of the longer native phase meter.
 It opens the native browser. Select a track, then press **LOAD 1, 2, 3 or 4** to load it
 onto that deck; press PLAY when ready. The shortcut never loads or starts a track itself.
@@ -37,7 +37,7 @@ There are no firmware hooks and no core replacements.
 Use ordinary tracks with prepared stems. The page suggests compatible library keys and
 tempo and gives ideas such as vocals over instrumental or swapping drums. Stem availability
 of library results is not known. Use the pads yourself to isolate parts. Save a successful
-pairing with the separate Mix Bookmark mod. Vocal titles is only an optional text filter.
+pairing with the separate Tag Mix mod. Vocal titles is only an optional text filter.
 
 Open **Mod Menu > Stem Picks**, then tap **Match deck 1, 2, 3 or 4**.
 Choose the deck marked MASTER yourself: SDK 1.2.3 does not expose tempo MASTER.

@@ -12,7 +12,7 @@ static az_rect button_where;
 static az_rect bookmark_button_rect(void)
 {
     int four = AZ_HAS(C, deck_count) && C->deck_count() == 4;
-    return four ? (az_rect){950, 50, 260, 30} : (az_rect){1174, 50, 96, 30};
+    return four ? (az_rect){950, 50, 120, 30} : (az_rect){1174, 50, 96, 30};
 }
 static void place_button(void)
 {
@@ -30,7 +30,7 @@ static int saved_index;
 static dev_t shown_dev, pending_dev;
 static ino_t shown_ino, pending_ino;
 static int queued, busy, count, changed;
-static char status[112] = "Reading bookmarks from USB...";
+static char status[112] = "Reading tagged combos from USB...";
 static long now_ms(void) { struct timespec t; clock_gettime(CLOCK_MONOTONIC, &t); return t.tv_sec*1000L+t.tv_nsec/1000000; }
 static void redraw(void) { if (surface) C->surface_redraw(surface); if (AZ_HAS(C, request_redraw)) C->request_redraw(); }
 static void message(const char *s) { pthread_mutex_lock(&mu); snprintf(status,sizeof status,"%s",s); changed=1; pthread_mutex_unlock(&mu); }
@@ -94,14 +94,14 @@ static void *writer(void *arg)
             had_dir=0;
         } else if (save || reload) {
             int ok=book_scan(dir,&last,&n,&slot)==0;
-            if (!ok) message("Bookmark file unreadable. Existing files preserved; save refused.");
-            else if(save && slot<0) message("64 bookmarks saved. Storage full; existing bookmarks preserved.");
-            else if(save && book_write(dir,slot,&b)!=0) message("Save failed. Check USB / pending.book; existing bookmarks preserved.");
+            if (!ok) message("Saved tag unreadable. Existing tags preserved; save refused.");
+            else if(save && slot<0) message("64 combos tagged. Storage full; existing tags preserved.");
+            else if(save && book_write(dir,slot,&b)!=0) message("Tag failed. Check USB / pending.book; existing tags preserved.");
             else {
                 int nn=0;for(int k=BOOK_LIMIT-1;k>=0;k--){struct bookmark v;if(book_read(dir,k,&v)==1)books[nn++]=v;}
                 n=nn;
                 pthread_mutex_lock(&mu);memcpy(saved,books,(size_t)n*sizeof books[0]);count=n;saved_index=0;shown_dev=st.st_dev;shown_ino=st.st_ino;
-                snprintf(status,sizeof status,save?"Saved mix #%d to USB. Recipe is a manual note.":"%d saved mixes on this USB.",n);
+                snprintf(status,sizeof status,save?"Combo #%d tagged for your next practice.":"%d tagged combos on this USB.",n);
                 changed=1;pthread_mutex_unlock(&mu);
             }
             olddev=st.st_dev;oldino=st.st_ino;had_dir=1;
@@ -132,10 +132,10 @@ static void panel(az_draw*d,az_rect a,void*u)
     uint32_t hi=C->color(AZ_COL_HI),fg=C->color(AZ_COL_TEXT),dim=C->color(AZ_COL_TEXT_DIM);
     C->fill_rect(d,a.x,a.y,a.w,a.h,C->color(AZ_COL_BG));
     int x=a.x+20,y=a.y+14,half=(a.w-52)/2;
-    text(d,a,x,y,"MIX BOOKMARK  /  keep a pairing worth playing again",24,hi);
+    text(d,a,x,y,"TAG MIX  /  good combinations from practice",24,hi);
     if(expanded)button(d,a,12,a.x+a.w-130,y,110,"Close",0);
     y+=46;
-    text(d,a,x,y,"Choose two loaded decks. Recipe buttons cycle through the parts you want to use.",18,dim);y+=40;
+    text(d,a,x,y,"Good combination? Choose the two decks and tap TAG COMBO.",18,dim);y+=40;
     for(int i=0;i<2;i++) {
         int xx=x+i*(half+12);char s[160];
         int card_h=a.y+a.h-y; if(card_h>240)card_h=240;
@@ -147,18 +147,18 @@ static void panel(az_draw*d,az_rect a,void*u)
         if(v->bpm>0)snprintf(s,sizeof s,"%.1f BPM  |  Position %.1fs",v->bpm,v->pos_s);else snprintf(s,sizeof s,"BPM / position unavailable");
         text(d,card,xx,y+123,s,18,fg);
         text(d,card,xx,y+155,v->has_stems==1?"Stems available":v->has_stems==0?"Stems unavailable":"Stem availability unknown",18,dim);
-        snprintf(s,sizeof s,"Recipe: %s  >",recipe_names[recipes[i]]);button(d,a,8+i,xx,y+190,half,s,1);
+        snprintf(s,sizeof s,"Stem note: %s  >",recipe_names[recipes[i]]);button(d,a,8+i,xx,y+190,half,s,1);
     }
-    y+=246;text(d,a,x,y,"Recipe notes only: use the stem pads yourself. This does not mute, load or move a track.",17,dim);
-    y+=34;button(d,a,10,x,y,250,"SAVE THIS PAIR",1);
-    button(d,a,11,x+266,y,320,"Next saved mix  >",0);
+    y+=246;text(d,a,x,y,"Keep a reminder of what worked. Stem notes are manual; you control the pads.",17,dim);
+    y+=34;button(d,a,10,x,y,250,"TAG COMBO",1);
+    button(d,a,11,x+266,y,320,"Next combo  >",0);
     struct bookmark last;char msg[112];int n,index;
     pthread_mutex_lock(&mu);n=count;if(saved_index>=n)saved_index=0;index=saved_index;last=n?saved[index]:(struct bookmark){0};snprintf(msg,sizeof msg,"%s",status);pthread_mutex_unlock(&mu);
     y+=55;text(d,a,x,y,msg,18,hi);y+=42;
     if(n){
-        char s[160];snprintf(s,sizeof s,"SAVED MIX %d / %d  (newest first)  /  recipes are manual notes",index+1,n);text(d,a,x,y,s,19,dim);y+=32;
+        char s[160];snprintf(s,sizeof s,"TAGGED COMBO %d / %d  /  newest first",index+1,n);text(d,a,x,y,s,19,dim);y+=32;
         for(int i=0;i<2;i++){snprintf(s,sizeof s,"D%u  %.54s  |  %.1f BPM  @ %.1fs  |  %s",last.d[i].deck+1,last.d[i].title,last.d[i].bpm,last.d[i].pos_s,recipe_names[last.d[i].recipe]);text(d,a,x,y,s,19,fg);y+=32;}
-    }else text(d,a,x,y,"No saved pair yet. Find a combination, choose its recipe, then save it here.",18,dim);
+    }else text(d,a,x,y,"Nothing tagged yet. Tag a combination when it sounds good during practice.",18,dim);
 }
 static void collapse(void)
 {
@@ -184,7 +184,7 @@ static void paint(az_draw*d,az_rect a,void*u)
 {
     if(expanded){panel(d,a,u);return;}
     C->fill_rect(d,a.x,a.y,a.w,a.h,C->color(AZ_COL_BG));C->draw_rect(d,a.x,a.y,a.w,a.h,1,C->color(AZ_COL_HI));
-    text(d,a,a.x+10,a.y+3,a.w<150?"MIX":"MIX BOOKMARK",16,C->color(AZ_COL_HI));
+    text(d,a,a.x+10,a.y+3,"TAG MIX",16,C->color(AZ_COL_HI));
 }
 static int surface_input(const az_event*ev,void*u)
 {
@@ -215,8 +215,8 @@ static int init(const az_core_v1*core)
     static const az_screen_v1 scr={sizeof(az_screen_v1),panel,input,enter,NULL};
     if(C->register_screen(MOD_ID,&scr)!=0)return 3;
     if(AZ_HAS(C,register_row)){
-        static const az_row_v1 row={.size=sizeof row,.key="bookmarks",.label="Mix Bookmark",.kind=AZ_ROW_SCREEN,.screen=&scr,
-            .help="Save two loaded tracks with positions and manual stem recipe notes."};C->register_row(MOD_ID,&row);
+        static const az_row_v1 row={.size=sizeof row,.key="bookmarks",.label="Tag Mix",.kind=AZ_ROW_SCREEN,.screen=&scr,
+            .help="Tag good track combinations during practice so you can find them again."};C->register_row(MOD_ID,&row);
     }
     writer_ok=C->thread_start(MOD_ID,"bookmark writer",writer,NULL)==0;
     if(!writer_ok)message("Storage worker unavailable; nothing will be saved.");
