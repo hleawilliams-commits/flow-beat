@@ -1,0 +1,23 @@
+{
+  "status": "USB staged; native Allow and hardware test pending",
+  "mod": "grouped-panels",
+  "version": "0.1.0",
+  "package_sha256": "cc6195af6daffde92a3595d7763b59531f15bc4d350c51a30b6d190fe7de12f4",
+  "files_verified": {
+    "LICENSE": "e57f1c320b8cf8798a7d2ff83a6f9e06a33a03585f6e065fea97f1d86db84052",
+    "azmod.json": "65b975c8741154d67506c0979c5f476529ba2c2bf81d308967a0a0df0a023e7b",
+    "grouped-panels.so": "3d2b4199da2e80178035aa86a71a15f2219dfbe262358fce756dcc068e6be120",
+    "icon.png": "66e82b07080a11d47d97a16449167b8dcd0e87534d7ab8719e049b4ccaabd5bc"
+  },
+  "switches_changed": {
+    "community-mods.grouped-panels": "on",
+    "grouped-panels:show": "on",
+    "community-mods.key-next-to-bpm": "off",
+    "community-mods.phrase-coach": "off",
+    "community-mods.set-clock": "off",
+    "harmonic-picks:quick-button": "off"
+  },
+  "all_other_files_unchanged": true,
+  "official_core_unchanged": true,
+  "original_restore_point_preserved": true
+}
