@@ -26,7 +26,8 @@ On the normal UI tick, an unsuccessful request displays one bounded banner namin
 - LOAD/BACK or a corner button active.
 - Browse knob pressed or moved.
 - Clock unavailable or a request expired before mixer input arrived.
-- Deck view changed before the shortcut was delivered.
+- Deck view changed before any SOURCE press was sent.
+- SOURCE press sent, followed by another SDK view. This does not claim failure: the emulator sometimes briefly reported BROWSE while the native SOURCE screen was opening.
 - No mixer input received after the tap (distinct from cancellation).
 
 The bus callback only publishes atomic numeric state. It performs no logging, formatting, filesystem access, allocation or UI call. Successful SOURCE arrival retains the existing banner and pulse bounds. Native input still cancels the request without changing any input byte. The UI does not clear a pending request itself; it remains an observation of the existing behavior, so this diagnostic patch does not repair a request that has received no mixer frame yet.
@@ -41,6 +42,6 @@ Run from this folder:
 ./run-tests.sh
 ```
 
-177 assertions pass in plain and AddressSanitizer/UndefinedBehaviorSanitizer runs. The tests exercise all cancellation guards, preserve native LOAD and navigation frames byte-for-byte, ensure no banner is called from the frame callback, distinguish a delayed frame from no frame, verify one-shot feedback, and retain successful SOURCE behavior. The script also applies the patch to a temporary copy and compares it with the reviewed helper.
+183 assertions pass in plain and AddressSanitizer/UndefinedBehaviorSanitizer runs. The tests exercise all cancellation guards, preserve native LOAD and navigation frames byte-for-byte, ensure no banner is called from the frame callback, distinguish a delayed frame from no frame, verify one-shot feedback, and retain successful SOURCE behavior. The script also applies the patch to a temporary copy and compares it with the reviewed helper.
 
-An ARM64 diagnostic package, emulator installation and physical test have **not** been performed. Before a diagnostic physical build, preserve the current package and the user's recovery backup, assign a distinct version, build/validate it and exercise it in the emulator. Any hardware test must happen when the user is ready to reload; the current practice session was left running.
+A separate emulator transport-gap experiment now builds this diagnostic helper: see [the reproduction](../mods-shortcut-delivery/README.md). The saved screenshots precede the shorter feedback wording and distinction between a view change before/after sending SOURCE. Current wording has host regression coverage; it has not been visually rerun. No physical diagnostic installation or test has been performed. Before a diagnostic physical build, preserve the current package and the user's recovery backup, assign a distinct version, build/validate it and exercise it in the emulator. Any hardware test must happen when the user is ready to reload; the current practice session was left running.

@@ -1,0 +1,10 @@
+fw=ep147-9e9454e357389ece
+suspended=0
+off=0
+mod=flow-beat|1|0.2.1|
+mod=harmonic-picks|1|0.4.1|
+mod=phase-strip|1|0.1.3|
+mod=set-clock|2||Turned off
+mod=mix-bookmark|1|0.1.2|
+mod=grouped-panels|1|0.1.0|
+mod=mods-shortcut-delivery|1|0.0.2|

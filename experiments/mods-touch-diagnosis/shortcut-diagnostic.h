@@ -28,7 +28,7 @@ static int gp_shortcut_sent;
  * the bus path does no I/O, formatting, allocation or UI work. */
 enum gp_cancel_reason {
     GP_CANCEL_NONE, GP_CANCEL_SCREEN, GP_CANCEL_CORNER, GP_CANCEL_CLICK,
-    GP_CANCEL_KNOB, GP_CANCEL_CLOCK, GP_CANCEL_EXPIRED, GP_CANCEL_VIEW
+    GP_CANCEL_KNOB, GP_CANCEL_CLOCK, GP_CANCEL_EXPIRED, GP_CANCEL_VIEW, GP_CANCEL_VIEW_AFTER_SEND
 };
 static int gp_shortcut_cancel_reason;
 static unsigned long long gp_shortcut_observed_input;
@@ -40,13 +40,14 @@ static int gp_shortcut_wait_notice;
 static const char *gp_shortcut_cancel_text(int reason)
 {
     switch (reason) {
-    case GP_CANCEL_SCREEN: return "MODS cancelled: screen button active";
-    case GP_CANCEL_CORNER: return "MODS cancelled: LOAD/BACK or corner button active";
-    case GP_CANCEL_CLICK: return "MODS cancelled: browse knob pressed";
-    case GP_CANCEL_KNOB: return "MODS cancelled: browse knob moved";
-    case GP_CANCEL_CLOCK: return "MODS cancelled: clock unavailable";
-    case GP_CANCEL_EXPIRED: return "MODS expired before mixer input arrived";
-    case GP_CANCEL_VIEW: return "MODS cancelled: deck view changed";
+    case GP_CANCEL_SCREEN: return "MODS: screen button active";
+    case GP_CANCEL_CORNER: return "MODS: LOAD/BACK button active";
+    case GP_CANCEL_CLICK: return "MODS: knob pressed";
+    case GP_CANCEL_KNOB: return "MODS: knob moved";
+    case GP_CANCEL_CLOCK: return "MODS: clock unavailable";
+    case GP_CANCEL_EXPIRED: return "MODS: input arrived too late";
+    case GP_CANCEL_VIEW: return "MODS: deck view changed";
+    case GP_CANCEL_VIEW_AFTER_SEND: return "MODS: SOURCE press sent";
     default: return NULL;
     }
 }
@@ -126,7 +127,7 @@ static int gp_shortcut_frame_at(int bus, unsigned char *f, int len, long now)
     }
     if (view != AZ_VIEW_DECK) {
         if (!(gp_shortcut_phase && view == AZ_VIEW_SOURCE))
-            __atomic_store_n(&gp_shortcut_cancel_reason, GP_CANCEL_VIEW, __ATOMIC_RELEASE);
+            __atomic_store_n(&gp_shortcut_cancel_reason, gp_shortcut_phase ? GP_CANCEL_VIEW_AFTER_SEND : GP_CANCEL_VIEW, __ATOMIC_RELEASE);
         gp_shortcut_finish(gp_shortcut_phase && view == AZ_VIEW_SOURCE);
         return AZ_FRAME_OK;
     }
@@ -168,7 +169,7 @@ static void gp_shortcut_tick_at(long now)
         gp_shortcut_wait_notice = 1;
         if (AZ_HAS(gp_shortcut_core, banner))
             gp_shortcut_core->banner(gp_shortcut_id,
-                                    "MODS: no mixer input received after tap", 3500);
+                                    "MODS: waiting for mixer input", 3500);
         /* Observation only: the mixer remains the sole request consumer. */
     }
     if (now < gp_shortcut_requested_at || now > gp_shortcut_notice_until) {

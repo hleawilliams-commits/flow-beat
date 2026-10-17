@@ -1,0 +1,23 @@
+{
+  "date": "2026-10-17",
+  "host_tests": {
+    "plain_assertions": 299,
+    "asan_ubsan_assertions": 299,
+    "tsan_assertions": 299,
+    "concurrent_post_return_free": "passed; zero native reads after original return"
+  },
+  "arm64_sdk_build": "passed",
+  "sdk_directory_validation": "passed",
+  "local_so_sha256": "51a719d54cfe19cd7da9bb42ff90523e5c9d15a81266478ceb7767277f985a3b",
+  "hook_count": 2,
+  "post_call_native_reads": false,
+  "emulator_run": false,
+  "runtime_ready": false,
+  "runtime_gates": [
+    "MediaChangeEvent callback thread and claim acceptance unproven",
+    "safe post-commit ownership/observation unresolved; no completion claim"
+  ],
+  "physical_install": false,
+  "native_activation_implemented": false,
+  "generated_outputs_ignored": true
+}

@@ -54,27 +54,27 @@ int main(void)
     unsigned char f[98]; CHECK(gp_shortcut_init(&core,"mods-shortcut")); CHECK(registered);
     /* Native inputs must remain byte-for-byte intact, including LOAD. */
     reset(); CHECK(gp_shortcut_request(100)); idle(f); f[32]=0x40;
-    cancelled(GP_CANCEL_SCREEN,f,101,"MODS cancelled: screen button active");
+    cancelled(GP_CANCEL_SCREEN,f,101,"MODS: screen button active");
     reset(); CHECK(gp_shortcut_request(100)); idle(f); f[33]=1;
-    cancelled(GP_CANCEL_CORNER,f,101,"MODS cancelled: LOAD/BACK or corner button active");
+    cancelled(GP_CANCEL_CORNER,f,101,"MODS: LOAD/BACK button active");
     reset(); CHECK(gp_shortcut_request(100)); idle(f); f[31]=1;
-    cancelled(GP_CANCEL_CLICK,f,101,"MODS cancelled: browse knob pressed");
+    cancelled(GP_CANCEL_CLICK,f,101,"MODS: knob pressed");
     reset(); idle(f); gp_shortcut_frame_at(AZ_BUS_MIXER_IN,f,98,90);
     CHECK(gp_shortcut_request(100)); f[34]++;
-    cancelled(GP_CANCEL_KNOB,f,101,"MODS cancelled: browse knob moved");
+    cancelled(GP_CANCEL_KNOB,f,101,"MODS: knob moved");
     reset(); CHECK(gp_shortcut_request(100)); idle(f);
-    cancelled(GP_CANCEL_CLOCK,f,99,"MODS cancelled: clock unavailable");
+    cancelled(GP_CANCEL_CLOCK,f,99,"MODS: clock unavailable");
     reset(); CHECK(gp_shortcut_request(100)); idle(f);
-    cancelled(GP_CANCEL_EXPIRED,f,1101,"MODS expired before mixer input arrived");
+    cancelled(GP_CANCEL_EXPIRED,f,1101,"MODS: input arrived too late");
     reset(); CHECK(gp_shortcut_request(100)); idle(f); current_view=AZ_VIEW_OTHER;
-    cancelled(GP_CANCEL_VIEW,f,101,"MODS cancelled: deck view changed");
+    cancelled(GP_CANCEL_VIEW,f,101,"MODS: deck view changed");
     /* A SOURCE transition before any pulse isn't counted as delivery. */
     reset(); CHECK(gp_shortcut_request(100)); idle(f); current_view=AZ_VIEW_SOURCE;
-    cancelled(GP_CANCEL_VIEW,f,101,"MODS cancelled: deck view changed");
+    cancelled(GP_CANCEL_VIEW,f,101,"MODS: deck view changed");
     /* No mixer frames after touch is a different observation from cancellation. */
     reset(); CHECK(gp_shortcut_request(100)); gp_shortcut_tick_at(1100); CHECK(!banner_count);
     gp_shortcut_tick_at(1101); CHECK(banner_count==1);
-    CHECK(!strcmp(last_banner,"MODS: no mixer input received after tap"));
+    CHECK(!strcmp(last_banner,"MODS: waiting for mixer input"));
     CHECK(gp_shortcut_pending && !gp_shortcut_saw_frame && !gp_shortcut_cancel_reason);
     gp_shortcut_tick_at(1102); CHECK(banner_count==1);
     idle(f); gp_shortcut_frame_at(AZ_BUS_MIXER_IN,f,98,1103);
@@ -87,6 +87,14 @@ int main(void)
     idle(f); current_view=AZ_VIEW_SOURCE; gp_shortcut_frame_at(AZ_BUS_MIXER_IN,f,98,102);
     CHECK(!gp_shortcut_pending && gp_shortcut_sent && !gp_shortcut_cancel_reason);
     gp_shortcut_tick_at(102); CHECK(!strcmp(last_banner,"Tap MOD MENU in the source list"));
+    /* The real emulator showed SOURCE while SDK view transiently said BROWSE.
+     * An injected press followed by a view transition is not proof of failure. */
+    reset(); CHECK(gp_shortcut_request(100)); idle(f);
+    gp_shortcut_frame_at(AZ_BUS_MIXER_IN,f,98,101); CHECK(f[32]==128);
+    current_view=AZ_VIEW_BROWSE; idle(f);
+    gp_shortcut_frame_at(AZ_BUS_MIXER_IN,f,98,102);
+    CHECK(gp_shortcut_cancel_reason==GP_CANCEL_VIEW_AFTER_SEND);
+    gp_shortcut_tick_at(102); CHECK(!strcmp(last_banner,"MODS: SOURCE press sent"));
     gp_shortcut_tick(); CHECK(gp_shortcut_clock_ms()>=0);
     printf("PASS: %d diagnostic assertions\n",checks);
 }

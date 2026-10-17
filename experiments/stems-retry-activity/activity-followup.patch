@@ -1,0 +1,130 @@
+diff --git a/src/azstem/stem_playback.c b/src/azstem/stem_playback.c
+--- a/src/azstem/stem_playback.c
++++ b/src/azstem/stem_playback.c
+@@ -74,10 +74,10 @@
+ /* A memory refusal is temporary, not proof that this file has no stems.
+  * The worker publishes its required bytes; only the flusher schedules retries. */
+ static _Atomic long long g_retry_bytes[NDECK];
+-static long long g_retry_pos[NDECK];
++static unsigned long long g_retry_activity[NDECK];
+ static int g_retry_still[NDECK];
+ static long g_retry_after[NDECK];
+-long long azstem_play_obs(int deck); /* key_shift.c, lock-free observed playhead */
++static unsigned long long stem_retry_play_activity(int deck); /* key_shift.c */
+ static long g_ofs_load[NDECK]; /* the load-time offset in effect (probestat) */
+ 
+ /* Progressive (head-first) decode. Each stem decodes in 0.5 s chunks into a
+@@ -1462,7 +1462,7 @@
+ 
+ static void start_load(int deck, const char *tr) {
+     atomic_store_explicit(&g_retry_bytes[deck], 0, memory_order_relaxed);
+-    g_retry_pos[deck] = -1;
++    g_retry_activity[deck] = 0;
+     g_retry_still[deck] = 0;
+     g_retry_after[deck] = ms_now() + 2000;
+     loadjob_t *j = malloc(sizeof *j);
+@@ -1480,17 +1480,21 @@
+     } /* thread exhausted: decode inline */
+ }
+ 
+-/* Retry only a memory-refused track, after a known playhead has stayed still
+- * for ~2 s. No switch to stems under a moving track and no repeated USB scans
++/* Retry only a memory-refused track, after fresh audio observations have shown
++ * no motion for ~2 s. A loop can return to the same position between flusher
++ * ticks, and an old playhead can remain cached after observations stop. The
++ * audio hook counts every valid observation and every observed position change.
++ * No recovery is scheduled under observed motion and no repeated USB scans
+  * while RAM is low. Serialize these recovery loads so a second retry observes
+  * the first one's allocated buffers. Ordinary new-track loads stay unchanged. */
+ static int memory_retry_ready(int deck) {
+     long long need = atomic_load_explicit(&g_retry_bytes[deck], memory_order_relaxed);
+     if (need <= 0)
+         return 0;
+-    long long pos = azstem_play_obs(deck);
+-    if (pos < 0 || pos != g_retry_pos[deck]) {
+-        g_retry_pos[deck] = pos;
++    unsigned long long activity = stem_retry_play_activity(deck);
++    unsigned long long previous = g_retry_activity[deck];
++    g_retry_activity[deck] = activity;
++    if (!activity || activity == previous || (unsigned) activity != (unsigned) previous) {
+         g_retry_still[deck] = 0;
+         return 0;
+     }
+diff --git a/src/azstem/key_shift.c b/src/azstem/key_shift.c
+--- a/src/azstem/key_shift.c
++++ b/src/azstem/key_shift.c
+@@ -370,6 +370,22 @@
+  * 0 or unknown, stems-engaged only) it holds 0 too and is published always;
+  * LLONG_MAX is filtered at publish, so readers only test `>= 0`. */
+ static _Atomic long long g_play_obs[NDECK];
++/* High word: valid observations; low word: observed movement. One lock-free
++ * snapshot lets the off-audio recovery worker reject loops and stale playheads.
++ * Low-word wrap also advances the high word; only freshness/equality matters. */
++_Static_assert(ATOMIC_LLONG_LOCK_FREE == 2, "audio activity counter must be lock-free");
++static _Atomic unsigned long long g_play_activity[NDECK];
++static void stem_play_observe(int deck, long long pos) {
++    long long previous = atomic_exchange_explicit(&g_play_obs[deck], pos, memory_order_relaxed);
++    unsigned long long delta = (1ULL << 32) + (previous != pos);
++    atomic_fetch_add_explicit(&g_play_activity[deck], delta, memory_order_release);
++}
++static unsigned long long stem_retry_play_activity(int deck) {
++    return deck >= 0 && deck < NDECK
++               ? atomic_load_explicit(&g_play_activity[deck], memory_order_acquire)
++               : 0;
++}
++
+ #ifdef AZSTEM_PCMCAP
+ /* Diagnostic only, never shipped: records deck 1's output and playhead per block
+  * for offline alignment. Armed by /tmp/azstem.pcmcap.arm; writes
+@@ -524,7 +540,7 @@
+         if ((uintptr_t) pobs >= 0x10000 && (uintptr_t) pobs <= 0x0000ffffffffffffUL) {
+             long long Sobs = *(long *) (pobs + OFF_POS);
+             if (playhead_obs_ok(Sobs))
+-                atomic_store_explicit(&g_play_obs[di], Sobs, memory_order_relaxed);
++                stem_play_observe(di, Sobs);
+         }
+     }
+ #ifdef AZSTEM_PCMCAP
+diff --git a/tests/unit/trackgen_test.c b/tests/unit/trackgen_test.c
+--- a/tests/unit/trackgen_test.c
++++ b/tests/unit/trackgen_test.c
+@@ -29,14 +29,15 @@
+ static _Atomic unsigned g_deck_trackgen[NDECK];
+ static _Atomic int g_stem_pending[NDECK], g_stem_loading[NDECK], g_load_again[NDECK];
+ static _Atomic long long g_retry_bytes[NDECK];
+-static long long g_retry_pos[NDECK], g_observed_pos[NDECK];
++static unsigned long long g_retry_activity[NDECK], g_observed_activity[NDECK];
++static long long g_observed_pos[NDECK], g_previous_pos[NDECK];
+ static int g_retry_still[NDECK], g_load_calls[NDECK];
+ static long g_retry_after[NDECK], g_now;
+ #define AZSTEM_MEM_FLOOR_MB 400
+ static long long g_available;
+ static long ms_now(void) { return g_now; }
+ static long long mem_available_bytes(void) { return g_available; }
+-static long long azstem_play_obs(int d) { return g_observed_pos[d]; }
++static unsigned long long stem_retry_play_activity(int d) { return g_observed_activity[d]; }
+ static char g_stems_base[512] = "/media/usb/STEMS";
+ static int g_eject_empty[NDECK];
+ static char g_pending_name[NDECK][512], g_loaded_src[NDECK][600], g_pending_src[NDECK][600];
+@@ -67,7 +68,7 @@
+     (void) tr;
+     g_load_calls[d]++;
+     atomic_store(&g_retry_bytes[d], 0);
+-    g_retry_pos[d] = -1;
++    g_retry_activity[d] = 0;
+     g_retry_still[d] = 0;
+     g_retry_after[d] = ms_now() + 2000;
+ }
+@@ -85,6 +86,12 @@
+ static void ticks(int n) {
+     while (n-- > 0) {
+         g_now += 200;
++        for (int d = 0; d < NDECK; d++) {
++            if (g_observed_pos[d] >= 0) {
++                g_observed_activity[d] += (1ULL << 32) + (g_previous_pos[d] != g_observed_pos[d]);
++                g_previous_pos[d] = g_observed_pos[d];
++            }
++        }
+         stems_tick();
+     }
+ }
