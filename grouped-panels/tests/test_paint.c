@@ -19,26 +19,13 @@ static struct az_draw draw;
 
 #define CHECK(ok) do { checks++; if (!(ok)) { fprintf(stderr,"FAIL line %d: %s\n",__LINE__,#ok); assert(ok); } } while(0)
 
-static int codepoint_bytes(const unsigned char *s)
-{
-    if (*s < 0x80) return 1;
-    int n = (*s >= 0xc2 && *s <= 0xdf) ? 2 :
-            (*s >= 0xe0 && *s <= 0xef) ? 3 :
-            (*s >= 0xf0 && *s <= 0xf4) ? 4 : 0;
-    CHECK(n != 0);
-    for (int i=1;i<n;i++) CHECK(s[i] && (s[i]&0xc0)==0x80);
-    if (n==3) CHECK(!(*s==0xe0 && s[1]<0xa0) && !(*s==0xed && s[1]>=0xa0));
-    if (n==4) CHECK(!(*s==0xf0 && s[1]<0x90) && !(*s==0xf4 && s[1]>=0x90));
-    return n;
-}
+/* Surface text is Latin-1: one byte per character. Wide characters (>= 0x80) are measured
+ * as full-width so overflow checks stay conservative. */
 static int width(const char *s,int px)
 {
     int tenths=0;
-    for (const unsigned char *p=(const unsigned char *)s;*p;) {
-        int n=codepoint_bytes(p);
-        tenths += n>1 ? px*10 : *p=='W' ? px*9 : px*7;
-        p+=n;
-    }
+    for (const unsigned char *p=(const unsigned char *)s;*p;p++)
+        tenths += *p>=0x80 ? px*10 : *p=='W' ? px*9 : px*7;
     return (tenths+9)/10;
 }
 static int intersects(az_rect a,az_rect b)
@@ -61,6 +48,8 @@ static void fill(az_draw *d,int x,int y,int w,int h,uint32_t rgb)
 static void text(az_draw *d,int x,int y,const char *s,int px,uint32_t rgb)
 {
     (void)rgb;CHECK(d==&draw);CHECK(ntexts<8);CHECK(px>=8 && px<=96);
+    for (const unsigned char *u=(const unsigned char *)s;*u;u++)   /* converted to Latin-1 */
+        CHECK(!(*u>=0xc2 && *u<=0xf4 && (u[1]&0xc0)==0x80 && u[1]));
     az_rect r={x,y,width(s,px),px*3/2};bounds(r);
     for(int i=0;i<ntexts;i++) CHECK(!intersects(r,text_calls[i].r));
     text_calls[ntexts].r=r;
@@ -153,7 +142,7 @@ int main(void)
         for(int match=0;match<4;match++) for(unsigned gi=0;gi<4;gi++) for(int stems=0;stems<3;stems++) {
             setup_readout(deck,4);gp_display[deck].has_stems=stems>0;gp_display[deck].stems_on=stems==2;
             gp_hints[deck]=(gp_hint){match,alert,1,gaps[gi]};gp_selected[deck]=deck&1;render(deck);
-            CHECK(has_text(gaps[gi]==0?"±0.0":gi==1?"+0.4":gi==2?"-7.9":"+8.0"));
+            CHECK(has_text(gaps[gi]==0?"\xb1" "0.0":gi==1?"+0.4":gi==2?"-7.9":"+8.0"));
         }
     memset(gp_hints,0,sizeof gp_hints);
     /* 2 DECK: each side's slot paints the deck that side selected, without the

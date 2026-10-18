@@ -2,7 +2,7 @@
   "azmod": 1,
   "id": "grouped-panels",
   "name": "Grouped Deck Panels",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "author": "hleawilliams-commits",
   "summary": "Deck headers with key, phrase and mix hints in 4 DECK, 2/4 DECK and 2 DECK.",
   "description": "Input-transparent deck headers beside the stock BPM: title, original Camelot key, relative phrase counter. Mix hints: key turns green/amber/red against the longest-playing other deck, the deck number turns amber at 30 s and red at 10 s left, a dot shows stems (filled = playing, hollow = found), and a small BPM gap appears within 8 BPM. Works in 4 DECK, 2/4 DECK and 2 DECK (Two-deck view: Auto follows the last layout tab tapped, or pick it). No audio, tempo, key or library changes.",

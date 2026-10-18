@@ -56,8 +56,34 @@ static int gp_led_frame(int bus,unsigned char *f,int len) {
     __atomic_add_fetch(&gp_serial,1u,__ATOMIC_RELEASE);
     return AZ_FRAME_OK;
 }
-/* Trim only whole UTF-8 codepoints; paint-time width is the SDK's actual font. */
+/* Surface text is drawn as Latin-1, not UTF-8 (a UTF-8 "·" shows as "Â·"). Convert in
+ * place: Latin-1 characters keep their accents, typographic quotes/dashes become ASCII,
+ * anything else becomes '?'. The result is never longer than the input. */
+static void gp_disp(char *s)
+{
+    unsigned char *r = (unsigned char *)s, *w = r;
+    while (*r) {
+        unsigned c = *r, cp = 0; int n = 0;
+        if (c < 0x80) { *w++ = *r++; continue; }
+        if (c >= 0xc2 && c <= 0xdf) { n = 2; cp = c & 0x1f; }
+        else if (c >= 0xe0 && c <= 0xef) { n = 3; cp = c & 0x0f; }
+        else if (c >= 0xf0 && c <= 0xf4) { n = 4; cp = c & 0x07; }
+        int ok = n > 0;
+        for (int i = 1; ok && i < n; i++) { if ((r[i] & 0xc0) != 0x80) ok = 0; else cp = cp << 6 | (r[i] & 0x3f); }
+        if (!ok) { *w++ = '?'; r++; continue; }
+        r += n;
+        if (cp <= 0xff) *w++ = (unsigned char)cp;
+        else if (cp == 0x2018 || cp == 0x2019) *w++ = '\'';
+        else if (cp == 0x201c || cp == 0x201d) *w++ = '"';
+        else if (cp == 0x2013 || cp == 0x2014) *w++ = '-';
+        else if (cp == 0x2026) { *w++ = '.'; *w++ = '.'; *w++ = '.'; }   /* 3 bytes in, 3 out */
+        else *w++ = '?';
+    }
+    *w = 0;
+}
+/* Convert to the surface font's Latin-1 first, then trim to the SDK's actual width. */
 static void gp_fit_text(char *s,int px,int width) {
+    gp_disp(s);
     size_t n=strlen(s);
     while(n && C->text_width(s,px)>width) {
         do {--n;} while(n && (((unsigned char)s[n]&0xc0u)==0x80u));
@@ -92,9 +118,10 @@ static void gp_paint(az_draw *d,az_rect a,void *user) {
     gp_fit_text(title,16,360);
     C->draw_text(d,a.x+54,a.y+1,title,16,text);
     if(v->loaded && h->has_gap) {
-        char gap[16];
+        char gap[16];  /* converted below: the ± is UTF-8 in source */
         if(h->gap==0) snprintf(gap,sizeof gap,"±0.0");
         else snprintf(gap,sizeof gap,"%+.1f",h->gap);
+        gp_disp(gap);
         C->draw_text(d,a.x+454,a.y+3,gap,14,h->gap==0?accent:muted);
     }
     char key[32],phrase[32];
@@ -103,6 +130,7 @@ static void gp_paint(az_draw *d,az_rect a,void *user) {
     if(v->loaded && v->phrase_known) snprintf(phrase,sizeof phrase,"PHRASE %d/8",v->bar);
     uint32_t kc=!(v->loaded && v->key[0])?muted:h->match==GP_MATCH_GOOD?(day?0x167A3A:0x3CD070):
         h->match==GP_MATCH_RISKY?0xD49A21:h->match==GP_MATCH_CLASH?0xE5484D:text;
+    gp_disp(key);
     C->draw_text(d,a.x+54,a.y+25,key,14,kc);
     uint32_t pc=v->phrase_known?(v->bar==8?0xD49A21:accent):muted;
     C->draw_text(d,a.x+172,a.y+25,phrase,14,pc);
