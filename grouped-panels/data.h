@@ -20,6 +20,7 @@
 
 typedef struct gp_readout {
     int loaded, playing;
+    int has_stems, stems_on; /* SDK: stems found for the track / stems engine playing it */
     double bpm;
     char key[8], title[128]; /* Original analyzed key in Camelot; never Key Shift. */
     int phrase_known, bar, beat; /* Anchored counter, not song-phrase analysis. */
@@ -371,6 +372,8 @@ static int gp_data_read(int deck, gp_readout *out)
     if (!gp_snapshot(deck, &di)) return 0;
     out->loaded = 1;
     out->playing = di.playing == 1;
+    out->has_stems = di.has_stems == 1;
+    out->stems_on = di.stems_on == 1;
     out->bpm = isfinite(di.bpm) && di.bpm > 0 ? di.bpm : 0;
     snprintf(out->title, sizeof out->title, "%s", di.title);
     gp_camelot(di.key, out->key);

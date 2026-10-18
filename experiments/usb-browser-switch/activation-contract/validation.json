@@ -1,0 +1,22 @@
+{
+  "date": "2026-10-17",
+  "checks_per_mode": 731,
+  "host_modes": [
+    "plain",
+    "asan+ubsan",
+    "tsan"
+  ],
+  "static_verifier_passed": true,
+  "scope": "pointer-free policy only; native adapter gated",
+  "source_sha256": {
+    "intent.hpp": "5e8137ea150b496924cd83d0878ebfd463f776ffea840bbdd9f0c980d3de2e50",
+    "tests/test_intent.cpp": "1a413a75a094e83f4df59956142e7bbeeb98c4d9227401e7a23a258e16d8fc6e",
+    "tests/run.sh": "577b6867196299866c7aecd5e707a376cc2754466dadd2a39746facb2fe385bd",
+    "verify-static.py": "32e884514ddad92645040e09749ab1c2c7c71870d3efaffa8ba163d7a5b5475e"
+  },
+  "native_activation_implemented": false,
+  "native_hook_installed": false,
+  "emulator_access": false,
+  "physical_access": false,
+  "community_package": false
+}

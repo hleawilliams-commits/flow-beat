@@ -21,6 +21,7 @@ static atomic_long mock_now;
 static atomic_int clock_calls, view_calls, stop_worker, worker_calls;
 static int checks, fallbacks, success;
 static az_frame_fn registered;
+static void *lane1;
 static pthread_mutex_t gate_lock = PTHREAD_MUTEX_INITIALIZER;
 static pthread_cond_t gate_cond = PTHREAD_COND_INITIALIZER;
 static int gate_stage, gate_reached, gate_released;
@@ -43,8 +44,9 @@ static void banner(const char *id, const char *s, int ms)
 }
 static int register_filter(const char *id, unsigned mask, az_frame_fn fn, void *user)
 {
-    assert(!strcmp(id, "mods-shortcut") && mask == (1u << AZ_BUS_MIXER_IN) && !user);
-    registered = fn; return 0;
+    assert(!strcmp(id, "mods-shortcut") && mask == (1u << AZ_BUS_MIXER_IN) && user);
+    if (!registered) { registered = fn; lane1 = user; } /* lane 1 is active */
+    return 0;
 }
 static az_core_v1 core = {.size = sizeof core, .view = view, .banner = banner, .frame_filter = register_filter};
 static uint64_t pending(void) { return __atomic_load_n(&gp_shortcut_request_word, __ATOMIC_ACQUIRE); }
@@ -88,14 +90,14 @@ static void idle(unsigned char *f) { memset(f, 0, 152); f[6] = 8; f[34] = 7; }
 static void *one_frame(void *arg)
 {
     unsigned char *f = arg;
-    assert(registered(AZ_BUS_MIXER_IN, f, 152, NULL) == AZ_FRAME_OK);
+    assert(registered(AZ_BUS_MIXER_IN, f, 152, lane1) == AZ_FRAME_OK);
     return NULL;
 }
 static void *many_frames(void *arg)
 {
     (void)arg; unsigned char f[152];
     while (!atomic_load(&stop_worker)) {
-        idle(f); registered(AZ_BUS_MIXER_IN, f, 152, NULL);
+        idle(f); registered(AZ_BUS_MIXER_IN, f, 152, lane1);
         /* The filter must never mutate anything but the two documented bytes. */
         assert(f[34] == 7 && f[31] == 0 && f[33] == 0);
         assert((f[32] == 0 && f[6] == 8) || (f[32] == 128 && f[6] == 0));
@@ -108,18 +110,18 @@ int main(void)
     CHECK(gp_shortcut_init(&core, "mods-shortcut"));
     unsigned char f[152], before[152]; pthread_t thread;
     reset(); idle(f);
-    for (int i = 0; i < 10000; i++) { f[34] = (unsigned char)i; registered(AZ_BUS_MIXER_IN, f, 152, NULL); }
-    registered(AZ_BUS_DECK_IN, f, 152, NULL); registered(AZ_BUS_MIXER_IN, f, 97, NULL);
-    registered(AZ_BUS_MIXER_IN, NULL, 152, NULL);
+    for (int i = 0; i < 10000; i++) { f[34] = (unsigned char)i; registered(AZ_BUS_MIXER_IN, f, 152, lane1); }
+    registered(AZ_BUS_DECK_IN, f, 152, lane1); registered(AZ_BUS_MIXER_IN, f, 97, lane1);
+    registered(AZ_BUS_MIXER_IN, NULL, 152, lane1);
     CHECK(atomic_load(&clock_calls) == 0 && atomic_load(&view_calls) == 0);
     CHECK(gp_shortcut_knob_known && gp_shortcut_knob == (unsigned char)9999);
     CHECK(gp_shortcut_request(100));
     int views_after_request = atomic_load(&view_calls);
-    registered(AZ_BUS_DECK_IN, f, 152, NULL); registered(AZ_BUS_MIXER_IN, f, 97, NULL);
-    registered(AZ_BUS_MIXER_IN, NULL, 152, NULL);
+    registered(AZ_BUS_DECK_IN, f, 152, lane1); registered(AZ_BUS_MIXER_IN, f, 97, lane1);
+    registered(AZ_BUS_MIXER_IN, NULL, 152, lane1);
     CHECK(atomic_load(&clock_calls) == 0 && atomic_load(&view_calls) == views_after_request);
     f[34]++; memcpy(before, f, 152);
-    registered(AZ_BUS_MIXER_IN, f, 152, NULL);
+    registered(AZ_BUS_MIXER_IN, f, 152, lane1);
     CHECK(!pending() && !memcmp(f, before, 152)); CHECK(atomic_load(&clock_calls) == 1);
 
     /* Callback loaded old token but did not claim: timeout/new request wins. */
@@ -131,7 +133,7 @@ int main(void)
     CHECK(pending() == newer && !memcmp(f, before, 152));
     CHECK(atomic_load(&clock_calls) == 0); /* stale claim never reads time */
     gp_shortcut_tick_at(1201); CHECK(fallbacks == 1 && gp_shortcut_notice);
-    arm_gate(0); registered(AZ_BUS_MIXER_IN, f, 152, NULL);
+    arm_gate(0); registered(AZ_BUS_MIXER_IN, f, 152, lane1);
     CHECK(f[32] == 128 && gp_shortcut_pulse_token == newer);
 
     /* Callback owns BUSY: UI may report timeout, but never steal ownership. */
@@ -150,7 +152,7 @@ int main(void)
     reset(); CHECK(gp_shortcut_request(100)); gp_shortcut_tick_at(1101);
     CHECK(!pending() && fallbacks == 1); CHECK(gp_shortcut_request(1200));
     gp_shortcut_tick_at(2201); CHECK(!pending() && fallbacks == 2);
-    idle(f); memcpy(before, f, 152); registered(AZ_BUS_MIXER_IN, f, 152, NULL);
+    idle(f); memcpy(before, f, 152); registered(AZ_BUS_MIXER_IN, f, 152, lane1);
     CHECK(!memcmp(f, before, 152) && atomic_load(&clock_calls) == 0);
 
     /* TSan exercises actual simultaneous producer/consumer operations, not just

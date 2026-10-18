@@ -1,0 +1,18 @@
+{
+  "upstream_commit": "3e0c5cb010454228f4ee63226b60d060494eeaae",
+  "firmware_sha256": "6577f42532375936c7e3fa830efa35b7daa9cde8e0a265c1fc7143f824321925",
+  "source_sha256": {
+    "inline_hooks.c": "f141b383c25e66c8acb1839280832a612a6ee0e25e9ada59f374ccbef8f81908",
+    "community.c": "4b2b72e2b623dcb1ecb0ef108a473815adab45a516a6aa13adb6cce512b80866"
+  },
+  "entry": "0x1b3ab60",
+  "vtable_slot": "0x2d61c78",
+  "prologue_matches": true,
+  "first_instruction_is_position_independent_load": true,
+  "late_island_path_copies_one_instruction": true,
+  "tbz_at_entry_plus_8_is_not_relocated_in_late_path": true,
+  "late_no_island_refuses": true,
+  "original_published_before_atomic_redirect": true,
+  "runtime_install_success_proven": false,
+  "caller_and_return_semantics_proven": false
+}

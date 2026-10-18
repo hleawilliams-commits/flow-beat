@@ -10,6 +10,7 @@ struct az_draw { int token; };
 static struct az_surface fixture_surface, fixture_heading_surface;
 static az_surface_v1 fixture_desc, fixture_heading_desc;
 static az_frame_fn fixture_filter;
+static int fixture_button_redraws, fixture_off_banners;
 static void *fixture_filter_user;
 static az_rect fixture_rect, fixture_heading_rect, fixture_paint_rect;
 static int fixture_shown, fixture_count = 4, fixture_view = AZ_VIEW_DECK;
@@ -52,11 +53,16 @@ static void mock_show(az_surface *s, int on)
     CHECK(s == &fixture_surface || s == &fixture_heading_surface);
     if (s == &fixture_surface) fixture_shown = on; else fixture_heading_shown = on;
 }
-static void mock_redraw(az_surface *s) { CHECK(s == &fixture_heading_surface); fixture_redraws++; }
+static void mock_redraw(az_surface *s)
+{
+    CHECK(s == &fixture_heading_surface || s == &fixture_surface);
+    if (s == &fixture_surface) fixture_button_redraws++; else fixture_redraws++;
+}
 static int mock_filter(const char *id, unsigned bus, az_frame_fn fn, void *user)
 {
     CHECK(!strcmp(id, MOD_ID)); CHECK(bus == (1u << AZ_BUS_MIXER_IN));
-    fixture_filters++; fixture_filter = fn; fixture_filter_user = user;
+    /* Lane 1 is the active lane; spares follow. */
+    if (!fixture_filters++) { fixture_filter = fn; fixture_filter_user = user; }
     return fixture_fail_filter ? -1 : 0;
 }
 static void box(int x, int y, int w, int h)
@@ -82,7 +88,9 @@ static void mock_text(az_draw *d, int x, int y, const char *s, int px, uint32_t 
 static uint32_t mock_color(int slot) { (void)slot; return 0xA866FF; }
 static void mock_banner(const char *id, const char *s, int ms)
 {
-    CHECK(!strcmp(id, MOD_ID)); CHECK(!strcmp(s, "Tap MOD MENU in the source list"));
+    CHECK(!strcmp(id, MOD_ID));
+    if (!strcmp(s, "MODS is off until restart. Use SOURCE > MOD MENU")) { CHECK(ms == 3000); fixture_off_banners++; return; }
+    CHECK(!strcmp(s, "Tap MOD MENU in the source list"));
     CHECK(ms == 2200); fixture_banners++;
 }
 static az_core_v1 fixture_core = {
@@ -121,7 +129,7 @@ int main(void)
     az_core_v1 absent = fixture_core; absent.abi = -1; CHECK(init(&absent) == 1);
     absent = fixture_core; absent.draw_rect = NULL; CHECK(init(&absent) == 2);
     reset(); fixture_fail_surface = 1; CHECK(init(&fixture_core) == 3); CHECK(!fixture_filters);
-    reset(); CHECK(init(&fixture_core) == 0); CHECK(fixture_filters == 1 && fixture_filter);
+    reset(); CHECK(init(&fixture_core) == 0); CHECK(fixture_filters == GP_SHORTCUT_LANES && fixture_filter);
     CHECK(fixture_rect.x == 1080 && fixture_rect.w == 110); CHECK(!fixture_shown);
     tick(); CHECK(fixture_shown);
     struct az_draw draw = {0}; fixture_paint_rect = fixture_rect; fixture_desc.on_paint(&draw, fixture_rect, fixture_desc.user);
@@ -184,5 +192,13 @@ int main(void)
     CHECK(input(AZ_EV_TAP, 1100, 60) == 1 && !gp_shortcut_request_word);
     reset(); fixture_fail_filter = 1;
     CHECK(init(&fixture_core) == 0); tick(); CHECK(!fixture_shown);
+    /* Every input lane off: the button dims (one redraw) and a tap explains, sending nothing. */
+    reset(); gp_button_dim = -1; CHECK(init(&fixture_core) == 0); tick(); CHECK(fixture_shown);
+    fixture_button_redraws = fixture_off_banners = 0;
+    __atomic_store_n(&gp_shortcut_all_off, 1, __ATOMIC_RELAXED);
+    tick(); tick(); CHECK(fixture_button_redraws == 1);
+    CHECK(input(AZ_EV_TAP, 1100, 60) == 1 && !gp_shortcut_request_word && fixture_off_banners == 1);
+    __atomic_store_n(&gp_shortcut_all_off, 0, __ATOMIC_RELAXED);
+    tick(); CHECK(fixture_button_redraws == 2);
     printf("PASS: %d MODS component assertions\n", checks);
 }

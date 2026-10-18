@@ -1,0 +1,46 @@
+{
+  "firmware_sha256": "6577f42532375936c7e3fa830efa35b7daa9cde8e0a265c1fc7143f824321925",
+  "firmware_tag": "ep147-9e9454e357389ece",
+  "verified_anchor_count": 36,
+  "candidate": {
+    "source_view_timer_listener_offset": "0x1b8",
+    "listener_vtable": "0x2d5b018",
+    "slot_address": "0x2d5b030",
+    "slot_offset": "0x18",
+    "original": "0x1b2e538",
+    "original_body": "RET only",
+    "caller": "0x1ae90a8",
+    "caller_uses_result": false,
+    "entry_argument": "live native IListener subobject; parent=argument-0x1b8",
+    "new_hook_installed": false
+  },
+  "thread_routing": {
+    "direct_callback_after_juce_thread_compare": true,
+    "off_thread_path_queues_native_task": true,
+    "runtime_tid_not_observed_for_this_slot": true
+  },
+  "lifetime": {
+    "timer_embedded_in_view_at": "0x348",
+    "dispatcher_reads_timer_after_listener_return": true,
+    "source_view_has_native_reference_owner_at_factory_offset": "0x90",
+    "complete_activation_retention_proven": false,
+    "reference_counts_modified": false
+  },
+  "actual_activation": {
+    "source_row_listener": "0x1c32f40",
+    "different_row_selects_then_previews": true,
+    "same_row_publishes_then_changes_focus": true,
+    "parent_select_mode0": "0x1c324e0",
+    "parent_select_mode1_normal_library": "0x1be8a20",
+    "final_library_method": "0x1be7e38",
+    "row_to_library_resolution": "0x1be5798",
+    "full_final_argument_contract_proven": false
+  },
+  "limits": [
+    "Read-only callback entry candidate only; activation adapter gated",
+    "No retained native pointer, async reference or reference-count mutation",
+    "Source-row focus is not browser-source activation",
+    "Timer caller lifetime must survive any new operation",
+    "Category/library choice and missing-media semantics require further proof"
+  ]
+}

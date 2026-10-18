@@ -1,0 +1,78 @@
+{
+  "base": "3e0c5cb010454228f4ee63226b60d060494eeaae",
+  "patch_order": [
+    {
+      "path": "stems-memory-retry/memory-retry.patch",
+      "sha256": "5905b0f514cf33e2dafbbdecccf18125e5352108515eded6b424f4dbc6138f1b"
+    },
+    {
+      "path": "stems-retry-activity/activity-followup.patch",
+      "sha256": "69ed45bf1d8b645a574379be0c8b1389eaaec2b919e8de1529d6e75f6751c30c"
+    },
+    {
+      "path": "stems-recovery-staging/staging-only.patch",
+      "sha256": "c8d8122ec0af65ebd478ebea1fedbb5b030c77ac186d2d9a5c7818ae01d6a03b"
+    },
+    {
+      "path": "stems-staging-publication-composition/composed-publication.patch",
+      "sha256": "5eda65de513a365ce6ccbab0718eb40b2bdc4cd17991aac7b1bc9bff8656ea81"
+    }
+  ],
+  "standalone_reference_sha256": "b4ff1224d1f0faaa4e248d564d9a053877b644e277eb2d5d0ebe011623501a34",
+  "source_sha256": {
+    "azstem.c": "dee2be34bd6af5d3eca6716aa8e6516a12cd49f3258d762f3b96e95b56a3f993",
+    "stem_playback.c": "bdf07bc42d0ce33399d0c99192e8d836ef57a855042ce9fc2e04d404030493ca",
+    "stem_envelopes.c": "a20a9a3ee7f894181fbc08ff182deffffd5ec64c69d22e06067651f585224f26",
+    "ofsload.c": "9452429838316cac57475114aa14c69ad26c131a237718f8a8d7811d66ea694c",
+    "key_shift.c": "1b43bcefcd8f714aefe268ed076343f6ac8a059b006d1a75aef90052afd91747",
+    "azstem_internal.h": "1ff125ae054d507312b30ad267a77b46b4c4fc1a35430da0ebc792792aed6fee",
+    "ep147rate.h": "2ea7d250c4c8d32b2083ef61442a1d3759688048c66e5dcd94cc1cc7a9fa74c5"
+  },
+  "functions": [
+    "recovery_hidden",
+    "stem_decode_target",
+    "recovery_free_buffers",
+    "free_stems",
+    "env_cache_path",
+    "env_cache_save",
+    "env_progress",
+    "env_cache_load",
+    "build_env",
+    "azstem_env_gen",
+    "azstem_env_final",
+    "azstem_frames",
+    "azstem_wave",
+    "publish_stem_prefix",
+    "azstem_present",
+    "advance_stem_frames",
+    "decode_stem_progressive",
+    "dth_prog",
+    "ofs_stems_decoded",
+    "ofs_stem_mono_lim",
+    "load_stems_ogg",
+    "loader_thread",
+    "deck_track_changed",
+    "drop_stems",
+    "start_load_mode",
+    "start_load",
+    "stem_play_observe",
+    "stem_retry_play_activity",
+    "memory_retry_ready",
+    "stems_tick",
+    "stem_gains",
+    "stems_play_original",
+    "pbread_hook"
+  ],
+  "production_sha256": "773607411f6b4763ee1f2edf3c3434201b797c5321d4458df9632a2dd05b20ac",
+  "partial_function": "ofs_load_measure actual out tail only; no codec/calibration work",
+  "fixture_dependency_sha256": "e7a301b106d28bcc73849aa3d582e40999da0d9058de6e33b3487a93cece1a6b",
+  "original_restart_test_sha256": "59cf6142c1fbfa23ab30a943750d969629e345f11be9a1696cfafcf221b1ecea",
+  "control": "callsite-guard-removed",
+  "suites": {
+    "staging": {
+      "source_sha256": "3425d15c8e4df6b802a0e13f82127eed31b66563c370fc3f7dd90a5668b025cd",
+      "fixture_sha256": "dfd3dc082242f4d1c2ee28b859889a00b388d0866c1534465113212d739f25de",
+      "instrumented_production_sha256": "b0301081bd81f1706ca36229516b2dadbd012a0f19ff0322cca6cf212ecb4e1e"
+    }
+  }
+}

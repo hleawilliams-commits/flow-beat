@@ -1,0 +1,36 @@
+{
+  "label": "09-all-killed",
+  "lanes": [
+    {
+      "lane": 1,
+      "off": 1,
+      "strikes": 0
+    },
+    {
+      "lane": 2,
+      "off": 1,
+      "strikes": 0
+    },
+    {
+      "lane": 3,
+      "off": 1,
+      "strikes": 0
+    },
+    {
+      "lane": 4,
+      "off": 1,
+      "strikes": 0
+    }
+  ],
+  "active_lane": 2,
+  "all_off": 1,
+  "beats": [
+    989,
+    1417,
+    1417,
+    1418
+  ],
+  "request_word": 0,
+  "mod_sha256": "05608255b03123dd787b9b9eebd22f5a1d0b24536c524ab75a9c299faa972a6b",
+  "time_monotonic": 4.367942208
+}

@@ -1,4 +1,4 @@
-# Grouped Deck Panels 0.1.0
+# Grouped Deck Panels 0.2.0
 
 Four compact headers bring each deck's title, original Camelot key, relative phrase counter and selected-side indicator together beside its native BPM box. This community-mod **emulator preview has been exercised in the emulator**; it has not been installed or validated on the physical deck. It does not change audio, stems, tempo, key or playback controls.
 
@@ -17,7 +17,7 @@ The lower details panels retain their stock order, **1–2 above 3–4**. This m
 
 The selected deck gets a cyan number and top border, plus **LEFT** or **RIGHT**. Selection comes from observing the existing deck-selection LED frames: left selects 1 or 3, right selects 2 or 4. The mod does not edit those frames or LEDs. This indicates which deck the physical side controls, not which deck is MASTER or playing. Unknown signals or signals older than one second remove the highlight.
 
-**Grouped deck panels** in Mod Menu turns the display and data workers on or idle. The setting is namespaced as `grouped-panels:show`. Headers stay hidden in 2 DECK and 2/4 DECK views.
+**Grouped deck panels** in Mod Menu turns the display and data workers on or idle. The setting is namespaced as `grouped-panels:show`. 0.2.0 also draws in **2/4 DECK** (same four headers) and **2 DECK** (one header per side over the stock title row, following each side's selected deck). The SDK reports 2 decks for both views, so the mod remembers the last layout tab you tapped; **Two-deck view: Auto / 2 DECK / 2/4 DECK** in Mod Menu overrides it. With neither known, two-deck views stay clear. [Evidence](../docs/evidence/grouped-panels-0.2.0/README.md).
 
 ## Keys and phrase counters
 

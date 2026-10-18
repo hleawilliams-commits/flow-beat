@@ -1,0 +1,14 @@
+{
+  "binary_sha256": "0e2e847a5f9ea3b0c92ef5122b2ed02482514e36a1968f4e9730272eb381a661",
+  "sdk_image_id": "sha256:c96cac5682604faf32417c92f391ec233faec98d5e05d0de29f1bac0cfd2053e",
+  "sdk_build_and_validation_passed": true,
+  "source_sha256": {
+    "observer.cpp": "f21e26bc968525f61d64ab1d2d3f389a7a586fde6779e7c81ea6c6793a4fdd54",
+    "mod.c": "73ffae8e20db7fa33d1ad821cc465db9f4df604265d0764fbdf302bcf81d2e1d",
+    "abi/entry.S": "651c5275f67c6aa7ab1010ef08dd7e879e878976f4ad07d83952ec261406f649",
+    "Makefile": "5178fb4d27dd8ec17a9d8f80f9105e8ecacd001757045fff86a8d4709ec0fd45",
+    "azmod.json": "f8abcd3b23a5d22a30a3a3cd67114566e3613d717332ee83e376d14603367c6d"
+  },
+  "physical_installation": false,
+  "emulator_installation": false
+}

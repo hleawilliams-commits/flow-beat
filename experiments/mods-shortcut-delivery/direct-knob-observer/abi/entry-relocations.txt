@@ -1,0 +1,29 @@
+
+Relocation section '.rela.text' at offset 0x420 contains 3 entries:
+  Offset          Info           Type           Sym. Value    Sym. Name + Addend
+000000000054  000e0000011b R_AARCH64_CALL26  0000000000000000 az_knob_observe_entry + 0
+0000000000a8  000f00000137 R_AARCH64_ADR_GOT 0000000000000000 az_knob_original + 0
+0000000000ac  000f00000138 R_AARCH64_LD64_GO 0000000000000000 az_knob_original + 0
+
+Relocation section '.rela.debug_line' at offset 0x468 contains 1 entry:
+  Offset          Info           Type           Sym. Value    Sym. Name + Addend
+000000000030  000100000101 R_AARCH64_ABS64   0000000000000000 .text + 0
+
+Relocation section '.rela.debug_info' at offset 0x480 contains 7 entries:
+  Offset          Info           Type           Sym. Value    Sym. Name + Addend
+000000000006  000700000102 R_AARCH64_ABS32   0000000000000000 .debug_abbrev + 0
+00000000000c  000800000102 R_AARCH64_ABS32   0000000000000000 .debug_line + 0
+000000000010  000100000101 R_AARCH64_ABS64   0000000000000000 .text + 0
+000000000018  000100000101 R_AARCH64_ABS64   0000000000000000 .text + b8
+000000000020  000a00000102 R_AARCH64_ABS32   0000000000000000 .debug_str + 0
+000000000024  000a00000102 R_AARCH64_ABS32   0000000000000000 .debug_str + d
+000000000028  000a00000102 R_AARCH64_ABS32   0000000000000000 .debug_str + f
+
+Relocation section '.rela.debug_aranges' at offset 0x528 contains 2 entries:
+  Offset          Info           Type           Sym. Value    Sym. Name + Addend
+000000000006  000600000102 R_AARCH64_ABS32   0000000000000000 .debug_info + 0
+000000000010  000100000101 R_AARCH64_ABS64   0000000000000000 .text + 0
+
+Relocation section '.rela.eh_frame' at offset 0x558 contains 1 entry:
+  Offset          Info           Type           Sym. Value    Sym. Name + Addend
+00000000001c  000100000105 R_AARCH64_PREL32  0000000000000000 .text + 0

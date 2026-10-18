@@ -35,7 +35,7 @@ gp_run() {
 }
 
 for gp_mode in plain asan; do
-    for gp_suite in layout data paint; do
+    for gp_suite in layout hud data paint; do
         gp_run "$gp_suite" "$gp_mode"
     done
 done

@@ -4,7 +4,7 @@
 #include <string.h>
 #include "../shortcut.h"
 
-static int checks, mock_view = AZ_VIEW_DECK, banners, fallbacks, registrations;
+static int checks, mock_view = AZ_VIEW_DECK, banners, fallbacks, registrations, refuse_after = 99, logs;
 #define pending() __atomic_load_n(&gp_shortcut_request_word, __ATOMIC_ACQUIRE)
 #define sent() ((__atomic_load_n(&gp_shortcut_completion, __ATOMIC_ACQUIRE) & 3) == GP_SHORTCUT_SENT)
 #define CHECK(x) do { assert(x); checks++; } while (0)
@@ -19,14 +19,32 @@ static int register_filter(const char *id, unsigned mask, az_frame_fn fn, void *
 {
     CHECK(!strcmp(id, "mods-shortcut"));
     CHECK(mask == (1u << AZ_BUS_MIXER_IN));
-    CHECK(fn == gp_shortcut_frame && user == NULL);
+    CHECK(fn == gp_shortcut_lane_frame && user == (void *)(intptr_t)(registrations + 1));
+    if (registrations >= refuse_after) return -1;
     registrations++;
     return 0;
 }
+static void mock_log(const char *id, const char *fmt, ...)
+{
+    CHECK(!strcmp(id, "mods-shortcut")); CHECK(fmt != NULL); logs++;
+}
 static const az_core_v1 core = {
     .size = sizeof(az_core_v1), .view = view,
-    .frame_filter = register_filter, .banner = banner,
+    .frame_filter = register_filter, .banner = banner, .log = mock_log,
 };
+/* One mixer frame through every lane the core still calls. */
+static void beat(unsigned char *f, unsigned live)
+{
+    for (int i = 0; i < gp_shortcut_lanes; i++)
+        if (live & (1u << i)) gp_shortcut_lane_frame(AZ_BUS_MIXER_IN, f, 152, (void *)(intptr_t)(i + 1));
+}
+static void reset_lanes(void)
+{
+    for (int i = 0; i < GP_SHORTCUT_LANES; i++)
+        gp_shortcut_beat[i] = gp_shortcut_seen[i] = 0, gp_shortcut_off[i] = gp_shortcut_stall[i] = 0;
+    gp_shortcut_lane = gp_shortcut_all_off = 0;
+    gp_shortcut_watch_at = gp_shortcut_quiet_since = -1;
+}
 static void reset(void)
 {
     gp_shortcut_request_word = gp_shortcut_completion = 0;
@@ -54,7 +72,7 @@ int main(void)
     CHECK(!gp_shortcut_init(&missing, "mods-shortcut"));
     CHECK(gp_shortcut_init(&core, "mods-shortcut"));
     CHECK(gp_shortcut_init(&core, "mods-shortcut"));
-    CHECK(registrations == 1);
+    CHECK(registrations == GP_SHORTCUT_LANES && gp_shortcut_lanes == GP_SHORTCUT_LANES);
     reset(); idle(f); memcpy(before, f, 152);
     gp_shortcut_frame_at(AZ_BUS_MIXER_IN, f, 152, 100); unchanged(f, before);
     CHECK(gp_shortcut_request(100)); CHECK(!gp_shortcut_request(101));
@@ -156,6 +174,58 @@ int main(void)
     reset(); CHECK(!gp_shortcut_request(LONG_MAX));
     gp_shortcut_tick(); /* Public UI wrapper, without pending feedback. */
     CHECK(gp_shortcut_clock_ms() >= 0);
+
+    /* Lanes: a lane the core switches off stops beating; the shortcut moves on
+     * after two stalled looks (one stalled look can be a frame between loads). */
+    reset(); reset_lanes(); idle(f);
+    beat(f, 0xf); gp_shortcut_watch_at_time(1000);
+    CHECK(gp_shortcut_running() && gp_shortcut_lane == 0);
+    beat(f, 0xe); gp_shortcut_watch_at_time(1100); CHECK(gp_shortcut_lane == 0); /* < 250 ms: no look */
+    gp_shortcut_watch_at_time(1250); CHECK(!gp_shortcut_off[0] && gp_shortcut_lane == 0);
+    beat(f, 0xf); gp_shortcut_watch_at_time(1500); CHECK(!gp_shortcut_stall[0]); /* recovered: reset */
+    beat(f, 0xe); gp_shortcut_watch_at_time(1750);
+    beat(f, 0xe); gp_shortcut_watch_at_time(2000);
+    CHECK(gp_shortcut_off[0] && gp_shortcut_lane == 1 && gp_shortcut_running());
+    /* Only the active lane edits frames; the dead lane 1 is no longer called. */
+    {
+        long now = gp_shortcut_clock_ms();
+        reset(); CHECK(gp_shortcut_request(now)); idle(f); memcpy(before, f, 152);
+        gp_shortcut_lane_frame(AZ_BUS_MIXER_IN, f, 152, (void *)(intptr_t)3); unchanged(f, before);
+        CHECK(pending());
+        gp_shortcut_lane_frame(AZ_BUS_MIXER_IN, f, 152, (void *)(intptr_t)2); CHECK(f[32] == 0x80);
+        gp_shortcut_lane_frame(AZ_BUS_MIXER_IN, f, 152, (void *)(intptr_t)0); /* bad lane: ignored */
+        gp_shortcut_lane_frame(AZ_BUS_MIXER_IN, f, 152, (void *)(intptr_t)(GP_SHORTCUT_LANES + 1));
+    }
+    /* Lanes 2 and 3 die too; the last lane takes over, wrapping past dead lane 1. */
+    reset(); idle(f);
+    beat(f, 0xe); gp_shortcut_watch_at_time(2250); CHECK(gp_shortcut_lane == 1);
+    beat(f, 0x8); gp_shortcut_watch_at_time(2500); CHECK(gp_shortcut_lane == 1);
+    beat(f, 0x8); gp_shortcut_watch_at_time(2750);
+    CHECK(gp_shortcut_lane == 3 && gp_shortcut_off[1] && gp_shortcut_off[2]);
+    /* Every lane quiet for 2 s: button reports off, and taps explain instead. */
+    gp_shortcut_watch_at_time(3000); CHECK(gp_shortcut_running());
+    gp_shortcut_watch_at_time(4750); CHECK(gp_shortcut_running());
+    gp_shortcut_watch_at_time(5000); CHECK(!gp_shortcut_running());
+    int before_logs = logs;
+    gp_shortcut_watch_at_time(5250); CHECK(logs == before_logs); /* logged once */
+    /* A beat afterwards (a stalled bus, not a dead lane) clears it. */
+    beat(f, 0x8); gp_shortcut_watch_at_time(5500); CHECK(gp_shortcut_running() && gp_shortcut_lane == 3);
+    /* Reversed clock never declares lanes dead. */
+    reset_lanes(); beat(f, 0xf); gp_shortcut_watch_at_time(6000);
+    gp_shortcut_watch_at_time(100); gp_shortcut_watch_at_time(400); CHECK(gp_shortcut_running());
+    gp_shortcut_watch_at_time(-1); CHECK(gp_shortcut_running());
+
+    /* Cancellation records the panel bytes for the log, then clears them. */
+    reset(); reset_lanes(); CHECK(gp_shortcut_request(100)); idle(f); f[33] = 0x04;
+    gp_shortcut_frame_at(AZ_BUS_MIXER_IN, f, 152, 101);
+    CHECK(gp_shortcut_cancel_why == 0x0400u);
+    gp_shortcut_tick_at(102); CHECK(!gp_shortcut_cancel_why && !gp_shortcut_notice);
+
+    /* Spares are best effort: a refused lane 3 leaves two lanes running. */
+    gp_shortcut_ready = 0; gp_shortcut_lanes = 0; registrations = 0; refuse_after = 2;
+    CHECK(gp_shortcut_init(&core, "mods-shortcut") && gp_shortcut_lanes == 2);
+    gp_shortcut_ready = 0; gp_shortcut_lanes = 0; registrations = 0; refuse_after = 0;
+    CHECK(!gp_shortcut_init(&core, "mods-shortcut") && !gp_shortcut_lanes);
     printf("PASS: %d MODS shortcut assertions\n", checks);
     return 0;
 }

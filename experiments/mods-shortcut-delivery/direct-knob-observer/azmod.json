@@ -1,0 +1,18 @@
+{
+  "azmod": 1,
+  "id": "waveform-knob-observer",
+  "name": "Waveform Knob Observer",
+  "version": "0.0.1",
+  "author": "hleawilliams-commits",
+  "summary": "Emulator-only native Waveform input entry observer.",
+  "description": "Unpublished exact-firmware entry-only observer. Copies scalar arguments, then tail-forwards native execution. No menu, input consumption, navigation or physical installation.",
+  "category": "tools",
+  "license": "GPL-3.0-only",
+  "source": "https://github.com/hleawilliams-commits/flow-beat/tree/codex/az-mods-handoff-2026-10-16/experiments/mods-shortcut-delivery/direct-knob-observer",
+  "api": 1,
+  "firmware": [
+    "ep147-9e9454e357389ece"
+  ],
+  "hooks": true,
+  "min_core": "1.2.3"
+}

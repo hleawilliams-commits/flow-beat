@@ -1,10 +1,14 @@
-# MODS Shortcut 0.1.2
+# MODS Shortcut 0.1.3
 
 **Hide WAVEFORM heading** leaves the title area blank. It adds no replacement text, diagram or deck indicator. Turn that setting off to restore the stock WAVEFORM title.
 
 The existing **MODS** button opens the native **SOURCE** list. Tap **MOD MENU** to select it, then tap it again or press the browse knob to open the menu. The native preview asks for that confirmation. The pinned SDK has no direct Mod Menu-open operation; the button sends SOURCE and shows a banner directing you to the official row.
 
 This community update reduces idle work and recovers stranded requests after the confirmed 0.1.1 failure described in [the incident evidence](../docs/evidence/mods-filter-quarantine-2026-10-17/README.md). It does not patch the official core or guarantee against another quarantine. See the [emulator evidence](../docs/evidence/mods-shortcut-0.1.2/README.md); physical testing remains pending.
+
+## 0.1.3: spare input lanes
+
+The core permanently switches a frame filter off after 8 overruns over a whole session, and a preempted call counts, so one filter eventually dies on a busy deck and MODS stops responding while still visible. 0.1.3 registers up to four filters ("lanes") and moves to the next live one when the core switches one off. If none remain, the button greys out and a tap says **"MODS is off until restart. Use SOURCE > MOD MENU"**. Each tap's outcome is written to the mod log while Mod Menu logging is on. [Emulator evidence](../docs/evidence/mods-shortcut-0.1.3/README.md); physical testing pending. This multiplies lifetime but isn't a permanent fix; see the [upstream request](../docs/UPSTREAM-FILTER-STRIKES.md).
 
 ## Layout and settings
 

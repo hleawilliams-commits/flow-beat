@@ -1,0 +1,7 @@
+make: Entering directory '/g'
+mkdir -p out
+gcc -fexceptions -fasynchronous-unwind-tables -O2 -w -fPIC  -Iazstem -fvisibility=hidden -c -o out/stb_vorbis.o azstem/stb_vorbis.c
+gcc -fexceptions -fasynchronous-unwind-tables -O2 -Wall -Wextra -Werror -fPIC -shared -static-libgcc  -Iazstem -DAZMOD_RELEASE -o out/azstem.so.full azstem/azstem.c out/stb_vorbis.o -lm -ldl -lpthread
+strip --strip-unneeded -o out/azstem.so out/azstem.so.full
+Built: out/azstem.so
+make: Leaving directory '/g'

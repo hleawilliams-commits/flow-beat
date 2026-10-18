@@ -50,7 +50,8 @@ static void bounds(az_rect r)
     CHECK(r.w>=0 && r.h>=0);
     CHECK(r.x>=area.x && r.y>=area.y);
     CHECK(r.x+r.w<=area.x+area.w && r.y+r.h<=area.y+area.h);
-    CHECK(r.x+r.w<=530+640*((area.x-10)/640)); /* Native BPM remains outside. */
+    /* Native BPM remains outside (2 DECK's title row has none; its panel ends at +620). */
+    CHECK(r.x+r.w<=(area.w==620?area.x+620:530+640*((area.x-10)/640)));
     CHECK(r.y+r.h<=612+120*((area.y-561)/120)); /* Remain and overview remain outside. */
 }
 static void fill(az_draw *d,int x,int y,int w,int h,uint32_t rgb)
@@ -95,12 +96,12 @@ static int has_text(const char *s)
 }
 static void render(int deck)
 {
+    gp_layout=GP_LAYOUT_4;gp_slot_shows[deck]=deck;
     area=gp_header_rect(deck);ntexts=0;
     descriptors[deck].on_paint(&draw,area,descriptors[deck].user);paint_cases++;
     char number[2]={(char)('1'+deck),0};CHECK(has_text(number));
-    CHECK(has_text(deck%2?"RIGHT":"LEFT")==!!gp_selected[deck]);
-    CHECK(!has_text(deck%2?"LEFT":"RIGHT"));
-    CHECK(ntexts==4+!!gp_selected[deck]);
+    CHECK(!has_text("LEFT") && !has_text("RIGHT")); /* the cyan border shows selection */
+    CHECK(ntexts==4+(gp_display[deck].loaded && gp_hints[deck].has_gap));
 }
 static void setup_readout(int deck,int state)
 {
@@ -145,6 +146,31 @@ int main(void)
     for(theme=0;theme<=1;theme++) for(int deck=0;deck<4;deck++) for(int bar=1;bar<=8;bar++) for(int beat=1;beat<=4;beat++) {
         setup_readout(deck,2);gp_display[deck].bar=bar;gp_display[deck].beat=beat;render(deck);
     }
+    /* Every mix hint at once: alerts, stems, longest gap text, coloured keys. No overlap,
+     * nothing outside the header or into native BPM, in both layouts' widths. */
+    double gaps[]={0,0.4,-7.9,8.0};
+    for(theme=0;theme<=1;theme++) for(int deck=0;deck<4;deck++) for(int alert=0;alert<3;alert++)
+        for(int match=0;match<4;match++) for(unsigned gi=0;gi<4;gi++) for(int stems=0;stems<3;stems++) {
+            setup_readout(deck,4);gp_display[deck].has_stems=stems>0;gp_display[deck].stems_on=stems==2;
+            gp_hints[deck]=(gp_hint){match,alert,1,gaps[gi]};gp_selected[deck]=deck&1;render(deck);
+            CHECK(has_text(gaps[gi]==0?"±0.0":gi==1?"+0.4":gi==2?"-7.9":"+8.0"));
+        }
+    memset(gp_hints,0,sizeof gp_hints);
+    /* 2 DECK: each side's slot paints the deck that side selected, without the
+     * redundant highlight or LEFT/RIGHT; text stays clear of the stock BPM column. */
+    for(theme=0;theme<=1;theme++) for(int slot=0;slot<2;slot++) for(int deck=slot;deck<4;deck+=2)
+        for(int state=0;state<6;state++) {
+            gp_layout=GP_LAYOUT_2;gp_slot_shows[slot]=deck;gp_selected[deck]=1;setup_readout(deck,state);
+            area=gp_slot_rect(GP_LAYOUT_2,slot);ntexts=0;
+            descriptors[slot].on_paint(&draw,area,descriptors[slot].user);paint_cases++;
+            char number[2]={(char)('1'+deck),0};CHECK(has_text(number));
+            CHECK(!has_text("LEFT") && !has_text("RIGHT"));CHECK(ntexts==4);
+            CHECK(has_text(state<=1?"KEY --":"KEY 12B"));
+        }
+    /* A slot with no deck (unknown layout or stale selection) paints nothing. */
+    {int ops=operations;gp_slot_shows[0]=-1;area=gp_slot_rect(GP_LAYOUT_2,0);
+     descriptors[0].on_paint(&draw,area,descriptors[0].user);CHECK(operations==ops);gp_slot_shows[0]=0;}
+    gp_layout=GP_LAYOUT_4;
     int before=operations;area=(az_rect){10,561,519,46};gp_paint(&draw,area,(void *)(intptr_t)0);CHECK(operations==before);
     area=gp_header_rect(0);gp_paint(&draw,area,(void *)(intptr_t)4);CHECK(operations==before);
     printf("paint: %d scenarios, %d draw calls, %d assertions; day/night, all decks and selection pairs, empty/unknown/long ASCII/UTF-8 titles, Camelot 12B, all 32 phrase beats; no text overlap or drawing outside headers; native BPM/overview bounds clear; input-transparent surfaces; LED bytes unchanged\n",paint_cases,operations,checks);

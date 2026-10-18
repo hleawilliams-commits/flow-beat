@@ -1,0 +1,18 @@
+{
+  "azmod": 1,
+  "id": "grouped-panels",
+  "name": "Grouped Deck Panels",
+  "version": "0.2.0",
+  "author": "hleawilliams-commits",
+  "summary": "Groups original Camelot key and phrase beside native BPM, with clear left/right deck selection.",
+  "description": "4 DECK emulator preview: groups title, original Camelot key and relative eight-bar phrase beside native BPM. Cyan LEFT/RIGHT marks physical deck selection. Keeps remaining time, overview waveforms and controls visible. Reads deck state and USB metadata; no audio, deck control, network or file writes. Phrase count anchors on first play; key does not follow Key Shift. Disable key-next-to-bpm, phrase-coach and deck-focus at load before use. MODS shortcut is a separate optional mod.",
+  "category": "visual",
+  "license": "GPL-3.0-only",
+  "source": "https://github.com/hleawilliams-commits/flow-beat/tree/codex/az-mods-handoff-2026-10-16/grouped-panels",
+  "api": 1,
+  "firmware": [
+    "any"
+  ],
+  "hooks": false,
+  "min_core": "1.2.3"
+}

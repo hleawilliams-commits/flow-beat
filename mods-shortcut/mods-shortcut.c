@@ -11,6 +11,7 @@ static const az_core_v1 *C;
 static az_surface *gp_button;
 static az_rect gp_button_where;
 static int gp_button_shown, gp_button_available, gp_button_row = -1;
+static int gp_button_dim = -1; /* last painted state: 1 = every input lane off */
 
 /* Optional input-transparent mask for the stock WAVEFORM title only. */
 static az_surface *gp_heading;
@@ -82,8 +83,10 @@ static void gp_button_paint(az_draw *d, az_rect a, void *user)
     (void)user;
     C->fill_rect(d, a.x, a.y, a.w, a.h, C->color(AZ_COL_BG));
     if (a.w < 70 || a.h < 30) return;
-    C->draw_rect(d, a.x, a.y, a.w, a.h, 1, C->color(AZ_COL_HI));
-    C->draw_text(d, a.x + 28, a.y + 3, "MODS", 16, C->color(AZ_COL_HI));
+    /* Dim = the core switched every input lane off: taps explain instead of failing silently. */
+    uint32_t ink = C->color(gp_shortcut_running() ? AZ_COL_HI : AZ_COL_TEXT_DIM);
+    C->draw_rect(d, a.x, a.y, a.w, a.h, 1, ink);
+    C->draw_text(d, a.x + 28, a.y + 3, "MODS", 16, ink);
 }
 static int gp_button_input(const az_event *ev, void *user)
 {
@@ -92,7 +95,13 @@ static int gp_button_input(const az_event *ev, void *user)
     if (!gp_button_enabled() || C->view() != AZ_VIEW_DECK) return 1;
     az_rect r = gp_button_where;
     if (ev->x < r.x || ev->x >= r.x + r.w || ev->y < r.y || ev->y >= r.y + r.h) return 1;
-    gp_shortcut_request(gp_shortcut_clock_ms());
+    if (!gp_shortcut_running()) {
+        GP_SHORTCUT_LOG("MODS tap: refused, every input lane is off");
+        if (AZ_HAS(C, banner)) C->banner(MOD_ID, "MODS is off until restart. Use SOURCE > MOD MENU", 3000);
+        return 1;
+    }
+    if (!gp_shortcut_request(gp_shortcut_clock_ms()))
+        GP_SHORTCUT_LOG("MODS tap: ignored (request already pending or within 500 ms)");
     return 1;
 }
 static void tick(void)
@@ -109,6 +118,12 @@ static void tick(void)
         C->surface_show(gp_button, want);
     }
     gp_shortcut_tick();
+    int dim = !gp_shortcut_running();
+    if (dim != gp_button_dim) {
+        int changed = gp_button_dim >= 0; /* the first paint already uses the current state */
+        gp_button_dim = dim;
+        if (changed && gp_button_shown && AZ_HAS(C, surface_redraw)) C->surface_redraw(gp_button);
+    }
     gp_heading_update();
 }
 static int init(const az_core_v1 *core)
@@ -131,7 +146,7 @@ static int init(const az_core_v1 *core)
         const az_row_v1 row = {
             .size = sizeof row, .key = "show", .label = "MODS source shortcut",
             .kind = AZ_ROW_TOGGLE, .flags = AZ_ROW_DEFAULT_ON,
-            .help = "MODS opens SOURCE. Tap the official MOD MENU entry to open your mods. If MODS times out, use SOURCE > MOD MENU. No track loading or playback changes.",
+            .help = "MODS opens SOURCE. Tap the official MOD MENU entry to open your mods. A dim MODS button means the deck switched its input off until restart: use SOURCE > MOD MENU. No track loading or playback changes.",
         };
         gp_button_row = C->register_row(MOD_ID, &row);
     }

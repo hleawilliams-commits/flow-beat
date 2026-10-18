@@ -1,0 +1,20 @@
+{
+  "image": "azmod-build:18.04",
+  "image_id": "sha256:c7e3893c4f03e0ff30555c2120b3d9ec53834eaa2c8ce376a2da09b70fd23a90",
+  "platform": "linux/arm64",
+  "source_sha256": {
+    "entry.S": "651c5275f67c6aa7ab1010ef08dd7e879e878976f4ad07d83952ec261406f649",
+    "test_fixture.S": "1c0f34dddd49b4535901dac8e14163fec1a653a85736cc55096dd83b4f1c0394",
+    "test_abi.cpp": "f5d448c57143007428ca1afec02d7bf4a7242d517235920e10d86078a6449b59",
+    "run-tests.py": "d7a66350a179441653c1e595ce6df8c040f55c59d70f9b48a876dfff0e06c690"
+  },
+  "object_sha256": "224b909629c8b5d37fa464a5ab018f9a739c98cb9ba67ed203ccc6c4d032bc88",
+  "test_elf_sha256": "eb52f7f667daa350833058685a151e75473f3127e3145819969999fea3cf6729",
+  "actual_assembly_executed": true,
+  "instruction_audit_passed": true,
+  "cfi_audit_passed": true,
+  "negative_control": "missing x2/x3 restore rejected by actual register/native-result assertions",
+  "no_az_emulator_or_physical_device_access": true,
+  "native_target_signature_inferred": false,
+  "private_run_id": "f6a6cf0d-6613-4f48-99c4-bc14da62929a"
+}

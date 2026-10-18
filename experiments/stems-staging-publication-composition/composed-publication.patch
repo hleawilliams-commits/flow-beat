@@ -1,0 +1,143 @@
+--- a/src/azstem/stem_playback.c
++++ b/src/azstem/stem_playback.c
+@@ -452,26 +452,36 @@
+  * every chunk. Monotonic and fenced so the RT hook never reads past PCM that is
+  * written and locked. Off-RT. */
+ static void env_progress(int deck); /* progressive envelope, defined below */
++static void publish_stem_prefix(int deck, long frames) {
++    if (frames <= 0)
++        return;
++    deck_stems *dk = &g_dk[deck];
++    pthread_mutex_lock(&g_adv_lock);
++    /* Private routing and completion/drop share this lock. Never publish a
++     * private prefix, including through a direct caller that skips advance. */
++    if (!recovery_hidden(deck) &&
++        !atomic_load_explicit(&g_gate_hold[deck], memory_order_acquire) &&
++        !atomic_load_explicit(&g_load_stale[deck], memory_order_acquire) &&
++        frames > dk->stem_frames) {
++        __sync_synchronize();
++        dk->stem_frames = frames;
++    }
++    pthread_mutex_unlock(&g_adv_lock);
++}
+ static void advance_stem_frames(int deck) {
+     if (recovery_hidden(deck))
+         return; /* private min is collected after joins; no PCM or envelope publication */
+-    deck_stems *dk = &g_dk[deck];
+-    unsigned present = atomic_load_explicit(&g_stem_present[deck], memory_order_relaxed);
++    unsigned present = atomic_load_explicit(&g_stem_present[deck], memory_order_acquire);
+     long m = -1;
+     for (int k = 0; k < NSTEM; k++)
+         if (present & (1u << k)) {
+-            long d = atomic_load_explicit(&g_stem_dec[deck][k], memory_order_relaxed);
++            long d = atomic_load_explicit(&g_stem_dec[deck][k], memory_order_acquire);
+             if (m < 0 || d < m)
+                 m = d;
+         }
+     if (m <= 0)
+         return;
+-    pthread_mutex_lock(&g_adv_lock);
+-    if (!atomic_load_explicit(&g_gate_hold[deck], memory_order_acquire) && m > dk->stem_frames) {
+-        __sync_synchronize();
+-        dk->stem_frames = m;
+-    }
+-    pthread_mutex_unlock(&g_adv_lock);
++    publish_stem_prefix(deck, m);
+     env_progress(deck); /* fill the envelope for the region now decoded */
+ }
+ 
+@@ -515,7 +525,7 @@
+         dk->stem_mmap[slot] = 0;
+         __sync_synchronize();
+         dk->stem[slot] = buf;
+-        atomic_store_explicit(&g_stem_dec[deck][slot], fr, memory_order_relaxed);
++        atomic_store_explicit(&g_stem_dec[deck][slot], fr, memory_order_release);
+         advance_stem_frames(deck);
+         return;
+     }
+@@ -575,7 +585,7 @@
+         mlock(&buf[done * 2], (size_t) got * 2 * sizeof(float)); /* lock what the RT will read */
+         __sync_synchronize();
+         done += got;
+-        atomic_store_explicit(&g_stem_dec[deck][slot], done, memory_order_relaxed);
++        atomic_store_explicit(&g_stem_dec[deck][slot], done, memory_order_release);
+         advance_stem_frames(deck);
+         if (got < want)
+             break; /* short read = EOF */
+@@ -584,7 +594,10 @@
+     stb_vorbis_close(v);
+     return;
+ fail:
+-    atomic_fetch_and_explicit(&g_stem_present[deck], ~(1u << slot), memory_order_relaxed);
++    /* Every failure exit is before the first positive decoded count. A scan
++     * seeing the old mask sees count zero and must not read this slot; a scan
++     * seeing this removal acquires the preceding NULL/free operations. */
++    atomic_fetch_and_explicit(&g_stem_present[deck], ~(1u << slot), memory_order_release);
+     advance_stem_frames(deck);
+ }
+ /* Drum-roll sampler: included here because it uses is_dir, logln and
+@@ -1271,6 +1284,11 @@
+         if (recovery)
+             ofs_load_measure(deck, track, src); /* private buffers now have no writers */
+     }
++    /* Ordinary decoders are joined. Reconcile their acquired prefix without
++     * another progressive envelope pass. Private counters belong only to the
++     * private target below; the helper independently rejects private routing. */
++    if (!recovery)
++        publish_stem_prefix(deck, ofs_stems_decoded(deck));
+     t_dec = ms_now();
+     for (int k = 0; k < NSTEM; k++)
+         logln("ogg: decode slot %d -> %s frames=%ld", k, dk->stem[k] ? "ok" : "(none)",
+--- a/src/azstem/stem_envelopes.c
++++ b/src/azstem/stem_envelopes.c
+@@ -34,24 +34,28 @@
+ static void env_progress(int deck) {
+     if (recovery_hidden(deck))
+         return;
+-    long total = g_env_total[deck];
+-    if (total <= 0)
+-        return;
+     deck_stems *dk = &g_dk[deck];
+-    unsigned present = atomic_load_explicit(&g_stem_present[deck], memory_order_relaxed);
++    unsigned present = atomic_load_explicit(&g_stem_present[deck], memory_order_acquire);
+     long covered = -1;
+     for (int k = 0; k < NSTEM; k++)
+         if (present & (1u << k)) {
+-            long d = atomic_load_explicit(&g_stem_dec[deck][k], memory_order_relaxed);
++            long d = atomic_load_explicit(&g_stem_dec[deck][k], memory_order_acquire);
+             if (covered < 0 || d < covered)
+                 covered = d;
+         }
+     if (covered <= 0)
+         return;
++    /* Header seeds may still extend this mapping. Snapshot under their mutex
++     * and retain that mapping throughout this envelope pass. */
++    pthread_mutex_lock(&g_envp_lock);
++    long total = g_env_total[deck];
++    if (total <= 0) {
++        pthread_mutex_unlock(&g_envp_lock);
++        return;
++    }
+     int want = (int) ((double) covered / (double) total * AZW_N);
+     if (want > AZW_N)
+         want = AZW_N;
+-    pthread_mutex_lock(&g_envp_lock);
+     int from = g_env_filled[deck];
+     if (want > from) {
+         for (int b = from; b < want; b++) {
+--- a/src/azstem/ofsload.c
++++ b/src/azstem/ofsload.c
+@@ -609,11 +609,11 @@
+ 
+ /* Frames decoded so far by every present stem (the gate's own min), ignoring the hold. */
+ static long ofs_stems_decoded(int deck) {
+-    unsigned present = atomic_load_explicit(&g_stem_present[deck], memory_order_relaxed);
++    unsigned present = atomic_load_explicit(&g_stem_present[deck], memory_order_acquire);
+     long m = -1;
+     for (int k = 0; k < NSTEM; k++)
+         if (present & (1u << k)) {
+-            long d = atomic_load_explicit(&g_stem_dec[deck][k], memory_order_relaxed);
++            long d = atomic_load_explicit(&g_stem_dec[deck][k], memory_order_acquire);
+             if (m < 0 || d < m)
+                 m = d;
+         }

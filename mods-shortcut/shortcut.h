@@ -47,6 +47,27 @@ static uint64_t gp_shortcut_until;
 static int gp_shortcut_knob_known;
 static unsigned char gp_shortcut_knob;
 
+/* Spare lanes. The core switches a filter off for the session after 8 overruns,
+ * counted cumulatively, and a preempted call counts. One filter therefore dies
+ * eventually on a busy deck. Each lane is its own registration with its own
+ * strike count; only the active lane runs the shortcut, the others only beat.
+ * One bus = one thread, so lanes never run at the same time. */
+#ifndef GP_SHORTCUT_LANES
+#define GP_SHORTCUT_LANES 4
+#endif
+static int gp_shortcut_lanes;                          /* registered, set in init */
+static int gp_shortcut_lane;                           /* __atomic: active lane */
+static uint32_t gp_shortcut_beat[GP_SHORTCUT_LANES];   /* __atomic: frames seen, per lane */
+static int gp_shortcut_all_off;                        /* __atomic: no lane beating */
+/* UI-only watch state. */
+static uint32_t gp_shortcut_seen[GP_SHORTCUT_LANES];
+static int gp_shortcut_off[GP_SHORTCUT_LANES], gp_shortcut_stall[GP_SHORTCUT_LANES];
+static long gp_shortcut_watch_at = -1, gp_shortcut_quiet_since = -1;
+/* Last cancellation, for the log: f[31], f[32], f[33], knob moved. Mixer writes. */
+static uint32_t gp_shortcut_cancel_why;                /* __atomic */
+/* Or the screen it left for, + 1 (0 = not a screen change). Mixer writes. */
+static uint32_t gp_shortcut_cancel_view;               /* __atomic */
+
 static long gp_shortcut_clock_ms(void)
 {
     struct timespec t;
@@ -74,6 +95,11 @@ static int gp_shortcut_request(long now)
         (gp_shortcut_last_request >= 0 && now - gp_shortcut_last_request < 500) ||
         gp_shortcut_core->view() != AZ_VIEW_DECK) return 0;
     uint64_t token = ((uint64_t)now + 1) << 2, expected = 0;
+    /* Clear old log reasons before publishing: once the token is out, the bus owns them. */
+    if (!__atomic_load_n(&gp_shortcut_request_word, __ATOMIC_ACQUIRE)) {
+        __atomic_store_n(&gp_shortcut_cancel_why, 0, __ATOMIC_RELAXED);
+        __atomic_store_n(&gp_shortcut_cancel_view, 0, __ATOMIC_RELAXED);
+    }
     if (!__atomic_compare_exchange_n(&gp_shortcut_request_word, &expected, token,
                                     0, __ATOMIC_ACQ_REL, __ATOMIC_ACQUIRE)) return 0;
     gp_shortcut_last_request = now;
@@ -111,6 +137,9 @@ static int gp_shortcut_frame_at(int bus, unsigned char *f, int len, long now)
 
     /* Native input wins unchanged, including the release of our synthetic press. */
     if (f[32] || f[33] || (f[31] & 1) || knob_moved) {
+        __atomic_store_n(&gp_shortcut_cancel_why,
+                         (uint32_t)f[31] << 24 | (uint32_t)f[32] << 16 |
+                         (uint32_t)f[33] << 8 | (uint32_t)knob_moved, __ATOMIC_RELAXED);
         gp_shortcut_finish(token, 0);
         return AZ_FRAME_OK;
     }
@@ -120,6 +149,7 @@ static int gp_shortcut_frame_at(int bus, unsigned char *f, int len, long now)
     }
     int view = gp_shortcut_core->view();
     if (view != AZ_VIEW_DECK) {
+        __atomic_store_n(&gp_shortcut_cancel_view, (uint32_t)view + 1, __ATOMIC_RELAXED);
         gp_shortcut_finish(token, gp_shortcut_pulse_token == token &&
                            gp_shortcut_until && view == AZ_VIEW_SOURCE ? GP_SHORTCUT_SENT : 0);
         return AZ_FRAME_OK;
@@ -147,15 +177,92 @@ static int gp_shortcut_frame_at(int bus, unsigned char *f, int len, long now)
     return AZ_FRAME_OK;
 }
 
-static int gp_shortcut_frame(int bus, unsigned char *f, int len, void *user)
+__attribute__((unused)) static int gp_shortcut_frame(int bus, unsigned char *f, int len, void *user)
 {
     (void)user;
     return gp_shortcut_frame_at(bus, f, len, LONG_MIN);
 }
 
+/* The registered callback. user = lane + 1. A spare lane does one relaxed
+ * store and returns: the smallest window a preemption can land in. */
+static int gp_shortcut_lane_frame(int bus, unsigned char *f, int len, void *user)
+{
+    int lane = (int)(intptr_t)user - 1;
+    if (lane < 0 || lane >= GP_SHORTCUT_LANES) return AZ_FRAME_OK;
+    /* Sole writer is this bus thread; the UI only loads. */
+    __atomic_store_n(&gp_shortcut_beat[lane],
+                     __atomic_load_n(&gp_shortcut_beat[lane], __ATOMIC_RELAXED) + 1,
+                     __ATOMIC_RELAXED);
+    if (lane != __atomic_load_n(&gp_shortcut_lane, __ATOMIC_RELAXED)) return AZ_FRAME_OK;
+    return gp_shortcut_frame_at(bus, f, len, LONG_MIN);
+}
+
+#define GP_SHORTCUT_LOG(...) do { \
+    if (AZ_HAS(gp_shortcut_core, log)) gp_shortcut_core->log(gp_shortcut_id, __VA_ARGS__); \
+} while (0)
+
+/* UI thread, about 4 times a second. A lane that stops beating while another
+ * still beats, on two looks in a row (a frame can land between two loads of
+ * one look), has been switched off by the core (it never comes back until
+ * EP147 restarts). Move the shortcut to the next live lane. If every lane is
+ * quiet for 2 s, report all off; any beat afterwards clears that again. */
+static void gp_shortcut_watch_at_time(long now)
+{
+    if (!gp_shortcut_ready || now < 0) return;
+    if (gp_shortcut_watch_at >= 0 && now >= gp_shortcut_watch_at && now - gp_shortcut_watch_at < 250)
+        return;
+    gp_shortcut_watch_at = now;
+    int moved[GP_SHORTCUT_LANES] = {0}, any = 0;
+    for (int i = 0; i < gp_shortcut_lanes; i++) {
+        uint32_t b = __atomic_load_n(&gp_shortcut_beat[i], __ATOMIC_RELAXED);
+        moved[i] = b != gp_shortcut_seen[i];
+        gp_shortcut_seen[i] = b;
+        any |= moved[i];
+    }
+    if (!any) {
+        if (gp_shortcut_quiet_since < 0 || now < gp_shortcut_quiet_since) gp_shortcut_quiet_since = now;
+        if (now - gp_shortcut_quiet_since >= 2000 &&
+            !__atomic_load_n(&gp_shortcut_all_off, __ATOMIC_RELAXED)) {
+            __atomic_store_n(&gp_shortcut_all_off, 1, __ATOMIC_RELAXED);
+            GP_SHORTCUT_LOG("MODS: no input lane is running; button off until restart");
+        }
+        return;
+    }
+    gp_shortcut_quiet_since = -1;
+    if (__atomic_load_n(&gp_shortcut_all_off, __ATOMIC_RELAXED)) {
+        __atomic_store_n(&gp_shortcut_all_off, 0, __ATOMIC_RELAXED);
+        GP_SHORTCUT_LOG("MODS: input lane running again");
+    }
+    for (int i = 0; i < gp_shortcut_lanes; i++) {
+        if (moved[i]) {
+            gp_shortcut_stall[i] = gp_shortcut_off[i] = 0;
+        } else if (!gp_shortcut_off[i] && ++gp_shortcut_stall[i] >= 2) {
+            gp_shortcut_off[i] = 1;
+            GP_SHORTCUT_LOG("MODS: lane %d switched off by the core", i + 1);
+        }
+    }
+    int active = __atomic_load_n(&gp_shortcut_lane, __ATOMIC_RELAXED);
+    if (!gp_shortcut_off[active]) return;
+    for (int step = 1; step < gp_shortcut_lanes; step++) {
+        int next = (active + step) % gp_shortcut_lanes;
+        if (!gp_shortcut_off[next]) {
+            __atomic_store_n(&gp_shortcut_lane, next, __ATOMIC_RELAXED);
+            GP_SHORTCUT_LOG("MODS: moved to lane %d of %d", next + 1, gp_shortcut_lanes);
+            return;
+        }
+    }
+}
+
+__attribute__((unused)) static int gp_shortcut_running(void)
+{
+    return gp_shortcut_ready && !__atomic_load_n(&gp_shortcut_all_off, __ATOMIC_RELAXED);
+}
+
 static void gp_shortcut_fallback(void)
 {
     gp_shortcut_notice = 0;
+    GP_SHORTCUT_LOG("MODS tap: timed out before SOURCE opened (lane %d of %d)",
+                    __atomic_load_n(&gp_shortcut_lane, __ATOMIC_RELAXED) + 1, gp_shortcut_lanes);
     if (AZ_HAS(gp_shortcut_core, banner))
         gp_shortcut_core->banner(gp_shortcut_id, "MODS timed out. Use SOURCE > MOD MENU", 3000);
 }
@@ -177,11 +284,26 @@ static void gp_shortcut_tick_at(long now)
     if ((completed & GP_SHORTCUT_TOKEN_MASK) == gp_shortcut_notice_token) {
         unsigned status = (unsigned)(completed & 3);
         if (status == GP_SHORTCUT_EXPIRED) { gp_shortcut_fallback(); return; }
-        if (!status) { gp_shortcut_notice = 0; return; }
+        if (!status) {
+            uint32_t why = __atomic_load_n(&gp_shortcut_cancel_why, __ATOMIC_RELAXED);
+            uint32_t left = __atomic_load_n(&gp_shortcut_cancel_view, __ATOMIC_RELAXED);
+            if (left)
+                GP_SHORTCUT_LOG("MODS tap: screen changed to view %u before the press finished (now view %d)",
+                                (unsigned)(left - 1), gp_shortcut_core->view());
+            else
+                GP_SHORTCUT_LOG("MODS tap: cancelled by panel input (b31=%02x b32=%02x b33=%02x knob=%u)",
+                                (unsigned)(why >> 24), (unsigned)(why >> 16 & 0xff),
+                                (unsigned)(why >> 8 & 0xff), (unsigned)(why & 0xff));
+            __atomic_store_n(&gp_shortcut_cancel_why, 0, __ATOMIC_RELAXED);
+            __atomic_store_n(&gp_shortcut_cancel_view, 0, __ATOMIC_RELAXED);
+            gp_shortcut_notice = 0;
+            return;
+        }
         if (now >= 0 && (uint64_t)now >= gp_shortcut_token_time(gp_shortcut_notice_token) &&
             (uint64_t)now <= gp_shortcut_notice_until &&
             gp_shortcut_core->view() == AZ_VIEW_SOURCE) {
             gp_shortcut_notice = 0;
+            GP_SHORTCUT_LOG("MODS tap: SOURCE opened");
             if (AZ_HAS(gp_shortcut_core, banner))
                 gp_shortcut_core->banner(gp_shortcut_id, "Tap MOD MENU in the source list", 2200);
             return;
@@ -197,7 +319,9 @@ static void gp_shortcut_tick_at(long now)
 
 static void gp_shortcut_tick(void)
 {
-    gp_shortcut_tick_at(gp_shortcut_clock_ms());
+    long now = gp_shortcut_clock_ms();
+    gp_shortcut_watch_at_time(now);
+    gp_shortcut_tick_at(now);
 }
 
 static int gp_shortcut_init(const az_core_v1 *core, const char *id)
@@ -206,7 +330,17 @@ static int gp_shortcut_init(const az_core_v1 *core, const char *id)
     if (!core || !id || !AZ_HAS(core, frame_filter) || !AZ_HAS(core, view)) return 0;
     gp_shortcut_core = core;
     gp_shortcut_id = id;
-    if (core->frame_filter(id, 1u << AZ_BUS_MIXER_IN, gp_shortcut_frame, NULL) != 0) return 0;
+    /* Lane 1 is required; spares are best effort (the core allows 32 filters in all). */
+    gp_shortcut_lanes = 0;
+    __atomic_store_n(&gp_shortcut_lane, 0, __ATOMIC_RELAXED);
+    for (int i = 0; i < GP_SHORTCUT_LANES; i++) {
+        if (core->frame_filter(id, 1u << AZ_BUS_MIXER_IN, gp_shortcut_lane_frame,
+                               (void *)(intptr_t)(i + 1)) != 0) break;
+        gp_shortcut_lanes = i + 1;
+    }
+    if (!gp_shortcut_lanes) return 0;
+    GP_SHORTCUT_LOG("MODS: %d input lane%s registered", gp_shortcut_lanes,
+                    gp_shortcut_lanes == 1 ? "" : "s");
     gp_shortcut_ready = 1;
     return 1;
 }
