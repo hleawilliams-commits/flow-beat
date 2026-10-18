@@ -297,6 +297,27 @@
       "license": "GPL-3.0-only",
       "min_core": "1.2.3",
       "description": "Put MOMENTS.txt at the top of the USB, one line per moment: 19:15 | First Dance | Perfect - Ed Sheeran | Couple to the floor. A minute ahead (or 2 or 5) a full-screen card shows the moment, a countdown, the song and whether a deck has it loaded, and the MC line; tap it to shrink it to a small countdown, and a short NOW card shows at the moment. Time zone row for the venue (US daylight saving built in); Show test card to check it. Read-only: no controls, audio or library writes."
+    },
+    {
+      "id": "dead-air-guard",
+      "name": "Dead-Air Guard",
+      "version": "0.1.0",
+      "author": "hleawilliams-commits",
+      "summary": "Warns before the room goes silent: LOAD NEXT, ENDING, QUIET and DEAD AIR, as thin edge bars and one label.",
+      "icon": "https://github.com/hleawilliams-commits/flow-beat/releases/download/dead-air-guard-0.1.0/dead-air-guard-0.1.0-icon.png",
+      "package": "https://github.com/hleawilliams-commits/flow-beat/releases/download/dead-air-guard-0.1.0/dead-air-guard-0.1.0.azmod",
+      "sha256": "6e747399a522d7d37f5c2c709d02d81e8238105584280ace5313d45500306471",
+      "size": 57026,
+      "firmware": [
+        "any"
+      ],
+      "hooks": false,
+      "source": "https://github.com/hleawilliams-commits/flow-beat/tree/codex/az-mods-handoff-2026-10-16/dead-air-guard",
+      "updated": "2026-10-18",
+      "category": "visual",
+      "license": "GPL-3.0-only",
+      "min_core": "1.2.3",
+      "description": "Amber LOAD NEXT when every deck you can hear ends within 30 s (adjustable) and no other deck has a different track loaded; red ENDING at 10 s; QUIET when audible decks have been near-silent for 4 s; DEAD AIR if the music stops with the mics off. A deck playing with its channel fader down doesn't count as heard. A mic or TALK OVER switch on silences DEAD/QUIET during speeches. Shows as thin top/bottom bars and one small label, never over the Mod Menu. Read-only: watches the mixer input and each deck's audio level, changes nothing."
     }
   ]
 }
