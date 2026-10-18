@@ -276,6 +276,27 @@
       "min_core": "1.2.3",
       "description": "Browse both USBs on an iPad or phone and send a pick to the deck. Open http://crate-remote.local:8765 (or the Wi-Fi or cable address on this mod's page) on the deck's Wi-Fi or a cable to the LINK port, and enter the PIN shown there. Show on deck puts the browser on the track; Load presses LOAD only for a stopped deck and checks the deck got it. It drives the deck's own controls (PLAYLIST, knob, clicks); touching any control stops it. Uses the network (port 8765) and runs avahi-publish for the .local name. Never writes the library.",
       "assets_kb": 1
+    },
+    {
+      "id": "moment-cards",
+      "name": "Moment Cards",
+      "version": "0.1.0",
+      "author": "hleawilliams-commits",
+      "summary": "Wedding run-of-show on the deck: a big card for each moment a minute ahead, with countdown, song and MC line.",
+      "icon": "https://github.com/hleawilliams-commits/flow-beat/releases/download/moment-cards-0.1.0/moment-cards-0.1.0-icon.png",
+      "package": "https://github.com/hleawilliams-commits/flow-beat/releases/download/moment-cards-0.1.0/moment-cards-0.1.0.azmod",
+      "sha256": "70e6609e6da479729de54662e75cb38966d14e190b9c5d084dfdf065b5a54447",
+      "size": 66486,
+      "firmware": [
+        "any"
+      ],
+      "hooks": false,
+      "source": "https://github.com/hleawilliams-commits/flow-beat/tree/codex/az-mods-handoff-2026-10-16/moment-cards",
+      "updated": "2026-10-18",
+      "category": "visual",
+      "license": "GPL-3.0-only",
+      "min_core": "1.2.3",
+      "description": "Put MOMENTS.txt at the top of the USB, one line per moment: 19:15 | First Dance | Perfect - Ed Sheeran | Couple to the floor. A minute ahead (or 2 or 5) a full-screen card shows the moment, a countdown, the song and whether a deck has it loaded, and the MC line; tap it to shrink it to a small countdown, and a short NOW card shows at the moment. Time zone row for the venue (US daylight saving built in); Show test card to check it. Read-only: no controls, audio or library writes."
     }
   ]
 }
