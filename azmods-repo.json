@@ -318,6 +318,27 @@
       "license": "GPL-3.0-only",
       "min_core": "1.2.3",
       "description": "Amber LOAD NEXT when every deck you can hear ends within 30 s (adjustable) and no other deck has a different track loaded; red ENDING at 10 s; QUIET when audible decks have been near-silent for 4 s; DEAD AIR if the music stops with the mics off. A deck playing with its channel fader down doesn't count as heard. A mic or TALK OVER switch on silences DEAD/QUIET during speeches. Shows as thin top/bottom bars and one small label, never over the Mod Menu. Read-only: watches the mixer input and each deck's audio level, changes nothing."
+    },
+    {
+      "id": "pad-lights",
+      "name": "Pad Lights",
+      "version": "0.1.0",
+      "author": "hleawilliams-commits",
+      "summary": "The pads as a light show when idle; optional key-coloured beat pulse or 32-beat phrase countdown.",
+      "icon": "https://github.com/hleawilliams-commits/flow-beat/releases/download/pad-lights-0.1.0/pad-lights-0.1.0-icon.png",
+      "package": "https://github.com/hleawilliams-commits/flow-beat/releases/download/pad-lights-0.1.0/pad-lights-0.1.0.azmod",
+      "sha256": "fca98ac0c832ba1e232a1181e42fe870841aa08c30a11a8c0caa48a4979a7537",
+      "size": 61134,
+      "firmware": [
+        "any"
+      ],
+      "hooks": false,
+      "source": "https://github.com/hleawilliams-commits/flow-beat/tree/codex/az-mods-handoff-2026-10-16/pad-lights",
+      "updated": "2026-10-18",
+      "category": "visual",
+      "license": "GPL-3.0-only",
+      "min_core": "1.2.3",
+      "description": "Idle show (default): the pads glow in a slow colour wave on a side whose deck is stopped or empty, so the deck you're playing keeps its own hot-cue colours. Beat pulse: the playing side's pads pulse on every beat in a colour from the track's key. Phrase countdown: the pads fill over 32 beats from when the track started, and the last bar flashes red. Off returns every pad to normal. Changes pad colours only: no controls, audio or library writes."
     }
   ]
 }
