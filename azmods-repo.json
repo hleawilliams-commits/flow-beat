@@ -28,22 +28,43 @@
     {
       "id": "flow-beat",
       "name": "FLOW Beat Link",
-      "version": "0.2.1",
+      "version": "0.3.0",
       "author": "hleawilliams-commits",
       "summary": "Sends each deck's beat, BPM, play state and track to FLOW VJ over the network, to lock visuals and lights.",
-      "icon": "https://github.com/hleawilliams-commits/flow-beat/releases/download/flow-beat-0.2.1/flow-beat-0.2.1-icon.png",
-      "package": "https://github.com/hleawilliams-commits/flow-beat/releases/download/flow-beat-0.2.1/flow-beat-0.2.1.azmod",
-      "sha256": "38359036af9158f0061620f58ea6ecaf01255b5b104040d2bca800229b2967c0",
-      "size": 50800,
+      "icon": "https://github.com/hleawilliams-commits/flow-beat/releases/download/flow-beat-0.3.0/flow-beat-0.3.0-icon.png",
+      "package": "https://github.com/hleawilliams-commits/flow-beat/releases/download/flow-beat-0.3.0/flow-beat-0.3.0.azmod",
+      "sha256": "624b3c442f1159bfd837e00c49d17325d319380a09c3adfc10c976fdb49906af",
+      "size": 53434,
       "firmware": [
         "any"
       ],
       "hooks": false,
       "source": "https://github.com/hleawilliams-commits/flow-beat",
-      "updated": "2026-10-16",
+      "updated": "2026-10-17",
       "license": "GPL-3.0-only",
       "min_core": "1.2.3",
-      "description": "Adds one row to the Mod Menu: Send beat to FLOW (on by default).\n\nWhile it is on, the mod sends small UDP packets on the deck's network (Wi-Fi or LINK cable), broadcast to port 9100 unless flow-beat:host in MODS/azmods.cfg names one computer: the moment each playing deck starts a new beat, each deck's BPM and position in the beat 50 times a second, and each deck's track title and artist. FLOW VJ (or any program) listens for them.\n\nIt uses the network. It only reads deck state through the core's services: it does not patch the deck's code, change any control or audio, or write files."
+      "description": "Rows: Send beat to FLOW (on) and Send mixer data (test) (off).\n\nSends UDP packets on the deck's network (Wi-Fi or LINK), broadcast to port 9100 unless flow-beat:host in MODS/azmods.cfg names one computer: each new beat, each deck's BPM and beat position 50 times a second, track title and artist, and each deck's own audio level and bass (read before the hardware mixer). FLOW VJ listens for them.\n\nRead-only: it does not patch the deck, change controls or audio, or write files."
+    },
+    {
+      "id": "grouped-panels",
+      "name": "Grouped Deck Panels",
+      "version": "0.3.0",
+      "author": "hleawilliams-commits",
+      "summary": "Deck headers with key, phrase and mix hints in 4 DECK, 2/4 DECK and 2 DECK.",
+      "icon": "https://github.com/hleawilliams-commits/flow-beat/releases/download/grouped-panels-0.3.0/grouped-panels-0.3.0-icon.png",
+      "package": "https://github.com/hleawilliams-commits/flow-beat/releases/download/grouped-panels-0.3.0/grouped-panels-0.3.0.azmod",
+      "sha256": "5896015777560a7907e920206d8e8b64e143b8fb438cea5704542edd87eb91da",
+      "size": 70318,
+      "firmware": [
+        "any"
+      ],
+      "hooks": false,
+      "source": "https://github.com/hleawilliams-commits/flow-beat/tree/codex/az-mods-handoff-2026-10-16/grouped-panels",
+      "updated": "2026-10-17",
+      "category": "visual",
+      "license": "GPL-3.0-only",
+      "min_core": "1.2.3",
+      "description": "Input-transparent deck headers beside the stock BPM: title, original Camelot key, relative phrase counter. Mix hints: key turns green/amber/red against the longest-playing other deck, the deck number turns amber at 30 s and red at 10 s left, a dot shows stems (filled = playing, hollow = found), and a small BPM gap appears within 8 BPM. Works in 4 DECK, 2/4 DECK and 2 DECK (Two-deck view: Auto follows the last layout tab tapped, or pick it). No audio, tempo, key or library changes."
     },
     {
       "id": "harmonic-picks",
@@ -107,6 +128,27 @@
       "license": "GPL-3.0-only",
       "min_core": "1.2.3",
       "description": "Test build 0.1.0: validated and harness-tested, not yet run on a deck. One line for the two decks you are mixing (the two that started playing last): both keys in Camelot, then SAME or MATCH in green (same key, a neighbour, or the relative key), BOOST in amber (two steps round the wheel) or CLASH in red, and the pitch gap between the two tracks' original tempos, half and double time included.\n\nKeys and tempos come from the stick's rekordbox library, read on the mod's own thread. Mod Menu rows: on/off, pitch gap on/off, top or bottom.\n\nReads deck state and the library through the AZ-MODS core only: no hooks, controls, LEDs, audio, files or network."
+    },
+    {
+      "id": "mods-shortcut",
+      "name": "MODS Shortcut",
+      "version": "0.1.3",
+      "author": "hleawilliams-commits",
+      "summary": "Hide the WAVEFORM heading and use MODS to open SOURCE for the official Mod Menu.",
+      "icon": "https://github.com/hleawilliams-commits/flow-beat/releases/download/mods-shortcut-0.1.3/mods-shortcut-0.1.3-icon.png",
+      "package": "https://github.com/hleawilliams-commits/flow-beat/releases/download/mods-shortcut-0.1.3/mods-shortcut-0.1.3.azmod",
+      "sha256": "368dd4c6ed2a08b2865dfc18342ac7b3ec6e93ee541e680c0c7bef179bc23786",
+      "size": 57334,
+      "firmware": [
+        "any"
+      ],
+      "hooks": false,
+      "source": "https://github.com/hleawilliams-commits/flow-beat/tree/codex/az-mods-handoff-2026-10-16/mods-shortcut",
+      "updated": "2026-10-17",
+      "category": "visual",
+      "license": "GPL-3.0-only",
+      "min_core": "1.2.3",
+      "description": "SDK-only community mod. MODS opens SOURCE; select MOD MENU to open the official menu. 0.1.3 registers spare input lanes and moves to the next when the core switches one off, dims the button with a SOURCE > MOD MENU message when none remain, and logs each tap's outcome. Physical navigation and LOAD cancel the shortcut. Hide WAVEFORM heading blanks only its title area; touches pass through. Official core timing protections are unchanged. No track loading, audio or library writes."
     },
     {
       "id": "phase-strip",
@@ -212,48 +254,6 @@
       "license": "GPL-3.0-only",
       "min_core": "1.2.3",
       "description": "Test build 0.1.0: validated and harness-tested, not yet run on a deck. A small badge on each deck: STEMS in green when the track has stems and the stems engine plays them, STEMS in grey when it has stems but they are off, NO STEMS in red when there are none, so you never reach for a stem pad on a track without stems.\n\nMod Menu rows: on/off, every deck or only tracks with no stems, and on the deck's row or at the screen top. With decks 3 or 4 in use in the 2/4 DECK view the badges carry their deck number and sit at the top.\n\nReads deck state through the AZ-MODS core only: no hooks, controls, LEDs, audio, files or network."
-    },
-    {
-      "id": "grouped-panels",
-      "name": "Grouped Deck Panels",
-      "version": "0.3.0",
-      "author": "hleawilliams-commits",
-      "summary": "Deck headers with key, phrase and mix hints in 4 DECK, 2/4 DECK and 2 DECK.",
-      "icon": "https://github.com/hleawilliams-commits/flow-beat/releases/download/grouped-panels-0.3.0/grouped-panels-0.3.0-icon.png",
-      "package": "https://github.com/hleawilliams-commits/flow-beat/releases/download/grouped-panels-0.3.0/grouped-panels-0.3.0.azmod",
-      "sha256": "5896015777560a7907e920206d8e8b64e143b8fb438cea5704542edd87eb91da",
-      "size": 70318,
-      "firmware": [
-        "any"
-      ],
-      "hooks": false,
-      "source": "https://github.com/hleawilliams-commits/flow-beat/tree/codex/az-mods-handoff-2026-10-16/grouped-panels",
-      "updated": "2026-10-17",
-      "category": "visual",
-      "license": "GPL-3.0-only",
-      "min_core": "1.2.3",
-      "description": "Input-transparent deck headers beside the stock BPM: title, original Camelot key, relative phrase counter. Mix hints: key turns green/amber/red against the longest-playing other deck, the deck number turns amber at 30 s and red at 10 s left, a dot shows stems (filled = playing, hollow = found), and a small BPM gap appears within 8 BPM. Works in 4 DECK, 2/4 DECK and 2 DECK (Two-deck view: Auto follows the last layout tab tapped, or pick it). No audio, tempo, key or library changes."
-    },
-    {
-      "id": "mods-shortcut",
-      "name": "MODS Shortcut",
-      "version": "0.1.3",
-      "author": "hleawilliams-commits",
-      "summary": "Hide the WAVEFORM heading and use MODS to open SOURCE for the official Mod Menu.",
-      "icon": "https://github.com/hleawilliams-commits/flow-beat/releases/download/mods-shortcut-0.1.3/mods-shortcut-0.1.3-icon.png",
-      "package": "https://github.com/hleawilliams-commits/flow-beat/releases/download/mods-shortcut-0.1.3/mods-shortcut-0.1.3.azmod",
-      "sha256": "368dd4c6ed2a08b2865dfc18342ac7b3ec6e93ee541e680c0c7bef179bc23786",
-      "size": 57334,
-      "firmware": [
-        "any"
-      ],
-      "hooks": false,
-      "source": "https://github.com/hleawilliams-commits/flow-beat/tree/codex/az-mods-handoff-2026-10-16/mods-shortcut",
-      "updated": "2026-10-17",
-      "category": "visual",
-      "license": "GPL-3.0-only",
-      "min_core": "1.2.3",
-      "description": "SDK-only community mod. MODS opens SOURCE; select MOD MENU to open the official menu. 0.1.3 registers spare input lanes and moves to the next when the core switches one off, dims the button with a SOURCE > MOD MENU message when none remain, and logs each tap's outcome. Physical navigation and LOAD cancel the shortcut. Hide WAVEFORM heading blanks only its title area; touches pass through. Official core timing protections are unchanged. No track loading, audio or library writes."
     }
   ]
 }
