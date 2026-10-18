@@ -1,0 +1,18 @@
+{
+  "azmod": 1,
+  "id": "crate-remote",
+  "name": "Crate Remote",
+  "version": "0.3.0",
+  "author": "hleawilliams-commits",
+  "summary": "Browse both USBs on an iPad, see what fits, and send a pick to the deck: highlighted, or loaded on a stopped deck.",
+  "description": "Browse both USBs on an iPad or phone and send a pick to the deck. Open http://crate-remote.local:8765 (or the Wi-Fi or cable address on this mod's page) on the deck's Wi-Fi or a cable to the LINK port, and enter the PIN shown there. Show on deck puts the browser on the track; Load presses LOAD only for a stopped deck and checks the deck got it. It drives the deck's own controls (PLAYLIST, knob, clicks); touching any control stops it. Uses the network (port 8765) and runs avahi-publish for the .local name. Never writes the library.",
+  "category": "tools",
+  "license": "GPL-3.0-only",
+  "source": "https://github.com/hleawilliams-commits/flow-beat/tree/codex/az-mods-handoff-2026-10-16/crate-remote",
+  "api": 1,
+  "firmware": [
+    "any"
+  ],
+  "hooks": false,
+  "min_core": "1.2.3"
+}

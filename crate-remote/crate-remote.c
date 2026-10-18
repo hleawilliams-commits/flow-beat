@@ -46,7 +46,9 @@ static int cr_row = -1;
 
 /* Shared with the UI thread under cr_mu (UI side only ever trylocks). */
 static pthread_mutex_t cr_mu = PTHREAD_MUTEX_INITIALIZER;
-static char cr_addr[64];           /* "192.168.1.212" or "" */
+static char cr_addr[64];           /* the address to show first: Wi-Fi, else cable, else any */
+static char cr_addr_wifi[64], cr_addr_wired[64];
+static int cr_mdns_on;             /* the crate-remote.local helper is running */
 static char cr_banner_text[112];
 static unsigned cr_banner_seq;     /* __atomic */
 static int cr_tracks_seen[2] = {-1, -1};
@@ -372,24 +374,52 @@ static int cr_route(const cr_req *r, cr_sb *body, const char **type)
 }
 
 /* ---- network ---- */
+/* The deck's interfaces: mlan0 = Wi-Fi (Marvell), eth0 = the LINK port (internal switch).
+ * Only IPv4; a direct cable with no DHCP gets 169.254.x.x from avahi-autoipd. */
+static int cr_mdns_pid = -1;
+static char cr_assets[320];         /* assets_dir, read once in init (it touches the disk) */
+static char cr_mdns_for[160];
+static void cr_mdns_sync(const char *wifi, const char *wired)
+{
+    char want[160];
+    snprintf(want, sizeof want, "%s %s", wifi, wired);
+    if (!strcmp(want, cr_mdns_for) && cr_mdns_pid > 0 && C->launch_alive(MOD_ID, cr_mdns_pid)) return;
+    if (cr_mdns_pid > 0) { C->launch_stop(MOD_ID, cr_mdns_pid); cr_mdns_pid = -1; }
+    snprintf(cr_mdns_for, sizeof cr_mdns_for, "%s", want);
+    if (AZ_HAS(C, launch) && cr_assets[0] && (wifi[0] || wired[0])) {
+        char path[400];
+        snprintf(path, sizeof path, "%s/mdns.sh", cr_assets);
+        const char *av[4]; int n = 0;
+        if (wifi[0]) av[n++] = wifi;
+        if (wired[0]) av[n++] = wired;
+        av[n] = NULL;
+        az_launch_opts o = {.size = sizeof o, .nice = 10, .cpu_mask = 0, .mem_mb = 32, .log_path = NULL};
+        cr_mdns_pid = C->launch(MOD_ID, path, av, &o);
+    }
+    __atomic_store_n(&cr_mdns_on, cr_mdns_pid > 0, __ATOMIC_RELAXED);
+}
 static void cr_update_addr(void)
 {
     struct ifaddrs *ifa = NULL, *i;
-    char best[64] = "";
+    char wifi[64] = "", wired[64] = "", other[64] = "";
     if (getifaddrs(&ifa) == 0) {
         for (i = ifa; i; i = i->ifa_next) {
             if (!i->ifa_addr || i->ifa_addr->sa_family != AF_INET || (i->ifa_flags & IFF_LOOPBACK) ||
                 !(i->ifa_flags & IFF_UP)) continue;
             char a[INET_ADDRSTRLEN];
             inet_ntop(AF_INET, &((struct sockaddr_in *)i->ifa_addr)->sin_addr, a, sizeof a);
-            /* Prefer Wi-Fi (wlan*) over the LINK port, which carries other gear. */
-            if (!best[0] || !strncmp(i->ifa_name, "wlan", 4)) snprintf(best, sizeof best, "%s", a);
+            if (!strncmp(i->ifa_name, "mlan", 4) || !strncmp(i->ifa_name, "wlan", 4)) { if (!wifi[0]) snprintf(wifi, sizeof wifi, "%s", a); }
+            else if (!strncmp(i->ifa_name, "eth", 3)) { if (!wired[0]) snprintf(wired, sizeof wired, "%s", a); }
+            else if (!other[0]) snprintf(other, sizeof other, "%s", a);
         }
         freeifaddrs(ifa);
     }
     pthread_mutex_lock(&cr_mu);
-    snprintf(cr_addr, sizeof cr_addr, "%s", best);
+    snprintf(cr_addr_wifi, sizeof cr_addr_wifi, "%s", wifi);
+    snprintf(cr_addr_wired, sizeof cr_addr_wired, "%s", wired);
+    snprintf(cr_addr, sizeof cr_addr, "%s", wifi[0] ? wifi : wired[0] ? wired : other);
     pthread_mutex_unlock(&cr_mu);
+    if (__atomic_load_n(&cr_enabled, __ATOMIC_RELAXED)) cr_mdns_sync(wifi, wired);
 }
 static void cr_send_all(int fd, const char *p, size_t n)
 {
@@ -449,6 +479,10 @@ static void *cr_http_thread(void *arg)
             if (lfd < 0) { sleep(5); cr_secs += 5; continue; }
         }
         if (!on && lfd >= 0) { close(lfd); lfd = -1; __atomic_store_n(&cr_port_state, 0, __ATOMIC_RELAXED); }
+        if (!on && cr_mdns_pid > 0) {                    /* off: stop publishing the name too */
+            C->launch_stop(MOD_ID, cr_mdns_pid); cr_mdns_pid = -1; cr_mdns_for[0] = 0;
+            __atomic_store_n(&cr_mdns_on, 0, __ATOMIC_RELAXED);
+        }
         if (cr_now_s() >= next_addr) { cr_update_addr(); next_addr = cr_now_s() + 15; }
         if (lfd < 0) { sleep(1); cr_secs++; continue; }
         struct pollfd p = {lfd, POLLIN, 0};
@@ -619,10 +653,20 @@ static void cr_draw(az_draw *d, az_rect a, void *user)
         cr_line(d, a, y, "Off. Turn on \"iPad browser\" in Mod Menu.", 22, dim);
         return;
     }
-    y = cr_line(d, a, y, "On your iPad or phone, same Wi-Fi as the deck, open:", 20, dim);
-    if (addr[0]) snprintf(line, sizeof line, "http://%s:%d", addr, CR_PORT);
-    else snprintf(line, sizeof line, "No network: join Wi-Fi in the deck's settings");
-    y = cr_line(d, a, y, line, 36, addr[0] ? hi : dim);
+    char wifi[64] = "", wired[64] = "";
+    if (pthread_mutex_trylock(&cr_mu) == 0) {
+        snprintf(wifi, sizeof wifi, "%s", cr_addr_wifi); snprintf(wired, sizeof wired, "%s", cr_addr_wired);
+        pthread_mutex_unlock(&cr_mu);
+    }
+    y = cr_line(d, a, y, "On your iPad or phone (same Wi-Fi, or a cable to the LINK port), open:", 20, dim);
+    if (__atomic_load_n(&cr_mdns_on, __ATOMIC_RELAXED) && (wifi[0] || wired[0]))
+        y = cr_line(d, a, y, "http://crate-remote.local:8765", 36, hi);
+    if (wifi[0]) { snprintf(line, sizeof line, "Wi-Fi   http://%s:%d", wifi, CR_PORT); y = cr_line(d, a, y, line, 24, text); }
+    if (wired[0]) { snprintf(line, sizeof line, "Cable   http://%s:%d", wired, CR_PORT); y = cr_line(d, a, y, line, 24, text); }
+    if (!wifi[0] && !wired[0]) {
+        snprintf(line, sizeof line, "%s", addr[0] ? addr : "No network: join Wi-Fi, or plug a cable into LINK");
+        y = cr_line(d, a, y, line, 24, addr[0] ? text : dim);
+    }
     snprintf(line, sizeof line, "PIN  %04d", cr_pin);
     y = cr_line(d, a, y, line, 48, text);
     char a0[24], a1[24];
@@ -640,7 +684,9 @@ static int cr_input(const az_event *ev, void *user) { (void)user; return ev && e
 static int cr_init(const az_core_v1 *core)
 {
     if (!core || core->abi != AZ_MOD_ABI) return 1;
-    C = core;
+    /* A Reload calls init again while the HTTP thread (started once) keeps using C: only
+     * store it when it really changes. */
+    if (__atomic_load_n(&C, __ATOMIC_ACQUIRE) != core) __atomic_store_n(&C, core, __ATOMIC_RELEASE);
     if (!AZ_HAS(C, lib_tracks) || !AZ_HAS(C, lib_playlists) || !AZ_HAS(C, thread_start) ||
         !AZ_HAS(C, register_screen) || !AZ_HAS(C, draw_text) || !AZ_HAS(C, draw_header) || !AZ_HAS(C, color))
         return 2;
@@ -662,6 +708,10 @@ static int cr_init(const az_core_v1 *core)
                     "clicking for you, from a playlist the track is in. Load only presses LOAD for a stopped deck. "
                     "Touching any control stops it."};
         cr_load_row = C->register_row(MOD_ID, &load);
+    }
+    if (AZ_HAS(C, assets_dir) && !cr_assets[0]) {
+        const char *ad = C->assets_dir(MOD_ID);
+        if (ad) snprintf(cr_assets, sizeof cr_assets, "%s", ad);
     }
     static const az_screen_v1 scr = {.size = sizeof scr, .on_draw = cr_draw, .on_input = cr_input};
     C->register_screen(MOD_ID, &scr);

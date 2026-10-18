@@ -1,4 +1,4 @@
-# Crate Remote 0.2.0
+# Crate Remote 0.3.0
 
 Browse both USBs on an iPad or phone while the deck's screen stays on mixing. See what fits the deck you're mixing from, search, open your playlists, and queue picks. Each pick flashes on the deck as **iPad pick: Title · key · BPM · USB n**. You still load with LOAD.
 
@@ -8,9 +8,13 @@ Tap a track's title on the iPad: **Show on deck** puts the deck's browser on it 
 
 ## Use it
 
-1. Put the deck on Wi-Fi (or your phone's hotspot) and the iPad on the same network.
-2. On the deck: **Mod Menu → Community Mods → Installed → Crate Remote** shows the address (`http://<deck>:8765`) and a 4-digit PIN. The PIN changes every time the deck starts.
-3. Open the address in Safari on the iPad and enter the PIN. *Add to Home Screen* makes it full-screen.
+1. Connect the iPad to the deck either way:
+   - **Wi-Fi:** the deck and iPad on the same network (or your phone's hotspot).
+   - **Cable:** a USB-C Ethernet adapter on the iPad into the deck's **LINK** port, directly or through a small switch. No router needed: both pick a 169.254.x.x address.
+2. On the deck: **Mod Menu → Community Mods → Installed → Crate Remote** shows `http://crate-remote.local:8765`, the Wi-Fi and cable addresses, and a 4-digit PIN (new every time the deck starts).
+3. Open `http://crate-remote.local:8765` in Safari (or one of the addresses) and enter the PIN. *Add to Home Screen* makes it full-screen.
+
+The `.local` name comes from a small helper (`assets/mdns.sh`) that asks the deck's own avahi-daemon to publish it; it stops when **iPad browser** is off.
 
 | Tab | What it does |
 |---|---|
