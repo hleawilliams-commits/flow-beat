@@ -258,23 +258,24 @@
     {
       "id": "crate-remote",
       "name": "Crate Remote",
-      "version": "0.2.0",
+      "version": "0.3.0",
       "author": "hleawilliams-commits",
       "summary": "Browse both USBs on an iPad, see what fits, and send a pick to the deck: highlighted, or loaded on a stopped deck.",
-      "icon": "https://github.com/hleawilliams-commits/flow-beat/releases/download/crate-remote-0.2.0/crate-remote-0.2.0-icon.png",
-      "package": "https://github.com/hleawilliams-commits/flow-beat/releases/download/crate-remote-0.2.0/crate-remote-0.2.0.azmod",
-      "sha256": "c4c8c5bbb2715dbe0bca1cf6091ab57a32d8deaf050f0cf8ae94bdf7b647deae",
-      "size": 96960,
+      "icon": "https://github.com/hleawilliams-commits/flow-beat/releases/download/crate-remote-0.3.0/crate-remote-0.3.0-icon.png",
+      "package": "https://github.com/hleawilliams-commits/flow-beat/releases/download/crate-remote-0.3.0/crate-remote-0.3.0.azmod",
+      "sha256": "6acfad0fdfdd29e518991020efb17af873d3197481450e52a65b0ab0b754c38a",
+      "size": 97465,
       "firmware": [
         "any"
       ],
       "hooks": false,
       "source": "https://github.com/hleawilliams-commits/flow-beat/tree/codex/az-mods-handoff-2026-10-16/crate-remote",
-      "updated": "2026-10-17",
+      "updated": "2026-10-18",
       "category": "tools",
       "license": "GPL-3.0-only",
       "min_core": "1.2.3",
-      "description": "Uses the network: serves one web page on port 8765 to devices on the deck's Wi-Fi, gated by a PIN shown on this mod's Mod Menu page. The page lists both USBs' tracks and playlists, shows the four decks, ranks tracks that fit the deck you're mixing from (Camelot key and BPM, half/double time included) and keeps a queue. Show on deck and Load drive the deck's own controls through the mixer input: PLAYLIST, BACK to the top, knob turns and clicks to the track's row in a playlist it's in (first 250 rows, list sorted by #), then LOAD only for a deck that is stopped; the deck must then report that track, or the page says to check it. Touching any control stops it. The iPad can load decks row turns loading off; iPad browser closes the port. Never writes the library."
+      "description": "Browse both USBs on an iPad or phone and send a pick to the deck. Open http://crate-remote.local:8765 (or the Wi-Fi or cable address on this mod's page) on the deck's Wi-Fi or a cable to the LINK port, and enter the PIN shown there. Show on deck puts the browser on the track; Load presses LOAD only for a stopped deck and checks the deck got it. It drives the deck's own controls (PLAYLIST, knob, clicks); touching any control stops it. Uses the network (port 8765) and runs avahi-publish for the .local name. Never writes the library.",
+      "assets_kb": 1
     }
   ]
 }
