@@ -12,7 +12,7 @@ control or audio, or write files. Needs AZ-MODS 1.2.3 or newer.
 
 | Folder | Mod | Status |
 |---|---|---|
-| `/` (root) | **FLOW Beat Link** (`flow-beat`): beat, BPM, play state, track and (0.3.0) each deck's own audio level + bass to FLOW VJ over UDP; a test row sends mixer panel data for mapping | released, 0.3.0 (0.3.0 not yet run on a deck) |
+| `/` (root) | **FLOW Beat Link** (`flow-beat`): beat, BPM, play state, track and (0.3.0) each deck's own audio level + bass to FLOW VJ over UDP; a test row sends mixer panel data for mapping | 0.4.0 built (guest-USB analysis: beat grid, waveform, phrases); 0.3.0 released; neither run on a deck yet |
 | `mods-shortcut/` | **MODS Shortcut**: SOURCE shortcut with lower idle work and safe timeout feedback | 0.1.2, emulator-tested; physical validation pending |
 | `key-next-to-bpm/` | **Key next to BPM**: the loaded track's key as a badge on each deck, Camelot or classic | test build 0.1.1, installed on a deck, menu checked |
 | `phase-strip/` | **4-Deck Phase Strip**: beat ticks for every playing deck under one playhead, works in 4 DECK | test build 0.1.1, installed on a deck, menu checked |

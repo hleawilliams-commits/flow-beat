@@ -19,6 +19,11 @@
  *        last state, 0..1) and "lo" (the same for its bass, below ~150 Hz): the deck's OWN audio, tapped
  *        before the hardware mixer (faders / EQ / crossfader are not in it), so FLOW's lights get each
  *        deck's kick without a microphone
+ *   0.4.0: {"flowbeat":1,"type":"wave","seq":N,"d":1,"sig":S,"len":L,"cnt":C,"title":"...","artist":"..."}
+ *        then C binary datagrams "FBW1" (24-byte header: magic, ver 1, deck, 0, sig, total, idx, cnt,
+ *        crc32 of the whole blob; then up to 1100 bytes): the loaded track's rekordbox analysis read
+ *        off the deck's own USB (PQTZ beat grid, PWV3 waveform, PSSI phrases, as raw tags), so FLOW
+ *        knows a guest USB's drops and waveform like its own. Sent on load, twice more, then every 10 s.
  *   {"flowbeat":1,"type":"mixraw","seq":N,"b":"<hex>"}
  *        only while "Send mixer data (test)" is on: the mixer/panel input frame whenever it changes
  *        (at most 20 a second), to map which bytes the faders, EQ and crossfader move
@@ -35,6 +40,9 @@
  *   flow-beat:port = 9100
  */
 #include <arpa/inet.h>
+#include <dirent.h>
+#include <stdlib.h>
+#include <sys/stat.h>
 #include <errno.h>
 #include <ifaddrs.h>
 #include <net/if.h>
@@ -63,6 +71,8 @@
 static const az_core_v1 *C;
 static int row_send = -1;    /* the "Send beat to FLOW" toggle */
 static int row_sniff = -1;   /* "Send mixer data (test)" (0.3.0), off by default */
+static int row_wave = -1;    /* "Send track analysis to FLOW" (0.4.0), on by default */
+static unsigned wave_seq_base = 0x40000000u;   /* the wave thread's own seq range, so the two threads never collide */
 static int track_dirty;      /* set by deck events (UI thread), read by the worker: atomics */
 
 /* ---- JSON text --------------------------------------------------------------------------- */
@@ -90,6 +100,10 @@ static int put_str(char *buf, int pos, int cap, const char *s)
 
 /* ---- the network ------------------------------------------------------------------------- */
 
+/* 0.4.0: two threads send now (beat + wave): one tiny spinlock guards the socket and the destination list */
+static atomic_flag net_lock = ATOMIC_FLAG_INIT;
+static void net_on(void) { while (atomic_flag_test_and_set_explicit(&net_lock, memory_order_acquire)) { struct timespec t = { 0, 50000 }; nanosleep(&t, NULL); } }
+static void net_off(void) { atomic_flag_clear_explicit(&net_lock, memory_order_release); }
 static int sock = -1;
 static char dest_host[64];
 static int dest_port;
@@ -130,6 +144,7 @@ static void read_cfg(int quiet)
         inet_pton(AF_INET, host, &a);
     }
 
+    net_on();
     int changed = strcmp(host, dest_host) != 0 || port != dest_port;
     int old_n = ndests;
     struct sockaddr_in old[MAX_DESTS];
@@ -149,8 +164,10 @@ static void read_cfg(int quiet)
     }
     if (ndests == 0) add_dest(a, port);   /* a set host, or no network found yet */
 
-    if (!changed && ndests == old_n && memcmp(old, dests, sizeof dests[0] * (size_t)ndests) == 0)
+    if (!changed && ndests == old_n && memcmp(old, dests, sizeof dests[0] * (size_t)ndests) == 0) {
+        net_off();
         return;
+    }
     snprintf(dest_host, sizeof dest_host, "%s", host);
     dest_port = port;
     if (!quiet || changed) {
@@ -160,9 +177,18 @@ static void read_cfg(int quiet)
             C->log(MOD_ID, "sending to %s:%d", ip, dest_port);
         }
     }
+    net_off();
 }
 
+static void send_pkt_locked(const char *buf, int len);
 static void send_pkt(const char *buf, int len)
+{
+    net_on();
+    send_pkt_locked(buf, len);
+    net_off();
+}
+
+static void send_pkt_locked(const char *buf, int len)
 {
     if (sock < 0) {
         sock = socket(AF_INET, SOCK_DGRAM, 0);
@@ -337,6 +363,255 @@ static void *worker(void *arg)
     return NULL;
 }
 
+
+/* ---- 0.4.0: the loaded track's rekordbox analysis, read off the deck's USB ----------------------------- */
+/* Everything here runs on the "flow-wave" thread: library calls and file reads never touch on_frame/UI. */
+#define WAVE_MAX (2 * 1024 * 1024)
+#define ANLZ_MAX (4 * 1024 * 1024)
+#define CHUNK 1100
+#define IDX_MAX 30000
+
+static uint32_t fnv(const char *a, const char *b)
+{
+    uint32_t h = 2166136261u;
+    for (const char *p = a; p && *p; p++) h = (h ^ (unsigned char)*p) * 16777619u;
+    h = (h ^ 0xffu) * 16777619u;
+    for (const char *p = b; p && *p; p++) h = (h ^ (unsigned char)*p) * 16777619u;
+    return h;
+}
+
+static uint32_t crc32_of(const unsigned char *p, size_t n)
+{
+    uint32_t c = 0xffffffffu;
+    for (size_t i = 0; i < n; i++) {
+        c ^= p[i];
+        for (int k = 0; k < 8; k++) c = (c >> 1) ^ (0xedb88320u & (0u - (c & 1u)));
+    }
+    return ~c;
+}
+
+static uint32_t be32(const unsigned char *p) { return ((uint32_t)p[0] << 24) | ((uint32_t)p[1] << 16) | ((uint32_t)p[2] << 8) | p[3]; }
+
+/* UTF-16BE → UTF-8 (PPTH stores the audio path in UTF-16BE). Returns bytes written. */
+static int utf16be_to_utf8(const unsigned char *in, int n, char *out, int cap)
+{
+    int o = 0;
+    for (int i = 0; i + 1 < n && o < cap - 5; i += 2) {
+        uint32_t c = ((uint32_t)in[i] << 8) | in[i + 1];
+        if (c == 0) break;
+        if (c >= 0xD800 && c < 0xDC00 && i + 3 < n) {
+            uint32_t d = ((uint32_t)in[i + 2] << 8) | in[i + 3];
+            if (d >= 0xDC00 && d < 0xE000) { c = 0x10000 + ((c - 0xD800) << 10) + (d - 0xDC00); i += 2; }
+        }
+        if (c < 0x80) out[o++] = (char)c;
+        else if (c < 0x800) { out[o++] = (char)(0xC0 | (c >> 6)); out[o++] = (char)(0x80 | (c & 0x3F)); }
+        else if (c < 0x10000) { out[o++] = (char)(0xE0 | (c >> 12)); out[o++] = (char)(0x80 | ((c >> 6) & 0x3F)); out[o++] = (char)(0x80 | (c & 0x3F)); }
+        else { out[o++] = (char)(0xF0 | (c >> 18)); out[o++] = (char)(0x80 | ((c >> 12) & 0x3F)); out[o++] = (char)(0x80 | ((c >> 6) & 0x3F)); out[o++] = (char)(0x80 | (c & 0x3F)); }
+    }
+    out[o] = 0;
+    return o;
+}
+
+/* One stick's ANLZ index: hash of the volume-relative audio path (PPTH) -> its ANLZ folder. */
+typedef struct { uint32_t h; char dir[40]; } anlz_ent;
+typedef struct { char root[256]; long mtime; anlz_ent *e; int n; } anlz_index;
+static anlz_index idx[2];
+
+static void index_build(anlz_index *x, const char *root)
+{
+    char base[320], p1[400], p2[480], f[560];
+    snprintf(base, sizeof base, "%s/PIONEER/USBANLZ", root);
+    struct stat st;
+    if (stat(base, &st) != 0) return;
+    if (x->e && strcmp(x->root, root) == 0 && x->mtime == (long)st.st_mtime) return;   /* still current */
+    free(x->e); x->e = NULL; x->n = 0;
+    snprintf(x->root, sizeof x->root, "%s", root); x->mtime = (long)st.st_mtime;
+    x->e = (anlz_ent *)calloc(IDX_MAX, sizeof(anlz_ent));
+    if (!x->e) return;
+    DIR *d1 = opendir(base);
+    if (!d1) return;
+    unsigned char hdr[2048];
+    char path8[1024];
+    struct dirent *a;
+    while ((a = readdir(d1)) && x->n < IDX_MAX) {
+        if (a->d_name[0] == '.') continue;
+        snprintf(p1, sizeof p1, "%s/%s", base, a->d_name);
+        DIR *d2 = opendir(p1);
+        if (!d2) continue;
+        struct dirent *b;
+        while ((b = readdir(d2)) && x->n < IDX_MAX) {
+            if (b->d_name[0] == '.') continue;
+            snprintf(p2, sizeof p2, "%s/%s", p1, b->d_name);
+            snprintf(f, sizeof f, "%s/ANLZ0000.DAT", p2);
+            FILE *fp = fopen(f, "rbe");
+            if (!fp) continue;
+            size_t got = fread(hdr, 1, sizeof hdr, fp);
+            fclose(fp);
+            if (got < 28 || memcmp(hdr, "PMAI", 4) != 0) continue;
+            uint32_t off = be32(hdr + 4);
+            while (off + 16 <= got) {
+                uint32_t hl = be32(hdr + off + 4), tl = be32(hdr + off + 8);
+                if (hl < 12 || tl < hl) break;
+                if (memcmp(hdr + off, "PPTH", 4) == 0) {
+                    uint32_t len = be32(hdr + off + 12);
+                    if (off + hl + len <= got && len < 2000) {
+                        utf16be_to_utf8(hdr + off + hl, (int)len, path8, (int)sizeof path8);
+                        x->e[x->n].h = fnv(path8, "");
+                        snprintf(x->e[x->n].dir, sizeof x->e[x->n].dir, "%s/%s", a->d_name, b->d_name);
+                        x->n++;
+                    }
+                    break;
+                }
+                off += tl;
+            }
+        }
+        closedir(d2);
+    }
+    closedir(d1);
+    C->log(MOD_ID, "ANLZ index: %d tracks on %s", x->n, root);
+}
+
+/* lib_tracks callback: find the loaded track on a stick by id (and title, ids repeat across sticks) */
+typedef struct { uint32_t id; const char *title; char path[1024]; int found; } find_ctx;
+static int find_track(const az_track *t, void *user)
+{
+    find_ctx *f = (find_ctx *)user;
+    if (t->id != f->id || !t->path) return 0;
+    if (f->title && f->title[0] && t->title && strcmp(t->title, f->title) != 0) return 0;
+    snprintf(f->path, sizeof f->path, "%s", t->path);
+    f->found = 1;
+    return 1;
+}
+
+/* Appends the wanted tags of one ANLZ file to blob. */
+static size_t take_tags(const char *file, const char *const *want, unsigned char *blob, size_t at)
+{
+    FILE *fp = fopen(file, "rbe");
+    if (!fp) return at;
+    fseek(fp, 0, SEEK_END);
+    long size = ftell(fp);
+    fseek(fp, 0, SEEK_SET);
+    if (size < 28 || size > ANLZ_MAX) { fclose(fp); return at; }
+    unsigned char *d = (unsigned char *)malloc((size_t)size);
+    if (!d) { fclose(fp); return at; }
+    size_t got = fread(d, 1, (size_t)size, fp);
+    fclose(fp);
+    if (got == (size_t)size && memcmp(d, "PMAI", 4) == 0) {
+        uint32_t off = be32(d + 4), decl = be32(d + 8);
+        if (decl > got) decl = (uint32_t)got;
+        while (off + 12 <= decl) {
+            uint32_t hl = be32(d + off + 4), tl = be32(d + off + 8);
+            if (hl < 12 || tl < hl || tl > decl - off) break;
+            for (int w = 0; want[w]; w++)
+                if (memcmp(d + off, want[w], 4) == 0 && at + tl <= WAVE_MAX) { memcpy(blob + at, d + off, tl); at += tl; }
+            off += tl;
+        }
+    }
+    free(d);
+    return at;
+}
+
+/* The analysis blob for deck d, or 0 bytes. */
+static size_t load_analysis(const az_deck_info *di, unsigned char *blob)
+{
+    find_ctx f;
+    memset(&f, 0, sizeof f);
+    f.id = di->content_id;
+    f.title = di->title;
+    int stick = -1;
+    for (int s = 0; s < 2 && !f.found; s++)
+        if (C->lib_tracks(MOD_ID, s, 0, find_track, &f) >= 0 && f.found) stick = s;
+    if (stick < 0) return 0;
+    /* the mount point: the longest prefix of the audio path that holds PIONEER/USBANLZ */
+    char root[256] = "", probe[320];
+    for (size_t i = strlen(f.path); i > 1; i--) {
+        if (f.path[i] != '/') continue;
+        if (i >= sizeof root) continue;
+        memcpy(root, f.path, i); root[i] = 0;
+        snprintf(probe, sizeof probe, "%s/PIONEER/USBANLZ", root);
+        struct stat st;
+        if (stat(probe, &st) == 0) break;
+        root[0] = 0;
+    }
+    if (!root[0]) return 0;
+    index_build(&idx[stick], root);
+    uint32_t h = fnv(f.path + strlen(root), "");
+    const char *dir = NULL;
+    for (int i = 0; i < idx[stick].n; i++) if (idx[stick].e[i].h == h) { dir = idx[stick].e[i].dir; break; }
+    if (!dir) return 0;
+    char file[400];
+    static const char *const DAT[] = { "PQTZ", "PWAV", NULL }, *const EXT[] = { "PWV3", "PSSI", NULL };
+    size_t n = 0;
+    snprintf(file, sizeof file, "%s/PIONEER/USBANLZ/%s/ANLZ0000.DAT", root, dir);
+    n = take_tags(file, DAT, blob, n);
+    snprintf(file, sizeof file, "%s/PIONEER/USBANLZ/%s/ANLZ0000.EXT", root, dir);
+    n = take_tags(file, EXT, blob, n);
+    return n;
+}
+
+static void send_wave(int d, const az_deck_info *di, uint32_t sig, const unsigned char *blob, size_t n, unsigned *seq)
+{
+    char buf[1400];
+    unsigned cnt = (unsigned)((n + CHUNK - 1) / CHUNK);
+    uint32_t crc = crc32_of(blob, n);
+    int m = snprintf(buf, sizeof buf, "{\"flowbeat\":1,\"type\":\"wave\",\"seq\":%u,\"d\":%d,\"sig\":%u,\"len\":%u,\"cnt\":%u,\"title\":",
+                     (*seq)++, d + 1, sig, (unsigned)n, cnt);
+    m = put_str(buf, m, 700, di->title);
+    m += snprintf(buf + m, sizeof buf - (size_t)m, ",\"artist\":");
+    m = put_str(buf, m, 1300, di->artist);
+    m += snprintf(buf + m, sizeof buf - (size_t)m, "}");
+    send_pkt(buf, m);
+    unsigned char pkt[24 + CHUNK];
+    for (unsigned i = 0; i < cnt; i++) {
+        size_t off = (size_t)i * CHUNK, len = n - off < CHUNK ? n - off : CHUNK;
+        memcpy(pkt, "FBW1", 4); pkt[4] = 1; pkt[5] = (unsigned char)(d + 1); pkt[6] = pkt[7] = 0;
+        uint32_t v[3] = { htonl(sig), htonl((uint32_t)n), htonl(crc) };
+        memcpy(pkt + 8, &v[0], 4); memcpy(pkt + 12, &v[1], 4);
+        uint16_t ii = htons((uint16_t)i), cc = htons((uint16_t)cnt);
+        memcpy(pkt + 16, &ii, 2); memcpy(pkt + 18, &cc, 2); memcpy(pkt + 20, &v[2], 4);
+        memcpy(pkt + 24, blob + off, len);
+        send_pkt((const char *)pkt, (int)(24 + len));
+        struct timespec ts = { 0, 2 * 1000000L };   /* ~2 ms apart: a 70-chunk track in ~0.15 s */
+        nanosleep(&ts, NULL);
+    }
+}
+
+static void *wave_worker(void *arg)
+{
+    (void)arg;
+    uint32_t sent_sig[NDECKS] = { 0 };
+    unsigned repeats[NDECKS] = { 0 };
+    unsigned next_at[NDECKS] = { 0 }, tick = 0;   /* in 200 ms ticks (no wall clock needed) */
+    unsigned char *blob[NDECKS] = { 0 };
+    size_t blen[NDECKS] = { 0 };
+    unsigned seq = wave_seq_base;
+    for (;;) {
+        struct timespec ts = { 0, 200 * 1000000L };
+        nanosleep(&ts, NULL);
+        int on = row_send >= 0 ? C->row_value(row_send) == 1 : 1;
+        int wave_on = row_wave >= 0 ? C->row_value(row_wave) == 1 : C->cfg_get(MOD_ID, "wave", 1) != 0;
+        if (!on || !wave_on) continue;
+        unsigned now = ++tick;
+        for (int d = 0; d < NDECKS; d++) {
+            az_deck_info di;
+            memset(&di, 0, sizeof di);
+            di.size = (int)sizeof di;
+            if (C->deck_info(d, &di) != 0 || di.loaded != 1 || !di.content_id) { sent_sig[d] = 0; continue; }
+            uint32_t sig = fnv(di.title, di.artist) ^ di.content_id;
+            if (sig != sent_sig[d]) {                       /* a new track: find and read its analysis once */
+                sent_sig[d] = sig; repeats[d] = 0; next_at[d] = 0; blen[d] = 0;
+                if (!blob[d]) blob[d] = (unsigned char *)malloc(WAVE_MAX);
+                if (blob[d]) blen[d] = load_analysis(&di, blob[d]);
+            }
+            if (!blen[d] || now < next_at[d]) continue;
+            send_wave(d, &di, sig, blob[d], blen[d], &seq);
+            repeats[d]++;
+            next_at[d] = now + (repeats[d] < 3 ? 5 : 50);   /* now, twice more a second apart, then every 10 s */
+        }
+    }
+    return NULL;
+}
+
 /* ---- deck events (UI thread): a load or eject resends the titles at once ---------------- */
 
 static void on_deck(int deck, int what, void *user)
@@ -369,6 +644,15 @@ static int init(const az_core_v1 *core)
                 "computer instead of the whole network.",
     };
     /* without Mod Menu rows, flow-beat:send in azmods.cfg (default on) decides */
+    static const az_row_v1 wave_row = {
+        .size = sizeof wave_row,
+        .key = "wave",
+        .label = "Send track analysis to FLOW",
+        .kind = AZ_ROW_TOGGLE,
+        .flags = AZ_ROW_DEFAULT_ON,
+        .help = "Reads each loaded track's rekordbox analysis (beat grid, waveform, phrases) off the USB "
+                "it plays from and sends it to FLOW VJ, so guest USBs light like your own tracks.",
+    };
     static const az_row_v1 sniff_row = {
         .size = sizeof sniff_row,
         .key = "sniff",
@@ -380,6 +664,7 @@ static int init(const az_core_v1 *core)
     if (AZ_HAS(C, register_row) && AZ_HAS(C, row_value)) {
         row_send = C->register_row(MOD_ID, &send_row);
         row_sniff = C->register_row(MOD_ID, &sniff_row);
+        row_wave = C->register_row(MOD_ID, &wave_row);
     }
     /* each deck's own audio, before the hardware mixer (0.3.0) */
     if (AZ_HAS(C, audio_tap))
@@ -392,6 +677,9 @@ static int init(const az_core_v1 *core)
         C->log(MOD_ID, "frame_filter refused: no mixer data");
     read_cfg(0);
     if (C->on_deck_event(MOD_ID, on_deck, NULL) != 0) C->log(MOD_ID, "on_deck_event refused");
+    /* 0.4.0: the analysis reader, only when the core can list the library */
+    if (AZ_HAS(C, lib_tracks) && C->thread_start(MOD_ID, "flow-wave", wave_worker, NULL) != 0)
+        C->log(MOD_ID, "no wave thread: guest analysis is not sent");
     if (C->thread_start(MOD_ID, "flow-beat", worker, NULL) != 0) {
         C->log(MOD_ID, "no worker thread: nothing is sent");
         return 4;
