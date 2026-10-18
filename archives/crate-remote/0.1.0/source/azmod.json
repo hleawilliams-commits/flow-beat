@@ -1,0 +1,16 @@
+{
+  "azmod": 1,
+  "id": "crate-remote",
+  "name": "Crate Remote",
+  "version": "0.1.0",
+  "author": "hleawilliams-commits",
+  "summary": "Browse both USBs on an iPad or phone, see what fits the playing deck, queue picks.",
+  "description": "Uses the network: serves one web page on port 8765 to devices on the deck's Wi-Fi, gated by a PIN shown on this mod's Mod Menu page. The page lists both USBs' tracks and playlists (read-only), shows the four decks, ranks tracks that fit the deck you're mixing from by Camelot key and BPM (including half/double time), and lets you queue picks; each pick shows as a banner on the deck. It never loads tracks, writes the library, or touches controls: you still load with LOAD. Turn it off with the iPad browser row, which closes the port.",
+  "category": "tools",
+  "license": "GPL-3.0-only",
+  "source": "https://github.com/hleawilliams-commits/flow-beat/tree/codex/az-mods-handoff-2026-10-16/crate-remote",
+  "api": 1,
+  "firmware": ["any"],
+  "hooks": false,
+  "min_core": "1.2.3"
+}
