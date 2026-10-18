@@ -254,6 +254,27 @@
       "license": "GPL-3.0-only",
       "min_core": "1.2.3",
       "description": "Test build 0.1.0: validated and harness-tested, not yet run on a deck. A small badge on each deck: STEMS in green when the track has stems and the stems engine plays them, STEMS in grey when it has stems but they are off, NO STEMS in red when there are none, so you never reach for a stem pad on a track without stems.\n\nMod Menu rows: on/off, every deck or only tracks with no stems, and on the deck's row or at the screen top. With decks 3 or 4 in use in the 2/4 DECK view the badges carry their deck number and sit at the top.\n\nReads deck state through the AZ-MODS core only: no hooks, controls, LEDs, audio, files or network."
+    },
+    {
+      "id": "crate-remote",
+      "name": "Crate Remote",
+      "version": "0.1.0",
+      "author": "hleawilliams-commits",
+      "summary": "Browse both USBs on an iPad or phone, see what fits the playing deck, queue picks.",
+      "icon": "https://github.com/hleawilliams-commits/flow-beat/releases/download/crate-remote-0.1.0/crate-remote-0.1.0-icon.png",
+      "package": "https://github.com/hleawilliams-commits/flow-beat/releases/download/crate-remote-0.1.0/crate-remote-0.1.0.azmod",
+      "sha256": "5f4d1bf2a750f5fdd84a77518121acd54bdee241535e4e1d73ab6c6aa8d2e1d8",
+      "size": 83112,
+      "firmware": [
+        "any"
+      ],
+      "hooks": false,
+      "source": "https://github.com/hleawilliams-commits/flow-beat/tree/codex/az-mods-handoff-2026-10-16/crate-remote",
+      "updated": "2026-10-17",
+      "category": "tools",
+      "license": "GPL-3.0-only",
+      "min_core": "1.2.3",
+      "description": "Uses the network: serves one web page on port 8765 to devices on the deck's Wi-Fi, gated by a PIN shown on this mod's Mod Menu page. The page lists both USBs' tracks and playlists (read-only), shows the four decks, ranks tracks that fit the deck you're mixing from by Camelot key and BPM (including half/double time), and lets you queue picks; each pick shows as a banner on the deck. It never loads tracks, writes the library, or touches controls: you still load with LOAD. Turn it off with the iPad browser row, which closes the port."
     }
   ]
 }
