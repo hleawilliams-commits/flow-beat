@@ -52,6 +52,15 @@ main{padding:0 16px 120px}
 #pin{position:fixed;inset:0;background:var(--bg);display:none;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:24px}
 #pin input{font-size:40px;letter-spacing:.4em;text-align:center;width:220px;padding:12px;border-radius:14px;border:1px solid var(--line);background:var(--panel);color:var(--text)}
 #pin p{color:var(--dim);text-align:center;max-width:420px}
+#sheet{position:fixed;left:0;right:0;bottom:0;background:var(--panel2);border-top:1px solid var(--line);padding:14px 16px calc(14px + env(safe-area-inset-bottom));display:none;box-shadow:0 -10px 30px #0008}
+#sheet .t{font-weight:700;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#sheet .s{color:var(--dim);font-size:14px;margin-bottom:12px}
+#sheet .acts{display:grid;grid-template-columns:1.4fr repeat(4,1fr) .8fr;gap:8px}
+#sheet button{padding:16px 6px;border-radius:12px;background:var(--panel);font-weight:700}
+#sheet button.go{background:var(--hi);color:#03141a}
+#sheet button:disabled{opacity:.35}
+#navmsg{padding:6px 16px;color:var(--dim);font-size:14px;min-height:22px}
+.row .tt{cursor:pointer}
 #toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--panel2);padding:12px 18px;border-radius:12px;display:none}
 @media (max-width:700px){#decks{grid-template-columns:repeat(2,1fr)}.row .bpm{width:70px}}
 </style>
@@ -71,9 +80,14 @@ main{padding:0 16px 120px}
   <button data-t="fits" class="on">Fits next</button><button data-t="search">Search</button>
   <button data-t="lists">Playlists</button><button data-t="queue">Queue <span id="qn"></span></button>
 </nav>
+<div id="navmsg"></div>
 <div id="bar"></div>
 <main id="list"><p class="hint">Loading…</p></main>
 <div id="toast"></div>
+<div id="sheet"><div class="t" id="shT"></div><div class="s" id="shS"></div>
+  <div class="acts"><button class="go" id="shShow">Show on deck</button>
+  <button data-ld="1">Load 1</button><button data-ld="2">Load 2</button><button data-ld="3">Load 3</button><button data-ld="4">Load 4</button>
+  <button id="shX">Close</button></div></div>
 <script>
 "use strict";
 const $=s=>document.querySelector(s);
@@ -152,7 +166,7 @@ function row(t){
   const r=refDeck(), rc=r?cam(r.key):null, m=rc?match(t.c,rc):"", g=r?bpmGap(t.bpm,r.bpm):null;
   const q=state.queue.some(x=>x.id===t.id&&x.stick===t.s), was=played.has(t.id);
   const gap=g?`${g.g>=0?"+":""}${g.g.toFixed(1)}%${g.f!==1?(g.f===2?" ×2":" ½"):""}`:"";
-  return`<div class="row"><div class="k ${m}">${camStr(t.c)}</div><div class="tt"><b>${esc(t.title)}</b><span>${esc(t.artist)}${was?' · <span class="played">played</span>':""}</span></div>
+  return`<div class="row"><div class="k ${m}">${camStr(t.c)}</div><div class="tt" data-pick="${t.id}" data-s="${t.s}"><b>${esc(t.title)}</b><span>${esc(t.artist)}${was?' · <span class="played">played</span>':""}</span></div>
   <div class="bpm">${t.bpm?t.bpm.toFixed(1):"--"}<small>${gap||fmt(t.len)}</small></div>
   <button class="add ${q?"done":""}" data-id="${t.id}" data-s="${t.s}">${q?"✓":"+"}</button></div>`;
 }
@@ -200,11 +214,31 @@ $("#list").addEventListener("click",async e=>{
   const a=e.target.closest(".add[data-id]"); if(a&&!a.classList.contains("done")){
     state=await api(`/api/queue/add?stick=${a.dataset.s}&id=${a.dataset.id}`);drawDecks();render();toast("Queued: shows on the deck");}
 });
+// ---- deck actions ----
+let pick=null;
+function openSheet(id,s){
+  const t=(lib[s]||[]).find(x=>x.id===id); if(!t)return; pick={t,pl:(tab==="lists"&&path.length)?path[path.length-1].id:-1};
+  $("#shT").textContent=t.title; $("#shS").textContent=`${t.artist||""} · ${camStr(t.c)} · ${t.bpm?t.bpm.toFixed(1):"--"} BPM · USB ${s+1}`;
+  sheetButtons(); $("#sheet").style.display="block";
+}
+function sheetButtons(){
+  const canLoad=state.nav?state.nav.load:1;
+  document.querySelectorAll("#sheet [data-ld]").forEach(b=>{const d=state.decks[+b.dataset.ld-1];
+    const busy=d&&d.loaded&&d.playing; b.disabled=!canLoad||busy; b.textContent=busy?`Deck ${b.dataset.ld} ▶`:`Load ${b.dataset.ld}`});
+}
+async function send(deck){ if(!pick)return; const t=pick.t;
+  const j=await api(`/api/deck?stick=${t.s}&id=${t.id}&deck=${deck}&pl=${pick.pl}`);
+  $("#sheet").style.display="none"; toast(j.ok?(deck?`Loading on Deck ${deck}…`:"Sent to the deck"):j.error); }
+$("#shShow").addEventListener("click",()=>send(0));
+$("#shX").addEventListener("click",()=>{$("#sheet").style.display="none"});
+document.querySelectorAll("#sheet [data-ld]").forEach(b=>b.addEventListener("click",()=>send(+b.dataset.ld)));
+$("#list").addEventListener("click",e=>{const tt=e.target.closest("[data-pick]");if(tt)openSheet(+tt.dataset.pick,+tt.dataset.s)});
+function drawNav(){ $("#navmsg").textContent=state.nav&&state.nav.msg?state.nav.msg:""; if($("#sheet").style.display==="block")sheetButtons(); }
 // Redraw the list only when what it depends on changed, so a row's button is never
 // swapped out from under a finger.
 let lastSig="";
 function listSig(){const r=refDeck();return tab+"|"+(r?[r.id,r.key,Math.round((r.bpm||0)*10)].join(","):"-")+"|"+state.queue.map(q=>q.stick+":"+q.id).join(",")+"|"+played.size}
-async function poll(){try{state=await api("/api/state");drawDecks();
+async function poll(){try{state=await api("/api/state");drawDecks();drawNav();
   if(tab==="fits"||tab==="queue"){const sig=listSig();if(sig!==lastSig){lastSig=sig;render()}}}catch(e){} setTimeout(poll,2000)}
 async function boot(){ try{ state=await api("/api/state"); }catch(e){return}
   drawDecks();bar();render(); await loadLib(stick); render(); poll(); loadLib(1-stick).catch(()=>{}); }

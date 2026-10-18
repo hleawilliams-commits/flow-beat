@@ -15,6 +15,7 @@
 #include <netinet/in.h>
 #include <poll.h>
 #include <pthread.h>
+#include <stdarg.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -26,6 +27,7 @@
 #include "azmod-mod.h"
 #include "server.h"
 #include "ui_html.h"
+#include "nav.h"
 
 #define MOD_ID "crate-remote"
 #ifndef SOCK_CLOEXEC            /* macOS host tests; the deck is Linux */
@@ -51,6 +53,14 @@ static int cr_tracks_seen[2] = {-1, -1};
 static long cr_requests;           /* __atomic */
 static int cr_port_state;          /* __atomic: 0 closed, 1 serving, -1 port busy; logged by tick */
 
+/* A deck request from the page, handed to the UI thread under cr_mu. */
+typedef struct { int stick, deck, depth, path[8]; uint32_t id; char title[96], where[160]; } cr_navreq;
+static cr_navreq cr_nreq;
+static unsigned cr_nreq_seq;       /* __atomic */
+static char cr_nav_msg[160];       /* status for the page, written by the UI thread */
+static int cr_load_allowed = 1;    /* __atomic: Mod Menu "iPad can load decks" */
+static int cr_source_touched = 1;  /* __atomic: the DJ pressed SOURCE (or we never switched) */
+
 typedef struct { int stick; uint32_t id; char title[96], artist[64], key[8]; double bpm, len; } cr_pick;
 static cr_pick cr_queue[CR_QUEUE_MAX];   /* HTTP thread only */
 static int cr_nqueue;
@@ -58,7 +68,8 @@ static int cr_nqueue;
 /* ---- library cache (HTTP thread only) ---- */
 typedef struct { uint32_t id; char *title, *artist, *key; double bpm, len; } cr_track;
 typedef struct { int id, parent, folder; char *name; } cr_pl;
-typedef struct { int state; cr_track *t; int nt, ct; cr_pl *p; int np, cp; long at; } cr_stick;
+typedef struct { int state; cr_track *t; int nt, ct; cr_pl *p; int np, cp; long at;
+                 uint32_t **mem; int *nmem; int members; } cr_stick;  /* mem[i]: playlist i's ids */
 static cr_stick cr_lib[2];
 
 /* Seconds the HTTP thread has been running, counted by its own 1 s poll loop (HTTP thread
@@ -71,8 +82,8 @@ static char *cr_dup(const char *s) { return strdup(s ? s : ""); }
 static void cr_stick_free(cr_stick *s)
 {
     for (int i = 0; i < s->nt; i++) { free(s->t[i].title); free(s->t[i].artist); free(s->t[i].key); }
-    for (int i = 0; i < s->np; i++) free(s->p[i].name);
-    free(s->t); free(s->p);
+    for (int i = 0; i < s->np; i++) { free(s->p[i].name); if (s->mem) free(s->mem[i]); }
+    free(s->t); free(s->p); free(s->mem); free(s->nmem);
     memset(s, 0, sizeof *s);
 }
 static int cr_collect_track(const az_track *t, void *user)
@@ -125,6 +136,118 @@ static const cr_track *cr_find(cr_stick *s, uint32_t id)
     return NULL;
 }
 
+/* ---- playlist paths for the navigator (HTTP thread) ---- */
+typedef struct { uint32_t *v; int n, cap; } cr_ids;
+static int cr_collect_id(const az_track *t, void *user)
+{
+    cr_ids *a = user;
+    if (a->n == a->cap) {
+        int c = a->cap ? a->cap * 2 : 64;
+        uint32_t *n = realloc(a->v, sizeof *n * (size_t)c);
+        if (!n) return 1;
+        a->v = n; a->cap = c;
+    }
+    a->v[a->n++] = t->id;
+    return 0;
+}
+static void cr_members(cr_stick *s, int stick)
+{
+    if (s->members || s->state != 1) return;
+    s->mem = calloc((size_t)s->np + 1, sizeof *s->mem);
+    s->nmem = calloc((size_t)s->np + 1, sizeof *s->nmem);
+    if (!s->mem || !s->nmem) return;
+    for (int i = 0; i < s->np; i++) {
+        if (s->p[i].folder) continue;
+        cr_ids a = {0};
+        C->lib_tracks(MOD_ID, stick, s->p[i].id, cr_collect_id, &a);
+        s->mem[i] = a.v; s->nmem[i] = a.n;
+    }
+    s->members = 1;
+}
+static int cr_pl_index(cr_stick *s, int id)
+{
+    for (int i = 0; i < s->np; i++) if (s->p[i].id == id) return i;
+    return -1;
+}
+/* Rows from the top of the PLAYLIST tree down to playlist index pi (siblings in the DJ's
+ * order, as lib_playlists reports them). 0 = not reachable (too deep, >249, a loop). */
+static int cr_tree_path(cr_stick *s, int pi, int *path, int *depth, char *where, size_t wn)
+{
+    int chain[8], n = 0;
+    for (int cur = pi; cur >= 0; cur = cr_pl_index(s, s->p[cur].parent)) {
+        if (n == 7) return 0;
+        for (int k = 0; k < n; k++) if (chain[k] == cur) return 0;
+        chain[n++] = cur;
+        if (s->p[cur].parent == 0) break;
+    }
+    *depth = 0; where[0] = 0;
+    for (int k = n - 1; k >= 0; k--) {
+        int me = chain[k], parent = s->p[me].parent, row = 0;
+        int top = cr_pl_index(s, parent) < 0;      /* unknown parent = top level */
+        for (int j = 0; j < s->np && j != me; j++)
+            if (s->p[j].parent == parent || (top && cr_pl_index(s, s->p[j].parent) < 0)) row++;
+        if (row > 249) return 0;
+        path[(*depth)++] = row;
+        size_t l = strlen(where);
+        snprintf(where + l, wn - l, "%s%s", l ? " / " : "", s->p[me].name);
+    }
+    return 1;
+}
+/* Find a playlist row for (stick, id): the given playlist first, else the shortest path
+ * with the earliest row. Assumes the deck shows that playlist sorted by #. */
+static int cr_nav_path(int stick, uint32_t id, int prefer_pl, cr_navreq *r)
+{
+    cr_stick *s = cr_stick_get(stick, 0);
+    if (!s || s->state != 1) return -1;
+    cr_members(s, stick);
+    if (!s->mem) return -1;
+    int best = -1, bestrow = 0, bestdepth = 99;
+    for (int i = 0; i < s->np; i++) {
+        if (!s->mem[i]) continue;
+        for (int row = 0; row < s->nmem[i] && row < 250; row++) {
+            if (s->mem[i][row] != id) continue;
+            int path[8], depth; char where[160];
+            if (!cr_tree_path(s, i, path, &depth, where, sizeof where) || depth > 7) break;
+            int pref = s->p[i].id == prefer_pl;
+            if (best < 0 || pref || (depth < bestdepth || (depth == bestdepth && row < bestrow))) {
+                best = i; bestrow = row; bestdepth = depth;
+                memcpy(r->path, path, sizeof path);
+                r->path[depth] = row; r->depth = depth + 1;
+                snprintf(r->where, sizeof r->where, "%s / #%d", where, row + 1);
+            }
+            if (pref) return 1;
+            break;
+        }
+    }
+    return best >= 0 ? 1 : 0;
+}
+static void cr_api_deck(cr_sb *b, const char *query)
+{
+    int stick = (int)cr_qint(query, "stick", -1), deck = (int)cr_qint(query, "deck", 0);
+    long id = cr_qint(query, "id", -1);
+    cr_navreq r; memset(&r, 0, sizeof r);
+    r.stick = stick; r.deck = deck - 1; r.id = (uint32_t)id;
+    const char *err = NULL;
+    cr_stick *s = cr_stick_get(stick, 0);
+    const cr_track *t = id > 0 ? cr_find(s, (uint32_t)id) : NULL;
+    if (deck < 0 || deck > 4) err = "bad deck";
+    else if (!t) err = "track not found on that USB";
+    else if (deck > 0 && !__atomic_load_n(&cr_load_allowed, __ATOMIC_RELAXED)) err = "loading from the iPad is off in Mod Menu";
+    else {
+        int k = cr_nav_path(stick, (uint32_t)id, (int)cr_qint(query, "pl", -1), &r);
+        if (k < 0) err = "can't read that USB";
+        else if (!k) err = "not in a playlist the deck can reach (first 250 rows); search for it on the deck";
+    }
+    if (err) { cr_sb_str(b, "{\"ok\":0,\"error\":"); cr_json_str(b, err); cr_sb_str(b, "}"); return; }
+    snprintf(r.title, sizeof r.title, "%s", t->title);
+    pthread_mutex_lock(&cr_mu);
+    cr_nreq = r;
+    snprintf(cr_nav_msg, sizeof cr_nav_msg, "Sent to the deck: %.120s", r.where);
+    pthread_mutex_unlock(&cr_mu);
+    __atomic_add_fetch(&cr_nreq_seq, 1u, __ATOMIC_RELEASE);
+    cr_sb_str(b, "{\"ok\":1,\"where\":"); cr_json_str(b, r.where); cr_sb_str(b, "}");
+}
+
 /* ---- API ---- */
 static void cr_api_state(cr_sb *b)
 {
@@ -150,7 +273,12 @@ static void cr_api_state(cr_sb *b)
         cr_json_str(b, q->title); cr_sb_str(b, ",\"artist\":"); cr_json_str(b, q->artist);
         cr_sb_str(b, ",\"key\":"); cr_json_str(b, q->key); cr_sb_str(b, "}");
     }
-    cr_sb_str(b, "]}");
+    char msg[160];
+    pthread_mutex_lock(&cr_mu); snprintf(msg, sizeof msg, "%s", cr_nav_msg); pthread_mutex_unlock(&cr_mu);
+    cr_sb_fmt(b, "],\"nav\":{\"state\":%d,\"load\":%d,\"view\":%d,\"msg\":", __atomic_load_n(&nav_state, __ATOMIC_ACQUIRE),
+              __atomic_load_n(&cr_load_allowed, __ATOMIC_RELAXED), AZ_HAS(C, view) ? C->view() : -1);
+    cr_json_str(b, msg);
+    cr_sb_str(b, "}}");
 }
 static void cr_api_tracks(cr_sb *b, int stick, int force)
 {
@@ -239,6 +367,7 @@ static int cr_route(const cr_req *r, cr_sb *body, const char **type)
     if (!strcmp(r->path, "/api/playlists")) { cr_api_playlists(body, stick); return 200; }
     if (!strcmp(r->path, "/api/playlist")) { cr_api_playlist(body, stick, (int)cr_qint(r->query, "id", -1)); return 200; }
     if (!strncmp(r->path, "/api/queue/", 11)) return cr_api_queue(body, r->path, r->query);
+    if (!strcmp(r->path, "/api/deck")) { cr_api_deck(body, r->query); return 200; }
     return 404;
 }
 
@@ -337,11 +466,117 @@ static void *cr_http_thread(void *arg)
     return NULL;
 }
 
+/* ---- deck navigator (mixer bus thread) ---- */
+static int cr_deck_busy(int deck)
+{
+    az_deck_info di; memset(&di, 0, sizeof di); di.size = sizeof di; di.playing = -1;
+    if (!AZ_HAS(C, deck_info) || C->deck_info(deck, &di) != 0) return 1;   /* unknown: refuse */
+    return di.loaded == 1 && di.playing != 0;                               /* playing or unknown */
+}
+static long cr_bus_ms(void)
+{
+    struct timespec ts; clock_gettime(CLOCK_MONOTONIC, &ts);
+    return (long)ts.tv_sec * 1000L + ts.tv_nsec / 1000000L;
+}
+static int cr_frame(int bus, unsigned char *f, int len, void *user)
+{
+    (void)user;
+    if (bus != AZ_BUS_MIXER_IN || !f || len < 98) return AZ_FRAME_OK;
+    if (f[32] & 0x80) __atomic_store_n(&cr_source_touched, 1, __ATOMIC_RELAXED);
+    int st = __atomic_load_n(&nav_state, __ATOMIC_ACQUIRE);
+    if (st != NAV_ARMED && st != NAV_RUNNING && !nav_off) { nav_real_last = f[34]; return AZ_FRAME_OK; }
+    nav_frame(f, len, cr_bus_ms(), C->view(), cr_deck_busy);
+    return AZ_FRAME_OK;
+}
+
 /* ---- UI thread ---- */
 static unsigned cr_banner_seen;
 static int cr_port_logged = -2;
+static int cr_filter_ok;
+/* UI-thread navigator bookkeeping. */
+static unsigned cr_nreq_seen;
+static cr_navreq cr_active;
+static int cr_nav_seen_state = -1, cr_last_stick = -1, cr_verify_left;
+static long cr_ui_ms(void)
+{
+    struct timespec ts; clock_gettime(CLOCK_MONOTONIC, &ts);
+    return (long)ts.tv_sec * 1000L + ts.tv_nsec / 1000000L;
+}
+static long cr_armed_at, cr_settle_until;
+static void cr_nav_status(const char *fmt, ...) __attribute__((format(printf, 1, 2)));
+static void cr_nav_status(const char *fmt, ...)
+{
+    char m[160]; va_list ap; va_start(ap, fmt); vsnprintf(m, sizeof m, fmt, ap); va_end(ap);
+    if (pthread_mutex_trylock(&cr_mu) == 0) { snprintf(cr_nav_msg, sizeof cr_nav_msg, "%s", m); pthread_mutex_unlock(&cr_mu); }
+}
+static void cr_nav_tick(void)
+{
+    if (!cr_filter_ok) return;
+    long now = cr_ui_ms();
+    unsigned seq = __atomic_load_n(&cr_nreq_seq, __ATOMIC_ACQUIRE);
+    /* After a load the deck closes its browser on its own a moment later; starting the
+     * next pick inside that window races it. Hold the request until the deck settles. */
+    if (seq != cr_nreq_seen && now >= cr_settle_until && pthread_mutex_trylock(&cr_mu) == 0) {
+        cr_navreq r = cr_nreq;
+        pthread_mutex_unlock(&cr_mu);
+        cr_nreq_seen = seq;
+        nav_script sc;
+        int sel = r.stick != cr_last_stick || __atomic_load_n(&cr_source_touched, __ATOMIC_RELAXED);
+        if (r.deck >= 0 && cr_deck_busy(r.deck)) {
+            cr_nav_status("Deck %d is playing: not loaded", r.deck + 1);
+        } else if (!nav_build(&sc, sel, r.stick, r.path, r.depth, r.deck) || !nav_arm(&sc)) {
+            cr_nav_status("The deck is busy with another pick; try again");
+        } else {
+            cr_active = r; cr_armed_at = now; cr_verify_left = 0;
+            if (sel) { __atomic_store_n(&cr_source_touched, 0, __ATOMIC_RELAXED); cr_last_stick = -1; }
+            cr_nav_status("Finding %s on USB %d: %s", r.title, r.stick + 1, r.where);
+        }
+    }
+    int st = __atomic_load_n(&nav_state, __ATOMIC_ACQUIRE);
+    if (st == NAV_ARMED && now - cr_armed_at > 4000) {
+        int expect = NAV_ARMED;
+        if (__atomic_compare_exchange_n(&nav_state, &expect, NAV_IDLE, 0, __ATOMIC_ACQ_REL, __ATOMIC_ACQUIRE))
+            cr_nav_status("Hands on the controls: try again in a moment");
+    }
+    if (st != cr_nav_seen_state) {
+        cr_nav_seen_state = st;
+        if (st == NAV_DONE) {
+            cr_last_stick = cr_active.stick;
+            if (cr_active.deck >= 0) { cr_verify_left = 40; cr_nav_status("Loading on Deck %d...", cr_active.deck + 1); }
+            else if (C->view() != AZ_VIEW_BROWSE) {
+                /* The screen changed under the script (the deck's own auto-close, a menu). */
+                cr_nav_status("Didn't land on the deck (the screen changed): tap Show again");
+            } else {
+                cr_nav_status("On the deck: %s. Press LOAD.", cr_active.where);
+                if (AZ_HAS(C, banner)) C->banner(MOD_ID, "iPad: track highlighted, press LOAD", 2500);
+            }
+        } else if (st == NAV_CANCELLED) {
+            cr_nav_status("Stopped: you used the controls");
+        } else if (st == NAV_REFUSED) {
+            cr_nav_status("Deck %d started playing: not loaded", __atomic_load_n(&nav_refused_deck, __ATOMIC_RELAXED));
+        }
+    }
+    /* After a load, confirm the deck reports the track we meant (about 8 s of ticks). */
+    if (cr_verify_left > 0) {
+        az_deck_info di; memset(&di, 0, sizeof di); di.size = sizeof di;
+        if (AZ_HAS(C, deck_info) && C->deck_info(cr_active.deck, &di) == 0 && di.loaded == 1 &&
+            di.content_id == cr_active.id) {
+            cr_verify_left = 0; cr_settle_until = now + 3500;
+            cr_nav_status("Loaded on Deck %d: %s", cr_active.deck + 1, cr_active.title);
+            if (AZ_HAS(C, banner)) C->banner(MOD_ID, "iPad: loaded", 1500);
+        } else if (--cr_verify_left == 0) {
+            cr_settle_until = now + 3500;
+            cr_nav_status("Check Deck %d: it didn't report %s (playlist sorted differently?)",
+                          cr_active.deck + 1, cr_active.title);
+            if (AZ_HAS(C, banner)) C->banner(MOD_ID, "iPad: check the deck, the track may differ", 3000);
+        }
+    }
+}
+static int cr_load_row = -1;
 static void cr_tick(void)
 {
+    if (cr_load_row >= 0) __atomic_store_n(&cr_load_allowed, C->row_value(cr_load_row) == 1, __ATOMIC_RELAXED);
+    cr_nav_tick();
     int ps = __atomic_load_n(&cr_port_state, __ATOMIC_RELAXED);
     if (ps != cr_port_logged && AZ_HAS(C, log)) {
         cr_port_logged = ps;
@@ -421,12 +656,20 @@ static int cr_init(const az_core_v1 *core)
             .help = "Browse both USBs on an iPad or phone on the deck's Wi-Fi, see what fits the playing deck, "
                     "and queue picks. Opens network port 8765, PIN on this mod's page. Read-only."};
         cr_row = C->register_row(MOD_ID, &row);
+        az_row_v1 load = {.size = sizeof load, .key = "load", .label = "iPad can load decks", .kind = AZ_ROW_TOGGLE,
+            .flags = AZ_ROW_DEFAULT_ON, .parent = "on",
+            .help = "Show on deck and Load put a pick on the deck by pressing PLAYLIST, turning the knob and "
+                    "clicking for you, from a playlist the track is in. Load only presses LOAD for a stopped deck. "
+                    "Touching any control stops it."};
+        cr_load_row = C->register_row(MOD_ID, &load);
     }
     static const az_screen_v1 scr = {.size = sizeof scr, .on_draw = cr_draw, .on_input = cr_input};
     C->register_screen(MOD_ID, &scr);
     /* One server for the life of EP147: a Mod Menu Reload calls init again in the same
      * process, and the first thread (still running, never unloaded) keeps the port. */
     static int started;
+    if (!started && AZ_HAS(C, frame_filter) && AZ_HAS(C, view))
+        cr_filter_ok = C->frame_filter(MOD_ID, 1u << AZ_BUS_MIXER_IN, cr_frame, NULL) == 0;
     if (!started) {
         if (C->thread_start(MOD_ID, "crate http", cr_http_thread, NULL) != 0) return 3;
         started = 1;
