@@ -1,0 +1,16 @@
+{
+  "azmod": 1,
+  "id": "dead-air-guard",
+  "name": "Dead-Air Guard",
+  "version": "0.1.0",
+  "author": "hleawilliams-commits",
+  "summary": "Warns before the room goes silent: LOAD NEXT, ENDING, QUIET and DEAD AIR, as thin edge bars and one label.",
+  "description": "Amber LOAD NEXT when every deck you can hear ends within 30 s (adjustable) and no other deck has a different track loaded; red ENDING at 10 s; QUIET when audible decks have been near-silent for 4 s; DEAD AIR if the music stops with the mics off. A deck playing with its channel fader down doesn't count as heard. A mic or TALK OVER switch on silences DEAD/QUIET during speeches. Shows as thin top/bottom bars and one small label, never over the Mod Menu. Read-only: watches the mixer input and each deck's audio level, changes nothing.",
+  "category": "visual",
+  "license": "GPL-3.0-only",
+  "source": "https://github.com/hleawilliams-commits/flow-beat/tree/codex/az-mods-handoff-2026-10-16/dead-air-guard",
+  "api": 1,
+  "firmware": ["any"],
+  "hooks": false,
+  "min_core": "1.2.3"
+}
