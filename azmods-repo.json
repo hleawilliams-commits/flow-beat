@@ -216,13 +216,13 @@
     {
       "id": "grouped-panels",
       "name": "Grouped Deck Panels",
-      "version": "0.1.0",
+      "version": "0.3.0",
       "author": "hleawilliams-commits",
-      "summary": "Groups original Camelot key and phrase beside native BPM, with clear left/right deck selection.",
-      "icon": "https://github.com/hleawilliams-commits/flow-beat/releases/download/grouped-panels-0.1.0/grouped-panels-0.1.0-icon.png",
-      "package": "https://github.com/hleawilliams-commits/flow-beat/releases/download/grouped-panels-0.1.0/grouped-panels-0.1.0.azmod",
-      "sha256": "cc6195af6daffde92a3595d7763b59531f15bc4d350c51a30b6d190fe7de12f4",
-      "size": 65776,
+      "summary": "Deck headers with key, phrase and mix hints in 4 DECK, 2/4 DECK and 2 DECK.",
+      "icon": "https://github.com/hleawilliams-commits/flow-beat/releases/download/grouped-panels-0.3.0/grouped-panels-0.3.0-icon.png",
+      "package": "https://github.com/hleawilliams-commits/flow-beat/releases/download/grouped-panels-0.3.0/grouped-panels-0.3.0.azmod",
+      "sha256": "5896015777560a7907e920206d8e8b64e143b8fb438cea5704542edd87eb91da",
+      "size": 70318,
       "firmware": [
         "any"
       ],
@@ -232,18 +232,18 @@
       "category": "visual",
       "license": "GPL-3.0-only",
       "min_core": "1.2.3",
-      "description": "Groups title, original Camelot key and relative phrase beside native BPM in 4 DECK view. Cyan LEFT/RIGHT marks the selected decks. Native remaining time, overview waveforms and controls remain visible.\n\nThis is the exact 0.1.0 emulator-tested archive, now published for practice testing. It is already loaded on Henry's physical AZ; physical visual checks are incomplete. A report of Deck 2 phrase counting failing remains unresolved. Phrase timing depends on the core beat grid and a relative anchor; this release does not fix the stems engine or native beat-grid acquisition. Key is the stored key and does not follow Key Shift.\n\nBefore enabling, disable Key next to BPM, Phrase Coach and Selected Deck Highlight to avoid duplicate overlays. A hand-copied 0.1.0 install can remain in place; it is the same package and does not need reinstalling.\n\nNo stems fix, theme, or USB shortcuts included. Reload only between playback. Keep your USB backup and prior release."
+      "description": "Input-transparent deck headers beside the stock BPM: title, original Camelot key, relative phrase counter. Mix hints: key turns green/amber/red against the longest-playing other deck, the deck number turns amber at 30 s and red at 10 s left, a dot shows stems (filled = playing, hollow = found), and a small BPM gap appears within 8 BPM. Works in 4 DECK, 2/4 DECK and 2 DECK (Two-deck view: Auto follows the last layout tab tapped, or pick it). No audio, tempo, key or library changes."
     },
     {
       "id": "mods-shortcut",
       "name": "MODS Shortcut",
-      "version": "0.1.2",
+      "version": "0.1.3",
       "author": "hleawilliams-commits",
       "summary": "Hide the WAVEFORM heading and use MODS to open SOURCE for the official Mod Menu.",
-      "icon": "https://github.com/hleawilliams-commits/flow-beat/releases/download/mods-shortcut-0.1.2/mods-shortcut-0.1.2-icon.png",
-      "package": "https://github.com/hleawilliams-commits/flow-beat/releases/download/mods-shortcut-0.1.2/mods-shortcut-0.1.2.azmod",
-      "sha256": "30b25a22ace70d7b4fb3abc5324d0986956360a93be33c7fa62bebe67eeaf57c",
-      "size": 52661,
+      "icon": "https://github.com/hleawilliams-commits/flow-beat/releases/download/mods-shortcut-0.1.3/mods-shortcut-0.1.3-icon.png",
+      "package": "https://github.com/hleawilliams-commits/flow-beat/releases/download/mods-shortcut-0.1.3/mods-shortcut-0.1.3.azmod",
+      "sha256": "368dd4c6ed2a08b2865dfc18342ac7b3ec6e93ee541e680c0c7bef179bc23786",
+      "size": 57334,
       "firmware": [
         "any"
       ],
@@ -253,7 +253,7 @@
       "category": "visual",
       "license": "GPL-3.0-only",
       "min_core": "1.2.3",
-      "description": "SDK-only community mod. MODS opens SOURCE; select MOD MENU to open the official menu. Idle callbacks skip clock reads. A stranded request times out with a SOURCE > MOD MENU fallback. Physical navigation and LOAD cancel the shortcut. Hide WAVEFORM heading blanks only its title area; touches pass through. Official core timing protections remain unchanged, and a timeout cannot re-enable a quarantined filter. Physical long-run timing remains unvalidated. No track loading, audio or library writes."
+      "description": "SDK-only community mod. MODS opens SOURCE; select MOD MENU to open the official menu. 0.1.3 registers spare input lanes and moves to the next when the core switches one off, dims the button with a SOURCE > MOD MENU message when none remain, and logs each tap's outcome. Physical navigation and LOAD cancel the shortcut. Hide WAVEFORM heading blanks only its title area; touches pass through. Official core timing protections are unchanged. No track loading, audio or library writes."
     }
   ]
 }
