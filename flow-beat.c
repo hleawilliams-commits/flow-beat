@@ -15,6 +15,13 @@
  *        start orders the playing decks (higher = started later, 0 = not playing)
  *   {"flowbeat":1,"type":"track","seq":N,"d":1,"title":"...","artist":"..."}
  *        when a deck's track changes, and every 2 s for each loaded deck
+ *   0.3.0: every state deck also carries "lv" (the deck's audio level, peak of 10 ms RMS since the
+ *        last state, 0..1) and "lo" (the same for its bass, below ~150 Hz): the deck's OWN audio, tapped
+ *        before the hardware mixer (faders / EQ / crossfader are not in it), so FLOW's lights get each
+ *        deck's kick without a microphone
+ *   {"flowbeat":1,"type":"mixraw","seq":N,"b":"<hex>"}
+ *        only while "Send mixer data (test)" is on: the mixer/panel input frame whenever it changes
+ *        (at most 20 a second), to map which bytes the faders, EQ and crossfader move
  *
  * seq counts every packet, so the receiver can spot lost or reordered ones. The receiver
  * times beats by its own clock when packets arrive: the deck's clock is not sent.
@@ -39,6 +46,9 @@
 #include <time.h>
 #include <unistd.h>
 
+#include <math.h>
+#include <stdatomic.h>
+
 #include "azmod-mod.h"
 
 #define MOD_ID "flow-beat"
@@ -52,6 +62,7 @@
 
 static const az_core_v1 *C;
 static int row_send = -1;    /* the "Send beat to FLOW" toggle */
+static int row_sniff = -1;   /* "Send mixer data (test)" (0.3.0), off by default */
 static int track_dirty;      /* set by deck events (UI thread), read by the worker: atomics */
 
 /* ---- JSON text --------------------------------------------------------------------------- */
@@ -174,6 +185,52 @@ static void send_pkt(const char *buf, int len)
     }
 }
 
+/* ---- each deck's own audio (0.3.0) ------------------------------------------------------- */
+/* Tap threads write, the worker reads and resets: the peak since the last state packet. */
+static _Atomic float lvl[NDECKS], low[NDECKS];
+static float lp_l[NDECKS], lp_r[NDECKS];   /* one-pole low-pass state, touched only by that deck's tap */
+#define TAP_FRAMES 480                     /* ~10 ms at 48 kHz */
+static void meter(const float *lr, int frames, void *user)
+{
+    int d = (int)(intptr_t)user;
+    if (d < 0 || d >= NDECKS || frames <= 0) return;
+    const float a = 0.0194f;               /* ~150 Hz at 48 kHz (1 - exp(-2*pi*150/48000)) */
+    float l = lp_l[d], r = lp_r[d];
+    double sum = 0, bass = 0;
+    for (int i = 0; i < frames; i++) {
+        float x = lr[2 * i], y = lr[2 * i + 1];
+        l += a * (x - l); r += a * (y - r);
+        sum += 0.5 * (x * x + y * y);
+        bass += 0.5 * (l * l + r * r);
+    }
+    lp_l[d] = l; lp_r[d] = r;
+    float v = (float)sqrt(sum / frames), b = (float)sqrt(bass / frames) * 1.6f;
+    if (v > 1.f) v = 1.f;
+    if (b > 1.f) b = 1.f;
+    if (v > atomic_load_explicit(&lvl[d], memory_order_relaxed)) atomic_store_explicit(&lvl[d], v, memory_order_relaxed);
+    if (b > atomic_load_explicit(&low[d], memory_order_relaxed)) atomic_store_explicit(&low[d], b, memory_order_relaxed);
+}
+
+/* ---- mixer sniffer (0.3.0, test mode) ------------------------------------------------------ */
+/* The bus thread copies the mixer input frame; the worker sends it when it changed. A torn read
+ * only costs one odd packet in a test log. */
+#define MIX_MAX 128
+static unsigned char mix_buf[MIX_MAX];
+static _Atomic int mix_len;
+static _Atomic unsigned mix_gen;
+static int mix_filter(int bus, unsigned char *frame, int len, void *user)
+{
+    (void)bus; (void)user;
+    if (!frame || len <= 0) return AZ_FRAME_OK;
+    if (len > MIX_MAX) len = MIX_MAX;
+    if (atomic_load_explicit(&mix_len, memory_order_relaxed) == len && memcmp(mix_buf, frame, (size_t)len) == 0)
+        return AZ_FRAME_OK;
+    memcpy(mix_buf, frame, (size_t)len);
+    atomic_store_explicit(&mix_len, len, memory_order_relaxed);
+    atomic_fetch_add_explicit(&mix_gen, 1, memory_order_release);
+    return AZ_FRAME_OK;
+}
+
 /* ---- the worker -------------------------------------------------------------------------- */
 
 static void *worker(void *arg)
@@ -186,6 +243,7 @@ static void *worker(void *arg)
     uint32_t track_sig[NDECKS] = { 0 };
     unsigned step = 0;
     unsigned seq = 0;
+    unsigned mix_sent = 0;
     char buf[1400];
     for (int d = 0; d < NDECKS; d++) last[d] = -1.0;
 
@@ -248,14 +306,29 @@ static void *worker(void *arg)
             int n = snprintf(buf, sizeof buf, "{\"flowbeat\":1,\"type\":\"state\",\"seq\":%u,\"decks\":[",
                              seq++);
             for (int d = 0; d < NDECKS; d++) {
+                float lv = atomic_exchange_explicit(&lvl[d], 0.f, memory_order_relaxed);
+                float lo = atomic_exchange_explicit(&low[d], 0.f, memory_order_relaxed);
                 n += snprintf(buf + n, sizeof buf - (size_t)n,
-                              "%s{\"d\":%d,\"loaded\":%d,\"play\":%d,\"bpm\":%.2f,\"ph\":%.4f,\"pos\":%.3f,\"id\":%u,\"start\":%u}",
+                              "%s{\"d\":%d,\"loaded\":%d,\"play\":%d,\"bpm\":%.2f,\"ph\":%.4f,\"pos\":%.3f,\"id\":%u,\"start\":%u,\"lv\":%.3f,\"lo\":%.3f}",
                               d ? "," : "", d + 1, di[d].loaded == 1, di[d].loaded == 1 && di[d].playing == 1,
                               di[d].loaded == 1 ? di[d].bpm : 0.0, ph[d],
-                              di[d].loaded == 1 ? di[d].pos_s : -1.0, (unsigned)di[d].content_id, since[d]);
+                              di[d].loaded == 1 ? di[d].pos_s : -1.0, (unsigned)di[d].content_id, since[d], lv, lo);
             }
             n += snprintf(buf + n, sizeof buf - (size_t)n, "]}");
             send_pkt(buf, n);
+        }
+
+        /* mixer sniffer: the changed frame as hex, at most every 50 ms */
+        if (on && row_sniff >= 0 && C->row_value(row_sniff) == 1 && step % 10 == 0) {
+            unsigned g = atomic_load_explicit(&mix_gen, memory_order_acquire);
+            int len = atomic_load_explicit(&mix_len, memory_order_relaxed);
+            if (g != mix_sent && len > 0) {
+                mix_sent = g;
+                int n = snprintf(buf, sizeof buf, "{\"flowbeat\":1,\"type\":\"mixraw\",\"seq\":%u,\"b\":\"", seq++);
+                for (int i = 0; i < len && n < (int)sizeof buf - 4; i++) n += snprintf(buf + n, sizeof buf - (size_t)n, "%02x", mix_buf[i]);
+                n += snprintf(buf + n, sizeof buf - (size_t)n, "\"}");
+                send_pkt(buf, n);
+            }
         }
 
         struct timespec ts = { 0, POLL_MS * 1000000L };
@@ -296,8 +369,27 @@ static int init(const az_core_v1 *core)
                 "computer instead of the whole network.",
     };
     /* without Mod Menu rows, flow-beat:send in azmods.cfg (default on) decides */
-    if (AZ_HAS(C, register_row) && AZ_HAS(C, row_value))
+    static const az_row_v1 sniff_row = {
+        .size = sizeof sniff_row,
+        .key = "sniff",
+        .label = "Send mixer data (test)",
+        .kind = AZ_ROW_TOGGLE,
+        .help = "For mapping the mixer: while on, sends the mixer panel's raw input data to FLOW "
+                "whenever a knob or fader moves. Leave off for shows.",
+    };
+    if (AZ_HAS(C, register_row) && AZ_HAS(C, row_value)) {
         row_send = C->register_row(MOD_ID, &send_row);
+        row_sniff = C->register_row(MOD_ID, &sniff_row);
+    }
+    /* each deck's own audio, before the hardware mixer (0.3.0) */
+    if (AZ_HAS(C, audio_tap))
+        for (int d = 0; d < NDECKS; d++)
+            if (C->audio_tap(MOD_ID, AZ_TAP_DECK(d), TAP_FRAMES, meter, (void *)(intptr_t)d) != 0)
+                C->log(MOD_ID, "audio_tap deck %d refused", d + 1);
+    /* the mixer panel's input frames, read-only (sniffer) */
+    if (AZ_HAS(C, frame_filter) &&
+        C->frame_filter(MOD_ID, (1u << AZ_BUS_MIXER_IN) | AZ_FILTER_RAW, mix_filter, NULL) != 0)
+        C->log(MOD_ID, "frame_filter refused: no mixer data");
     read_cfg(0);
     if (C->on_deck_event(MOD_ID, on_deck, NULL) != 0) C->log(MOD_ID, "on_deck_event refused");
     if (C->thread_start(MOD_ID, "flow-beat", worker, NULL) != 0) {
