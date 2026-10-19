@@ -11,7 +11,7 @@
 #include <math.h>
 #include <stdint.h>
 
-enum { PL_OFF = 0, PL_IDLE, PL_BEAT, PL_PHRASE };
+enum { PL_OFF = 0, PL_IDLE, PL_BEAT, PL_PHRASE, PL_FLOW };
 typedef struct { unsigned char r, g, b; } pl_rgb;
 
 static void pl_hsv(double h, double s, double v, pl_rgb *o)
@@ -67,5 +67,14 @@ static long pl_count(long count, double last_phase, double phase, int playing)
     if (count < 0) return 0;
     if (last_phase >= 0 && phase + 0.5 < last_phase) return count + 1;
     return count;
+}
+/* PL_FLOW (0.2.0): the pads copy FLOW VJ's light rig — the Shocker's 8 segments, sent by the Mac's light bridge
+ * (UDP 9101, "FLP1" + 8 RGB). fresh = a packet arrived in the last 1.5 s; otherwise the idle wave. Both sides
+ * show the rig, left to right, on every deck, playing or not (the rig is the show). */
+static int pl_flow(int fresh, const pl_rgb flow[8], double t, pl_rgb pads[8])
+{
+    if (!fresh) { for (int k = 0; k < 8; k++) pl_hsv(t * 40.0 + k * 22.0, 1.0, 0.55, &pads[k]); return 1; }
+    for (int k = 0; k < 8; k++) pads[k] = flow[k];
+    return 1;
 }
 #endif

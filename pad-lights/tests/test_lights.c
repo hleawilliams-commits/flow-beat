@@ -31,6 +31,10 @@ int main(void)
     /* Beat counter. */
     CHECK(pl_count(-1, -1, 0.1, 1) == 0 && pl_count(0, 0.1, 0.5, 1) == 0 && pl_count(0, 0.95, 0.02, 1) == 1);
     CHECK(pl_count(7, 0.6, 0.4, 1) == 7 && pl_count(7, 0.5, 0.1, 0) == -1 && pl_count(7, 0.5, -1, 1) == -1);
+        /* FLOW lights (0.2.0): fresh = the rig's colours as sent, stale = the idle wave */
+    { pl_rgb f[8]; for (int k = 0; k < 8; k++) { f[k].r = (unsigned char)(k * 30); f[k].g = 0; f[k].b = 200; }
+      pl_rgb q[8]; CHECK(pl_flow(1, f, 0, q) && q[3].r == 90 && q[3].b == 200);
+      pl_rgb w[8], w2[8]; pl_flow(0, f, 0, w); pl_side(PL_IDLE, 0, 0, -1, -1, 0, w2); CHECK(w[0].r == w2[0].r && w[0].g == w2[0].g && w[0].b == w2[0].b); }
     printf("lights: %d checks passed\n", checks);
     return 0;
 }

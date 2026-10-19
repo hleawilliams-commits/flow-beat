@@ -9,9 +9,15 @@
  * Threads: the UI thread computes colours (gamma-corrected) into words; the ERP LED filter
  * (bus thread) copies them into the frame and records which deck each side shows; a worker
  * reads keys from the library (the deck reports none) for the beat colour.
+ * 0.2.0: FLOW lights mode — a listener thread takes FLOW VJ's rig colours (UDP 9101, "FLP1" + 8 RGB) and the
+ * pads mirror the Shocker's 8 segments; no packet for 1.5 s = the idle wave.
  */
+#include <arpa/inet.h>
 #include <math.h>
+#include <netinet/in.h>
 #include <pthread.h>
+#include <sys/socket.h>
+#include <unistd.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -22,6 +28,30 @@
 
 #define MOD_ID "pad-lights"
 static const az_core_v1 *C;
+
+/* FLOW lights (0.2.0): the listener thread writes, the UI thread reads */
+#define FLOW_PORT 9101
+static uint32_t pl_flowc[8];        /* __atomic, 0xRRGGBB */
+static int64_t pl_flow_ms;          /* __atomic, monotonic ms of the last packet */
+static int64_t pl_ms(void) { struct timespec ts; clock_gettime(CLOCK_MONOTONIC, &ts); return (int64_t)ts.tv_sec * 1000 + ts.tv_nsec / 1000000; }
+static void *pl_flow_worker(void *arg)
+{
+    (void)arg;
+    int s = socket(AF_INET, SOCK_DGRAM, 0);
+    if (s < 0) return NULL;
+    int on = 1; setsockopt(s, SOL_SOCKET, SO_REUSEADDR, &on, sizeof on);
+    struct timeval tv = {0, 500000}; setsockopt(s, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof tv);
+    struct sockaddr_in a; memset(&a, 0, sizeof a); a.sin_family = AF_INET; a.sin_port = htons(FLOW_PORT); a.sin_addr.s_addr = htonl(INADDR_ANY);
+    if (bind(s, (struct sockaddr *)&a, sizeof a) != 0) { close(s); if (AZ_HAS(C, log)) C->log(MOD_ID, "UDP %d busy: FLOW lights off", FLOW_PORT); return NULL; }
+    unsigned char b[64];
+    for (;;) {
+        ssize_t n = recv(s, b, sizeof b, 0);
+        if (n < 28 || memcmp(b, "FLP1", 4) != 0) continue;
+        for (int k = 0; k < 8; k++) __atomic_store_n(&pl_flowc[k], (uint32_t)b[4 + 3 * k] << 16 | (uint32_t)b[5 + 3 * k] << 8 | b[6 + 3 * k], __ATOMIC_RELAXED);
+        __atomic_store_n(&pl_flow_ms, pl_ms(), __ATOMIC_RELEASE);
+    }
+    return NULL;
+}
 
 /* UI -> bus: per side, whether to override, and 8 packed colours (already gamma'd). */
 static int pl_on_side[2];                 /* __atomic */
@@ -205,7 +235,12 @@ static void pl_tick(void)
         int deck = side + (sel == 2 ? 2 : 0);                     /* unknown selection: decks 1/2 */
         pl_rgb pads[8];
         int cam = __atomic_load_n(&pl_cam[deck], __ATOMIC_ACQUIRE);
-        int on = pl_side(mode, playing[deck], t + side * 1.7, phase[deck], pl_beats[deck], cam, pads);
+        int on;
+        if (mode == PL_FLOW) {
+            pl_rgb flow[8];
+            for (int k = 0; k < 8; k++) { uint32_t c = __atomic_load_n(&pl_flowc[k], __ATOMIC_RELAXED); flow[k].r = c >> 16; flow[k].g = c >> 8; flow[k].b = c; }
+            on = pl_flow(pl_ms() - __atomic_load_n(&pl_flow_ms, __ATOMIC_ACQUIRE) < 1500, flow, t + side * 1.7, pads);
+        } else on = pl_side(mode, playing[deck], t + side * 1.7, phase[deck], pl_beats[deck], cam, pads);
         if (on) for (int k = 0; k < 8; k++) {
             __atomic_store_n(&pl_cell[side][k], (uint32_t)pl_gam[pads[k].r] << 16 | (uint32_t)pl_gam[pads[k].g] << 8 | pl_gam[pads[k].b], __ATOMIC_RELAXED);
             pl_preview[side][k] = (uint32_t)pads[k].r << 16 | (uint32_t)pads[k].g << 8 | pads[k].b;
@@ -251,10 +286,10 @@ static int pl_init(const az_core_v1 *core)
     if (!AZ_HAS(C, deck_info) || !AZ_HAS(C, thread_start)) return 2;
     for (int i = 0; i < 256; i++) pl_gam[i] = (unsigned char)(pow(i / 255.0, 2.2) * 255.0 + 0.5);
     if (AZ_HAS(C, register_row) && AZ_HAS(C, row_value)) {
-        static const char *const modes[] = {"Off", "Idle show", "Beat pulse", "Phrase countdown"};
+        static const char *const modes[] = {"Off", "Idle show", "Beat pulse", "Phrase countdown", "FLOW lights"};
         const az_row_v1 row = {.size = sizeof row, .key = "mode", .label = "Pad lights", .kind = AZ_ROW_CHOICE,
-            .choices = modes, .n_choices = 4, .default_choice = PL_IDLE,
-            .help = "Idle show: pads animate only on a side whose deck is stopped or empty; the side you play keeps its hot-cue colours. Beat pulse: the playing side pulses on the beat in the track's key colour. Phrase countdown: pads fill over 32 beats, last bar flashes red."};
+            .choices = modes, .n_choices = 5, .default_choice = PL_IDLE,
+            .help = "Idle show: pads animate only on a side whose deck is stopped or empty; the side you play keeps its hot-cue colours. Beat pulse: the playing side pulses on the beat in the track's key colour. Phrase countdown: pads fill over 32 beats, last bar flashes red. FLOW lights: the pads mirror FLOW VJ's light rig (the Shocker's 8 segments) from the Mac."};
         pl_row_mode = C->register_row(MOD_ID, &row);
     }
     if (AZ_HAS(C, register_screen)) {
@@ -268,6 +303,7 @@ static int pl_init(const az_core_v1 *core)
             if (AZ_HAS(C, log)) C->log(MOD_ID, "no pad LED access on this core: pads unchanged");
         }
         if (AZ_HAS(C, lib_tracks) && C->thread_start(MOD_ID, "pad-keys", pl_worker, NULL) != 0) return 4;
+        if (C->thread_start(MOD_ID, "pad-flow", pl_flow_worker, NULL) != 0 && AZ_HAS(C, log)) C->log(MOD_ID, "no FLOW lights thread");
         started = 1;
     }
     return 0;
