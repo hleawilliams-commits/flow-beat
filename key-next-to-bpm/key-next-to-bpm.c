@@ -36,13 +36,14 @@
  * 2 DECK and 2/4 DECK: the two waveform rows are 198 px tall at y 81 and 286 (y 130 and 308,
  * 176 tall, while the official Phase Meter's layout is on). Only x 212..1050 of a row shows
  * between the left deck panel and the Beat FX panel. 4 DECK: the rows are not documented
- * anywhere yet; the values below are a first guess to be tuned on the deck, which is what the
- * "Nudge" row is for. */
+ * anywhere; ROW4_Y below was measured on the emulator's screen. The "Nudge" row fine-tunes. */
 #define ROW_X0 212
 #define ROW_X1 1050
 static const int ROW2_Y[2] = { 81, 286 };
 static const int ROW2_PHASE_Y[2] = { 130, 308 };
-static const int ROW4_Y[4] = { 81, 253, 425, 597 };
+/* 4 DECK, measured in the emulator: four 112 px lanes stacked 3-1-2-4 from the top, by deck
+ * index (deck 1 is the second lane). */
+static const int ROW4_Y[4] = { 203, 325, 92, 447 };
 #define TOP_Y 46   /* "Screen top" position: the status strip above the waveforms */
 
 static const az_core_v1 *C;
@@ -409,8 +410,11 @@ static int init(const az_core_v1 *core)
         desc.on_input = input;
         desc.user = (void *)(intptr_t)d;
         badge[d] = C->surface_create(MOD_ID, &desc);
-        if (!badge[d]) { C->log(MOD_ID, "surface %d refused", d + 1); return 3; }
+        /* The core shares 16 surfaces between every mod. With several mods on, the last
+         * ones can be refused: keep the badges we got (decks 1 and 2 first) and run. */
+        if (!badge[d]) { C->log(MOD_ID, "surface %d refused: other mods hold the rest", d + 1); break; }
     }
+    if (!badge[0]) return 3;
 
     /* The library reader, last: a thread outlives a refused init. Without it the mod still
      * shows a key on a core that fills deck_info.key. */
