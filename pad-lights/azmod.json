@@ -1,0 +1,16 @@
+{
+  "azmod": 1,
+  "id": "pad-lights",
+  "name": "Pad Lights",
+  "version": "0.1.0",
+  "author": "hleawilliams-commits",
+  "summary": "The pads as a light show when idle; optional key-coloured beat pulse or 32-beat phrase countdown.",
+  "description": "Idle show (default): the pads glow in a slow colour wave on a side whose deck is stopped or empty, so the deck you're playing keeps its own hot-cue colours. Beat pulse: the playing side's pads pulse on every beat in a colour from the track's key. Phrase countdown: the pads fill over 32 beats from when the track started, and the last bar flashes red. Off returns every pad to normal. Changes pad colours only: no controls, audio or library writes.",
+  "category": "visual",
+  "license": "GPL-3.0-only",
+  "source": "https://github.com/hleawilliams-commits/flow-beat/tree/codex/az-mods-handoff-2026-10-16/pad-lights",
+  "api": 1,
+  "firmware": ["any"],
+  "hooks": false,
+  "min_core": "1.2.3"
+}
