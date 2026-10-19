@@ -1,0 +1,18 @@
+{
+  "azmod": 1,
+  "id": "key-next-to-bpm",
+  "name": "Key next to BPM",
+  "version": "0.2.0",
+  "author": "hleawilliams-commits",
+  "summary": "The song, key and BPM at the start of each waveform lane, or just the key next to the BPM.",
+  "description": "Puts each deck's song, key and BPM at the start of its waveform lane, so in 4 DECK you can see what's on every lane without looking down. Tested in the emulator in 4 DECK; not yet run on a deck.\n\nMod Menu rows: Show (Song+key, or Key only at the end of the lane), notation (Camelot 8A, classic Am, as exported), size, position and a nudge. Keys come from the stick's rekordbox library on the mod's own thread.\n\nRuns with whatever share of the deck's 16 surfaces other mods leave. Read-only: no hooks, controls, LEDs, audio, files or network.",
+  "category": "visual",
+  "license": "GPL-3.0-only",
+  "source": "https://github.com/hleawilliams-commits/flow-beat/tree/main/key-next-to-bpm",
+  "api": 1,
+  "firmware": [
+    "any"
+  ],
+  "hooks": false,
+  "min_core": "1.2.3"
+}

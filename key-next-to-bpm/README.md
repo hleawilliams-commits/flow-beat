@@ -10,8 +10,9 @@ An AZ-MODS community mod for the XDJ-AZ: the loaded track's musical key as a sma
 Build: `azmod-pack build .` in the SDK container, or `make CC=<aarch64 gcc 7 / zig cc -target aarch64-linux-gnu.2.27> AZ_SDK_INCLUDE=<sdk>/include`.
 Test: `make test AZ_SDK=<sdk>` (host harness, plain + asan + tsan).
 
-Status: 0.1.2, run in the emulator in 2 DECK and 4 DECK views (each key lands on its own lane; 4 DECK stacks the lanes 3-1-2-4). Not yet run on a deck.
+Status: 0.2.0, run in the emulator in 4 DECK (each lane gets its own song, key and BPM; lanes stack 3-1-2-4). Not yet run on a deck.
 
-0.1.2: correct 4 DECK lane positions; keeps running when other mods hold some of the 16 shared surfaces (0.1.1 refused to start).
+0.2.0: Show row, default Song+key: the song, key and BPM at the start of each waveform lane, in the lane's top strip; Camelot by default.
+0.1.2: correct 4 DECK lane positions; keeps running when other mods hold some of the 16 shared surfaces.
 
 License: GPL-3.0-only.
