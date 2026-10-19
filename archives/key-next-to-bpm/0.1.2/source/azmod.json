@@ -1,0 +1,18 @@
+{
+  "azmod": 1,
+  "id": "key-next-to-bpm",
+  "name": "Key next to BPM",
+  "version": "0.1.2",
+  "author": "hleawilliams-commits",
+  "summary": "The loaded track's key on each deck, next to the BPM, as Camelot (8A) or classic (Am).",
+  "description": "Shows the key of the track on each deck as a small badge at the right end of its waveform lane, so the key tray on the left can stay collapsed. Tested in the emulator in 2 DECK and 4 DECK views; not yet run on a deck.\n\nMod Menu rows: notation (as exported, Camelot 8A, classic Am), size, position (right, left, screen top) and a nudge. Keys come from the stick's rekordbox library on the mod's own thread.\n\nIf other mods hold most of the deck's 16 shared surfaces it still runs with the badges it gets. Read-only: no hooks, controls, LEDs, audio, files or network.",
+  "category": "visual",
+  "license": "GPL-3.0-only",
+  "source": "https://github.com/hleawilliams-commits/flow-beat/tree/main/key-next-to-bpm",
+  "api": 1,
+  "firmware": [
+    "any"
+  ],
+  "hooks": false,
+  "min_core": "1.2.3"
+}
