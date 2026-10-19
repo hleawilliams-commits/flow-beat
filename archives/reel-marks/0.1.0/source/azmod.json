@@ -1,0 +1,16 @@
+{
+  "azmod": 1,
+  "id": "reel-marks",
+  "name": "Reel Marks",
+  "version": "0.1.0",
+  "author": "hleawilliams-commits",
+  "summary": "SHIFT + TAP marks a moment worth a clip; a Mac script cuts the clips for reels.",
+  "description": "Press SHIFT + TAP (the Beat FX TAP button) during a set to mark a moment. Each mark saves the time, the minutes into the set and every loaded deck's track, position and BPM to MODS/community-mods/reel-marks/data/marks-<date>.csv on the USB, and shows a short banner. On the Mac, tools/reel_cut.py cuts a clip around each mark from your phone video or recording. SHIFT + TAP never reaches the deck; TAP alone works as usual. Writes only its own file on the USB.",
+  "category": "tools",
+  "license": "GPL-3.0-only",
+  "source": "https://github.com/hleawilliams-commits/flow-beat/tree/codex/az-mods-handoff-2026-10-16/reel-marks",
+  "api": 1,
+  "firmware": ["any"],
+  "hooks": false,
+  "min_core": "1.2.3"
+}
