@@ -11,8 +11,42 @@ last), and drives a Link session:
 Run:   python3 flow_link_bridge.py          (Ctrl+C to stop)
 Needs: python3 -m pip install aalink
 In AUTO/PILOT turn Link on; it shows one peer when the bridge runs.
+
+Bar alignment (2026-10-18): the bridge asks FlowVJ (http://127.0.0.1:8717/deck-waveform, the same rekordbox
+beat grid the lights use, also for guest USBs via flow-beat 0.4.0) for the lead track's grid, works out which
+beat of the bar each deck beat is, and puts Link's bar (quantum 4) on the track's real "1". Without a grid it
+still locks tempo and beat, as before.
 """
-import asyncio, json, socket, sys, time
+import asyncio, json, socket, sys, time, urllib.parse, urllib.request
+
+FLOW = "http://127.0.0.1:8717"
+
+
+def beat_in_bar(grid, pos_s):
+    """rekordbox grid runs [[t0_ms, beat_in_bar_at_t0, period_ms, count], ...] + playhead (s) -> 1..4 of the beat
+    nearest pos, or None."""
+    run = None
+    for r in grid or []:
+        if isinstance(r, (list, tuple)) and len(r) >= 4 and r[2] > 0 and r[0] <= pos_s * 1000.0 + r[2] / 2:
+            run = r
+    if not run:
+        return None
+    t0, b0, period, count = run[:4]
+    k = round((pos_s * 1000.0 - t0) / period)
+    if k < 0 or k >= count:
+        return None
+    return int((int(b0) - 1 + k) % 4) + 1
+
+
+def fetch_grid(d):
+    """The FlowVJ server's rekordbox grid for a deck's track (blocking; run in a thread)."""
+    q = urllib.parse.urlencode({"id": d.get("id", 0), "k": (d.get("artist", "") + "|" + d.get("title", "")).lower().strip()})
+    try:
+        with urllib.request.urlopen(f"{FLOW}/deck-waveform?{q}", timeout=20) as r:
+            w = json.load(r)
+        return w.get("grid") if w.get("available") else None
+    except Exception:
+        return None
 
 try:
     from aalink import Link
@@ -31,6 +65,9 @@ class Bridge(asyncio.DatagramProtocol):
         self.lead = None
         self.beat_n = 0         # beats counted on the lead deck since it became lead
         self.last_rx = 0.0
+        self.titles = {}        # d -> (title, artist)
+        self.grids = {}         # (d, title, artist) -> grid runs | None (looked up once)
+        self.pending = set()
 
     def datagram_received(self, data, addr):
         try:
@@ -41,6 +78,8 @@ class Bridge(asyncio.DatagramProtocol):
             return
         self.last_rx = time.monotonic()
         t = m.get("type")
+        if t == "track":
+            self.titles[m.get("d")] = (str(m.get("title") or ""), str(m.get("artist") or ""))
         if t == "state":
             for d in m.get("decks", []):
                 self.decks[d.get("d")] = d
@@ -51,11 +90,33 @@ class Bridge(asyncio.DatagramProtocol):
                 if abs(self.link.tempo - bpm) > 0.005:
                     self.link.tempo = bpm
         elif t == "beat" and m.get("d") == self.lead:
-            # a new beat started on the lead deck right now: snap Link's beat to a whole beat
+            # a new beat started on the lead deck right now: snap Link's beat to a whole beat, and when the
+            # track's rekordbox grid is known, to the right beat of the bar (Link beat 0, 4, 8... = the "1")
             b = self.link.beat
             target = round(b)
+            within = self.within(self.lead)
+            if within:
+                want = within - 1                      # 0..3: where in the bar this beat sits
+                target = target - ((target - want) % 4) if (target - want) % 4 <= 2 else target + (4 - (target - want) % 4)
             if abs(b - target) > 0.02:
                 self.link.request_beat(target)
+
+    def within(self, d):
+        """1..4 for deck d's current beat, from its track's grid (looked up in the background once per track)."""
+        st = self.decks.get(d) or {}
+        title, artist = self.titles.get(d, ("", ""))
+        if not title or st.get("pos", -1) is None or st.get("pos", -1) < 0:
+            return None
+        key = (d, title, artist)
+        if key not in self.grids:
+            if key not in self.pending:
+                self.pending.add(key)
+                info = {"id": st.get("id", 0), "title": title, "artist": artist}
+                fut = asyncio.get_running_loop().run_in_executor(None, fetch_grid, info)
+                fut.add_done_callback(lambda f, k=key: (self.grids.__setitem__(k, f.result()), self.pending.discard(k),
+                                                         print(f"grid for deck {k[0]} '{k[1][:40]}': {'found' if f.result() else 'none'}", flush=True)))
+            return None
+        return beat_in_bar(self.grids[key], float(st["pos"]))
 
     def pick_lead(self):
         playing = [d for d in self.decks.values() if d.get("play") == 1 and d.get("loaded") == 1]
