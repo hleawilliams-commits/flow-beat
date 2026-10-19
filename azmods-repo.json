@@ -339,6 +339,27 @@
       "license": "GPL-3.0-only",
       "min_core": "1.2.3",
       "description": "Idle show (default): the pads glow in a slow colour wave on a side whose deck is stopped or empty, so the deck you're playing keeps its own hot-cue colours. Beat pulse: the playing side's pads pulse on every beat in a colour from the track's key. Phrase countdown: the pads fill over 32 beats from when the track started, and the last bar flashes red. Off returns every pad to normal. Changes pad colours only: no controls, audio or library writes."
+    },
+    {
+      "id": "reel-marks",
+      "name": "Reel Marks",
+      "version": "0.1.0",
+      "author": "hleawilliams-commits",
+      "summary": "SHIFT + TAP marks a moment worth a clip; a Mac script cuts the clips for reels.",
+      "icon": "https://github.com/hleawilliams-commits/flow-beat/releases/download/reel-marks-0.1.0/reel-marks-0.1.0-icon.png",
+      "package": "https://github.com/hleawilliams-commits/flow-beat/releases/download/reel-marks-0.1.0/reel-marks-0.1.0.azmod",
+      "sha256": "76b407186d05208a541d8238463fef2773e41f805456e735405b66323a9986c2",
+      "size": 56831,
+      "firmware": [
+        "any"
+      ],
+      "hooks": false,
+      "source": "https://github.com/hleawilliams-commits/flow-beat/tree/codex/az-mods-handoff-2026-10-16/reel-marks",
+      "updated": "2026-10-19",
+      "category": "tools",
+      "license": "GPL-3.0-only",
+      "min_core": "1.2.3",
+      "description": "Press SHIFT + TAP (the Beat FX TAP button) during a set to mark a moment. Each mark saves the time, the minutes into the set and every loaded deck's track, position and BPM to MODS/community-mods/reel-marks/data/marks-<date>.csv on the USB, and shows a short banner. On the Mac, tools/reel_cut.py cuts a clip around each mark from your phone video or recording. SHIFT + TAP never reaches the deck; TAP alone works as usual. Writes only its own file on the USB."
     }
   ]
 }
