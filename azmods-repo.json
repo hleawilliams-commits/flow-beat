@@ -90,13 +90,13 @@
     {
       "id": "key-next-to-bpm",
       "name": "Key next to BPM",
-      "version": "0.1.2",
+      "version": "0.2.0",
       "author": "hleawilliams-commits",
-      "summary": "The loaded track's key on each deck, next to the BPM, as Camelot (8A) or classic (Am).",
-      "icon": "https://github.com/hleawilliams-commits/flow-beat/releases/download/key-next-to-bpm-0.1.2/key-next-to-bpm-0.1.2-icon.png",
-      "package": "https://github.com/hleawilliams-commits/flow-beat/releases/download/key-next-to-bpm-0.1.2/key-next-to-bpm-0.1.2.azmod",
-      "sha256": "3b9f9c94d2e53690b64af65e4b5de04c1bb1e953f72a18f11dab8e1bc5444a8c",
-      "size": 66067,
+      "summary": "The song, key and BPM at the start of each waveform lane, or just the key next to the BPM.",
+      "icon": "https://github.com/hleawilliams-commits/flow-beat/releases/download/key-next-to-bpm-0.2.0/key-next-to-bpm-0.2.0-icon.png",
+      "package": "https://github.com/hleawilliams-commits/flow-beat/releases/download/key-next-to-bpm-0.2.0/key-next-to-bpm-0.2.0.azmod",
+      "sha256": "14a9ff41a5e72cb2ef304e9a92c83aaac5bcf48d77ad3159609dfc613766f30d",
+      "size": 66192,
       "firmware": [
         "any"
       ],
@@ -106,7 +106,7 @@
       "category": "visual",
       "license": "GPL-3.0-only",
       "min_core": "1.2.3",
-      "description": "Shows the key of the track on each deck as a small badge at the right end of its waveform lane, so the key tray on the left can stay collapsed. Tested in the emulator in 2 DECK and 4 DECK views; not yet run on a deck.\n\nMod Menu rows: notation (as exported, Camelot 8A, classic Am), size, position (right, left, screen top) and a nudge. Keys come from the stick's rekordbox library on the mod's own thread.\n\nIf other mods hold most of the deck's 16 shared surfaces it still runs with the badges it gets. Read-only: no hooks, controls, LEDs, audio, files or network."
+      "description": "Puts each deck's song, key and BPM at the start of its waveform lane, so in 4 DECK you can see what's on every lane without looking down. Tested in the emulator in 4 DECK; not yet run on a deck.\n\nMod Menu rows: Show (Song+key, or Key only at the end of the lane), notation (Camelot 8A, classic Am, as exported), size, position and a nudge. Keys come from the stick's rekordbox library on the mod's own thread.\n\nRuns with whatever share of the deck's 16 surfaces other mods leave. Read-only: no hooks, controls, LEDs, audio, files or network."
     },
     {
       "id": "mashup-helper",

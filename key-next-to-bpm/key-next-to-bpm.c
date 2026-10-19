@@ -48,7 +48,7 @@ static const int ROW4_Y[4] = { 203, 325, 92, 447 };
 
 static const az_core_v1 *C;
 static az_surface *badge[NDECK];
-static int r_show = -1, r_notation = -1, r_size = -1, r_pos = -1, r_nudge = -1;
+static int r_show = -1, r_notation = -1, r_size = -1, r_pos = -1, r_nudge = -1, r_label = -1;
 static int r_phase_official = -1;   /* the official Phase Meter row, read-only */
 
 /* ---- the key table: written by the reader thread, read by the UI thread ----------------- */
@@ -215,7 +215,10 @@ static struct {
     int loaded;
     uint32_t id;
     char key[8];        /* the raw key, "" = unknown */
-    char text[32];      /* what the badge draws, "" = hidden */
+    char title[96];     /* the track title, in the surface font's Latin-1 */
+    double bpm;
+    char text[96];      /* what the badge draws, "" = hidden */
+    char sub[32];       /* "Song + key": key and BPM after the title */
     az_rect where;
     int shown;
 } g_d[NDECK];
@@ -229,6 +232,40 @@ static long now_ms(void)
     clock_gettime(CLOCK_MONOTONIC, &ts);
     return ts.tv_sec * 1000L + ts.tv_nsec / 1000000L;
 }
+
+/* draw_text renders Latin-1, the library hands over UTF-8: convert in place (never longer). */
+static void to_latin1(char *s)
+{
+    unsigned char *r = (unsigned char *)s, *w = r;
+    while (*r) {
+        unsigned c = *r, cp = 0; int n = 0;
+        if (c < 0x80) { *w++ = *r++; continue; }
+        if (c >= 0xc2 && c <= 0xdf) { n = 2; cp = c & 0x1f; }
+        else if (c >= 0xe0 && c <= 0xef) { n = 3; cp = c & 0x0f; }
+        else if (c >= 0xf0 && c <= 0xf4) { n = 4; cp = c & 0x07; }
+        int ok = n > 0;
+        for (int i = 1; ok && i < n; i++) { if ((r[i] & 0xc0) != 0x80) ok = 0; else cp = cp << 6 | (r[i] & 0x3f); }
+        if (!ok) { *w++ = '?'; r++; continue; }
+        r += n;
+        if (cp <= 0xff) *w++ = (unsigned char)cp;
+        else if (cp == 0x2018 || cp == 0x2019) *w++ = '\'';
+        else if (cp == 0x201c || cp == 0x201d) *w++ = '"';
+        else if (cp == 0x2013 || cp == 0x2014) *w++ = '-';
+        else *w++ = '?';
+    }
+    *w = 0;
+}
+
+/* "Song + key": the title at the left of its lane with key and BPM after it, in the top
+ * strip of the lane (beat ticks only), short of the playhead. */
+static int label_mode(void)
+{
+    return r_label < 0 || C->row_value(r_label) == 1;
+}
+#define LABEL_MAX_W 330
+/* The deck font's mixed-case text runs about 0.55 px wide per px of size (measured on the
+ * emulator); the badge's capitals-and-digits estimate is wider. */
+static int est_label(const char *s, int px) { return (int)strlen(s) * px * 56 / 100 + 2; }      /* 4 DECK playhead sits near x 397: stay left of it */
 
 static int text_px(void)
 {
@@ -249,6 +286,28 @@ static void paint(az_draw *d, az_rect a, void *user)
     int deck = (int)(intptr_t)user;
     if (deck < 0 || deck >= NDECK || !g_d[deck].text[0]) return;
     int px = text_px();
+    if (g_d[deck].sub[0]) {
+        int tp = px * 7 / 8 + 1, sp = tp * 3 / 4;
+        /* measured with the real font: shorten the title until title + key/BPM fit the box */
+        char t[96];
+        snprintf(t, sizeof t, "%s", g_d[deck].text);
+        int has_w = AZ_HAS(C, text_width);
+        int sw = has_w ? C->text_width(g_d[deck].sub, sp) : est_label(g_d[deck].sub, sp);
+        int tw = has_w ? C->text_width(t, tp) : est_label(t, tp);
+        size_t n = strlen(t);
+        while (has_w && n > 4 && 28 + tw + sw > a.w) {
+            n--; t[n] = 0; memcpy(t + n - 3, "...", 3);
+            tw = C->text_width(t, tp);
+        }
+        int show_sub = 28 + tw + sw <= a.w;
+        int bw = show_sub ? 28 + tw + sw : 14 + tw;   /* the box hugs the text */
+        if (bw > a.w) bw = a.w;
+        C->fill_rect(d, a.x, a.y, bw, a.h, C->color(AZ_COL_BG));
+        C->fill_rect(d, a.x, a.y, 4, a.h, C->color(AZ_COL_HI));
+        if (10 + tw <= a.w) C->draw_text(d, a.x + 10, a.y + 1, t, tp, C->color(AZ_COL_TEXT));
+        if (show_sub) C->draw_text(d, a.x + 18 + tw, a.y + 1 + (tp - sp), g_d[deck].sub, sp, C->color(AZ_COL_TEXT_DIM));
+        return;
+    }
     C->draw_text(d, a.x + 6, a.y + 2, g_d[deck].text, px, C->color(AZ_COL_TEXT));
     C->fill_rect(d, a.x, a.y + a.h - 2, a.w, 2, C->color(AZ_COL_HI));
 }
@@ -282,14 +341,45 @@ static az_rect place_for(int d, int w, int h)
 static void refresh(void)
 {
     int show = r_show < 0 || C->row_value(r_show) == 1;
-    int notation = r_notation >= 0 ? C->row_value(r_notation) : NOTE_AS_IS;
+    int notation = r_notation >= 0 ? C->row_value(r_notation) : NOTE_CAMELOT;
     int px = text_px();
     int h = px * 3 / 2 + 6;
 
+    int lane = label_mode() && !g_combined && (r_pos < 0 || C->row_value(r_pos) != 2);
     for (int d = 0; d < NDECK; d++) {
-        char text[32] = "";
+        char text[96] = "", sub[32] = "";
         int visible = 0;
-        if (show && g_d[d].loaded && g_d[d].key[0]) {
+        if (show && lane && g_d[d].loaded && (g_d[d].title[0] || g_d[d].key[0])) {
+            int tp = px * 7 / 8 + 1, sp = tp * 3 / 4;
+            char k[16] = "";
+            if (g_d[d].key[0]) format_key(g_d[d].key, notation, k, sizeof k);
+            if (g_d[d].bpm > 0) snprintf(sub, sizeof sub, "%s%s%.1f", k, k[0] ? "  " : "", g_d[d].bpm);
+            else snprintf(sub, sizeof sub, "%s", k[0] ? k : " ");
+            snprintf(text, sizeof text, "%s", g_d[d].title[0] ? g_d[d].title : "?");
+            int room = LABEL_MAX_W - 28 - est_label(sub, sp);
+            size_t n = strlen(text);
+            while (n > 4 && est_label(text, tp) > room) { n--; text[n] = 0; memcpy(text + n - 3, "...", 3); }
+            visible = g_count == 4 || d < 2;
+            if (visible) {
+                int w = est_label(text, tp) + est_label(sub, sp) + 28;
+                if (w > LABEL_MAX_W) w = LABEL_MAX_W;
+                az_rect r = place_for(d, w, tp * 3 / 2 + 2);
+                r.x = ROW_X0 + 4;
+                int changed = strcmp(text, g_d[d].text) != 0 || strcmp(sub, g_d[d].sub) != 0 ||
+                              memcmp(&r, &g_d[d].where, sizeof r) != 0;
+                snprintf(g_d[d].text, sizeof g_d[d].text, "%s", text);
+                snprintf(g_d[d].sub, sizeof g_d[d].sub, "%s", sub);
+                g_d[d].where = r;
+                if (!badge[d]) continue;
+                if (changed) C->surface_place(badge[d], r);
+                if (!g_d[d].shown) { C->surface_show(badge[d], 1); g_d[d].shown = 1; }
+                if (changed) C->surface_redraw(badge[d]);
+                continue;
+            }
+            text[0] = 0;
+        }
+        g_d[d].sub[0] = 0;
+        if (!lane && show && g_d[d].loaded && g_d[d].key[0]) {
             char k[16];
             format_key(g_d[d].key, notation, k, sizeof k);
             if (g_combined) snprintf(text, sizeof text, "%d %s", d + 1, k);
@@ -333,13 +423,17 @@ static void tick(void)
         memset(&di, 0, sizeof di);
         di.size = (int)sizeof di;
         if (C->deck_info(d, &di) != 0 || di.loaded != 1) {
-            g_d[d].loaded = 0; g_d[d].id = 0; g_d[d].key[0] = 0;
+            g_d[d].loaded = 0; g_d[d].id = 0; g_d[d].key[0] = 0; g_d[d].title[0] = 0;
             continue;
         }
         if (d >= 2) high_in_use = 1;
         int new_track = !g_d[d].loaded || g_d[d].id != di.content_id;
         g_d[d].loaded = 1;
         g_d[d].id = di.content_id;
+        g_d[d].bpm = di.bpm;
+        di.title[sizeof di.title - 1] = 0;
+        snprintf(g_d[d].title, sizeof g_d[d].title, "%.95s", di.title);
+        to_latin1(g_d[d].title);
         if (di.key[0]) {                                   /* a core that fills it: use it */
             snprintf(g_d[d].key, sizeof g_d[d].key, "%s", di.key);
         } else if (new_track || table_changed || !g_d[d].key[0]) {
@@ -383,7 +477,7 @@ static int init(const az_core_v1 *core)
     r_show = C->register_row(MOD_ID, &row);
     memset(&row, 0, sizeof row); row.size = sizeof row; row.parent = "show";
     row.key = "notation"; row.label = "Notation"; row.kind = AZ_ROW_CHOICE;
-    row.choices = NOTATIONS; row.n_choices = 3; row.default_choice = 0;
+    row.choices = NOTATIONS; row.n_choices = 3; row.default_choice = 1;
     row.help = "Raw = as exported, 8A = Camelot, Am = classic.";
     r_notation = C->register_row(MOD_ID, &row);
     row.key = "size"; row.label = "Size"; row.choices = SIZES; row.n_choices = 3; row.default_choice = 1;
@@ -395,6 +489,10 @@ static int init(const az_core_v1 *core)
     row.key = "nudge"; row.label = "Nudge"; row.choices = NUDGES; row.n_choices = 4; row.default_choice = 0;
     row.help = "Move the key up or down to line up with BPM.";
     r_nudge = C->register_row(MOD_ID, &row);
+    static const char *const LABELS[] = { "Key", "Song+key" };
+    row.key = "label"; row.label = "Show"; row.choices = LABELS; row.n_choices = 2; row.default_choice = 1;
+    row.help = "Key = the key at the end of the lane. Song+key = the song, key and BPM at the start of each lane.";
+    r_label = C->register_row(MOD_ID, &row);
     if (AZ_HAS(C, row_lookup)) r_phase_official = C->row_lookup("phase-meter");
     } else {
         C->log(MOD_ID, "no Mod Menu rows on this core: defaults (on, as exported, medium)");
