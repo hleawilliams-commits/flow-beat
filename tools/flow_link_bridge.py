@@ -16,6 +16,13 @@ Bar alignment (2026-10-18): the bridge asks FlowVJ (http://127.0.0.1:8717/deck-w
 beat grid the lights use, also for guest USBs via flow-beat 0.4.0) for the lead track's grid, works out which
 beat of the bar each deck beat is, and puts Link's bar (quantum 4) on the track's real "1". Without a grid it
 still locks tempo and beat, as before.
+
+"This is 1" (2026-10-20): FlowVJ's phrase-sync press (APC40 mkII SESSION button, or the BAR badge) makes serve.py
+send {"flowbeat":1,"type":"one","late":bool} to 127.0.0.1:9101. The beat nearest the press becomes Link's bar 1
+(forced for every peer, so a linked Ableton jumps onto it) and stays the reference until the lead deck's track
+changes. Works for any track, grid or not (guest USBs included).
+Note: with peers in the session Link's request_beat only shifts by whole bars, so a wrong bar position is fixed
+with force_beat; whole-beat drift snaps still use request_beat as before.
 """
 import asyncio, json, socket, sys, time, urllib.parse, urllib.request
 
@@ -54,6 +61,7 @@ except ImportError:
     sys.exit("aalink is missing: run  python3 -m pip install aalink")
 
 PORT = 9100
+ONE_PORT = 9101        # localhost only: "this is 1" from FlowVJ (serve.py /link-one)
 QUANTUM = 4
 STALE_S = 2.0          # no packet from the deck for this long: hold the last tempo
 
@@ -68,6 +76,37 @@ class Bridge(asyncio.DatagramProtocol):
         self.titles = {}        # d -> (title, artist)
         self.grids = {}         # (d, title, artist) -> grid runs | None (looked up once)
         self.pending = set()
+        self.last_beat_t = 0.0  # monotonic time of the lead deck's last beat packet
+        self.one = None         # (deck, title, artist, beat_n of the "1") from a "this is 1" press
+
+    def this_is_one(self, late=None):
+        """The beat nearest now is bar 1: force Link there, then count bars from it until the track changes."""
+        b = self.link.beat
+        lead = self.decks.get(self.lead) or {}
+        if late is None:
+            late = (b - int(b // 1)) > 0.5
+        one = int(-(-b // 1)) if late else int(b // 1)      # the next whole beat, or the last one
+        shift = (-one) % 4
+        if shift > 2:
+            shift -= 4
+        if shift:
+            self.link.force_beat(b + shift)
+        if self.lead is not None and lead.get("play") == 1:
+            title, artist = self.titles.get(self.lead, ("", ""))
+            self.one = (self.lead, title, artist, self.beat_n + (1 if late else 0))
+        else:
+            self.one = None
+        print(f"this is 1: Link bar reset (moved {shift:+d} beats{', next beat' if late else ''})", flush=True)
+
+    def manual_within(self):
+        """0..3 bar position of the lead deck's current beat from a "this is 1" press, or None."""
+        if not self.one:
+            return None
+        d, title, artist, n = self.one
+        if d != self.lead or self.titles.get(d, ("", "")) != (title, artist):
+            self.one = None
+            return None
+        return (self.beat_n - n) % 4
 
     def datagram_received(self, data, addr):
         try:
@@ -78,6 +117,9 @@ class Bridge(asyncio.DatagramProtocol):
             return
         self.last_rx = time.monotonic()
         t = m.get("type")
+        if t == "one":
+            self.this_is_one(m.get("late"))
+            return
         if t == "track":
             self.titles[m.get("d")] = (str(m.get("title") or ""), str(m.get("artist") or ""))
         if t == "state":
@@ -92,13 +134,19 @@ class Bridge(asyncio.DatagramProtocol):
         elif t == "beat" and m.get("d") == self.lead:
             # a new beat started on the lead deck right now: snap Link's beat to a whole beat, and when the
             # track's rekordbox grid is known, to the right beat of the bar (Link beat 0, 4, 8... = the "1")
+            self.beat_n += 1
+            self.last_beat_t = time.monotonic()
             b = self.link.beat
             target = round(b)
-            within = self.within(self.lead)
-            if within:
-                want = within - 1                      # 0..3: where in the bar this beat sits
+            want = self.manual_within()                # a "this is 1" press wins over the grid
+            if want is None:
+                within = self.within(self.lead)
+                want = within - 1 if within else None  # 0..3: where in the bar this beat sits
+            if want is not None:
                 target = target - ((target - want) % 4) if (target - want) % 4 <= 2 else target + (4 - (target - want) % 4)
-            if abs(b - target) > 0.02:
+            if abs(b - target) >= 0.5:
+                self.link.force_beat(target)           # wrong beat of the bar: with peers only force moves it
+            elif abs(b - target) > 0.02:
                 self.link.request_beat(target)
 
     def within(self, d):
@@ -125,6 +173,8 @@ class Bridge(asyncio.DatagramProtocol):
         lead = max(playing, key=lambda d: d.get("start", 0)).get("d")
         if lead != self.lead:
             self.lead = lead
+            self.beat_n = 0
+            self.one = None
             print(f"lead deck {lead}  {self.decks[lead].get('bpm', 0):.2f} BPM", flush=True)
 
 
@@ -143,6 +193,10 @@ async def main():
         sys.exit(f"port {PORT} is taken ({e}). Quit FlowVJ, start this first, then FlowVJ.")
     bridge = Bridge(link)
     await loop.create_datagram_endpoint(lambda: bridge, sock=sock)
+    try:
+        await loop.create_datagram_endpoint(lambda: bridge, local_addr=("127.0.0.1", ONE_PORT))
+    except OSError as e:
+        print(f"'this is 1' port {ONE_PORT} unavailable ({e}); bar reset pad disabled", flush=True)
     print(f"FLOW Link bridge: listening on UDP {PORT}, Link on. Waiting for the deck...", flush=True)
     last_peers = -1
     while True:
