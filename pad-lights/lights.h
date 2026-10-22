@@ -77,4 +77,43 @@ static int pl_flow(int fresh, const pl_rgb flow[8], double t, pl_rgb pads[8])
     for (int k = 0; k < 8; k++) pads[k] = flow[k];
     return 1;
 }
+/* ---- VJ Pads (0.3.0): a pad page that plays FLOW VJ instead of the deck ----
+ * HOT CUE + BEAT JUMP pressed together turns a side's pads into the VJ page; any pad-mode button
+ * on its own turns it back (that press goes to the deck as usual). On the VJ page the pads never reach
+ * the deck (so SHIFT + pad can't delete a hot cue), and a pad still held when the page closes stays
+ * ours until it is released. ERP input byte: pads = bits 0-7, pad-mode buttons = bits 0-3 of the byte
+ * before (HOT CUE 1, BEAT LOOP 2, SLIP LOOP 4, BEAT JUMP 8). Runs on the input bus thread: no state but s. */
+#define PL_VJ_ENTER 0x9u                                   /* HOT CUE + BEAT JUMP */
+typedef struct { int on, wait_release; unsigned held; } pl_vjs;
+/* Returns the bits to clear before the deck sees the frame: pads in bits 0-7, mode buttons in 8-11. */
+static unsigned pl_vj_in(pl_vjs *s, int enabled, unsigned modes, unsigned pads)
+{
+    modes &= 0xfu; pads &= 0xffu;
+    unsigned eat_modes = 0;
+    if (s->on) {
+        if (!enabled) s->on = 0;
+        else if (s->wait_release) { if (!modes) s->wait_release = 0; else eat_modes = modes; }
+        else if (modes) s->on = 0;                         /* back to the deck's pads; the press passes */
+    } else if (enabled && (modes & PL_VJ_ENTER) == PL_VJ_ENTER) {
+        s->on = 1; s->wait_release = 1; eat_modes = modes; /* the deck keeps its pad mode */
+    }
+    if (s->on) s->held = pads;
+    else s->held &= pads;                                  /* held VJ pads stay ours until let go */
+    return s->held | eat_modes << 8;
+}
+/* The VJ page's colours. Pads 1-8 = FLOW's Looks 1-8: each its own dim hue, the running Look bright and
+ * pulsing on the beat (beat_phase 0..1, -1 = no grid: steady). SHIFT shows the hit layer's colours.
+ * A held pad is white. look: 0-7, or -1 none yet. */
+static const pl_rgb pl_vj_hits[8] = {
+    {255, 255, 255}, {200, 200, 255}, {255, 120, 0}, {0, 200, 255}, {255, 0, 200}, {120, 0, 255}, {0, 255, 80}, {255, 0, 0}
+};
+static void pl_vj(unsigned held, int shift, int look, double beat_phase, pl_rgb pads[8])
+{
+    double flash = beat_phase < 0 ? 1.0 : (1.0 - beat_phase) * (1.0 - beat_phase);
+    for (int k = 0; k < 8; k++) {
+        if (held >> k & 1u) { pads[k].r = pads[k].g = pads[k].b = 255; continue; }
+        if (shift) { pl_rgb c = pl_vj_hits[k]; pads[k].r = c.r / 3; pads[k].g = c.g / 3; pads[k].b = c.b / 3; continue; }
+        pl_hsv(k * 45.0, 1.0, k == look ? 0.55 + 0.45 * flash : 0.18, &pads[k]);
+    }
+}
 #endif

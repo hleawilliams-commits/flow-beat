@@ -35,6 +35,26 @@ int main(void)
     { pl_rgb f[8]; for (int k = 0; k < 8; k++) { f[k].r = (unsigned char)(k * 30); f[k].g = 0; f[k].b = 200; }
       pl_rgb q[8]; CHECK(pl_flow(1, f, 0, q) && q[3].r == 90 && q[3].b == 200);
       pl_rgb w[8], w2[8]; pl_flow(0, f, 0, w); pl_side(PL_IDLE, 0, 0, -1, -1, 0, w2); CHECK(w[0].r == w2[0].r && w[0].g == w2[0].g && w[0].b == w2[0].b); }
+    /* VJ Pads (0.3.0): HOT CUE + BEAT JUMP opens the page, a mode button alone closes it */
+    { pl_vjs v = {0, 0, 0};
+      CHECK(pl_vj_in(&v, 0, 0x9, 0) == 0 && !v.on);                       /* row off: nothing happens */
+      CHECK(pl_vj_in(&v, 1, 0x1, 0x04) == 0 && !v.on);                    /* HOT CUE alone: deck's */
+      unsigned e = pl_vj_in(&v, 1, 0x9, 0); CHECK(v.on && e == 0x900);    /* the combo opens, the deck keeps its mode */
+      CHECK(pl_vj_in(&v, 1, 0x8, 0) == 0x800 && v.on);                    /* still releasing: eaten */
+      CHECK(pl_vj_in(&v, 1, 0x0, 0x05) == 0x05 && v.on);                  /* pads 1 + 3 are ours */
+      CHECK(pl_vj_in(&v, 1, 0x0, 0x00) == 0 && v.on);
+      CHECK(pl_vj_in(&v, 1, 0x0, 0x80) == 0x80);                          /* pad 8 held ... */
+      CHECK(pl_vj_in(&v, 1, 0x2, 0x80) == 0x80 && !v.on);                 /* BEAT LOOP closes, its press passes, pad 8 stays ours */
+      CHECK(pl_vj_in(&v, 1, 0x0, 0x81) == 0x80);                          /* a new pad 1 press is the deck's */
+      CHECK(pl_vj_in(&v, 1, 0x0, 0x01) == 0);                             /* pad 8 let go: all the deck's */
+      pl_vj_in(&v, 1, 0x9, 0); pl_vj_in(&v, 1, 0, 0x10);
+      CHECK(pl_vj_in(&v, 0, 0, 0x10) == 0x10 && !v.on);                   /* row switched off mid-hold: closes, held pad stays ours */
+      CHECK(pl_vj_in(&v, 0, 0, 0) == 0); }
+    { pl_rgb q[8], r[8];
+      pl_vj(0x04, 0, 1, 0.0, q); CHECK(q[2].r == 255 && q[2].g == 255 && q[2].b == 255);   /* held = white */
+      CHECK(q[1].r + q[1].g + q[1].b > 2 * (q[0].r + q[0].g + q[0].b));                   /* running Look bright */
+      pl_vj(0, 0, 1, 0.9, r); CHECK(q[1].r + q[1].g + q[1].b > r[1].r + r[1].g + r[1].b);  /* ... and pulsing */
+      pl_vj(0, 1, -1, -1, q); CHECK(q[7].r > 0 && q[7].g == 0 && q[7].b == 0); }           /* SHIFT: hit colours */
     printf("lights: %d checks passed\n", checks);
     return 0;
 }
