@@ -1,0 +1,33 @@
+{
+  "mod_id": "encoder-route-observer",
+  "version": "0.0.1",
+  "source_sha256": {
+    "Makefile": "3b1eb216539d35f0b795e39e6d3a7dc8e00987454312da132c762593f7fbb6b1",
+    "abi/entry.S": "a1f1cf42cc587c3222d299ac9dd31bfd0944f1ea51ec98a19d74ba40088a5034",
+    "azmod.json": "fc4f16f79ecf07c6d811bd5e66775538fbb431da616f3dd8e6c390f05f1fab1e",
+    "mod.c": "82951b60147d87100a12f482d0f105c32b53d7112ca481a6e067f2a7c6de18f9",
+    "observer.cpp": "564e2b4a1a92f028da1bef1113be1e38c67db584c63a560fefad16b2d293c78b",
+    "tests/run-focused.sh": "b33bf522879049f11994816e260b0557a400f8a278d86412e894303766ccc286",
+    "tests/run-tests.py": "fd3cdc7a9954496b865073767f7784a1c2d3372f7d02e6a95ff996620799ff3f",
+    "tests/test_observer.cpp": "126edb818899290bcd8835e482ef34e82fa3d969a3e548f1620de1730ece47ec"
+  },
+  "sdk_commit": "6563e8e657a4ef113696de9d0f9327a6c8d0fab7",
+  "sdk_header_sha256": "b94e2ba6656c2b852f18691d32225486f29265953c8bf09dcac9a18ce561a630",
+  "build_image": "az-mods-sdk:1",
+  "build_image_id": "sha256:c96cac5682604faf32417c92f391ec233faec98d5e05d0de29f1bac0cfd2053e",
+  "command": "python3 <sdk>/tools/azmod-pack build <route-observer>",
+  "result": "built and SDK validated",
+  "binary_sha256": "aff3fc9c36d1aa561a34c315dbe967de3a25e03409c3d950db5debf282ece356",
+  "binary_format": "ELF64 little-endian AArch64 shared object",
+  "build_log_sha256": "6ab2f5cd02a62f1a2c77e8d35e0e6fda7827ca30f9431f3b82c1b7439c5dcdd2",
+  "compiled_helper_review": {
+    "early_attempt_and_gates_before_errno_or_tls_calls": true,
+    "dynamic_atomic_imports": [],
+    "first_use_tls_limitation": "Compiler resolves cached TID TLS after obtaining errno address but before loading saved errno; relies on normal compiler/runtime TLS semantics. Real resolver not instrumented."
+  },
+  "binary_included": false,
+  "package_published": false,
+  "runtime_claim_attempted": false,
+  "emulator_installation": false,
+  "physical_access": false
+}

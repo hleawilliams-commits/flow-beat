@@ -1,0 +1,3 @@
+plain: 31427 assertions; 2 strict controls rejected
+asan: 31427 assertions; 2 strict controls rejected
+tsan: 31427 assertions; 2 strict controls rejected

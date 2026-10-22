@@ -1,0 +1,18 @@
+{
+  "azmod": 1,
+  "id": "encoder-route-observer",
+  "name": "Encoder Route Observer",
+  "version": "0.0.1",
+  "author": "hleawilliams-commits",
+  "summary": "Emulator-only scalar encoder route and RAW mixer observer.",
+  "description": "Unpublished exact-firmware passive observer. Records five native input scalars, original LR and changed RAW mixer values in independent bounded lanes. No input edits, menu, navigation or physical installation.",
+  "category": "tools",
+  "license": "GPL-3.0-only",
+  "source": "https://github.com/hleawilliams-commits/flow-beat/tree/codex/az-mods-handoff-2026-10-16/experiments/mods-shortcut-delivery/route-observer",
+  "api": 1,
+  "firmware": [
+    "ep147-9e9454e357389ece"
+  ],
+  "hooks": true,
+  "min_core": "1.2.3"
+}

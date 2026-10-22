@@ -1,0 +1,122 @@
+{
+  "scope": "Independent offline source review, synthetic layout/extraction checks, and local built ELF inspection only",
+  "runtime_contact": false,
+  "process_memory_read": false,
+  "runtime_maps_observed": false,
+  "source_sha256": {
+    "layout.py": "bb1182de30ce8d437e7b25d35723f901f1751b31bf59258dce3c35fc3a1e3c7c",
+    "test_layout.py": "f9af9787f27eeb555332102fab226372dae88740f202f96b0c40d496b726d680",
+    "test_elf_layout.py": "a02b5ad7552f8c10f74dc96ee0e894a4b72a771f24816b345d83ea3b8e29eae3",
+    "README.md": "c6649d717f44a8a0967d3a18cfafbb69511e6e1530050783b423299b6cae6fcc"
+  },
+  "pre_fix_review": {
+    "source_sha256": "57be633a3487e5c278547df2a7ccd06490a725fdd86a95ebabf84614785cd8ab",
+    "original_suite_checks": 33,
+    "original_suite_failures": 0,
+    "false_acceptances_observed": [
+      "named file map extending into whole anonymous BSS pages",
+      "unaligned executable start and file offset preserving bias",
+      "BSS-only scalar with no named data prefix"
+    ],
+    "retention": "Original untracked source not archived here. Counterexamples remain in tests; single-guard controls are not a full original-source replay."
+  },
+  "map_suite": {
+    "checks": 62,
+    "failures": 0,
+    "scope": "synthetic offline layout only",
+    "controls": [
+      {
+        "name": "remove-file-extent-bound",
+        "expected": "accept invalid layout",
+        "observed": "accepted",
+        "discriminating": true
+      },
+      {
+        "name": "remove-page-alignment-guard",
+        "expected": "accept invalid layout",
+        "observed": "accepted",
+        "discriminating": true
+      },
+      {
+        "name": "remove-prefix-coverage-guard",
+        "expected": "accept invalid layout",
+        "observed": "accepted",
+        "discriminating": true
+      }
+    ],
+    "source_sha256": "bb1182de30ce8d437e7b25d35723f901f1751b31bf59258dce3c35fc3a1e3c7c"
+  },
+  "elf_suite": {
+    "checks": 48,
+    "failures": 0,
+    "fixture_checks": 21,
+    "actual_binary_checks": 27,
+    "actual_binary": {
+      "binary_sha256": "aff3fc9c36d1aa561a34c315dbe967de3a25e03409c3d950db5debf282ece356",
+      "symbol_count": 26,
+      "scalar_widths": {
+        "state": 4,
+        "live": 4,
+        "heartbeat": 4,
+        "native_attempted": 4,
+        "native_state_gated": 4,
+        "native_live_gated": 4,
+        "dropped": 4,
+        "producer_busy": 4,
+        "nested_dropped": 4,
+        "write_index": 4,
+        "read_index": 4,
+        "off_state": 4,
+        "off_skipped": 4,
+        "tid_failures": 4,
+        "raw_attempted": 4,
+        "raw_state_gated": 4,
+        "raw_live_gated": 4,
+        "raw_heartbeat": 4,
+        "raw_invalid": 4,
+        "raw_dropped": 4,
+        "raw_nested_dropped": 4,
+        "raw_producer_busy": 4,
+        "raw_write_index": 4,
+        "raw_read_index": 4,
+        "sequence": 8,
+        "raw_sequence": 8
+      },
+      "loads": [
+        {
+          "vaddr": 0,
+          "offset": 0,
+          "filesz": 7356,
+          "memsz": 7356,
+          "flags": 5
+        },
+        {
+          "vaddr": 73040,
+          "offset": 7504,
+          "filesz": 788,
+          "memsz": 3384,
+          "flags": 6
+        }
+      ],
+      "synthetic_map_page_size": 4096,
+      "runtime_maps_observed": false,
+      "planned_mapping_counts": {
+        "file": 26,
+        "anonymous-bss": 0
+      }
+    },
+    "source_sha256": "bb1182de30ce8d437e7b25d35723f901f1751b31bf59258dce3c35fc3a1e3c7c",
+    "scope": "offline ELF extraction and synthetic maps only"
+  },
+  "exit_codes": {
+    "map_suite": 0,
+    "elf_suite": 0
+  },
+  "limits": [
+    "No process/file lifetime or page-content attestation",
+    "No coherent or C++ atomic snapshot guarantee",
+    "No native object access or event delivery/ownership proof",
+    "Anonymous VMA accepted only for individual bytes inside exact PT_LOAD memory bounds",
+    "Inaccessible reservation rows never supply scalar prefix or read coverage"
+  ]
+}

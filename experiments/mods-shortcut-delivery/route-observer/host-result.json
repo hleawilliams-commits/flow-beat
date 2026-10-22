@@ -1,0 +1,161 @@
+{
+  "controls": {
+    "frame-write": {
+      "asan": {
+        "expected_failure": "!memcmp(before,f,sizeof f)",
+        "failures": 1,
+        "sanitizer_diagnostics": 0
+      },
+      "plain": {
+        "expected_failure": "!memcmp(before,f,sizeof f)",
+        "failures": 1,
+        "sanitizer_diagnostics": 0
+      },
+      "tsan": {
+        "expected_failure": "!memcmp(before,f,sizeof f)",
+        "failures": 1,
+        "sanitizer_diagnostics": 0
+      }
+    },
+    "late-attempt": {
+      "asan": {
+        "expected_failure": "raw_attempted.load()==1 && native_attempted.load()==1",
+        "failures": 1,
+        "sanitizer_diagnostics": 0
+      },
+      "plain": {
+        "expected_failure": "raw_attempted.load()==1 && native_attempted.load()==1",
+        "failures": 1,
+        "sanitizer_diagnostics": 0
+      },
+      "tsan": {
+        "expected_failure": "raw_attempted.load()==1 && native_attempted.load()==1",
+        "failures": 1,
+        "sanitizer_diagnostics": 0
+      }
+    }
+  },
+  "mod_id": "encoder-route-observer",
+  "modes": {
+    "asan": {
+      "assertions": 31427,
+      "scenarios": {
+        "budget": 153,
+        "budget-off": 153,
+        "claim": 22,
+        "concurrent": 16025,
+        "diagnostics": 46,
+        "empty": 23,
+        "env": 4,
+        "errno": 61,
+        "firmware": 4,
+        "heartbeat": 32,
+        "lanes-concurrent": 14025,
+        "mailbox": 41,
+        "native-gates": 31,
+        "nested": 28,
+        "normal": 97,
+        "partial": 36,
+        "prologue": 3,
+        "raw-budget": 154,
+        "raw-diagnostics": 44,
+        "raw-gates": 70,
+        "raw-nested": 30,
+        "raw-overflow": 98,
+        "raw-partial": 37,
+        "raw-values": 59,
+        "registration": 8,
+        "sdk": 12,
+        "thread": 30,
+        "thread-negative": 28,
+        "thread-zero": 28,
+        "tid-normalization": 30,
+        "worker": 15
+      }
+    },
+    "plain": {
+      "assertions": 31427,
+      "scenarios": {
+        "budget": 153,
+        "budget-off": 153,
+        "claim": 22,
+        "concurrent": 16025,
+        "diagnostics": 46,
+        "empty": 23,
+        "env": 4,
+        "errno": 61,
+        "firmware": 4,
+        "heartbeat": 32,
+        "lanes-concurrent": 14025,
+        "mailbox": 41,
+        "native-gates": 31,
+        "nested": 28,
+        "normal": 97,
+        "partial": 36,
+        "prologue": 3,
+        "raw-budget": 154,
+        "raw-diagnostics": 44,
+        "raw-gates": 70,
+        "raw-nested": 30,
+        "raw-overflow": 98,
+        "raw-partial": 37,
+        "raw-values": 59,
+        "registration": 8,
+        "sdk": 12,
+        "thread": 30,
+        "thread-negative": 28,
+        "thread-zero": 28,
+        "tid-normalization": 30,
+        "worker": 15
+      }
+    },
+    "tsan": {
+      "assertions": 31427,
+      "scenarios": {
+        "budget": 153,
+        "budget-off": 153,
+        "claim": 22,
+        "concurrent": 16025,
+        "diagnostics": 46,
+        "empty": 23,
+        "env": 4,
+        "errno": 61,
+        "firmware": 4,
+        "heartbeat": 32,
+        "lanes-concurrent": 14025,
+        "mailbox": 41,
+        "native-gates": 31,
+        "nested": 28,
+        "normal": 97,
+        "partial": 36,
+        "prologue": 3,
+        "raw-budget": 154,
+        "raw-diagnostics": 44,
+        "raw-gates": 70,
+        "raw-nested": 30,
+        "raw-overflow": 98,
+        "raw-partial": 37,
+        "raw-values": 59,
+        "registration": 8,
+        "sdk": 12,
+        "thread": 30,
+        "thread-negative": 28,
+        "thread-zero": 28,
+        "tid-normalization": 30,
+        "worker": 15
+      }
+    }
+  },
+  "scope": "Actual observer source with SDK mocks; host ABI/TID and callback entry are simulated. No runtime installation.",
+  "sdk_header_sha256": "b94e2ba6656c2b852f18691d32225486f29265953c8bf09dcac9a18ce561a630",
+  "source_sha256": {
+    "Makefile": "3b1eb216539d35f0b795e39e6d3a7dc8e00987454312da132c762593f7fbb6b1",
+    "abi/entry.S": "a1f1cf42cc587c3222d299ac9dd31bfd0944f1ea51ec98a19d74ba40088a5034",
+    "azmod.json": "fc4f16f79ecf07c6d811bd5e66775538fbb431da616f3dd8e6c390f05f1fab1e",
+    "mod.c": "82951b60147d87100a12f482d0f105c32b53d7112ca481a6e067f2a7c6de18f9",
+    "observer.cpp": "564e2b4a1a92f028da1bef1113be1e38c67db584c63a560fefad16b2d293c78b",
+    "tests/run-focused.sh": "b33bf522879049f11994816e260b0557a400f8a278d86412e894303766ccc286",
+    "tests/run-tests.py": "fd3cdc7a9954496b865073767f7784a1c2d3372f7d02e6a95ff996620799ff3f",
+    "tests/test_observer.cpp": "126edb818899290bcd8835e482ef34e82fa3d969a3e548f1620de1730ece47ec"
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "actual_policy_assertions": 14,
+  "data_word_anchors": 5,
+  "direct_call_sites": [
+    "0x22c1a64",
+    "0x22c1ad8"
+  ],
+  "extracted_policy_sha256": "c9774595762751b828f382df275af7aa10a83b33d3c04f3a5196b9baceca11aa",
+  "firmware_sha256": "6577f42532375936c7e3fa830efa35b7daa9cde8e0a265c1fc7143f824321925",
+  "functions": {
+    "0x1b01cf8": {
+      "body_sha256": "e91f820c8b58b342d8d8fc95edb6e71fb4836f73c1b809da2ac0c73cfba8427a",
+      "fde_extent": "0x2e8"
+    },
+    "0x22c18b8": {
+      "body_sha256": "81ad9bb4d01088f7e2512564604608d402f6d03a7c2ec7fb24131e35dbc95c5f",
+      "fde_extent": "0x1cc"
+    },
+    "0x22c1a88": {
+      "body_sha256": "d19b08b5937c4ef8955cf01d250619eb2558d9d5bd5b81352b6919d3d9a86df1",
+      "fde_extent": "0x144"
+    },
+    "0x22c6c48": {
+      "body_sha256": "8af3f35e8b9cbfe8e3334e1b6132fc558ca9ce274ebc29a415fc266b5e57112a",
+      "fde_extent": "0x260"
+    },
+    "0x2360f80": {
+      "body_sha256": "36a130104a7dddf319f50ce962cf617cbf676dba9ec45654534df69aae02be1e",
+      "fde_extent": "0x134"
+    }
+  },
+  "ineligible_entries": {
+    "0x22c6c48": "CBZ at +0xc in four-instruction scan"
+  },
+  "instruction_anchors": 71,
+  "limits": [
+    "Static tail chain is consistent with observed LR but does not identify a live source vtable",
+    "Two direct source call sites do not identify which input source occurred at runtime",
+    "Do not dereference event/source/observer pointers or retain native objects",
+    "No return type, acceptance, completion, enqueue, queue ownership, cancellation or executor thread proof",
+    "Current static review performs no runtime hook, emulator/network contact or firmware execution"
+  ],
+  "next_step": "Separately tested bounded off-thread scalar lane at existing accepted 0x1b01cf8; no new hook needed",
+  "notification_policy_only": {
+    "adrp_relocatable": true,
+    "entry": "0x2360f80",
+    "first_instruction_kind": 2,
+    "four_word_allowed": true,
+    "full_static_or_live_claim_eligibility_audited": false,
+    "one_word_allowed": true
+  },
+  "observed_lr_static_meaning": {
+    "call": "0x22c6e04",
+    "callee_selection": "source vtable +0x10",
+    "immediate_scalar_dispatch_proven": false,
+    "known_tail_route_preserves_lr": true,
+    "lr": "0x22c6e08",
+    "x0": "source object opaque",
+    "x1": "observer opaque",
+    "x2": "address of current stack copy of twelve-byte event"
+  },
+  "policy_source_sha256": "f141b383c25e66c8acb1839280832a612a6ee0e25e9ada59f374ccbef8f81908",
+  "rtti_anchors": 1,
+  "semantic_rejection_controls": 8,
+  "static_encoder_route": {
+    "captures": [
+      "x0 observer opaque",
+      "x1 encoder+0xc0 opaque",
+      "x2 full-width ID opaque",
+      "w3 event+0 bits",
+      "w4 event+4 bits"
+    ],
+    "live_vtable_or_object_class_read": false,
+    "notify": "0x2360f80",
+    "observer_slot": "0x18",
+    "rtti": "N4meow10HuiEncoderE",
+    "scalar_tail_branch": "0x2361088",
+    "vptr": "0x3216938"
+  },
+  "upstream_commit": "3e0c5cb010454228f4ee63226b60d060494eeaae"
+}

@@ -1,0 +1,130 @@
+{
+  "review_date": "2026-10-22",
+  "scope": "Independent source review, new host matrix and exact binding; pre-install review. Later runtime evidence is separate.",
+  "observer_sha256": "564e2b4a1a92f028da1bef1113be1e38c67db584c63a560fefad16b2d293c78b",
+  "binary_sha256": "aff3fc9c36d1aa561a34c315dbe967de3a25e03409c3d950db5debf282ece356",
+  "host": {
+    "result_sha256": "f4cf42d8f43819f9bf103469315828f0e2bb797c6cea7c002a93361e4f6ce74b",
+    "independent_result_byte_identical": true,
+    "assertions_per_mode": 31427,
+    "modes": [
+      "plain",
+      "ASan/UBSan",
+      "TSan"
+    ],
+    "strict_controls_per_mode": 2
+  },
+  "binding": {
+    "result_sha256": "d4ad74c7f6a6690de396b86067b96ed6d3dff988a759a9bbb7361cd3dd1da919",
+    "independent_result_byte_identical": true,
+    "checks": 34,
+    "strict_rejection_controls": 18
+  },
+  "unchanged_abi": {
+    "source_sha256": "a1f1cf42cc587c3222d299ac9dd31bfd0944f1ea51ec98a19d74ba40088a5034",
+    "prior_55_assertion_fixture_reused_by_identity": true,
+    "unchanged_tests_rerun": false
+  },
+  "actual_binary_scalar_allowlist": {
+    "count": 26,
+    "width4_count": 24,
+    "width8_count": 2,
+    "all_defined_non_TLS_OBJECT_symbols": true,
+    "runtime_reads_in_this_check": false
+  },
+  "review_findings": [
+    "No concrete source blocker found within the passive copied-scalar and RAW scope.",
+    "Attempt/gate counters precede errno/TID work; capture preserves native forwarding and RAW frame bytes.",
+    "Independent lane sequences, sequential status samples and worker log order do not establish native event ordering.",
+    "Bounded capture and sanitizer success do not measure first-use TLS, physical timing or native lifetime."
+  ],
+  "root_invocation_failures": [
+    {
+      "stage": "host runner SDK-header precheck",
+      "cause": "Relative SDK override was resolved after the shell runner changed directory.",
+      "correction": "Use absolute SDK override; independent matrix then passed without source changes.",
+      "candidate_assertions_executed_before_failure": 0
+    },
+    {
+      "stage": "private harness syntax compilation cache",
+      "cause": "System Python tried to write bytecode under a non-writable system cache.",
+      "correction": "Compile source text in memory, without imports or transport. Both scripts passed syntax.",
+      "guest_contact": false
+    },
+    {
+      "stage": "independent caller-result comparison",
+      "cause": "Comparison ran before the already-running verifier completed and compared incomplete output.",
+      "correction": "Waited for exit0, then compared complete result byte-for-byte; identical. No verifier or fixture change and no rerun.",
+      "candidate_failure": false,
+      "guest_contact": false
+    }
+  ],
+  "release_or_physical_validation": false,
+  "private_sampler_review": {
+    "ast_only_mock_checks": 289,
+    "scenarios": 9,
+    "root_independent_fresh_execution": true,
+    "source_sha256": "0cc895ae4b24bf2fbfda0801366471231dd72baa9017ff514168d8954a9d6f06",
+    "mock_script_sha256": "138ff1cd2e64a145a7d196d321d3bfd7f9419d2b50a06bc8e976560a50fe8853",
+    "root_result_sha256": "1eb9491923bdda72b477582cef26508024279db50e3c672d8c9a425e3c0e9c70",
+    "recovered_first_review_limit": "Original mock was inline; recovered script and transcribed summary are labeled non-contemporaneous. Root separately executed that saved script and retained fresh output.",
+    "no_transport_import_or_contact": true,
+    "read_scope": "26 named own-module scalar OBJECTs only; before/after hash/maps/PID checks; noncoherent.",
+    "planner_review": "All110 offline planner/extraction/binary checks independently pass with identical results;3 discriminating guard-removal controls. Runtime validation remains separate."
+  },
+  "status_planner": {
+    "source_sha256": "bb1182de30ce8d437e7b25d35723f901f1751b31bf59258dce3c35fc3a1e3c7c",
+    "independent_results_identical": true,
+    "map_assertions": 62,
+    "synthetic_elf_assertions": 21,
+    "actual_binary_layout_assertions": 27,
+    "guard_removal_controls": 3,
+    "actual_maps_in_test": false
+  },
+  "private_host_counter_review": {
+    "initial_source_never_executed_on_host_counter": true,
+    "initial_findings": [
+      "Attempt receipt did not prove alignment completion.",
+      "Unowned observed values could enter restore ownership.",
+      "Guest-complete marker could prevent host-only retry."
+    ],
+    "initial_review_checks": 14,
+    "fixed_checks": 82,
+    "fixed_cases": 25,
+    "guard_removal_controls": 1,
+    "root_independent_execution": true,
+    "network_or_emulator_contact_during_tests": false,
+    "host_source_sha256": "a427072a6374e5482c4df52be8ce7a694412c12db25affb1b7c52d6666281e99",
+    "runtime_harness_sha256": "a567500d3d16e147c358a0222c3eaea343fbbc65ed871c9a0b5570770744003f",
+    "retained_mock_script_sha256": "3f43cfc2dfe10c49d09bcc411c918b6d04a8ab1b547bb2b9402bfa8620f334b1",
+    "retained_mock_result_sha256": "82e819b11177a2643baf8a5f71f11699b4eee1efce14ee7d02efe9fab2817b68",
+    "driver_source_sha256": "6f88798ec54785dc2ce9180e5c2839a1a8e8ec370c997bc7f48e8d1cc06e640f",
+    "contract": "Only exact final two-detent targets extend host ownership; no intermediate guest values. Guest cleanup and retryable host recovery have separate receipts."
+  },
+  "caller_review": {
+    "independent_result_byte_identical": true,
+    "result_sha256": "51378af6ed3ab97d06c3c885da8baae9d53ed4e131ddb4ce08ebcfab6d668fd2",
+    "instruction_anchors": 71,
+    "data_word_anchors": 5,
+    "rtti_anchors": 1,
+    "semantic_rejection_controls": 8,
+    "extracted_actual_policy_assertions": 14,
+    "scope": "Static check after the runtime sample; no further runtime input. Available tail path consistent with saved LR, without live object identity."
+  },
+  "post_run_receipt_audit": {
+    "scope": "Read-only independent review of retained private runtime receipts/logs/bytes and public claims; no new device access.",
+    "scalar_reads_checked": 130,
+    "samples_checked": 5,
+    "actions_checked": 4,
+    "raw_records_checked": 9,
+    "native_records_checked": 1,
+    "baseline_regular_files_checked": 147,
+    "baseline_file_hashes_and_modes_match_manifest": true,
+    "host_counter_original_bytes_and_mode_restored": true,
+    "restoration_receipts_match_claims": true,
+    "raw_object_addresses_and_process_identity_kept_private": true,
+    "published_lr_labeled_exact_firmware_code_return_site": true,
+    "no_whole_engine_or_physical_validation_claim": true,
+    "wording_correction": "Original caller changed to original LR/code return site; immediate caller identity is not proved by a tail-call LR."
+  }
+}
