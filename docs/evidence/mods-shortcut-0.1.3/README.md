@@ -1,14 +1,16 @@
 # MODS Shortcut 0.1.3: emulator evidence (2026-10-17)
 
+**October 22 correction:** the historical emulator observations below remain valid within their fault-injection setup. The inferred quarantine and lifetime claims were too strong. A new [actual-source host counterexample](../../../experiments/mods-shortcut-lane-observation/) produces three core-off diagnostics and an active-lane move while all four SDK filters have zero strikes and `off=0`. Missing callback increments do not identify core quarantine. 0.1.3 remains an unpublished candidate with its original source/archive retained; no new emulator or physical run accompanied this correction.
+
 ## Root cause of the dead button
 
-The core's `sdk_input.c` times every frame-filter call (200 µs budget, about 1000 calls a second on the deck) and switches a filter off for the session after **8 overruns, counted cumulatively** (`SDK_FILTER_STRIKES`). A preempted call counts. On a busy deck, one always-on filter eventually collects 8 strikes. The button stays visible, but taps do nothing. That matches the 0.1.1 physical capture (`off=1`, `strikes=8`). 0.1.2's lighter idle path makes strikes rarer but can't prevent them.
+The core's `sdk_input.c` times every frame-filter call (200 µs budget, about 1000 calls a second on the deck) and switches a filter off for the session after **8 overruns, counted cumulatively** (`SDK_FILTER_STRIKES`). A preempted call can count. The 0.1.1 physical capture recorded `off=1`, `strikes=8`, with the button visible but its filter no longer receiving calls. The original claim that every busy session inevitably reaches that threshold was not established. 0.1.2 reduces idle work; the resulting change in physical strike frequency has not been measured.
 
 ## What 0.1.3 changes
 
 - **Four input lanes.** The mod registers up to four frame filters. Each has its own strike count. Only the active lane runs the shortcut; spares do one relaxed store per frame.
-- **Failover.** About 4 times a second, the UI thread checks each lane's frame count. A lane that stalls on two looks in a row while another lane advances has been switched off by the core, and the shortcut moves to the next live lane.
-- **No silent dead button.** If every lane is quiet for 2 s, the button greys out, and a tap shows "MODS is off until restart. Use SOURCE > MOD MENU". Any later frame clears this, so a stalled bus is not mistaken for dead lanes.
+- **Failover inference.** About 4 times a second, the UI thread checks each lane's frame count. Two stalled looks while another lane advances label a lane off and can move the shortcut. This is a callback-delivery heuristic, not a proven quarantine query.
+- **Quiet feedback.** If every lane is quiet for 2 s, the button greys out, and a tap shows "MODS is off until restart. Use SOURCE > MOD MENU". Any later frame clears this, including when the core never quarantined a lane; the message can therefore misstate the cause and required recovery.
 - **Tap log.** Each tap logs its outcome: SOURCE opened, panel input cancelled it (bytes 31/32/33 + knob), the screen changed (view code), timed out, ignored, or refused (all lanes off). Lane registration, switch-offs and moves are logged too. Lines only appear while Mod Menu logging is on.
 
 ## Emulator run (ep147-9e9454e357389ece, AZ-MODS 1.2.3)
@@ -33,4 +35,4 @@ Observation: on the emulator's SOURCE screen with Cloud Log In highlighted, the 
 
 ## Limits
 
-Four lanes multiply the button's lifetime; they don't make it permanent. Only a core change fixes that (see `docs/UPSTREAM-FILTER-STRIKES.md`). Not yet run on the physical deck.
+No multiplied-lifetime, safe lane-handover or physical reliability guarantee was measured. These observations do not explain the earlier accepted-then-cancelled tap. Keep the cumulative watchdog intact and review a distinct delivery/ownership design before promoting this candidate. Not yet run on the physical deck.

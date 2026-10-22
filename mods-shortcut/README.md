@@ -8,7 +8,9 @@ This community update reduces idle work and recovers stranded requests after the
 
 ## 0.1.3: spare input lanes
 
-The core permanently switches a frame filter off after 8 overruns over a whole session, and a preempted call counts, so one filter eventually dies on a busy deck and MODS stops responding while still visible. 0.1.3 registers up to four filters ("lanes") and moves to the next live one when the core switches one off. If none remain, the button greys out and a tap says **"MODS is off until restart. Use SOURCE > MOD MENU"**. Each tap's outcome is written to the mod log while Mod Menu logging is on. [Emulator evidence](../docs/evidence/mods-shortcut-0.1.3/README.md); physical testing pending. This multiplies lifetime but isn't a permanent fix; see the [upstream request](../docs/UPSTREAM-FILTER-STRIKES.md).
+**Unpublished candidate; delivery diagnosis needs revision.** The core switches a filter off after eight cumulative overruns. That does not prove every busy session eventually reaches the limit. 0.1.3 registers up to four filters ("lanes") and infers missing delivery from per-lane counters. It moves lanes after two missed looks while another advances, and greys the button after two seconds with no observed callbacks. The current UI/log text calls these states core quarantine and "off until restart."
+
+A new [actual-source host counterexample](../experiments/mods-shortcut-lane-observation/) disproves that interpretation: UI checks between callbacks of one delayed frame cause three quarantine diagnostics and a lane move with all core filters still enabled and zero strikes. Delivery can resume without restart. The [earlier emulator evidence](../docs/evidence/mods-shortcut-0.1.3/README.md) remains evidence of behavior under deliberate delivery removal; it establishes no multiplied-lifetime guarantee. Source/package are retained unchanged for review, not promotion. Physical testing and safe lane-handover validation remain pending. The published catalog version remains 0.1.2 in this checkout.
 
 ## Layout and settings
 

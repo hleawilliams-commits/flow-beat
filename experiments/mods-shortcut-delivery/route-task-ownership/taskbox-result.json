@@ -1,0 +1,126 @@
+{
+  "result": "PASS",
+  "scope": "Static exact-ELF relationships only; no runtime or firmware execution",
+  "firmware_sha256": "6577f42532375936c7e3fa830efa35b7daa9cde8e0a265c1fc7143f824321925",
+  "instruction_anchors": 199,
+  "blocks": 38,
+  "data_words": 12,
+  "RTTI_names": 4,
+  "diagnostic_names": 6,
+  "pthread_self_relocation": "R_AARCH64_JUMP_SLOT",
+  "strict_rejection_controls": [
+    "predicate_in_place_of_post",
+    "wrong_impl_subobject",
+    "truncated_taskno",
+    "execute_in_place_of_enqueue",
+    "execute_on_queue_failure",
+    "cancel_wrong_task_field",
+    "cancel_match_executes",
+    "wrong_task_virtual_slot",
+    "shutdown_executes",
+    "pool_count_as_dispatcher",
+    "reversed_owner_predicate"
+  ],
+  "functions": {
+    "0x1b00d20": {
+      "FDE_size": 236,
+      "sha256": "fed976c453fdcc74df5bd1542cd630a42b599aaf9447bd3a189dee800f979052"
+    },
+    "0x1b00e10": {
+      "FDE_size": 148,
+      "sha256": "6c80cecc2efdb4d6ea261d187e18e582764096970332e7a195fd83b26b10cfd2"
+    },
+    "0x1b01cf8": {
+      "FDE_size": 744,
+      "sha256": "e91f820c8b58b342d8d8fc95edb6e71fb4836f73c1b809da2ac0c73cfba8427a"
+    },
+    "0x237a440": {
+      "FDE_size": 56,
+      "sha256": "d5861b114788f1d459c3104bedfeaaf3fc0ce0be5e80aa38c7cd909bf77d2af0"
+    },
+    "0x237a140": {
+      "FDE_size": 160,
+      "sha256": "7adc39d74822093a8e063dcdf9429803f67dfa8dd2efb39ea9ff279265475d30"
+    },
+    "0x237fa50": {
+      "FDE_size": 872,
+      "sha256": "3df24bf0ae5a3e7dc456586095c1cc5c4c90386cb46d4c622298b5fe2263ddbc"
+    },
+    "0x237eac0": {
+      "FDE_size": 480,
+      "sha256": "d9268b6ce40c97f80a570e8d48881fb29753d3ac5382e1fd59519438ae25d9ba"
+    },
+    "0x2379cc0": {
+      "FDE_size": 328,
+      "sha256": "9d8f1c0a250d3992d641a89ae8d3dc5142a5742646af96cb17d3a0e34b37f5ea"
+    },
+    "0x237f770": {
+      "FDE_size": 396,
+      "sha256": "4eb4386dc9813b61d21c320944177e5bfc0ed28c43cc97a25a3f3a0355760545"
+    },
+    "0x237f900": {
+      "FDE_size": 332,
+      "sha256": "17dc4b0fa0e102ae0a38ea1951c4c9d2b29c5da8a051eda49f4152bc7b8f1346"
+    },
+    "0x237e9f0": {
+      "FDE_size": 204,
+      "sha256": "4ffca0c335a0636f5e2cbc8c806d005f83305692dbfaec99777f18823e8620b4"
+    },
+    "0x2376130": {
+      "FDE_size": 648,
+      "sha256": "e06d7071477bc65abe91e223bb7751069266f699a12723d3b64ac6bcfb51d3d5"
+    },
+    "0x237fdc0": {
+      "FDE_size": 36,
+      "sha256": "4c020edd3e25ede9fb9e49074b375e1ce679ca888c3f0f238971c4285a8b092f"
+    },
+    "0x237d4f0": {
+      "FDE_size": 1884,
+      "sha256": "c032eff2da78670d19e203ea05ab1a1cd8a4e09eb9a2c5f36fa800e89568e8f3"
+    },
+    "0x2380a20": {
+      "FDE_size": 68,
+      "sha256": "a66913f78d973105b0d39ab53cb45d9ed5f8fb4f5524f12699b995d3c04c28e6"
+    },
+    "0x237a610": {
+      "FDE_size": 432,
+      "sha256": "bc896e781170b46ae972ca3b075b5d71f55cffb7ce604520c73ba5188e948dbb"
+    },
+    "0x1e61cd8": {
+      "FDE_size": 52,
+      "sha256": "8f7125de6ef1e73dda5e013582d4b0ad54e7a2af09f7aa7e0a80e30663025716"
+    },
+    "0x99ca38": {
+      "FDE_size": 44,
+      "sha256": "bb23dbaab872d2865b9859b3cc5432277d19f778fc7c87117f79faa9d00226c3"
+    },
+    "0x1ade328": {
+      "FDE_size": 192,
+      "sha256": "1750ee459c25cf56168452be67e9f3203508b371859f220333657b6c6a79b965"
+    },
+    "0x2503090": {
+      "FDE_size": 12,
+      "sha256": "b4687b19e23bdace5a6abf64887a79b31bb27485444ec1f572a054f946d9581e"
+    },
+    "0x249b0f0": {
+      "FDE_size": 4,
+      "sha256": "4babcdb3e2559d1219843767cfa74e993f94e5ff94bd504f296c53dec2bd92d1"
+    }
+  },
+  "relationships": {
+    "timer_post_slot": "0x321b108 + 0x30 -> 0x237a440",
+    "concrete_async_post_slot": "0x321afd8 + 0x30 -> 0x2379cc0",
+    "queue_payload": "copied task pointer; TaskNo returned from task + 0x10 on enqueue success",
+    "drain": "task execute slot +0x10, then freeTask; matching cancel TaskNo skips execute",
+    "pool_control_RTTI": "St23_Sp_counted_ptr_inplaceIN4meow16AsyncTaskBoxBase14DefaultMemPoolESaIS2_ELN9__gnu_cxx12_Lock_policyE2EE",
+    "thread_predicate": "selected submission uses +0x30, not +0x28; no direct B/BL to the two predicates in the three checked bodies; indirect/transitive behavior unproved"
+  },
+  "not_proven": [
+    "live task-box identity or submission result",
+    "live queue execution/cancellation",
+    "dispatcher or child retained lifetime",
+    "post-return task validity",
+    "navigation, focus handback or native pause",
+    "whole-queue race/lifetime proof"
+  ]
+}

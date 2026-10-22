@@ -1,0 +1,76 @@
+{
+  "upstream_commit": "3e0c5cb010454228f4ee63226b60d060494eeaae",
+  "mod_commit": "321b955b8eefb5470f0e0e636e3bb08ebc520c56",
+  "mod_version": "0.1.3",
+  "sdk_input_sha256": "1c7541354fc9c660c506123476f82afec2361f9334d5a5bf260729e9100d510e",
+  "sdk_header_sha256": "b94e2ba6656c2b852f18691d32225486f29265953c8bf09dcac9a18ce561a630",
+  "state_header_sha256": "7baa15282390f4bb763776c5402a037614a1b06f16e2a7a4b29dbcb9042a69da",
+  "shortcut_sha256": "b57da1ca86261302589d6ce7b8da56434201de659e49a0c5822151080b1ea06b",
+  "extraction_sha256": "1db81fd23ed197526886abc95b93241e33a2b2311781a709f3cf8bc691e20b11",
+  "functions": {
+    "sdk_strike": "b613bb379c34ff6d4f20a3bff4bdce855a386a3fee3a7e3846323f48c759ec1b",
+    "cm_frame_filter": "89656ea874d3f9b13a32e4adfaee058003b0191e468273e8316a4531362111e1",
+    "sdk_filter_run": "54962cfbfd15130d9fcdcf1ae1374c2d32257b34b1b25a87b1496d0fc7a09df8"
+  },
+  "fixture_sha256": "73fadf32b3a9542fbc8b8ae76b1ab45cd23a00b18ae53cd925b4c295dda48e0a",
+  "test_sha256": "dc288ee7a7390162317871c3fe729565ed22d511ab278e2b1d1da6cd11b63fc8",
+  "shim_sha256": "00ffcc8c9d90cb5827afc28f7c26291e3f25742c3cc2ab1c58891208927e4faf",
+  "runner_sha256": "3825c358cea948725d1e16b2aec7ba7f7b375501d17e1469a11d3a5e3d31a3f9",
+  "scope": "serial scripted UI observations between filter calls, monotonic mock ticks and stub host services; no concurrent/ARM64/emulator/hardware execution; unchanged production bodies",
+  "runs": [
+    {
+      "mode": "plain",
+      "variant": "observed",
+      "checks": 82,
+      "failures": 0,
+      "expected_failures": [],
+      "output_sha256": "d828ec11d9507aaf3e063e2d7f8d8bc91cb6f946df7219b87af9a93049fe4d15"
+    },
+    {
+      "mode": "plain",
+      "variant": "authoritative-hypothesis",
+      "checks": 83,
+      "failures": 1,
+      "expected_failures": [
+        "split-frame/local-off-implies-core-quarantine"
+      ],
+      "output_sha256": "7cac48780605a37765ae31cb9800a574d0f8c3be1ef6da6ec683bfad508b9376"
+    },
+    {
+      "mode": "asan-ubsan",
+      "variant": "observed",
+      "checks": 82,
+      "failures": 0,
+      "expected_failures": [],
+      "output_sha256": "d828ec11d9507aaf3e063e2d7f8d8bc91cb6f946df7219b87af9a93049fe4d15"
+    },
+    {
+      "mode": "asan-ubsan",
+      "variant": "authoritative-hypothesis",
+      "checks": 83,
+      "failures": 1,
+      "expected_failures": [
+        "split-frame/local-off-implies-core-quarantine"
+      ],
+      "output_sha256": "7cac48780605a37765ae31cb9800a574d0f8c3be1ef6da6ec683bfad508b9376"
+    },
+    {
+      "mode": "tsan",
+      "variant": "observed",
+      "checks": 82,
+      "failures": 0,
+      "expected_failures": [],
+      "output_sha256": "d828ec11d9507aaf3e063e2d7f8d8bc91cb6f946df7219b87af9a93049fe4d15"
+    },
+    {
+      "mode": "tsan",
+      "variant": "authoritative-hypothesis",
+      "checks": 83,
+      "failures": 1,
+      "expected_failures": [
+        "split-frame/local-off-implies-core-quarantine"
+      ],
+      "output_sha256": "7cac48780605a37765ae31cb9800a574d0f8c3be1ef6da6ec683bfad508b9376"
+    }
+  ]
+}

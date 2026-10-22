@@ -1,0 +1,263 @@
+{
+  "actual_overlap_predicate_sha256": "e6f37138b430cc1d468ac6f95762b74900e3396e3dac2a3746134cc6ea37c033",
+  "actual_policy_extraction_sha256": "c9774595762751b828f382df275af7aa10a83b33d3c04f3a5196b9baceca11aa",
+  "candidate_policy": {
+    "0x1b029c0": {
+      "actual_claim_attempted": false,
+      "first_four": [
+        [
+          "ldr",
+          "x3, [x0, #0x18]"
+        ],
+        [
+          "adrp",
+          "x1, #0x28fa000"
+        ],
+        [
+          "add",
+          "x1, x1, #0xb4"
+        ],
+        [
+          "add",
+          "x2, x3, #0x19c"
+        ]
+      ],
+      "patch_ok_1": true,
+      "patch_ok_4": true,
+      "pcrel_kinds": [
+        0,
+        2,
+        0,
+        0
+      ],
+      "prologue_sha256": "a0c5656285ed803b0aeaf6d1ae5959f59fde1dfd22b9a076591a30874ab1893a"
+    },
+    "0x237a440": {
+      "actual_claim_attempted": false,
+      "first_four": [
+        [
+          "stp",
+          "x29, x30, [sp, #-0x30]!"
+        ],
+        [
+          "mov",
+          "x29, sp"
+        ],
+        [
+          "str",
+          "x19, [sp, #0x10]"
+        ],
+        [
+          "mov",
+          "x19, x0"
+        ]
+      ],
+      "patch_ok_1": true,
+      "patch_ok_4": true,
+      "pcrel_kinds": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "prologue_sha256": "d3046c2e2989861ced6d6cd27c895147149cafef79e2902b8dc5990b5cae466e"
+    },
+    "0x237eac0": {
+      "actual_claim_attempted": false,
+      "first_four": [
+        [
+          "stp",
+          "x29, x30, [sp, #-0x90]!"
+        ],
+        [
+          "mov",
+          "x29, sp"
+        ],
+        [
+          "stp",
+          "x19, x20, [sp, #0x10]"
+        ],
+        [
+          "mov",
+          "x20, x2"
+        ]
+      ],
+      "patch_ok_1": true,
+      "patch_ok_4": true,
+      "pcrel_kinds": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "prologue_sha256": "854c7120acb2a9de70edf4d93a4a0b7626ca2d0061dc3b0146527e9722831690"
+    }
+  },
+  "data_word_anchors_checked": 8,
+  "executor": {
+    "cfi": {
+      "0x1b029c0": {
+        "cfa_offset": 0,
+        "cfa_register": 31
+      },
+      "0x1b029e4": {
+        "cfa_offset": 48,
+        "cfa_register": 31
+      },
+      "0x1b029ec": {
+        "cfa_offset": 48,
+        "cfa_register": 31
+      },
+      "0x1b029f4": {
+        "cfa_offset": 48,
+        "cfa_register": 31
+      },
+      "0x1b02a14": {
+        "cfa_offset": 0,
+        "cfa_register": 31
+      },
+      "0x1b02a1c": {
+        "cfa_offset": 48,
+        "cfa_register": 31
+      },
+      "0x1b02a88": {
+        "cfa_offset": 0,
+        "cfa_register": 31
+      },
+      "0x1b02a8c": {
+        "cfa_offset": 48,
+        "cfa_register": 31
+      }
+    },
+    "child_order": [
+      "dispatcher+0x1a0",
+      "dispatcher+0x150",
+      "dispatcher"
+    ],
+    "child_result_test": "low byte nonzero stops fallback",
+    "default_handler": "0x1add3a0 (returns w0 zero)",
+    "entry": "0x1b029c0",
+    "final_dispatch": "tail br x5 after restoring incoming LR/frame",
+    "first_native_read": "task+0x18 before address guards",
+    "guard_order": [
+      "dispatcher+0x19c address >= 0x28fa0b4 (unsigned)",
+      "(dispatcher+0x19c address)&3 == 0",
+      "load dispatcher+0x19c equals cached helper result"
+    ],
+    "handler_arguments": [
+      "x0 target",
+      "x1 copied ID",
+      "w2 copied delta",
+      "w3 copied cumulative"
+    ],
+    "handler_slot": "0x198",
+    "known_incoming_argument": "x0 task pointer",
+    "task_pointer_mapping_size_or_lifetime_check": false,
+    "unified_return_or_completion_meaning_proven": false
+  },
+  "executor_cfi_rows_checked": 8,
+  "firmware_sha256": "6577f42532375936c7e3fa830efa35b7daa9cde8e0a265c1fc7143f824321925",
+  "functions": {
+    "0x1add3a0": {
+      "body_sha256": "2f6110664dbd16b514a0c2c7c8326932a36e85d2f15b91e57ca76efd2c7a625a",
+      "fde_extent": "0x8"
+    },
+    "0x1afe1f0": {
+      "body_sha256": "4290d4711edee1efe8308b2a21f9b6b60d1fe3858f87b803a85b4f9292eed6f2",
+      "fde_extent": "0x3a4"
+    },
+    "0x1afeb68": {
+      "body_sha256": "476d0ee87256d51ac649b9e9de1dbe549c6109b87ee04f2d4d05c721789707ef",
+      "fde_extent": "0x3c"
+    },
+    "0x1aff270": {
+      "body_sha256": "2c7a6dcc613e10c2db1b0f568f9698e27ed59cdbb23b13d58df7e3ebec0dd54a",
+      "fde_extent": "0xdc"
+    },
+    "0x1aff780": {
+      "body_sha256": "6fa31cb42a5f3337396e4af8103a4e8d86e3bb10ed3190c4cafa3548e858973e",
+      "fde_extent": "0xcc"
+    },
+    "0x1b01cf8": {
+      "body_sha256": "e91f820c8b58b342d8d8fc95edb6e71fb4836f73c1b809da2ac0c73cfba8427a",
+      "fde_extent": "0x2e8"
+    },
+    "0x1b02858": {
+      "body_sha256": "55dc040f9353d01e214cac1474b3153a44224dec2350cecf076035fe15f7d399",
+      "fde_extent": "0x60"
+    },
+    "0x1b029c0": {
+      "body_sha256": "482b8337cf92d2d8e43baee7f0476d662653cba984cfe0f206c49b1bcce2fddb",
+      "fde_extent": "0x104"
+    },
+    "0x1b038a0": {
+      "body_sha256": "b94831044a09648d271b63091ab373414e9acdd2cd3640b9c33e4ee9b5e42423",
+      "fde_extent": "0x1bc"
+    },
+    "0x237a440": {
+      "body_sha256": "d5861b114788f1d459c3104bedfeaaf3fc0ce0be5e80aa38c7cd909bf77d2af0",
+      "fde_extent": "0x38"
+    },
+    "0x237eac0": {
+      "body_sha256": "d9268b6ce40c97f80a570e8d48881fb29753d3ac5382e1fd59519438ae25d9ba",
+      "fde_extent": "0x1e0"
+    },
+    "0x6f2398": {
+      "body_sha256": "f825b998cc19c1e6e7942e2bc0220a2024e7a8f995bd0fe613716bdc05f960fc",
+      "fde_extent": "0x94"
+    }
+  },
+  "guard": {
+    "cached_value": "0x3fea5f8",
+    "constructor_failure_zero": "0x1afe4f8",
+    "constructor_store": "0x1afe218",
+    "destructor_zero": "0x1b039b4",
+    "helper": "0x1b02858",
+    "initial_value_function": "0x6f2398",
+    "per_task_epoch_proven": false,
+    "retained_storage_or_cancellation_fence_proven": false,
+    "static_guard": "0x3fea5f0"
+  },
+  "host_actual_policy_assertions": 61,
+  "instruction_anchors_checked": 133,
+  "limits": [
+    "Static observations only; no new runtime/hook/ABI-wrapper test",
+    "Native owner thread, active dispatcher/children and live task mappings remain unobserved",
+    "Allocation/queue ownership and dispatcher lifetime are separate; see TASKBOX.md",
+    "Task-specific destructor evidence does not exclude outside lifetime rules",
+    "Numeric-literal audit is not installed-hook ownership or reachable-island evidence",
+    "Successful prologue policy does not establish full claim eligibility",
+    "No submitted return value is a child-execution or completion observation",
+    "Do not retain native pointers or read task/dispatcher fields after native return"
+  ],
+  "pinned_literal_audit": {
+    "collisions": [],
+    "files": 95,
+    "runtime_ownership_proven": false
+  },
+  "rtti_anchors_checked": 1,
+  "semantic_rejection_controls": 22,
+  "source_sha256": {
+    "community.c": "4b2b72e2b623dcb1ecb0ef108a473815adab45a516a6aa13adb6cce512b80866",
+    "ep147addr.h": "ca75114d28f586daed5bb70a06e3fbc19449c939b4549942acdf7c8ba16b3fb3",
+    "inline_hooks.c": "f141b383c25e66c8acb1839280832a612a6ee0e25e9ada59f374ccbef8f81908"
+  },
+  "task": {
+    "allocation_alignment": 8,
+    "allocation_bytes": 56,
+    "capture_fields_read_by_reviewed_task_destructors": false,
+    "direct_construction_without_copy_call_in_reviewed_success_path": true,
+    "dispatcher_retention_by_these_capture_destructor_paths_proven": false,
+    "fields": {
+      "0x10": "64-bit incremented task-box counter; TaskNo interpretation in TASKBOX.md",
+      "0x18": "raw adjusted dispatcher pointer (entry x0 minus 0x118)",
+      "0x20": "copied full-width entry x2",
+      "0x28": "copied entry w3",
+      "0x2c": "copied entry w4",
+      "0x8": "32-bit helper result, cleared by task destructor"
+    },
+    "task_destructor_specialization_counter": "0x3fea588",
+    "vptr": "0x2d444d8"
+  },
+  "upstream_commit": "3e0c5cb010454228f4ee63226b60d060494eeaae"
+}
