@@ -5,3 +5,4 @@ __pycache__/
 *.pyc
 out-debug/
 a.out
+tests/build/

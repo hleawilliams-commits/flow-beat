@@ -48,6 +48,15 @@
  *   flow-beat:host = "192.168.1.20"     where to send (an IPv4 address; default: broadcast on
  *                                       every network the deck is on, Wi-Fi and LINK)
  *   flow-beat:port = 9100
+ *
+ * Ableton Link from the deck (row "Ableton Link from this deck", off by default; link.cpp):
+ * the lead deck leads a Link session on the deck's network, tempo, beat and bar, so Ableton or
+ * AUTO/PILOT follow it with no bridge on a computer. The bar's "1" comes from a "this is 1"
+ * press ({"flowbeat":1,"type":"one","late":true|false} to UDP port 9101 on the deck, from FLOW
+ * VJ's phrase-sync button) and otherwise from the track's rekordbox beat grid (PQTZ).
+ *   flow-beat:link_ms = 0               how far the deck's sound runs behind its playhead, in ms
+ *                                       (raise it if Link peers play ahead of the deck)
+ *   flow-beat:one_port = 9101
  */
 #include <arpa/inet.h>
 #include <dirent.h>
@@ -69,6 +78,7 @@
 
 #include "azmod-mod.h"
 #include "mixer.h"
+#include "link.h"
 
 #define MOD_ID "flow-beat"
 #define NDECKS 4
@@ -88,6 +98,14 @@ static int row_mixer = -1;   /* "Send mixer to FLOW" (0.5.0), on by default */
 static int row_wave = -1;    /* "Send track analysis to FLOW" (0.4.0), on by default */
 static unsigned wave_seq_base = 0x40000000u;   /* the wave thread's own seq range, so the two threads never collide */
 static int track_dirty;      /* set by deck events (UI thread), read by the worker: atomics */
+#ifndef FLOW_LINK_DEFAULT
+#define FLOW_LINK_DEFAULT 0  /* make test TEST_CC="clang -DFLOW_LINK_DEFAULT=1" runs the harness with Link on */
+#endif
+static int row_link = -1;    /* "Ableton Link from this deck", off by default */
+static int link_on(void)
+{
+    return row_link >= 0 ? C->row_value(row_link) == 1 : C->cfg_get(MOD_ID, "link", FLOW_LINK_DEFAULT) != 0;
+}
 
 /* ---- JSON text --------------------------------------------------------------------------- */
 
@@ -297,6 +315,218 @@ static int mix_read(unsigned char *out, unsigned *gen)
     return len;
 }
 
+/* ---- each loaded track's bars, for Link (rekordbox PQTZ beat grid) ---------------------------- */
+/* The wave thread parses the grid when it reads a track's analysis; the worker looks up which beat
+ * of the bar the playhead is in. A per-deck try-lock: the worker never waits, it skips one step. */
+static uint32_t fnv(const char *a, const char *b);
+static uint32_t be32(const unsigned char *p);
+#define BARS_MAX 32768                     /* beats: over an hour at 128 BPM */
+typedef struct {
+    atomic_flag busy;
+    uint32_t sig;                          /* the track (as wave_worker's sig), 0 = none */
+    int n;
+    uint32_t *ms;                          /* each beat's time in the track, ms */
+    unsigned char *num;                    /* its beat of the bar, 1..4 */
+} deck_bars;
+static deck_bars bars[NDECKS] = { { ATOMIC_FLAG_INIT, 0, 0, NULL, NULL }, { ATOMIC_FLAG_INIT, 0, 0, NULL, NULL },
+                                  { ATOMIC_FLAG_INIT, 0, 0, NULL, NULL }, { ATOMIC_FLAG_INIT, 0, 0, NULL, NULL } };
+
+/* wave thread: the PQTZ tag in an analysis blob (tags as take_tags copied them) -> bars[d] */
+static void bars_set(int d, uint32_t sig, const unsigned char *blob, size_t n)
+{
+    deck_bars *b = &bars[d];
+    if (!b->ms) {
+        b->ms = (uint32_t *)malloc(BARS_MAX * sizeof *b->ms);
+        b->num = (unsigned char *)malloc(BARS_MAX);
+        if (!b->ms || !b->num) { free(b->ms); free(b->num); b->ms = NULL; b->num = NULL; return; }
+    }
+    const unsigned char *q = NULL;
+    uint32_t cnt = 0;
+    for (size_t off = 0; off + 12 <= n;) {
+        uint32_t hl = be32(blob + off + 4), tl = be32(blob + off + 8);
+        if (hl < 12 || tl < hl || tl > n - off) break;
+        if (memcmp(blob + off, "PQTZ", 4) == 0 && hl >= 24) {
+            cnt = be32(blob + off + 20);
+            if (cnt > (tl - hl) / 8) cnt = (tl - hl) / 8;
+            q = blob + off + hl;
+            break;
+        }
+        off += tl;
+    }
+    if (cnt > BARS_MAX) cnt = BARS_MAX;
+    while (atomic_flag_test_and_set_explicit(&b->busy, memory_order_acquire)) { struct timespec t = { 0, 100000 }; nanosleep(&t, NULL); }
+    b->n = 0;
+    for (uint32_t i = 0; q && i < cnt; i++) {
+        unsigned num = ((unsigned)q[8 * i] << 8) | q[8 * i + 1];
+        if (num < 1 || num > 4) continue;
+        b->num[b->n] = (unsigned char)num;
+        b->ms[b->n] = be32(q + 8 * i + 4);
+        b->n++;
+    }
+    b->sig = b->n ? sig : 0;
+    atomic_flag_clear_explicit(&b->busy, memory_order_release);
+}
+
+/* worker: 0..3 for the beat of the bar deck d's playhead is in (0 = the "1"), -1 unknown or busy */
+static int bars_at(int d, uint32_t sig, double pos_s, double ph)
+{
+    deck_bars *b = &bars[d];
+    if (pos_s < 0 || ph < 0) return -1;
+    if (atomic_flag_test_and_set_explicit(&b->busy, memory_order_acquire)) return -1;
+    int r = -1;
+    if (b->sig == sig && b->n >= 2) {
+        double pos = pos_s * 1000.0;
+        int lo = 0, hi = b->n - 1;            /* the last beat at or before pos */
+        while (lo < hi) { int mid = (lo + hi + 1) / 2; if (b->ms[mid] <= pos) lo = mid; else hi = mid - 1; }
+        int i = lo < b->n - 1 ? lo : b->n - 2;
+        double period = (double)b->ms[i + 1] - b->ms[i];
+        double start = pos - ph * period;     /* where the current beat started, by the deck's own phase */
+        int j = lo;
+        if (j + 1 < b->n && fabs(b->ms[j + 1] - start) < fabs(b->ms[j] - start)) j++;
+        if (j > 0 && fabs(b->ms[j - 1] - start) < fabs(b->ms[j] - start)) j--;
+        if (period > 0 && fabs(b->ms[j] - start) < period / 2) r = b->num[j] - 1;
+    }
+    atomic_flag_clear_explicit(&b->busy, memory_order_release);
+    return r;
+}
+
+/* ---- Ableton Link: the lead deck leads (link.cpp) ------------------------------------------ */
+/* "this is 1": FLOW VJ's phrase-sync press, as a datagram to the deck's port 9101 */
+static int one_sock = -1, one_port_open;
+
+static int one_pressed(int *late)
+{
+    int port = C->cfg_get(MOD_ID, "one_port", 9101);
+    if (port < 1 || port > 65535) port = 9101;
+    if (one_sock >= 0 && one_port_open != port) { close(one_sock); one_sock = -1; }
+    if (one_sock < 0) {
+        one_sock = socket(AF_INET, SOCK_DGRAM | SOCK_NONBLOCK | SOCK_CLOEXEC, 0);
+        if (one_sock < 0) return 0;
+        int on = 1;
+        setsockopt(one_sock, SOL_SOCKET, SO_REUSEADDR, &on, sizeof on);
+        struct sockaddr_in a;
+        memset(&a, 0, sizeof a);
+        a.sin_family = AF_INET;
+        a.sin_port = htons((uint16_t)port);
+        a.sin_addr.s_addr = htonl(INADDR_ANY);
+        if (bind(one_sock, (struct sockaddr *)&a, sizeof a) != 0) {
+            C->log(MOD_ID, "Link: UDP port %d is taken: no \"this is 1\" bar reset", port);
+            close(one_sock);
+            one_sock = -2;                    /* don't retry every 5 ms; a port change retries */
+            one_port_open = port;
+            return 0;
+        }
+        one_port_open = port;
+        C->log(MOD_ID, "Link: \"this is 1\" listens on UDP %d", port);
+    }
+    if (one_sock < 0) return 0;
+    char m[256];
+    int got = 0;
+    ssize_t n;
+    while ((n = recv(one_sock, m, sizeof m - 1, MSG_DONTWAIT)) > 0) {
+        m[n] = 0;
+        if (!strstr(m, "\"flowbeat\":1") || !strstr(m, "\"type\":\"one\"")) continue;
+        got = 1;
+        *late = strstr(m, "\"late\":true") ? 1 : strstr(m, "\"late\":false") ? 0 : -1;
+    }
+    return got;
+}
+
+static void one_close(void)
+{
+    if (one_sock >= 0) close(one_sock);
+    one_sock = -1;
+    one_port_open = 0;
+}
+
+/* One worker step for Link: picks the lead deck, works out its bar, and hands it to link.cpp. */
+static void link_step(const az_deck_info *di, const double *ph, const unsigned *since,
+                      const unsigned *beats, const uint32_t *track_sig, unsigned step)
+{
+    static int was_on, lead = -1, peers = -2;
+    static uint32_t lead_sig;
+    static int one_deck = -1;                 /* a "this is 1" press: on which deck and track, */
+    static uint32_t one_sig;
+    static unsigned one_since;                /* the play start it was pressed in */
+    static unsigned one_beat;                 /* and which of its beats was the 1 */
+    static int ahead_ms;
+    static unsigned forced_log;
+
+    int on = link_on();
+    if (on != was_on) {
+        if (flowlink_enable(on) != 0) {
+            if (was_on != -1) C->log(MOD_ID, "Link could not start");
+            was_on = -1;                      /* logged once; retried each step while the row is on */
+            return;
+        }
+        C->log(MOD_ID, on ? "Link on: this deck leads the session" : "Link off");
+        was_on = on;
+        lead = -1;
+        peers = -2;
+        if (!on) one_close();
+    }
+    if (!on) return;
+
+    if (step % CFG_STEPS == 1) {
+        ahead_ms = C->cfg_get(MOD_ID, "link_ms", 0);
+        if (ahead_ms < -500 || ahead_ms > 500) ahead_ms = 0;
+    }
+    if (step % 200 == 0) {                    /* about every second */
+        int p = flowlink_peers();
+        if (p != peers) C->log(MOD_ID, "Link: %d peer%s", p, p == 1 ? "" : "s");
+        peers = p;
+    }
+
+    int l = -1;
+    for (int d = 0; d < NDECKS; d++)
+        if (since[d] && (l < 0 || since[d] > since[l])) l = d;
+    flowlink_in in;
+    memset(&in, 0, sizeof in);
+    in.bar_beat = -1;
+    in.ahead_ms = ahead_ms;
+    in.ph = -1.0;
+    if (l >= 0) {
+        in.playing = 1;
+        in.bpm = di[l].bpm;
+        in.ph = ph[l];
+        if (l != lead || track_sig[l] != lead_sig) {
+            in.new_lead = 1;
+            C->log(MOD_ID, "Link follows deck %d (%.2f BPM)", l + 1, di[l].bpm);
+        }
+        lead_sig = track_sig[l];
+
+        int late = -1;
+        if (one_pressed(&late)) {
+            if (late < 0) late = ph[l] > 0.5;
+            one_deck = l;
+            one_sig = track_sig[l];
+            one_since = since[l];
+            one_beat = beats[l] + (late ? 1 : 0);
+            in.new_lead = 1;                  /* move the session's bar now */
+            C->log(MOD_ID, "Link: this is 1 on deck %d%s", l + 1, late ? " (next beat)" : "");
+        }
+        if (one_deck == l && one_sig == track_sig[l] && one_since == since[l])
+            in.bar_beat = (int)((beats[l] - one_beat) & 3u);
+        else {
+            one_deck = -1;                    /* a press counts until the lead's track changes or it stops */
+            in.bar_beat = bars_at(l, (uint32_t)(fnv(di[l].title, di[l].artist) ^ di[l].content_id),
+                                  di[l].pos_s, ph[l]);
+        }
+    } else {
+        int late;
+        (void)one_pressed(&late);             /* nothing plays: drop presses */
+    }
+    lead = l;
+
+    flowlink_out out;
+    flowlink_step(&in, &out);
+    if (out.forced && (in.new_lead || step - forced_log > 2000)) {   /* a jump: log at most every 10 s */
+        C->log(MOD_ID, "Link moved onto deck %d (was %+.3f beats off, bar beat %d)", l + 1, out.err,
+               in.bar_beat + 1);
+        forced_log = step;
+    }
+}
+
 /* ---- the worker -------------------------------------------------------------------------- */
 
 static void *worker(void *arg)
@@ -374,6 +604,8 @@ static void *worker(void *arg)
             }
             track_sig[d] = sig;
         }
+
+        link_step(di, ph, since, beats, track_sig, step);
 
         if (on && step % STATE_STEPS == 0) {
             int n = snprintf(buf, sizeof buf, "{\"flowbeat\":1,\"type\":\"state\",\"seq\":%u,\"decks\":[",
@@ -653,7 +885,8 @@ static void *wave_worker(void *arg)
         nanosleep(&ts, NULL);
         int on = row_send >= 0 ? C->row_value(row_send) == 1 : 1;
         int wave_on = row_wave >= 0 ? C->row_value(row_wave) == 1 : C->cfg_get(MOD_ID, "wave", 1) != 0;
-        if (!on || !wave_on) continue;
+        int send = on && wave_on;
+        if (!send && !link_on()) continue;    /* Link reads the grids for the bar even when nothing is sent */
         unsigned now = ++tick;
         for (int d = 0; d < NDECKS; d++) {
             az_deck_info di;
@@ -665,8 +898,9 @@ static void *wave_worker(void *arg)
                 sent_sig[d] = sig; repeats[d] = 0; next_at[d] = 0; blen[d] = 0;
                 if (!blob[d]) blob[d] = (unsigned char *)malloc(WAVE_MAX);
                 if (blob[d]) blen[d] = load_analysis(&di, blob[d]);
+                if (blob[d]) bars_set(d, sig, blob[d], blen[d]);
             }
-            if (!blen[d] || now < next_at[d]) continue;
+            if (!send || !blen[d] || now < next_at[d]) continue;
             send_wave(d, &di, sig, blob[d], blen[d], &seq);
             repeats[d]++;
             next_at[d] = now + (repeats[d] < 3 ? 5 : 50);   /* now, twice more a second apart, then every 10 s */
@@ -734,11 +968,21 @@ static int init(const az_core_v1 *core)
                 "Beat FX and X-PAD to FLOW VJ, so visuals and lights follow the mix. Reads the "
                 "panel only; the sound is never touched.",
     };
+    static const az_row_v1 link_row = {
+        .size = sizeof link_row,
+        .key = "link",
+        .label = "Ableton Link from this deck",
+        .kind = AZ_ROW_TOGGLE,
+        .help = "This deck leads an Ableton Link session on its network: Ableton, AUTO/PILOT and other "
+                "Link apps follow the playing deck's tempo, beat and bar (the 1 from rekordbox's grid or "
+                "FLOW VJ's phrase-sync button). No computer bridge needed. Off by default.",
+    };
     if (AZ_HAS(C, register_row) && AZ_HAS(C, row_value)) {
         row_send = C->register_row(MOD_ID, &send_row);
         row_mixer = C->register_row(MOD_ID, &mixer_row);
         row_sniff = C->register_row(MOD_ID, &sniff_row);
         row_wave = C->register_row(MOD_ID, &wave_row);
+        row_link = C->register_row(MOD_ID, &link_row);
     }
     /* each deck's own audio, before the hardware mixer (0.3.0) */
     if (AZ_HAS(C, audio_tap))
