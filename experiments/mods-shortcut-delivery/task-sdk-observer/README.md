@@ -206,10 +206,32 @@ and [independent evidence review](REVIEW.md) retain the exact identities and
 limits. The binary and raw build/run snapshots remain private. No package,
 release-catalog entry or emulator installation was created.
 
-Next bind and validate own-module scalar sampling against this binary, then
-review a fresh selective emulator backup/claim/input/cleanup sequence. Check
-fresh loaded-file/process/mapping evidence and actual hook ownership before
-input; init's text alone is not current capture readiness. Keep native task
-storage out of later memory sampling, and do not interpret missing execution
-or return output as cancellation or failure. Earlier live route records and
-all unrelated runtime gates remain separate.
+The subsequent [owned-scalar planner](status-layout/README.md) binds eight
+named local atomics, 56 bytes in total, to this exact binary. Its 81 checks,
+including 54 rejection controls, pass with independently identical result
+JSON. Fabricated mappings exercise actual ELF offsets and 4/16/64 KiB pages;
+these are offline checks, not process observations. Pointers, transport storage
+and record slots are excluded. Sequential byte reads do not create acquire
+loads, a coherent state snapshot or a transport-capacity guarantee.
+
+The [fresh runtime plan](RUNTIME-PLAN.md) separates initial capture readiness
+from the core's natural startup-guard expiry. Private mock checks exercise
+startup, failure recovery and scalar sampling, but the final input adapter is
+still disabled. Every mixer frame carries a knob counter, including BROWSE;
+the previous RAW-based aligner cannot be reused for this observer. A reviewed
+current counter source, one-step host ownership and readiness obtained inside
+each action's preflight remain prerequisites. A saved progress pair or an
+input-review file's existence is insufficient.
+
+Check fresh loaded-file/process/mapping evidence and actual hook ownership
+before any future input; init's text alone is not current capture readiness.
+Keep native task storage out of later memory sampling, and do not interpret
+missing execution or return output as cancellation or failure. Earlier live
+route records and all unrelated runtime gates remain separate. The candidate
+remains uninstalled.
+
+[Preparation evidence](PREPARATION-EVIDENCE.md) and its
+[sanitized result](preparation-result.json) retain the new mock checks, the
+initial missing-`stat` preflight failure and the corrected read-only driver
+diagnostic. One valid emulator MISO frame supplies no native task observation
+or later input baseline. The independent saved-receipt audit passes 36 checks.

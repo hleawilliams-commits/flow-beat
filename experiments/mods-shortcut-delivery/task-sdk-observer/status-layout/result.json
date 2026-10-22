@@ -1,0 +1,413 @@
+{
+  "adapter_source_sha256": "538574af5f357131e0fa9ec6e26d54cfef0ec2a57f31baddff1e8e5bc7c134ed",
+  "binary_sha256": "71d7fc088f4def67d1307e4faeef301020aed04bfa3da7ae4bc6a422ece3e255",
+  "check_labels": [
+    "pinned build receipt binary",
+    "pinned build receipt adapter source",
+    "eight named fields / 56 exact bytes",
+    "native pointers and entire transport storage excluded",
+    "actual local OBJECT offset/width state",
+    "actual local OBJECT offset/width heartbeat",
+    "actual local OBJECT offset/width attempted",
+    "actual local OBJECT offset/width state_gated",
+    "actual local OBJECT offset/width caller_gated",
+    "actual local OBJECT offset/width tid_failed",
+    "actual local OBJECT offset/width worker_cycles",
+    "actual local OBJECT offset/width worker_exit_reason",
+    "fabricated layout bias/page 4096/False/False",
+    "bounded noncoherent plan 4096/False/False",
+    "exact fabricated read ranges 4096/False/False",
+    "fabricated layout bias/page 4096/True/True",
+    "bounded noncoherent plan 4096/True/True",
+    "exact fabricated read ranges 4096/True/True",
+    "fabricated layout bias/page 16384/False/True",
+    "bounded noncoherent plan 16384/False/True",
+    "exact fabricated read ranges 16384/False/True",
+    "fabricated layout bias/page 65536/False/False",
+    "bounded noncoherent plan 65536/False/False",
+    "exact fabricated read ranges 65536/False/False",
+    "unsigned full-width buffer decoding",
+    "zero auxiliary padding allowed",
+    "short sample state: exact rejection",
+    "short sample heartbeat: exact rejection",
+    "short sample attempted: exact rejection",
+    "short sample state_gated: exact rejection",
+    "short sample caller_gated: exact rejection",
+    "short sample tid_failed: exact rejection",
+    "short sample worker_cycles: exact rejection",
+    "short sample worker_exit_reason: exact rejection",
+    "oversized sample: exact rejection",
+    "extra sample: exact rejection",
+    "missing sample: exact rejection",
+    "empty auxv: exact rejection",
+    "short auxv: exact rejection",
+    "missing page size: exact rejection",
+    "missing terminator: exact rejection",
+    "duplicate page size: exact rejection",
+    "page after terminator: exact rejection",
+    "nonzero terminator: exact rejection",
+    "zero page size: exact rejection",
+    "nonpower page size: exact rejection",
+    "unsupported small page: exact rejection",
+    "source drift: exact rejection",
+    "binary drift: exact rejection",
+    "wrong architecture: exact rejection",
+    "wrong ELF type: exact rejection",
+    "scalar function type: exact rejection",
+    "global scalar binding: exact rejection",
+    "undefined scalar: exact rejection",
+    "missing scalar: exact rejection",
+    "duplicate scalar: exact rejection",
+    "pointer alias instead of scalar: exact rejection",
+    "wrong scalar width: exact rejection",
+    "scalar outside BSS: exact rejection",
+    "truncated segment: exact rejection",
+    "shared module mapping: exact rejection",
+    "mixed file identity: exact rejection",
+    "deleted module: exact rejection",
+    "unaligned map: exact rejection",
+    "wrong file displacement: exact rejection",
+    "missing executable anchor: exact rejection",
+    "incomplete scalar file prefix: exact rejection",
+    "scalar readonly map: exact rejection",
+    "scalar unreadable map: exact rejection",
+    "oversized named file map: exact rejection",
+    "overlapping maps: exact rejection",
+    "malformed maps: exact rejection",
+    "unexpected module path /synthetic/other.so: exact rejection",
+    "unexpected module path relative/encoder-task-observer.so: exact rejection",
+    "unexpected module path /synthetic/../encoder-task-observer.so: exact rejection",
+    "added embedded transport scalar: exact rejection",
+    "missing diagnostic: exact rejection",
+    "altered named width: exact rejection",
+    "altered named offset: exact rejection",
+    "scalar executable segment: exact rejection",
+    "inputs unchanged through offline tests"
+  ],
+  "checks": 81,
+  "coherent_snapshot": false,
+  "failures": 0,
+  "loads": [
+    {
+      "filesz": 9476,
+      "flags": 5,
+      "memsz": 9476,
+      "offset": 0,
+      "vaddr": 0
+    },
+    {
+      "filesz": 776,
+      "flags": 6,
+      "memsz": 3424,
+      "offset": 11608,
+      "vaddr": 77144
+    }
+  ],
+  "native_objects": false,
+  "owned_scalar_bytes": 56,
+  "process_access": false,
+  "reference_planner_sha256": "bb1182de30ce8d437e7b25d35723f901f1751b31bf59258dce3c35fc3a1e3c7c",
+  "result": "PASS",
+  "runtime_maps_observed": false,
+  "scope": "Offline exact ELF extraction, supplied auxv/maps planning, and buffer validation only",
+  "source_sha256": {
+    "layout.py": "e47d7c704a5c907b816e76493846438112b261680ee08c4707f30f696fbd5fbb",
+    "test-layout.py": "d583cba833ae0b15005ac17f1657fb73908950ca9f1ba43ea6c465d1ca942216"
+  },
+  "strict_rejection_control_count": 54,
+  "strict_rejection_controls": [
+    {
+      "name": "short sample state",
+      "rejected_by": "scalar sample width mismatch: state"
+    },
+    {
+      "name": "short sample heartbeat",
+      "rejected_by": "scalar sample width mismatch: heartbeat"
+    },
+    {
+      "name": "short sample attempted",
+      "rejected_by": "scalar sample width mismatch: attempted"
+    },
+    {
+      "name": "short sample state_gated",
+      "rejected_by": "scalar sample width mismatch: state_gated"
+    },
+    {
+      "name": "short sample caller_gated",
+      "rejected_by": "scalar sample width mismatch: caller_gated"
+    },
+    {
+      "name": "short sample tid_failed",
+      "rejected_by": "scalar sample width mismatch: tid_failed"
+    },
+    {
+      "name": "short sample worker_cycles",
+      "rejected_by": "scalar sample width mismatch: worker_cycles"
+    },
+    {
+      "name": "short sample worker_exit_reason",
+      "rejected_by": "scalar sample width mismatch: worker_exit_reason"
+    },
+    {
+      "name": "oversized sample",
+      "rejected_by": "scalar sample width mismatch: heartbeat"
+    },
+    {
+      "name": "extra sample",
+      "rejected_by": "sample allowlist mismatch"
+    },
+    {
+      "name": "missing sample",
+      "rejected_by": "sample allowlist mismatch"
+    },
+    {
+      "name": "empty auxv",
+      "rejected_by": "invalid AArch64 auxv width"
+    },
+    {
+      "name": "short auxv",
+      "rejected_by": "invalid AArch64 auxv width"
+    },
+    {
+      "name": "missing page size",
+      "rejected_by": "missing or duplicate AT_PAGESZ"
+    },
+    {
+      "name": "missing terminator",
+      "rejected_by": "missing or duplicate AT_PAGESZ"
+    },
+    {
+      "name": "duplicate page size",
+      "rejected_by": "missing or duplicate AT_PAGESZ"
+    },
+    {
+      "name": "page after terminator",
+      "rejected_by": "nonzero auxv after terminator"
+    },
+    {
+      "name": "nonzero terminator",
+      "rejected_by": "invalid auxv terminator"
+    },
+    {
+      "name": "zero page size",
+      "rejected_by": "unsupported AArch64 page size"
+    },
+    {
+      "name": "nonpower page size",
+      "rejected_by": "unsupported AArch64 page size"
+    },
+    {
+      "name": "unsupported small page",
+      "rejected_by": "unsupported AArch64 page size"
+    },
+    {
+      "name": "source drift",
+      "rejected_by": "adapter source hash mismatch"
+    },
+    {
+      "name": "binary drift",
+      "rejected_by": "observer binary hash mismatch"
+    },
+    {
+      "name": "wrong architecture",
+      "rejected_by": "expected AArch64 LE shared object"
+    },
+    {
+      "name": "wrong ELF type",
+      "rejected_by": "expected AArch64 LE shared object"
+    },
+    {
+      "name": "scalar function type",
+      "rejected_by": "not a local defined OBJECT: state"
+    },
+    {
+      "name": "global scalar binding",
+      "rejected_by": "not a local defined OBJECT: state"
+    },
+    {
+      "name": "undefined scalar",
+      "rejected_by": "not a local defined OBJECT: state"
+    },
+    {
+      "name": "missing scalar",
+      "rejected_by": "missing or ambiguous scalar: state"
+    },
+    {
+      "name": "duplicate scalar",
+      "rejected_by": "missing or ambiguous scalar: state"
+    },
+    {
+      "name": "pointer alias instead of scalar",
+      "rejected_by": "scalar identity/offset/width mismatch: state"
+    },
+    {
+      "name": "wrong scalar width",
+      "rejected_by": "scalar identity/offset/width mismatch: state"
+    },
+    {
+      "name": "scalar outside BSS",
+      "rejected_by": "scalar outside writable non-executable BSS: state"
+    },
+    {
+      "name": "truncated segment",
+      "rejected_by": "missing or truncated PT_LOAD file range"
+    },
+    {
+      "name": "shared module mapping",
+      "rejected_by": "module mapping is not private"
+    },
+    {
+      "name": "mixed file identity",
+      "rejected_by": "missing or mixed module identity"
+    },
+    {
+      "name": "deleted module",
+      "rejected_by": "deleted module mapping"
+    },
+    {
+      "name": "unaligned map",
+      "rejected_by": "unaligned maps row"
+    },
+    {
+      "name": "wrong file displacement",
+      "rejected_by": "module map does not match PT_LOAD file range or inaccessible reservation"
+    },
+    {
+      "name": "missing executable anchor",
+      "rejected_by": "missing or ambiguous executable anchor"
+    },
+    {
+      "name": "incomplete scalar file prefix",
+      "rejected_by": "scalar PT_LOAD file prefix is incomplete"
+    },
+    {
+      "name": "scalar readonly map",
+      "rejected_by": "scalar mapping is not private read/write: state"
+    },
+    {
+      "name": "scalar unreadable map",
+      "rejected_by": "scalar not readable in one map"
+    },
+    {
+      "name": "oversized named file map",
+      "rejected_by": "module map does not match PT_LOAD file range or inaccessible reservation"
+    },
+    {
+      "name": "overlapping maps",
+      "rejected_by": "overlapping map rows"
+    },
+    {
+      "name": "malformed maps",
+      "rejected_by": "malformed maps row"
+    },
+    {
+      "name": "unexpected module path /synthetic/other.so",
+      "rejected_by": "unexpected module path"
+    },
+    {
+      "name": "unexpected module path relative/encoder-task-observer.so",
+      "rejected_by": "unexpected module path"
+    },
+    {
+      "name": "unexpected module path /synthetic/../encoder-task-observer.so",
+      "rejected_by": "unexpected module path"
+    },
+    {
+      "name": "added embedded transport scalar",
+      "rejected_by": "scalar allowlist mismatch"
+    },
+    {
+      "name": "missing diagnostic",
+      "rejected_by": "scalar allowlist mismatch"
+    },
+    {
+      "name": "altered named width",
+      "rejected_by": "scalar identity/offset/width mismatch: heartbeat"
+    },
+    {
+      "name": "altered named offset",
+      "rejected_by": "scalar identity/offset/width mismatch: heartbeat"
+    },
+    {
+      "name": "scalar executable segment",
+      "rejected_by": "scalar outside unique writable non-executable PT_LOAD"
+    }
+  ],
+  "symbols": {
+    "attempted": {
+      "name": "_ZN3etoL9attemptedE",
+      "size": 8,
+      "value": 77928
+    },
+    "caller_gated": {
+      "name": "_ZN3etoL12caller_gatedE",
+      "size": 8,
+      "value": 77952
+    },
+    "heartbeat": {
+      "name": "_ZN3etoL9heartbeatE",
+      "size": 8,
+      "value": 77992
+    },
+    "state": {
+      "name": "_ZN3etoL5stateE",
+      "size": 4,
+      "value": 77936
+    },
+    "state_gated": {
+      "name": "_ZN3etoL11state_gatedE",
+      "size": 8,
+      "value": 77944
+    },
+    "tid_failed": {
+      "name": "_ZN3etoL10tid_failedE",
+      "size": 8,
+      "value": 77968
+    },
+    "worker_cycles": {
+      "name": "_ZN3etoL13worker_cyclesE",
+      "size": 8,
+      "value": 77984
+    },
+    "worker_exit_reason": {
+      "name": "_ZN3etoL18worker_exit_reasonE",
+      "size": 4,
+      "value": 77976
+    }
+  },
+  "synthetic_maps": [
+    {
+      "inaccessible_reservation": false,
+      "mapping": "file-backed final-page BSS",
+      "page_size": 4096,
+      "planned_bytes": 56,
+      "planned_fields": 8,
+      "relro_split": false
+    },
+    {
+      "inaccessible_reservation": true,
+      "mapping": "file-backed final-page BSS",
+      "page_size": 4096,
+      "planned_bytes": 56,
+      "planned_fields": 8,
+      "relro_split": true
+    },
+    {
+      "inaccessible_reservation": true,
+      "mapping": "file-backed final-page BSS",
+      "page_size": 16384,
+      "planned_bytes": 56,
+      "planned_fields": 8,
+      "relro_split": false
+    },
+    {
+      "inaccessible_reservation": false,
+      "mapping": "file-backed final-page BSS",
+      "page_size": 65536,
+      "planned_bytes": 56,
+      "planned_fields": 8,
+      "relro_split": false
+    }
+  ],
+  "transport_storage": false
+}

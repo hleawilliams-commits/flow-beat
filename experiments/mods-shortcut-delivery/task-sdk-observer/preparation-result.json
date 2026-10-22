@@ -1,0 +1,92 @@
+{
+  "actions": {
+    "cores_changed": false,
+    "host_counter_changed": false,
+    "input_sent": false,
+    "native_hooks_claimed": false,
+    "observer_installed": false,
+    "physical_access": false,
+    "release_published": false,
+    "service_changed": false
+  },
+  "driver_policy": {
+    "checks": 99,
+    "independently_identical_result": true,
+    "rejection_controls": 51,
+    "result_sha256": "1be70df7ada1c2780a17394799427f6e1551d257faf01a09218d2a528274c113",
+    "verifier_sha256": "8688f0236f0da0d795797787bf16c21e4e0190bbe809cadb5637b15ffa1cecf6"
+  },
+  "live_diagnostic": {
+    "acquisition_commands": 1,
+    "completion_receipt_sha256": "e397c1579ad168ec1121a4f2655e6d207f0982ea88fc3788c218f00615ad4b42",
+    "crc_does_not_cover_bytes_98_through_127": true,
+    "crc_prefix_bytes": 96,
+    "descriptor_identity_bound": false,
+    "driver_identity_before_after_equal": true,
+    "exact_kernel_read_count_proven": false,
+    "frame_bytes": 128,
+    "frame_values_published": false,
+    "future_input_baseline": false,
+    "independent_saved_receipt_checks": 36,
+    "independent_saved_receipt_proof_sha256": "7c6163bccf42eb89c7589b9ee001544a4eea6301c8aaee37d44fb46cfddde312",
+    "loaded_note_and_disk_identity_verified": true,
+    "prefix_crc_verified": true,
+    "same_empty_process_and_original_core_guards_passed": true,
+    "scope": "localhost emulator owned mixer MISO frame",
+    "separate_raw_postcheck_core_empty_responses_retained": false
+  },
+  "observer_binary_sha256": "71d7fc088f4def67d1307e4faeef301020aed04bfa3da7ae4bc6a422ece3e255",
+  "observer_source_sha256": "538574af5f357131e0fa9ec6e26d54cfef0ec2a57f31baddff1e8e5bc7c134ed",
+  "remaining_gates": [
+    "complete and test fresh action-bound progress/counter acquisition and one-step host-counter ownership",
+    "fresh selective baseline/rollback before observer installation",
+    "live hook acceptance, provenance, native task ownership and event correlation remain unobserved",
+    "stems staging runtime gate stays closed",
+    "MODS0.1.3 remains unpublished"
+  ],
+  "scalar_planner": {
+    "bytes": 56,
+    "checks": 81,
+    "independently_identical_result": true,
+    "live_observer_memory_sampled": false,
+    "named_fields": 8,
+    "rejection_controls": 54,
+    "result_sha256": "bd5377f93cb8ab59eb49a6cf14278b44add2081f67fa51f42ed946fe6cf63b00"
+  },
+  "schema": 1,
+  "scope": "Scalar-planner and input-baseline preparation; observer remains uninstalled",
+  "startup_sampler_mock_review": {
+    "checks": 253,
+    "full_restoration_proof": false,
+    "installed_path_proof": false,
+    "result_sha256": "409dbc301499763cbe1b3503e5f45939df1ae0471656a42b0b3fa1e67ab48f6f",
+    "scenarios": 48
+  },
+  "stat_collector": {
+    "failure_receipt_sha256": "aedb061bc003143f676973a3b2a15e04dbc75939a596c40a05d2ed592e0998c6",
+    "frame_acquisition_attempted": false,
+    "full_identity_policy_completed": false,
+    "live_preflight": "failed: guest stat command unavailable, exit127",
+    "mock_checks": 988,
+    "mock_result_sha256": "89615fdabf4cad171fd307bb4693d53f82c584670fbd1be72d124dd28c4ede8a",
+    "mock_scenarios": 51,
+    "raw_frame_created": false,
+    "source_sha256": "23bae00cdee7aec9182b621f13b84e2dfeac922d272fce461714131ddf2611b5"
+  },
+  "tar_collector": {
+    "accepted_metadata_archive_bytes": [
+      1536,
+      65536
+    ],
+    "earlier_fixture_normalization_error_retained": true,
+    "metadata_parser_extracts_files": false,
+    "metadata_transport_buffer_capped": false,
+    "mock_checks": 1440,
+    "mock_result_sha256": "87520e08c9d49aef9022c839d58fb44dfa86f69a76065d499b94a5f36c5ef934",
+    "mock_scenarios": 82,
+    "post_acquisition_failure_cases_no_retry": 16,
+    "preflight_failure_cases_zero_acquisitions": 62,
+    "source_sha256": "b3cca610f6ff1b715cba9c22dbcbc138dc98ffea40a949ff0792fedb0c5ea7c0",
+    "success_cases": 4
+  }
+}
