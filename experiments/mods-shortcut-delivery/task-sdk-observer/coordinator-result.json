@@ -1,0 +1,148 @@
+{
+  "coordinator": {
+    "candidate_scenarios": 67,
+    "checks": 2697,
+    "controls": [
+      {
+        "assertion": "control requires release after failed first call",
+        "mutant_sha256": "c7f6cb354d20384f3c9380b59b83ba21acea1a5a07f76cab4fa15de4e938ff40",
+        "name": "skip-release-on-first-error",
+        "status": "EXPECTED_FAIL"
+      },
+      {
+        "assertion": "control requires aged retained release",
+        "mutant_sha256": "8ba0ab0c6f67c01c4fd5faef13da0e3807e53bdb4a9f6fdf79b370b8300ab062",
+        "name": "age-gate-release",
+        "status": "EXPECTED_FAIL"
+      },
+      {
+        "assertion": "control requires neutral release with target counter",
+        "mutant_sha256": "88aa7e4267ac90d52c6757bf3ace7be01c21f45e1844296672cbb763c70d992c",
+        "name": "wrong-neutral-counter",
+        "status": "EXPECTED_FAIL"
+      }
+    ],
+    "independent_result_identical": true,
+    "peer_review_sha256": "452567239b951459b43bfdfcc72859c806e1094999ab30609e8d221a74e32754",
+    "result_sha256": "5abc0770a32a372f6ba778a4e4e3f02187726ecd36b3c48e4b4e0fe5f0d47ecb",
+    "scenarios": 70,
+    "scope": "actual coordinator and frozen host/preflight functions; mocked acquisition/status/transport/clock; real local files and locks; no device, network or runtime contact",
+    "strict_controls": 3
+  },
+  "date": "2026-10-22",
+  "limits": [
+    "Local locks exclude only cooperating sessions; external writer exclusion remains an assumption.",
+    "One transport invocation and rc0 do not prove delivery, consumption, or completion.",
+    "Release is attempted once after uncertain first delivery only while same-process and payload/host/mixer ownership remain valid.",
+    "SIGKILL or process death can prevent finally; retained intent does not distinguish unsent from uncertain delivery.",
+    "Service restart/file restoration does not prove sticky controller-overlay or view restoration.",
+    "No full-frame acquisition, observer installation, input, restart, core change, physical access, native task observation, package or catalog change occurred in this attempt.",
+    "The closed read-only run cannot be reused; future attempts require new identity, fresh baseline and review."
+  ],
+  "local_prerequisites": {
+    "checks": 132,
+    "independent_result_identical": false,
+    "independent_results_match_except_one_temporary_fixture_path": true,
+    "rejections": 118,
+    "result_sha256": [
+      "2eff5fb74c9da92193d29624c04c1563ed87d9d8dae60e088ea9085f0f38073a",
+      "fcaed56feda4dbdd3e1ddd2f94958cd54d5914a71e6799dbb7c809589c25b96d"
+    ],
+    "scope": "Actual local prerequisite functions; temporary artifacts and file mutations; no transport",
+    "strict_controls": 3
+  },
+  "next_step": "Separately version and test a complete-overlay preservation contract for all supported persisted fields, including packed analog low bits and independent encoder counters; keep unknown controls rejected and frozen evidence unchanged.",
+  "observer_binary_sha256": "71d7fc088f4def67d1307e4faeef301020aed04bfa3da7ae4bc6a422ece3e255",
+  "preinstall_helper": {
+    "checks": 231,
+    "independent_result_identical": true,
+    "result_sha256": "3d23a6d9a21c0ed2e0b0e5e3954077f6545b41788ca3be1a86cf7808e6043236",
+    "scenarios": 58,
+    "scope": "Actual compatibility functions and pure policies; mock guest/process/identity acquisition and real temporary local settings; no input permit",
+    "strict_controls": 2
+  },
+  "private_read_only_entrypoints_sha256": {
+    "check_current_emulator.py": "7659463bbfb7968c6785caa093ed9084dd14c571d6f18f73ce4febcea4f84f48",
+    "check_preinstall_current.py": "9e9e327bdeeb9341953a9e58dc35aebc243d2714feaf025393bab88f6c0ae140",
+    "close_read_only_attempt.py": "685617183261e0649783e8461b4374df2c08cbe9d503be6e85ed95bd7dfdde10"
+  },
+  "private_source_sha256": {
+    "action_coordinator.py": "e151d698bbcb360474734a9d154755ee486ad15ce9950e73dbaa45d77cddff91",
+    "action_preflight.py": "3d0e4e22d66c2b93d5d2e0ee45d45ecc2d74aea8b081bf1f79775e7d48cca09c",
+    "host_counter.py": "4915c7957287bbe18d8687f3fa2e6db44f7a3c3299b46ec0d5034fc94529750d",
+    "input_baseline.py": "b3cca610f6ff1b715cba9c22dbcbc138dc98ffea40a949ff0792fedb0c5ea7c0",
+    "preinstall_frame.py": "6be6890556952b69458ec1b04f84a56ae49802f66646b3d87146476cce0b1ddb",
+    "run.py": "a6d92061bf526fecf2b9585ec1254aed89d6302249dac9859e28d0cec7b6f28a",
+    "runtime_prerequisites.py": "9cb75a5315c20a5eccb70a7311a9f015d9205ae847f15fe11a7dbd19b9b77cfe",
+    "startup_wait.py": "c32611ef643ed6164021a258d8fb192c9bb7fc578ab6e35dbb5230a5bf7b9f6f",
+    "status.py": "500e58fcb3929c2361c27834f45086424959eef55200de4a5a6ff67f16835736"
+  },
+  "read_only_attempt": {
+    "absences_preserved": true,
+    "all_baseline_bytes_modes_inventory_preserved": true,
+    "allowed_offsets": 28,
+    "backup_and_refusal_runner_sha256": "49318f78726da4f6ae3a313d6e305b4cf0935f264c4c354f4b5e7071ca626726",
+    "baseline_regular_files": 147,
+    "caches_preserved": true,
+    "closure_runner_sha256": "a6d92061bf526fecf2b9585ec1254aed89d6302249dac9859e28d0cec7b6f28a",
+    "compatibility_failed_before_first_acquisition": true,
+    "cores_preserved": true,
+    "emulator_released": true,
+    "extra_differ_from_idle": 4,
+    "extra_equal_idle": 22,
+    "extra_offsets": 26,
+    "failure": "too many mixer settings",
+    "full_frame_acquisitions": 0,
+    "guest_mutations": false,
+    "host_counter_bytes_mode_inode_mtime_preserved": true,
+    "host_mixer_bytes_preserved": true,
+    "input_commands": 0,
+    "loaded_mod_count": 10,
+    "loaded_set_preserved": true,
+    "mixer_policy_unchanged": true,
+    "no_enabling_manifest_created": true,
+    "no_restore_needed": true,
+    "observer_installed": false,
+    "physical_access": false,
+    "postcheck_receipt_sha256": "74b07c7ee265dd218a26d6945188f3a149ba915b32074da72e4c6cc8774ca0df",
+    "same_empty_process": true,
+    "saved_entries": 54,
+    "saved_mixer_sha256": "86dd9ef90d81eb8598634aba051dc9b882d667400385512e847136fa7cbb892e",
+    "service_restarts": 0,
+    "snapshot_only_host_closed": true,
+    "startup_guard_absent": true
+  },
+  "runner_integration": {
+    "checks": 95,
+    "independent_result_identical": true,
+    "rejections": 27,
+    "result_sha256": "31b77fac1cc988e146d523998506163b4692d8e7cab09a030d54da7a3aa25096",
+    "scope": "Actual extracted runner functions and CLI; mocked prerequisites/preinstall/coordinator/lock and guest services; call order and refusal only"
+  },
+  "runtime_script_sources_private": true,
+  "schema": 1,
+  "startup_helper": {
+    "checks": 74,
+    "independent_result_identical": true,
+    "rejections": 58,
+    "result_sha256": "14ef545dec2f490aebb093e9371b4554fdd71e3447db42a2e12af1e1fba3cb17",
+    "scope": "Actual startup wait and strict predicate with mock clock/process/transport",
+    "strict_controls": 2
+  },
+  "static_settings_audit": {
+    "extra_changed_offsets": [
+      16,
+      26,
+      40,
+      50
+    ],
+    "labels_source": "Pinned local preview controls/config source; not firmware evidence",
+    "private_audit_sha256": "814728fcae67d18ad06e242cd66546ce05a06ae6222a13fe2ff21e61a4e760a4",
+    "settings_origin_unproven": true,
+    "source_sha256": {
+      "../xdj-az-emu/az-preview/src/config.rs": "0a1986611ec2642379a42f1f517d8d1decf1764e0cee8ab2f37c3e6c04782992",
+      "../xdj-az-emu/az-preview/src/controls.rs": "b9145e4b41439761abbfdec461b854412748af2fe95183fd5843ad34d4298445"
+    }
+  },
+  "status": "OFFLINE_COMPOSITION_PASSED_RUNTIME_COMPATIBILITY_REFUSED"
+}

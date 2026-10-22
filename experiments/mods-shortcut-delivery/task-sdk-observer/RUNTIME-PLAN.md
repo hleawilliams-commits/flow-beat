@@ -1,5 +1,14 @@
 # Fresh emulator observation plan
 
+**Current gate:** the [coordinator checkpoint](COORDINATOR-EVIDENCE.md) passes
+offline composition tests, but the latest fresh compatibility attempt refused
+54 saved mixer offsets against the frozen 28-offset policy, before acquisition.
+Four extra offsets differ from idle; dropping them would change state. That
+read-only run is closed, all 147 fresh baseline files and host state were
+verified unchanged, and no observer/input/restart occurred. Review a separate
+complete-overlay preservation contract before using a new run token and fresh
+baseline. Do not normalize settings, reuse this attempt or repeat old cleanup.
+
 This is an offline plan for one bounded localhost-only observation of
 `encoder-task-observer`. It is not runtime evidence or permission to reuse an
 old backup. The candidate has not yet been installed. The earlier
@@ -76,9 +85,10 @@ emulator-owned interface whose exact source, loaded implementation identity,
 read bounds and side effects have been reviewed. The virtual controller's
 SPI3 frame read now has a [separate audit and bounded diagnostic](PREPARATION-EVIDENCE.md);
 its later [full-frame action preparation](ACTION-PREPARATION.md) adds a pure
-152-byte policy and private tested components. The final input coordinator is
-still uncomposed, and installation/input remain hard-disabled. Its control-device LED
-read is unsuitable because it consumes a different freshness stream. Do not
+152-byte policy and private tested components. The [coordinator](COORDINATOR-EVIDENCE.md)
+is now composed and fault-tested offline, but current saved settings fail its
+compatibility policy before acquisition and no enabling review manifest exists.
+The control-device LED read is unsuitable because it consumes a different freshness stream. Do not
 read native task, dispatcher, child or firmware object memory to obtain the
 counter. If the owned-frame route cannot be proved and freshly sampled, stop
 before all mixer input; an unknown-delta frame is not a substitute for this
@@ -257,8 +267,9 @@ whole-engine race freedom.
 
 ## Action coordinator checkpoint
 
-The [action preparation](ACTION-PREPARATION.md) records the new components and
-remaining composition gate. Host counter bytes/mode must be captured before
+The [action preparation](ACTION-PREPARATION.md) records the frozen components;
+the [subsequent coordinator evidence](COORDINATOR-EVIDENCE.md) records their
+tested composition and the unresolved saved-settings compatibility gate. Host counter bytes/mode must be captured before
 installation, even if the run never aligns or sends input. Empty-deck checks
 must parse the exact four-line publication, match the current PID, and compare
 its uptime with a fresh uptime read. An `EEEE` substring is insufficient.
@@ -266,16 +277,17 @@ This sampled loaded-track marker does not prove authoritative pause or LOAD
 intent for stems recovery.
 
 Each separate BROWSE pulse and each one-detent step needs its own fresh
-status/frame/status preflight. At most two BROWSE actions precede one CW and
+status/frame/frame/status preflight. At most two BROWSE actions precede one CW and
 one CCW action. Preserve a same-process visual Waveform confirmation before
 each knob step. Saved receipts or a review-marker file cannot enable input.
 
-Before a first frame, the future coordinator must durably retain both exact
+Before a first frame, the coordinator must durably retain both exact
 planned payloads, consume its fresh permit once, and atomically write only the
 owned host target. It must arrange one at-most-once neutral-release attempt
 even if the press transport fails with unknown delivery. Release checks retain
 same-process and host/mixer ownership but must not depend on continuing Ready
 state or permit age. Never retry a press or release, rearm capture, or add more
-input to obtain missing records. Any failure stops further input. Prove this
-composition with actual functions and fault paths before removing the private
-runtime gate; the standalone component tests do not establish it.
+input to obtain missing records. Any failure stops further input. The composition has
+passed actual-function mock fault tests; this does not override the current
+full-overlay compatibility refusal or prove runtime delivery. Preserve the
+first-call interruption and sticky-overlay limits in the coordinator evidence.

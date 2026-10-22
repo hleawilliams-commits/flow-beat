@@ -177,3 +177,41 @@ then use a fresh selective baseline for one bounded passive run; do not repeat
 unchanged component suites or earlier cleanup. This follow-up used no emulator
 or physical connection, changed no runtime/core/package/catalog, and preserves
 all staging, activation, publication and hardware gates.
+
+
+### Input coordinator complete offline; fresh compatibility refused
+
+The [coordinator checkpoint](../experiments/mods-shortcut-delivery/task-sdk-observer/COORDINATOR-EVIDENCE.md)
+now composes the frozen one-use preflight and host ownership helpers with exact
+retained payloads, target-before-first-call bookkeeping, one-shot transport and
+an at-most-once neutral release after uncertain first delivery. A cooperative
+local lock spans the whole action and runner transitions. Its actual-source
+mock suite passes 2,697 checks across 70 scenarios (67 candidate plus three
+strict controls), independently identical. Pre-install compatibility passes 231
+checks/58 scenarios plus two controls; startup wait passes 74/58 rejections/two
+controls; local prerequisites pass 132/118 rejections/three controls; runner
+wiring passes 95/27 rejections. These scopes and retained fixture failures are
+explicit in the checkpoint. No native delivery follows from these results.
+
+A fresh localhost read-only attempt verified 147 baseline files, ten loaded
+mods, both original cores and the same empty process. It refused the saved
+host mixer state before the first full-frame acquisition: 54 entries versus 28
+reviewed offsets. Of 26 extras, 22 equal pinned idle; four differ, including
+packed analog low bits and the FX TIME counter according to local preview
+source. No state was normalized or discarded and the frozen policy is intact.
+A final comparison verified the baseline files/modes/inventory, loaded mods,
+cores, caches, absences, process and host counter/mixer unchanged. There was no
+input, observer installation, restart, guest restoration or physical access.
+The snapshot-only host receipt was closed without a counter write; the emulator
+is released. No enabling review manifest exists, and this run cannot be reused.
+
+Next design a separately versioned complete-overlay preservation policy for
+all supported packed fields and independent counters, with unknown controls
+rejected and actual-source interaction tests. Only then use a new run identity,
+fresh backup and external source review for another bounded compatibility
+attempt. Do not repeat this refusal unchanged or widen offsets blindly. A
+process crash can prevent Python finally, and restart/file restoration does
+not clear or prove restoration of a sticky kernel controller overlay. No
+automatic replay/reset is added. Native task provenance/returns/ownership,
+MODS 0.1.3 publication, stems activation/staging, USB activation and hardware
+validation remain unresolved.

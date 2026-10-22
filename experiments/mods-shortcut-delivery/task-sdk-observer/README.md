@@ -12,10 +12,14 @@ from helpers, RAW filter, stems changes, or completion/cancellation decisions.
 Matching task values remain weak candidates. The adapter is research source,
 not a released community feature or installation recommendation.
 
-The later [action preparation](ACTION-PREPARATION.md) validates separate input
-preflight and host-recovery components. The final input coordinator is still
-uncomposed; private installation/input commands are hard-disabled before
-connection. No runtime readiness follows from component checks.
+The [action preparation](ACTION-PREPARATION.md) validates separate preflight and
+host-recovery components. The later [coordinator checkpoint](COORDINATOR-EVIDENCE.md)
+composes them and passes 2,697 offline checks, independently reproduced. A fresh
+read-only emulator attempt refused incompatible saved mixer settings before
+acquiring a frame or installing the observer. All 147 baseline files and host
+state checked unchanged. No enabling source-review manifest exists. A separate
+complete-overlay preservation contract is needed before another attempt; these
+checks provide no runtime readiness or native task evidence.
 
 ## Explicit activation and installation sequence
 

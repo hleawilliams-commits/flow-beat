@@ -1,5 +1,10 @@
 # Fresh action and host recovery preparation
 
+This is the earlier component checkpoint. The subsequent
+[coordinator evidence](COORDINATOR-EVIDENCE.md) records completed offline
+composition and a fresh read-only settings refusal. Historical closed-gate
+statements below describe this checkpoint, not an invitation to retry input.
+
 The task observer remains **uninstalled**. This follow-up adds a pure full-frame
 policy and private preflight/host-recovery components, closes two installation
 checks, and removes the obsolete input adapter. It made no emulator or physical
