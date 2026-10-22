@@ -1,0 +1,112 @@
+aarch64
+g++ (Ubuntu/Linaro 7.5.0-3ubuntu1~18.04) 7.5.0
+AArch64 call/return assertions: 319 passed, 0 failed; before=83; after=80; native=83
+
+Control: wrong-original-lr
+FAIL line 109: events[0].lr==fixture_output.lr&&events[0].lr!=0
+AArch64 call/return assertions: 318 passed, 1 failed; before=83; after=80; native=83
+
+Control: truncate-post-capture
+FAIL line 110: events[0].result==0xfedcba9876543210ULL
+FAIL line 124: events[base].box==a&&events[base].task==b&&events[base].result==value(a,b)
+FAIL line 132: events[base+i].result==0x8000000000000013ULL-i
+FAIL line 132: events[base+i].result==0x8000000000000013ULL-i
+FAIL line 132: events[base+i].result==0x8000000000000013ULL-i
+FAIL line 132: events[base+i].result==0x8000000000000013ULL-i
+FAIL line 135: observed==base+2&&events[base].result==value(a,b)&&events[base+1].result==value(31,41)
+FAIL line 138: observed==base+2&&events[base].result==value(a,b)&&events[base+1].result==value(51,61)
+FAIL line 158: events[i].result==value(events[i].box,events[i].task)
+FAIL line 158: events[i].result==value(events[i].box,events[i].task)
+FAIL line 158: events[i].result==value(events[i].box,events[i].task)
+FAIL line 158: events[i].result==value(events[i].box,events[i].task)
+FAIL line 158: events[i].result==value(events[i].box,events[i].task)
+FAIL line 158: events[i].result==value(events[i].box,events[i].task)
+FAIL line 158: events[i].result==value(events[i].box,events[i].task)
+FAIL line 158: events[i].result==value(events[i].box,events[i].task)
+FAIL line 158: events[i].result==value(events[i].box,events[i].task)
+FAIL line 158: events[i].result==value(events[i].box,events[i].task)
+FAIL line 158: events[i].result==value(events[i].box,events[i].task)
+FAIL line 158: events[i].result==value(events[i].box,events[i].task)
+FAIL line 158: events[i].result==value(events[i].box,events[i].task)
+FAIL line 158: events[i].result==value(events[i].box,events[i].task)
+FAIL line 158: events[i].result==value(events[i].box,events[i].task)
+FAIL line 158: events[i].result==value(events[i].box,events[i].task)
+FAIL line 158: events[i].result==value(events[i].box,events[i].task)
+FAIL line 158: events[i].result==value(events[i].box,events[i].task)
+FAIL line 158: events[i].result==value(events[i].box,events[i].task)
+FAIL line 158: events[i].result==value(events[i].box,events[i].task)
+FAIL line 158: events[i].result==value(events[i].box,events[i].task)
+FAIL line 158: events[i].result==value(events[i].box,events[i].task)
+FAIL line 158: events[i].result==value(events[i].box,events[i].task)
+FAIL line 158: events[i].result==value(events[i].box,events[i].task)
+FAIL line 158: events[i].result==value(events[i].box,events[i].task)
+FAIL line 158: events[i].result==value(events[i].box,events[i].task)
+FAIL line 158: events[i].result==value(events[i].box,events[i].task)
+FAIL line 158: events[i].result==value(events[i].box,events[i].task)
+FAIL line 158: events[i].result==value(events[i].box,events[i].task)
+FAIL line 158: events[i].result==value(events[i].box,events[i].task)
+FAIL line 158: events[i].result==value(events[i].box,events[i].task)
+FAIL line 158: events[i].result==value(events[i].box,events[i].task)
+FAIL line 158: events[i].result==value(events[i].box,events[i].task)
+FAIL line 158: events[i].result==value(events[i].box,events[i].task)
+FAIL line 158: events[i].result==value(events[i].box,events[i].task)
+FAIL line 158: events[i].result==value(events[i].box,events[i].task)
+FAIL line 158: events[i].result==value(events[i].box,events[i].task)
+FAIL line 158: events[i].result==value(events[i].box,events[i].task)
+FAIL line 158: events[i].result==value(events[i].box,events[i].task)
+FAIL line 158: events[i].result==value(events[i].box,events[i].task)
+FAIL line 158: events[i].result==value(events[i].box,events[i].task)
+FAIL line 158: events[i].result==value(events[i].box,events[i].task)
+FAIL line 158: events[i].result==value(events[i].box,events[i].task)
+FAIL line 158: events[i].result==value(events[i].box,events[i].task)
+FAIL line 158: events[i].result==value(events[i].box,events[i].task)
+FAIL line 158: events[i].result==value(events[i].box,events[i].task)
+FAIL line 158: events[i].result==value(events[i].box,events[i].task)
+FAIL line 158: events[i].result==value(events[i].box,events[i].task)
+FAIL line 158: events[i].result==value(events[i].box,events[i].task)
+FAIL line 158: events[i].result==value(events[i].box,events[i].task)
+FAIL line 158: events[i].result==value(events[i].box,events[i].task)
+FAIL line 158: events[i].result==value(events[i].box,events[i].task)
+FAIL line 158: events[i].result==value(events[i].box,events[i].task)
+FAIL line 158: events[i].result==value(events[i].box,events[i].task)
+FAIL line 158: events[i].result==value(events[i].box,events[i].task)
+FAIL line 158: events[i].result==value(events[i].box,events[i].task)
+FAIL line 158: events[i].result==value(events[i].box,events[i].task)
+FAIL line 158: events[i].result==value(events[i].box,events[i].task)
+FAIL line 158: events[i].result==value(events[i].box,events[i].task)
+FAIL line 158: events[i].result==value(events[i].box,events[i].task)
+FAIL line 158: events[i].result==value(events[i].box,events[i].task)
+FAIL line 158: events[i].result==value(events[i].box,events[i].task)
+FAIL line 158: events[i].result==value(events[i].box,events[i].task)
+FAIL line 158: events[i].result==value(events[i].box,events[i].task)
+AArch64 call/return assertions: 247 passed, 72 failed; before=83; after=80; native=83
+
+Control: truncate-return
+FAIL line 99: fixture_invoke_registers()==0xfedcba9876543210ULL
+FAIL line 112: fixture_output.x[i]==(i==0?0xfedcba9876543210ULL:i==1?0x0123456789abcdefULL:0x700+i)
+FAIL line 123: fixture_entry_integer(a,b)==value(a,b)
+FAIL line 125: p.a==(a^0xfedcba9876543210ULL)&&p.b==(b^0x123456789abcdef0ULL)
+FAIL line 130: fixture_entry_nested(3,0x8000000000000010ULL)==0x8000000000000013ULL
+FAIL line 132: events[base+i].result==0x8000000000000013ULL-i
+FAIL line 132: events[base+i].result==0x8000000000000013ULL-i
+FAIL line 132: events[base+i].result==0x8000000000000013ULL-i
+FAIL line 134: fixture_entry_integer(a,b)==value(a,b)
+FAIL line 135: nested_before_result==value(31,41)
+FAIL line 137: fixture_entry_integer(a,b)==value(a,b)
+FAIL line 138: nested_after_result==value(51,61)
+FAIL line 143: fixture_entry_integer(a,b)==value(a,b)
+FAIL line 149: fixture_entry_integer(0x1234,reinterpret_cast<U>(page))==0x8000000000000001ULL
+FAIL line 157: thread_errors==0
+AArch64 call/return assertions: 304 passed, 15 failed; before=83; after=80; native=83
+
+Control: omit-post-errno-restore
+FAIL line 100: errno==73
+FAIL line 123: errno==73&&native_seen_errno==38
+FAIL line 138: errno==73
+FAIL line 150: unmap_result==0&&errno==75
+FAIL line 157: thread_errors==0
+AArch64 call/return assertions: 314 passed, 5 failed; before=83; after=80; native=83
+
+Control: nonzero-initial-context
+FAIL line 159: zero_errors==0
+AArch64 call/return assertions: 318 passed, 1 failed; before=83; after=80; native=83

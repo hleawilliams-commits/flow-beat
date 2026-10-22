@@ -1,0 +1,101 @@
+{
+  "scope": "Host-only owned synthetic storage; serial scripted invocation order, mock read accounting, real unmap before return; no native lifetime/concurrency/ARM64/runtime proof",
+  "prior_static_binding_commit": "70fb9d4d3aaffe04ceda5164d5bb2c4a93b759d9",
+  "prior_verifier_sha256": "a9368f792951d347b1b2845b4e4e04985f2e6483c7deef0721a199e28d9e1671",
+  "reused_caller_LRs": [
+    "0x1b01e04",
+    "0x237d800"
+  ],
+  "header_sha256": "aa9b82311065fa3481cda29883f6dae40d1685c213d520271e1f4530039291ea",
+  "test_sha256": "2af588c0fa9cc8ee7abf1e141b455978c313e101788548795050b27bc15d5a98",
+  "runner_sha256": "03ef2fe02aadc3c385e6473096618f5be11b6ee2815f2e6662430319798a4a02",
+  "runs": [
+    {
+      "variant": "candidate",
+      "mode": "plain",
+      "checks": 67,
+      "scenarios": 6,
+      "expected_failures": [],
+      "output_sha256": "eca8ad9a6f4259c8263e7318224235c8cc9c1031b45cf7856d68e9455baa6668"
+    },
+    {
+      "variant": "candidate",
+      "mode": "asan-ubsan",
+      "checks": 67,
+      "scenarios": 6,
+      "expected_failures": [],
+      "output_sha256": "eca8ad9a6f4259c8263e7318224235c8cc9c1031b45cf7856d68e9455baa6668"
+    },
+    {
+      "variant": "candidate",
+      "mode": "tsan",
+      "checks": 67,
+      "scenarios": 6,
+      "expected_failures": [],
+      "output_sha256": "eca8ad9a6f4259c8263e7318224235c8cc9c1031b45cf7856d68e9455baa6668"
+    },
+    {
+      "variant": "truncated-return",
+      "mode": "plain",
+      "checks": 67,
+      "scenarios": 6,
+      "expected_failures": [
+        "exact-values/full-width-return"
+      ],
+      "output_sha256": "e2039114c4c0c94b4b99fa68b1a14916eabf15c76a85abbaf6f20e3f3d3e35e1"
+    },
+    {
+      "variant": "truncated-return",
+      "mode": "asan-ubsan",
+      "checks": 67,
+      "scenarios": 6,
+      "expected_failures": [
+        "exact-values/full-width-return"
+      ],
+      "output_sha256": "e2039114c4c0c94b4b99fa68b1a14916eabf15c76a85abbaf6f20e3f3d3e35e1"
+    },
+    {
+      "variant": "truncated-return",
+      "mode": "tsan",
+      "checks": 67,
+      "scenarios": 6,
+      "expected_failures": [
+        "exact-values/full-width-return"
+      ],
+      "output_sha256": "e2039114c4c0c94b4b99fa68b1a14916eabf15c76a85abbaf6f20e3f3d3e35e1"
+    },
+    {
+      "variant": "dispatcher-overread",
+      "mode": "plain",
+      "checks": 67,
+      "scenarios": 6,
+      "expected_failures": [
+        "exact-values/exact-five-read-ranges",
+        "all-reads/no-dispatcher-tag-or-padding-read"
+      ],
+      "output_sha256": "ba20a5e2cb5d176eb5967ad57b8fb311832d094c92a0cca8f6867f0ed1b83951"
+    },
+    {
+      "variant": "dispatcher-overread",
+      "mode": "asan-ubsan",
+      "checks": 67,
+      "scenarios": 6,
+      "expected_failures": [
+        "exact-values/exact-five-read-ranges",
+        "all-reads/no-dispatcher-tag-or-padding-read"
+      ],
+      "output_sha256": "ba20a5e2cb5d176eb5967ad57b8fb311832d094c92a0cca8f6867f0ed1b83951"
+    },
+    {
+      "variant": "dispatcher-overread",
+      "mode": "tsan",
+      "checks": 67,
+      "scenarios": 6,
+      "expected_failures": [
+        "exact-values/exact-five-read-ranges",
+        "all-reads/no-dispatcher-tag-or-padding-read"
+      ],
+      "output_sha256": "ba20a5e2cb5d176eb5967ad57b8fb311832d094c92a0cca8f6867f0ed1b83951"
+    }
+  ]
+}

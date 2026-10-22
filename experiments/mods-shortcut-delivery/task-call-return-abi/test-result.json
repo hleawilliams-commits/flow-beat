@@ -1,0 +1,160 @@
+{
+  "image": "azmod-build:18.04",
+  "image_id": "sha256:c7e3893c4f03e0ff30555c2120b3d9ec53834eaa2c8ce376a2da09b70fd23a90",
+  "platform": "linux/arm64",
+  "source_sha256": {
+    "entry.S": "16c7df29fef3c80fcd5f6259d4073abf92fd57471bc203c39f3853a0709d06c8",
+    "context.h": "c8ebf02fcaa1eb986ab59ee6516dfbaa8b9f6a6c13db211661c658e3cc6acc07",
+    "test_fixture.S": "e8cf2404d6a758f4d247713c32ad390509f9029a8fe5628bc8f418ee573ea28e",
+    "test_abi.cpp": "51acf6841778a0a719b43c5ec752baafb71b273a406c181e013d0680cf14ff6d",
+    "run-tests.py": "89144ab047402ac5b910a5f0f02e25622114857ef90dcb83a1d92dfaa6b8a8d4"
+  },
+  "candidate_summary": [
+    319,
+    0,
+    83,
+    80,
+    83
+  ],
+  "object_sha256": "4d42adc22cb476db06aea9a58061dc40f65627a86ad19b0586a2044a16b29591",
+  "test_elf_sha256": "c18a5075c653b49f37d1ee6ea092c700e1a5f765570cc4eb52e8a43ebd0f0219",
+  "private_run_id": "e827685a-e80f-4de1-80a0-09d3f16dd433",
+  "actual_arm64_assembly_executed": true,
+  "no_firmware_or_device_access": true,
+  "candidate": {
+    "assertions": 319,
+    "passed": 319,
+    "failed": 0,
+    "before_calls": 83,
+    "after_calls": 80,
+    "native_calls": 83,
+    "exit_code": 0,
+    "expected_failures": {}
+  },
+  "negative_controls": [
+    {
+      "assertions": 319,
+      "passed": 318,
+      "failed": 1,
+      "before_calls": 83,
+      "after_calls": 80,
+      "native_calls": 83,
+      "exit_code": 1,
+      "expected_failures": {
+        "events[0].lr==fixture_output.lr&&events[0].lr!=0": 1
+      },
+      "name": "wrong-original-lr",
+      "source_sha256": "8b0e04ff44fd1c9e299ad8bc599c0b87b308bac25368bc2a06e080c6c7f4c124",
+      "output_sha256": "31262b67867a13adb2690b7d2356253dc766d3cde9cc8c06dca1a730b8f1b983"
+    },
+    {
+      "assertions": 319,
+      "passed": 247,
+      "failed": 72,
+      "before_calls": 83,
+      "after_calls": 80,
+      "native_calls": 83,
+      "exit_code": 1,
+      "expected_failures": {
+        "events[0].result==0xfedcba9876543210ULL": 1,
+        "events[base].box==a&&events[base].task==b&&events[base].result==value(a,b)": 1,
+        "events[base+i].result==0x8000000000000013ULL-i": 4,
+        "observed==base+2&&events[base].result==value(a,b)&&events[base+1].result==value(31,41)": 1,
+        "observed==base+2&&events[base].result==value(a,b)&&events[base+1].result==value(51,61)": 1,
+        "events[i].result==value(events[i].box,events[i].task)": 64
+      },
+      "name": "truncate-post-capture",
+      "source_sha256": "851034b583d44656743b76e5cf6c751d7261a0c8fa0b0049604e44333b5c6bcc",
+      "output_sha256": "1a310cb6f63a5abe524e022dc078c95a9cabb24dbe976b1a03f5b81147275595"
+    },
+    {
+      "assertions": 319,
+      "passed": 304,
+      "failed": 15,
+      "before_calls": 83,
+      "after_calls": 80,
+      "native_calls": 83,
+      "exit_code": 1,
+      "expected_failures": {
+        "fixture_invoke_registers()==0xfedcba9876543210ULL": 1,
+        "fixture_output.x[i]==(i==0?0xfedcba9876543210ULL:i==1?0x0123456789abcdefULL:0x700+i)": 1,
+        "fixture_entry_integer(a,b)==value(a,b)": 4,
+        "p.a==(a^0xfedcba9876543210ULL)&&p.b==(b^0x123456789abcdef0ULL)": 1,
+        "fixture_entry_nested(3,0x8000000000000010ULL)==0x8000000000000013ULL": 1,
+        "events[base+i].result==0x8000000000000013ULL-i": 3,
+        "nested_before_result==value(31,41)": 1,
+        "nested_after_result==value(51,61)": 1,
+        "fixture_entry_integer(0x1234,reinterpret_cast<U>(page))==0x8000000000000001ULL": 1,
+        "thread_errors==0": 1
+      },
+      "name": "truncate-return",
+      "source_sha256": "a54a9f68d4ce825a7200fe8cacbc49ae8248bcd0fe935f267dd2a70dcbb8fd47",
+      "output_sha256": "a735fc1849ddb3fcd08315f2f6693129a97d4dfa5f2bbd3c88e582b17e9a8a3a"
+    },
+    {
+      "assertions": 319,
+      "passed": 314,
+      "failed": 5,
+      "before_calls": 83,
+      "after_calls": 80,
+      "native_calls": 83,
+      "exit_code": 1,
+      "expected_failures": {
+        "errno==73": 2,
+        "errno==73&&native_seen_errno==38": 1,
+        "unmap_result==0&&errno==75": 1,
+        "thread_errors==0": 1
+      },
+      "name": "omit-post-errno-restore",
+      "source_sha256": "10d957fd298116705b6df835579ffb5dec12fbaccaa2a4204acc4900b231db17",
+      "output_sha256": "79c13c3acac1ad48140077de5b6d9bcf04aedd5baee5cace843b591f74764e78"
+    },
+    {
+      "assertions": 319,
+      "passed": 318,
+      "failed": 1,
+      "before_calls": 83,
+      "after_calls": 80,
+      "native_calls": 83,
+      "exit_code": 1,
+      "expected_failures": {
+        "zero_errors==0": 1
+      },
+      "name": "nonzero-initial-context",
+      "source_sha256": "a9757cb5af8c0662df0f9045d76c510c365d536d81e04688791652b720bdba8a",
+      "output_sha256": "15c45eb9cc94237788597e8b668ca113ab4099cd2cf12d51b67543adc06450e4"
+    }
+  ],
+  "cfi_rejection_controls": [
+    {
+      "name": "missing-lr-rule",
+      "object_compiled": true,
+      "object_executed": false,
+      "metadata_audit_rejected": true,
+      "source_sha256": "9e1a257ab3f56e864f39e3e58fac8ecf5265e72255c04e5a67ef739060f46b66"
+    },
+    {
+      "name": "wrong-frame-rule",
+      "object_compiled": true,
+      "object_executed": false,
+      "metadata_audit_rejected": true,
+      "source_sha256": "118a126609b3858f05840f37a5db342710d524c43a1223e0c90b1390c248c631"
+    }
+  ],
+  "instruction_count": 107,
+  "instruction_audit_passed": true,
+  "cfi_audit_passed": true,
+  "context_bytes": 64,
+  "private_stack_frame_bytes": 416,
+  "normal_return_only_after": true,
+  "native_exception_calls": 3,
+  "native_exception_after_calls": 0,
+  "exception_destructors": 4,
+  "concurrent_calls": 64,
+  "concurrent_threads": 4,
+  "synthetic_task_unmapped_before_return": true,
+  "known_target_abi": "two integer registers in, full x0 out; no stack argument forwarding",
+  "firmware_entry_intended": "0x237a440 (not called or hooked by this test)",
+  "native_owner_lifetime_or_installation_proven": false,
+  "hardware_timing_measured": false
+}

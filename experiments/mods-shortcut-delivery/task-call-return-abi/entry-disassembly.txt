@@ -1,0 +1,116 @@
+
+<OUTPUT>/entry.o:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000000000 <az_task_call_entry>:
+   0:	d10683ff 	sub	sp, sp, #0x1a0
+   4:	a90007e0 	stp	x0, x1, [sp]
+   8:	a9010fe2 	stp	x2, x3, [sp, #16]
+   c:	a90217e4 	stp	x4, x5, [sp, #32]
+  10:	a9031fe6 	stp	x6, x7, [sp, #48]
+  14:	a90427e8 	stp	x8, x9, [sp, #64]
+  18:	a9052fea 	stp	x10, x11, [sp, #80]
+  1c:	a90637ec 	stp	x12, x13, [sp, #96]
+  20:	a9073fee 	stp	x14, x15, [sp, #112]
+  24:	a90847f0 	stp	x16, x17, [sp, #128]
+  28:	a9097bf2 	stp	x18, x30, [sp, #144]
+  2c:	ad0507e0 	stp	q0, q1, [sp, #160]
+  30:	ad060fe2 	stp	q2, q3, [sp, #192]
+  34:	ad0717e4 	stp	q4, q5, [sp, #224]
+  38:	ad081fe6 	stp	q6, q7, [sp, #256]
+  3c:	d53b4209 	mrs	x9, nzcv
+  40:	d53b440a 	mrs	x10, fpcr
+  44:	d53b442b 	mrs	x11, fpsr
+  48:	a9122be9 	stp	x9, x10, [sp, #288]
+  4c:	f9009beb 	str	x11, [sp, #304]
+  50:	94000000 	bl	0 <__errno_location>
+  54:	f900a3e0 	str	x0, [sp, #320]
+  58:	b9400009 	ldr	w9, [x0]
+  5c:	b9014be9 	str	w9, [sp, #328]
+  60:	a9167fff 	stp	xzr, xzr, [sp, #352]
+  64:	a9177fff 	stp	xzr, xzr, [sp, #368]
+  68:	a9187fff 	stp	xzr, xzr, [sp, #384]
+  6c:	a9197fff 	stp	xzr, xzr, [sp, #400]
+  70:	a9400be1 	ldp	x1, x2, [sp]
+  74:	f9404fe3 	ldr	x3, [sp, #152]
+  78:	910583e0 	add	x0, sp, #0x160
+  7c:	94000000 	bl	0 <az_task_call_before>
+  80:	f940a3e9 	ldr	x9, [sp, #320]
+  84:	b9414bea 	ldr	w10, [sp, #328]
+  88:	b900012a 	str	w10, [x9]
+  8c:	a9522be9 	ldp	x9, x10, [sp, #288]
+  90:	f9409beb 	ldr	x11, [sp, #304]
+  94:	d51b4209 	msr	nzcv, x9
+  98:	d51b440a 	msr	fpcr, x10
+  9c:	d51b442b 	msr	fpsr, x11
+  a0:	ad4507e0 	ldp	q0, q1, [sp, #160]
+  a4:	ad460fe2 	ldp	q2, q3, [sp, #192]
+  a8:	ad4717e4 	ldp	q4, q5, [sp, #224]
+  ac:	ad481fe6 	ldp	q6, q7, [sp, #256]
+  b0:	a94007e0 	ldp	x0, x1, [sp]
+  b4:	a9410fe2 	ldp	x2, x3, [sp, #16]
+  b8:	a94217e4 	ldp	x4, x5, [sp, #32]
+  bc:	a9431fe6 	ldp	x6, x7, [sp, #48]
+  c0:	a94427e8 	ldp	x8, x9, [sp, #64]
+  c4:	a9452fea 	ldp	x10, x11, [sp, #80]
+  c8:	a94637ec 	ldp	x12, x13, [sp, #96]
+  cc:	a9473fee 	ldp	x14, x15, [sp, #112]
+  d0:	a94847f0 	ldp	x16, x17, [sp, #128]
+  d4:	a9497bf2 	ldp	x18, x30, [sp, #144]
+  d8:	90000010 	adrp	x16, 0 <az_task_call_original>
+  dc:	f9400210 	ldr	x16, [x16]
+  e0:	c8dffe10 	ldar	x16, [x16]
+  e4:	d63f0200 	blr	x16
+
+00000000000000e8 <az_task_call_native_return>:
+  e8:	a90007e0 	stp	x0, x1, [sp]
+  ec:	a9010fe2 	stp	x2, x3, [sp, #16]
+  f0:	a90217e4 	stp	x4, x5, [sp, #32]
+  f4:	a9031fe6 	stp	x6, x7, [sp, #48]
+  f8:	a90427e8 	stp	x8, x9, [sp, #64]
+  fc:	a9052fea 	stp	x10, x11, [sp, #80]
+ 100:	a90637ec 	stp	x12, x13, [sp, #96]
+ 104:	a9073fee 	stp	x14, x15, [sp, #112]
+ 108:	a90847f0 	stp	x16, x17, [sp, #128]
+ 10c:	f9004bf2 	str	x18, [sp, #144]
+ 110:	ad0507e0 	stp	q0, q1, [sp, #160]
+ 114:	ad060fe2 	stp	q2, q3, [sp, #192]
+ 118:	ad0717e4 	stp	q4, q5, [sp, #224]
+ 11c:	ad081fe6 	stp	q6, q7, [sp, #256]
+ 120:	d53b4209 	mrs	x9, nzcv
+ 124:	d53b440a 	mrs	x10, fpcr
+ 128:	d53b442b 	mrs	x11, fpsr
+ 12c:	a9122be9 	stp	x9, x10, [sp, #288]
+ 130:	f9009beb 	str	x11, [sp, #304]
+ 134:	f940a3e9 	ldr	x9, [sp, #320]
+ 138:	b940012a 	ldr	w10, [x9]
+ 13c:	b9014bea 	str	w10, [sp, #328]
+ 140:	aa0003e1 	mov	x1, x0
+ 144:	910583e0 	add	x0, sp, #0x160
+ 148:	94000000 	bl	0 <az_task_call_after>
+ 14c:	f940a3e9 	ldr	x9, [sp, #320]
+ 150:	b9414bea 	ldr	w10, [sp, #328]
+ 154:	b900012a 	str	w10, [x9]
+ 158:	a9522be9 	ldp	x9, x10, [sp, #288]
+ 15c:	f9409beb 	ldr	x11, [sp, #304]
+ 160:	d51b4209 	msr	nzcv, x9
+ 164:	d51b440a 	msr	fpcr, x10
+ 168:	d51b442b 	msr	fpsr, x11
+ 16c:	ad4507e0 	ldp	q0, q1, [sp, #160]
+ 170:	ad460fe2 	ldp	q2, q3, [sp, #192]
+ 174:	ad4717e4 	ldp	q4, q5, [sp, #224]
+ 178:	ad481fe6 	ldp	q6, q7, [sp, #256]
+ 17c:	a94007e0 	ldp	x0, x1, [sp]
+ 180:	a9410fe2 	ldp	x2, x3, [sp, #16]
+ 184:	a94217e4 	ldp	x4, x5, [sp, #32]
+ 188:	a9431fe6 	ldp	x6, x7, [sp, #48]
+ 18c:	a94427e8 	ldp	x8, x9, [sp, #64]
+ 190:	a9452fea 	ldp	x10, x11, [sp, #80]
+ 194:	a94637ec 	ldp	x12, x13, [sp, #96]
+ 198:	a9473fee 	ldp	x14, x15, [sp, #112]
+ 19c:	a94847f0 	ldp	x16, x17, [sp, #128]
+ 1a0:	a9497bf2 	ldp	x18, x30, [sp, #144]
+ 1a4:	910683ff 	add	sp, sp, #0x1a0
+ 1a8:	d65f03c0 	ret

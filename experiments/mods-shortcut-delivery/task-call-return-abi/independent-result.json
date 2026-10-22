@@ -1,0 +1,37 @@
+{
+  "candidate_assertions": 319,
+  "before_native_calls": 83,
+  "normal_after_calls": 80,
+  "executed_controls_exact_failures": [
+    1,
+    72,
+    15,
+    5,
+    1
+  ],
+  "compiled_cfi_controls_rejected": 2,
+  "source_and_object_and_result_fields_equal": true,
+  "excluded_report_fields": [
+    "private_run_id",
+    "test_elf_sha256"
+  ],
+  "original_run_id": "42b8def5-e846-4062-8568-ec3237e8534f",
+  "independent_run_id": "e827685a-e80f-4de1-80a0-09d3f16dd433",
+  "original_test_elf_sha256": "ce63c79d3d79a0c9a66c906852fdb36ce5535ba389af1889e40f9c3927656ae8",
+  "independent_test_elf_sha256": "c18a5075c653b49f37d1ee6ea092c700e1a5f765570cc4eb52e8a43ebd0f0219",
+  "wrapper_object_sha256": "4d42adc22cb476db06aea9a58061dc40f65627a86ad19b0586a2044a16b29591",
+  "full_elf_changed_bytes": 6,
+  "only_changed_section": ".strtab",
+  "changed_symbol_kind": "one local STT_FILE, SHN_ABS, zero value/size; six compiler temporary basename characters",
+  "whole_elf_equal_after_that_basename_normalization": true,
+  "all_allocated_code_data_and_unwind_sections_byte_identical": true,
+  "source_sha256": {
+    "entry.S": "16c7df29fef3c80fcd5f6259d4073abf92fd57471bc203c39f3853a0709d06c8",
+    "context.h": "c8ebf02fcaa1eb986ab59ee6516dfbaa8b9f6a6c13db211661c658e3cc6acc07",
+    "test_fixture.S": "e8cf2404d6a758f4d247713c32ad390509f9029a8fe5628bc8f418ee573ea28e",
+    "test_abi.cpp": "51acf6841778a0a719b43c5ec752baafb71b273a406c181e013d0680cf14ff6d",
+    "run-tests.py": "89144ab047402ac5b910a5f0f02e25622114857ef90dcb83a1d92dfaa6b8a8d4"
+  },
+  "actual_assembly_executed": true,
+  "firmware_emulator_or_physical_access": false
+}
