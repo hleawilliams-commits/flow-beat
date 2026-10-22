@@ -1,0 +1,17 @@
+{
+  "scope": "current-state selective cleanup",
+  "removed_probe_paths": 10,
+  "edited_registration_lists": 2,
+  "preserved_regular_files": 146,
+  "unrelated_bytes_modes_inventory_preserved": true,
+  "loaded_set_preserved": true,
+  "cores_preserved": true,
+  "caches_preserved": true,
+  "prior_absences_preserved": true,
+  "shared_logging_flag_preserved": true,
+  "probe_unmapped_and_opt_in_absent": true,
+  "guard_expired_naturally": true,
+  "clean_empty_restart": true,
+  "physical_access": false,
+  "date_utc": "2026-10-22"
+}

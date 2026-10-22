@@ -1,5 +1,7 @@
 # Follow-up investigation — October 17
 
+**Later correction:** [October 22 continuation](CONTINUATION-2026-10-22.md) supersedes stale branch/cleanup assumptions. The [Waveform observer attempt](../experiments/mods-shortcut-delivery/direct-knob-observer/runtime-evidence.md) was refused: the installer validates all four opening instructions and rejects `TBZ` at entry +8. No runtime argument, provenance or handback observations were obtained. Subsequent emulator development must be preserved when removing its residue.
+
 The physical XDJ-AZ was not changed, reloaded, restarted or controlled during this follow-up. Later read-only observations established the MODS filter quarantine described below. MODS Shortcut 0.1.2 was published after the later diagnosis and emulator checks; no physical install was performed. Phase Strip 0.1.3 remains the current phase correction; source and experimental evidence below are shared for review, not installation on the practicing board.
 
 | Work | New evidence | Remaining gate |
@@ -34,7 +36,7 @@ The [focused staging diagnostic](../experiments/stems-recovery-staging/diagnosti
 
 The [USB V4 observer](../experiments/usb-browser-switch/missing-boundary-investigation/) adds the exact empty-list request entry. Its host suite passes 1,122 assertions per plain/ASan/UBSan/TSan mode, with ARM64 SDK build and validation. Static review proves that an inner request failure can still lead to outer return code zero, and that a newer media event can replace an active one. The bounded emulator sequence now explains V3’s missing boundaries: the first USB1 and USB2 selections take the empty-list request path, while the return to USB1 reaches the existing copied commit boundary. Native admission and final readiness remain separate; the supplied category byte is recorded but its expected value is not independently known. Restoration and exact runtime records are recorded in the experiment’s evidence.
 
-The [direct-menu knob boundary review](../experiments/mods-shortcut-delivery/direct-knob-boundary/) identifies the waveform view’s corresponding native virtual-handler slot and verifies its exact current-firmware mapping. It consumes four integer arguments, so copying the existing three-argument Browse wrapper would lose an argument. No new hook or input change exists. Physical knob provenance, counter ordering, return semantics and queued-event ownership still need observation before menu handback can be implemented.
+The [direct-menu knob boundary review](../experiments/mods-shortcut-delivery/direct-knob-boundary/) identifies the waveform view’s corresponding native virtual-handler slot and verifies its exact current-firmware mapping. It consumes four integer arguments, so copying the existing three-argument Browse wrapper would lose an argument. The later [observer](../experiments/mods-shortcut-delivery/direct-knob-observer/) passed host/ABI checks but its function-entry hook was refused; no input change or native observation followed. Knob provenance, counter ordering, return semantics and queued-event ownership still need observation before menu handback can be implemented.
 
 ## Private staging composition and USB intent policy
 

@@ -3,16 +3,45 @@
   "firmware_sha256": "6577f42532375936c7e3fa830efa35b7daa9cde8e0a265c1fc7143f824321925",
   "source_sha256": {
     "inline_hooks.c": "f141b383c25e66c8acb1839280832a612a6ee0e25e9ada59f374ccbef8f81908",
-    "community.c": "4b2b72e2b623dcb1ecb0ef108a473815adab45a516a6aa13adb6cce512b80866"
+    "community.c": "4b2b72e2b623dcb1ecb0ef108a473815adab45a516a6aa13adb6cce512b80866",
+    "sdk_vslot.c": "8e162244e63cd3fcec1f17db1a7a526bdbb1b86ca7dd56383e50cdda625c08e3"
   },
   "entry": "0x1b3ab60",
   "vtable_slot": "0x2d61c78",
   "prologue_matches": true,
+  "policy_extraction_sha256": "c9774595762751b828f382df275af7aa10a83b33d3c04f3a5196b9baceca11aa",
+  "policy_host_assertions": 18,
+  "prologue_pcrel_kinds": [
+    0,
+    0,
+    1,
+    0
+  ],
   "first_instruction_is_position_independent_load": true,
-  "late_island_path_copies_one_instruction": true,
-  "tbz_at_entry_plus_8_is_not_relocated_in_late_path": true,
+  "policy_scans_first_four_instructions_for_both_patch_widths": true,
+  "tbz_at_entry_plus_8_declines_both_patch_widths": true,
+  "decline_precedes_island_lookup_and_code_writes": true,
+  "expected_install_result": "AZM_DECLINED (-1)",
+  "function_entry_hook_eligible": false,
+  "late_island_path_would_copy_one_instruction_only_after_policy_acceptance": true,
   "late_no_island_refuses": true,
   "original_published_before_atomic_redirect": true,
+  "vslot_policy_extraction_sha256": "cf72797f5eebbe911abf74ddef13bac82710ad02a538fec540e0bf774e3ae0e6",
+  "vslot_segment_policy_host_assertions": 11,
+  "slot_pt_load": {
+    "start": "0x400000",
+    "memory_end": "0x3f5f714",
+    "file_end": "0x3f5f714",
+    "flags": 5
+  },
+  "slot_pt_load_flags_description": "PF_R | PF_X",
+  "slot_in_non_executable_pt_load": false,
+  "sdk_claim_vslot_eligible": false,
+  "sdk_claim_vslot_expected_refusal": "not inside EP147's data",
+  "vslot_control_without_fixture_pf_x_accepts": true,
+  "vslot_control_restore_fixture_pf_x_refuses": true,
+  "vslot_refusal_precedes_patch_primitive": true,
+  "vslot_runtime_claim_attempted": false,
   "runtime_install_success_proven": false,
   "caller_and_return_semantics_proven": false
 }
