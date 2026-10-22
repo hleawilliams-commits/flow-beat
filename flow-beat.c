@@ -24,9 +24,19 @@
  *        crc32 of the whole blob; then up to 1100 bytes): the loaded track's rekordbox analysis read
  *        off the deck's own USB (PQTZ beat grid, PWV3 waveform, PSSI phrases, as raw tags), so FLOW
  *        knows a guest USB's drops and waveform like its own. Sent on load, twice more, then every 10 s.
+ *   0.5.0 (Cue Map): the blob also carries the track's hot and memory cues (PCOB from the .DAT, PCO2 with
+ *        colours and comments from the .EXT), so FLOW can put its drops on the DJ's own cues.
  *   {"flowbeat":1,"type":"mixraw","seq":N,"b":"<hex>"}
  *        only while "Send mixer data (test)" is on: the mixer/panel input frame whenever it changes
  *        (at most 20 a second), to map which bytes the faders, EQ and crossfader move
+ *   0.5.0 (FLOW Mixer Link): {"flowbeat":1,"type":"mixer","seq":N,
+ *        "ch":[{"c":1,"fader":0.812,"trim":0.5,"hi":0.5,"mid":0.5,"low":0.5,"color":0.5}, ...4],
+ *        "xf":0.5,"master":0.7,"mhi":..,"mmid":..,"mlow":..,"booth":..,"cfx":"FILTER","cfxp":0.5,
+ *        "bfx":{"sel":3,"on":1,"ch":"MASTER","lvl":0.5,"time":0},"xpad":{"pos":62,"touch":1}}
+ *        the mixer panel's knobs and faders (0..1) while "Send mixer to FLOW" is on: when one
+ *        moves (at most about 30 a second) and every second. Channel c is the mixer channel
+ *        (1..4), cfx the lit Sound Color FX ("" none, "?" not pressed since EP147 started),
+ *        bfx.sel the Beat FX SELECT position (0..15), bfx.on the FX's active latch. See mixer.h.
  *
  * seq counts every packet, so the receiver can spot lost or reordered ones. The receiver
  * times beats by its own clock when packets arrive: the deck's clock is not sent.
@@ -58,6 +68,7 @@
 #include <stdatomic.h>
 
 #include "azmod-mod.h"
+#include "mixer.h"
 
 #define MOD_ID "flow-beat"
 #define NDECKS 4
@@ -67,10 +78,13 @@
 #define CFG_STEPS 400        /* settings re-read about every 2 s */
 #define DEFAULT_HOST "255.255.255.255"
 #define DEFAULT_PORT 9100
+#define MIXER_STEPS 6        /* mixer packets at most every 30 ms (0.5.0) */
+#define MIXER_KEEP 200       /* and every second even when nothing moved */
 
 static const az_core_v1 *C;
 static int row_send = -1;    /* the "Send beat to FLOW" toggle */
 static int row_sniff = -1;   /* "Send mixer data (test)" (0.3.0), off by default */
+static int row_mixer = -1;   /* "Send mixer to FLOW" (0.5.0), on by default */
 static int row_wave = -1;    /* "Send track analysis to FLOW" (0.4.0), on by default */
 static unsigned wave_seq_base = 0x40000000u;   /* the wave thread's own seq range, so the two threads never collide */
 static int track_dirty;      /* set by deck events (UI thread), read by the worker: atomics */
@@ -237,24 +251,50 @@ static void meter(const float *lr, int frames, void *user)
     if (b > atomic_load_explicit(&low[d], memory_order_relaxed)) atomic_store_explicit(&low[d], b, memory_order_relaxed);
 }
 
-/* ---- mixer sniffer (0.3.0, test mode) ------------------------------------------------------ */
-/* The bus thread copies the mixer input frame; the worker sends it when it changed. A torn read
- * only costs one odd packet in a test log. */
+/* ---- the mixer panel's input frame (0.3.0 sniffer, 0.5.0 Mixer Link) ----------------------- */
+/* The bus thread publishes each changed frame under a sequence lock (odd while writing); the
+ * worker copies it and tries again later if the copy raced a write. Words, so every access is
+ * atomic (sequentially consistent: 33 stores per changed frame, at most ~16 frames a second). */
 #define MIX_MAX 128
-static unsigned char mix_buf[MIX_MAX];
+#define MIX_WORDS (MIX_MAX / 4)
+static _Atomic uint32_t mix_words[MIX_WORDS];
 static _Atomic int mix_len;
 static _Atomic unsigned mix_gen;
 static int mix_filter(int bus, unsigned char *frame, int len, void *user)
 {
+    static unsigned char prev[MIX_MAX];   /* only the bus thread touches it */
+    static int prev_len;
     (void)bus; (void)user;
     if (!frame || len <= 0) return AZ_FRAME_OK;
     if (len > MIX_MAX) len = MIX_MAX;
-    if (atomic_load_explicit(&mix_len, memory_order_relaxed) == len && memcmp(mix_buf, frame, (size_t)len) == 0)
-        return AZ_FRAME_OK;
-    memcpy(mix_buf, frame, (size_t)len);
-    atomic_store_explicit(&mix_len, len, memory_order_relaxed);
-    atomic_fetch_add_explicit(&mix_gen, 1, memory_order_release);
+    if (prev_len == len && memcmp(prev, frame, (size_t)len) == 0) return AZ_FRAME_OK;
+    memcpy(prev, frame, (size_t)len);
+    prev_len = len;
+    unsigned g = atomic_load(&mix_gen);
+    atomic_store(&mix_gen, g + 1);
+    for (int w = 0; w < MIX_WORDS; w++) {
+        uint32_t v;
+        memcpy(&v, prev + 4 * w, 4);
+        atomic_store(&mix_words[w], v);
+    }
+    atomic_store(&mix_len, len);
+    atomic_store(&mix_gen, g + 2);
     return AZ_FRAME_OK;
+}
+
+/* The latest frame into out (MIX_MAX bytes): its length, 0 if none yet or a write was in progress. */
+static int mix_read(unsigned char *out, unsigned *gen)
+{
+    unsigned g1 = atomic_load(&mix_gen);
+    if (g1 & 1u) return 0;
+    int len = atomic_load(&mix_len);
+    for (int w = 0; w < MIX_WORDS; w++) {
+        uint32_t v = atomic_load(&mix_words[w]);
+        memcpy(out + 4 * w, &v, 4);
+    }
+    if (atomic_load(&mix_gen) != g1) return 0;
+    *gen = g1;
+    return len;
 }
 
 /* ---- the worker -------------------------------------------------------------------------- */
@@ -269,7 +309,14 @@ static void *worker(void *arg)
     uint32_t track_sig[NDECKS] = { 0 };
     unsigned step = 0;
     unsigned seq = 0;
-    unsigned mix_sent = 0;
+    unsigned mix_sent = 0;            /* the frame generation the sniffer last sent */
+    unsigned mix_seen = 0;            /* and the one Mixer Link last decoded */
+    unsigned mix_last_sent = 0;       /* the step Mixer Link last sent at */
+    unsigned char mix[MIX_MAX];
+    mixer_latch latch;
+    mixer_state ms, ms_sent;
+    int ms_have = 0;
+    mixer_latch_init(&latch);
     char buf[1400];
     for (int d = 0; d < NDECKS; d++) last[d] = -1.0;
 
@@ -344,17 +391,33 @@ static void *worker(void *arg)
             send_pkt(buf, n);
         }
 
-        /* mixer sniffer: the changed frame as hex, at most every 50 ms */
-        if (on && row_sniff >= 0 && C->row_value(row_sniff) == 1 && step % 10 == 0) {
-            unsigned g = atomic_load_explicit(&mix_gen, memory_order_acquire);
-            int len = atomic_load_explicit(&mix_len, memory_order_relaxed);
-            if (g != mix_sent && len > 0) {
-                mix_sent = g;
-                int n = snprintf(buf, sizeof buf, "{\"flowbeat\":1,\"type\":\"mixraw\",\"seq\":%u,\"b\":\"", seq++);
-                for (int i = 0; i < len && n < (int)sizeof buf - 4; i++) n += snprintf(buf + n, sizeof buf - (size_t)n, "%02x", mix_buf[i]);
-                n += snprintf(buf + n, sizeof buf - (size_t)n, "\"}");
-                send_pkt(buf, n);
+        /* the mixer: decode every new frame (the Color FX / FX channel latches need each
+         * press), send the state when it moved, at most every 30 ms, and every second (0.5.0) */
+        unsigned g = 0;
+        int mlen = 0;
+        if (step % 2 == 0) {
+            mlen = mix_read(mix, &g);
+            if (mlen >= MIXER_FRAME && g != mix_seen && mixer_decode(mix, mlen, &latch, &ms) == 0) {
+                mix_seen = g;
+                ms_have = 1;
             }
+        }
+        if (on && ms_have && step % MIXER_STEPS == 0 &&
+            (row_mixer < 0 || C->row_value(row_mixer) == 1) &&
+            (mix_last_sent == 0 || step - mix_last_sent >= MIXER_KEEP || mixer_changed(&ms, &ms_sent))) {
+            int n = mixer_json(buf, (int)sizeof buf, seq++, &ms);
+            send_pkt(buf, n);
+            ms_sent = ms;
+            mix_last_sent = step;
+        }
+
+        /* mixer sniffer: the changed frame as hex, at most every 50 ms */
+        if (on && row_sniff >= 0 && C->row_value(row_sniff) == 1 && step % 10 == 0 && mlen > 0 && g != mix_sent) {
+            mix_sent = g;
+            int n = snprintf(buf, sizeof buf, "{\"flowbeat\":1,\"type\":\"mixraw\",\"seq\":%u,\"b\":\"", seq++);
+            for (int i = 0; i < mlen && n < (int)sizeof buf - 4; i++) n += snprintf(buf + n, sizeof buf - (size_t)n, "%02x", mix[i]);
+            n += snprintf(buf + n, sizeof buf - (size_t)n, "\"}");
+            send_pkt(buf, n);
         }
 
         struct timespec ts = { 0, POLL_MS * 1000000L };
@@ -540,7 +603,7 @@ static size_t load_analysis(const az_deck_info *di, unsigned char *blob)
     for (int i = 0; i < idx[stick].n; i++) if (idx[stick].e[i].h == h) { dir = idx[stick].e[i].dir; break; }
     if (!dir) return 0;
     char file[400];
-    static const char *const DAT[] = { "PQTZ", "PWAV", NULL }, *const EXT[] = { "PWV3", "PSSI", NULL };
+    static const char *const DAT[] = { "PQTZ", "PWAV", "PCOB", NULL }, *const EXT[] = { "PWV3", "PSSI", "PCO2", NULL };
     size_t n = 0;
     snprintf(file, sizeof file, "%s/PIONEER/USBANLZ/%s/ANLZ0000.DAT", root, dir);
     n = take_tags(file, DAT, blob, n);
@@ -650,7 +713,7 @@ static int init(const az_core_v1 *core)
         .label = "Send track analysis to FLOW",
         .kind = AZ_ROW_TOGGLE,
         .flags = AZ_ROW_DEFAULT_ON,
-        .help = "Reads each loaded track's rekordbox analysis (beat grid, waveform, phrases) off the USB "
+        .help = "Reads each loaded track's rekordbox analysis (beat grid, waveform, phrases, cues) off the USB "
                 "it plays from and sends it to FLOW VJ, so guest USBs light like your own tracks.",
     };
     static const az_row_v1 sniff_row = {
@@ -661,8 +724,19 @@ static int init(const az_core_v1 *core)
         .help = "For mapping the mixer: while on, sends the mixer panel's raw input data to FLOW "
                 "whenever a knob or fader moves. Leave off for shows.",
     };
+    static const az_row_v1 mixer_row = {
+        .size = sizeof mixer_row,
+        .key = "mixer",
+        .label = "Send mixer to FLOW",
+        .kind = AZ_ROW_TOGGLE,
+        .flags = AZ_ROW_DEFAULT_ON,
+        .help = "FLOW Mixer Link: sends the mixer's channel faders, crossfader, EQ, Color FX, "
+                "Beat FX and X-PAD to FLOW VJ, so visuals and lights follow the mix. Reads the "
+                "panel only; the sound is never touched.",
+    };
     if (AZ_HAS(C, register_row) && AZ_HAS(C, row_value)) {
         row_send = C->register_row(MOD_ID, &send_row);
+        row_mixer = C->register_row(MOD_ID, &mixer_row);
         row_sniff = C->register_row(MOD_ID, &sniff_row);
         row_wave = C->register_row(MOD_ID, &wave_row);
     }
@@ -671,7 +745,7 @@ static int init(const az_core_v1 *core)
         for (int d = 0; d < NDECKS; d++)
             if (C->audio_tap(MOD_ID, AZ_TAP_DECK(d), TAP_FRAMES, meter, (void *)(intptr_t)d) != 0)
                 C->log(MOD_ID, "audio_tap deck %d refused", d + 1);
-    /* the mixer panel's input frames, read-only (sniffer) */
+    /* the mixer panel's input frames, read-only (Mixer Link and the sniffer) */
     if (AZ_HAS(C, frame_filter) &&
         C->frame_filter(MOD_ID, (1u << AZ_BUS_MIXER_IN) | AZ_FILTER_RAW, mix_filter, NULL) != 0)
         C->log(MOD_ID, "frame_filter refused: no mixer data");

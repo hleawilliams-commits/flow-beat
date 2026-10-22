@@ -4,7 +4,7 @@ An [AZ-MODS](https://github.com/Kyle-Hosman/xdj-az-mods) mod for the Pioneer XDJ
 each deck's beat, BPM, play state, playhead and track to FLOW VJ (or any program) over UDP
 port 9100, so visuals and lights lock to the decks.
 
-It adds two rows to the Mod Menu: **Send beat to FLOW** (on by default) and **Send mixer data (test)** (off; for mapping the mixer). It only reads deck
+It adds rows to the Mod Menu: **Send beat to FLOW** (on by default), **Send mixer to FLOW** (on; 0.5.0, FLOW Mixer Link), **Send track analysis to FLOW** (on) and **Send mixer data (test)** (off; raw mixer frames for mapping). It only reads deck
 state through the AZ-MODS core's services: it does not patch the deck's code, change any
 control or audio, or write files. Needs AZ-MODS 1.2.3 or newer.
 
@@ -12,7 +12,7 @@ control or audio, or write files. Needs AZ-MODS 1.2.3 or newer.
 
 | Folder | Mod | Status |
 |---|---|---|
-| `/` (root) | **FLOW Beat Link** (`flow-beat`): beat, BPM, play state, track and (0.3.0) each deck's own audio level + bass to FLOW VJ over UDP; a test row sends mixer panel data for mapping | 0.4.0 built (guest-USB analysis: beat grid, waveform, phrases); 0.3.0 released; neither run on a deck yet |
+| `/` (root) | **FLOW Beat Link** (`flow-beat`): beat, BPM, play state, track and (0.3.0) each deck's own audio level + bass to FLOW VJ over UDP; a test row sends mixer panel data for mapping | 0.5.0 built (FLOW Mixer Link + Cue Map); 0.4.0 built (guest-USB analysis: beat grid, waveform, phrases); 0.3.0 released; none of them run on a deck yet |
 | `mods-shortcut/` | **MODS Shortcut**: SOURCE shortcut with lower idle work and safe timeout feedback | 0.1.2, emulator-tested; physical validation pending |
 | `key-next-to-bpm/` | **Key next to BPM**: the loaded track's key as a badge on each deck, Camelot or classic | test build 0.1.1, installed on a deck, menu checked |
 | `phase-strip/` | **4-Deck Phase Strip**: beat ticks for every playing deck under one playhead, works in 4 DECK | test build 0.1.1, installed on a deck, menu checked |
@@ -34,6 +34,18 @@ Every mod has its own entry in `azmods-repo.json`; add `hleawilliams-commits/flo
 
 On the deck: **Mod Menu > Community Mods > Repositories > Add**, enter
 `hleawilliams-commits/flow-beat`, then **Browse > FLOW Beat Link > Install > Reload now**.
+
+## FLOW Mixer Link (0.5.0)
+
+The XDJ-AZ mixes audio in hardware, but its mixer panel still reports every knob and fader to
+the deck program on the mixer bus. flow-beat reads that frame (read-only) and sends FLOW VJ a
+`"type":"mixer"` packet when something moves (at most about 30 a second) and once a second:
+per channel the fader, TRIM, HI/MID/LOW and COLOR knob; the crossfader, master level and EQ,
+booth level, the lit Sound Color FX and its PARAMETER, Beat FX SELECT/active/channel/LEVEL/TIME,
+and the X-PAD. Values are 0..1. The byte map is in `mixer.h`, taken from Kyle Hosman's AZ-EMU
+and AZ-MODS sources; `tests/test_mixer.c` checks it on a computer
+(`cc -o /tmp/tm tests/test_mixer.c && /tmp/tm`). Color FX and the Beat FX channel are latched
+from button presses, so they read `"?"` until first pressed after the deck starts.
 
 ## Settings
 
