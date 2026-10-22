@@ -1,0 +1,38 @@
+{
+  "mod_id": "encoder-route-burst-observer",
+  "version": "0.0.1",
+  "scope": "Source/build stage only; any later runtime evidence must be separate.",
+  "source_sha256": {
+    "Makefile": "4c8b67aa6cccf820acfd7d1669a481e765859002e0635f6f7b563e96ca83bc5b",
+    "abi/entry.S": "a1f1cf42cc587c3222d299ac9dd31bfd0944f1ea51ec98a19d74ba40088a5034",
+    "azmod.json": "b4a366aa9d28fef153549d96e20d5fcec335c90015deb57325ccbd4dc46d4255",
+    "frozen-parent.json": "cc8d67b35b2671f9e48100f64b628f43dd9c9152042c3406827eb9055d7a849e",
+    "mod.c": "fa6e79e19bfded60cc3a8489837c8e523e879dfaec9be90adfc9c9dacba8824e",
+    "observer.cpp": "e59eeadda2497467e5b01dac02d17d1932964878a85d58cc4f035c2ca9567e80",
+    "tests/run-focused.sh": "b33bf522879049f11994816e260b0557a400f8a278d86412e894303766ccc286",
+    "tests/run-tests.py": "71a23a307f0c46fe75fd7457d1bf3eac1ceeba7e5019ab12f5d380842dc84a76",
+    "tests/test_observer.cpp": "1c88cfa948f0500eed425290c1cb7ff7db9970a96762142a606ebb929361118a"
+  },
+  "sdk_commit": "6563e8e657a4ef113696de9d0f9327a6c8d0fab7",
+  "sdk_header_sha256": "b94e2ba6656c2b852f18691d32225486f29265953c8bf09dcac9a18ce561a630",
+  "build_image": "az-mods-sdk:1",
+  "build_image_id": "sha256:c96cac5682604faf32417c92f391ec233faec98d5e05d0de29f1bac0cfd2053e",
+  "command": "python3 <sdk>/tools/azmod-pack build <route-observer-burst>",
+  "result": "built and SDK validated",
+  "binary_sha256": "be7d3da6131f900fd0d3df6fc9fa882db3d667ae0a4a99d013b86250813e4be0",
+  "binary_format": "ELF64 little-endian AArch64 shared object",
+  "build_log_sha256": "e31edd844be2103c12b9589cc17f2426a6d7246ccbd73fcdf489c54b0ca13178",
+  "actual_binary_scalar_allowlist": {
+    "count": 27,
+    "width4_count": 25,
+    "width8_count": 2,
+    "all_defined_non_TLS_OBJECT_symbols": true,
+    "runtime_reads_in_this_check": false
+  },
+  "dynamic_atomic_imports": [],
+  "binary_included": false,
+  "package_published": false,
+  "runtime_claim_attempted": false,
+  "emulator_installation": false,
+  "physical_access": false
+}

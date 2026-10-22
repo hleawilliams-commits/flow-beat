@@ -1,0 +1,233 @@
+{
+  "base_slot": "0x2d453e8",
+  "burst_source_contract": {
+    "capacity": 16,
+    "consumer_skips_unpublished_holes": true,
+    "immutable_slots_no_reuse": true,
+    "one_source_level_strong_cas": true,
+    "ordinal_is_native_order": false,
+    "ready_release_acquire": true,
+    "reservation_saturates": true,
+    "separate_capacity_contention_drops": true,
+    "source_shape_is_complete_behavior_proof": false
+  },
+  "check_labels": [
+    "exact firmware SHA-256",
+    "64-bit little-endian ARM64 executable",
+    "entry body belongs to file-backed executable segment",
+    "immutable route evidence identity",
+    "route evidence exact firmware and address",
+    "exact complete native function hash",
+    "exact first-four hash",
+    "unchanged original ABI source",
+    "unchanged original ABI evidence",
+    "prior tested source identity: entry.S",
+    "prior tested source identity: test_fixture.S",
+    "prior tested source identity: test_abi.cpp",
+    "prior tested source identity: run-tests.py",
+    "prior ABI evidence has 55 successful assertions",
+    "prior ABI evidence has five inputs plus LR",
+    "candidate wrapper is byte-identical tested five-input tail wrapper",
+    "copied wrapper bytes equal immutable original",
+    "runtime compatibility guard reads both slots and requires both plus all prologue words",
+    "runtime compatibility guard precedes the only claim",
+    "production build does not enable host-test bypass",
+    "candidate constants match exact entry, both slots, FDE and all first-four words",
+    "new unique manifest identity",
+    "new manifest firmware",
+    "new source identity",
+    "new descriptor identity",
+    "new output identity",
+    "candidate wrapper is in build source list",
+    "one exclusive hook claim uses correct entry and wrapper",
+    "matching six-argument noexcept helper definition",
+    "correct original pointer declaration",
+    "correct wrapper declaration",
+    "no previous observer installation ID or opt-in",
+    "separate opt-in",
+    "helper forwards all six captured scalars to the observer",
+    "burst namespace and distinct log prefix",
+    "exactly sixteen explicitly initialized immutable slots",
+    "saturated reservation checks capacity before CAS",
+    "one strong reservation CAS with no retry loop",
+    "contention refusal is distinct and returns without reservation",
+    "reservation counter has no other mutation or reset",
+    "reserved slot alone owns scalar record with zero main sequence",
+    "payload precedes release READY publication",
+    "consumer bounds check and acquire READY before scalar copy",
+    "consumer publishes CONSUMED after copy and never resets slots",
+    "worker scans every slot and skips unpublished holes",
+    "off-thread slot ordinal is separate from main sequence",
+    "capacity and contention diagnostics stay distinct"
+  ],
+  "checks": 47,
+  "derived_slot": "0x2d45758",
+  "device_or_emulator_access": false,
+  "entry": "0x1b01cf8",
+  "fde_extent": "0x2e8",
+  "firmware_sha256": "6577f42532375936c7e3fa830efa35b7daa9cde8e0a265c1fc7143f824321925",
+  "function_sha256": "e91f820c8b58b342d8d8fc95edb6e71fb4836f73c1b809da2ac0c73cfba8427a",
+  "hook_claim_attempted": false,
+  "limits": [
+    "Actual SDK claim still requires exclusive runtime ownership and island availability",
+    "Prior one-shot runtime evidence remains separate; this burst binding does not repeat or extend it",
+    "Runtime rotary registration, view/child identity, native counter ordering and input-stage correlation remain unproven",
+    "Tail-inherited LR need not name the immediate caller instruction",
+    "Entry does not prove task execution, handler returns, completion, cancellation or native object lifetime",
+    "No physical timing or new native return interpretation is established",
+    "Source identity checks supplement independent review; they are not a complete C++ behavior proof"
+  ],
+  "negative_control_count": 30,
+  "negative_controls": [
+    {
+      "name": "derived guard omission refused",
+      "rejected_by": "runtime guard must require both slots and all expected words"
+    },
+    {
+      "name": "derived read using base slot refused",
+      "rejected_by": "runtime derived slot read required"
+    },
+    {
+      "name": "old secondary entry refused",
+      "rejected_by": "wrong native entry"
+    },
+    {
+      "name": "interior entry refused",
+      "rejected_by": "wrong native entry"
+    },
+    {
+      "name": "wrong base slot refused",
+      "rejected_by": "wrong base/derived slot pair"
+    },
+    {
+      "name": "wrong derived slot refused",
+      "rejected_by": "wrong base/derived slot pair"
+    },
+    {
+      "name": "duplicated slot pair refused",
+      "rejected_by": "wrong base/derived slot pair"
+    },
+    {
+      "name": "changed prologue word 0",
+      "rejected_by": "wrong expected prologue words"
+    },
+    {
+      "name": "changed prologue word 1",
+      "rejected_by": "wrong expected prologue words"
+    },
+    {
+      "name": "changed prologue word 2",
+      "rejected_by": "wrong expected prologue words"
+    },
+    {
+      "name": "changed prologue word 3",
+      "rejected_by": "wrong expected prologue words"
+    },
+    {
+      "name": "wrong unwind extent refused",
+      "rejected_by": "wrong FDE entry/extent"
+    },
+    {
+      "name": "firmware text mismatch refused",
+      "rejected_by": "firmware prologue mismatch"
+    },
+    {
+      "name": "firmware slot mismatch 0x2d453e8",
+      "rejected_by": "firmware slot mismatch"
+    },
+    {
+      "name": "firmware slot mismatch 0x2d45758",
+      "rejected_by": "firmware slot mismatch"
+    },
+    {
+      "name": "wrong helper LR register refused",
+      "rejected_by": "original LR must be helper argument six"
+    },
+    {
+      "name": "truncated x2 helper capture refused",
+      "rejected_by": "x2 may not be truncated"
+    },
+    {
+      "name": "missing x2/x3 restore refused",
+      "rejected_by": "restore x2/x3"
+    },
+    {
+      "name": "burst capacity changed",
+      "rejected_by": "exactly sixteen explicitly initialized immutable slots"
+    },
+    {
+      "name": "capacity guard removed",
+      "rejected_by": "saturated reservation checks capacity before CAS"
+    },
+    {
+      "name": "weak reservation CAS refused",
+      "rejected_by": "one strong reservation CAS with no retry loop"
+    },
+    {
+      "name": "producer retry loop refused",
+      "rejected_by": "one strong reservation CAS with no retry loop"
+    },
+    {
+      "name": "contention mislabeled as capacity refused",
+      "rejected_by": "contention refusal is distinct and returns without reservation"
+    },
+    {
+      "name": "reservation reset refused",
+      "rejected_by": "reservation counter has no other mutation or reset"
+    },
+    {
+      "name": "off-thread sequence meaning changed refused",
+      "rejected_by": "reserved slot alone owns scalar record with zero main sequence"
+    },
+    {
+      "name": "relaxed READY publication refused",
+      "rejected_by": "payload precedes release READY publication"
+    },
+    {
+      "name": "publication before payload refused",
+      "rejected_by": "payload precedes release READY publication"
+    },
+    {
+      "name": "relaxed READY read refused",
+      "rejected_by": "consumer bounds check and acquire READY before scalar copy"
+    },
+    {
+      "name": "slot reuse refused",
+      "rejected_by": "consumer publishes CONSUMED after copy and never resets slots"
+    },
+    {
+      "name": "head-of-line scan refusal",
+      "rejected_by": "worker scans every slot and skips unpublished holes"
+    }
+  ],
+  "observer_id": "encoder-route-burst-observer",
+  "old_abi_tests_rerun": false,
+  "prior_abi_assertions_referenced": 55,
+  "prologue_sha256": "793816c4c537d5c1937316dca0c1c09475fcf76ba91f3086458288e07bcf08ad",
+  "prologue_words": [
+    "0xa9b47bfd",
+    "0x910003fd",
+    "0xa90153f3",
+    "0xa9025bf5"
+  ],
+  "route_evidence_sha256": "5ebdee5b9261a6cfc1fbf1577f05d8d1ff80b7be7d194a291fc4683354058f48",
+  "runtime_observation": false,
+  "scope": "Separate burst observer static binding, bounded slot source-shape checks and unchanged ABI identity only; no runtime claim or complete C++ behavior proof.",
+  "source_sha256": {
+    "Makefile": "4c8b67aa6cccf820acfd7d1669a481e765859002e0635f6f7b563e96ca83bc5b",
+    "abi/entry.S": "a1f1cf42cc587c3222d299ac9dd31bfd0944f1ea51ec98a19d74ba40088a5034",
+    "azmod.json": "b4a366aa9d28fef153549d96e20d5fcec335c90015deb57325ccbd4dc46d4255",
+    "mod.c": "fa6e79e19bfded60cc3a8489837c8e523e879dfaec9be90adfc9c9dacba8824e",
+    "observer.cpp": "e59eeadda2497467e5b01dac02d17d1932964878a85d58cc4f035c2ca9567e80"
+  },
+  "wrapper_capture_shape": [
+    "x0",
+    "x1",
+    "x2",
+    "w3",
+    "w4",
+    "original LR in x5"
+  ],
+  "wrapper_immutable_source_sha256": "a1f1cf42cc587c3222d299ac9dd31bfd0944f1ea51ec98a19d74ba40088a5034",
+  "wrapper_prior_evidence_sha256": "d46963a16c5b3b71d6834a4e3792dc79fc45fdb81cb7d3a78d6f0d026ff3e0d7"
+}

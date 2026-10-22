@@ -1,0 +1,9 @@
++ docker run --rm --platform=linux/arm64 -v <route-observer-burst>:/mod -v <sdk>/include:/sdk/include:ro -w /mod az-mods-sdk:1 make -C /mod AZ_SDK_INCLUDE=/sdk/include
+make: Entering directory '/mod'
+gcc -O2 -Wall -Wextra -Werror=implicit-function-declaration -fPIC -fvisibility=hidden -fno-omit-frame-pointer -fexceptions -fasynchronous-unwind-tables -I/sdk/include  -c -o out/obj/mod.c.o mod.c
+g++ -std=c++17 -O2 -Wall -Wextra -fPIC -fvisibility=hidden -fvisibility-inlines-hidden -fno-omit-frame-pointer -fexceptions -fasynchronous-unwind-tables -I/sdk/include  -c -o out/obj/observer.cpp.o observer.cpp
+gcc -O2 -Wall -Wextra -Werror=implicit-function-declaration -fPIC -fvisibility=hidden -fno-omit-frame-pointer -fexceptions -fasynchronous-unwind-tables -I/sdk/include  -c -o out/obj/abi/entry.S.o abi/entry.S
+printf '{ global: az_mod_v1_entry; local: *; };\n' > out/exports.map
+g++ -shared -Wl,--no-undefined -Wl,--hash-style=gnu -Wl,--version-script=out/exports.map -o out/encoder-route-burst-observer.so out/obj/mod.c.o out/obj/observer.cpp.o out/obj/abi/entry.S.o -lpthread -lm
+make: Leaving directory '/mod'
+validate <route-observer-burst>: OK

@@ -1,0 +1,249 @@
+{
+  "controls": {
+    "early-ready": {
+      "asan": {
+        "expected_failure": "!pop_off_at(0,r) && r.sequence==123 && r.x0==456",
+        "failures": 1,
+        "sanitizer_diagnostics": 0
+      },
+      "plain": {
+        "expected_failure": "!pop_off_at(0,r) && r.sequence==123 && r.x0==456",
+        "failures": 1,
+        "sanitizer_diagnostics": 0
+      },
+      "tsan": {
+        "expected_failure": "!pop_off_at(0,r) && r.sequence==123 && r.x0==456",
+        "failures": 1,
+        "sanitizer_diagnostics": 0
+      }
+    },
+    "failed-cas-owned": {
+      "asan": {
+        "expected_failure": "off_slots[i].state.load()==OFF_EMPTY && !pop_off_at(i,r)",
+        "failures": 1,
+        "sanitizer_diagnostics": 0
+      },
+      "plain": {
+        "expected_failure": "off_slots[i].state.load()==OFF_EMPTY && !pop_off_at(i,r)",
+        "failures": 1,
+        "sanitizer_diagnostics": 0
+      },
+      "tsan": {
+        "expected_failure": "off_slots[i].state.load()==OFF_EMPTY && !pop_off_at(i,r)",
+        "failures": 1,
+        "sanitizer_diagnostics": 0
+      }
+    },
+    "frame-write": {
+      "asan": {
+        "expected_failure": "!memcmp(before,f,sizeof f)",
+        "failures": 1,
+        "sanitizer_diagnostics": 0
+      },
+      "plain": {
+        "expected_failure": "!memcmp(before,f,sizeof f)",
+        "failures": 1,
+        "sanitizer_diagnostics": 0
+      },
+      "tsan": {
+        "expected_failure": "!memcmp(before,f,sizeof f)",
+        "failures": 1,
+        "sanitizer_diagnostics": 0
+      }
+    },
+    "late-attempt": {
+      "asan": {
+        "expected_failure": "raw_attempted.load()==1 && native_attempted.load()==1",
+        "failures": 1,
+        "sanitizer_diagnostics": 0
+      },
+      "plain": {
+        "expected_failure": "raw_attempted.load()==1 && native_attempted.load()==1",
+        "failures": 1,
+        "sanitizer_diagnostics": 0
+      },
+      "tsan": {
+        "expected_failure": "raw_attempted.load()==1 && native_attempted.load()==1",
+        "failures": 1,
+        "sanitizer_diagnostics": 0
+      }
+    },
+    "reset-consumed": {
+      "asan": {
+        "expected_failure": "off_slots[i].state.load()==OFF_CONSUMED && !pop_off_at(i,r)",
+        "failures": 1,
+        "sanitizer_diagnostics": 0
+      },
+      "plain": {
+        "expected_failure": "off_slots[i].state.load()==OFF_CONSUMED && !pop_off_at(i,r)",
+        "failures": 1,
+        "sanitizer_diagnostics": 0
+      },
+      "tsan": {
+        "expected_failure": "off_slots[i].state.load()==OFF_CONSUMED && !pop_off_at(i,r)",
+        "failures": 1,
+        "sanitizer_diagnostics": 0
+      }
+    },
+    "stop-at-hole": {
+      "asan": {
+        "expected_failure": "records==1 && record_slots[0]==2 && record_sequences[0]==0",
+        "failures": 1,
+        "sanitizer_diagnostics": 0
+      },
+      "plain": {
+        "expected_failure": "records==1 && record_slots[0]==2 && record_sequences[0]==0",
+        "failures": 1,
+        "sanitizer_diagnostics": 0
+      },
+      "tsan": {
+        "expected_failure": "records==1 && record_slots[0]==2 && record_sequences[0]==0",
+        "failures": 1,
+        "sanitizer_diagnostics": 0
+      }
+    }
+  },
+  "frozen_parent_files_verified": 30,
+  "mod_id": "encoder-route-burst-observer",
+  "modes": {
+    "asan": {
+      "assertions": 32339,
+      "scenarios": {
+        "budget": 281,
+        "budget-off": 281,
+        "burst-capacity": 284,
+        "burst-collision": 55,
+        "burst-concurrent": 168,
+        "burst-holes": 48,
+        "burst-last-collision": 32,
+        "burst-reentry": 39,
+        "burst-saturated": 40,
+        "burst-visibility": 30,
+        "claim": 22,
+        "concurrent": 16025,
+        "diagnostics": 83,
+        "empty": 23,
+        "env": 4,
+        "errno": 61,
+        "firmware": 4,
+        "heartbeat": 32,
+        "lanes-concurrent": 14025,
+        "native-gates": 31,
+        "nested": 28,
+        "normal": 97,
+        "prologue": 3,
+        "raw-budget": 154,
+        "raw-diagnostics": 44,
+        "raw-gates": 70,
+        "raw-nested": 30,
+        "raw-overflow": 98,
+        "raw-partial": 37,
+        "raw-values": 59,
+        "registration": 8,
+        "sdk": 12,
+        "thread": 30,
+        "thread-negative": 28,
+        "thread-zero": 28,
+        "tid-normalization": 30,
+        "worker": 15
+      }
+    },
+    "plain": {
+      "assertions": 32339,
+      "scenarios": {
+        "budget": 281,
+        "budget-off": 281,
+        "burst-capacity": 284,
+        "burst-collision": 55,
+        "burst-concurrent": 168,
+        "burst-holes": 48,
+        "burst-last-collision": 32,
+        "burst-reentry": 39,
+        "burst-saturated": 40,
+        "burst-visibility": 30,
+        "claim": 22,
+        "concurrent": 16025,
+        "diagnostics": 83,
+        "empty": 23,
+        "env": 4,
+        "errno": 61,
+        "firmware": 4,
+        "heartbeat": 32,
+        "lanes-concurrent": 14025,
+        "native-gates": 31,
+        "nested": 28,
+        "normal": 97,
+        "prologue": 3,
+        "raw-budget": 154,
+        "raw-diagnostics": 44,
+        "raw-gates": 70,
+        "raw-nested": 30,
+        "raw-overflow": 98,
+        "raw-partial": 37,
+        "raw-values": 59,
+        "registration": 8,
+        "sdk": 12,
+        "thread": 30,
+        "thread-negative": 28,
+        "thread-zero": 28,
+        "tid-normalization": 30,
+        "worker": 15
+      }
+    },
+    "tsan": {
+      "assertions": 32339,
+      "scenarios": {
+        "budget": 281,
+        "budget-off": 281,
+        "burst-capacity": 284,
+        "burst-collision": 55,
+        "burst-concurrent": 168,
+        "burst-holes": 48,
+        "burst-last-collision": 32,
+        "burst-reentry": 39,
+        "burst-saturated": 40,
+        "burst-visibility": 30,
+        "claim": 22,
+        "concurrent": 16025,
+        "diagnostics": 83,
+        "empty": 23,
+        "env": 4,
+        "errno": 61,
+        "firmware": 4,
+        "heartbeat": 32,
+        "lanes-concurrent": 14025,
+        "native-gates": 31,
+        "nested": 28,
+        "normal": 97,
+        "prologue": 3,
+        "raw-budget": 154,
+        "raw-diagnostics": 44,
+        "raw-gates": 70,
+        "raw-nested": 30,
+        "raw-overflow": 98,
+        "raw-partial": 37,
+        "raw-values": 59,
+        "registration": 8,
+        "sdk": 12,
+        "thread": 30,
+        "thread-negative": 28,
+        "thread-zero": 28,
+        "tid-normalization": 30,
+        "worker": 15
+      }
+    }
+  },
+  "scope": "Actual observer source with SDK mocks; host ABI/TID and callback entry are simulated. No runtime installation.",
+  "sdk_header_sha256": "b94e2ba6656c2b852f18691d32225486f29265953c8bf09dcac9a18ce561a630",
+  "source_sha256": {
+    "Makefile": "4c8b67aa6cccf820acfd7d1669a481e765859002e0635f6f7b563e96ca83bc5b",
+    "abi/entry.S": "a1f1cf42cc587c3222d299ac9dd31bfd0944f1ea51ec98a19d74ba40088a5034",
+    "azmod.json": "b4a366aa9d28fef153549d96e20d5fcec335c90015deb57325ccbd4dc46d4255",
+    "frozen-parent.json": "cc8d67b35b2671f9e48100f64b628f43dd9c9152042c3406827eb9055d7a849e",
+    "mod.c": "fa6e79e19bfded60cc3a8489837c8e523e879dfaec9be90adfc9c9dacba8824e",
+    "observer.cpp": "e59eeadda2497467e5b01dac02d17d1932964878a85d58cc4f035c2ca9567e80",
+    "tests/run-focused.sh": "b33bf522879049f11994816e260b0557a400f8a278d86412e894303766ccc286",
+    "tests/run-tests.py": "71a23a307f0c46fe75fd7457d1bf3eac1ceeba7e5019ab12f5d380842dc84a76",
+    "tests/test_observer.cpp": "1c88cfa948f0500eed425290c1cb7ff7db9970a96762142a606ebb929361118a"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "azmod": 1,
+  "id": "encoder-route-burst-observer",
+  "name": "Encoder Route Burst Observer",
+  "version": "0.0.1",
+  "author": "hleawilliams-commits",
+  "summary": "Emulator-only bounded scalar encoder route and RAW mixer observer.",
+  "description": "Unpublished exact-firmware passive observer with 16 immutable off-thread slots, independent RAW values and preserved native forwarding. No input edits, menu, navigation or physical installation.",
+  "category": "tools",
+  "license": "GPL-3.0-only",
+  "source": "https://github.com/hleawilliams-commits/flow-beat/tree/codex/az-mods-handoff-2026-10-16/experiments/mods-shortcut-delivery/route-observer-burst",
+  "api": 1,
+  "firmware": [
+    "ep147-9e9454e357389ece"
+  ],
+  "hooks": true,
+  "min_core": "1.2.3"
+}
