@@ -1,0 +1,6 @@
+make: Entering directory '/g'
+mkdir -p out
+gcc -fexceptions -fasynchronous-unwind-tables -O2 -Wall -Wextra -Werror -fPIC -shared -static-libgcc -Wl,--no-undefined  -Iazmod -I/usr/include/freetype2 -I/usr/include/libpng16 -DAZMOD_RELEASE -o out/azmod.so.full azmod/azmod.c azmod/menu.c azmod/text.c azmod/azconf.c -ldl -lpthread -lX11 -lXext -lfreetype -lm
+nm --defined-only out/azmod.so.full | awk '$2 ~ /^[rRdD]$/ {print $3}' | sort -u > out/azmod.so.objs && grep -ohE '[A-Za-z_][A-Za-z0-9_]*' azmod/caption_strips.h azmod/fxart.h azmod/fxhdr.h azmod/fxbars.h azmod/menulabels.h azmod/stems4art.h azmod/srcref.h azmod/wavref.h azmod/onelibkey.h azmod/onelibkey_sm.h | sort -u | comm -12 - out/azmod.so.objs > out/azmod.so.keep && objcopy --strip-unneeded --keep-symbols=out/azmod.so.keep out/azmod.so.full out/azmod.so && rm -f out/azmod.so.objs
+Built: out/azmod.so
+make: Leaving directory '/g'

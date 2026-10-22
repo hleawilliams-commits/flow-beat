@@ -1,0 +1,26 @@
+--- a/src/azmod/bus_interpose.c
++++ b/src/azmod/bus_interpose.c
+@@ -1163,6 +1163,11 @@
+         return;
+     if (crc_in) /* community mods see only checked input (a short frame carries no CRC) */
+         sdk_filter_raw(AZ_BUS_MIXER_IN, b, (int) r);
++    if (r < 12)
++        return;
++    /* Refresh once before either knob or button suppression: both must use this frame's
++     * heartbeat result at the stall/recovery boundary. Keep the original short/CRC gates. */
++    int menu_open = mixer_watchdog();
+     if (r >= 35) {
+         mixer_drum_tone(b, r);
+         mixer_stem_eq(b, r);
+@@ -1184,11 +1189,8 @@
+         if (crc_in)
+             frame_crc_stamp(b, 96);
+     }
+-    if (r < 12)
+-        return;
+     bus_capture_mixer(b, r);
+     mixer_xpad_drum(b, r, cfg);
+-    int menu_open = mixer_watchdog();
+     if (r >= 34)
+         mixer_menu_buttons(b, crc_in, menu_open);
+     if (crc_in && sdk_filter_run(AZ_BUS_MIXER_IN, b, (int) r)) /* community mods, after the core */

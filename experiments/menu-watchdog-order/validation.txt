@@ -1,0 +1,76 @@
+unpatched-plain:
+checks=978 failures=21
+FAIL menu-stall/all-frame-bytes
+FAIL menu-stall/anchor-state
+FAIL menu-stall/hold-state
+FAIL menu-stall/existing-release-pin
+FAIL menu-stall/diagnostic-current-stall
+FAIL menu-stall/diagnostic-release
+FAIL menu-stall/diagnostic-native-detent
+FAIL menu-recovery/anchor-state
+FAIL menu-recovery/hold-state
+FAIL menu-recovery/diagnostic-current-stall
+FAIL menu-recovery/diagnostic-native-detent
+FAIL menu-recovery/recovery-anchor-is-current-counter
+FAIL menu-recovery/all-frame-bytes
+FAIL sdk-stall/all-frame-bytes
+FAIL sdk-stall/anchor-state
+FAIL sdk-stall/hold-state
+FAIL sdk-stall/existing-release-pin
+FAIL sdk-recovery/anchor-state
+FAIL sdk-recovery/hold-state
+FAIL sdk-recovery/recovery-anchor-is-current-counter
+FAIL sdk-recovery/all-frame-bytes
+patched-plain:
+checks=978 failures=0
+unpatched-asan-ubsan:
+checks=978 failures=21
+FAIL menu-stall/all-frame-bytes
+FAIL menu-stall/anchor-state
+FAIL menu-stall/hold-state
+FAIL menu-stall/existing-release-pin
+FAIL menu-stall/diagnostic-current-stall
+FAIL menu-stall/diagnostic-release
+FAIL menu-stall/diagnostic-native-detent
+FAIL menu-recovery/anchor-state
+FAIL menu-recovery/hold-state
+FAIL menu-recovery/diagnostic-current-stall
+FAIL menu-recovery/diagnostic-native-detent
+FAIL menu-recovery/recovery-anchor-is-current-counter
+FAIL menu-recovery/all-frame-bytes
+FAIL sdk-stall/all-frame-bytes
+FAIL sdk-stall/anchor-state
+FAIL sdk-stall/hold-state
+FAIL sdk-stall/existing-release-pin
+FAIL sdk-recovery/anchor-state
+FAIL sdk-recovery/hold-state
+FAIL sdk-recovery/recovery-anchor-is-current-counter
+FAIL sdk-recovery/all-frame-bytes
+patched-asan-ubsan:
+checks=978 failures=0
+unpatched-tsan:
+checks=978 failures=21
+FAIL menu-stall/all-frame-bytes
+FAIL menu-stall/anchor-state
+FAIL menu-stall/hold-state
+FAIL menu-stall/existing-release-pin
+FAIL menu-stall/diagnostic-current-stall
+FAIL menu-stall/diagnostic-release
+FAIL menu-stall/diagnostic-native-detent
+FAIL menu-recovery/anchor-state
+FAIL menu-recovery/hold-state
+FAIL menu-recovery/diagnostic-current-stall
+FAIL menu-recovery/diagnostic-native-detent
+FAIL menu-recovery/recovery-anchor-is-current-counter
+FAIL menu-recovery/all-frame-bytes
+FAIL sdk-stall/all-frame-bytes
+FAIL sdk-stall/anchor-state
+FAIL sdk-stall/hold-state
+FAIL sdk-stall/existing-release-pin
+FAIL sdk-recovery/anchor-state
+FAIL sdk-recovery/hold-state
+FAIL sdk-recovery/recovery-anchor-is-current-counter
+FAIL sdk-recovery/all-frame-bytes
+patched-tsan:
+checks=978 failures=0
+Expected unpatched failures and patched assertions verified; private local snapshot retained.

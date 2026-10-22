@@ -1,0 +1,83 @@
+{
+  "firmware_sha256": "6577f42532375936c7e3fa830efa35b7daa9cde8e0a265c1fc7143f824321925",
+  "firmware_tag": "ep147-9e9454e357389ece",
+  "elf": {
+    "machine": "EM_AARCH64",
+    "class": 64,
+    "little_endian": true,
+    "type": "ET_EXEC"
+  },
+  "verified_fde_extents": {
+    "0x1b2e538": "0x4",
+    "0x1be7e38": "0xbe4",
+    "0x20a1550": "0x1024"
+  },
+  "upstream_commit": "3e0c5cb010454228f4ee63226b60d060494eeaae",
+  "verified_instruction_anchors": 87,
+  "verifier_sha256": "a91354f034bcab436dda75fc9a2cff714879b9e8b13b3c00a210bd24be70656a",
+  "inline_policy_source_sha256": "f141b383c25e66c8acb1839280832a612a6ee0e25e9ada59f374ccbef8f81908",
+  "inline_policy_extraction_sha256": "c9774595762751b828f382df275af7aa10a83b33d3c04f3a5196b9baceca11aa",
+  "sdk_vslot_source_sha256": "8e162244e63cd3fcec1f17db1a7a526bdbb1b86ca7dd56383e50cdda625c08e3",
+  "instruction_policy_host_assertions": 20,
+  "native_value_route": {
+    "row_stride_bytes": 32,
+    "row_kind_offset": "0x14",
+    "resolver": "0x1be5798",
+    "guarded_action": "0x1be7e38",
+    "action_argument_2": "pointer to caller-stack 8-byte MediaID carrier",
+    "source_constructor": "0x1b00160",
+    "source_value_size": 12,
+    "source_discriminator_requested": 1,
+    "source_constructor_can_normalize_discriminator_to_zero": true,
+    "concrete_interface": "gui::source_select::IBrowseSourceSelect",
+    "concrete_implementation": "gui::source_select::BrowseSourceSelect::setSource(Source)",
+    "concrete_entry": "0x20a1550",
+    "vtable": "0x317de60",
+    "slot_offset": "0x10",
+    "abi_evidence": "this in x0; Source bytes 0..7 in x1 and bytes 8..11 in w2",
+    "meaningful_media_fields": "32-bit word and two bytes; carrier padding is not identity",
+    "runtime_receiver_vtable_observed": false,
+    "full_wrapper_abi_audited": false,
+    "final_media_event_correlation_proven": false
+  },
+  "lifetime": {
+    "set_source_queued_task": "value copy plus raw service pointer at +0x18",
+    "queued_execute_entry": "0x20a2578",
+    "set_source_reads_service_after_listener_return": true,
+    "timer_queued_task": "timer id at +0x18; raw timer pointer at +0x20",
+    "timer_queued_execute": "0x1ae8a40",
+    "timer_reads_timer_after_callback_on_both_routes": true,
+    "timer_task_destructor_decrements_global_task_counter": true,
+    "view_or_service_lifetime_pin_proven": false
+  },
+  "candidate_boundaries": [
+    {
+      "entry": "0x1be7e38",
+      "prologue_sha256": "fccbf6d1601607becc85ff7e96e8e6007afcc566a6fc00c61708703a49779683",
+      "instruction_policy_accepts_one_and_four_words": true,
+      "runtime_claim_or_observation": false,
+      "ownership_island_mapping_and_full_abi_still_required": true
+    },
+    {
+      "entry": "0x20a1550",
+      "prologue_sha256": "848b89eb597fb364d93c4999a4dc9ef7f65a4542c69965da4ddcbe430d03d5dd",
+      "instruction_policy_accepts_one_and_four_words": true,
+      "runtime_claim_or_observation": false,
+      "ownership_island_mapping_and_full_abi_still_required": true
+    }
+  ],
+  "timer_listener": {
+    "slot": "0x2d5b030",
+    "segment_flags": 5,
+    "sdk_vslot_eligible": false,
+    "refusal_reason": "slot lies in executable PT_LOAD",
+    "ret_only_original_not_a_four_instruction_function": true
+  },
+  "limits": [
+    "No native function called, no runtime read, no device access, no hook installed.",
+    "Instruction-policy eligibility is not runtime claim success or exclusive ownership.",
+    "Row-to-USB uniqueness, missing-media handling and live receiver identity remain unobserved here.",
+    "Source dispatch is not asynchronous browser completion; cancellation remains unproven.",
+    "No timer retention pin, native activation adapter, USB button or release is supplied."
+  ]
+}

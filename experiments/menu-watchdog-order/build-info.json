@@ -1,0 +1,22 @@
+{
+  "upstream_commit": "3e0c5cb010454228f4ee63226b60d060494eeaae",
+  "patch_sha256": "8f547d57800cf067be3853d3ffe322c443aa1c40ebf9abff14e5152a89fea65f",
+  "full_bus_interpose_sha256": "35f251b238a13817b663209092c9ef0625f702660bd6754121d817e127e67401",
+  "public_upstream_regular_files_verified": 465,
+  "changed_public_files": [
+    "src/azmod/bus_interpose.c"
+  ],
+  "private_asset_headers_verified_by_pinned_extractor": 10,
+  "build_image": "azmod-build:18.04",
+  "build_image_id": "sha256:c7e3893c4f03e0ff30555c2120b3d9ec53834eaa2c8ce376a2da09b70fd23a90",
+  "command": "docker run --rm --pull=never --network=none --platform=linux/arm64 -v <isolated-pinned-patched-tree>/src:/g <pinned-image-id> make -C /g CC=gcc azmod",
+  "exit_code": 0,
+  "binary_format": "ELF64 little-endian AArch64 shared object",
+  "local_binary_sha256": "696a6c4b5b26cdc06e24da828de80058ecaaea28c94ad4430f1277685a28b0af",
+  "unstripped_binary_sha256": "af6c02595fcfdcf9a1ecdf0ce3c28f353d22d0ec51d3f5ecb6f6227bb918dc3f",
+  "build_log_sha256": "231a231146a36d6cccf3e9f6cc6f434714817c1c6e89dedc5a879af16e84131e",
+  "binary_included": false,
+  "emulator_installation": false,
+  "physical_changes": false,
+  "scope": "Same-frame overlay-heartbeat watchdog ordering only; no native handback, direct menu, community quarantine or hardware timing proof."
+}

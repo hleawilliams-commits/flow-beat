@@ -1,0 +1,151 @@
+{
+  "upstream_commit": "3e0c5cb010454228f4ee63226b60d060494eeaae",
+  "source": "src/azmod/bus_interpose.c",
+  "patch_sha256": "8f547d57800cf067be3853d3ffe322c443aa1c40ebf9abff14e5152a89fea65f",
+  "test_sha256": "3d9a8205ba06cd8be1ee6939825eee9cdcdc9dda5be8f84a6c89735233893138",
+  "runner_sha256": "4ccd4296f211054f3ebc8a5d737389872f3b2fa9834e3df2fe2ba4a6df64fb04",
+  "upstream_fixture_sha256": "1c79537713c0d5604a37cc9f7683bba60094c2a961a1cbb8347331b4becba9cf",
+  "upstream_stub_prefix_sha256": "301de8cdd5c3534afd1c851c797a321f8290a919215efb0539c5236f40d918b6",
+  "instrumented_stubs_sha256": "23a1bdeabeec312827fb30ab6bd2607c19242fb03f70559b6396790aa27c90cd",
+  "headers": {
+    "bus_cfg.h": "339cc56e7f9021d4b40bc3430058a36c9fd8a2f8c8ce3dcf7c7e3e2ab6ae105d",
+    "drag_handoff.h": "234fc64cc57e64c4e50ebc5c8b6a5d9b9f4b5652e1ea9157863313da5560562b"
+  },
+  "extractions": {
+    "unpatched": {
+      "full_source_sha256": "29b1d5900d08ee22b43adb71431c7d2faa8007e05310b264ffdb4bb76c21047a",
+      "read_path_sha256": "35ad2345e84615706a3b5a1cd30597726d3e3943d55e4c5b032d173a3ef985fe",
+      "crc_sha256": "43050b021c2d1b40d745bc370d376a432057d56fcfcb0acc13e571bda7547204",
+      "frame_function_sha256": "fb35277acefe4d0a395e5036bd2466d729d7fd9f9e89dd233412684a58aad9d8"
+    },
+    "patched": {
+      "full_source_sha256": "35f251b238a13817b663209092c9ef0625f702660bd6754121d817e127e67401",
+      "read_path_sha256": "6e828e8aed13982d04ba7089f7b81f22c587c18b9430dc3a143b029a421323ff",
+      "crc_sha256": "43050b021c2d1b40d745bc370d376a432057d56fcfcb0acc13e571bda7547204",
+      "frame_function_sha256": "9cfd1840aa7ab0304b0e68fab75c5bbcf3da97a9d26b4d9eb3fd5a9466834c1c"
+    }
+  },
+  "scope": "serial bus-thread fixture; no overlay concurrency, native dispatch, runtime or hardware proof",
+  "runs": [
+    {
+      "mode": "plain",
+      "variant": "unpatched",
+      "checks": 978,
+      "failures": 21,
+      "expected_failures": [
+        "menu-recovery/all-frame-bytes",
+        "menu-recovery/anchor-state",
+        "menu-recovery/diagnostic-current-stall",
+        "menu-recovery/diagnostic-native-detent",
+        "menu-recovery/hold-state",
+        "menu-recovery/recovery-anchor-is-current-counter",
+        "menu-stall/all-frame-bytes",
+        "menu-stall/anchor-state",
+        "menu-stall/diagnostic-current-stall",
+        "menu-stall/diagnostic-native-detent",
+        "menu-stall/diagnostic-release",
+        "menu-stall/existing-release-pin",
+        "menu-stall/hold-state",
+        "sdk-recovery/all-frame-bytes",
+        "sdk-recovery/anchor-state",
+        "sdk-recovery/hold-state",
+        "sdk-recovery/recovery-anchor-is-current-counter",
+        "sdk-stall/all-frame-bytes",
+        "sdk-stall/anchor-state",
+        "sdk-stall/existing-release-pin",
+        "sdk-stall/hold-state"
+      ],
+      "exit_code": 1,
+      "output_sha256": "0ab5e5a9f70262fa980e221c159536518d3aad12cfd04f9ab366f2ff6da33706"
+    },
+    {
+      "mode": "plain",
+      "variant": "patched",
+      "checks": 978,
+      "failures": 0,
+      "expected_failures": [],
+      "exit_code": 0,
+      "output_sha256": "53b78d758a1d3ece2ad132994dfda02e991017c3ae0b9691b67a9afd27853ee9"
+    },
+    {
+      "mode": "asan-ubsan",
+      "variant": "unpatched",
+      "checks": 978,
+      "failures": 21,
+      "expected_failures": [
+        "menu-recovery/all-frame-bytes",
+        "menu-recovery/anchor-state",
+        "menu-recovery/diagnostic-current-stall",
+        "menu-recovery/diagnostic-native-detent",
+        "menu-recovery/hold-state",
+        "menu-recovery/recovery-anchor-is-current-counter",
+        "menu-stall/all-frame-bytes",
+        "menu-stall/anchor-state",
+        "menu-stall/diagnostic-current-stall",
+        "menu-stall/diagnostic-native-detent",
+        "menu-stall/diagnostic-release",
+        "menu-stall/existing-release-pin",
+        "menu-stall/hold-state",
+        "sdk-recovery/all-frame-bytes",
+        "sdk-recovery/anchor-state",
+        "sdk-recovery/hold-state",
+        "sdk-recovery/recovery-anchor-is-current-counter",
+        "sdk-stall/all-frame-bytes",
+        "sdk-stall/anchor-state",
+        "sdk-stall/existing-release-pin",
+        "sdk-stall/hold-state"
+      ],
+      "exit_code": 1,
+      "output_sha256": "0ab5e5a9f70262fa980e221c159536518d3aad12cfd04f9ab366f2ff6da33706"
+    },
+    {
+      "mode": "asan-ubsan",
+      "variant": "patched",
+      "checks": 978,
+      "failures": 0,
+      "expected_failures": [],
+      "exit_code": 0,
+      "output_sha256": "53b78d758a1d3ece2ad132994dfda02e991017c3ae0b9691b67a9afd27853ee9"
+    },
+    {
+      "mode": "tsan",
+      "variant": "unpatched",
+      "checks": 978,
+      "failures": 21,
+      "expected_failures": [
+        "menu-recovery/all-frame-bytes",
+        "menu-recovery/anchor-state",
+        "menu-recovery/diagnostic-current-stall",
+        "menu-recovery/diagnostic-native-detent",
+        "menu-recovery/hold-state",
+        "menu-recovery/recovery-anchor-is-current-counter",
+        "menu-stall/all-frame-bytes",
+        "menu-stall/anchor-state",
+        "menu-stall/diagnostic-current-stall",
+        "menu-stall/diagnostic-native-detent",
+        "menu-stall/diagnostic-release",
+        "menu-stall/existing-release-pin",
+        "menu-stall/hold-state",
+        "sdk-recovery/all-frame-bytes",
+        "sdk-recovery/anchor-state",
+        "sdk-recovery/hold-state",
+        "sdk-recovery/recovery-anchor-is-current-counter",
+        "sdk-stall/all-frame-bytes",
+        "sdk-stall/anchor-state",
+        "sdk-stall/existing-release-pin",
+        "sdk-stall/hold-state"
+      ],
+      "exit_code": 1,
+      "output_sha256": "0ab5e5a9f70262fa980e221c159536518d3aad12cfd04f9ab366f2ff6da33706"
+    },
+    {
+      "mode": "tsan",
+      "variant": "patched",
+      "checks": 978,
+      "failures": 0,
+      "expected_failures": [],
+      "exit_code": 0,
+      "output_sha256": "53b78d758a1d3ece2ad132994dfda02e991017c3ae0b9691b67a9afd27853ee9"
+    }
+  ]
+}

@@ -1,0 +1,104 @@
+{
+  "upstream_commit": "3e0c5cb010454228f4ee63226b60d060494eeaae",
+  "firmware_sha256": "6577f42532375936c7e3fa830efa35b7daa9cde8e0a265c1fc7143f824321925",
+  "source_sha256": {
+    "inline_hooks.c": "f141b383c25e66c8acb1839280832a612a6ee0e25e9ada59f374ccbef8f81908",
+    "community.c": "4b2b72e2b623dcb1ecb0ef108a473815adab45a516a6aa13adb6cce512b80866",
+    "ep147addr.h": "ca75114d28f586daed5bb70a06e3fbc19449c939b4549942acdf7c8ba16b3fb3"
+  },
+  "actual_policy_extraction_sha256": "c9774595762751b828f382df275af7aa10a83b33d3c04f3a5196b9baceca11aa",
+  "actual_overlap_predicate_sha256": "e6f37138b430cc1d468ac6f95762b74900e3396e3dac2a3746134cc6ea37c033",
+  "host_policy_assertions": 66,
+  "instruction_anchors_checked": 59,
+  "candidates": {
+    "0x1adea38": {
+      "fde_extent": "0x4a8",
+      "body_sha256": "dbb1cbae33d73608aae5f524046034fa018ae695f6da297039f340a9f1699a22",
+      "prologue_sha256": "d2b88052d194828f9d37307861750872fddce5328d5985ad5cf65bf48ec9a11c",
+      "pcrel_kinds": [
+        0,
+        0,
+        0,
+        2
+      ],
+      "actual_patch_ok_one_word": true,
+      "actual_patch_ok_four_words": true,
+      "file_backed_executable_segment": true
+    },
+    "0x1adeee0": {
+      "fde_extent": "0x588",
+      "body_sha256": "a6bd51e7f53251862caa41f7c23a181503c78d03ab1a26054641a4623d90a2e4",
+      "prologue_sha256": "b2486147c01e873027ed889080c01bbbcfc11e304818299d410f6c92beb3e8b2",
+      "pcrel_kinds": [
+        0,
+        0,
+        0,
+        2
+      ],
+      "actual_patch_ok_one_word": true,
+      "actual_patch_ok_four_words": true,
+      "file_backed_executable_segment": true
+    },
+    "0x1add3b8": {
+      "fde_extent": "0x1c",
+      "body_sha256": "187583ef218418e3f14ba6688b0768ec24ee5cfc140fb6d2970bf6fc4e87bd3e",
+      "prologue_sha256": "3e9e27f25c5c76966659cf8febd07c31636a0b180e48f8b85b8d4e6759c847cb",
+      "pcrel_kinds": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "actual_patch_ok_one_word": true,
+      "actual_patch_ok_four_words": true,
+      "file_backed_executable_segment": true
+    }
+  },
+  "negative_controls": {
+    "tbz_in_each_of_four_positions_rejected_in_both_modes": true,
+    "return_in_overwritten_prefix_rejects_four_word_fallback": true,
+    "overlap_same_and_plus_minus_15_refused_plus_minus_16_clear": true
+  },
+  "pinned_source_literal_audit": {
+    "source_file_count": 95,
+    "collisions": [],
+    "runtime_hook_ownership_proven": false
+  },
+  "waveform_primary_slot_0x1b0": "0x1adea38",
+  "waveform_secondary_at_plus_0x118_slot_0x18": "0x1adeee0",
+  "native_virtual_target_slot": "0x198",
+  "synchronous_virtual_call_sites": [
+    "0x1adeaac",
+    "0x1adef54"
+  ],
+  "async_task_vtable": "0x2d3dee0",
+  "async_task_execute_slot_0x10": "0x1add3b8",
+  "async_task_rtti_sha256": "b20c9fe90e15e1b03d2bca14d5e3e42fe52356a47ccc6a271315d3cb49ffe71f",
+  "async_task_method_name": "HuiAdaptedView<DefaultGuiTaskBoxConf>::didRotateEncoder",
+  "copied_payload": {
+    "0x18": "entry x2 (opaque 64 bits)",
+    "0x20": "entry w3",
+    "0x24": "entry w4",
+    "0x28": "primary view address (adjusted by -0x118 for secondary entry)"
+  },
+  "enqueue_call_sites": [
+    "0x1adec84",
+    "0x1adf124"
+  ],
+  "enqueue_target": "0x237a440",
+  "dispatcher_entry_observation_does_not_imply_immediate_delivery": true,
+  "native_return_type_proven": false,
+  "native_counter_ordering_proven": false,
+  "task_or_view_lifetime_after_return_proven": false,
+  "physical_knob_or_main_thread_provenance_observed": false,
+  "runtime_claim_attempted": false,
+  "successful_installation_proven": false,
+  "limits": [
+    "Instruction policy acceptance is conditional eligibility, not SDK claim success",
+    "Late claim still needs a reachable executable island and unoccupied runtime address",
+    "These generic dispatchers serve multiple views; live Waveform provenance remains unproven",
+    "A dispatcher has five input integer registers; the four-register downstream wrapper is insufficient",
+    "Queued task executor accepts a task object, not the downstream four-argument signature",
+    "No event consumption, activation, focus handback, cancellation or runtime pointer reads are authorized by this static result"
+  ]
+}
