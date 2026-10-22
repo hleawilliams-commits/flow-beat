@@ -253,3 +253,43 @@ do not prove current overlay ownership, native delivery or crash recovery.
 Do not reuse the closed run or repeat its refusal unchanged. Direct task
 provenance/returns/ownership, MODS 0.1.3 publication, stems staging/activation,
 USB activation and hardware validation remain unresolved.
+
+
+### Writer replay and recovery counterexamples; V2 runner stays inert
+
+The new [writer/recovery checkpoint](../experiments/mods-shortcut-delivery/task-sdk-observer/overlay-policy-v2/RUNTIME-GAPS.md)
+executes exact extracted preview sender code with real queues and fake transport.
+Its 17 assertions and three strict controls reproduce queued messages after
+producer disconnect, cached replay after reconnect and retry after an uncertain
+write. The accompanying 13-source audit passes 58 checks and 18 rejection
+controls; independent results match exactly. Neither the cooperative coordinator
+lock nor quiet process/socket samples enforce overlay/CRC ownership. Closing
+preview can stop its QEMU; stopping the forwarder affects other outputs and
+leaves direct writes possible. No process or service was changed.
+
+A separate actual-source recovery regression reproduces held input surviving
+the current runner's automatic restart, plus a neutral target counter remaining
+different from the successfully restored host original. It extracts two runner
+functions and the kernel write/read/open/close/CRC functions, executes the actual
+host-counter helper, and mocks process/services/file-cleanup evidence. It does
+not execute the whole restore, guest kernel or native application. The earlier
+host-file proof remains valid within its scope; it is not an overlay handback
+proof. Historical failures and earlier results remain retained.
+
+Separate private V2 runner/planner candidates pass 151 checks/89 scenarios,
+including 86 rejection scenarios and four strict controls, independently
+identical. They validate 19 selected task/transport Python sources, frozen build
+and proposed fresh scope. Every live dispatch, including recovery, is disabled.
+No live scope, runtime ID or enabling manifest was created, and no old helper
+was changed. No emulator/physical connection, input, install, restart, core,
+package or catalog change occurred; the last released state was not revalidated.
+
+Next implement a separately reviewed emulator arbitration route covering final
+mutation, CRC and queued-generation handback, then an owned stopped recovery
+that verifies the complete original neutral overlay and original host bytes
+before guarded restart. Unknown overlay state must not fall through automatic
+restart or completion flags. Future imported-module identity also needs binding.
+Only then consider a new run and fresh selective backup. Do not repeat unchanged
+passing suites or reuse the closed refusal. Native task ownership/returns,
+MODS 0.1.3 publication, stems staging/activation, USB activation and physical
+validation remain open.

@@ -5,6 +5,10 @@ mixer overlay. It performs no ambient I/O, imports no driver/runtime adapter,
 issues no input permit and installs nothing. The frozen 28-offset policy,
 earlier private helpers and closed read-only attempt remain unchanged.
 
+The later [writer/recovery checkpoint](RUNTIME-GAPS.md) demonstrates queued
+preview replay and two sticky-overlay recovery gaps. The separate V2 planner
+remains inert; none of these preservation checks enables a runtime action.
+
 The earlier attempt refused 54 saved offsets before acquiring a frame. Dropping
 those fields would change state. V2 instead validates an explicit schema from
 the pinned host preview and driver source; a saved file's existence or purported

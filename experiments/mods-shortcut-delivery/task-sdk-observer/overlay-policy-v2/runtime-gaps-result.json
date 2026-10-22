@@ -1,0 +1,171 @@
+{
+  "date": "2026-10-22",
+  "development_base": "0f54637b028b77fd7763d0bb42292317db22625f",
+  "emulator_contact": false,
+  "enabling_manifest_created": false,
+  "inert_planner": {
+    "all_live_dispatch_unconditionally_disabled": true,
+    "checks": 151,
+    "independent_result_identical": true,
+    "inventory_scope": "19 selected task and transport Python source files; not interpreter/stdlib/native closure.",
+    "limits": [
+      "Retained sibling receipts provide bounded uniqueness evidence, not global allocation.",
+      "Proposed scope is not reserved or created.",
+      "No actual host/guest baseline is validated.",
+      "Future loaded/cached runtime module identity remains unproven.",
+      "No ownership arbiter or recovery implementation is supplied."
+    ],
+    "rejection_scenarios": 86,
+    "result_sha256": "2b1f1f26ca2d95dd5d030967471dfce890c936f93f226dac558278859e22da77",
+    "scenarios": 89,
+    "scope_reserved": false,
+    "source_sha256": {
+      "coordinator": "79078f7d4df4d3da894bbb7af7dac1f438a75d82fef35aae621956c075bc8400",
+      "driver": "6f88798ec54785dc2ce9180e5c2839a1a8e8ec370c997bc7f48e8d1cc06e640f",
+      "driver_identity_policy": "8688f0236f0da0d795797787bf16c21e4e0190bbe809cadb5637b15ffa1cecf6",
+      "frozen_local_checks": "9cb75a5315c20a5eccb70a7311a9f015d9205ae847f15fe11a7dbd19b9b77cfe",
+      "host_counter": "4915c7957287bbe18d8687f3fa2e6db44f7a3c3299b46ec0d5034fc94529750d",
+      "input_baseline": "b3cca610f6ff1b715cba9c22dbcbc138dc98ffea40a949ff0792fedb0c5ea7c0",
+      "overlay_policy": "10f0cd0d161862c0b2cefa9cb817e6986261429134be2b88ebc64534969df03c",
+      "preflight": "452e17f09bf87edf3137050ec45bdcef7311c5badc4e04b80af39a711080e381",
+      "preinstall": "b339fa25af71a768483bdefc980a9e3a82b3c208a0341f6117d7a275860b5b87",
+      "prerequisites": "b29cf92ed69b369d5114ef28be65d8b9c789364200ad7a3bddcfbace04d8ac5c",
+      "reference_layout": "bb1182de30ce8d437e7b25d35723f901f1751b31bf59258dce3c35fc3a1e3c7c",
+      "runner": "b9c3eb24cbaa8bc470dee70373daa69e23592edccbd6b2bf7d651e71dfec53c9",
+      "runtime_archive": "9b942bcea956089d2b774748f057917573c8416a5972649d5958a0f55e1a6e8d",
+      "runtime_common": "022c03c0b95bd13836dbc5d745769f3071f2bb84cd207af78664b716138203bb",
+      "startup_empty_predicate": "3d0e4e22d66c2b93d5d2e0ee45d45ecc2d74aea8b081bf1f79775e7d48cca09c",
+      "startup_wait": "c32611ef643ed6164021a258d8fb192c9bb7fc578ab6e35dbb5230a5bf7b9f6f",
+      "status": "500e58fcb3929c2361c27834f45086424959eef55200de4a5a6ff67f16835736",
+      "status_layout": "e47d7c704a5c907b816e76493846438112b261680ee08c4707f30f696fbd5fbb",
+      "transport": "fdc5674f1729fafa3d0f0c48cd3877780e5dddd95b26249c0d0c9ec0334baeb5"
+    },
+    "strict_controls": [
+      {
+        "expected_assertion_failures": 1,
+        "name": "missing-driver-inventory"
+      },
+      {
+        "expected_assertion_failures": 1,
+        "name": "stale-existing-scope"
+      },
+      {
+        "expected_assertion_failures": 1,
+        "name": "changed-frozen-source"
+      },
+      {
+        "expected_assertion_failures": 1,
+        "name": "live-dispatch-removed"
+      }
+    ],
+    "test_sha256": "5b10ab3569f5f47a0c55eb64097c0d7aef58b17a207e36fc8f050a703a5b9b5a"
+  },
+  "next_gate": "Review and implement scoped final-boundary writer/CRC arbitration and queued-generation handback, then stopped overlay/host recovery and guarded restart before any enabled V2 runtime wiring.",
+  "observer_installed": false,
+  "physical_contact": false,
+  "private_artifact_sha256": {
+    "review-overlay-v2/recovery-regression.py": "49c0cdd2c866fc6de5706f6c9918f5df8fee6e8e6f3ac426ecb7d073d6582dd2",
+    "review-overlay-v2/recovery-review.md": "64dc23a7a31a9ef30774e4af1e4c7059d07d3d622a988cc867e13c2e962377b7",
+    "review-runner-v2/README.md": "d98621e2b1c96cf2dd3fab216785cc5c55df9a3ab00482938573dbf6ef19f7cd",
+    "review-runner-v2/run.py": "5b10ab3569f5f47a0c55eb64097c0d7aef58b17a207e36fc8f050a703a5b9b5a",
+    "run_v2.py": "b9c3eb24cbaa8bc470dee70373daa69e23592edccbd6b2bf7d651e71dfec53c9",
+    "runtime_prerequisites_v2.py": "b29cf92ed69b369d5114ef28be65d8b9c789364200ad7a3bddcfbace04d8ac5c"
+  },
+  "recovery": {
+    "behavior_and_harness_checks": 33,
+    "checks": 87,
+    "earlier_41_check_result_retained_sha256": "114454a04810fc3fb438726d80ab14d3f8844951d09e5380cda41a3cf3eb44d7",
+    "findings": {
+      "current_host_success_flags_do_not_prove_overlay_restored": true,
+      "held_overlay_survives_current_restart": true,
+      "neutral_overlay_target_can_differ_restored_host": true,
+      "neutral_release_control_excludes_held_press": true,
+      "paired_neutral_control_excludes_counter_mismatch": true
+    },
+    "fixture_executes_retained_mirror": true,
+    "harness_sha256": "49c0cdd2c866fc6de5706f6c9918f5df8fee6e8e6f3ac426ecb7d073d6582dd2",
+    "independent_result_identical": true,
+    "initial_extraction_failure_retained": true,
+    "inventory_validated_before_fixture_import": true,
+    "kernel_function_sha256": {
+      "crc16_x25": "362ce3e0bfdaa6ef25ef73b8cbad1328410299d473a1471a6f55934fb71640aa",
+      "ctrl_write": "eaa5faa508757d921a80e511f336b0444ccaf74ba55e271189febf4651230e29",
+      "spi_open": "4e138d3dca3387d01aaef59296ad5a7011a4193be41a8e15f207c1a832aa8c3c",
+      "spi_read": "e3f7c5f420f3fb5109acbe085aba51f07bea4d5101c1476483c6115ea6e6fd45",
+      "spi_release": "f5b7d2d1ff81ebf587e7ab79fe000572b26d4306b30c92a7a3849ce42896218f"
+    },
+    "provenance_and_extraction_checks": 54,
+    "result_sha256": "a3df608a1a3568ecb3ee3e61fc8d7e3f08770925028354b7946b89e9eca04c5d",
+    "result_version": 2,
+    "runner_extraction_format": "Exact AST source segment UTF-8 plus one terminal LF",
+    "runner_function_sha256": {
+      "_finish_restoration": "5be49288e40d0f15e4f6d900c84d6c63c5005ca36aa97dc70abb8b657389441f",
+      "while_stopped": "4f64f17c81eac08f2a2ac8ed96dd24b8c159adb5e2d42506007e881d92d41e2a"
+    },
+    "scope": {
+      "empty_and_process_ownership_checks": "mocked",
+      "file_cleanup": "mocked callback only",
+      "guest_restored_receipt_supplied_by_fixture": true,
+      "host_restore": "Actual frozen host helper, real temporary files and receipts",
+      "kernel": "Exact extracted ctrl_write/read/open/release/CRC with serial host usercopy/lock/sleep stubs; not the complete kernel module",
+      "runner_functions_executed": [
+        "while_stopped",
+        "_finish_restoration"
+      ],
+      "runtime_device_network_or_native_execution": false,
+      "startup_service_and_start_fresh": "mocked; no real process",
+      "status_and_driver": "Only require_progress, _knob_get and SPI3_IDLE extracted; complete status.py/driver never imported",
+      "v2_scope_and_locking": "stubbed by the retained fixture; runtime dependency loaders replaced",
+      "whole_restore_executed": false
+    },
+    "source_inventory_sha256": {
+      "flow-beat/experiments/mods-shortcut-delivery/task-sdk-observer/overlay-policy-v2/overlay-policy.py": "10f0cd0d161862c0b2cefa9cb817e6986261429134be2b88ebc64534969df03c",
+      "flow-beat/experiments/mods-shortcut-delivery/task-sdk-observer/private/action_coordinator_v2.py": "79078f7d4df4d3da894bbb7af7dac1f438a75d82fef35aae621956c075bc8400",
+      "flow-beat/experiments/mods-shortcut-delivery/task-sdk-observer/private/action_preflight_v2.py": "452e17f09bf87edf3137050ec45bdcef7311c5badc4e04b80af39a711080e381",
+      "flow-beat/experiments/mods-shortcut-delivery/task-sdk-observer/private/host_counter.py": "4915c7957287bbe18d8687f3fa2e6db44f7a3c3299b46ec0d5034fc94529750d",
+      "flow-beat/experiments/mods-shortcut-delivery/task-sdk-observer/private/preinstall_frame_v2.py": "b339fa25af71a768483bdefc980a9e3a82b3c208a0341f6117d7a275860b5b87",
+      "flow-beat/experiments/mods-shortcut-delivery/task-sdk-observer/private/review-overlay-v2/review-real-host.py": "9215c3fd2fe1f2037446d9100c5931d70ce2de1808326f82217a0e9868a68539",
+      "flow-beat/experiments/mods-shortcut-delivery/task-sdk-observer/private/review-overlay-v2/review.py": "1fda505e12d237e27aa71fd7418250d18fcab08d84a7ceb75cf9789e45564eb9",
+      "flow-beat/experiments/mods-shortcut-delivery/task-sdk-observer/private/run.py": "a6d92061bf526fecf2b9585ec1254aed89d6302249dac9859e28d0cec7b6f28a",
+      "flow-beat/experiments/mods-shortcut-delivery/task-sdk-observer/private/status.py": "500e58fcb3929c2361c27834f45086424959eef55200de4a5a6ff67f16835736",
+      "flow-beat/experiments/mods-shortcut-delivery/task-sdk-observer/verify-input-baseline.py": "8688f0236f0da0d795797787bf16c21e4e0190bbe809cadb5637b15ffa1cecf6",
+      "xdj-az-emu/guest/modules/subucom_virt/subucom_frames.h": "4d9d833e583b7c6a5aa3f12de0fea2b7245e9dac915477ab96b9cfdfa75c2c0b",
+      "xdj-az-emu/guest/modules/subucom_virt/subucom_virt.c": "9631ca05810408eb9cd40cb38fa3f90d8dd2ac1d4d09a2e73d084ea0dbe03654",
+      "xdj-az-emu/tools/az-drive.py": "6f88798ec54785dc2ce9180e5c2839a1a8e8ec370c997bc7f48e8d1cc06e640f"
+    }
+  },
+  "release_created": false,
+  "retained_history": [
+    "Writer audit O_RDONLY anchor and tuple-struct extraction failures preceded fixture execution.",
+    "Recovery extraction failed before C compilation; original 41-check result retained separately.",
+    "Prior preservation/integration and closed compatibility refusal remain unchanged."
+  ],
+  "runtime_dispatch_enabled": false,
+  "runtime_id_selected": false,
+  "runtime_scope_created": false,
+  "schema": 1,
+  "scope": "Offline writer/recovery counterexamples and inert V2 source/scope planning; no runtime operation.",
+  "writer_ownership": {
+    "actual_sender_assertions": 17,
+    "executed_strict_controls": 3,
+    "findings": [
+      "Queued messages survive producer disconnect.",
+      "Cached full frames replay after reconnect.",
+      "Uncertain writes may be attempted again.",
+      "Reviewed sources provide no exclusive overlay/CRC owner."
+    ],
+    "fixture_sha256": "3b8f1207631fa5858f67b0b182ed4fba45e1479b81aa77d4a1b15c3a5c7aaa5e",
+    "independent_result_identical": true,
+    "limits": [
+      "No actual UnixStream, reconnect timing, kernel buffering, Linux access control or native consumption is exercised.",
+      "A fake write error may follow delivery; repeated send proves source retry behavior, not that real transport delivered twice.",
+      "The bounded source inventory is not a census of all installed binaries, arbitrary root commands or future writers.",
+      "No live exclusion/queue drain has been performed, and no runtime gate is opened."
+    ],
+    "result_sha256": "3eeed07dce434e95b2579774b7e87285c01564dcfda3ec54c0f25a72a481b669",
+    "source_files": 13,
+    "static_checks": 58,
+    "static_rejection_controls": 18,
+    "verifier_sha256": "d073d43d72d7dfb21d82662c6116807fa68a9b17c250a390969853ad340b6859"
+  }
+}

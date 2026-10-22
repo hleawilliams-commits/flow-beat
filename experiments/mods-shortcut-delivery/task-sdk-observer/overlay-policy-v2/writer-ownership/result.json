@@ -1,0 +1,85 @@
+{
+  "candidate": {
+    "checks": 17,
+    "failures": [],
+    "stdout_sha256": "fed2d56c771e19d2465e87a0377e78ae0949b4ea5bfffeadadc6d66fbb2c6946"
+  },
+  "executed_controls": {
+    "drop-before-write-note": {
+      "checks": 17,
+      "failures": [
+        "uncertain-write-is-replayed",
+        "uncertain-success-persistence"
+      ],
+      "stdout_sha256": "d1f5e1c7990cb94d4cf4fe494bf5998e5f0bf6017bfed41e7d1741651d1707c0"
+    },
+    "drop-disconnected-latest": {
+      "checks": 17,
+      "failures": [
+        "disconnected-keeps-latest",
+        "disconnected-persists-replay"
+      ],
+      "stdout_sha256": "c32faa7b2dff207f6b59a0d71fea72a8408a91ae66f6c24e19ff20615c98567a"
+    },
+    "skip-replay": {
+      "checks": 17,
+      "failures": [
+        "disconnected-keeps-latest",
+        "uncertain-write-is-replayed"
+      ],
+      "stdout_sha256": "2ba25a2e1a024b6407e6246277185a28943b69af573db06cbc32c0d9194c0ae7"
+    }
+  },
+  "extraction_sha256": {
+    "latest": "1d89b257db9b9dca9c29d25a2fbd8a5324a1e5ed728f511357bf12d9b63e5eff",
+    "sender": "47f4ec848499a245c8ffdb021542e6204c88056adc2739dc05b4d07a216b9b62",
+    "wire": "a2422783ba301706a43c519615b6e1c252a12fbbe5e786136ae3f555e62151e0"
+  },
+  "fixture_source_sha256": "3b8f1207631fa5858f67b0b182ed4fba45e1479b81aa77d4a1b15c3a5c7aaa5e",
+  "limits": [
+    "No actual UnixStream, reconnect timing, kernel buffering, Linux access control or native consumption is exercised.",
+    "A fake write error may follow delivery; repeated send proves source retry behavior, not that real transport delivered twice.",
+    "The bounded source inventory is not a census of all installed binaries, arbitrary root commands or future writers.",
+    "No live exclusion/queue drain has been performed, and no runtime gate is opened."
+  ],
+  "ownership": "No exclusive overlay or CRC lease exists in these sources. Process/socket snapshots and the coordinator lock do not establish writer ownership.",
+  "rustc": "rustc 1.98.1 (48a229cea 2026-09-01) (Homebrew)",
+  "scope": "offline source binding and actual extracted Rust sender with real mpsc queues and fake transport/sleep/log/persistence; no socket, process, emulator or kernel operations",
+  "source_sha256": {
+    "az-preview/src/app.rs": "f6a7bb28c3f2dbce759582ac2c7b1147adf93f5137838a833ed5d35f1834864b",
+    "az-preview/src/boot.rs": "f907da478aa758d4cb2a9f740f529fbe256376230d77635a061a746ce75ec1eb",
+    "az-preview/src/config.rs": "0a1986611ec2642379a42f1f517d8d1decf1764e0cee8ab2f37c3e6c04782992",
+    "az-preview/src/controls.rs": "b9145e4b41439761abbfdec461b854412748af2fe95183fd5843ad34d4298445",
+    "az-preview/src/main.rs": "a13cf052beca509185cb71a56e4196624e0cf6e34d5e62ea43e8fe5f03abecde",
+    "guest/ep122_shim/gpio_inject.c": "2209d984e0cda5195df3a2779fd320d129ba29e38ad21c83cffa5faf56428107",
+    "guest/modules/subucom_virt/subucom_virt.c": "9631ca05810408eb9cd40cb38fa3f90d8dd2ac1d4d09a2e73d084ea0dbe03654",
+    "guest/subucom/forwarder.c": "88ea53aa7a3e0dd022a9b0ca494737cf799eb82b6c56546e076a7493a1879c57",
+    "guest/subucom/live.c": "cbc4a9242a0377a8b2fbec93aed36d59cc5e972f138cb9bcd1200bbe7d8806d4",
+    "initramfs-patch/patch-rootfs.d/11-virtio-stream-services.sh": "8c123e8d0ad2f353c33e45ef4a7ca44b5a390ea98ca042b96246267cf1f848f4",
+    "tools/az-boot-m1.sh": "65b4c3b298c51819ccb6dbed526883bdc9a47ce74e29e096c4eccf1d9b2bc285",
+    "tools/az-drive.py": "6f88798ec54785dc2ce9180e5c2839a1a8e8ec370c997bc7f48e8d1cc06e640f",
+    "tools/azemu.py": "fdc5674f1729fafa3d0f0c48cd3877780e5dddd95b26249c0d0c9ec0334baeb5"
+  },
+  "static_checks_passed": 58,
+  "static_controls": [
+    "source drift az-preview/src/main.rs",
+    "source drift az-preview/src/app.rs",
+    "source drift az-preview/src/boot.rs",
+    "source drift az-preview/src/controls.rs",
+    "source drift az-preview/src/config.rs",
+    "source drift tools/az-drive.py",
+    "source drift tools/azemu.py",
+    "source drift tools/az-boot-m1.sh",
+    "source drift guest/subucom/forwarder.c",
+    "source drift guest/subucom/live.c",
+    "source drift guest/modules/subucom_virt/subucom_virt.c",
+    "source drift initramfs-patch/patch-rootfs.d/11-virtio-stream-services.sh",
+    "source drift guest/ep122_shim/gpio_inject.c",
+    "open semantics",
+    "CRC writability",
+    "CRC dynamic read",
+    "service automatic restart",
+    "forwarding target"
+  ],
+  "static_controls_passed": 18
+}

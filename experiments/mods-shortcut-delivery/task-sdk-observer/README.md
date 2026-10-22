@@ -21,9 +21,12 @@ state checked unchanged. The separate [complete-overlay V2 policy](overlay-polic
 now has source-bound parsing, copied-frame construction and private adapter
 copies; see its [integration checkpoint](overlay-policy-v2/INTEGRATION.md). The
 frozen runtime runner remains unchanged and no enabling source-review manifest
-exists. Competing overlay writers and exact V2 runner/recovery wiring still need
-review before a new run. These checks provide no runtime readiness or native
-task evidence.
+exists. The later [writer/recovery checkpoint](overlay-policy-v2/RUNTIME-GAPS.md)
+now reproduces queued preview replay and sticky-overlay recovery gaps. A separate
+V2 planner checks 19 selected task/transport source files but refuses all live
+dispatch, including recovery. Enforced writer ownership and restoration before
+guarded restart remain prerequisites for a new run. These checks provide no
+runtime readiness or native task evidence.
 
 ## Explicit activation and installation sequence
 
