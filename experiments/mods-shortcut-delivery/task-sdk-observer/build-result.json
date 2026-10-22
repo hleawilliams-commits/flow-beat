@@ -1,0 +1,37 @@
+{
+  "scope": "Unpublished passive SDK adapter ARM64 build and SDK validation; no native hook execution.",
+  "source_sha256": {
+    "Makefile": "024c47a4030240177b1c9e59ea0599f5b62d05b7ea2395bb70bba447f9817bfc",
+    "azmod.json": "38cd93b72be06266d01980184f04ae459c7c83fcf7b6ece1aad85552189ecc34",
+    "mod.c": "051cf4243b0dde46552d55784feed337727094df065ee4c3efd551edbe1f46fc",
+    "observer.cpp": "538574af5f357131e0fa9ec6e26d54cfef0ec2a57f31baddff1e8e5bc7c134ed",
+    "icon.png": "ac95f840f374259f6c9f54d1aa8929b471ed2756bdd1d3f3a3424bcddde015e7",
+    "LICENSE": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+    "frozen-inputs.json": "279af36479876cefc2a6ad7b7357ad46bc9c6ce3ed54293680fb020bbcc36c9a",
+    "abi/submission-entry.S": "16c7df29fef3c80fcd5f6259d4073abf92fd57471bc203c39f3853a0709d06c8",
+    "abi/executor-entry.S": "31aef2512c9b0ba35223e640eba0a962fd2fd493e7a9988afee51d387f58ea62",
+    "deps/task-capture-contract/capture.h": "aa9b82311065fa3481cda29883f6dae40d1685c213d520271e1f4530039291ea",
+    "deps/task-value-transport/transport.h": "3f2a0b902a6fae0ab425be570bda3904ac5e99203415457aa7ced059d5061d55",
+    "deps/task-call-return-abi/context.h": "c8ebf02fcaa1eb986ab59ee6516dfbaa8b9f6a6c13db211661c658e3cc6acc07",
+    "build.py": "0c347a235b180a84e22c1ea0e694ef00872279f5bc4317637634ca3cefe4c522"
+  },
+  "sdk_commit": "6563e8e657a4ef113696de9d0f9327a6c8d0fab7",
+  "sdk_source_sha256": {
+    "include/azmod-mod.h": "b94e2ba6656c2b852f18691d32225486f29265953c8bf09dcac9a18ce561a630",
+    "tools/azmod-pack": "dce2b91b0888f1c3dd0335811f499c7fed0d1dec41598b84de3d674b791df579",
+    "tools/azmod_pack.py": "e8ab6a1b693966e4731a9d3a8078e1404125cc6c8e2b3cd9e4be4ccf31a913c8"
+  },
+  "image": "az-mods-sdk:1",
+  "image_id": "sha256:c96cac5682604faf32417c92f391ec233faec98d5e05d0de29f1bac0cfd2053e",
+  "platform": "linux/arm64",
+  "network": "none",
+  "private_run_id": "build-34bea645-2604-48e3-8094-7644561e1d42",
+  "binary_sha256": "71d7fc088f4def67d1307e4faeef301020aed04bfa3da7ae4bc6a422ece3e255",
+  "dynamic_atomic_imports": [],
+  "sdk_validation_passed": true,
+  "build_log_sha256": "fcbbc97a90933b703341b10a81fb36c390444e9eaad0662b23aa842fd6d62e84",
+  "emulator_installation": false,
+  "physical_access": false,
+  "package_published": false,
+  "binary_included": false
+}

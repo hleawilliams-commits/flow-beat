@@ -1,0 +1,381 @@
+{
+  "boundaries": {
+    "execution": {
+      "actual_claim_attempted": false,
+      "body_sha256": "482b8337cf92d2d8e43baee7f0476d662653cba984cfe0f206c49b1bcce2fddb",
+      "entry": "0x1b029c0",
+      "fde_extent": "0x104",
+      "original_caller_lr": "0x237d800",
+      "prologue_sha256": "a0c5656285ed803b0aeaf6d1ae5959f59fde1dfd22b9a076591a30874ab1893a",
+      "retained_policy_allows_first_four": true,
+      "slot": "0x2d444e8"
+    },
+    "submission": {
+      "actual_claim_attempted": false,
+      "body_sha256": "d5861b114788f1d459c3104bedfeaaf3fc0ce0be5e80aa38c7cd909bf77d2af0",
+      "entry": "0x237a440",
+      "fde_extent": "0x38",
+      "original_caller_lr": "0x1b01e04",
+      "prologue_sha256": "d3046c2e2989861ced6d6cd27c895147149cafef79e2902b8dc5990b5cae466e",
+      "retained_policy_allows_first_four": true,
+      "slot": "0x321b138"
+    }
+  },
+  "check_labels": [
+    "exact firmware SHA256",
+    "64-bit little-endian ARM64 executable",
+    "FDE 0x237a440",
+    "body SHA256 0x237a440",
+    "executable file-backed body 0x237a440",
+    "complete instruction decoding 0x237a440",
+    "FDE 0x1b029c0",
+    "body SHA256 0x1b029c0",
+    "executable file-backed body 0x1b029c0",
+    "complete instruction decoding 0x1b029c0",
+    "FDE 0x1b01cf8",
+    "body SHA256 0x1b01cf8",
+    "executable file-backed body 0x1b01cf8",
+    "complete instruction decoding 0x1b01cf8",
+    "FDE 0x237d4f0",
+    "body SHA256 0x237d4f0",
+    "executable file-backed body 0x237d4f0",
+    "complete instruction decoding 0x237d4f0",
+    "FDE 0x1b00d20",
+    "body SHA256 0x1b00d20",
+    "executable file-backed body 0x1b00d20",
+    "complete instruction decoding 0x1b00d20",
+    "instruction block timer_vptr",
+    "instruction block submission_first_four",
+    "instruction block submission_forward",
+    "instruction block submission_selects_slot",
+    "instruction block task_vptr_page",
+    "instruction block task_constructs_vptr_and_fields",
+    "instruction block submission_caller",
+    "instruction block execution_first_four",
+    "instruction block execution_caller",
+    "data word 0x321b100",
+    "data word 0x321b138",
+    "data word 0x2d444d0",
+    "data word 0x2d444d8",
+    "data word 0x2d444e8",
+    "RTTI 0x321add8",
+    "RTTI 0x2d44450",
+    "complete two-boundary firmware binding",
+    "immutable reference route-task-ownership/static-result.json",
+    "immutable reference route-task-ownership/taskbox-result.json",
+    "immutable reference task-observer-integration/test-result.json",
+    "immutable reference task-observer-integration/independent-result.json",
+    "retained unchanged prologue policy submission",
+    "retained unchanged prologue policy execution",
+    "retained policy exact firmware/upstream",
+    "corrected prior ARM64 integration evidence",
+    "independent corrected ABI source and object review",
+    "copied-source base commit",
+    "copied source identity abi/submission-entry.S",
+    "frozen-input declaration abi/submission-entry.S",
+    "reference commit identity abi/submission-entry.S",
+    "copied source identity abi/executor-entry.S",
+    "frozen-input declaration abi/executor-entry.S",
+    "reference commit identity abi/executor-entry.S",
+    "copied source identity deps/task-capture-contract/capture.h",
+    "frozen-input declaration deps/task-capture-contract/capture.h",
+    "reference commit identity deps/task-capture-contract/capture.h",
+    "copied source identity deps/task-value-transport/transport.h",
+    "frozen-input declaration deps/task-value-transport/transport.h",
+    "reference commit identity deps/task-value-transport/transport.h",
+    "copied source identity deps/task-call-return-abi/context.h",
+    "frozen-input declaration deps/task-call-return-abi/context.h",
+    "reference commit identity deps/task-call-return-abi/context.h",
+    "complete reused wrapper ABI source identity and setup",
+    "capture header exact caller and type constants",
+    "actual adapter constants match exact firmware binding",
+    "unique module and exact firmware names",
+    "uses actual copied transport and context headers",
+    "permanent aligned submission original slot",
+    "permanent aligned execution original slot",
+    "runtime compatibility reads both slots and four words per entry",
+    "explicit emulator opt-in and externally supplied run scope",
+    "exact firmware compatibility before static native reads",
+    "claims use each permanent wrapper original slot directly",
+    "static compatibility and fallible worker setup precede claims",
+    "transport is published before claims and starts after both",
+    "Ready release transition cannot overwrite a failed installer",
+    "transport storage is static and constructed once before publication",
+    "capture readiness checked with acquire before caller and native reads",
+    "capture exact original caller LR is not remapped",
+    "before helper has exact four-argument native-width ABI",
+    "after helper has pointer-free context and full-x0 ABI",
+    "executor helper has exact task-plus-original-LR ABI",
+    "submission before copies private 64-byte value context",
+    "executor observes only its one input and incoming LR",
+    "after consumes private context and full native return only",
+    "context and payload field offsets are asserted",
+    "no helper-side native forwarding or navigation calls",
+    "manifest unique unpublished observer identity",
+    "C module exact identity and firmware tag",
+    "C module only init/tick adapter callbacks",
+    "build includes both unchanged ABI files",
+    "build retains exception/unwind metadata and hides exports",
+    "production build does not enable test seams",
+    "all bound module inputs unchanged during verification"
+  ],
+  "checks": 96,
+  "copied_source_sha256": {
+    "abi/executor-entry.S": "31aef2512c9b0ba35223e640eba0a962fd2fd493e7a9988afee51d387f58ea62",
+    "abi/submission-entry.S": "16c7df29fef3c80fcd5f6259d4073abf92fd57471bc203c39f3853a0709d06c8",
+    "deps/task-call-return-abi/context.h": "c8ebf02fcaa1eb986ab59ee6516dfbaa8b9f6a6c13db211661c658e3cc6acc07",
+    "deps/task-capture-contract/capture.h": "aa9b82311065fa3481cda29883f6dae40d1685c213d520271e1f4530039291ea",
+    "deps/task-value-transport/transport.h": "3f2a0b902a6fae0ab425be570bda3904ac5e99203415457aa7ced059d5061d55"
+  },
+  "data_word_anchors": 5,
+  "execution_abi": "one incoming x0 task; helper receives original LR in x1; original SP/LR tail-forwarding; no result meaning",
+  "firmware_sha256": "6577f42532375936c7e3fa830efa35b7daa9cde8e0a265c1fc7143f824321925",
+  "immutable_references": {
+    "route-task-ownership/static-result.json": "836ee5ee84b9c6ef856ced03007167ce86a2176e6bd8fafdbb64a441aeb0abcf",
+    "route-task-ownership/taskbox-result.json": "8fb7bce8fa2881a860365b0d8a90c00c2f5a8a276422048035968ab0d079cc46",
+    "task-observer-integration/independent-result.json": "bfc4d8391273684e3277ed3134c960304f741fabbcf6558663a0c1a2c97ea054",
+    "task-observer-integration/test-result.json": "79a7957cf9fd99296ac62d73b0758c0bba8bbe07c916c17c8fdd10d457b0f036"
+  },
+  "instruction_anchors": 44,
+  "limits": [
+    "Source-shape checks and exact hashes are not whole-program verification",
+    "Caller/type matching is a rejection filter, not native memory validity or retained lifetime",
+    "Static slot targets do not establish the current live receiver or installed hook ownership",
+    "Prior policy acceptance does not establish island allocation, original publication or live claim success",
+    "Synthetic ABI evidence does not prove installed trampoline/asynchronous unwind or teardown",
+    "Normal submission return, executor entry and missing records do not prove admission/completion/cancellation",
+    "No firmware, emulator, device, native call, hook claim, package publication or prior-suite execution"
+  ],
+  "prior_abi_suite_rerun": false,
+  "prior_hook_policy_suite_rerun": false,
+  "reference_commit": "5b0f5f3ee1b92682c3a3db51fc97f58050187ff2",
+  "result": "PASS",
+  "rtti_anchors": 2,
+  "scope": "Exact-firmware/static adapter binding only; no claim or runtime execution",
+  "source_sha256": {
+    "Makefile": "024c47a4030240177b1c9e59ea0599f5b62d05b7ea2395bb70bba447f9817bfc",
+    "abi/executor-entry.S": "31aef2512c9b0ba35223e640eba0a962fd2fd493e7a9988afee51d387f58ea62",
+    "abi/submission-entry.S": "16c7df29fef3c80fcd5f6259d4073abf92fd57471bc203c39f3853a0709d06c8",
+    "azmod.json": "38cd93b72be06266d01980184f04ae459c7c83fcf7b6ece1aad85552189ecc34",
+    "deps/task-call-return-abi/context.h": "c8ebf02fcaa1eb986ab59ee6516dfbaa8b9f6a6c13db211661c658e3cc6acc07",
+    "deps/task-capture-contract/capture.h": "aa9b82311065fa3481cda29883f6dae40d1685c213d520271e1f4530039291ea",
+    "deps/task-value-transport/transport.h": "3f2a0b902a6fae0ab425be570bda3904ac5e99203415457aa7ced059d5061d55",
+    "frozen-inputs.json": "279af36479876cefc2a6ad7b7357ad46bc9c6ce3ed54293680fb020bbcc36c9a",
+    "mod.c": "051cf4243b0dde46552d55784feed337727094df065ee4c3efd551edbe1f46fc",
+    "observer.cpp": "538574af5f357131e0fa9ec6e26d54cfef0ec2a57f31baddff1e8e5bc7c134ed",
+    "verify-boundary.py": "399f19937e9c0b74a64c00579fd5579d738fb3d6e1e7bf9ac04476c72f2ef072"
+  },
+  "strict_rejection_control_count": 52,
+  "strict_rejection_controls": [
+    {
+      "name": "wrong submission entry",
+      "rejected_by": "entry identity"
+    },
+    {
+      "name": "wrong execution entry",
+      "rejected_by": "entry identity"
+    },
+    {
+      "name": "wrong submission slot",
+      "rejected_by": "slot identity"
+    },
+    {
+      "name": "wrong execution slot",
+      "rejected_by": "slot identity"
+    },
+    {
+      "name": "wrong submission LR",
+      "rejected_by": "caller LR identity"
+    },
+    {
+      "name": "wrong execution LR",
+      "rejected_by": "caller LR identity"
+    },
+    {
+      "name": "wrong task vptr",
+      "rejected_by": "task vptr identity"
+    },
+    {
+      "name": "wrong expected submission prologue",
+      "rejected_by": "expected prologue words"
+    },
+    {
+      "name": "wrong submission extent",
+      "rejected_by": "FDE entry/extent"
+    },
+    {
+      "name": "submission actual prologue word 0",
+      "rejected_by": "actual prologue words"
+    },
+    {
+      "name": "submission actual prologue word 1",
+      "rejected_by": "actual prologue words"
+    },
+    {
+      "name": "submission actual prologue word 2",
+      "rejected_by": "actual prologue words"
+    },
+    {
+      "name": "submission actual prologue word 3",
+      "rejected_by": "actual prologue words"
+    },
+    {
+      "name": "submission actual slot target",
+      "rejected_by": "actual slot target"
+    },
+    {
+      "name": "submission actual caller BLR",
+      "rejected_by": "submission caller BLR"
+    },
+    {
+      "name": "wrong expected execution prologue",
+      "rejected_by": "expected prologue words"
+    },
+    {
+      "name": "wrong execution extent",
+      "rejected_by": "FDE entry/extent"
+    },
+    {
+      "name": "execution actual prologue word 0",
+      "rejected_by": "actual prologue words"
+    },
+    {
+      "name": "execution actual prologue word 1",
+      "rejected_by": "actual prologue words"
+    },
+    {
+      "name": "execution actual prologue word 2",
+      "rejected_by": "actual prologue words"
+    },
+    {
+      "name": "execution actual prologue word 3",
+      "rejected_by": "actual prologue words"
+    },
+    {
+      "name": "execution actual slot target",
+      "rejected_by": "actual slot target"
+    },
+    {
+      "name": "execution actual caller BLR",
+      "rejected_by": "execution caller BLR"
+    },
+    {
+      "name": "wrong submission original LR register",
+      "rejected_by": "submission helper ABI setup"
+    },
+    {
+      "name": "wrong submission native input transfer",
+      "rejected_by": "submission helper ABI setup"
+    },
+    {
+      "name": "truncated full-x0 after input",
+      "rejected_by": "full-width value-only after ABI setup"
+    },
+    {
+      "name": "wrong executor LR register",
+      "rejected_by": "one-input executor plus LR ABI setup"
+    },
+    {
+      "name": "wrong executor frame restoration",
+      "rejected_by": "executor original LR/SP restoration"
+    },
+    {
+      "name": "wrong executor original transfer",
+      "rejected_by": "executor original tail forwarding"
+    },
+    {
+      "name": "missing submission LR CFI",
+      "rejected_by": "submission CFI setup"
+    },
+    {
+      "name": "missing executor LR CFI",
+      "rejected_by": "executor CFI setup"
+    },
+    {
+      "name": "wrong copied capture constant 0x1b01e04",
+      "rejected_by": "capture caller/vptr constants"
+    },
+    {
+      "name": "wrong copied capture constant 0x237d800",
+      "rejected_by": "capture caller/vptr constants"
+    },
+    {
+      "name": "wrong copied capture constant 0x2d444d8",
+      "rejected_by": "capture caller/vptr constants"
+    },
+    {
+      "name": "adapter submission entry",
+      "rejected_by": "entry identity"
+    },
+    {
+      "name": "adapter executor entry",
+      "rejected_by": "entry identity"
+    },
+    {
+      "name": "adapter submission slot",
+      "rejected_by": "slot identity"
+    },
+    {
+      "name": "adapter executor slot",
+      "rejected_by": "slot identity"
+    },
+    {
+      "name": "adapter submission prologue",
+      "rejected_by": "expected prologue words"
+    },
+    {
+      "name": "adapter executor prologue",
+      "rejected_by": "expected prologue words"
+    },
+    {
+      "name": "temporary submission original",
+      "rejected_by": "claims use each permanent wrapper original slot directly"
+    },
+    {
+      "name": "temporary execution original",
+      "rejected_by": "claims use each permanent wrapper original slot directly"
+    },
+    {
+      "name": "skip runtime prologue comparison",
+      "rejected_by": "runtime compatibility reads both slots and four words per entry"
+    },
+    {
+      "name": "invert caller filter",
+      "rejected_by": "capture exact original caller LR is not remapped"
+    },
+    {
+      "name": "narrow before helper caller",
+      "rejected_by": "before helper has exact four-argument native-width ABI"
+    },
+    {
+      "name": "narrow after helper result",
+      "rejected_by": "after helper has pointer-free context and full-x0 ABI"
+    },
+    {
+      "name": "narrow executor helper caller",
+      "rejected_by": "executor helper has exact task-plus-original-LR ABI"
+    },
+    {
+      "name": "wrong before phase",
+      "rejected_by": "submission before copies private 64-byte value context"
+    },
+    {
+      "name": "wrong executor phase",
+      "rejected_by": "executor observes only its one input and incoming LR"
+    },
+    {
+      "name": "overwrite failed readiness",
+      "rejected_by": "Ready release transition cannot overwrite a failed installer"
+    },
+    {
+      "name": "suppress reserved late return",
+      "rejected_by": "after consumes private context and full native return only"
+    },
+    {
+      "name": "truncate adapter after result",
+      "rejected_by": "after consumes private context and full native return only"
+    }
+  ],
+  "submission_abi": "x0 box, x1 task; full x0 native result; private 64B before context; normal-return after only",
+  "task_vptr": "0x2d444d8"
+}

@@ -1,0 +1,25 @@
+{
+  "base_commit": "5b0f5f3ee1b92682c3a3db51fc97f58050187ff2",
+  "files": {
+    "deps/task-capture-contract/capture.h": {
+      "source": "experiments/mods-shortcut-delivery/task-capture-contract/capture.h",
+      "sha256": "aa9b82311065fa3481cda29883f6dae40d1685c213d520271e1f4530039291ea"
+    },
+    "deps/task-value-transport/transport.h": {
+      "source": "experiments/mods-shortcut-delivery/task-value-transport/transport.h",
+      "sha256": "3f2a0b902a6fae0ab425be570bda3904ac5e99203415457aa7ced059d5061d55"
+    },
+    "deps/task-call-return-abi/context.h": {
+      "source": "experiments/mods-shortcut-delivery/task-call-return-abi/context.h",
+      "sha256": "c8ebf02fcaa1eb986ab59ee6516dfbaa8b9f6a6c13db211661c658e3cc6acc07"
+    },
+    "abi/submission-entry.S": {
+      "source": "experiments/mods-shortcut-delivery/task-observer-integration/submission-entry.S",
+      "sha256": "16c7df29fef3c80fcd5f6259d4073abf92fd57471bc203c39f3853a0709d06c8"
+    },
+    "abi/executor-entry.S": {
+      "source": "experiments/mods-shortcut-delivery/task-observer-integration/executor-entry.S",
+      "sha256": "31aef2512c9b0ba35223e640eba0a962fd2fd493e7a9988afee51d387f58ea62"
+    }
+  }
+}

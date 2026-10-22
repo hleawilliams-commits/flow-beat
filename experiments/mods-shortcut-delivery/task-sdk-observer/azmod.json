@@ -1,0 +1,16 @@
+{
+  "azmod": 1,
+  "id": "encoder-task-observer",
+  "name": "Encoder Task Observer",
+  "version": "0.0.1",
+  "author": "hleawilliams-commits",
+  "summary": "Unpublished emulator-only passive task value observer.",
+  "description": "Exact-firmware experiment with separately copied submission, normal-return and executor-entry values. Bounded immutable storage; no native input edits, navigation, automatic joins or completion claims. Explicit emulator opt-in required.",
+  "category": "tools",
+  "license": "GPL-3.0-only",
+  "source": "https://github.com/hleawilliams-commits/flow-beat/tree/codex/az-mods-handoff-2026-10-16/experiments/mods-shortcut-delivery/task-sdk-observer",
+  "api": 1,
+  "firmware": ["ep147-9e9454e357389ece"],
+  "hooks": true,
+  "min_core": "1.2.3"
+}

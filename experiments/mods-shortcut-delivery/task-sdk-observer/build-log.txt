@@ -1,0 +1,12 @@
+aarch64
+g++ (Ubuntu/Linaro 7.5.0-3ubuntu1~18.04) 7.5.0
+make: Entering directory '/src'
+gcc -O2 -Wall -Wextra -Werror -fPIC -fvisibility=hidden -fno-omit-frame-pointer -fexceptions -fasynchronous-unwind-tables -I/sdk-include -c mod.c -o /out/obj/mod.c.o
+g++ -O2 -Wall -Wextra -Werror -fPIC -fvisibility=hidden -fno-omit-frame-pointer -fexceptions -fasynchronous-unwind-tables -I/sdk-include -std=c++17 -fvisibility-inlines-hidden -c observer.cpp -o /out/obj/observer.cpp.o
+gcc -O2 -Wall -Wextra -Werror -fPIC -fvisibility=hidden -fno-omit-frame-pointer -fexceptions -fasynchronous-unwind-tables -I/sdk-include -c abi/submission-entry.S -o /out/obj/abi/submission-entry.S.o
+gcc -O2 -Wall -Wextra -Werror -fPIC -fvisibility=hidden -fno-omit-frame-pointer -fexceptions -fasynchronous-unwind-tables -I/sdk-include -c abi/executor-entry.S -o /out/obj/abi/executor-entry.S.o
+printf '{ global: az_mod_v1_entry; local: *; };\n' > /out/exports.map
+g++ -shared -Wl,--no-undefined -Wl,--hash-style=gnu \
+  -Wl,--version-script=/out/exports.map -o /out/encoder-task-observer.so /out/obj/mod.c.o /out/obj/observer.cpp.o /out/obj/abi/submission-entry.S.o /out/obj/abi/executor-entry.S.o -lpthread -lm
+make: Leaving directory '/src'
+validate <VALIDATION>: OK

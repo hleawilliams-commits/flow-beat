@@ -1,0 +1,802 @@
+{
+  "scope": "Actual adapter C++ source, mocked SDK/static memory/TID/sleep/log and direct helper entry, one process per init scenario. No native wrapper execution, firmware/device access, timing or installed-hook/lifetime proof.",
+  "base_commit": "5b0f5f3ee1b92682c3a3db51fc97f58050187ff2",
+  "upstream_commit": "3e0c5cb010454228f4ee63226b60d060494eeaae",
+  "sdk_header_sha256": "b94e2ba6656c2b852f18691d32225486f29265953c8bf09dcac9a18ce561a630",
+  "source_sha256": {
+    "observer.cpp": "538574af5f357131e0fa9ec6e26d54cfef0ec2a57f31baddff1e8e5bc7c134ed",
+    "mod.c": "051cf4243b0dde46552d55784feed337727094df065ee4c3efd551edbe1f46fc",
+    "tests/test_observer.cpp": "37ee052ea274a90646becda9ee1a10eee92f3c57c2b3757a5d65e7a5b1beea18",
+    "tests/run-tests.py": "0a1f31224e06025e444d02c705e4d93a801decc8c4785b40f931de128195aa1f",
+    "deps/task-capture-contract/capture.h": "aa9b82311065fa3481cda29883f6dae40d1685c213d520271e1f4530039291ea",
+    "deps/task-value-transport/transport.h": "3f2a0b902a6fae0ab425be570bda3904ac5e99203415457aa7ced059d5061d55",
+    "deps/task-call-return-abi/context.h": "c8ebf02fcaa1eb986ab59ee6516dfbaa8b9f6a6c13db211661c658e3cc6acc07",
+    "abi/submission-entry.S": "16c7df29fef3c80fcd5f6259d4073abf92fd57471bc203c39f3853a0709d06c8",
+    "abi/executor-entry.S": "31aef2512c9b0ba35223e640eba0a962fd2fd493e7a9988afee51d387f58ea62"
+  },
+  "modes": {
+    "plain": {
+      "assertions": 660,
+      "scenarios": {
+        "env-missing": {
+          "checks": 9,
+          "failures": [],
+          "output_sha256": "3ba32bc7f16e2f0a635c69beb18bb43808aee07fe8440d500a4a2d125235f8b3"
+        },
+        "env-wrong": {
+          "checks": 9,
+          "failures": [],
+          "output_sha256": "63e9051d8eb6b0513f5672ffc419de5dfe388c8298730ff56aaabd2f295e51eb"
+        },
+        "run-zero": {
+          "checks": 9,
+          "failures": [],
+          "output_sha256": "533be13f2a442ba6683a72cea6dc11a9765f1e49c3a662865962479c670ca578"
+        },
+        "run-sign": {
+          "checks": 9,
+          "failures": [],
+          "output_sha256": "dc6282a81aa5b6eae25d0a8b2c24f32116a5cb7fced8e6c3e83edec5802366a7"
+        },
+        "run-space": {
+          "checks": 9,
+          "failures": [],
+          "output_sha256": "9a0de6c192c777e256b257192c57d39c4ade3b285138f0c96a376e3ff980a2e6"
+        },
+        "run-tail": {
+          "checks": 9,
+          "failures": [],
+          "output_sha256": "1954aa41163eedc6c776337c1b13a419bcdce8667a648fbb0972534227d700d0"
+        },
+        "run-overflow": {
+          "checks": 9,
+          "failures": [],
+          "output_sha256": "c7e15ef9d4f6e33c57304295005ea8de1bd265716568c73ff7ccfbaba64b3292"
+        },
+        "run-long": {
+          "checks": 9,
+          "failures": [],
+          "output_sha256": "f2017c7d83965fae04763b4fc15f89afddafad29391aba070606cc156e9cfb44"
+        },
+        "sdk-null-core": {
+          "checks": 9,
+          "failures": [],
+          "output_sha256": "22336312eda88b6e30d5baad3d0df5ed0e0c8277455c356287d0188ebe85f34f"
+        },
+        "sdk-abi": {
+          "checks": 9,
+          "failures": [],
+          "output_sha256": "5307860ca81f41f9c78a1d28f9468788d491e028300418126dd7143772ee680a"
+        },
+        "sdk-null-fw": {
+          "checks": 9,
+          "failures": [],
+          "output_sha256": "c53c17f1cf080c4cba772d8971d0105bf16575af8e4c8413f57d56746dc897e5"
+        },
+        "sdk-null-claim": {
+          "checks": 9,
+          "failures": [],
+          "output_sha256": "bf4fccca7fe7c60772b56e23f3367e1a1bd9c690bb47d5cb7377afcbf7d7d79c"
+        },
+        "sdk-null-thread": {
+          "checks": 9,
+          "failures": [],
+          "output_sha256": "bd727cd12cb2cd8d46107a268c0f1b6a6945d848346696e0661ff73abe31529d"
+        },
+        "sdk-negative": {
+          "checks": 9,
+          "failures": [],
+          "output_sha256": "ca392c0216e3d36a2cd6af65a73f4100eb61a4cf316f2441b495ac1caf865831"
+        },
+        "sdk-short": {
+          "checks": 9,
+          "failures": [],
+          "output_sha256": "eccb0269d847058efe16bb51bff3b431f1fc19327f4964392534752498d3af42"
+        },
+        "sdk-null-log": {
+          "checks": 9,
+          "failures": [],
+          "output_sha256": "71f0b0b72a10d1644626cdc0e3a3f0d9317c3c1516b42758625696239052f676"
+        },
+        "firmware-null": {
+          "checks": 9,
+          "failures": [],
+          "output_sha256": "47904163f9a7f021c0951df81888b3025064f39975dd17d15cbe84c798d7baad"
+        },
+        "firmware-wrong": {
+          "checks": 9,
+          "failures": [],
+          "output_sha256": "3b8f810bf2adc5d1e0c4bfbb1b5b19e45c440c441dea436db019896302192b7d"
+        },
+        "static-1": {
+          "checks": 9,
+          "failures": [],
+          "output_sha256": "99516a102e097cf272880a2ab5bbb60e45e35670339b85aa8539cfdfdda5a9d3"
+        },
+        "static-2": {
+          "checks": 9,
+          "failures": [],
+          "output_sha256": "9fbce9db3c06d56c9b1eab10ae711ea72aa3e439e30d01d7aeedbd70b48f1697"
+        },
+        "static-3": {
+          "checks": 9,
+          "failures": [],
+          "output_sha256": "5a45d216723bf04d58ac720e538a99d637b67e2ad1fec55406f3c8bc940a7a16"
+        },
+        "static-4": {
+          "checks": 9,
+          "failures": [],
+          "output_sha256": "b947666749827038ac1a25e08f7cff6278970493046a8239b7ef6d8b8224a178"
+        },
+        "thread-failure": {
+          "checks": 12,
+          "failures": [],
+          "output_sha256": "d494a00f83dde162224da9329dae6a7d03e0200b6cc2b0984cbb6ebcd6adf9cd"
+        },
+        "thread-fatal": {
+          "checks": 12,
+          "failures": [],
+          "output_sha256": "266b6639da3f693835ec46460dbe44ee721325bb200904fc3179c49f82b95d08"
+        },
+        "first-failure": {
+          "checks": 16,
+          "failures": [],
+          "output_sha256": "27b5b14a4aa2d4e6204f1ab4c02533fb431c5fc79565a5bd0a7f2f4fafcdd367"
+        },
+        "second-failure": {
+          "checks": 23,
+          "failures": [],
+          "output_sha256": "365e26dbcd9d0fd41ed436f0d99b8fca6730e2f9f64ad072af403964f0fce38b"
+        },
+        "first-empty": {
+          "checks": 18,
+          "failures": [],
+          "output_sha256": "9aae933b1795813604e7aeeed98a6210af8f9c89c3c33a42f6a9ecc23c40ea10"
+        },
+        "second-empty": {
+          "checks": 25,
+          "failures": [],
+          "output_sha256": "617b2a4beb68865478240fc2158f1090ee524bac27b5879fd91210fb362f3081"
+        },
+        "first-worker-fatal": {
+          "checks": 19,
+          "failures": [],
+          "output_sha256": "b53a05e61592194a9f3d112f65b705ca9ea00783a1303dbeb7c3c7c1649a4ad1"
+        },
+        "second-worker-fatal": {
+          "checks": 26,
+          "failures": [],
+          "output_sha256": "3d4138b305ac7e3c144aac17fcf2281250ba7ce0065cc64cc188473d38301898"
+        },
+        "gates": {
+          "checks": 32,
+          "failures": [],
+          "output_sha256": "1e2d4bac23b8032748a86ba4c2117a976f778201e9e39d61f752fe13e3eab4ab"
+        },
+        "worker": {
+          "checks": 35,
+          "failures": [],
+          "output_sha256": "d4fe8744575a14b954f6b234062795be7387b635ccaf02dcf93bbfc80935687d"
+        },
+        "suppressed-log": {
+          "checks": 30,
+          "failures": [],
+          "output_sha256": "caafe17caa8ee214ad4dc10c9a5ecaabc919208f4b2d0d339611c8374217b03d"
+        },
+        "budget": {
+          "checks": 23,
+          "failures": [],
+          "output_sha256": "bb34b2fcfc9b03471bd7f628dd6345c61489d67e9726e5b3edc66e03ae6ae9f7"
+        },
+        "fatal-worker": {
+          "checks": 24,
+          "failures": [],
+          "output_sha256": "2834259272efcdf58104241302e493b7265863dc7dfa2e44441a2533efb71849"
+        },
+        "logging-limits": {
+          "checks": 26,
+          "failures": [],
+          "output_sha256": "f3ac7756b4c9cb301e431bc521c2ca4c8dc5c6572ea10a2a7b1b2cad8f3ce45a"
+        },
+        "reentry": {
+          "checks": 28,
+          "failures": [],
+          "output_sha256": "57b87f688e061c07c5f4657a38dfa84d17a6fb4fcdab87d16ceb898999cf94f2"
+        },
+        "hole": {
+          "checks": 24,
+          "failures": [],
+          "output_sha256": "31b97ca8fead9321f09479ce0aa2800b70b846dcb4645a8824aaa652fb349ba9"
+        },
+        "concurrent": {
+          "checks": 32,
+          "failures": [],
+          "output_sha256": "7b472b42ccb272967cabde777aa5384647a32dbf2052b45a9ab8cfc0994f94af"
+        },
+        "unmap": {
+          "checks": 25,
+          "failures": [],
+          "output_sha256": "c878081b046b568a5e4eb18cb7ca9c00d77c970a52f27eb68022779137cff6a4"
+        },
+        "run-max-valid": {
+          "checks": 32,
+          "failures": [],
+          "output_sha256": "ed8a738e7d73ef59da71f54f3fda27ceadaa4b36d1290dfef5ddbc196e9036d9"
+        }
+      }
+    },
+    "asan-ubsan": {
+      "assertions": 660,
+      "scenarios": {
+        "env-missing": {
+          "checks": 9,
+          "failures": [],
+          "output_sha256": "3ba32bc7f16e2f0a635c69beb18bb43808aee07fe8440d500a4a2d125235f8b3"
+        },
+        "env-wrong": {
+          "checks": 9,
+          "failures": [],
+          "output_sha256": "63e9051d8eb6b0513f5672ffc419de5dfe388c8298730ff56aaabd2f295e51eb"
+        },
+        "run-zero": {
+          "checks": 9,
+          "failures": [],
+          "output_sha256": "533be13f2a442ba6683a72cea6dc11a9765f1e49c3a662865962479c670ca578"
+        },
+        "run-sign": {
+          "checks": 9,
+          "failures": [],
+          "output_sha256": "dc6282a81aa5b6eae25d0a8b2c24f32116a5cb7fced8e6c3e83edec5802366a7"
+        },
+        "run-space": {
+          "checks": 9,
+          "failures": [],
+          "output_sha256": "9a0de6c192c777e256b257192c57d39c4ade3b285138f0c96a376e3ff980a2e6"
+        },
+        "run-tail": {
+          "checks": 9,
+          "failures": [],
+          "output_sha256": "1954aa41163eedc6c776337c1b13a419bcdce8667a648fbb0972534227d700d0"
+        },
+        "run-overflow": {
+          "checks": 9,
+          "failures": [],
+          "output_sha256": "c7e15ef9d4f6e33c57304295005ea8de1bd265716568c73ff7ccfbaba64b3292"
+        },
+        "run-long": {
+          "checks": 9,
+          "failures": [],
+          "output_sha256": "f2017c7d83965fae04763b4fc15f89afddafad29391aba070606cc156e9cfb44"
+        },
+        "sdk-null-core": {
+          "checks": 9,
+          "failures": [],
+          "output_sha256": "22336312eda88b6e30d5baad3d0df5ed0e0c8277455c356287d0188ebe85f34f"
+        },
+        "sdk-abi": {
+          "checks": 9,
+          "failures": [],
+          "output_sha256": "5307860ca81f41f9c78a1d28f9468788d491e028300418126dd7143772ee680a"
+        },
+        "sdk-null-fw": {
+          "checks": 9,
+          "failures": [],
+          "output_sha256": "c53c17f1cf080c4cba772d8971d0105bf16575af8e4c8413f57d56746dc897e5"
+        },
+        "sdk-null-claim": {
+          "checks": 9,
+          "failures": [],
+          "output_sha256": "bf4fccca7fe7c60772b56e23f3367e1a1bd9c690bb47d5cb7377afcbf7d7d79c"
+        },
+        "sdk-null-thread": {
+          "checks": 9,
+          "failures": [],
+          "output_sha256": "bd727cd12cb2cd8d46107a268c0f1b6a6945d848346696e0661ff73abe31529d"
+        },
+        "sdk-negative": {
+          "checks": 9,
+          "failures": [],
+          "output_sha256": "ca392c0216e3d36a2cd6af65a73f4100eb61a4cf316f2441b495ac1caf865831"
+        },
+        "sdk-short": {
+          "checks": 9,
+          "failures": [],
+          "output_sha256": "eccb0269d847058efe16bb51bff3b431f1fc19327f4964392534752498d3af42"
+        },
+        "sdk-null-log": {
+          "checks": 9,
+          "failures": [],
+          "output_sha256": "71f0b0b72a10d1644626cdc0e3a3f0d9317c3c1516b42758625696239052f676"
+        },
+        "firmware-null": {
+          "checks": 9,
+          "failures": [],
+          "output_sha256": "47904163f9a7f021c0951df81888b3025064f39975dd17d15cbe84c798d7baad"
+        },
+        "firmware-wrong": {
+          "checks": 9,
+          "failures": [],
+          "output_sha256": "3b8f810bf2adc5d1e0c4bfbb1b5b19e45c440c441dea436db019896302192b7d"
+        },
+        "static-1": {
+          "checks": 9,
+          "failures": [],
+          "output_sha256": "99516a102e097cf272880a2ab5bbb60e45e35670339b85aa8539cfdfdda5a9d3"
+        },
+        "static-2": {
+          "checks": 9,
+          "failures": [],
+          "output_sha256": "9fbce9db3c06d56c9b1eab10ae711ea72aa3e439e30d01d7aeedbd70b48f1697"
+        },
+        "static-3": {
+          "checks": 9,
+          "failures": [],
+          "output_sha256": "5a45d216723bf04d58ac720e538a99d637b67e2ad1fec55406f3c8bc940a7a16"
+        },
+        "static-4": {
+          "checks": 9,
+          "failures": [],
+          "output_sha256": "b947666749827038ac1a25e08f7cff6278970493046a8239b7ef6d8b8224a178"
+        },
+        "thread-failure": {
+          "checks": 12,
+          "failures": [],
+          "output_sha256": "d494a00f83dde162224da9329dae6a7d03e0200b6cc2b0984cbb6ebcd6adf9cd"
+        },
+        "thread-fatal": {
+          "checks": 12,
+          "failures": [],
+          "output_sha256": "266b6639da3f693835ec46460dbe44ee721325bb200904fc3179c49f82b95d08"
+        },
+        "first-failure": {
+          "checks": 16,
+          "failures": [],
+          "output_sha256": "27b5b14a4aa2d4e6204f1ab4c02533fb431c5fc79565a5bd0a7f2f4fafcdd367"
+        },
+        "second-failure": {
+          "checks": 23,
+          "failures": [],
+          "output_sha256": "365e26dbcd9d0fd41ed436f0d99b8fca6730e2f9f64ad072af403964f0fce38b"
+        },
+        "first-empty": {
+          "checks": 18,
+          "failures": [],
+          "output_sha256": "9aae933b1795813604e7aeeed98a6210af8f9c89c3c33a42f6a9ecc23c40ea10"
+        },
+        "second-empty": {
+          "checks": 25,
+          "failures": [],
+          "output_sha256": "617b2a4beb68865478240fc2158f1090ee524bac27b5879fd91210fb362f3081"
+        },
+        "first-worker-fatal": {
+          "checks": 19,
+          "failures": [],
+          "output_sha256": "b53a05e61592194a9f3d112f65b705ca9ea00783a1303dbeb7c3c7c1649a4ad1"
+        },
+        "second-worker-fatal": {
+          "checks": 26,
+          "failures": [],
+          "output_sha256": "3d4138b305ac7e3c144aac17fcf2281250ba7ce0065cc64cc188473d38301898"
+        },
+        "gates": {
+          "checks": 32,
+          "failures": [],
+          "output_sha256": "1e2d4bac23b8032748a86ba4c2117a976f778201e9e39d61f752fe13e3eab4ab"
+        },
+        "worker": {
+          "checks": 35,
+          "failures": [],
+          "output_sha256": "d4fe8744575a14b954f6b234062795be7387b635ccaf02dcf93bbfc80935687d"
+        },
+        "suppressed-log": {
+          "checks": 30,
+          "failures": [],
+          "output_sha256": "caafe17caa8ee214ad4dc10c9a5ecaabc919208f4b2d0d339611c8374217b03d"
+        },
+        "budget": {
+          "checks": 23,
+          "failures": [],
+          "output_sha256": "bb34b2fcfc9b03471bd7f628dd6345c61489d67e9726e5b3edc66e03ae6ae9f7"
+        },
+        "fatal-worker": {
+          "checks": 24,
+          "failures": [],
+          "output_sha256": "2834259272efcdf58104241302e493b7265863dc7dfa2e44441a2533efb71849"
+        },
+        "logging-limits": {
+          "checks": 26,
+          "failures": [],
+          "output_sha256": "f3ac7756b4c9cb301e431bc521c2ca4c8dc5c6572ea10a2a7b1b2cad8f3ce45a"
+        },
+        "reentry": {
+          "checks": 28,
+          "failures": [],
+          "output_sha256": "57b87f688e061c07c5f4657a38dfa84d17a6fb4fcdab87d16ceb898999cf94f2"
+        },
+        "hole": {
+          "checks": 24,
+          "failures": [],
+          "output_sha256": "31b97ca8fead9321f09479ce0aa2800b70b846dcb4645a8824aaa652fb349ba9"
+        },
+        "concurrent": {
+          "checks": 32,
+          "failures": [],
+          "output_sha256": "7b472b42ccb272967cabde777aa5384647a32dbf2052b45a9ab8cfc0994f94af"
+        },
+        "unmap": {
+          "checks": 25,
+          "failures": [],
+          "output_sha256": "c878081b046b568a5e4eb18cb7ca9c00d77c970a52f27eb68022779137cff6a4"
+        },
+        "run-max-valid": {
+          "checks": 32,
+          "failures": [],
+          "output_sha256": "ed8a738e7d73ef59da71f54f3fda27ceadaa4b36d1290dfef5ddbc196e9036d9"
+        }
+      }
+    },
+    "tsan": {
+      "assertions": 660,
+      "scenarios": {
+        "env-missing": {
+          "checks": 9,
+          "failures": [],
+          "output_sha256": "3ba32bc7f16e2f0a635c69beb18bb43808aee07fe8440d500a4a2d125235f8b3"
+        },
+        "env-wrong": {
+          "checks": 9,
+          "failures": [],
+          "output_sha256": "63e9051d8eb6b0513f5672ffc419de5dfe388c8298730ff56aaabd2f295e51eb"
+        },
+        "run-zero": {
+          "checks": 9,
+          "failures": [],
+          "output_sha256": "533be13f2a442ba6683a72cea6dc11a9765f1e49c3a662865962479c670ca578"
+        },
+        "run-sign": {
+          "checks": 9,
+          "failures": [],
+          "output_sha256": "dc6282a81aa5b6eae25d0a8b2c24f32116a5cb7fced8e6c3e83edec5802366a7"
+        },
+        "run-space": {
+          "checks": 9,
+          "failures": [],
+          "output_sha256": "9a0de6c192c777e256b257192c57d39c4ade3b285138f0c96a376e3ff980a2e6"
+        },
+        "run-tail": {
+          "checks": 9,
+          "failures": [],
+          "output_sha256": "1954aa41163eedc6c776337c1b13a419bcdce8667a648fbb0972534227d700d0"
+        },
+        "run-overflow": {
+          "checks": 9,
+          "failures": [],
+          "output_sha256": "c7e15ef9d4f6e33c57304295005ea8de1bd265716568c73ff7ccfbaba64b3292"
+        },
+        "run-long": {
+          "checks": 9,
+          "failures": [],
+          "output_sha256": "f2017c7d83965fae04763b4fc15f89afddafad29391aba070606cc156e9cfb44"
+        },
+        "sdk-null-core": {
+          "checks": 9,
+          "failures": [],
+          "output_sha256": "22336312eda88b6e30d5baad3d0df5ed0e0c8277455c356287d0188ebe85f34f"
+        },
+        "sdk-abi": {
+          "checks": 9,
+          "failures": [],
+          "output_sha256": "5307860ca81f41f9c78a1d28f9468788d491e028300418126dd7143772ee680a"
+        },
+        "sdk-null-fw": {
+          "checks": 9,
+          "failures": [],
+          "output_sha256": "c53c17f1cf080c4cba772d8971d0105bf16575af8e4c8413f57d56746dc897e5"
+        },
+        "sdk-null-claim": {
+          "checks": 9,
+          "failures": [],
+          "output_sha256": "bf4fccca7fe7c60772b56e23f3367e1a1bd9c690bb47d5cb7377afcbf7d7d79c"
+        },
+        "sdk-null-thread": {
+          "checks": 9,
+          "failures": [],
+          "output_sha256": "bd727cd12cb2cd8d46107a268c0f1b6a6945d848346696e0661ff73abe31529d"
+        },
+        "sdk-negative": {
+          "checks": 9,
+          "failures": [],
+          "output_sha256": "ca392c0216e3d36a2cd6af65a73f4100eb61a4cf316f2441b495ac1caf865831"
+        },
+        "sdk-short": {
+          "checks": 9,
+          "failures": [],
+          "output_sha256": "eccb0269d847058efe16bb51bff3b431f1fc19327f4964392534752498d3af42"
+        },
+        "sdk-null-log": {
+          "checks": 9,
+          "failures": [],
+          "output_sha256": "71f0b0b72a10d1644626cdc0e3a3f0d9317c3c1516b42758625696239052f676"
+        },
+        "firmware-null": {
+          "checks": 9,
+          "failures": [],
+          "output_sha256": "47904163f9a7f021c0951df81888b3025064f39975dd17d15cbe84c798d7baad"
+        },
+        "firmware-wrong": {
+          "checks": 9,
+          "failures": [],
+          "output_sha256": "3b8f810bf2adc5d1e0c4bfbb1b5b19e45c440c441dea436db019896302192b7d"
+        },
+        "static-1": {
+          "checks": 9,
+          "failures": [],
+          "output_sha256": "99516a102e097cf272880a2ab5bbb60e45e35670339b85aa8539cfdfdda5a9d3"
+        },
+        "static-2": {
+          "checks": 9,
+          "failures": [],
+          "output_sha256": "9fbce9db3c06d56c9b1eab10ae711ea72aa3e439e30d01d7aeedbd70b48f1697"
+        },
+        "static-3": {
+          "checks": 9,
+          "failures": [],
+          "output_sha256": "5a45d216723bf04d58ac720e538a99d637b67e2ad1fec55406f3c8bc940a7a16"
+        },
+        "static-4": {
+          "checks": 9,
+          "failures": [],
+          "output_sha256": "b947666749827038ac1a25e08f7cff6278970493046a8239b7ef6d8b8224a178"
+        },
+        "thread-failure": {
+          "checks": 12,
+          "failures": [],
+          "output_sha256": "d494a00f83dde162224da9329dae6a7d03e0200b6cc2b0984cbb6ebcd6adf9cd"
+        },
+        "thread-fatal": {
+          "checks": 12,
+          "failures": [],
+          "output_sha256": "266b6639da3f693835ec46460dbe44ee721325bb200904fc3179c49f82b95d08"
+        },
+        "first-failure": {
+          "checks": 16,
+          "failures": [],
+          "output_sha256": "27b5b14a4aa2d4e6204f1ab4c02533fb431c5fc79565a5bd0a7f2f4fafcdd367"
+        },
+        "second-failure": {
+          "checks": 23,
+          "failures": [],
+          "output_sha256": "365e26dbcd9d0fd41ed436f0d99b8fca6730e2f9f64ad072af403964f0fce38b"
+        },
+        "first-empty": {
+          "checks": 18,
+          "failures": [],
+          "output_sha256": "9aae933b1795813604e7aeeed98a6210af8f9c89c3c33a42f6a9ecc23c40ea10"
+        },
+        "second-empty": {
+          "checks": 25,
+          "failures": [],
+          "output_sha256": "617b2a4beb68865478240fc2158f1090ee524bac27b5879fd91210fb362f3081"
+        },
+        "first-worker-fatal": {
+          "checks": 19,
+          "failures": [],
+          "output_sha256": "b53a05e61592194a9f3d112f65b705ca9ea00783a1303dbeb7c3c7c1649a4ad1"
+        },
+        "second-worker-fatal": {
+          "checks": 26,
+          "failures": [],
+          "output_sha256": "3d4138b305ac7e3c144aac17fcf2281250ba7ce0065cc64cc188473d38301898"
+        },
+        "gates": {
+          "checks": 32,
+          "failures": [],
+          "output_sha256": "1e2d4bac23b8032748a86ba4c2117a976f778201e9e39d61f752fe13e3eab4ab"
+        },
+        "worker": {
+          "checks": 35,
+          "failures": [],
+          "output_sha256": "d4fe8744575a14b954f6b234062795be7387b635ccaf02dcf93bbfc80935687d"
+        },
+        "suppressed-log": {
+          "checks": 30,
+          "failures": [],
+          "output_sha256": "caafe17caa8ee214ad4dc10c9a5ecaabc919208f4b2d0d339611c8374217b03d"
+        },
+        "budget": {
+          "checks": 23,
+          "failures": [],
+          "output_sha256": "bb34b2fcfc9b03471bd7f628dd6345c61489d67e9726e5b3edc66e03ae6ae9f7"
+        },
+        "fatal-worker": {
+          "checks": 24,
+          "failures": [],
+          "output_sha256": "2834259272efcdf58104241302e493b7265863dc7dfa2e44441a2533efb71849"
+        },
+        "logging-limits": {
+          "checks": 26,
+          "failures": [],
+          "output_sha256": "f3ac7756b4c9cb301e431bc521c2ca4c8dc5c6572ea10a2a7b1b2cad8f3ce45a"
+        },
+        "reentry": {
+          "checks": 28,
+          "failures": [],
+          "output_sha256": "57b87f688e061c07c5f4657a38dfa84d17a6fb4fcdab87d16ceb898999cf94f2"
+        },
+        "hole": {
+          "checks": 24,
+          "failures": [],
+          "output_sha256": "31b97ca8fead9321f09479ce0aa2800b70b846dcb4645a8824aaa652fb349ba9"
+        },
+        "concurrent": {
+          "checks": 32,
+          "failures": [],
+          "output_sha256": "7b472b42ccb272967cabde777aa5384647a32dbf2052b45a9ab8cfc0994f94af"
+        },
+        "unmap": {
+          "checks": 25,
+          "failures": [],
+          "output_sha256": "c878081b046b568a5e4eb18cb7ca9c00d77c970a52f27eb68022779137cff6a4"
+        },
+        "run-max-valid": {
+          "checks": 32,
+          "failures": [],
+          "output_sha256": "ed8a738e7d73ef59da71f54f3fda27ceadaa4b36d1290dfef5ddbc196e9036d9"
+        }
+      }
+    }
+  },
+  "controls": {
+    "clear-retained-original": {
+      "plain": {
+        "second-failure": {
+          "checks": 23,
+          "failures": [
+            "failure/first-original-retained"
+          ],
+          "output_sha256": "a0be466678b9c7b3939fa3196ab55caf7dc83fd8ed96dd5f68f0ef00ebc59ce4"
+        }
+      },
+      "asan-ubsan": {
+        "second-failure": {
+          "checks": 23,
+          "failures": [
+            "failure/first-original-retained"
+          ],
+          "output_sha256": "a0be466678b9c7b3939fa3196ab55caf7dc83fd8ed96dd5f68f0ef00ebc59ce4"
+        }
+      },
+      "tsan": {
+        "second-failure": {
+          "checks": 23,
+          "failures": [
+            "failure/first-original-retained"
+          ],
+          "output_sha256": "a0be466678b9c7b3939fa3196ab55caf7dc83fd8ed96dd5f68f0ef00ebc59ce4"
+        }
+      }
+    },
+    "gate-late-after": {
+      "plain": {
+        "gates": {
+          "checks": 32,
+          "failures": [
+            "helper/late-value-only-after-close",
+            "helper/duplicate-no-rewrite"
+          ],
+          "output_sha256": "968f4c571dd738f3c83062a50bb2f0f367b63db147bf9c864ff4c354decdf28e"
+        }
+      },
+      "asan-ubsan": {
+        "gates": {
+          "checks": 32,
+          "failures": [
+            "helper/late-value-only-after-close",
+            "helper/duplicate-no-rewrite"
+          ],
+          "output_sha256": "968f4c571dd738f3c83062a50bb2f0f367b63db147bf9c864ff4c354decdf28e"
+        }
+      },
+      "tsan": {
+        "gates": {
+          "checks": 32,
+          "failures": [
+            "helper/late-value-only-after-close",
+            "helper/duplicate-no-rewrite"
+          ],
+          "output_sha256": "968f4c571dd738f3c83062a50bb2f0f367b63db147bf9c864ff4c354decdf28e"
+        }
+      }
+    },
+    "consume-unpublished-hole": {
+      "plain": {
+        "hole": {
+          "checks": 24,
+          "failures": [
+            "worker/skips-unpublished-hole",
+            "worker/revisits-hole-after-close"
+          ],
+          "output_sha256": "cefdf398493f608a46b92066d4fac03af2fea4b252c82908ba80983f4436809b"
+        }
+      },
+      "asan-ubsan": {
+        "hole": {
+          "checks": 24,
+          "failures": [
+            "worker/skips-unpublished-hole",
+            "worker/revisits-hole-after-close"
+          ],
+          "output_sha256": "cefdf398493f608a46b92066d4fac03af2fea4b252c82908ba80983f4436809b"
+        }
+      },
+      "tsan": {
+        "hole": {
+          "checks": 24,
+          "failures": [
+            "worker/skips-unpublished-hole",
+            "worker/revisits-hole-after-close"
+          ],
+          "output_sha256": "cefdf398493f608a46b92066d4fac03af2fea4b252c82908ba80983f4436809b"
+        }
+      }
+    },
+    "retry-copied-entry-log": {
+      "plain": {
+        "suppressed-log": {
+          "checks": 30,
+          "failures": [
+            "worker/copied-records-not-retried"
+          ],
+          "output_sha256": "9efef0cbecf88e8729d20b17cb127581965a76c1b61d9c2875bdd105dcb53a15"
+        }
+      },
+      "asan-ubsan": {
+        "suppressed-log": {
+          "checks": 30,
+          "failures": [
+            "worker/copied-records-not-retried"
+          ],
+          "output_sha256": "9efef0cbecf88e8729d20b17cb127581965a76c1b61d9c2875bdd105dcb53a15"
+        }
+      },
+      "tsan": {
+        "suppressed-log": {
+          "checks": 30,
+          "failures": [
+            "worker/copied-records-not-retried"
+          ],
+          "output_sha256": "9efef0cbecf88e8729d20b17cb127581965a76c1b61d9c2875bdd105dcb53a15"
+        }
+      }
+    },
+    "tid-before-caller-gate": {
+      "plain": {
+        "gates": {
+          "checks": 32,
+          "failures": [
+            "helper/wrong-caller-no-reads"
+          ],
+          "output_sha256": "3b4ba0ca1cdfcd0d696260bfb9db232b9508127980812ff8f8a4f513a802d49a"
+        }
+      },
+      "asan-ubsan": {
+        "gates": {
+          "checks": 32,
+          "failures": [
+            "helper/wrong-caller-no-reads"
+          ],
+          "output_sha256": "3b4ba0ca1cdfcd0d696260bfb9db232b9508127980812ff8f8a4f513a802d49a"
+        }
+      },
+      "tsan": {
+        "gates": {
+          "checks": 32,
+          "failures": [
+            "helper/wrong-caller-no-reads"
+          ],
+          "output_sha256": "3b4ba0ca1cdfcd0d696260bfb9db232b9508127980812ff8f8a4f513a802d49a"
+        }
+      }
+    }
+  }
+}

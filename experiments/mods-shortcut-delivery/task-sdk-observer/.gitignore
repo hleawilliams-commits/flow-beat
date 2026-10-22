@@ -1,0 +1,5 @@
+/out-history/
+/out/
+/private/
+/__pycache__/
+*.azmod
