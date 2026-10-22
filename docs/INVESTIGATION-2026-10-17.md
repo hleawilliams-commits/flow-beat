@@ -149,3 +149,41 @@ not clear or prove restoration of a sticky kernel controller overlay. No
 automatic replay/reset is added. Native task provenance/returns/ownership,
 MODS 0.1.3 publication, stems activation/staging, USB activation and hardware
 validation remain unresolved.
+
+
+### Complete-overlay V2 preservation checked offline
+
+The separate [V2 policy and source audit](../experiments/mods-shortcut-delivery/task-sdk-observer/overlay-policy-v2/)
+account for all 54 supported saved offsets: 40 analog high bytes, 11 packed-low
+bytes, FX selector and the two independent FX TIME bytes. Unknown keys, partial
+FX TIME pairs, all four held FX button bits and reserved analog bits are refused.
+The policy never strips or normalizes a saved setting. The source audit passes
+147 checks/29 rejection controls; pure-policy checks pass 2,914, including 2,603
+refusals and four strict mutations. Both results independently match exactly.
+
+Three separately named private adapters now retain the exact second validated
+152-byte observation and construct the first/release pair from that copy. Their
+[new integration checkpoint](../experiments/mods-shortcut-delivery/task-sdk-observer/overlay-policy-v2/INTEGRATION.md)
+records 1,864 actual-adapter mock checks, 60 refusals and four strict mutations,
+plus 1,317 focused checks with the actual frozen host-counter helper and real
+temporary files. Independent results match exactly. The latter checks complete
+alignment/BROWSE/CW/CCW and an uncertain-first-call release/stop path, each with
+exact host restoration. External observations, clock, transport and the sticky
+overlay/CRC model remain mocked; coordinator scope/locking is stubbed and not
+newly proven. These are offline interaction results, not native observations.
+
+Original helpers, the old policy, runner and closed refusal remain unchanged.
+No V2 runner selection, enabling manifest, new runtime identity, emulator
+connection, input, restart, core/package/catalog change or physical access
+occurred. The emulator's last released state was not revalidated or modified.
+Raw scripts, frames, settings and immutable input/result snapshots stay private.
+
+Next resolve competing full-overlay writers, including queued preview frames,
+and review exact V2 runner/recovery wiring before selecting a new run identity
+and taking a fresh selective backup. The cooperative lock does not exclude
+those writers. CRC restamping depends on the checked but writable prefix-length
+parameter; sequential checks do not hold it fixed. Passing preservation tests
+do not prove current overlay ownership, native delivery or crash recovery.
+Do not reuse the closed run or repeat its refusal unchanged. Direct task
+provenance/returns/ownership, MODS 0.1.3 publication, stems staging/activation,
+USB activation and hardware validation remain unresolved.

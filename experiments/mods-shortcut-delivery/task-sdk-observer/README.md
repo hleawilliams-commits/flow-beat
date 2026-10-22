@@ -17,9 +17,13 @@ host-recovery components. The later [coordinator checkpoint](COORDINATOR-EVIDENC
 composes them and passes 2,697 offline checks, independently reproduced. A fresh
 read-only emulator attempt refused incompatible saved mixer settings before
 acquiring a frame or installing the observer. All 147 baseline files and host
-state checked unchanged. No enabling source-review manifest exists. A separate
-complete-overlay preservation contract is needed before another attempt; these
-checks provide no runtime readiness or native task evidence.
+state checked unchanged. The separate [complete-overlay V2 policy](overlay-policy-v2/)
+now has source-bound parsing, copied-frame construction and private adapter
+copies; see its [integration checkpoint](overlay-policy-v2/INTEGRATION.md). The
+frozen runtime runner remains unchanged and no enabling source-review manifest
+exists. Competing overlay writers and exact V2 runner/recovery wiring still need
+review before a new run. These checks provide no runtime readiness or native
+task evidence.
 
 ## Explicit activation and installation sequence
 

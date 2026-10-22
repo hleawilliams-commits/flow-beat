@@ -1,0 +1,69 @@
+{
+  "core_or_package_changed": false,
+  "emulator_contact": false,
+  "enabling_manifest_created": false,
+  "input_or_restart": false,
+  "kernel_source_sha256": "9631ca05810408eb9cd40cb38fa3f90d8dd2ac1d4d09a2e73d084ea0dbe03654",
+  "limits": [
+    "External observations, clocks, transport and controller-overlay model are mocked.",
+    "Coordinator scope and locks are stubbed; exact dependency hashes are checked separately.",
+    "The larger matrix stubs the host-counter service; the companion executes the actual frozen helper against temporary files.",
+    "CRC restamping requires the separately checked writable SPI3 prefix-length parameter96; sequential checks do not make it immutable.",
+    "Copied-frame preservation does not exclude queued preview writers, establish native delivery or prove crash recovery.",
+    "No live task provenance, admission, execution, cancellation or ownership evidence was added.",
+    "MODS0.1.3 remains unpublished; stems staging/activation and other hardware gates remain unresolved."
+  ],
+  "physical_contact": false,
+  "policy_sha256": "10f0cd0d161862c0b2cefa9cb817e6986261429134be2b88ebc64534969df03c",
+  "policy_version": 2,
+  "prior_refused_run_reused": false,
+  "private_adapter_sha256": {
+    "action_coordinator_v2.py": "79078f7d4df4d3da894bbb7af7dac1f438a75d82fef35aae621956c075bc8400",
+    "action_preflight_v2.py": "452e17f09bf87edf3137050ec45bdcef7311c5badc4e04b80af39a711080e381",
+    "preinstall_frame_v2.py": "b339fa25af71a768483bdefc980a9e3a82b3c208a0341f6117d7a275860b5b87"
+  },
+  "pure_policy": {
+    "checks": 2914,
+    "expected_rejections": 2603,
+    "independent_result_identical": true,
+    "result_sha256": "98a6a23973172fd48b0fe7449cda87d286297cbff216fe4a370c23e070cf86bb",
+    "strict_mutations": 4
+  },
+  "results": {
+    "actual_host_composition": {
+      "checks": 1317,
+      "expected_rejections": 1,
+      "harness_sha256": "9215c3fd2fe1f2037446d9100c5931d70ce2de1808326f82217a0e9868a68539",
+      "independent_result_identical": true,
+      "result_sha256": "ee792b709ddc617710501d5535943e153b0bbde70a143af3f7c85e0f6105fe14",
+      "scope": "Two narrow actual-v2/actual-host-counter sequences using real temporary counter files and immutable receipts. Clock/status/transport and explicit sticky-overlay/CRC model mocked; scope/locking stubbed. No runtime/network/native delivery proof.",
+      "strict_mutations": 0
+    },
+    "adapter_interactions": {
+      "checks": 1864,
+      "expected_rejections": 60,
+      "harness_sha256": "1fda505e12d237e27aa71fd7418250d18fcab08d84a7ceb75cf9789e45564eb9",
+      "independent_result_identical": true,
+      "result_sha256": "637829ad5a0257cbc09bdb57abb08a2d633d91831fa491585cc44ceac0a49d86",
+      "scope": "Actual new v2 preparation, capture, consume, retention and action methods with fake external transport/status/clock and host-counter service. Literal dependency hashes checked; scope/locking stubbed, host logic not rerun. No runtime or network access; no delivery/timing proof.",
+      "strict_mutations": 4
+    }
+  },
+  "runtime_run_id_selected": false,
+  "runtime_runner_changed": false,
+  "schema": 1,
+  "source_audit": {
+    "checks": 147,
+    "independent_result_identical": true,
+    "rejection_controls": 29,
+    "result_sha256": "0c56b9ea78627ff1c99cfe40cfea4548691f36cc168b9341c1fb93da6ab5196d"
+  },
+  "status": "OFFLINE_PASS_RUNTIME_UNWIRED",
+  "unchanged_original_sha256": {
+    "action_coordinator.py": "e151d698bbcb360474734a9d154755ee486ad15ce9950e73dbaa45d77cddff91",
+    "action_preflight.py": "3d0e4e22d66c2b93d5d2e0ee45d45ecc2d74aea8b081bf1f79775e7d48cca09c",
+    "host_counter.py": "4915c7957287bbe18d8687f3fa2e6db44f7a3c3299b46ec0d5034fc94529750d",
+    "preinstall_frame.py": "6be6890556952b69458ec1b04f84a56ae49802f66646b3d87146476cce0b1ddb",
+    "run.py": "a6d92061bf526fecf2b9585ec1254aed89d6302249dac9859e28d0cec7b6f28a"
+  }
+}

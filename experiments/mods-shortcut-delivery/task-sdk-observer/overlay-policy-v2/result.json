@@ -1,0 +1,57 @@
+{
+  "analog_high_offsets": 40,
+  "checks": 2914,
+  "device_or_network_access": false,
+  "historical_settings_audit": {
+    "all_present_values_preserved": true,
+    "policy_sha256": "10f0cd0d161862c0b2cefa9cb817e6986261429134be2b88ebc64534969df03c",
+    "runtime_contact": false,
+    "saved_settings_entries": 54,
+    "saved_settings_sha256": "86dd9ef90d81eb8598634aba051dc9b882d667400385512e847136fa7cbb892e",
+    "saved_settings_unchanged": true,
+    "scope": "local historical settings parse and pure template construction only; no observed controller frame, readiness or future action baseline"
+  },
+  "independent_execution": "PASS",
+  "independent_inputs_identical": true,
+  "independent_result_identical": true,
+  "inputs": {
+    "config": "0a1986611ec2642379a42f1f517d8d1decf1764e0cee8ab2f37c3e6c04782992",
+    "controls": "b9145e4b41439761abbfdec461b854412748af2fe95183fd5843ad34d4298445",
+    "driver": "6f88798ec54785dc2ce9180e5c2839a1a8e8ec370c997bc7f48e8d1cc06e640f",
+    "frames": "4d9d833e583b7c6a5aa3f12de0fea2b7245e9dac915477ab96b9cfdfa75c2c0b",
+    "policy": "10f0cd0d161862c0b2cefa9cb817e6986261429134be2b88ebc64534969df03c",
+    "runner": "667865e356c740eee2d8aa729f5e9fd7371f5fbb1690fec2ea95551ec9292977"
+  },
+  "packed_low_offsets": 11,
+  "policy_version": 2,
+  "raw_templates_published": false,
+  "rejections": 2603,
+  "retained_full_result_sha256": "98a6a23973172fd48b0fe7449cda87d286297cbff216fe4a370c23e070cf86bb",
+  "runtime_wiring_changed": false,
+  "schema": 1,
+  "scope": "pure candidate functions; pinned host-source literal/schema extraction; synthetic copied frames and local files only",
+  "status": "PASS",
+  "strict_mutation_controls": [
+    {
+      "mutant_sha256": "89e1a36fa90b72077b467c07c40ce661672f708569e45476a45a4099d137a241",
+      "name": "drop-fx-time",
+      "status": "DISCRIMINATED"
+    },
+    {
+      "mutant_sha256": "758e6c449b5a58ebc89ecc6ad3dbd2a095c00561977847c4caf842cfefd58aca",
+      "name": "ignore-fx-time-comparison",
+      "status": "DISCRIMINATED"
+    },
+    {
+      "mutant_sha256": "9dd925003ced230666382f83affb5b2602a4d16470ad04c7336106b0025a1641",
+      "name": "old-counter-release",
+      "status": "DISCRIMINATED"
+    },
+    {
+      "mutant_sha256": "ce0cda4b8d5ed112f714ea4e90cf42abb5aacf51ba79072127b41c36f73264b1",
+      "name": "erase-packed-low",
+      "status": "DISCRIMINATED"
+    }
+  ],
+  "supported_offsets": 54
+}

@@ -1,0 +1,747 @@
+{
+  "checks_passed": 147,
+  "idle_sha256": "885b5464cd62b520bf336abb40af2016c2d84f73abbeaced7c649dddb048e7a3",
+  "limits": [
+    "Derived coordinate meanings are pinned source claims, not newly validated physical or native behavior.",
+    "Function fingerprints bind manually reviewed Rust code; Rust functions are not executed here.",
+    "The source union matches the reported count of54; no saved user keys or values were read by this verifier.",
+    "Preview serialization merges existing keys; arbitrary driver offsets mean saved-file provenance is unproved.",
+    "FX TIME is an independent endless encoder, not a browse counter or static analog level.",
+    "Exact byte preservation prevents new unrelated byte changes relative to the validated baseline, not later external-writer changes or native side effects.",
+    "No input authorization, live readiness, successful send, native delivery, controller ownership, or hardware timing follows from this audit."
+  ],
+  "negative_controls": [
+    "whole-source drift az-preview/src/controls.rs",
+    "whole-source drift az-preview/src/config.rs",
+    "whole-source drift az-preview/src/app.rs",
+    "whole-source drift tools/az-drive.py",
+    "selected-function drift controls.rs:mixer_levels",
+    "selected-function drift controls.rs:initial_mixer_frame",
+    "selected-function drift controls.rs:set10",
+    "selected-function drift controls.rs:get10",
+    "selected-function drift controls.rs:gray4",
+    "selected-function drift config.rs:mixer_state_store",
+    "selected-function drift config.rs:parse_byte_map",
+    "selected-function drift app.rs:fx_select",
+    "selected-function drift app.rs:fx_time",
+    "selected-function drift app.rs:send_frames",
+    "missing driver AST _mixer",
+    "missing driver AST _mixer_state",
+    "missing driver AST mixer_set",
+    "analog high alias",
+    "analog low displacement",
+    "analog low shift",
+    "unknown low bits made supported",
+    "headphone reserved bits made supported",
+    "FX time swapped",
+    "FX selector moved",
+    "browse counter moved",
+    "button duplicated",
+    "button invades selector",
+    "latch moved",
+    "X-PAD moved"
+  ],
+  "negative_controls_passed": 29,
+  "proposed_value_contract": {
+    "FX_TIME_26_27": "both saved bytes present or both absent; preserve 16-bit LE counter bit pattern unchanged",
+    "FX_selector_22": "high nibble preserved; all low-nibble button bits zero",
+    "absent_fields": "driver uses pinned idle; this is only a planned default until full fresh frame equality validates it",
+    "action_preservation": "only latch6, BROWSE bit6 of byte32, or browse counter34 may change; every other byte copied from validated observed frame",
+    "packed_reserved_bits": {
+      "16": "outside 0x03 equal pinned idle zero",
+      "80": "outside 0xf0 equal pinned idle zero"
+    },
+    "strict_byte_values": "integer 0..255, excluding booleans and coercion",
+    "unknown_keys": "reject even when value equals idle; do not discard or normalize"
+  },
+  "python_function_ast_sha256": {
+    "_mixer": "12ec85e1f5848e55804a83167668ed10b23a70978aaae2dca73e9538e2d7efd5",
+    "_mixer_state": "70b331639ae9e5933baa62e54232c84174e06b0c8cc9d79afaf1639f4f1707bb",
+    "mixer_set": "c281098cdcdbe15366ab6e0bcdedf4cdacc42890a697bbc383b500f7445fde85"
+  },
+  "rust_function_sha256": {
+    "app.rs": {
+      "fx_select": "ae6eab34a3baf65138a631b61514a5198b27f37c0cfc6ec7f200191d36b395d8",
+      "fx_time": "13852256a9077d125c399d8a04501ae938e32b6779d3503579ffe9334dd46d80",
+      "send_frames": "7c5297a058455c5e3ba9ddb24361c5bc91e06980a0bea8231c3e32c134d82b76"
+    },
+    "config.rs": {
+      "mixer_state_store": "a3c1c6776ba88265474178b1968c941452898b630d42ed7a623e03af25a5a49a",
+      "parse_byte_map": "dd3f2135e589dacf2c1ebd1f69005289d643113c00dc6023cf0846a6d544fcf9"
+    },
+    "controls.rs": {
+      "get10": "8e3078d4072b9c15a70b0364e1ecf76d67526f8a6e65244ccf62f5c157d2d6e0",
+      "gray4": "c0f204f809c85bb98c084f22b9175622e4e8634f7518a79825c3ace8a465b395",
+      "initial_mixer_frame": "8c01adcb324a897899e35aba78fb0e01ce573fd83a85c41fd397fef2d3cf442d",
+      "mixer_levels": "7546f78ba4a30872e675b5676532e5e269de6b191af1f04ddb366ff9d1d3d527",
+      "set10": "f1abb42e79d55ae82940ebd9121d0ceb227879c93851792c2ff457f323ff6da3"
+    }
+  },
+  "schema": {
+    "active_masks": {
+      "20": 191,
+      "21": 255,
+      "22": 15,
+      "23": 255,
+      "24": 252,
+      "31": 1,
+      "32": 252,
+      "33": 255
+    },
+    "analog_controls": [
+      {
+        "high": 10,
+        "low": 14,
+        "low_shift": 6,
+        "name": "CH1 fader"
+      },
+      {
+        "high": 11,
+        "low": 14,
+        "low_shift": 4,
+        "name": "CH2 fader"
+      },
+      {
+        "high": 36,
+        "low": 40,
+        "low_shift": 6,
+        "name": "CH1 trim"
+      },
+      {
+        "high": 41,
+        "low": 45,
+        "low_shift": 6,
+        "name": "CH2 trim"
+      },
+      {
+        "high": 37,
+        "low": 40,
+        "low_shift": 4,
+        "name": "CH1 HI"
+      },
+      {
+        "high": 38,
+        "low": 40,
+        "low_shift": 2,
+        "name": "CH1 MID"
+      },
+      {
+        "high": 39,
+        "low": 40,
+        "low_shift": 0,
+        "name": "CH1 LOW"
+      },
+      {
+        "high": 42,
+        "low": 45,
+        "low_shift": 4,
+        "name": "CH2 HI"
+      },
+      {
+        "high": 43,
+        "low": 45,
+        "low_shift": 2,
+        "name": "CH2 MID"
+      },
+      {
+        "high": 44,
+        "low": 45,
+        "low_shift": 0,
+        "name": "CH2 LOW"
+      },
+      {
+        "high": 61,
+        "low": 65,
+        "low_shift": 6,
+        "name": "CH1 COLOR"
+      },
+      {
+        "high": 62,
+        "low": 65,
+        "low_shift": 4,
+        "name": "CH2 COLOR"
+      },
+      {
+        "high": 78,
+        "low": null,
+        "low_shift": null,
+        "name": "Sound Color FX PARAMETER"
+      },
+      {
+        "high": 15,
+        "low": 16,
+        "low_shift": 0,
+        "name": "crossfader"
+      },
+      {
+        "high": 12,
+        "low": 14,
+        "low_shift": 2,
+        "name": "CH3 fader"
+      },
+      {
+        "high": 13,
+        "low": 14,
+        "low_shift": 0,
+        "name": "CH4 fader"
+      },
+      {
+        "high": 56,
+        "low": 60,
+        "low_shift": 6,
+        "name": "master LEVEL"
+      },
+      {
+        "high": 46,
+        "low": 50,
+        "low_shift": 6,
+        "name": "CH3 TRIM"
+      },
+      {
+        "high": 47,
+        "low": 50,
+        "low_shift": 4,
+        "name": "CH3 HI"
+      },
+      {
+        "high": 48,
+        "low": 50,
+        "low_shift": 2,
+        "name": "CH3 MID"
+      },
+      {
+        "high": 49,
+        "low": 50,
+        "low_shift": 0,
+        "name": "CH3 LOW"
+      },
+      {
+        "high": 51,
+        "low": 55,
+        "low_shift": 6,
+        "name": "CH4 TRIM"
+      },
+      {
+        "high": 52,
+        "low": 55,
+        "low_shift": 4,
+        "name": "CH4 HI"
+      },
+      {
+        "high": 53,
+        "low": 55,
+        "low_shift": 2,
+        "name": "CH4 MID"
+      },
+      {
+        "high": 54,
+        "low": 55,
+        "low_shift": 0,
+        "name": "CH4 LOW"
+      },
+      {
+        "high": 57,
+        "low": 60,
+        "low_shift": 4,
+        "name": "MASTER HI"
+      },
+      {
+        "high": 58,
+        "low": 60,
+        "low_shift": 2,
+        "name": "MASTER MID"
+      },
+      {
+        "high": 59,
+        "low": 60,
+        "low_shift": 0,
+        "name": "MASTER LOW"
+      },
+      {
+        "high": 63,
+        "low": 65,
+        "low_shift": 2,
+        "name": "CH3 COLOR"
+      },
+      {
+        "high": 64,
+        "low": 65,
+        "low_shift": 0,
+        "name": "CH4 COLOR"
+      },
+      {
+        "high": 66,
+        "low": 70,
+        "low_shift": 6,
+        "name": "MIC 1 HI"
+      },
+      {
+        "high": 67,
+        "low": 70,
+        "low_shift": 4,
+        "name": "MIC 1 MID"
+      },
+      {
+        "high": 68,
+        "low": 70,
+        "low_shift": 2,
+        "name": "MIC 1 LOW"
+      },
+      {
+        "high": 69,
+        "low": 70,
+        "low_shift": 0,
+        "name": "BEAT FX LEVEL/DEPTH"
+      },
+      {
+        "high": 71,
+        "low": 75,
+        "low_shift": 6,
+        "name": "MIC 2 HI"
+      },
+      {
+        "high": 72,
+        "low": 75,
+        "low_shift": 4,
+        "name": "MIC 2 MID"
+      },
+      {
+        "high": 73,
+        "low": 75,
+        "low_shift": 2,
+        "name": "MIC 2 LOW"
+      },
+      {
+        "high": 74,
+        "low": 75,
+        "low_shift": 0,
+        "name": "BOOTH LEVEL"
+      },
+      {
+        "high": 76,
+        "low": 80,
+        "low_shift": 6,
+        "name": "HEADPHONES MIX"
+      },
+      {
+        "high": 77,
+        "low": 80,
+        "low_shift": 4,
+        "name": "HEADPHONES LEVEL"
+      }
+    ],
+    "analog_high_offsets": [
+      10,
+      11,
+      12,
+      13,
+      15,
+      36,
+      37,
+      38,
+      39,
+      41,
+      42,
+      43,
+      44,
+      46,
+      47,
+      48,
+      49,
+      51,
+      52,
+      53,
+      54,
+      56,
+      57,
+      58,
+      59,
+      61,
+      62,
+      63,
+      64,
+      66,
+      67,
+      68,
+      69,
+      71,
+      72,
+      73,
+      74,
+      76,
+      77,
+      78
+    ],
+    "analog_offsets": [
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      60,
+      61,
+      62,
+      63,
+      64,
+      65,
+      66,
+      67,
+      68,
+      69,
+      70,
+      71,
+      72,
+      73,
+      74,
+      75,
+      76,
+      77,
+      78,
+      80
+    ],
+    "buttons": [
+      {
+        "mask": 128,
+        "name": "SOURCE",
+        "offset": 32
+      },
+      {
+        "mask": 64,
+        "name": "BROWSE",
+        "offset": 32
+      },
+      {
+        "mask": 32,
+        "name": "TAG LIST",
+        "offset": 32
+      },
+      {
+        "mask": 16,
+        "name": "PLAYLIST",
+        "offset": 32
+      },
+      {
+        "mask": 8,
+        "name": "SEARCH",
+        "offset": 32
+      },
+      {
+        "mask": 4,
+        "name": "MENU",
+        "offset": 32
+      },
+      {
+        "mask": 128,
+        "name": "BACK",
+        "offset": 33
+      },
+      {
+        "mask": 64,
+        "name": "TAG TRACK",
+        "offset": 33
+      },
+      {
+        "mask": 32,
+        "name": "FILTER/EDIT",
+        "offset": 33
+      },
+      {
+        "mask": 16,
+        "name": "SHORTCUT",
+        "offset": 33
+      },
+      {
+        "mask": 8,
+        "name": "LOAD 1",
+        "offset": 33
+      },
+      {
+        "mask": 4,
+        "name": "LOAD 2",
+        "offset": 33
+      },
+      {
+        "mask": 2,
+        "name": "LOAD 3",
+        "offset": 33
+      },
+      {
+        "mask": 1,
+        "name": "LOAD 4",
+        "offset": 33
+      },
+      {
+        "mask": 8,
+        "name": "CH1 CUE",
+        "offset": 20
+      },
+      {
+        "mask": 4,
+        "name": "CH2 CUE",
+        "offset": 20
+      },
+      {
+        "mask": 2,
+        "name": "CH3 CUE",
+        "offset": 20
+      },
+      {
+        "mask": 1,
+        "name": "CH4 CUE",
+        "offset": 20
+      },
+      {
+        "mask": 16,
+        "name": "BEAT >",
+        "offset": 20
+      },
+      {
+        "mask": 32,
+        "name": "BEAT <",
+        "offset": 20
+      },
+      {
+        "mask": 128,
+        "name": "TAP",
+        "offset": 20
+      },
+      {
+        "mask": 2,
+        "name": "SPACE",
+        "offset": 21
+      },
+      {
+        "mask": 16,
+        "name": "DUB ECHO",
+        "offset": 21
+      },
+      {
+        "mask": 1,
+        "name": "CRUSH",
+        "offset": 21
+      },
+      {
+        "mask": 8,
+        "name": "SWEEP",
+        "offset": 21
+      },
+      {
+        "mask": 32,
+        "name": "NOISE",
+        "offset": 21
+      },
+      {
+        "mask": 4,
+        "name": "FILTER",
+        "offset": 21
+      },
+      {
+        "mask": 64,
+        "name": "MASTER CUE",
+        "offset": 21
+      },
+      {
+        "mask": 128,
+        "name": "LINK CUE",
+        "offset": 21
+      },
+      {
+        "mask": 2,
+        "name": "FX FREQUENCY LOW",
+        "offset": 22
+      },
+      {
+        "mask": 4,
+        "name": "FX FREQUENCY MID",
+        "offset": 22
+      },
+      {
+        "mask": 8,
+        "name": "FX FREQUENCY HI",
+        "offset": 22
+      },
+      {
+        "mask": 32,
+        "name": "BEAT FX CH 3",
+        "offset": 23
+      },
+      {
+        "mask": 128,
+        "name": "BEAT FX CH 1",
+        "offset": 23
+      },
+      {
+        "mask": 64,
+        "name": "BEAT FX CH 2",
+        "offset": 23
+      },
+      {
+        "mask": 16,
+        "name": "BEAT FX CH 4",
+        "offset": 23
+      },
+      {
+        "mask": 1,
+        "name": "BEAT FX MIC",
+        "offset": 23
+      },
+      {
+        "mask": 8,
+        "name": "BEAT FX CF.A",
+        "offset": 23
+      },
+      {
+        "mask": 4,
+        "name": "BEAT FX CF.B",
+        "offset": 23
+      },
+      {
+        "mask": 2,
+        "name": "BEAT FX MASTER",
+        "offset": 23
+      },
+      {
+        "mask": 4,
+        "name": "FX QUANTIZE",
+        "offset": 24
+      },
+      {
+        "mask": 8,
+        "name": "AUTO/TAP",
+        "offset": 24
+      },
+      {
+        "mask": 32,
+        "name": "TALK OVER",
+        "offset": 24
+      },
+      {
+        "mask": 64,
+        "name": "MIC 2 ON",
+        "offset": 24
+      },
+      {
+        "mask": 128,
+        "name": "MIC 1 ON",
+        "offset": 24
+      },
+      {
+        "mask": 1,
+        "name": "BROWSE PUSH",
+        "offset": 31
+      },
+      {
+        "mask": 16,
+        "name": "MIXER SETTINGS",
+        "offset": 24
+      },
+      {
+        "mask": 1,
+        "name": "FX ON/OFF",
+        "offset": 22
+      }
+    ],
+    "packed_low_masks": {
+      "14": 255,
+      "16": 3,
+      "40": 255,
+      "45": 255,
+      "50": 255,
+      "55": 255,
+      "60": 255,
+      "65": 255,
+      "70": 255,
+      "75": 255,
+      "80": 240
+    },
+    "proposed_saved_offsets": [
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      22,
+      26,
+      27,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      60,
+      61,
+      62,
+      63,
+      64,
+      65,
+      66,
+      67,
+      68,
+      69,
+      70,
+      71,
+      72,
+      73,
+      74,
+      75,
+      76,
+      77,
+      78,
+      80
+    ]
+  },
+  "scope": "offline pinned-source extraction and selected Python AST execution with synthetic inputs; no driver import, saved settings, network, runtime or firmware",
+  "source_sha256": {
+    "az-preview/src/app.rs": "f6a7bb28c3f2dbce759582ac2c7b1147adf93f5137838a833ed5d35f1834864b",
+    "az-preview/src/config.rs": "0a1986611ec2642379a42f1f517d8d1decf1764e0cee8ab2f37c3e6c04782992",
+    "az-preview/src/controls.rs": "b9145e4b41439761abbfdec461b854412748af2fe95183fd5843ad34d4298445",
+    "tools/az-drive.py": "6f88798ec54785dc2ce9180e5c2839a1a8e8ec370c997bc7f48e8d1cc06e640f"
+  }
+}
