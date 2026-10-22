@@ -122,3 +122,13 @@ transport capacity, losses or coherent Ready state.
 MODS 0.1.3 remains unpublished, stems staging remains closed, and USB activation,
 native lifetime/cancellation and physical testing remain unresolved. This
 preparation is neither a community release nor a stems recovery fix.
+
+## Subsequent action preparation
+
+The [action preparation checkpoint](ACTION-PREPARATION.md) adds full152-byte
+neutral-frame validation, fresh action-bound sampling and receipt-owned host
+recovery components. It preserves the diagnostic above unchanged. Review
+corrected approval capacity, exact hook-log checks and stale/ambiguous empty
+markers. Installation/input are hard-disabled until the components are
+composed with a tested at-most-once first-frame/neutral-release coordinator.
+No emulator connection or mutation occurred in that follow-up.

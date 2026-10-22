@@ -152,3 +152,28 @@ The [new preparation evidence](../experiments/mods-shortcut-delivery/task-sdk-ob
 One localhost-only diagnostic was completed. Its first preflight stopped before mixer acquisition because the guest lacked `stat`; partial metadata and that failure remain private and do not constitute validated identity. A revised collector uses a strictly parsed, non-extracted tar character header. Its final 1,440 checks across 82 mock scenarios include zero-acquisition failures and no-retry post-acquisition failures. An earlier fixture-normalization error is retained separately. The changed collector then acquired one 128-byte emulator MISO frame, verified CRC, and matched before/after loaded-module, disk, device, sysfs and parameter identity. A separate local saved-receipt audit passes 36 checks. Same-empty-process and original-core guards passed; separate raw postcheck core/empty responses were not retained. The observations are sequential and not bound to the acquisition's open descriptor. One acquisition command is not proof of exactly one kernel read.
 
 No observer was installed, no input was sent, and no service, core, host counter, package or catalog changed. No rollback/restart was needed and no physical access occurred. The copied counter is not reusable for a future action. The observer source/build and prior results remain unchanged; native task observations and event ownership remain absent. Next complete and test fresh action-bound progress/counter acquisition, single-step host-counter ownership and independent host restoration, then use the fresh selective runtime plan for a bounded passive observer run. Do not use the old RAW aligner, old progress receipts, old restore points or an input-review file's existence as readiness. The startup guard still expires naturally; no capture rearm or watchdog change is authorized. Stems staging stays closed, MODS0.1.3 stays unpublished and all other unresolved gates remain.
+
+### Action preparation: component checks complete, coordinator gate retained
+
+The [new action checkpoint](../experiments/mods-shortcut-delivery/task-sdk-observer/ACTION-PREPARATION.md)
+adds a pure152-byte frame/settings policy (245 checks,222 rejection controls,
+independently identical) and host-only counter ownership/recovery (959 checks
+across179 scenarios, three strict controls, independently identical). Recovery
+accepts only the latest owned state or uncertain rename endpoints, preserves
+snapshot-only runs, and rejects external/historical-value drift. A fresh
+status/frame/frame/status preflight binds one-use permits to current run,
+process, mixer settings and bounded timestamps; private mock evidence and
+scope are retained in the checkpoint. No input or native observations follow.
+
+Installation review also reproduced approval-table eviction at capacity and
+added explicit space and exact per-target claim checks. The old EEEE substring
+is replaced with a current-PID, exact-shape, fresh empty-marker check. The old
+combined-BROWSE/two-detent adapter and review-file enablement are removed.
+Installation/input now fail before connection until the coordinator composes
+fresh permit consumption, atomic host target, and a retained at-most-once
+neutral release after uncertain press delivery. Diagnostics/restoration stay
+independent of readiness. Next implement and fault-test that composition,
+then use a fresh selective baseline for one bounded passive run; do not repeat
+unchanged component suites or earlier cleanup. This follow-up used no emulator
+or physical connection, changed no runtime/core/package/catalog, and preserves
+all staging, activation, publication and hardware gates.

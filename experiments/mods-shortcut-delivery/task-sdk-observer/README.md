@@ -12,6 +12,11 @@ from helpers, RAW filter, stems changes, or completion/cancellation decisions.
 Matching task values remain weak candidates. The adapter is research source,
 not a released community feature or installation recommendation.
 
+The later [action preparation](ACTION-PREPARATION.md) validates separate input
+preflight and host-recovery components. The final input coordinator is still
+uncomposed; private installation/input commands are hard-disabled before
+connection. No runtime readiness follows from component checks.
+
 ## Explicit activation and installation sequence
 
 Initialization requires both of these exact environment inputs:

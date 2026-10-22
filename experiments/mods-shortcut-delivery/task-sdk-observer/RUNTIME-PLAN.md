@@ -42,7 +42,10 @@ differ from the recorded originals, stop to reconcile them; never install an
 older core to make a hash check pass.
 
 Preflight the existing module limit, a free SDK module slot, exact approval
-hash and both native hook conflicts. The pinned loader has sixteen module
+hash and both native hook conflicts. Reserve capacity in the separate approval
+table as well: the pinned core retains 64 distinct approved IDs and evicts the
+oldest when adding a new 65th. Refuse a full table; never remove an old approval
+to make room for this experiment. The pinned loader has sixteen module
 slots; appending a registration line does not prove loading. Reserve every new
 module path, service drop-in, owner marker, log path and upload `.new` path,
 including the owner-marker temporary. Refuse stale collisions and unrelated
@@ -72,15 +75,20 @@ Before any mixer input, independently establish a fresh counter from an
 emulator-owned interface whose exact source, loaded implementation identity,
 read bounds and side effects have been reviewed. The virtual controller's
 SPI3 frame read now has a [separate audit and bounded diagnostic](PREPARATION-EVIDENCE.md);
-its fresh action adapter remains unimplemented. Its control-device LED
+its later [full-frame action preparation](ACTION-PREPARATION.md) adds a pure
+152-byte policy and private tested components. The final input coordinator is
+still uncomposed, and installation/input remain hard-disabled. Its control-device LED
 read is unsuitable because it consumes a different freshness stream. Do not
 read native task, dispatcher, child or firmware object memory to obtain the
 counter. If the owned-frame route cannot be proved and freshly sampled, stop
 before all mixer input; an unknown-delta frame is not a substitute for this
 precondition.
 
-If that route passes, require an exact-length acquisition with a valid CRC and repeated consistent
-counter values in the same process with no intervening external input. Align
+If that route passes, require two exact 152-byte acquisitions with valid prefix
+CRCs, repeated consistent counter values, and equality to the planned neutral
+frame at every other position except the two CRC bytes. Freeze and validate
+the host mixer settings too. The kernel placeholder must not be silently
+normalized. Require the same process and no intervening external input. Align
 only the host driver's counter file, retaining its exact original bytes/mode
 and ownership receipt. Validate the pinned input driver and the bounded target
 range; avoid wrap or boundary normalization. This establishes the controller
@@ -125,7 +133,8 @@ Before the first input, require all of:
 1. The exact module ID/version is loaded, with the intended binary hash and
    complete expected mapping. Inspect the actual fresh loaded row, not an ID
    substring or a stale file from the previous process.
-2. Exact per-module core evidence reports two accepted hooks, no refusal or
+2. Exact per-module core evidence reports each target claim successful
+   (`0x237a440` then `0x1b029c0`), exactly once, plus two loaded hooks, no refusal or
    init failure, and the configured opt-in/run token match this session.
    The two static target addresses and expected prologues remain the bound
    ones. Do not infer two claims from the initialization text alone.
@@ -245,3 +254,28 @@ observed and which checks failed or remained unknown. This experiment is not a
 community release, a direct-menu implementation, a stems fix, or validation of
 physical timing, audio quality, native object lifetime, asynchronous unwind or
 whole-engine race freedom.
+
+## Action coordinator checkpoint
+
+The [action preparation](ACTION-PREPARATION.md) records the new components and
+remaining composition gate. Host counter bytes/mode must be captured before
+installation, even if the run never aligns or sends input. Empty-deck checks
+must parse the exact four-line publication, match the current PID, and compare
+its uptime with a fresh uptime read. An `EEEE` substring is insufficient.
+This sampled loaded-track marker does not prove authoritative pause or LOAD
+intent for stems recovery.
+
+Each separate BROWSE pulse and each one-detent step needs its own fresh
+status/frame/status preflight. At most two BROWSE actions precede one CW and
+one CCW action. Preserve a same-process visual Waveform confirmation before
+each knob step. Saved receipts or a review-marker file cannot enable input.
+
+Before a first frame, the future coordinator must durably retain both exact
+planned payloads, consume its fresh permit once, and atomically write only the
+owned host target. It must arrange one at-most-once neutral-release attempt
+even if the press transport fails with unknown delivery. Release checks retain
+same-process and host/mixer ownership but must not depend on continuing Ready
+state or permit age. Never retry a press or release, rearm capture, or add more
+input to obtain missing records. Any failure stops further input. Prove this
+composition with actual functions and fault paths before removing the private
+runtime gate; the standalone component tests do not establish it.

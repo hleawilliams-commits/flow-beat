@@ -1,0 +1,1188 @@
+{
+  "check_labels": [
+    "exact driver source hash",
+    "single driver literal SPI3_IDLE",
+    "single driver literal MIXER_KNOBS",
+    "single driver literal FX_BYTE",
+    "three selected literal declarations",
+    "source-extracted idle bytes hash",
+    "allowlist matches exact driver declarations",
+    "exact kernel frame source hash",
+    "single named kernel mixer template",
+    "kernel source-extracted frame length",
+    "independent CRC X25 known-answer vector",
+    "missing or empty object settings",
+    "all28 reviewed byte offsets parse",
+    "JSON whitespace and integer endpoints",
+    "neutral construction does not mutate inputs",
+    "neutral construction applies only reviewed state and counter",
+    "two stable neutral fullframes",
+    "observed counter independent of pre-alignment planned value 1",
+    "observed counter independent of pre-alignment planned value 203",
+    "observed counter independent of pre-alignment planned value 254",
+    "planned cosmetic CRC bytes ignored",
+    "empty bytes: exact rejection",
+    "oversized state: exact rejection",
+    "mutable settings: exact rejection",
+    "text settings: exact rejection",
+    "invalid UTF8: exact rejection",
+    "broken JSON: exact rejection",
+    "BOM JSON: exact rejection",
+    "nonobject JSON: exact rejection",
+    "null JSON: exact rejection",
+    "duplicate key: exact rejection",
+    "escaped duplicate key: exact rejection",
+    "leading zero key: exact rejection",
+    "signed key: exact rejection",
+    "negative key: exact rejection",
+    "whitespace key: exact rejection",
+    "Unicode digit key: exact rejection",
+    "unreviewed button key: exact rejection",
+    "counter override: exact rejection",
+    "tail override: exact rejection",
+    "CRC override: exact rejection",
+    "float value: exact rejection",
+    "boolean value: exact rejection",
+    "string value: exact rejection",
+    "negative value: exact rejection",
+    "oversized value: exact rejection",
+    "null value: exact rejection",
+    "nested value: exact rejection",
+    "list value: exact rejection",
+    "NaN value: exact rejection",
+    "Infinity value: exact rejection",
+    "held FX state: exact rejection",
+    "string direct key: exact rejection",
+    "boolean direct key: exact rejection",
+    "button direct state: exact rejection",
+    "boolean direct value: exact rejection",
+    "held direct FX: exact rejection",
+    "non-dict direct state: exact rejection",
+    "invalid counter 0: exact rejection",
+    "invalid counter 255: exact rejection",
+    "invalid counter -1: exact rejection",
+    "invalid counter 256: exact rejection",
+    "invalid counter True: exact rejection",
+    "invalid counter 1.0: exact rejection",
+    "invalid counter '128': exact rejection",
+    "changed input idle template: exact rejection",
+    "short idle: exact rejection",
+    "long idle: exact rejection",
+    "mutable idle: exact rejection",
+    "frame0 short: exact rejection",
+    "frame0 long: exact rejection",
+    "frame0 mutable: exact rejection",
+    "frame1 short: exact rejection",
+    "frame1 long: exact rejection",
+    "frame1 mutable: exact rejection",
+    "frame2 short: exact rejection",
+    "frame2 long: exact rejection",
+    "frame2 mutable: exact rejection",
+    "observed CRC byte 96: exact rejection",
+    "observed CRC byte 97: exact rejection",
+    "different observed counters: exact rejection",
+    "observed boundary counter 0: exact rejection",
+    "observed boundary counter 255: exact rejection",
+    "kernel placeholder mismatch: exact rejection",
+    "observed byte 0: exact rejection",
+    "observed byte 1: exact rejection",
+    "observed byte 2: exact rejection",
+    "observed byte 3: exact rejection",
+    "observed byte 4: exact rejection",
+    "observed byte 5: exact rejection",
+    "observed byte 6: exact rejection",
+    "observed byte 7: exact rejection",
+    "observed byte 8: exact rejection",
+    "observed byte 9: exact rejection",
+    "observed byte 10: exact rejection",
+    "observed byte 11: exact rejection",
+    "observed byte 12: exact rejection",
+    "observed byte 13: exact rejection",
+    "observed byte 14: exact rejection",
+    "observed byte 15: exact rejection",
+    "observed byte 16: exact rejection",
+    "observed byte 17: exact rejection",
+    "observed byte 18: exact rejection",
+    "observed byte 19: exact rejection",
+    "observed byte 20: exact rejection",
+    "observed byte 21: exact rejection",
+    "observed byte 22: exact rejection",
+    "observed byte 23: exact rejection",
+    "observed byte 24: exact rejection",
+    "observed byte 25: exact rejection",
+    "observed byte 26: exact rejection",
+    "observed byte 27: exact rejection",
+    "observed byte 28: exact rejection",
+    "observed byte 29: exact rejection",
+    "observed byte 30: exact rejection",
+    "observed byte 31: exact rejection",
+    "observed byte 32: exact rejection",
+    "observed byte 33: exact rejection",
+    "observed byte 35: exact rejection",
+    "observed byte 36: exact rejection",
+    "observed byte 37: exact rejection",
+    "observed byte 38: exact rejection",
+    "observed byte 39: exact rejection",
+    "observed byte 40: exact rejection",
+    "observed byte 41: exact rejection",
+    "observed byte 42: exact rejection",
+    "observed byte 43: exact rejection",
+    "observed byte 44: exact rejection",
+    "observed byte 45: exact rejection",
+    "observed byte 46: exact rejection",
+    "observed byte 47: exact rejection",
+    "observed byte 48: exact rejection",
+    "observed byte 49: exact rejection",
+    "observed byte 50: exact rejection",
+    "observed byte 51: exact rejection",
+    "observed byte 52: exact rejection",
+    "observed byte 53: exact rejection",
+    "observed byte 54: exact rejection",
+    "observed byte 55: exact rejection",
+    "observed byte 56: exact rejection",
+    "observed byte 57: exact rejection",
+    "observed byte 58: exact rejection",
+    "observed byte 59: exact rejection",
+    "observed byte 60: exact rejection",
+    "observed byte 61: exact rejection",
+    "observed byte 62: exact rejection",
+    "observed byte 63: exact rejection",
+    "observed byte 64: exact rejection",
+    "observed byte 65: exact rejection",
+    "observed byte 66: exact rejection",
+    "observed byte 67: exact rejection",
+    "observed byte 68: exact rejection",
+    "observed byte 69: exact rejection",
+    "observed byte 70: exact rejection",
+    "observed byte 71: exact rejection",
+    "observed byte 72: exact rejection",
+    "observed byte 73: exact rejection",
+    "observed byte 74: exact rejection",
+    "observed byte 75: exact rejection",
+    "observed byte 76: exact rejection",
+    "observed byte 77: exact rejection",
+    "observed byte 78: exact rejection",
+    "observed byte 79: exact rejection",
+    "observed byte 80: exact rejection",
+    "observed byte 81: exact rejection",
+    "observed byte 82: exact rejection",
+    "observed byte 83: exact rejection",
+    "observed byte 84: exact rejection",
+    "observed byte 85: exact rejection",
+    "observed byte 86: exact rejection",
+    "observed byte 87: exact rejection",
+    "observed byte 88: exact rejection",
+    "observed byte 89: exact rejection",
+    "observed byte 90: exact rejection",
+    "observed byte 91: exact rejection",
+    "observed byte 92: exact rejection",
+    "observed byte 93: exact rejection",
+    "observed byte 94: exact rejection",
+    "observed byte 95: exact rejection",
+    "observed byte 98: exact rejection",
+    "observed byte 99: exact rejection",
+    "observed byte 100: exact rejection",
+    "observed byte 101: exact rejection",
+    "observed byte 102: exact rejection",
+    "observed byte 103: exact rejection",
+    "observed byte 104: exact rejection",
+    "observed byte 105: exact rejection",
+    "observed byte 106: exact rejection",
+    "observed byte 107: exact rejection",
+    "observed byte 108: exact rejection",
+    "observed byte 109: exact rejection",
+    "observed byte 110: exact rejection",
+    "observed byte 111: exact rejection",
+    "observed byte 112: exact rejection",
+    "observed byte 113: exact rejection",
+    "observed byte 114: exact rejection",
+    "observed byte 115: exact rejection",
+    "observed byte 116: exact rejection",
+    "observed byte 117: exact rejection",
+    "observed byte 118: exact rejection",
+    "observed byte 119: exact rejection",
+    "observed byte 120: exact rejection",
+    "observed byte 121: exact rejection",
+    "observed byte 122: exact rejection",
+    "observed byte 123: exact rejection",
+    "observed byte 124: exact rejection",
+    "observed byte 125: exact rejection",
+    "observed byte 126: exact rejection",
+    "observed byte 127: exact rejection",
+    "observed byte 128: exact rejection",
+    "observed byte 129: exact rejection",
+    "observed byte 130: exact rejection",
+    "observed byte 131: exact rejection",
+    "observed byte 132: exact rejection",
+    "observed byte 133: exact rejection",
+    "observed byte 134: exact rejection",
+    "observed byte 135: exact rejection",
+    "observed byte 136: exact rejection",
+    "observed byte 137: exact rejection",
+    "observed byte 138: exact rejection",
+    "observed byte 139: exact rejection",
+    "observed byte 140: exact rejection",
+    "observed byte 141: exact rejection",
+    "observed byte 142: exact rejection",
+    "observed byte 143: exact rejection",
+    "observed byte 144: exact rejection",
+    "observed byte 145: exact rejection",
+    "observed byte 146: exact rejection",
+    "observed byte 147: exact rejection",
+    "observed byte 148: exact rejection",
+    "observed byte 149: exact rejection",
+    "observed byte 150: exact rejection",
+    "observed byte 151: exact rejection",
+    "matching bad plan 6: exact rejection",
+    "matching bad plan 22: exact rejection",
+    "matching bad plan 24: exact rejection",
+    "matching bad plan 29: exact rejection",
+    "matching bad plan 31: exact rejection",
+    "matching bad plan 32: exact rejection",
+    "matching bad plan 33: exact rejection",
+    "matching bad plan 35: exact rejection",
+    "matching bad plan 128: exact rejection",
+    "matching bad plan 151: exact rejection",
+    "API runs with file opening forbidden",
+    "reference sources unchanged"
+  ],
+  "checks": 245,
+  "compared_byte_controls": 149,
+  "driver_source_sha256": "6f88798ec54785dc2ce9180e5c2839a1a8e8ec370c997bc7f48e8d1cc06e640f",
+  "extra_tail_byte_controls": 24,
+  "failures": 0,
+  "freshness_proven": false,
+  "idle_sha256": "885b5464cd62b520bf336abb40af2016c2d84f73abbeaced7c649dddb048e7a3",
+  "kernel_frames_source_sha256": "4d9d833e583b7c6a5aa3f12de0fea2b7245e9dac915477ab96b9cfdfa75c2c0b",
+  "native_consumption_proven": false,
+  "protected_sha256": "d570e444f35aff7584058fac4b5241b4ecf56cd70f0998c4d3a4af831cec0067",
+  "raw_fixtures_included": false,
+  "result": "PASS",
+  "reviewed_mixer_offsets": [
+    10,
+    11,
+    12,
+    13,
+    15,
+    22,
+    36,
+    37,
+    38,
+    39,
+    41,
+    42,
+    43,
+    44,
+    46,
+    47,
+    48,
+    49,
+    51,
+    52,
+    53,
+    54,
+    56,
+    61,
+    62,
+    63,
+    64,
+    78
+  ],
+  "runtime_access": false,
+  "scope": "Pure settings/frame policy with source-extracted and synthetic in-memory cases only",
+  "source_sha256": {
+    "action-policy.py": "b03a27c6da49437d828d1448c963284eeaa62c0dc3e198557904607003c17621",
+    "test-policy.py": "10322ab9ff21cc4ff4c01eecef790392a5bd6b0f5e66b078e41e3776c701c2b8"
+  },
+  "strict_rejection_control_count": 222,
+  "strict_rejection_controls": [
+    {
+      "name": "empty bytes",
+      "rejected_by": "invalid mixer-state bytes"
+    },
+    {
+      "name": "oversized state",
+      "rejected_by": "invalid mixer-state bytes"
+    },
+    {
+      "name": "mutable settings",
+      "rejected_by": "invalid mixer-state bytes"
+    },
+    {
+      "name": "text settings",
+      "rejected_by": "invalid mixer-state bytes"
+    },
+    {
+      "name": "invalid UTF8",
+      "rejected_by": "mixer state is not UTF-8"
+    },
+    {
+      "name": "broken JSON",
+      "rejected_by": "invalid mixer JSON"
+    },
+    {
+      "name": "BOM JSON",
+      "rejected_by": "invalid mixer JSON"
+    },
+    {
+      "name": "nonobject JSON",
+      "rejected_by": "mixer JSON must be an object"
+    },
+    {
+      "name": "null JSON",
+      "rejected_by": "mixer JSON must be an object"
+    },
+    {
+      "name": "duplicate key",
+      "rejected_by": "duplicate mixer key"
+    },
+    {
+      "name": "escaped duplicate key",
+      "rejected_by": "duplicate mixer key"
+    },
+    {
+      "name": "leading zero key",
+      "rejected_by": "mixer key must be canonical decimal"
+    },
+    {
+      "name": "signed key",
+      "rejected_by": "mixer key must be canonical decimal"
+    },
+    {
+      "name": "negative key",
+      "rejected_by": "mixer key must be canonical decimal"
+    },
+    {
+      "name": "whitespace key",
+      "rejected_by": "mixer key must be canonical decimal"
+    },
+    {
+      "name": "Unicode digit key",
+      "rejected_by": "mixer key must be canonical decimal"
+    },
+    {
+      "name": "unreviewed button key",
+      "rejected_by": "unreviewed mixer offset"
+    },
+    {
+      "name": "counter override",
+      "rejected_by": "unreviewed mixer offset"
+    },
+    {
+      "name": "tail override",
+      "rejected_by": "unreviewed mixer offset"
+    },
+    {
+      "name": "CRC override",
+      "rejected_by": "unreviewed mixer offset"
+    },
+    {
+      "name": "float value",
+      "rejected_by": "mixer value must be an integer byte"
+    },
+    {
+      "name": "boolean value",
+      "rejected_by": "mixer value must be an integer byte"
+    },
+    {
+      "name": "string value",
+      "rejected_by": "mixer value must be an integer byte"
+    },
+    {
+      "name": "negative value",
+      "rejected_by": "mixer value must be an integer byte"
+    },
+    {
+      "name": "oversized value",
+      "rejected_by": "mixer value must be an integer byte"
+    },
+    {
+      "name": "null value",
+      "rejected_by": "mixer value must be an integer byte"
+    },
+    {
+      "name": "nested value",
+      "rejected_by": "mixer value must be an integer byte"
+    },
+    {
+      "name": "list value",
+      "rejected_by": "mixer value must be an integer byte"
+    },
+    {
+      "name": "NaN value",
+      "rejected_by": "nonfinite JSON value"
+    },
+    {
+      "name": "Infinity value",
+      "rejected_by": "nonfinite JSON value"
+    },
+    {
+      "name": "held FX state",
+      "rejected_by": "FX ON must be released"
+    },
+    {
+      "name": "string direct key",
+      "rejected_by": "unreviewed mixer offset"
+    },
+    {
+      "name": "boolean direct key",
+      "rejected_by": "unreviewed mixer offset"
+    },
+    {
+      "name": "button direct state",
+      "rejected_by": "unreviewed mixer offset"
+    },
+    {
+      "name": "boolean direct value",
+      "rejected_by": "mixer value must be an integer byte"
+    },
+    {
+      "name": "held direct FX",
+      "rejected_by": "FX ON must be released"
+    },
+    {
+      "name": "non-dict direct state",
+      "rejected_by": "mixer state must be a dict"
+    },
+    {
+      "name": "invalid counter 0",
+      "rejected_by": "counter outside 1..254"
+    },
+    {
+      "name": "invalid counter 255",
+      "rejected_by": "counter outside 1..254"
+    },
+    {
+      "name": "invalid counter -1",
+      "rejected_by": "counter outside 1..254"
+    },
+    {
+      "name": "invalid counter 256",
+      "rejected_by": "counter outside 1..254"
+    },
+    {
+      "name": "invalid counter True",
+      "rejected_by": "counter outside 1..254"
+    },
+    {
+      "name": "invalid counter 1.0",
+      "rejected_by": "counter outside 1..254"
+    },
+    {
+      "name": "invalid counter '128'",
+      "rejected_by": "counter outside 1..254"
+    },
+    {
+      "name": "changed input idle template",
+      "rejected_by": "idle template hash mismatch"
+    },
+    {
+      "name": "short idle",
+      "rejected_by": "expected exactly 152 immutable bytes"
+    },
+    {
+      "name": "long idle",
+      "rejected_by": "expected exactly 152 immutable bytes"
+    },
+    {
+      "name": "mutable idle",
+      "rejected_by": "expected exactly 152 immutable bytes"
+    },
+    {
+      "name": "frame0 short",
+      "rejected_by": "expected exactly 152 immutable bytes"
+    },
+    {
+      "name": "frame0 long",
+      "rejected_by": "expected exactly 152 immutable bytes"
+    },
+    {
+      "name": "frame0 mutable",
+      "rejected_by": "expected exactly 152 immutable bytes"
+    },
+    {
+      "name": "frame1 short",
+      "rejected_by": "expected exactly 152 immutable bytes"
+    },
+    {
+      "name": "frame1 long",
+      "rejected_by": "expected exactly 152 immutable bytes"
+    },
+    {
+      "name": "frame1 mutable",
+      "rejected_by": "expected exactly 152 immutable bytes"
+    },
+    {
+      "name": "frame2 short",
+      "rejected_by": "expected exactly 152 immutable bytes"
+    },
+    {
+      "name": "frame2 long",
+      "rejected_by": "expected exactly 152 immutable bytes"
+    },
+    {
+      "name": "frame2 mutable",
+      "rejected_by": "expected exactly 152 immutable bytes"
+    },
+    {
+      "name": "observed CRC byte 96",
+      "rejected_by": "mixer CRC-16/X25 mismatch"
+    },
+    {
+      "name": "observed CRC byte 97",
+      "rejected_by": "mixer CRC-16/X25 mismatch"
+    },
+    {
+      "name": "different observed counters",
+      "rejected_by": "observed counters differ"
+    },
+    {
+      "name": "observed boundary counter 0",
+      "rejected_by": "counter outside 1..254"
+    },
+    {
+      "name": "observed boundary counter 255",
+      "rejected_by": "counter outside 1..254"
+    },
+    {
+      "name": "kernel placeholder mismatch",
+      "rejected_by": "press latch must be released"
+    },
+    {
+      "name": "observed byte 0",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 1",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 2",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 3",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 4",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 5",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 6",
+      "rejected_by": "press latch must be released"
+    },
+    {
+      "name": "observed byte 7",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 8",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 9",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 10",
+      "rejected_by": "observed frame differs from planned neutral frame"
+    },
+    {
+      "name": "observed byte 11",
+      "rejected_by": "observed frame differs from planned neutral frame"
+    },
+    {
+      "name": "observed byte 12",
+      "rejected_by": "observed frame differs from planned neutral frame"
+    },
+    {
+      "name": "observed byte 13",
+      "rejected_by": "observed frame differs from planned neutral frame"
+    },
+    {
+      "name": "observed byte 14",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 15",
+      "rejected_by": "observed frame differs from planned neutral frame"
+    },
+    {
+      "name": "observed byte 16",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 17",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 18",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 19",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 20",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 21",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 22",
+      "rejected_by": "FX ON must be released"
+    },
+    {
+      "name": "observed byte 23",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 24",
+      "rejected_by": "MIXER SETTINGS must be released"
+    },
+    {
+      "name": "observed byte 25",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 26",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 27",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 28",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 29",
+      "rejected_by": "X-PAD must be released"
+    },
+    {
+      "name": "observed byte 30",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 31",
+      "rejected_by": "panel and knob controls must be neutral"
+    },
+    {
+      "name": "observed byte 32",
+      "rejected_by": "panel and knob controls must be neutral"
+    },
+    {
+      "name": "observed byte 33",
+      "rejected_by": "panel and knob controls must be neutral"
+    },
+    {
+      "name": "observed byte 35",
+      "rejected_by": "panel and knob controls must be neutral"
+    },
+    {
+      "name": "observed byte 36",
+      "rejected_by": "observed frame differs from planned neutral frame"
+    },
+    {
+      "name": "observed byte 37",
+      "rejected_by": "observed frame differs from planned neutral frame"
+    },
+    {
+      "name": "observed byte 38",
+      "rejected_by": "observed frame differs from planned neutral frame"
+    },
+    {
+      "name": "observed byte 39",
+      "rejected_by": "observed frame differs from planned neutral frame"
+    },
+    {
+      "name": "observed byte 40",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 41",
+      "rejected_by": "observed frame differs from planned neutral frame"
+    },
+    {
+      "name": "observed byte 42",
+      "rejected_by": "observed frame differs from planned neutral frame"
+    },
+    {
+      "name": "observed byte 43",
+      "rejected_by": "observed frame differs from planned neutral frame"
+    },
+    {
+      "name": "observed byte 44",
+      "rejected_by": "observed frame differs from planned neutral frame"
+    },
+    {
+      "name": "observed byte 45",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 46",
+      "rejected_by": "observed frame differs from planned neutral frame"
+    },
+    {
+      "name": "observed byte 47",
+      "rejected_by": "observed frame differs from planned neutral frame"
+    },
+    {
+      "name": "observed byte 48",
+      "rejected_by": "observed frame differs from planned neutral frame"
+    },
+    {
+      "name": "observed byte 49",
+      "rejected_by": "observed frame differs from planned neutral frame"
+    },
+    {
+      "name": "observed byte 50",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 51",
+      "rejected_by": "observed frame differs from planned neutral frame"
+    },
+    {
+      "name": "observed byte 52",
+      "rejected_by": "observed frame differs from planned neutral frame"
+    },
+    {
+      "name": "observed byte 53",
+      "rejected_by": "observed frame differs from planned neutral frame"
+    },
+    {
+      "name": "observed byte 54",
+      "rejected_by": "observed frame differs from planned neutral frame"
+    },
+    {
+      "name": "observed byte 55",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 56",
+      "rejected_by": "observed frame differs from planned neutral frame"
+    },
+    {
+      "name": "observed byte 57",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 58",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 59",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 60",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 61",
+      "rejected_by": "observed frame differs from planned neutral frame"
+    },
+    {
+      "name": "observed byte 62",
+      "rejected_by": "observed frame differs from planned neutral frame"
+    },
+    {
+      "name": "observed byte 63",
+      "rejected_by": "observed frame differs from planned neutral frame"
+    },
+    {
+      "name": "observed byte 64",
+      "rejected_by": "observed frame differs from planned neutral frame"
+    },
+    {
+      "name": "observed byte 65",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 66",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 67",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 68",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 69",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 70",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 71",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 72",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 73",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 74",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 75",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 76",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 77",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 78",
+      "rejected_by": "observed frame differs from planned neutral frame"
+    },
+    {
+      "name": "observed byte 79",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 80",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 81",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 82",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 83",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 84",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 85",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 86",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 87",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 88",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 89",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 90",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 91",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 92",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 93",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 94",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 95",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 98",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 99",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 100",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 101",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 102",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 103",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 104",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 105",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 106",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 107",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 108",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 109",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 110",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 111",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 112",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 113",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 114",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 115",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 116",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 117",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 118",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 119",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 120",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 121",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 122",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 123",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 124",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 125",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 126",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 127",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 128",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 129",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 130",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 131",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 132",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 133",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 134",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 135",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 136",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 137",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 138",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 139",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 140",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 141",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 142",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 143",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 144",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 145",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 146",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 147",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 148",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 149",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 150",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "observed byte 151",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "matching bad plan 6",
+      "rejected_by": "press latch must be released"
+    },
+    {
+      "name": "matching bad plan 22",
+      "rejected_by": "FX ON must be released"
+    },
+    {
+      "name": "matching bad plan 24",
+      "rejected_by": "MIXER SETTINGS must be released"
+    },
+    {
+      "name": "matching bad plan 29",
+      "rejected_by": "X-PAD must be released"
+    },
+    {
+      "name": "matching bad plan 31",
+      "rejected_by": "panel and knob controls must be neutral"
+    },
+    {
+      "name": "matching bad plan 32",
+      "rejected_by": "panel and knob controls must be neutral"
+    },
+    {
+      "name": "matching bad plan 33",
+      "rejected_by": "panel and knob controls must be neutral"
+    },
+    {
+      "name": "matching bad plan 35",
+      "rejected_by": "panel and knob controls must be neutral"
+    },
+    {
+      "name": "matching bad plan 128",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    },
+    {
+      "name": "matching bad plan 151",
+      "rejected_by": "non-mixer bytes differ from pinned neutral template"
+    }
+  ]
+}

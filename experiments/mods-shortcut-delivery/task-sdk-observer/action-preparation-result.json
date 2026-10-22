@@ -1,0 +1,120 @@
+{
+  "actions": {
+    "emulator_contact": false,
+    "input_sent": false,
+    "observer_installed": false,
+    "package_or_catalog_changed": false,
+    "physical_contact": false,
+    "real_host_counter_changed": false,
+    "service_or_core_changed": false
+  },
+  "approval_table_control": {
+    "actual_function_extraction_sha256": "404f2b00d12158b5a14b77d43d4948c623dd11ca0972c6604b4d2f21154815fa",
+    "checks": 136,
+    "existing63_plus_new_preserved": true,
+    "existing64_plus_new_evicted_oldest": true,
+    "pinned_upstream": "3e0c5cb010454228f4ee63226b60d060494eeaae",
+    "result_sha256": "0d9f072767b4ee480b8016c7cfef1b4013f5bf012030a3151549937a5e7c7b10",
+    "scope": "host execution of table functions; no approval-file parser or runtime"
+  },
+  "closed_runtime_gate_and_empty_caller": {
+    "checks": 35,
+    "exact_fresh_same_pid_empty_marker": true,
+    "install_and_input_refused_before_connection": true,
+    "legacy_two_detent_and_combined_browse_removed": true,
+    "marker_is_authoritative_pause_or_load_intent": false,
+    "result_sha256": "48eaf0fbeb29f24dd84e8da726bbcda8118969c933d638eb91b8756c57c1db3c",
+    "review_file_cannot_enable_input": true,
+    "run_source_sha256": "49318f78726da4f6ae3a313d6e305b4cf0935f264c4c354f4b5e7071ca626726"
+  },
+  "fresh_preflight": {
+    "actual_progress_predicate_and_frame_policies_executed": true,
+    "all_raw_metadata_files_rehashed_at_consumption": false,
+    "checks": 660,
+    "full_driver_collector_and_status_sampler_mocked": true,
+    "independently_identical_result": true,
+    "maximum_collection_ns": 15000000000,
+    "maximum_counter_age_ns": 2000000000,
+    "one_use_in_memory_permit": true,
+    "raw_frame_evidence_rechecked_at_consumption": true,
+    "read_only_fake_transport_and_clock": true,
+    "result_sha256": "59c909fa7a4b3ca5028cd1a0179f11b1a587a352a9149e36b2a7c47f31c3f991",
+    "sequence": [
+      "status",
+      "full152_frame",
+      "full152_frame",
+      "status"
+    ],
+    "single_scheduled_wait_ms": 600,
+    "source_review_clock_and_empty_marker_fixes": true,
+    "source_sha256": "3d0e4e22d66c2b93d5d2e0ee45d45ecc2d74aea8b081bf1f79775e7d48cca09c",
+    "strict_rejection_controls": 77,
+    "superseded548_check_result_retained": true,
+    "test_source_sha256": "c3600c63c00a0e2e4824aa45a97ec3a7bbdb377751fa2c84458c043c82576a28",
+    "two_mock_harness_failures_retained": true
+  },
+  "full_frame_policy": {
+    "additional_tail_byte_controls": 24,
+    "checks": 245,
+    "compared_byte_controls": 149,
+    "crc_prefix_bytes": 96,
+    "frame_bytes": 152,
+    "independently_identical_result": true,
+    "result_sha256": "6e979791eab73cd8b41b3ac7bca40f71c10fd179f329ba170f72b6ca527e7171",
+    "source_sha256": "b03a27c6da49437d828d1448c963284eeaa62c0dc3e198557904607003c17621",
+    "strict_rejection_controls": 222
+  },
+  "host_counter": {
+    "bound_uncertain_rename_endpoints": true,
+    "candidate_scenarios": 176,
+    "checks_total_including_controls": 959,
+    "earlier_passing_matrices_superseded_and_retained": [
+      {
+        "checks": 784,
+        "scenarios": 145
+      },
+      {
+        "checks": 851,
+        "scenarios": 156
+      },
+      {
+        "checks": 948,
+        "scenarios": 176
+      }
+    ],
+    "filesystem_compare_and_swap_proven": false,
+    "independently_identical_result": true,
+    "latest_transition_ownership": true,
+    "peer_read_only_review": true,
+    "result_sha256": "480afa6569863a77629a435b08d2fbb733927d2ebc307a634ea26613a339f19c",
+    "single_coordinator_assumption": true,
+    "snapshot_only_recovery": true,
+    "source_sha256": "4915c7957287bbe18d8687f3fa2e6db44f7a3c3299b46ec0d5034fc94529750d",
+    "stored_monotonic_epoch_not_current_recovery_gate": true,
+    "strict_mutant_scenarios": 3,
+    "test_source_sha256": "59d7397e9a7ddc6645a9ced90fce4e38ff2da79d262f9c6b8e8a296257d85927",
+    "total_scenarios": 179,
+    "verified_inner_receipt_narrows_target": true
+  },
+  "install_helpers": {
+    "author_result_sha256": "964b731940a4a34af391bd15152a8696ed8b2c20cb32da7988cf9e15d057bf75",
+    "checks": 43,
+    "extraction_sha256": "1cdd2e82e86ec876207a044a8624c405d8edfc70f0973698ba9e3e7b20a3b8a6",
+    "full_result_byte_identical": false,
+    "independent_result_sha256": "bde375b1f815c2973c89fafc98eeb4b2be6fbfa5b177855a5da996374adbe560",
+    "independent_same_extraction_and_assertions": true,
+    "only_result_difference": "full run.py source hash after later runtime-gate edit",
+    "rejection_cases": 29,
+    "strict_mutated_controls": 2
+  },
+  "observer_binary_sha256": "71d7fc088f4def67d1307e4faeef301020aed04bfa3da7ae4bc6a422ece3e255",
+  "remaining_gates": [
+    "Compose and fault-test serialization, fresh permit consumption, owned host target, exact first frame and at-most-once neutral release after uncertain press delivery",
+    "Fresh selective baseline and unique run ownership before any passive installation",
+    "Live claims, task provenance, event identity and native ownership unobserved",
+    "Stems staging remains closed; no accepted activation API",
+    "MODS0.1.3 unpublished; USB activation and physical validation pending"
+  ],
+  "schema": 1,
+  "scope": "Offline full-frame policy, fresh preflight and host counter ownership components; final input coordinator absent"
+}

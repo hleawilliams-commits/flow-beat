@@ -86,3 +86,28 @@ Separately, the [0.1.3 lane counterexample](../experiments/mods-shortcut-lane-ob
 2. Build on V4’s observed empty-list request path and V3’s copied commit boundary. The first-two missing boundaries are now explained for the bounded sequence. Neither admission nor committed-at-entry identity is final readiness. Resolve asynchronous request replacement/cancellation and owned native activation, or specify a narrower intent-only contract with honest UI semantics. Keep post-return pointer reads absent. USB buttons remain planned for the old WAVEFORM heading; missing-media and lifecycle checks are still open. Do not repeat successful claim/thread checks without a change that warrants it.
 3. Implement the direct-menu service only after resolving the design's knob handback and view-cancellation questions. Treat the SDK/core change separately from the community shortcut, and retain all native input regression coverage.
 4. Preserve the isolated phrase-grid results. When composing a candidate engine, apply patches explicitly and test their interaction. The physical Deck 2 report still needs evidence; no physical reload is required for this development work.
+
+### Action preparation: component checks complete, coordinator gate retained
+
+The [new action checkpoint](../experiments/mods-shortcut-delivery/task-sdk-observer/ACTION-PREPARATION.md)
+adds a pure152-byte frame/settings policy (245 checks,222 rejection controls,
+independently identical) and host-only counter ownership/recovery (959 checks
+across179 scenarios, three strict controls, independently identical). Recovery
+accepts only the latest owned state or uncertain rename endpoints, preserves
+snapshot-only runs, and rejects external/historical-value drift. A fresh
+status/frame/frame/status preflight binds one-use permits to current run,
+process, mixer settings and bounded timestamps; private mock evidence and
+scope are retained in the checkpoint. No input or native observations follow.
+
+Installation review also reproduced approval-table eviction at capacity and
+added explicit space and exact per-target claim checks. The old EEEE substring
+is replaced with a current-PID, exact-shape, fresh empty-marker check. The old
+combined-BROWSE/two-detent adapter and review-file enablement are removed.
+Installation/input now fail before connection until the coordinator composes
+fresh permit consumption, atomic host target, and a retained at-most-once
+neutral release after uncertain press delivery. Diagnostics/restoration stay
+independent of readiness. Next implement and fault-test that composition,
+then use a fresh selective baseline for one bounded passive run; do not repeat
+unchanged component suites or earlier cleanup. This follow-up used no emulator
+or physical connection, changed no runtime/core/package/catalog, and preserves
+all staging, activation, publication and hardware gates.
