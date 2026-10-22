@@ -1,0 +1,36 @@
+# Custom Screen layout, made in Deck Screen Designer
+# Coordinates are deck pixels (1280 x 800). Widget x/y are inside their panel.
+version 1
+name Grouped Panels, editable
+
+panel 1 x=10 y=561 w=520 h=46 views=4,24 bg=auto border=none bw=0 edge=top
+widget 1 deck_num deck=1 x=0 y=0 w=44 h=46 size=27 color=auto align=l
+widget 1 title deck=1 x=54 y=1 w=360 h=24 size=16 color=auto align=l
+widget 1 bpm_gap deck=1 x=454 y=3 w=50 h=21 size=14 color=auto align=l
+widget 1 key deck=1 x=54 y=25 w=90 h=21 size=14 color=auto align=l text=KEY 
+widget 1 phrase deck=1 x=172 y=25 w=120 h=21 size=14 color=auto align=l text=PHRASE 
+widget 1 phrase_bar deck=1 x=320 y=30 w=189 h=10 size=14 color=auto align=l
+
+panel 2 x=650 y=561 w=520 h=46 views=4,24 bg=auto border=none bw=0 edge=top
+widget 2 deck_num deck=2 x=0 y=0 w=44 h=46 size=27 color=auto align=l
+widget 2 title deck=2 x=54 y=1 w=360 h=24 size=16 color=auto align=l
+widget 2 bpm_gap deck=2 x=454 y=3 w=50 h=21 size=14 color=auto align=l
+widget 2 key deck=2 x=54 y=25 w=90 h=21 size=14 color=auto align=l text=KEY 
+widget 2 phrase deck=2 x=172 y=25 w=120 h=21 size=14 color=auto align=l text=PHRASE 
+widget 2 phrase_bar deck=2 x=320 y=30 w=189 h=10 size=14 color=auto align=l
+
+panel 3 x=10 y=681 w=520 h=46 views=4,24 bg=auto border=none bw=0 edge=top
+widget 3 deck_num deck=3 x=0 y=0 w=44 h=46 size=27 color=auto align=l
+widget 3 title deck=3 x=54 y=1 w=360 h=24 size=16 color=auto align=l
+widget 3 bpm_gap deck=3 x=454 y=3 w=50 h=21 size=14 color=auto align=l
+widget 3 key deck=3 x=54 y=25 w=90 h=21 size=14 color=auto align=l text=KEY 
+widget 3 phrase deck=3 x=172 y=25 w=120 h=21 size=14 color=auto align=l text=PHRASE 
+widget 3 phrase_bar deck=3 x=320 y=30 w=189 h=10 size=14 color=auto align=l
+
+panel 4 x=650 y=681 w=520 h=46 views=4,24 bg=auto border=none bw=0 edge=top
+widget 4 deck_num deck=4 x=0 y=0 w=44 h=46 size=27 color=auto align=l
+widget 4 title deck=4 x=54 y=1 w=360 h=24 size=16 color=auto align=l
+widget 4 bpm_gap deck=4 x=454 y=3 w=50 h=21 size=14 color=auto align=l
+widget 4 key deck=4 x=54 y=25 w=90 h=21 size=14 color=auto align=l text=KEY 
+widget 4 phrase deck=4 x=172 y=25 w=120 h=21 size=14 color=auto align=l text=PHRASE 
+widget 4 phrase_bar deck=4 x=320 y=30 w=189 h=10 size=14 color=auto align=l

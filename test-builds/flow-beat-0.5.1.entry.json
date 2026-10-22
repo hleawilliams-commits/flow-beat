@@ -1,0 +1,20 @@
+{
+  "id": "flow-beat",
+  "name": "FLOW Beat Link",
+  "version": "0.5.1",
+  "author": "hleawilliams-commits",
+  "summary": "Sends each deck's beat, BPM, track and the mixer to FLOW VJ, and can lead Ableton Link from the deck.",
+  "icon": "https://github.com/hleawilliams-commits/flow-beat/releases/download/flow-beat-0.5.1/flow-beat-0.5.1-icon.png",
+  "package": "https://github.com/hleawilliams-commits/flow-beat/releases/download/flow-beat-0.5.1/flow-beat-0.5.1.azmod",
+  "sha256": "5fab7e0a6735ffb74e8ff98a99052c324eef7a71291685d0b018116dd6daf32e",
+  "size": 549924,
+  "firmware": [
+    "any"
+  ],
+  "hooks": false,
+  "source": "https://github.com/hleawilliams-commits/flow-beat",
+  "updated": "2026-10-22",
+  "license": "GPL-3.0-only",
+  "min_core": "1.2.3",
+  "description": "Rows: Send beat to FLOW (on), Send mixer to FLOW (on), Send track analysis to FLOW (on), Ableton Link from this deck (off, test) and Send mixer data (test) (off).\n\nLink: the playing deck leads the Ableton Link session on the deck's network (tempo, beat, bar), so Ableton and AUTO/PILOT follow with no computer bridge.\n\nFLOW: UDP broadcast to port 9100 (or flow-beat:host in MODS/azmods.cfg): beats, BPM, titles, each deck's level, the track's rekordbox grid, waveform, phrases and cues, and the mixer's faders, EQ and FX. Uses Ableton Link (GPL-2.0-or-later). Reads files; never writes or patches the deck."
+}

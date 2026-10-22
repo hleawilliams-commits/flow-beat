@@ -1,0 +1,21 @@
+{
+  "id": "pad-lights",
+  "name": "Pad Lights",
+  "version": "0.3.0",
+  "author": "hleawilliams-commits",
+  "summary": "Pads as a light show, beat pulse, phrase countdown or FLOW lights; VJ pads fire FLOW VJ Looks from the deck.",
+  "icon": "https://github.com/hleawilliams-commits/flow-beat/releases/download/pad-lights-0.3.0/pad-lights-0.3.0-icon.png",
+  "package": "https://github.com/hleawilliams-commits/flow-beat/releases/download/pad-lights-0.3.0/pad-lights-0.3.0.azmod",
+  "sha256": "1c5adc72127ebc722a07dc8435a42e2108dfec1d870bdc6cc46be785d6363041",
+  "size": 63303,
+  "firmware": [
+    "any"
+  ],
+  "hooks": false,
+  "source": "https://github.com/hleawilliams-commits/flow-beat/tree/codex/az-mods-handoff-2026-10-16/pad-lights",
+  "updated": "2026-10-22",
+  "category": "visual",
+  "license": "GPL-3.0-only",
+  "min_core": "1.2.3",
+  "description": "VJ pads (off by default): HOT CUE + BEAT JUMP together turns that side's pads into FLOW VJ Looks 1-8 (SHIFT + pad = light hits); any pad-mode button alone gives them back, and the deck never sees VJ presses. Idle show (default): pads glow in a colour wave on a side whose deck is stopped. Beat pulse: the playing side pulses in the track's key colour. Phrase countdown: pads fill over 32 beats, last bar red. FLOW lights: pads mirror FLOW's rig. Off returns every pad to normal."
+}

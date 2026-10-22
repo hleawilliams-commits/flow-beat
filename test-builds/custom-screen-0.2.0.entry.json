@@ -1,0 +1,22 @@
+{
+  "id": "custom-screen",
+  "name": "Custom Screen",
+  "version": "0.2.0",
+  "author": "hleawilliams-commits",
+  "summary": "Your own deck-screen panels, laid out in a text file you can change any time, plus FlowVJ's status.",
+  "icon": "https://github.com/hleawilliams-commits/flow-beat/releases/download/custom-screen-0.2.0/custom-screen-0.2.0-icon.png",
+  "package": "https://github.com/hleawilliams-commits/flow-beat/releases/download/custom-screen-0.2.0/custom-screen-0.2.0.azmod",
+  "sha256": "31bd7a4fab4360ddc16aa4f5fc056f927b00fdc2e6e5d052e1d850a658ead625",
+  "size": 93950,
+  "firmware": [
+    "any"
+  ],
+  "hooks": false,
+  "source": "https://github.com/hleawilliams-commits/flow-beat/tree/main/custom-screen",
+  "updated": "2026-10-22",
+  "category": "visual",
+  "license": "GPL-3.0-only",
+  "min_core": "1.2.3",
+  "description": "Up to four click-through panels on the deck screen, each holding the readouts you pick: deck number, title, artist, key (green/amber/red against the other playing deck), BPM, BPM gap, phrase, beat dots, time left, stems, play state, LEFT/RIGHT, clock, text, boxes, and FlowVJ's look, lights and LOCK/SAFE/HOLD with tap buttons back to FlowVJ (UDP 9102/9103). The layout comes from layout.txt (Deck Screen Designer) on the USB and is re-read within a second. No audio, tempo, key, control or library changes.",
+  "assets_kb": 2
+}

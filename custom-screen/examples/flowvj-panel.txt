@@ -1,0 +1,13 @@
+# Custom Screen layout: FLOW Status Panel (FlowVJ's look with LOCK / SAFE / HOLD, and three tap buttons)
+# Bottom right of 4 DECK and 2/4 DECK, between the ZOOM button (ends ~y 482) and deck 2's lower header and
+# BPM box (start y 561): keep the panel inside y 490-558.
+# Needs FlowVJ with deck-status.js and AZ BEAT on; until FlowVJ answers the panel says FLOW not seen and
+# taps on the buttons go to the deck as usual.
+version 1
+name FLOW status panel
+
+panel 1 x=1090 y=490 w=180 h=68 views=4,24 bg=auto border=accent bw=2 edge=top
+widget 1 flowvj x=8 y=4 w=166 h=24 size=15 text=VJ 
+widget 1 vj_tap act=next x=8 y=32 w=52 h=30 size=13
+widget 1 vj_tap act=hold x=64 y=32 w=52 h=30 size=13
+widget 1 vj_tap act=safe x=120 y=32 w=52 h=30 size=13

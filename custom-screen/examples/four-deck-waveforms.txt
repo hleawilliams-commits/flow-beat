@@ -1,0 +1,24 @@
+# Custom Screen layout: 4-Deck Waveforms
+# One panel over the 4 DECK waveform area (rows 3-1-2-4 at y 80/202/324/446). Each row has the
+# deck's title, a zoomed rekordbox waveform (16 beats across, beat grid and bar lines, playhead
+# in the middle) and the whole-track overview under it. Three panels stay free for other readouts.
+version 1
+name 4-Deck Waveforms
+
+panel 1 x=212 y=80 w=876 h=480 views=4 bg=0c0812 border=none bw=0 edge=all
+widget 1 title deck=3 x=20 y=0 w=640 h=22 size=14 color=auto align=l text=3  
+widget 1 time_left deck=3 x=736 y=0 w=120 h=22 size=14 color=auto align=r
+widget 1 wave deck=3 x=20 y=22 w=836 h=70 zoom=16 grid=1 color=auto
+widget 1 overview deck=3 x=20 y=96 w=836 h=18 color=auto
+widget 1 title deck=1 x=20 y=122 w=640 h=22 size=14 color=auto align=l text=1  
+widget 1 time_left deck=1 x=736 y=122 w=120 h=22 size=14 color=auto align=r
+widget 1 wave deck=1 x=20 y=144 w=836 h=70 zoom=16 grid=1 color=auto
+widget 1 overview deck=1 x=20 y=218 w=836 h=18 color=auto
+widget 1 title deck=2 x=20 y=244 w=640 h=22 size=14 color=auto align=l text=2  
+widget 1 time_left deck=2 x=736 y=244 w=120 h=22 size=14 color=auto align=r
+widget 1 wave deck=2 x=20 y=266 w=836 h=70 zoom=16 grid=1 color=auto
+widget 1 overview deck=2 x=20 y=340 w=836 h=18 color=auto
+widget 1 title deck=4 x=20 y=366 w=640 h=22 size=14 color=auto align=l text=4  
+widget 1 time_left deck=4 x=736 y=366 w=120 h=22 size=14 color=auto align=r
+widget 1 wave deck=4 x=20 y=388 w=836 h=70 zoom=16 grid=1 color=auto
+widget 1 overview deck=4 x=20 y=462 w=836 h=18 color=auto

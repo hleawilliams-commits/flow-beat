@@ -1,0 +1,18 @@
+{
+  "azmod": 1,
+  "id": "custom-screen",
+  "name": "Custom Screen",
+  "version": "0.2.0",
+  "author": "hleawilliams-commits",
+  "summary": "Your own deck-screen panels from a text file: readouts, 4-deck rekordbox waveforms and FlowVJ's status.",
+  "description": "Up to four click-through panels on the deck screen, each holding the readouts you pick: deck number, title, artist, key (green/amber/red against the other playing deck), BPM, BPM gap, phrase, beat dots, time left, stems, play state, LEFT/RIGHT, clock, text, boxes, zoomed and whole-track rekordbox waveforms for all four decks (from the USB's analysis), and FlowVJ's look, lights and LOCK/SAFE/HOLD with tap buttons back to FlowVJ (UDP 9102/9103). The layout comes from layout.txt (Deck Screen Designer) on the USB, re-read within a second. No audio, tempo, key, control or library changes.",
+  "category": "visual",
+  "license": "GPL-3.0-only",
+  "source": "https://github.com/hleawilliams-commits/flow-beat/tree/main/custom-screen",
+  "api": 1,
+  "firmware": [
+    "any"
+  ],
+  "hooks": false,
+  "min_core": "1.2.3"
+}
