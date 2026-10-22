@@ -1,0 +1,46 @@
+aarch64
+g++ (Ubuntu/Linaro 7.5.0-3ubuntu1~18.04) 7.5.0
+ARM64 integration: 239 passed, 0 failed; scenarios=16; before=45; after=42; executor=8; native-submit=45; native-execute=7; concurrent-records=8
+
+Control: executor-wrong-lr
+FAIL entry-execution-return/execution-entry-visible-before-submission-return
+FAIL entry-execution-return/actual-caller-lrs
+FAIL entry-execution-return/independent-records-present
+FAIL entry-execution-return/distinct-phases
+FAIL entry-execution-return/distinct-observer-invocations
+FAIL entry-execution-return/value-only-candidate
+FAIL entry-execution-return/only-five-reads-per-capture
+FAIL unmap-before-return/no-post-task-read
+FAIL wrong-caller/unmapped-executor-lr-retained
+FAIL exception-bypasses-after/entries-remain-no-return
+FAIL exception-bypasses-after/usable-after-unwind
+FAIL one-input-executor-abi/executor-original-lr-register
+ARM64 integration: 227 passed, 12 failed; scenarios=16; before=45; after=42; executor=8; native-submit=45; native-execute=7; concurrent-records=7
+
+Control: executor-omit-x0-x1-restore
+FAIL null-task/null-executor-once
+FAIL one-input-executor-abi/native-input-register-preserved
+FAIL one-input-executor-abi/native-input-register-preserved
+ARM64 integration: 236 passed, 3 failed; scenarios=16; before=45; after=42; executor=8; native-submit=45; native-execute=7; concurrent-records=8
+
+Control: truncate-observed-return
+FAIL entry-execution-return/full-qualified-bits
+FAIL close-with-outstanding/return-publishes-after-close
+FAIL mismatch-return/ambiguous-return-only
+FAIL nested-native/nested-result-per-invocation
+FAIL nested-native/nested-result-per-invocation
+FAIL nested-native/nested-result-per-invocation
+FAIL concurrent-submission/concurrent-full-return
+FAIL concurrent-submission/concurrent-full-return
+FAIL concurrent-submission/concurrent-full-return
+FAIL concurrent-submission/concurrent-full-return
+FAIL concurrent-submission/concurrent-full-return
+FAIL concurrent-submission/concurrent-full-return
+FAIL concurrent-submission/concurrent-full-return
+FAIL concurrent-submission/concurrent-full-return
+ARM64 integration: 225 passed, 14 failed; scenarios=16; before=45; after=42; executor=8; native-submit=45; native-execute=7; concurrent-records=8
+
+Control: executor-clobber-errno
+FAIL one-input-executor-abi/executor-helper-errno-preserved
+FAIL concurrent-submission/native-entry-errno
+ARM64 integration: 237 passed, 2 failed; scenarios=16; before=45; after=42; executor=8; native-submit=45; native-execute=7; concurrent-records=8

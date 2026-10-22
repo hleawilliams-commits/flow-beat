@@ -1,0 +1,174 @@
+{
+  "image": "azmod-build:18.04",
+  "image_id": "sha256:c7e3893c4f03e0ff30555c2120b3d9ec53834eaa2c8ce376a2da09b70fd23a90",
+  "platform": "linux/arm64",
+  "source_sha256": {
+    "task-observer-integration/submission-entry.S": "16c7df29fef3c80fcd5f6259d4073abf92fd57471bc203c39f3853a0709d06c8",
+    "task-observer-integration/executor-entry.S": "31aef2512c9b0ba35223e640eba0a962fd2fd493e7a9988afee51d387f58ea62",
+    "task-observer-integration/fixture.S": "a6e28ed39a8fff6ef254cea442fc5e64837c0a17dc070c2417900f1385296e81",
+    "task-observer-integration/test_integration.cpp": "785c641e1ebc41144fc595ab20a3cfe9a5ebd6ddd2b808a5f24852120d18681d",
+    "task-observer-integration/run-tests.py": "049da1fdafd87e681c14ab3f908681ec7c9c939dda014cc671281a252580f88e",
+    "task-capture-contract/capture.h": "aa9b82311065fa3481cda29883f6dae40d1685c213d520271e1f4530039291ea",
+    "task-value-transport/transport.h": "3f2a0b902a6fae0ab425be570bda3904ac5e99203415457aa7ced059d5061d55",
+    "task-call-return-abi/context.h": "c8ebf02fcaa1eb986ab59ee6516dfbaa8b9f6a6c13db211661c658e3cc6acc07"
+  },
+  "candidate_summary": [
+    239,
+    0,
+    16,
+    45,
+    42,
+    8,
+    45,
+    7,
+    8
+  ],
+  "private_run_id": "d2e79bb4-5059-40a5-bfa4-fbafb7484d1a",
+  "test_elf_sha256": "d7cf4c50d7ea89745f0b6723045bcf4bdd2dca33aa0065c97caa13ff2eaf8741",
+  "executor_object_sha256": "72f78ee3c720b4655a9a1e33ab5ebcdbbbc83f7e854c42e77566638453a37caa",
+  "unchanged_submission_assembly_sha256": "16c7df29fef3c80fcd5f6259d4073abf92fd57471bc203c39f3853a0709d06c8",
+  "synthetic_only": true,
+  "firmware_or_device_access": false,
+  "controls": [
+    {
+      "name": "executor-wrong-lr",
+      "summary": [
+        227,
+        12,
+        16,
+        45,
+        42,
+        8,
+        45,
+        7,
+        7
+      ],
+      "expected_failures": {
+        "entry-execution-return/execution-entry-visible-before-submission-return": 1,
+        "entry-execution-return/actual-caller-lrs": 1,
+        "entry-execution-return/independent-records-present": 1,
+        "entry-execution-return/distinct-phases": 1,
+        "entry-execution-return/distinct-observer-invocations": 1,
+        "entry-execution-return/value-only-candidate": 1,
+        "entry-execution-return/only-five-reads-per-capture": 1,
+        "unmap-before-return/no-post-task-read": 1,
+        "wrong-caller/unmapped-executor-lr-retained": 1,
+        "exception-bypasses-after/entries-remain-no-return": 1,
+        "exception-bypasses-after/usable-after-unwind": 1,
+        "one-input-executor-abi/executor-original-lr-register": 1
+      },
+      "source_sha256": "a2f73cd044d45183a1f555537a7973726c3e39616c37543bb92536f5339cd0c5",
+      "output_sha256": "fbffecc1138138b315b4680660b945bbee44a3ef90711f54e263b9abdfc3088a"
+    },
+    {
+      "name": "executor-omit-x0-x1-restore",
+      "summary": [
+        236,
+        3,
+        16,
+        45,
+        42,
+        8,
+        45,
+        7,
+        8
+      ],
+      "expected_failures": {
+        "null-task/null-executor-once": 1,
+        "one-input-executor-abi/native-input-register-preserved": 2
+      },
+      "source_sha256": "1bf68087ad5010ba451bb49f6dca6f7924cff14b6b2f9ae303d6881c7c95e6ac",
+      "output_sha256": "2995f479f326aed315db50de19c8682e5d712289bb7dd9454dd41e26d70e9883"
+    },
+    {
+      "name": "truncate-observed-return",
+      "summary": [
+        225,
+        14,
+        16,
+        45,
+        42,
+        8,
+        45,
+        7,
+        8
+      ],
+      "expected_failures": {
+        "entry-execution-return/full-qualified-bits": 1,
+        "close-with-outstanding/return-publishes-after-close": 1,
+        "mismatch-return/ambiguous-return-only": 1,
+        "nested-native/nested-result-per-invocation": 3,
+        "concurrent-submission/concurrent-full-return": 8
+      },
+      "source_sha256": "851034b583d44656743b76e5cf6c751d7261a0c8fa0b0049604e44333b5c6bcc",
+      "output_sha256": "47580d5de6da221a2c7dce3eb08e2f627bff06d11f05cfaba5179d30772e5927"
+    },
+    {
+      "name": "executor-clobber-errno",
+      "summary": [
+        237,
+        2,
+        16,
+        45,
+        42,
+        8,
+        45,
+        7,
+        8
+      ],
+      "expected_failures": {
+        "one-input-executor-abi/executor-helper-errno-preserved": 1,
+        "concurrent-submission/native-entry-errno": 1
+      },
+      "source_sha256": "8a2d08dd3f0152621fb383ade041c15b69978b52d92f3f179aba87bd5505ccdd",
+      "output_sha256": "6e6ec772ecb063f11a7cd927101662c240d8efd145d2c12fe9434830b09beb1d"
+    }
+  ],
+  "executor_instruction_count": 46,
+  "executor_cfi_audit": true,
+  "executor_stack_bytes": 320,
+  "executor_lr_cfa_offset": -168,
+  "cfi_rejection_controls": [
+    {
+      "name": "executor-missing-lr-rule",
+      "compiled": true,
+      "executed": false,
+      "metadata_rejected": true,
+      "source_sha256": "e487327479507e95704721264abe36951660a9c16356f9cb0c3eb044364abd7b"
+    },
+    {
+      "name": "executor-wrong-frame-rule",
+      "compiled": true,
+      "executed": false,
+      "metadata_rejected": true,
+      "source_sha256": "d15ca24d64dd9fa868f422c577df4b3ed80d17bfb73ed29929b559e2996406db"
+    }
+  ],
+  "context_bytes": 64,
+  "entry_and_return_publication_independent": true,
+  "normal_return_after_close_published": true,
+  "synthetic_task_unmapped_before_after": true,
+  "one_native_exception": true,
+  "submission_invocations_on_unwind": 3,
+  "exception_destructors": 5,
+  "synthetic_lr_mapping_only": true,
+  "actual_firmware_caller_provenance": false,
+  "copy_range_test": "TC_READ_BYTES requested-range seam; not proof of default memcpy machine load extents",
+  "concurrent_native_calls": 8,
+  "concurrent_records": 8,
+  "concurrent_contention_allowed": true,
+  "sanitizers_used": false,
+  "runtime_hook_or_trampoline_unwind_proven": false,
+  "source_review_correction": {
+    "issue": "Earlier fixture destructor bookkeeping incremented one plain unsigned counter from four concurrent native-submit threads.",
+    "correction": "Only that bookkeeping counter is now std::atomic<unsigned>; no production transport or wrapper source changed.",
+    "prior_passing_runs_superseded": [
+      "7d0899a9-d43d-4abb-9577-c256420b0b7c",
+      "6c1db50c-7979-4283-b957-05e185a10b0a",
+      "3593f94a-d6be-4d26-9908-b0e1b4a73972",
+      "ede96c92-cc05-4a9e-a63a-36b94a42dfb9"
+    ],
+    "detected_by": "Independent root source review, not a sanitizer report",
+    "original_runs_and_pre_fix_files_retained": true
+  }
+}

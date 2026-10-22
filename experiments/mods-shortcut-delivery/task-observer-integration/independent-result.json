@@ -1,0 +1,70 @@
+{
+  "candidate_assertions": 239,
+  "scenarios": 16,
+  "executed_controls_exact_failures": [
+    12,
+    3,
+    14,
+    2
+  ],
+  "compiled_cfi_controls_rejected": 2,
+  "source_and_executor_object_equal": true,
+  "candidate_summary_equal": true,
+  "strict_control_failure_sets_equal": true,
+  "control_capture_variation": [
+    {
+      "name": "executor-wrong-lr",
+      "author_concurrent_records": 8,
+      "independent_concurrent_records": 7,
+      "exact_failure_names_and_counts_equal": true,
+      "author_output_sha256": "4be87ae99b7153165fb0e6a1b0774b00c890a5377fa490fdd4f14eebb9736f1e",
+      "independent_output_sha256": "fbffecc1138138b315b4680660b945bbee44a3ef90711f54e263b9abdfc3088a"
+    }
+  ],
+  "other_report_fields_equal": true,
+  "excluded_report_fields": [
+    "controls",
+    "private_run_id",
+    "test_elf_sha256"
+  ],
+  "original_run_id": "5643311b-7a07-4025-95cd-0307a610f904",
+  "independent_run_id": "d2e79bb4-5059-40a5-bfa4-fbafb7484d1a",
+  "original_test_elf_sha256": "948b5b3b82acad56bc9304d61c1495d2573e4b8fbd8570738b5ede306e8a5c0a",
+  "independent_test_elf_sha256": "d7cf4c50d7ea89745f0b6723045bcf4bdd2dca33aa0065c97caa13ff2eaf8741",
+  "executor_object_sha256": "72f78ee3c720b4655a9a1e33ab5ebcdbbbc83f7e854c42e77566638453a37caa",
+  "full_elf_changed_bytes": 18,
+  "only_changed_section": ".strtab",
+  "changed_symbol_count": 3,
+  "changed_symbol_kind": "local STT_FILE, SHN_ABS, zero value/size; compiler temporary filenames",
+  "whole_elf_equal_after_temporary_filename_normalization": true,
+  "all_allocated_code_data_and_unwind_sections_byte_identical": true,
+  "sanitized_test_output_byte_identical": false,
+  "only_output_difference": "wrong-LR control concurrent-records=7 versus author 8; permitted contention drop with native forwarding preserved",
+  "source_sha256": {
+    "task-observer-integration/submission-entry.S": "16c7df29fef3c80fcd5f6259d4073abf92fd57471bc203c39f3853a0709d06c8",
+    "task-observer-integration/executor-entry.S": "31aef2512c9b0ba35223e640eba0a962fd2fd493e7a9988afee51d387f58ea62",
+    "task-observer-integration/fixture.S": "a6e28ed39a8fff6ef254cea442fc5e64837c0a17dc070c2417900f1385296e81",
+    "task-observer-integration/test_integration.cpp": "785c641e1ebc41144fc595ab20a3cfe9a5ebd6ddd2b808a5f24852120d18681d",
+    "task-observer-integration/run-tests.py": "049da1fdafd87e681c14ab3f908681ec7c9c939dda014cc671281a252580f88e",
+    "task-capture-contract/capture.h": "aa9b82311065fa3481cda29883f6dae40d1685c213d520271e1f4530039291ea",
+    "task-value-transport/transport.h": "3f2a0b902a6fae0ab425be570bda3904ac5e99203415457aa7ced059d5061d55",
+    "task-call-return-abi/context.h": "c8ebf02fcaa1eb986ab59ee6516dfbaa8b9f6a6c13db211661c658e3cc6acc07"
+  },
+  "fixture_counter_race_corrected_before_accepted_runs": true,
+  "source_review_correction": {
+    "issue": "Earlier fixture destructor bookkeeping incremented one plain unsigned counter from four concurrent native-submit threads.",
+    "correction": "Only that bookkeeping counter is now std::atomic<unsigned>; no production transport or wrapper source changed.",
+    "prior_passing_runs_superseded": [
+      "7d0899a9-d43d-4abb-9577-c256420b0b7c",
+      "6c1db50c-7979-4283-b957-05e185a10b0a",
+      "3593f94a-d6be-4d26-9908-b0e1b4a73972",
+      "ede96c92-cc05-4a9e-a63a-36b94a42dfb9"
+    ],
+    "detected_by": "Independent root source review, not a sanitizer report",
+    "original_runs_and_pre_fix_files_retained": true
+  },
+  "comparison_preflight": "Initial post-test comparison assumed identical contention counts and one changed compiler temporary filename. Actual allowed variation and three STT_FILE names were inspected; private rejection receipts retained, no test rerun.",
+  "actual_assembly_executed": true,
+  "sanitizers_used": false,
+  "firmware_emulator_or_physical_access": false
+}

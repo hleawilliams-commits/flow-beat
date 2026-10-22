@@ -1,0 +1,53 @@
+
+<OUTPUT>/executor-entry.o:     file format elf64-littleaarch64
+
+
+Disassembly of section .text:
+
+0000000000000000 <az_task_exec_entry>:
+   0:	d10503ff 	sub	sp, sp, #0x140
+   4:	a90007e0 	stp	x0, x1, [sp]
+   8:	a9010fe2 	stp	x2, x3, [sp, #16]
+   c:	a90217e4 	stp	x4, x5, [sp, #32]
+  10:	a9031fe6 	stp	x6, x7, [sp, #48]
+  14:	a90427e8 	stp	x8, x9, [sp, #64]
+  18:	a9052fea 	stp	x10, x11, [sp, #80]
+  1c:	a90637ec 	stp	x12, x13, [sp, #96]
+  20:	a9073fee 	stp	x14, x15, [sp, #112]
+  24:	a90847f0 	stp	x16, x17, [sp, #128]
+  28:	a9097bf2 	stp	x18, x30, [sp, #144]
+  2c:	ad0507e0 	stp	q0, q1, [sp, #160]
+  30:	ad060fe2 	stp	q2, q3, [sp, #192]
+  34:	ad0717e4 	stp	q4, q5, [sp, #224]
+  38:	ad081fe6 	stp	q6, q7, [sp, #256]
+  3c:	d53b4209 	mrs	x9, nzcv
+  40:	d53b440a 	mrs	x10, fpcr
+  44:	d53b442b 	mrs	x11, fpsr
+  48:	a9122be9 	stp	x9, x10, [sp, #288]
+  4c:	f9009beb 	str	x11, [sp, #304]
+  50:	aa1e03e1 	mov	x1, x30
+  54:	94000000 	bl	0 <az_task_exec_observe>
+  58:	a9522be9 	ldp	x9, x10, [sp, #288]
+  5c:	f9409beb 	ldr	x11, [sp, #304]
+  60:	d51b4209 	msr	nzcv, x9
+  64:	d51b440a 	msr	fpcr, x10
+  68:	d51b442b 	msr	fpsr, x11
+  6c:	ad4507e0 	ldp	q0, q1, [sp, #160]
+  70:	ad460fe2 	ldp	q2, q3, [sp, #192]
+  74:	ad4717e4 	ldp	q4, q5, [sp, #224]
+  78:	ad481fe6 	ldp	q6, q7, [sp, #256]
+  7c:	a94007e0 	ldp	x0, x1, [sp]
+  80:	a9410fe2 	ldp	x2, x3, [sp, #16]
+  84:	a94217e4 	ldp	x4, x5, [sp, #32]
+  88:	a9431fe6 	ldp	x6, x7, [sp, #48]
+  8c:	a94427e8 	ldp	x8, x9, [sp, #64]
+  90:	a9452fea 	ldp	x10, x11, [sp, #80]
+  94:	a94637ec 	ldp	x12, x13, [sp, #96]
+  98:	a9473fee 	ldp	x14, x15, [sp, #112]
+  9c:	a94847f0 	ldp	x16, x17, [sp, #128]
+  a0:	a9497bf2 	ldp	x18, x30, [sp, #144]
+  a4:	910503ff 	add	sp, sp, #0x140
+  a8:	90000010 	adrp	x16, 0 <az_task_exec_original>
+  ac:	f9400210 	ldr	x16, [x16]
+  b0:	c8dffe10 	ldar	x16, [x16]
+  b4:	d61f0200 	br	x16

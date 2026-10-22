@@ -1,0 +1,175 @@
+{
+  "scope": "Offline C++17 immutable pointer-free transport with actual pinned capture header; candidate concurrent schedules and serial strict controls. No native provenance, firmware execution, hook integration, unload, wall-clock, whole-process race or lifetime proof.",
+  "base_commit": "521391024a89dd596f41f88777bcd1279b77c1b2",
+  "capture_sha256": "aa9b82311065fa3481cda29883f6dae40d1685c213d520271e1f4530039291ea",
+  "transport_sha256": "3f2a0b902a6fae0ab425be570bda3904ac5e99203415457aa7ced059d5061d55",
+  "test_sha256": "1740f161223c48aba8866b60fd8040d62c059cd80f8fcec55c1cf04a443c9de2",
+  "runner_sha256": "7cf134ffacab16a08a9e3d65aedd2d4c4212c447b8c781d3d95522ddf377e231",
+  "runs": [
+    {
+      "variant": "candidate",
+      "mode": "plain",
+      "checks": 220,
+      "scenarios": 9,
+      "expected_failures": [],
+      "output_sha256": "9797e1e63c735f98ed753f6b98c2e8cd93ad4fe2b69ac1a283704e35688d86cd",
+      "compiled_header_sha256": "3f2a0b902a6fae0ab425be570bda3904ac5e99203415457aa7ced059d5061d55"
+    },
+    {
+      "variant": "candidate",
+      "mode": "asan-ubsan",
+      "checks": 220,
+      "scenarios": 9,
+      "expected_failures": [],
+      "output_sha256": "9797e1e63c735f98ed753f6b98c2e8cd93ad4fe2b69ac1a283704e35688d86cd",
+      "compiled_header_sha256": "3f2a0b902a6fae0ab425be570bda3904ac5e99203415457aa7ced059d5061d55"
+    },
+    {
+      "variant": "candidate",
+      "mode": "tsan",
+      "checks": 220,
+      "scenarios": 9,
+      "expected_failures": [],
+      "output_sha256": "9797e1e63c735f98ed753f6b98c2e8cd93ad4fe2b69ac1a283704e35688d86cd",
+      "compiled_header_sha256": "3f2a0b902a6fae0ab425be570bda3904ac5e99203415457aa7ced059d5061d55"
+    },
+    {
+      "variant": "entry-published-before-copy",
+      "mode": "plain",
+      "checks": 9,
+      "scenarios": 1,
+      "expected_failures": [
+        "control/entry-must-wait-for-copy"
+      ],
+      "output_sha256": "436df79fc4c1d543a4edfa54d13cb757e26f2098fe7e6978ccd3529d5f00107b",
+      "compiled_header_sha256": "cd7aa075baf0c99c5f56ebf67cd7484907cf80ede7dabc3199a7d37f9b50ebe3"
+    },
+    {
+      "variant": "entry-published-before-copy",
+      "mode": "asan-ubsan",
+      "checks": 9,
+      "scenarios": 1,
+      "expected_failures": [
+        "control/entry-must-wait-for-copy"
+      ],
+      "output_sha256": "436df79fc4c1d543a4edfa54d13cb757e26f2098fe7e6978ccd3529d5f00107b",
+      "compiled_header_sha256": "cd7aa075baf0c99c5f56ebf67cd7484907cf80ede7dabc3199a7d37f9b50ebe3"
+    },
+    {
+      "variant": "entry-published-before-copy",
+      "mode": "tsan",
+      "checks": 9,
+      "scenarios": 1,
+      "expected_failures": [
+        "control/entry-must-wait-for-copy"
+      ],
+      "output_sha256": "436df79fc4c1d543a4edfa54d13cb757e26f2098fe7e6978ccd3529d5f00107b",
+      "compiled_header_sha256": "cd7aa075baf0c99c5f56ebf67cd7484907cf80ede7dabc3199a7d37f9b50ebe3"
+    },
+    {
+      "variant": "return-published-before-copy",
+      "mode": "plain",
+      "checks": 9,
+      "scenarios": 1,
+      "expected_failures": [
+        "control/return-must-wait-for-copy"
+      ],
+      "output_sha256": "41fcd314368b02fe31a2e4bd6f1c571c592b53558427c158bef6cb0bbb83e0ec",
+      "compiled_header_sha256": "6a4964bff69e9059f7a8c8035317021293f6db763ac82b5353169996cf63fffa"
+    },
+    {
+      "variant": "return-published-before-copy",
+      "mode": "asan-ubsan",
+      "checks": 9,
+      "scenarios": 1,
+      "expected_failures": [
+        "control/return-must-wait-for-copy"
+      ],
+      "output_sha256": "41fcd314368b02fe31a2e4bd6f1c571c592b53558427c158bef6cb0bbb83e0ec",
+      "compiled_header_sha256": "6a4964bff69e9059f7a8c8035317021293f6db763ac82b5353169996cf63fffa"
+    },
+    {
+      "variant": "return-published-before-copy",
+      "mode": "tsan",
+      "checks": 9,
+      "scenarios": 1,
+      "expected_failures": [
+        "control/return-must-wait-for-copy"
+      ],
+      "output_sha256": "41fcd314368b02fe31a2e4bd6f1c571c592b53558427c158bef6cb0bbb83e0ec",
+      "compiled_header_sha256": "6a4964bff69e9059f7a8c8035317021293f6db763ac82b5353169996cf63fffa"
+    },
+    {
+      "variant": "duplicate-return-rewrite",
+      "mode": "plain",
+      "checks": 9,
+      "scenarios": 1,
+      "expected_failures": [
+        "control/duplicate-rejected",
+        "control/duplicate-cannot-rewrite"
+      ],
+      "output_sha256": "a900d44ef0dda4a76d59d4e28dfebafb24bc3404cda7bea178d69ea692ea6900",
+      "compiled_header_sha256": "23701ec1b9246a6e479c036e61d029832e3b38d5e89c893705a333fd4e857c3a"
+    },
+    {
+      "variant": "duplicate-return-rewrite",
+      "mode": "asan-ubsan",
+      "checks": 9,
+      "scenarios": 1,
+      "expected_failures": [
+        "control/duplicate-rejected",
+        "control/duplicate-cannot-rewrite"
+      ],
+      "output_sha256": "a900d44ef0dda4a76d59d4e28dfebafb24bc3404cda7bea178d69ea692ea6900",
+      "compiled_header_sha256": "23701ec1b9246a6e479c036e61d029832e3b38d5e89c893705a333fd4e857c3a"
+    },
+    {
+      "variant": "duplicate-return-rewrite",
+      "mode": "tsan",
+      "checks": 9,
+      "scenarios": 1,
+      "expected_failures": [
+        "control/duplicate-rejected",
+        "control/duplicate-cannot-rewrite"
+      ],
+      "output_sha256": "a900d44ef0dda4a76d59d4e28dfebafb24bc3404cda7bea178d69ea692ea6900",
+      "compiled_header_sha256": "23701ec1b9246a6e479c036e61d029832e3b38d5e89c893705a333fd4e857c3a"
+    },
+    {
+      "variant": "truncated-return",
+      "mode": "plain",
+      "checks": 9,
+      "scenarios": 1,
+      "expected_failures": [
+        "control/full-result",
+        "control/duplicate-cannot-rewrite"
+      ],
+      "output_sha256": "1ccdc3a1c6b5e5a731a363ad1c13e05b9b5c4faf7fb72a5789e625bedaa9fd5b",
+      "compiled_header_sha256": "335df9eb1bf9caadcf1356156a72ea2b359fe7925718905804a109fd2b67e583"
+    },
+    {
+      "variant": "truncated-return",
+      "mode": "asan-ubsan",
+      "checks": 9,
+      "scenarios": 1,
+      "expected_failures": [
+        "control/full-result",
+        "control/duplicate-cannot-rewrite"
+      ],
+      "output_sha256": "1ccdc3a1c6b5e5a731a363ad1c13e05b9b5c4faf7fb72a5789e625bedaa9fd5b",
+      "compiled_header_sha256": "335df9eb1bf9caadcf1356156a72ea2b359fe7925718905804a109fd2b67e583"
+    },
+    {
+      "variant": "truncated-return",
+      "mode": "tsan",
+      "checks": 9,
+      "scenarios": 1,
+      "expected_failures": [
+        "control/full-result",
+        "control/duplicate-cannot-rewrite"
+      ],
+      "output_sha256": "1ccdc3a1c6b5e5a731a363ad1c13e05b9b5c4faf7fb72a5789e625bedaa9fd5b",
+      "compiled_header_sha256": "335df9eb1bf9caadcf1356156a72ea2b359fe7925718905804a109fd2b67e583"
+    }
+  ]
+}
