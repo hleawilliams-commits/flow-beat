@@ -1,0 +1,29 @@
+
+Relocation section '.rela.text' at offset 0x430 contains 3 entries:
+    Offset             Info             Type               Symbol's Value  Symbol's Name + Addend
+0000000000000054  0000000e0000011b R_AARCH64_CALL26       0000000000000000 az_dispatch_observe_entry + 0
+00000000000000a8  0000000f00000137 R_AARCH64_ADR_GOT_PAGE 0000000000000000 az_dispatch_original + 0
+00000000000000ac  0000000f00000138 R_AARCH64_LD64_GOT_LO12_NC 0000000000000000 az_dispatch_original + 0
+
+Relocation section '.rela.debug_line' at offset 0x478 contains 1 entry:
+    Offset             Info             Type               Symbol's Value  Symbol's Name + Addend
+0000000000000030  0000000100000101 R_AARCH64_ABS64        0000000000000000 .text + 0
+
+Relocation section '.rela.debug_info' at offset 0x490 contains 7 entries:
+    Offset             Info             Type               Symbol's Value  Symbol's Name + Addend
+0000000000000006  0000000700000102 R_AARCH64_ABS32        0000000000000000 .debug_abbrev + 0
+000000000000000c  0000000800000102 R_AARCH64_ABS32        0000000000000000 .debug_line + 0
+0000000000000010  0000000100000101 R_AARCH64_ABS64        0000000000000000 .text + 0
+0000000000000018  0000000100000101 R_AARCH64_ABS64        0000000000000000 .text + b8
+0000000000000020  0000000a00000102 R_AARCH64_ABS32        0000000000000000 .debug_str + 0
+0000000000000024  0000000a00000102 R_AARCH64_ABS32        0000000000000000 .debug_str + d
+0000000000000028  0000000a00000102 R_AARCH64_ABS32        0000000000000000 .debug_str + f
+
+Relocation section '.rela.debug_aranges' at offset 0x538 contains 2 entries:
+    Offset             Info             Type               Symbol's Value  Symbol's Name + Addend
+0000000000000006  0000000600000102 R_AARCH64_ABS32        0000000000000000 .debug_info + 0
+0000000000000010  0000000100000101 R_AARCH64_ABS64        0000000000000000 .text + 0
+
+Relocation section '.rela.eh_frame' at offset 0x568 contains 1 entry:
+    Offset             Info             Type               Symbol's Value  Symbol's Name + Addend
+000000000000001c  0000000100000105 R_AARCH64_PREL32       0000000000000000 .text + 0

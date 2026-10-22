@@ -1,0 +1,6 @@
++ SDK local ARM64 build: az-mods-sdk:1 make -C /mod AZ_SDK_INCLUDE=/sdk/include
+make: Entering directory '/mod'
+g++ -std=c++17 -O2 -Wall -Wextra -fPIC -fvisibility=hidden -fvisibility-inlines-hidden -fno-omit-frame-pointer -fexceptions -fasynchronous-unwind-tables -I/sdk/include  -c -o out/obj/observer.cpp.o observer.cpp
+g++ -shared -Wl,--no-undefined -Wl,--hash-style=gnu -Wl,--version-script=out/exports.map -o out/encoder-dispatch-observer.so out/obj/mod.c.o out/obj/observer.cpp.o out/obj/abi/entry.S.o -lpthread -lm
+make: Leaving directory '/mod'
+validate <dispatcher-observer>: OK

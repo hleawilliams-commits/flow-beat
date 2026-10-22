@@ -1,0 +1,97 @@
+{
+  "source_sha256": {
+    "observer.cpp": "5a47397574facad309bffda37129aaaab4bfa696661e4f0105468380f73bbaa8",
+    "mod.c": "2facd99a7b31dabd3e93ff5c87070392a3a38dc00c2c110a4646a9ffb6a4410b",
+    "Makefile": "cb036732a4d41cde1f2627b5c3ca30fc600d41f429b920ad9fd8a896b46e2b37",
+    "azmod.json": "221164167005aa70c7f8010b6ed1e0d67715750844d6c697c9340212845d24dd",
+    "tests/test_observer.cpp": "8e3874289abba1844dde17f9355dd53f721c84c2806c5b42008a8dae17306d94",
+    "tests/run-focused.sh": "8fbd6f5c2c53e4e173a12dc4ba05e4e6de401baeda315b0b09eab36a526dbcc4",
+    "abi/entry.S": "a1f1cf42cc587c3222d299ac9dd31bfd0944f1ea51ec98a19d74ba40088a5034",
+    "verify-boundary.py": "26b9ea4ebe3f9ad98d53fc19765909c3fc31fd6380a6f6c8bd6d20c7679a4278"
+  },
+  "compiler": "Apple clang version 16.0.0 (clang-1600.0.26.6)",
+  "sdk_commit": "6563e8e657a4ef113696de9d0f9327a6c8d0fab7",
+  "sdk_header_sha256": "b94e2ba6656c2b852f18691d32225486f29265953c8bf09dcac9a18ce561a630",
+  "results": {
+    "plain": {
+      "assertions": 16686,
+      "scenarios": {
+        "env": 4,
+        "sdk": 11,
+        "firmware": 4,
+        "prologue": 3,
+        "worker": 5,
+        "claim": 12,
+        "empty": 13,
+        "normal": 86,
+        "thread": 19,
+        "thread-zero": 17,
+        "thread-negative": 17,
+        "tid-normalization": 19,
+        "errno": 50,
+        "mailbox": 30,
+        "partial": 25,
+        "nested": 17,
+        "diagnostics": 35,
+        "heartbeat": 21,
+        "budget": 142,
+        "budget-off": 142,
+        "concurrent": 16014
+      }
+    },
+    "asan": {
+      "assertions": 16686,
+      "scenarios": {
+        "env": 4,
+        "sdk": 11,
+        "firmware": 4,
+        "prologue": 3,
+        "worker": 5,
+        "claim": 12,
+        "empty": 13,
+        "normal": 86,
+        "thread": 19,
+        "thread-zero": 17,
+        "thread-negative": 17,
+        "tid-normalization": 19,
+        "errno": 50,
+        "mailbox": 30,
+        "partial": 25,
+        "nested": 17,
+        "diagnostics": 35,
+        "heartbeat": 21,
+        "budget": 142,
+        "budget-off": 142,
+        "concurrent": 16014
+      }
+    },
+    "tsan": {
+      "assertions": 16686,
+      "scenarios": {
+        "env": 4,
+        "sdk": 11,
+        "firmware": 4,
+        "prologue": 3,
+        "worker": 5,
+        "claim": 12,
+        "empty": 13,
+        "normal": 86,
+        "thread": 19,
+        "thread-zero": 17,
+        "thread-negative": 17,
+        "tid-normalization": 19,
+        "errno": 50,
+        "mailbox": 30,
+        "partial": 25,
+        "nested": 17,
+        "diagnostics": 35,
+        "heartbeat": 21,
+        "budget": 142,
+        "budget-off": 142,
+        "concurrent": 16014
+      }
+    }
+  },
+  "result_text_sha256": "8f18bee691a9d39a577894943a140409d3a51f555b8b69b55c319f99d1e41129",
+  "scope": "Host observer logic, modeled TID/SDK services, actual lock-free queue/mailbox concurrency; assembly is tested separately; no runtime/native provenance or timing proof."
+}

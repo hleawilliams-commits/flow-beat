@@ -1,0 +1,12 @@
+{
+  "checks": 11,
+  "firmware_sha256": "6577f42532375936c7e3fa830efa35b7daa9cde8e0a265c1fc7143f824321925",
+  "observer_source_sha256": "5a47397574facad309bffda37129aaaab4bfa696661e4f0105468380f73bbaa8",
+  "entry": "0x1adeee0",
+  "secondary_slot": "0x2d61d98",
+  "prologue_sha256": "b2486147c01e873027ed889080c01bbbcfc11e304818299d410f6c92beb3e8b2",
+  "boundary_evidence_sha256": "f85c75089d8f66021dc34019843a41ec5485a5d35922efbf40024c406f805a39",
+  "native_pointer_reads_in_observation": false,
+  "hook_claim_attempted": false,
+  "scope": "Static initialization binding only; instruction eligibility is recorded separately; runtime ownership/island/thread/view/input provenance remain unproven."
+}

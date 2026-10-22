@@ -1,0 +1,94 @@
+{
+  "review_date": "2026-10-22",
+  "scope": "Independent read-only source, ABI contract and documentation review; verification of root's retained independent host run. No new runtime or device access.",
+  "result": "No additional source synchronization blocker found after the signed TID correction. This is not runtime readiness or release approval.",
+  "reviewed_source_sha256": {
+    "observer.cpp": "5a47397574facad309bffda37129aaaab4bfa696661e4f0105468380f73bbaa8",
+    "tests/test_observer.cpp": "8e3874289abba1844dde17f9355dd53f721c84c2806c5b42008a8dae17306d94",
+    "tests/run-focused.sh": "8fbd6f5c2c53e4e173a12dc4ba05e4e6de401baeda315b0b09eab36a526dbcc4",
+    "abi/entry.S": "a1f1cf42cc587c3222d299ac9dd31bfd0944f1ea51ec98a19d74ba40088a5034"
+  },
+  "source_binding": {
+    "host_and_build_source_entries_verified": 8,
+    "host_and_build_source_maps_identical": true,
+    "all_eight_fingerprints_match_current_files": true,
+    "independent_run_input_entries_verified": 3,
+    "independent_inputs_match_current_and_host_and_build_sources": true
+  },
+  "corrected_finding": {
+    "issue": "The earlier current_tid implementation cast libc syscall -1 directly to unsigned and cached UINT_MAX, allowing a failed lookup to become a false off-thread record.",
+    "correction": "The shared normalize_tid(long) helper accepts only positive values within unsigned range. Other results become zero; production leaves failed results uncached, increments the failure counter and drops observation without affecting native forwarding.",
+    "checked_tests": [
+      "Shared production normalization handles -1, LONG_MIN, zero, positive boundaries and upper overflow.",
+      "Negative and zero thread-ID entry paths preserve errno and do not publish a mailbox record.",
+      "Later valid main-thread capture still succeeds."
+    ],
+    "remaining_test_limit": "Host TID acquisition is modeled; these checks do not inject failure into a live native gettid syscall."
+  },
+  "source_review": {
+    "off_thread_mailbox": "A single successful EMPTY-to-WRITING CAS owns all record writes. Release publication of READY precedes the worker's acquire and copy. CONSUMED is never reset, preventing later writers from replacing the record or racing its copy. Off-thread paths do not touch the main sequence or SPSC queue.",
+    "main_producer": "A nonblocking atomic guard serializes main-lane observation and drops reentrant attempts. RAII releases it on normal and queue-full exits. The ring publishes writes and releases consumed slots using the intended release/acquire pairs.",
+    "errno": "The nonthrowing exported helper saves errno before observation and restores it after every observe return, including disabled, failed-ID, contended-mailbox, producer-busy and queue-full paths.",
+    "budgets": "Both lanes share 128 logged entry records; the next popped record disables observation and terminates the worker. Changed-counter diagnostic summaries have a separate cap of eight. Initialization and the budget-stop message are separately bounded.",
+    "abi": "The wrapper passes the sixth helper argument, original LR, in x5 while retaining full x2 and low w3/w4 for capture. It restores native input state and tail-forwards through the acquired original target; no guessed native return type or post-return observer was added.",
+    "installation": "Exact entry and immutable slot binding remain separate from the normal SDK's exclusive, init-only hook claim. No retry, takeover, raw slot patch or policy weakening was added."
+  },
+  "independent_host_run": {
+    "run_id": "root-independent-20261022T021229Z",
+    "run_by": "root",
+    "reviewer_reran_tests": false,
+    "exit_code": 0,
+    "inputs_sha256": "f6443da5401661f2cdb4ff7dfc171ba88d88162cb9b2a41568e50b79a2e7bfc9",
+    "result_log_sha256": "8f18bee691a9d39a577894943a140409d3a51f555b8b69b55c319f99d1e41129",
+    "status_sha256": "b9a9f2b527e57115b6394e4f7ca2815f12b8b015ef9d11a3cb26ab186741d5e4",
+    "result_log_matches_published_host_results_bytes": true,
+    "per_scenario_counts_match_host_metadata": true,
+    "results": {
+      "plain": {
+        "assertions_passed": 16686,
+        "scenarios_passed": 21
+      },
+      "asan_ubsan": {
+        "assertions_passed": 16686,
+        "scenarios_passed": 21
+      },
+      "tsan": {
+        "assertions_passed": 16686,
+        "scenarios_passed": 21
+      }
+    },
+    "initial_invocation": {
+      "provenance": "Reported by root; the retained successful-run directory contains the corrected run's inputs, output and status, not a separate failed-invocation snapshot.",
+      "failure": "The first invocation selected nonexistent src/observer.cpp and failed before tests.",
+      "correction": "Root corrected the input path and reran successfully without changing source. The corrected input fingerprints were independently matched to current files and both host/build metadata."
+    }
+  },
+  "documentation_review": {
+    "readme_sha256": "a4db2339246aaaf29f58e00daeadadb782ce42543aa9df0948bd6508875496ef",
+    "result": "Consistent with inspected source and retained evidence.",
+    "checked_limits": [
+      "No candidate runtime claim, installation or community publication is claimed.",
+      "Main and one-shot off-thread record order is not global event order or native execution order.",
+      "The full-queue test does not instrument allocation; README explicitly corrects that implication in its compact source comment.",
+      "First-use TLS, errno access, syscall costs, signal safety and physical timing remain unvalidated.",
+      "The static predicate compares pthread_self with a native owner's stored identity; no equivalence to Linux PID/TID is claimed."
+    ]
+  },
+  "reviewed_evidence_sha256": {
+    "host-result.json": "b39d5ad91217c4c118708be3b08987d12a710f3ccb1e05ede9616c14f4fd9747",
+    "build-result.json": "4db9510e524bf3cffcf585263c1bb369ed2f675f7e0ee76ae9b8d4670d111600",
+    "boundary-binding.json": "59805281a2cb1e236aa9230ae0cbe465ec1bea95310aa25449093170257d0011",
+    "thread-predicate/static-result.json": "9e55acebf1aac56359f07c4ec26c0dbb6929b933f024e1e0437ed48cb5d01f96"
+  },
+  "remaining_limits": [
+    "Available islands, live hook ownership, accepted SDK claim and current loaded status are unproven.",
+    "No runtime native predicate value, installed owner identity, panel-input thread, view identity or physical knob provenance is established.",
+    "The mailbox observes at most one off-thread entry; it cannot prove complete provenance or event counts across threads.",
+    "Entry capture does not prove queued task execution, completion, cancellation, counter ordering or view/owner retention.",
+    "Original-target publication and module lifetime depend on the existing SDK contract; whole-process lifetime and race safety are not proven.",
+    "Synthetic host and ABI tests do not establish native input transparency timing, audio quality, hardware safety or physical validation.",
+    "No menu, focus handback, USB activation, stems recovery or quarantine repair is implemented by this observer."
+  ],
+  "raw_logs_or_firmware_included": false,
+  "runtime_or_device_access_by_reviewer": false
+}

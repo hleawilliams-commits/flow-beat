@@ -1,0 +1,34 @@
+{
+  "result": "PASS",
+  "verifier_sha256": "587df958a78d605010c136f27ea3f255d33e21b9aa56d6413d60ca85dc1e4bf1",
+  "firmware_sha256": "6577f42532375936c7e3fa830efa35b7daa9cde8e0a265c1fc7143f824321925",
+  "format": "ELF64 little-endian AArch64 ET_EXEC",
+  "instruction_anchors": 58,
+  "taskbox": {
+    "global_object": "0x3fe8f88",
+    "constructor_vptr": "0x321b108",
+    "predicate_slot": "0x28",
+    "predicate": "0x1e61cd8",
+    "nonzero_branch": "queued",
+    "zero_branch": "synchronous native virtual dispatch"
+  },
+  "predicate": {
+    "current_thread_wrapper": "0x249b0f0",
+    "plt": "0x425670",
+    "got_cell": "0x3f84038",
+    "relocation": "R_AARCH64_JUMP_SLOT",
+    "symbol": "pthread_self",
+    "owner_getter": "0x2503090",
+    "owner_global_pointer": "0x40443a8",
+    "owner_thread_field": "0x10",
+    "comparison": "64-bit inequality; null owner contributes zero",
+    "result": "w0 is 0 or 1"
+  },
+  "limits": [
+    "Static constructor and predicate code only; no live object or thread observed.",
+    "Native owner pthread identity is not proven equivalent to Linux PID or TID.",
+    "Installed owner, panel-input entry thread, event ordering and execution remain unknown.",
+    "No hook claim, observation, input consumption, native pointer read or runtime validation.",
+    "No proof of owner/view lifetime, absence of later vptr mutation, or complete thread coverage."
+  ]
+}

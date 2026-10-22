@@ -1,0 +1,152 @@
+{
+  "schema": 1,
+  "date_utc": "2026-10-22",
+  "mod_id": "encoder-dispatch-observer",
+  "version": "0.0.1",
+  "result": "INCONCLUSIVE: SDK claim accepted, no entry observations during the bounded input pass",
+  "environment": "localhost-only emulator; physical deck not accessed",
+  "binary_sha256": "c791d1f289cc0bad1b912774476e192c1b1614d3f9fa9da42899f679f49edc5e",
+  "source_sha256": {
+    "observer.cpp": "5a47397574facad309bffda37129aaaab4bfa696661e4f0105468380f73bbaa8",
+    "mod.c": "2facd99a7b31dabd3e93ff5c87070392a3a38dc00c2c110a4646a9ffb6a4410b",
+    "abi/entry.S": "a1f1cf42cc587c3222d299ac9dd31bfd0944f1ea51ec98a19d74ba40088a5034"
+  },
+  "installation": {
+    "sdk_claim_accepted": true,
+    "exact_current_loaded_row": true,
+    "positive_claim_and_core_loaded_log": true,
+    "ready_for_current_process": true,
+    "same_process_through_inputs_and_status_reads": true,
+    "original_cores_preserved": true
+  },
+  "inputs": {
+    "navigation": "Initial screenshot showed SOURCE; BROWSE pressed twice to visually confirmed empty four-deck Waveform view",
+    "encoder_steps": [
+      1,
+      -1
+    ],
+    "host_counter_values": [
+      51,
+      52,
+      51
+    ],
+    "host_counter_returned_to_baseline": true,
+    "native_counter_sampled": false,
+    "audio_or_loaded_track_test": false
+  },
+  "stage_log_counts": [
+    {
+      "stage": "ready",
+      "entry_records": 0,
+      "diagnostic_records": 0
+    },
+    {
+      "stage": "waveform",
+      "entry_records": 0,
+      "diagnostic_records": 0
+    },
+    {
+      "stage": "cw",
+      "entry_records": 0,
+      "diagnostic_records": 0
+    },
+    {
+      "stage": "ccw",
+      "entry_records": 0,
+      "diagnostic_records": 0
+    }
+  ],
+  "later_module_status": {
+    "samples": [
+      {
+        "live": 1,
+        "state": 1,
+        "heartbeat": 5876,
+        "queue_dropped": 0,
+        "off_skipped": 0,
+        "tid_failures": 0,
+        "nested_dropped": 0,
+        "off_state": 0,
+        "read_index": 0,
+        "write_index": 0,
+        "main_sequence": 0
+      },
+      {
+        "live": 1,
+        "state": 1,
+        "heartbeat": 5918,
+        "queue_dropped": 0,
+        "off_skipped": 0,
+        "tid_failures": 0,
+        "nested_dropped": 0,
+        "off_state": 0,
+        "read_index": 0,
+        "write_index": 0,
+        "main_sequence": 0
+      }
+    ],
+    "own_module_status_only": true,
+    "native_object_reads": false,
+    "sequential_noncoherent_samples": true,
+    "historical_gate_state_proven": false,
+    "additional_inputs_during_status_reads": false
+  },
+  "preinstall_harness_review": {
+    "initial_failure": "Recovery-receipt write failure masked a saved primary exception in the modeled finally path. Restart was still attempted in that case; no receipt could be created.",
+    "corrected_assertions": 115,
+    "corrected_cases": 14,
+    "correction": "Preserve a primary exception and report receipt failure; refuse success on receipt failure without a primary; still attempt restart when a start receipt cannot be written.",
+    "scope": "Only the AST-extracted while_stopped helper executed with in-memory mocks; no original imports, transport, service, storage, process or timing validation.",
+    "prior_and_corrected_reports_retained_privately": true
+  },
+  "cleanup_mode_failure": {
+    "before_stop_or_mutation": true,
+    "requested_modes": [
+      "644",
+      "755"
+    ],
+    "observed_usb_mode": "777",
+    "filesystem": "vfat",
+    "file_mask": "0000",
+    "new_usb_files_with_matching_hash_and_type": 3,
+    "baseline_usb_library_peers_at_777": 15,
+    "correction_scope": "Only the three known newly created USB probe files, requiring matching mount options and baseline peer modes. Registration and unrelated metadata checks remained exact.",
+    "failure_diagnostic_and_pre_correction_harness_retained_privately": true
+  },
+  "restoration": {
+    "baseline_regular_files": 146,
+    "all_baseline_bytes_modes_inventory_preserved": true,
+    "loaded_set_preserved": true,
+    "cores_preserved": true,
+    "caches_preserved": true,
+    "prior_absences_preserved": true,
+    "shared_logging_flag_preserved": true,
+    "probe_unmapped_and_opt_in_absent": true,
+    "clean_empty_restart": true,
+    "guard_expired_naturally": true,
+    "physical_access": false
+  },
+  "private_evidence_sha256": {
+    "ready_log": "e2669f3957514fb36438ece0fe908e286987af54d9c2fe62f11e577c105d1ed1",
+    "waveform_log": "e2669f3957514fb36438ece0fe908e286987af54d9c2fe62f11e577c105d1ed1",
+    "cw_log": "e2669f3957514fb36438ece0fe908e286987af54d9c2fe62f11e577c105d1ed1",
+    "ccw_log": "e2669f3957514fb36438ece0fe908e286987af54d9c2fe62f11e577c105d1ed1",
+    "installation_receipt": "4d80e6c190f187bb73ced416f33ad7464ec3920503be7da9a0e4db420a831a55",
+    "observer_status_receipt": "e3938c038d6756398b86bc4fca5e7a9b73f737c773a5c02fe240f83b23f9f220",
+    "cleanup_mode_diagnostic": "82c2a80377c665f4ccdbc29d71209b498d42595982f78a5dd3b918b152a51893",
+    "cleanup_mode_correction": "f33c8112cf15eb5a37fab86ef8e7a193ed47a00991b8577334c96d2d1db059e9",
+    "restoration_receipt": "8c96b184c4d7d67cdc8e78ae88506267649cd7ab9548c95fc9307e0af7eff10f",
+    "preinstall_mock_failure_review": "1f960a3f3186b1799ef2b191eec11060b540cfbc37a834fdf787045b937074ae",
+    "preinstall_corrected_mock_review": "e83a97c22938b72981977081aaecfb40cb5ba2fd760cf1625a53c2865a2b3b59"
+  },
+  "limits": [
+    "No observed dispatcher entry or argument/LR/thread provenance.",
+    "Later live/state samples are not historical gating evidence or a coherent snapshot.",
+    "Host control-counter changes do not prove native receipt, dispatcher delivery or input consumption.",
+    "Native event ownership, queued delivery/cancellation, focus handback, menu behavior, audio quality and hardware timing remain unproven.",
+    "No direct menu, stems recovery fix or community release resulted from this run."
+  ],
+  "raw_evidence_published": false,
+  "package_published": false,
+  "physical_access": false
+}
