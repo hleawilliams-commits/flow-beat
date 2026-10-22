@@ -1,0 +1,74 @@
+{
+  "upstream_commit": "3e0c5cb010454228f4ee63226b60d060494eeaae",
+  "source_sha256": "1c7541354fc9c660c506123476f82afec2361f9334d5a5bf260729e9100d510e",
+  "bus_frame_sha256": "fb35277acefe4d0a395e5036bd2466d729d7fd9f9e89dd233412684a58aad9d8",
+  "header_sha256": "b94e2ba6656c2b852f18691d32225486f29265953c8bf09dcac9a18ce561a630",
+  "states_header_sha256": "7baa15282390f4bb763776c5402a037614a1b06f16e2a7a4b29dbcb9042a69da",
+  "extraction_sha256": "96c698c8619f9a88f56ad486e857e8988eed408f2601882b64d7b33c8be0892f",
+  "functions": {
+    "sdk_strike": "b613bb379c34ff6d4f20a3bff4bdce855a386a3fee3a7e3846323f48c759ec1b",
+    "sdk_filter_run": "54962cfbfd15130d9fcdcf1ae1374c2d32257b34b1b25a87b1496d0fc7a09df8",
+    "sdk_filter_copy": "8043725e0b211022d419b57353969f65c84f24c7c083f464c3d5649dc367390f",
+    "sdk_filter_raw": "bdb28300a65b1f69ef002f1cc066720594378c2c2759584dbab6b0bef8d6986f"
+  },
+  "test_sha256": "2916f414a2d3592cebe57173ff7fbbae4689c00ffa1a12971d515c8c53b94083",
+  "runner_sha256": "120a21517076fb9b3c4bd039a2da7da6da52a660acc9db463d7bd9e3bbc5a93f",
+  "shim_sha256": "ccf8c0f3edceb33727c0cdc05c0f26ce66146453c3074293216ae50e8d2b6b6b",
+  "scope": "serial actual SDK dispatch with mock timing/logging and manually populated registration table; no runtime, concurrency, hardware timing or native dispatch proof",
+  "runs": [
+    {
+      "mode": "plain",
+      "variant": "pinned",
+      "checks": 60,
+      "failures": 0,
+      "expected_failures": [],
+      "output_sha256": "7e4f5d9579a3dec23533e6d723fc9ab3430b580d233730666e84b9497de94218"
+    },
+    {
+      "mode": "plain",
+      "variant": "raw-copy-leak",
+      "checks": 60,
+      "failures": 1,
+      "expected_failures": [
+        "raw-copy/next-copy-reset"
+      ],
+      "output_sha256": "1dd453a711714e63f2b27b64b1e0e0c8f8f0dc299e006ca87150da73dc8066a2"
+    },
+    {
+      "mode": "asan-ubsan",
+      "variant": "pinned",
+      "checks": 60,
+      "failures": 0,
+      "expected_failures": [],
+      "output_sha256": "7e4f5d9579a3dec23533e6d723fc9ab3430b580d233730666e84b9497de94218"
+    },
+    {
+      "mode": "asan-ubsan",
+      "variant": "raw-copy-leak",
+      "checks": 60,
+      "failures": 1,
+      "expected_failures": [
+        "raw-copy/next-copy-reset"
+      ],
+      "output_sha256": "1dd453a711714e63f2b27b64b1e0e0c8f8f0dc299e006ca87150da73dc8066a2"
+    },
+    {
+      "mode": "tsan",
+      "variant": "pinned",
+      "checks": 60,
+      "failures": 0,
+      "expected_failures": [],
+      "output_sha256": "7e4f5d9579a3dec23533e6d723fc9ab3430b580d233730666e84b9497de94218"
+    },
+    {
+      "mode": "tsan",
+      "variant": "raw-copy-leak",
+      "checks": 60,
+      "failures": 1,
+      "expected_failures": [
+        "raw-copy/next-copy-reset"
+      ],
+      "output_sha256": "1dd453a711714e63f2b27b64b1e0e0c8f8f0dc299e006ca87150da73dc8066a2"
+    }
+  ]
+}

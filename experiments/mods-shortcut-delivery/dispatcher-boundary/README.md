@@ -1,5 +1,7 @@
 # Encoder dispatch boundaries: static eligibility
 
+**Later continuation:** the selected `0x1adeee0` observer was accepted but captured no entries. The [new input-route review](../input-route/) identifies a different view dispatcher that can bypass both generic wrappers. Use its `0x1b01cf8` entry as the next static candidate, subject to the documented binding and runtime gates; the recommendations below record the earlier selection.
+
 October 22, 2026. Three **different function entries pass the pinned installer's instruction policy**. This supplies a possible next passive observation boundary after the refused Waveform handler; it does not show a successful SDK claim, live knob provenance, safe input consumption, or a working direct menu. No hook, runtime observer, emulator connection, physical access, core change or package is included.
 
 The [verifier](verify-static.py) uses the exact private firmware SHA-256 `6577f42532375936c7e3fa830efa35b7daa9cde8e0a265c1fc7143f824321925` and upstream commit `3e0c5cb010454228f4ee63226b60d060494eeaae`. [Captured results](static-result.json) contain hashes, addresses, semantic relationships and explicit limits. It checks 59 instruction anchors and executes 66 host assertions using the actual extracted `azm_pcrel_kind`, `azm_ends_fn`, `azm_patch_ok` and community overlap predicate. Firmware data and disassembly dumps are excluded.

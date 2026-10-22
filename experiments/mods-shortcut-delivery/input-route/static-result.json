@@ -1,0 +1,138 @@
+{
+  "actual_overlap_predicate_sha256": "e6f37138b430cc1d468ac6f95762b74900e3396e3dac2a3746134cc6ea37c033",
+  "actual_policy_extraction_sha256": "c9774595762751b828f382df275af7aa10a83b33d3c04f3a5196b9baceca11aa",
+  "data_word_anchors_checked": 13,
+  "firmware_sha256": "6577f42532375936c7e3fa830efa35b7daa9cde8e0a265c1fc7143f824321925",
+  "functions": {
+    "0x1afe1f0": {
+      "body_sha256": "4290d4711edee1efe8308b2a21f9b6b60d1fe3858f87b803a85b4f9292eed6f2",
+      "fde_extent": "0x3a4"
+    },
+    "0x1b01cf8": {
+      "body_sha256": "e91f820c8b58b342d8d8fc95edb6e71fb4836f73c1b809da2ac0c73cfba8427a",
+      "fde_extent": "0x2e8"
+    },
+    "0x1b029c0": {
+      "body_sha256": "482b8337cf92d2d8e43baee7f0476d662653cba984cfe0f206c49b1bcce2fddb",
+      "fde_extent": "0x104"
+    },
+    "0x235c270": {
+      "body_sha256": "87f4d9b84a61820da9862a12726d0a3f899296a030a2305b77e3019a59aa95f1",
+      "fde_extent": "0x1b8"
+    },
+    "0x2360f80": {
+      "body_sha256": "36a130104a7dddf319f50ce962cf617cbf676dba9ec45654534df69aae02be1e",
+      "fde_extent": "0x134"
+    }
+  },
+  "host_policy_assertions": 22,
+  "instruction_anchors_checked": 88,
+  "limits": [
+    "Static alternative route does not explain previous zero-entry runtime result",
+    "Live rotarySelector registration recipient and active dispatcher/child identity are unproven",
+    "HUI delta and cumulative fields are not proof of physical byte-34 counter ordering",
+    "Actual claim requires runtime ownership and reachable island checks",
+    "No new hook, runtime observation, emulator contact or physical access occurred",
+    "Entry observation would prove neither queued execution nor accepted/completed handling",
+    "Raw SDK input-stage evidence is independently needed to distinguish mutation or eating before native routing"
+  ],
+  "native_notification": {
+    "accumulator_offset": "0xd8",
+    "encoder_input_ingestion": "0x235c270",
+    "entry": "0x2360f80",
+    "record_cumulative_offset": "0x4",
+    "record_delta_offset": "0x0",
+    "record_live_lifetime_for_external_reader_proven": false,
+    "rotate_slot": "0x18",
+    "zero_delta_skips_rotation_callback": true
+  },
+  "pinned_source_literal_audit": {
+    "collisions": [],
+    "runtime_ownership_proven": false,
+    "source_file_count": 95
+  },
+  "policy_negative_controls": [
+    "TBZ in every first-four position refused in both modes",
+    "RET permits one-word but refuses four-word overwrite",
+    "same/plus-minus15 overlap refused; plus-minus16 disjoint"
+  ],
+  "queued_task": {
+    "bypasses_generic_wrapper_entries": [
+      "0x1adea38",
+      "0x1adeee0"
+    ],
+    "cancellation_or_live_lifetime_contract_proven": false,
+    "capture": {
+      "0x18": "primary dispatcher",
+      "0x20": "ID",
+      "0x28": "w3 delta",
+      "0x2c": "w4 cumulative"
+    },
+    "child_low_byte_nonzero_stops_chain": true,
+    "dispatch_order": [
+      "dispatcher+0x1a0 child",
+      "dispatcher+0x150 child",
+      "dispatcher"
+    ],
+    "dispatcher_field_0x19c_equals_helper_return_before_dispatch": true,
+    "executor": "0x1b029c0",
+    "generation_semantics_proven": false,
+    "target_slot": "0x198",
+    "vptr": "0x2d444d8"
+  },
+  "recommended_passive_boundary": {
+    "actual_patch_ok_four_words": true,
+    "actual_patch_ok_one_word": true,
+    "address": "0x1b01cf8",
+    "also_used_by_derived_class": "gui::ViewTransitionManager",
+    "capture": [
+      "x0 opaque observer",
+      "x1 opaque encoder reference",
+      "x2 opaque full-width ID",
+      "w3 signed delta bits",
+      "w4 cumulative counter bits",
+      "original LR"
+    ],
+    "class": "HuiAdaptedViewDispatcher<DefaultGuiTaskBoxConf>",
+    "derived_observer_vptr": "0x2d45740",
+    "fde_extent": "0x2e8",
+    "first_four": [
+      [
+        "stp",
+        "x29, x30, [sp, #-0xc0]!"
+      ],
+      [
+        "mov",
+        "x29, sp"
+      ],
+      [
+        "stp",
+        "x19, x20, [sp, #0x10]"
+      ],
+      [
+        "stp",
+        "x21, x22, [sp, #0x20]"
+      ]
+    ],
+    "native_pointer_reads_required_for_initial_observer": false,
+    "observer_slot": "0x18",
+    "observer_vptr": "0x2d453d0",
+    "pcrel_kinds": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "primary_this_adjustment": "-0x118",
+    "prologue_sha256": "793816c4c537d5c1937316dca0c1c09475fcf76ba91f3086458288e07bcf08ad",
+    "return_type_interpretation_proven": false
+  },
+  "rtti_anchors_checked": 3,
+  "semantic_negative_controls": 6,
+  "source_sha256": {
+    "community.c": "4b2b72e2b623dcb1ecb0ef108a473815adab45a516a6aa13adb6cce512b80866",
+    "ep147addr.h": "ca75114d28f586daed5bb70a06e3fbc19449c939b4549942acdf7c8ba16b3fb3",
+    "inline_hooks.c": "f141b383c25e66c8acb1839280832a612a6ee0e25e9ada59f374ccbef8f81908"
+  },
+  "upstream_commit": "3e0c5cb010454228f4ee63226b60d060494eeaae"
+}
