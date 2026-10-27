@@ -1,0 +1,22 @@
+{
+  "cargo_lock_sha256": "eaf66e88bd38ea8c3aa351330f631fb7ba6ba2194a22faa18ee332c1c595d119",
+  "files": {
+    "az-preview/Cargo.lock": "eaf66e88bd38ea8c3aa351330f631fb7ba6ba2194a22faa18ee332c1c595d119",
+    "az-preview/Cargo.toml": "7b7e4cbcd0a902964cb61e6bf8ba084ad2d07140dcfb8264e2a4b662a96814e6",
+    "az-preview/build.rs": "b12428b3ee8306f79126270c2875f8b4219f35fbe195d38ed9c2c2370340eb61",
+    "az-preview/layout/xdj-az.tsv": "651df7e29a679bdfa4712ed7fe4a3ffdd13c7c92f275542b79173253a1333590",
+    "az-preview/src/app.rs": "cacd6793cdee27b71306b74a9e84816902e3e607a784466b6947c9add9515b6f",
+    "az-preview/src/boot.rs": "f907da478aa758d4cb2a9f740f529fbe256376230d77635a061a746ce75ec1eb",
+    "az-preview/src/config.rs": "0a1986611ec2642379a42f1f517d8d1decf1764e0cee8ab2f37c3e6c04782992",
+    "az-preview/src/controls.rs": "1fa6f70b6e40f8e30e4b8f74c8f9c91bd6b6dd9c34b5f00b3f32d70f8e217d48",
+    "az-preview/src/layout.rs": "7fb4577a6ccdc35414c7e24a311bd0353e3af36d67de8eb4fe7dda78a446e14f",
+    "az-preview/src/main.rs": "97af08e44338cab9e3c136b4b4b0e15be76e738cba050333e7cc20271fdbbf21",
+    "az-preview/src/meter.rs": "a2511e52e24047352bf9bcdf17981769b917aa24719202aad1c524f00e399081",
+    "az-preview/src/mixer_producer.rs": "7abf1e4a73cb01a058900c31835936fca2ce01e3d020e92fe709b09bb9ca7817",
+    "az-preview/src/mixer_route.rs": "f2ade716b121f9129b35be26cdc1fa6594f31172eeb9ca70009b38fda9d3d7fd",
+    "az-preview/src/panel.rs": "f54107111e4544aac34f110daa73febd5203ddc2d82731df9ebff4a761b71c5e",
+    "az-preview/src/parts.rs": "7bbe162b092fa5f0dadcea609762a2b38ff681a7e50bda5d0f3d89ce7c7f748c",
+    "az-preview/src/screen.rs": "2f867d991fe5d19ed9a19a08b19483f0e6d6affcd9749b7e8b587bb11d8e27be"
+  },
+  "patch_sha256": "264d3d26cdc6a3534fb7df299220b02d4043b1190416b1b0d6a578f68247a84e"
+}

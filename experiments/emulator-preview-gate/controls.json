@@ -1,0 +1,116 @@
+{
+  "controls": [
+    {
+      "expected_anchor_count": 1,
+      "expected_cargo_exit_code": 101,
+      "expected_failed_tests": 1,
+      "expected_selected_tests": 1,
+      "file": "az-preview/src/app.rs",
+      "name": "stale-update-retagged-at-send",
+      "new": "route.create_for_key(route.current_key().unwrap_or(key), mix).ok().is_some_and(|request| {",
+      "old": "route.create_for_key(key, mix).ok().is_some_and(|request| {",
+      "oracle": "The old-update frame must produce no channel message after a newer baseline is opened. Refreshing the key during send incorrectly authorizes the old frame under the newer generation.",
+      "test": "app::tests::owned_stale_update_key_is_not_retagged_after_new_baseline"
+    },
+    {
+      "expected_anchor_count": 1,
+      "expected_cargo_exit_code": 101,
+      "expected_failed_tests": 1,
+      "expected_selected_tests": 1,
+      "file": "az-preview/src/app.rs",
+      "name": "release-confirmation-update-admits-input",
+      "new": "if route.confirm_adoption(receipt, true).is_ok() {\n                    self.mixer_rearm_pending = false;\n                    self.mixer_creation_key = Some(receipt.key);",
+      "old": "if route.confirm_adoption(receipt, true).is_ok() {\n                    self.mixer_rearm_pending = false;",
+      "oracle": "The clean confirmation update must retain no creation key. Opening App input during that update violates the required release-only update.",
+      "test": "app::tests::owned_release_click_and_confirmation_update_cannot_create_input"
+    },
+    {
+      "expected_anchor_count": 1,
+      "expected_cargo_exit_code": 101,
+      "expected_failed_tests": 1,
+      "expected_selected_tests": 1,
+      "file": "az-preview/src/app.rs",
+      "name": "fx-time-not-hydrated-from-baseline",
+      "new": "self.fx_time = 0;",
+      "old": "self.fx_time = i16::from_le_bytes([\n            receipt.frame[FX_TIME_BYTES.0], receipt.frame[FX_TIME_BYTES.1],\n        ]);",
+      "oracle": "The adopted synthetic baseline carries FX TIME -1234. Zeroing only its UI model fails even though the full raw frame was copied.",
+      "test": "app::tests::owned_adoption_resets_every_mixer_model_without_changing_other_buses"
+    },
+    {
+      "expected_anchor_count": 1,
+      "expected_cargo_exit_code": 101,
+      "expected_failed_tests": 1,
+      "expected_selected_tests": 1,
+      "file": "az-preview/src/app.rs",
+      "name": "mixer-reset-erases-erp-held-button",
+      "new": "self.held.clear();",
+      "old": "self.held.retain(|_, (bit, _)| !matches!(bit.bus, Bus::Mixer));",
+      "oracle": "Adoption must retain the existing ERP held entry while removing the mixer held entry. Clearing the whole mixed-bus map loses unrelated ERP state.",
+      "test": "app::tests::owned_adoption_resets_every_mixer_model_without_changing_other_buses"
+    },
+    {
+      "file": "az-preview/src/controls.rs",
+      "name": "owned-frame-enters-legacy-cache",
+      "new": "if let Some(route) = mixer { let _ = route.dispatch(request); }\n            Some(LegacyFrame { bus: BUS_MIXER, frame: *request.frame() })",
+      "old": "if let Some(route) = mixer { let _ = route.dispatch(request); }\n            None",
+      "oracle": "Owned requests must not enter the legacy replay cache.",
+      "test": "controls::owned_route_tests::worker_owned_dispatch_is_not_legacy_cache_or_wire"
+    },
+    {
+      "file": "az-preview/src/controls.rs",
+      "name": "untagged-owned-mixer-falls-through",
+      "new": "CtrlMsg::Legacy { bus: BUS_MIXER, .. } if false && mixer.is_some() => {",
+      "old": "CtrlMsg::Legacy { bus: BUS_MIXER, .. } if mixer.is_some() => {",
+      "oracle": "Owned mode must refuse untagged bus2 even when the route is closed.",
+      "test": "controls::owned_route_tests::worker_untagged_mixer_refused_without_fallback"
+    },
+    {
+      "file": "az-preview/src/mixer_producer.rs",
+      "name": "settings-accept-wrong-ack",
+      "new": "let pending = s.unresolved.ok_or(SettingsError::Gate(Error::NoUnresolved))?;\n        if false && (pending.request != ack.request || s.kernel_sequence.checked_add(1) != Some(ack.kernel_sequence)) {",
+      "old": "let pending = s.unresolved.ok_or(SettingsError::Gate(Error::NoUnresolved))?;\n        if pending.request != ack.request || s.kernel_sequence.checked_add(1) != Some(ack.kernel_sequence) {",
+      "oracle": "Every ACK component must match before any settings callback.",
+      "test": "mixer_producer::preview_gate_tests::all_ack_fields_checked_before_settings_effect"
+    },
+    {
+      "file": "az-preview/src/mixer_producer.rs",
+      "name": "settings-error-retains-known-commit-as-pending",
+      "new": "// Deliberately broken control: leave a known commit pending.\n        s.kernel_sequence = ack.kernel_sequence;",
+      "old": "// Receipt proves this one native commit, even if persistence fails.\n        s.kernel_sequence = ack.kernel_sequence;\n        s.unresolved = None;",
+      "oracle": "Callback failure must not make a positively ACKed native frame pending again.",
+      "test": "mixer_producer::preview_gate_tests::partial_settings_error_keeps_native_commit_known"
+    },
+    {
+      "file": "az-preview/src/mixer_route.rs",
+      "name": "zero-rejection-is-definite",
+      "new": "echoed == request",
+      "old": "echoed == request && reason > 0",
+      "oracle": "Preserve exact rejection/uncertainty/baseline handshake guard.",
+      "test": "mixer_route::tests::unknown_and_malformed_rejects_retain_exact_pending"
+    },
+    {
+      "file": "az-preview/src/mixer_route.rs",
+      "name": "wrong-request-rejection-is-definite",
+      "new": "reason > 0",
+      "old": "echoed == request && reason > 0",
+      "oracle": "Preserve exact rejection/uncertainty/baseline handshake guard.",
+      "test": "mixer_route::tests::unknown_and_malformed_rejects_retain_exact_pending"
+    },
+    {
+      "file": "az-preview/src/mixer_route.rs",
+      "name": "unknown-keeps-admission-open",
+      "new": "                Ok(DispatchResult::Unknown)",
+      "old": "                self.producer.connection_lost()?;\n                Ok(DispatchResult::Unknown)",
+      "oracle": "Preserve exact rejection/uncertainty/baseline handshake guard.",
+      "test": "mixer_route::tests::unknown_and_malformed_rejects_retain_exact_pending"
+    },
+    {
+      "file": "az-preview/src/mixer_route.rs",
+      "name": "refresh-over-staged",
+      "new": "s.admission_open || s.unresolved.is_some()",
+      "old": "s.admission_open || s.staged || s.unresolved.is_some()",
+      "oracle": "Preserve exact rejection/uncertainty/baseline handshake guard.",
+      "test": "mixer_route::tests::route_requires_verified_baseline_and_release"
+    }
+  ]
+}

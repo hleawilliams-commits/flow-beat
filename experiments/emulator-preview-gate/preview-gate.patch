@@ -1,0 +1,1911 @@
+--- a/az-preview/src/app.rs
++++ b/az-preview/src/app.rs
+@@ -25,6 +25,8 @@
+     MIXER_SCFX_PARAM, MIXER_SETTINGS_BTN, MIXER_XFADER, PANEL_TOWER, TOP_MENU,
+ };
+ use crate::meter::{Meter, FLOOR_DB};
++use crate::mixer_producer::{BaselineReceipt, Key};
++use crate::mixer_route::MixerRoute;
+ use crate::panel::{
+     self, browse_center, fit_rect, knob, lcd_rect, xpad_rect, DeckView, PanelView, Sc, ASPECT,
+     CH_CONTROLS, COL_BLACK, COL_SILVER, COL_TEAL, PANEL_MARGIN,
+@@ -34,6 +36,7 @@
+ use std::collections::HashMap;
+ use std::f32::consts::{PI, TAU};
+ use std::sync::mpsc::{Receiver, Sender};
++use std::sync::Arc;
+ use std::time::{Duration, Instant};
+ 
+ /// Drag rotation: ignore points this close to the center (as a fraction of the
+@@ -64,6 +67,8 @@
+     pub frame_rx: Receiver<egui::ColorImage>,
+     pub ctrl_tx: Sender<CtrlMsg>,
+     pub led_rx: Receiver<LedWire>,
++    /// None preserves legacy operation. Some selects owned mode even while closed.
++    pub mixer: Option<Arc<MixerRoute>>,
+ }
+ 
+ pub struct App {
+@@ -133,7 +138,12 @@
+     mixer_frame: Frame,
+     deck_frame: [Frame; 2],
+     sent_erp: Frame,
++    /// Enqueued-frame deduplication only; this is not a broker commit receipt.
+     sent_mixer: Frame,
++    mixer_baseline: Option<BaselineReceipt>,
++    mixer_rearm_pending: bool,
++    /// Captured once before this UI update; never refreshed at send/dequeue.
++    mixer_creation_key: Option<Key>,
+     /// The window title, and when the status files were last read.
+     title: String,
+     mods_checked: Option<Instant>,
+@@ -221,10 +231,97 @@
+             deck_frame: [SPI5_IDLE, SPI2_IDLE],
+             sent_erp: ERP_IDLE,
+             sent_mixer: SPI3_IDLE,
++            mixer_baseline: None,
++            mixer_rearm_pending: false,
++            mixer_creation_key: None,
+             title: "XDJ-AZ".to_string(),
+             mods_checked: None,
+             screen_since: None,
+             erp_at: None,
++        }
++    }
++
++    fn mixer_input_allowed(&self) -> bool {
++        self.links.mixer.is_none() || self.mixer_creation_key.is_some()
++    }
++
++    /// Discard only this App's mixer gestures. ERP latches, buttons and deck
++    /// state belong to separate buses and survive an owned mixer transition.
++    fn clear_mixer_gestures(&mut self) {
++        self.held.retain(|_, (bit, _)| !matches!(bit.bus, Bus::Mixer));
++        self.pending.retain(|(bit, _)| !matches!(bit.bus, Bus::Mixer));
++        self.browse_angle = 0.0;
++        self.browse_cursor = 0.0;
++        self.browse_flash = 0.0;
++        self.fx_drag = 0.0;
++        self.fx_time_drag = 0.0;
++        self.xpad = None;
++    }
++
++    /// Adopt the exact trusted route receipt without normalizing any frame
++    /// bytes. Derived UI values are decoded from it, not written back into it.
++    fn adopt_mixer_baseline(&mut self, receipt: BaselineReceipt) {
++        self.clear_mixer_gestures();
++        self.mixer_creation_key = None;
++        self.mixer_frame = receipt.frame;
++        self.sent_mixer = receipt.frame;
++        self.mixer_pos = std::array::from_fn(|mx| get_mx(&receipt.frame, mx));
++        self.mx10_pos = MX10.iter().map(|&(_, hi, lo, shift, _)| {
++            f32::from(get10(&receipt.frame, hi, lo, shift)) / 1023.0
++        }).collect();
++        self.fx_select = (0..16).find(|&v| gray4(v) == receipt.frame[MX_FXSEL_BYTE] >> 4)
++            .expect("every four-bit Gray code has one decoded position");
++        self.fx_time = i16::from_le_bytes([
++            receipt.frame[FX_TIME_BYTES.0], receipt.frame[FX_TIME_BYTES.1],
++        ]);
++        self.mixer_baseline = Some(receipt);
++        self.mixer_rearm_pending = true;
++    }
++
++    /// Called globally, including screen-only view, before any UI handlers.
++    /// A new baseline consumes one update for adoption and a later clean update
++    /// for release confirmation. Neither update may create mixer actions.
++    fn begin_mixer_update(&mut self, ctx: &egui::Context) {
++        self.mixer_creation_key = None;
++        let Some(route) = self.links.mixer.clone() else { return; };
++        if let Some(receipt) = route.staged_baseline() {
++            if self.mixer_baseline != Some(receipt) {
++                self.adopt_mixer_baseline(receipt);
++                return;
++            }
++            if self.mixer_rearm_pending && mixer_controls_released(ctx) {
++                self.clear_mixer_gestures();
++                if route.confirm_adoption(receipt, true).is_ok() {
++                    self.mixer_rearm_pending = false;
++                } else {
++                    let _ = route.close();
++                }
++            }
++            return;
++        }
++        let key = route.current_key();
++        if !self.mixer_rearm_pending && key.is_some()
++            && key == self.mixer_baseline.map(|receipt| receipt.key)
++        {
++            self.mixer_creation_key = key;
++            // Hidden controls cannot receive their widget-level release. Drop
++            // only mixer holds after an observed pointer-up, retaining the
++            // existing creation-time minimum hold; this is not ACK timing.
++            if !ctx.input(|i| i.pointer.any_down() || i.any_touches()) {
++                let now = Instant::now();
++                self.held.retain(|_, (bit, since)| {
++                    if matches!(bit.bus, Bus::Mixer) {
++                        if now < *since + MIN_HOLD {
++                            self.pending.push((*bit, *since + MIN_HOLD));
++                        }
++                        false
++                    } else { true }
++                });
++                self.xpad = None;
++            }
++        } else {
++            self.clear_mixer_gestures();
++            if key.is_some() { let _ = route.close(); }
+         }
+     }
+ 
+@@ -444,6 +541,7 @@
+     /// The browse knob: drag anywhere on it to turn, click the cap to push.
+     /// egui tells a stationary click from a drag, so the two never collide.
+     fn browse_knob(&mut self, ui: &Ui, sc: &Sc) {
++        if !self.mixer_input_allowed() { return; }
+         let (c, r) = browse_center(sc);
+         let resp = ui.interact(
+             Rect::from_center_size(c, Vec2::splat(r * 2.0)),
+@@ -456,20 +554,23 @@
+             self.browse_cursor += d;
+             let step = (self.browse_cursor * BROWSE_SENSITIVITY) as i32;
+             if step != prev_step {
+-                // Continue from the shared counter: az-drive.py may have turned
+-                // the knob since, and two private counters make phantom detents.
+-                // Stop at the ends rather than wrap (see controls::SPI3_IDLE).
+-                let base = knob_ctr_load().unwrap_or(self.mixer_frame[KNOB_BYTE]);
++                // Owned mode uses only this generation's adopted/local frame.
++                // Legacy mode retains the original shared-counter behavior.
++                let base = if self.links.mixer.is_some() {
++                    self.mixer_frame[KNOB_BYTE]
++                } else {
++                    knob_ctr_load().unwrap_or(self.mixer_frame[KNOB_BYTE])
++                };
+                 let next = (i32::from(base) + step - prev_step).clamp(1, 254) as u8;
+-                knob_ctr_store(next);
++                if self.links.mixer.is_none() { knob_ctr_store(next); }
+                 self.mixer_frame[KNOB_BYTE] = next;
+             }
+         }
+         if let (true, Some(pos)) = (resp.clicked(), resp.interact_pointer_pos()) {
+             if (pos - c).length() <= r * 0.55 {
+                 self.browse_flash = 1.0;
+-                // A pulse held for MIN_HOLD: the guest polls the mixer bus too
+-                // slowly to see a press and release sent back to back.
++                // This is a creation-time hold only. Owned queue/ACK delay may
++                // collapse commit spacing; no native minimum dwell is promised.
+                 let (byte, mask) = KNOB_PUSH;
+                 self.pending
+                     .push((Bit::panel(byte, mask), Instant::now() + MIN_HOLD));
+@@ -526,7 +627,7 @@
+ 
+     fn send_deck(&self, d: usize) {
+         let bus = if d == 0 { BUS_DECK_L } else { BUS_DECK_R };
+-        let _ = self.links.ctrl_tx.send(CtrlMsg {
++        let _ = self.links.ctrl_tx.send(CtrlMsg::Legacy {
+             bus,
+             frame: self.deck_frame[d],
+         });
+@@ -535,6 +636,7 @@
+     /// The mixer controls in `MX_AT`: knobs follow vertical drag, faders and
+     /// the crossfader follow the pointer.
+     fn mixer_controls(&mut self, ui: &Ui, sc: &Sc) {
++        if !self.mixer_input_allowed() { return; }
+         fn set(app: &mut App, mx: usize, t: f32) {
+             app.mixer_pos[mx] = t;
+             set_mx(&mut app.mixer_frame, mx, t);
+@@ -637,6 +739,7 @@
+         let show_hits = std::env::var_os("AZ_SHOW_HITS").is_some();
+         let now = Instant::now();
+         for (geom, bit, id, name) in list {
++            if matches!(bit.bus, Bus::Mixer) && !self.mixer_input_allowed() { continue; }
+             let rect = sc.g(geom);
+             // The bounding box takes the click; the button's own outline decides
+             // (the curved keys and round buttons do not fill their box).
+@@ -695,12 +798,13 @@
+     /// The 10-bit knobs (channel 3/4 trim and EQ, MIC 2 EQ), drawn live over
+     /// the panel's static ones.
+     fn mx10_knobs(&mut self, ui: &Ui, sc: &Sc) {
++        let allowed = self.mixer_input_allowed();
+         for (i, &(g, hi, lo, shift, name)) in MX10.iter().enumerate() {
+             let hit = Rect::from_center_size(sc.c(g), Vec2::splat(sc.r(g) * 2.4));
+             let resp = ui
+                 .interact(hit, ui.id().with(("mx10", i)), Sense::drag())
+                 .on_hover_text(name);
+-            if resp.dragged() {
++            if allowed && resp.dragged() {
+                 self.mx10_pos[i] =
+                     (self.mx10_pos[i] - resp.drag_delta().y * KNOB_DRAG_GAIN).clamp(0.0, 1.0);
+                 set10(
+@@ -720,7 +824,7 @@
+         let g = FX_SELECT_KNOB;
+         let hit = Rect::from_center_size(sc.c(g), Vec2::splat(sc.r(g) * 2.2));
+         let resp = ui.interact(hit, ui.id().with("fx-select"), Sense::drag());
+-        if resp.dragged() {
++        if self.mixer_input_allowed() && resp.dragged() {
+             self.fx_drag -= resp.drag_delta().y;
+             let steps = (self.fx_drag / FX_PX_PER_STEP).trunc();
+             self.fx_drag -= steps * FX_PX_PER_STEP;
+@@ -740,7 +844,7 @@
+         let resp = ui
+             .interact(hit, ui.id().with("fx-time"), Sense::drag())
+             .on_hover_text("BEAT FX TIME (drag up/down)");
+-        if resp.dragged() {
++        if self.mixer_input_allowed() && resp.dragged() {
+             self.fx_time_drag -= resp.drag_delta().y;
+             let steps = (self.fx_time_drag / FX_PX_PER_STEP).trunc();
+             self.fx_time_drag -= steps * FX_PX_PER_STEP;
+@@ -755,6 +859,7 @@
+ 
+     /// The X-PAD strip: press or drag anywhere on it; release lifts the finger.
+     fn xpad_strip(&mut self, ui: &Ui, sc: &Sc) {
++        if !self.mixer_input_allowed() { return; }
+         let strip = xpad_rect(sc);
+         let resp = ui
+             .interact(
+@@ -783,10 +888,12 @@
+         self.pending.retain(|(_, until)| *until > now);
+         // Adopt a knob counter az-drive.py moved, without sending a frame for
+         // that alone: the guest already has it.
+-        if let Some(k) = knob_ctr_load() {
+-            if k != self.mixer_frame[KNOB_BYTE] {
+-                self.mixer_frame[KNOB_BYTE] = k;
+-                self.sent_mixer[KNOB_BYTE] = k;
++        if self.links.mixer.is_none() {
++            if let Some(k) = knob_ctr_load() {
++                if k != self.mixer_frame[KNOB_BYTE] {
++                    self.mixer_frame[KNOB_BYTE] = k;
++                    self.sent_mixer[KNOB_BYTE] = k;
++                }
+             }
+         }
+         let mut erp = ERP_IDLE;
+@@ -820,18 +927,35 @@
+             mix[LATCH_BYTE] = 0x00;
+         }
+         if erp != self.sent_erp {
+-            let _ = self.links.ctrl_tx.send(CtrlMsg {
++            let _ = self.links.ctrl_tx.send(CtrlMsg::Legacy {
+                 bus: BUS_ERP,
+                 frame: erp,
+             });
+             self.sent_erp = erp;
+         }
+         if mix != self.sent_mixer {
+-            let _ = self.links.ctrl_tx.send(CtrlMsg {
+-                bus: BUS_MIXER,
+-                frame: mix,
+-            });
+-            self.sent_mixer = mix;
++            if let Some(route) = self.links.mixer.clone() {
++                if let Some(key) = self.mixer_creation_key {
++                    // The key was captured before UI mutation. A concurrent
++                    // transition cannot reauthorize this frame under a new key.
++                    let queued = route.create_for_key(key, mix).ok().is_some_and(|request| {
++                        self.links.ctrl_tx.send(CtrlMsg::OwnedMixer(request)).is_ok()
++                    });
++                    if queued {
++                        self.sent_mixer = mix;
++                    } else {
++                        let _ = route.close();
++                        self.mixer_creation_key = None;
++                        self.clear_mixer_gestures();
++                    }
++                }
++            } else {
++                let _ = self.links.ctrl_tx.send(CtrlMsg::Legacy {
++                    bus: BUS_MIXER,
++                    frame: mix,
++                });
++                self.sent_mixer = mix;
++            }
+         }
+         if !self.pending.is_empty() {
+             ctx.request_repaint_after(Duration::from_millis(15));
+@@ -867,6 +991,7 @@
+ 
+ impl eframe::App for App {
+     fn on_exit(&mut self, _gl: Option<&eframe::glow::Context>) {
++        if let Some(route) = &self.links.mixer { let _ = route.close(); }
+         if let Some(launched) = &mut self.launched {
+             // QEMU quits on its own first (flushing its disk caches to the image
+             // files); stop() waits for that and kills it only if it hangs.
+@@ -886,6 +1011,7 @@
+                 Self::size_for_panel(ctx);
+             }
+         }
++        self.begin_mixer_update(ctx);
+         self.drain_links(ctx);
+         if self
+             .mods_checked
+@@ -914,14 +1040,22 @@
+                     self.panel_view(ui, area);
+                 }
+             });
+-        // Every view sends the panel state, so the guest gets the starting mixer
+-        // positions even when only the screen is shown.
++        // Every view composes panel state. Owned mode sends only a generation-
++        // bound request; legacy mode retains its startup position behavior.
+         self.send_frames(ctx);
+         self.screenshot(ctx);
+         // Meters move smoothly only while redrawn often; idle, slower is enough.
+         let moving = self.meters.iter().any(|m| m.db > FLOOR_DB);
+         ctx.request_repaint_after(Duration::from_millis(if moving { 30 } else { 80 }));
+     }
++}
++
++/// A local event-free release barrier, not proof about other producers or
++/// physical controls. Reject even a press+release wholly inside one update.
++fn mixer_controls_released(ctx: &egui::Context) -> bool {
++    ctx.input(|i| i.focused && i.events.is_empty() && i.keys_down.is_empty()
++        && i.modifiers == egui::Modifiers::NONE && !i.pointer.any_down()
++        && !i.pointer.any_pressed() && !i.pointer.any_released() && !i.any_touches())
+ }
+ 
+ /// A JPEG as an egui image, or None if it does not decode.
+@@ -1000,6 +1134,382 @@
+ mod tests {
+     use super::*;
+ 
++    use crate::mixer_producer::{Envelope, FrameAck};
++    use crate::mixer_route::{BackendOutcome, MixerBackend, SettingsSink};
++    use std::sync::{mpsc, Mutex};
++
++    struct TestBackend { baseline: Arc<Mutex<BaselineReceipt>>, sequence: u64 }
++    impl MixerBackend for TestBackend {
++        fn baseline(&mut self) -> Result<BaselineReceipt, String> {
++            let receipt = *self.baseline.lock().unwrap();
++            self.sequence = receipt.kernel_sequence;
++            Ok(receipt)
++        }
++        fn submit(&mut self, request: Envelope) -> BackendOutcome {
++            self.sequence += 1;
++            BackendOutcome::Committed(FrameAck { request, kernel_sequence: self.sequence })
++        }
++    }
++    struct TestSettings(Arc<Mutex<Vec<FrameAck>>>);
++    impl SettingsSink for TestSettings {
++        fn commit(&mut self, ack: FrameAck) -> Result<(), String> {
++            self.0.lock().unwrap().push(ack);
++            Ok(())
++        }
++    }
++
++    fn receipt(epoch: u64) -> BaselineReceipt {
++        let mut frame = SPI3_IDLE;
++        frame[KNOB_BYTE] = 120;
++        for mx in 0..MX_COUNT { set_mx(&mut frame, mx, (mx % 7) as f32 / 7.0); }
++        for (i, &(_, hi, lo, shift, _)) in MX10.iter().enumerate() {
++            set10(&mut frame, hi, lo, shift, (101 + i * 39) as u16);
++        }
++        frame[MX_FXSEL_BYTE] = gray4(11) << 4;
++        let [lo, hi] = (-1234_i16).to_le_bytes();
++        frame[FX_TIME_BYTES.0] = lo;
++        frame[FX_TIME_BYTES.1] = hi;
++        // Synthetic opaque tail markers: adoption must not normalize bytes.
++        frame[150] = 0xa6;
++        frame[151] = 0x5b;
++        BaselineReceipt { key: Key { instance: [0x1234, 0x5678], run_id: 9,
++            epoch, producer_id: 3 }, frame, kernel_sequence: 20 }
++    }
++
++    fn route(capacity: usize) -> (Arc<MixerRoute>, Arc<Mutex<BaselineReceipt>>,
++        Arc<Mutex<Vec<FrameAck>>>) {
++        let baseline = Arc::new(Mutex::new(receipt(1)));
++        let saved = Arc::new(Mutex::new(Vec::new()));
++        let route = Arc::new(MixerRoute::new(capacity,
++            Box::new(TestBackend { baseline: baseline.clone(), sequence: 0 }),
++            Box::new(TestSettings(saved.clone()))).unwrap());
++        (route, baseline, saved)
++    }
++
++    fn test_app(route: Option<Arc<MixerRoute>>) -> (App, Receiver<CtrlMsg>) {
++        let (cmd_tx, _) = mpsc::channel();
++        let (_, frame_rx) = mpsc::channel();
++        let (ctrl_tx, ctrl_rx) = mpsc::channel();
++        let (_, led_rx) = mpsc::channel();
++        (App::new(Links { cmd_tx, frame_rx, ctrl_tx, led_rx, mixer: route },
++            None, None, Some("offline fixture".into())), ctrl_rx)
++    }
++
++    fn input(events: Vec<egui::Event>) -> egui::RawInput {
++        egui::RawInput { focused: true,
++            screen_rect: Some(Rect::from_min_size(Pos2::ZERO, Vec2::new(1200.0, 750.0))),
++            events, ..Default::default() }
++    }
++
++    fn tick(app: &mut App, ctx: &egui::Context, events: Vec<egui::Event>) {
++        let _ = ctx.run(input(events), |ctx| app.begin_mixer_update(ctx));
++    }
++
++    fn pointer(pos: Pos2, pressed: bool) -> Vec<egui::Event> {
++        vec![egui::Event::PointerMoved(pos), egui::Event::PointerButton {
++            pos, button: egui::PointerButton::Primary, pressed,
++            modifiers: egui::Modifiers::NONE }]
++    }
++
++    fn arm(app: &mut App, route: &MixerRoute, ctx: &egui::Context) {
++        let baseline = route.refresh_baseline().unwrap();
++        tick(app, ctx, vec![]); // adopt; no input
++        assert_eq!(app.mixer_baseline, Some(baseline));
++        assert_eq!(app.mixer_creation_key, None);
++        tick(app, ctx, vec![]); // release-only update
++        assert_eq!(route.current_key(), Some(baseline.key));
++        assert_eq!(app.mixer_creation_key, None);
++        tick(app, ctx, vec![]); // first possible input update
++        assert_eq!(app.mixer_creation_key, Some(baseline.key));
++    }
++
++    #[test]
++    fn owned_adoption_resets_every_mixer_model_without_changing_other_buses() {
++        let (route, _, _) = route(8);
++        let (mut app, _) = test_app(Some(route.clone()));
++        let now = Instant::now();
++        let erp = Bit::erp(10, 2);
++        let mix = Bit::panel(KNOB_PUSH.0, KNOB_PUSH.1);
++        app.held.insert(Id::new("erp"), (erp, now));
++        app.held.insert(Id::new("mix"), (mix, now));
++        app.pending = vec![(erp, now + MIN_HOLD), (mix, now + MIN_HOLD)];
++        app.shift = [true, false];
++        app.deck_frame[0][20] = 77;
++        app.sent_erp[9] = 4;
++        app.browse_cursor = 0.7;
++        app.browse_angle = 1.2;
++        app.browse_flash = 0.9;
++        app.fx_drag = 8.0;
++        app.fx_time_drag = 9.0;
++        app.xpad = Some(43);
++        let deck = app.deck_frame;
++        let erp_sent = app.sent_erp;
++        let baseline = route.refresh_baseline().unwrap();
++        tick(&mut app, &egui::Context::default(), vec![]);
++        assert_eq!(app.mixer_frame, baseline.frame);
++        assert_eq!(app.sent_mixer, baseline.frame);
++        for mx in 0..MX_COUNT { assert_eq!(app.mixer_pos[mx], get_mx(&baseline.frame, mx)); }
++        for (i, &(_, hi, lo, shift, _)) in MX10.iter().enumerate() {
++            assert_eq!(app.mx10_pos[i], f32::from(get10(&baseline.frame, hi, lo, shift)) / 1023.0);
++        }
++        assert_eq!(app.fx_select, 11);
++        assert_eq!(app.fx_time, -1234);
++        assert_eq!((app.fx_drag, app.fx_time_drag, app.browse_cursor,
++            app.browse_angle, app.browse_flash), (0.0, 0.0, 0.0, 0.0, 0.0));
++        assert_eq!(app.xpad, None);
++        assert_eq!(app.held.len(), 1);
++        assert!(app.held.contains_key(&Id::new("erp")));
++        assert_eq!(app.pending.len(), 1);
++        assert!(matches!(app.pending[0].0.bus, Bus::Erp));
++        assert_eq!(app.shift, [true, false]);
++        assert_eq!(app.deck_frame, deck);
++        assert_eq!(app.sent_erp, erp_sent);
++    }
++
++    #[test]
++    fn owned_release_click_and_confirmation_update_cannot_create_input() {
++        let (route, _, _) = route(8);
++        let (mut app, rx) = test_app(Some(route.clone()));
++        let ctx = egui::Context::default();
++        let pos = Pos2::new(500.0, 400.0);
++        tick(&mut app, &ctx, pointer(pos, true));
++        route.refresh_baseline().unwrap();
++        tick(&mut app, &ctx, vec![]); // adoption while old gesture is held
++        tick(&mut app, &ctx, vec![]);
++        assert_eq!(route.current_key(), None);
++        app.screen_only = true;
++        tick(&mut app, &ctx, pointer(pos, false)); // release/click stays closed
++        assert_eq!(route.current_key(), None);
++        assert!(!app.mixer_input_allowed());
++        app.screen_only = false;
++        tick(&mut app, &ctx, vec![]); // clean release-only update
++        assert!(route.current_key().is_some());
++        assert!(!app.mixer_input_allowed());
++        app.send_frames(&ctx);
++        assert!(rx.try_recv().is_err());
++        tick(&mut app, &ctx, pointer(pos, true)); // fresh action, new update
++        assert!(app.mixer_input_allowed());
++    }
++
++    #[test]
++    fn owned_release_barrier_rejects_focus_keys_and_same_update_click() {
++        let ctx = egui::Context::default();
++        let check = |raw| {
++            let mut released = false;
++            let _ = ctx.run(raw, |ctx| released = mixer_controls_released(ctx));
++            released
++        };
++        let mut raw = input(vec![]);
++        raw.focused = false;
++        assert!(!check(raw));
++        let pos = Pos2::new(50.0, 50.0);
++        let mut events = pointer(pos, true);
++        events.extend(pointer(pos, false));
++        assert!(!check(input(events)));
++        assert!(check(input(vec![])));
++        assert!(!check(input(vec![egui::Event::Key { key: egui::Key::A,
++            physical_key: None, pressed: true, repeat: false, modifiers: egui::Modifiers::NONE }])));
++        assert!(!check(input(vec![])));
++        assert!(!check(input(vec![egui::Event::Key { key: egui::Key::A,
++            physical_key: None, pressed: false, repeat: false, modifiers: egui::Modifiers::NONE }])));
++        assert!(check(input(vec![])));
++    }
++
++    #[test]
++    fn owned_closed_handlers_cannot_author_mixer_bytes() {
++        let (route, _, _) = route(8);
++        let (mut app, rx) = test_app(Some(route));
++        let ctx = egui::Context::default();
++        let frame = app.mixer_frame;
++        let area = Rect::from_min_size(Pos2::ZERO, Vec2::new(1200.0, 750.0));
++        let sc = Sc::new(area);
++        let targets = [browse_center(&sc).0, sc.c(MASTER_LEVEL),
++            sc.c(MIXER_XFADER), sc.c(MX10[0].0), sc.c(FX_SELECT_KNOB),
++            sc.c(FX_TIME_KNOB), xpad_rect(&sc).center(), sc.c(FX_ON_BTN),
++            sc.c(MIXER_SETTINGS_BTN), sc.c(PANEL_BUTTONS[0].g)];
++        for pos in targets {
++            for events in [pointer(pos, true), vec![egui::Event::PointerMoved(pos + Vec2::new(0.0, -40.0))], pointer(pos, false)] {
++                let _ = ctx.run(input(events), |ctx| {
++                    app.begin_mixer_update(ctx);
++                    egui::CentralPanel::default().show(ctx, |ui| {
++                        let sc = Sc::new(area);
++                        app.browse_knob(ui, &sc);
++                        app.mixer_controls(ui, &sc);
++                        app.buttons(ui, &sc);
++                        app.mx10_knobs(ui, &sc);
++                        app.fx_select(ui, &sc);
++                        app.fx_time(ui, &sc);
++                        app.xpad_strip(ui, &sc);
++                    });
++                    app.send_frames(ctx);
++                });
++                assert_eq!(app.mixer_frame, frame);
++                assert!(app.held.values().all(|(bit, _)| !matches!(bit.bus, Bus::Mixer)));
++                assert!(app.pending.iter().all(|(bit, _)| !matches!(bit.bus, Bus::Mixer)));
++                assert_eq!((app.fx_drag, app.fx_time_drag, app.browse_cursor), (0.0, 0.0, 0.0));
++                assert_eq!(app.xpad, None);
++            }
++        }
++        assert!(rx.try_iter().all(|msg| matches!(msg, CtrlMsg::Legacy { bus: BUS_ERP, .. })));
++    }
++
++    #[test]
++    fn owned_baseline_no_input_is_exact_and_ack_settings_follow_envelope() {
++        let (route, _, saved) = route(8);
++        let (mut app, rx) = test_app(Some(route.clone()));
++        let ctx = egui::Context::default();
++        arm(&mut app, &route, &ctx);
++        let baseline = app.mixer_frame;
++        app.send_frames(&ctx);
++        assert!(rx.try_recv().is_err());
++        app.mixer_frame[KNOB_BYTE] += 1;
++        let expected = app.mixer_frame;
++        app.send_frames(&ctx);
++        assert_eq!(app.sent_mixer, expected);
++        assert!(saved.lock().unwrap().is_empty()); // enqueue is not ACK/settings
++        let CtrlMsg::OwnedMixer(request) = rx.try_recv().unwrap() else { panic!("legacy fallback") };
++        assert_eq!(request.key(), receipt(1).key);
++        assert_eq!(request.request_id(), 1);
++        assert_eq!(*request.frame(), expected);
++        for i in 0..152 { if i != KNOB_BYTE { assert_eq!(request.frame()[i], baseline[i]); } }
++        app.mixer_frame[KNOB_BYTE] += 1; // newer UI value cannot alter ACK payload
++        route.dispatch(request).unwrap();
++        assert_eq!(saved.lock().unwrap()[0].request, request);
++        assert_eq!(*saved.lock().unwrap()[0].request.frame(), expected);
++    }
++
++    #[test]
++    fn owned_real_fx_time_drag_starts_from_adopted_encoder_pair() {
++        let (route, _, _) = route(8);
++        let (mut app, rx) = test_app(Some(route.clone()));
++        let ctx = egui::Context::default();
++        arm(&mut app, &route, &ctx);
++        let baseline = app.mixer_frame;
++        let area = Rect::from_min_size(Pos2::ZERO, Vec2::new(1200.0, 750.0));
++        let pos = Sc::new(area).c(FX_TIME_KNOB);
++        for events in [vec![egui::Event::PointerMoved(pos)], pointer(pos, true),
++            vec![egui::Event::PointerMoved(pos - Vec2::new(0.0, FX_PX_PER_STEP * 2.0))]] {
++            let _ = ctx.run(input(events), |ctx| {
++                app.begin_mixer_update(ctx);
++                egui::CentralPanel::default().show(ctx, |ui| app.fx_time(ui, &Sc::new(area)));
++                app.send_frames(ctx);
++            });
++        }
++        assert_eq!(app.fx_time, -1232);
++        let mut expected = baseline;
++        let [lo, hi] = (-1232_i16).to_le_bytes();
++        expected[FX_TIME_BYTES.0] = lo;
++        expected[FX_TIME_BYTES.1] = hi;
++        assert_eq!(app.mixer_frame, expected);
++        let CtrlMsg::OwnedMixer(request) = rx.try_recv().unwrap() else { panic!("legacy fallback") };
++        assert_eq!(*request.frame(), expected);
++        assert!(rx.try_recv().is_err());
++    }
++
++    #[test]
++    fn owned_stale_update_key_is_not_retagged_after_new_baseline() {
++        let (route, baseline, _) = route(8);
++        let (mut app, rx) = test_app(Some(route.clone()));
++        let ctx = egui::Context::default();
++        arm(&mut app, &route, &ctx);
++        let sent = app.sent_mixer;
++        app.mixer_frame[KNOB_BYTE] += 1; // authored under captured old key
++        route.close().unwrap();
++        *baseline.lock().unwrap() = receipt(2);
++        let newer = route.refresh_baseline().unwrap();
++        route.confirm_adoption(newer, true).unwrap();
++        app.send_frames(&ctx); // must not refresh current_key here
++        assert!(rx.try_recv().is_err());
++        assert_eq!(app.sent_mixer, sent);
++        assert_eq!(route.current_key(), None);
++        assert_eq!(app.mixer_creation_key, None);
++    }
++
++    #[test]
++    fn owned_channel_failure_and_queue_full_do_not_advance_sent_cache() {
++        for disconnected in [false, true] {
++            let (route, _, _) = route(1);
++            let (mut app, rx) = test_app(Some(route.clone()));
++            let ctx = egui::Context::default();
++            arm(&mut app, &route, &ctx);
++            if !disconnected {
++                route.create_for_key(receipt(1).key, receipt(1).frame).unwrap();
++            }
++            let sent = app.sent_mixer;
++            if disconnected { drop(rx); }
++            app.mixer_frame[KNOB_BYTE] += 1;
++            app.send_frames(&ctx);
++            assert_eq!(app.sent_mixer, sent);
++            assert_eq!(route.current_key(), None);
++            assert_eq!(app.mixer_creation_key, None);
++        }
++    }
++
++    #[test]
++    fn owned_hidden_pointer_release_clears_only_mixer_and_preserves_erp() {
++        let (route, _, _) = route(8);
++        let (mut app, rx) = test_app(Some(route.clone()));
++        let ctx = egui::Context::default();
++        arm(&mut app, &route, &ctx);
++        let old = Instant::now() - MIN_HOLD;
++        app.held.insert(Id::new("mix"), (Bit::panel(KNOB_PUSH.0, KNOB_PUSH.1), old));
++        app.held.insert(Id::new("erp"), (Bit::erp(10, 2), old));
++        app.xpad = Some(41);
++        app.shift = [true, false];
++        app.screen_only = true;
++        tick(&mut app, &ctx, vec![]);
++        assert_eq!(app.held.len(), 1);
++        assert!(app.held.contains_key(&Id::new("erp")));
++        assert_eq!(app.xpad, None);
++        app.send_frames(&ctx);
++        let CtrlMsg::Legacy { bus, frame } = rx.try_recv().unwrap() else { panic!("unexpected mixer") };
++        assert_eq!(bus, BUS_ERP);
++        assert_eq!(frame[10] & 2, 2);
++        assert_eq!(frame[ERP_SHIFT.0] & ERP_SHIFT.1, ERP_SHIFT.1);
++        assert!(rx.try_recv().is_err());
++    }
++
++    #[test]
++    fn owned_close_then_new_baseline_drops_hidden_mixer_state_only() {
++        let (route, baseline, _) = route(8);
++        let (mut app, _) = test_app(Some(route.clone()));
++        let ctx = egui::Context::default();
++        arm(&mut app, &route, &ctx);
++        app.mixer_frame[KNOB_BYTE] = 200;
++        app.fx_time_drag = 9.0;
++        app.browse_cursor = 0.8;
++        app.xpad = Some(99);
++        app.pending.push((Bit::panel(KNOB_PUSH.0, KNOB_PUSH.1), Instant::now() + MIN_HOLD));
++        let now = Instant::now();
++        app.pending.push((Bit::erp(10, 2), now + MIN_HOLD));
++        app.shift[1] = true;
++        route.close().unwrap();
++        tick(&mut app, &ctx, vec![]);
++        assert_eq!(app.pending.len(), 1);
++        assert!(matches!(app.pending[0].0.bus, Bus::Erp));
++        assert_eq!((app.fx_time_drag, app.browse_cursor, app.xpad), (0.0, 0.0, None));
++        *baseline.lock().unwrap() = receipt(2);
++        route.refresh_baseline().unwrap();
++        tick(&mut app, &ctx, vec![]);
++        assert_eq!(app.mixer_frame, receipt(2).frame);
++        assert_eq!(app.sent_mixer, receipt(2).frame);
++        assert!(app.shift[1]);
++        assert_eq!(app.mixer_creation_key, None);
++    }
++
++    #[test]
++    fn legacy_mode_keeps_input_enabled_and_deck_messages_legacy() {
++        // Do not invoke legacy knob/settings filesystem paths in this fixture.
++        let (mut app, rx) = test_app(None);
++        tick(&mut app, &egui::Context::default(), vec![]);
++        assert!(app.mixer_input_allowed());
++        assert_eq!(app.mixer_baseline, None);
++        app.send_deck(0);
++        let CtrlMsg::Legacy { bus, frame } = rx.try_recv().unwrap() else { panic!("tagged deck") };
++        assert_eq!(bus, BUS_DECK_L);
++        assert_eq!(frame, app.deck_frame[0]);
++    }
++
+     #[test]
+     fn angle_wrap_takes_the_short_way() {
+         // The same expression drag_turn uses, across the -PI/PI seam.
+--- a/az-preview/src/controls.rs
++++ b/az-preview/src/controls.rs
+@@ -20,6 +20,9 @@
+ #[cfg(unix)]
+ use std::os::unix::net::UnixStream;
+ use std::sync::mpsc::{Receiver, Sender};
++use std::sync::Arc;
++use crate::mixer_producer::Envelope;
++use crate::mixer_route::MixerRoute;
+ use std::thread;
+ use std::time::Duration;
+ // Windows 10 1803+ has AF_UNIX sockets and QEMU uses them there; std exposes
+@@ -841,45 +844,54 @@
+ 
+ // ---- The socket ---------------------------------------------------------------------
+ 
+-/// A whole bus frame to send. Each bus keeps one overlay that every frame
+-/// replaces, so the app always sends the full state of a bus (the jog and the
+-/// tempo fader together, every mixer level with each button).
+-pub struct CtrlMsg {
+-    pub bus: u8,
+-    pub frame: Frame,
+-}
+-
+-/// The 153 bytes the socket expects: the bus id, then the frame.
+-pub fn wire_frame(msg: &CtrlMsg) -> [u8; 153] {
++/// Legacy bus traffic and owned mixer traffic have different types. There is no
++/// conversion from an owned envelope to a legacy wire frame.
++#[derive(Clone, Copy, Debug, PartialEq, Eq)]
++pub enum CtrlMsg {
++    Legacy { bus: u8, frame: Frame },
++    OwnedMixer(Envelope),
++}
++
++#[derive(Clone, Copy, Debug, PartialEq, Eq)]
++pub struct LegacyFrame { pub bus: u8, pub frame: Frame }
++
++/// The legacy 153-byte wire format; it contains no receipt or generation.
++pub fn wire_frame(msg: &LegacyFrame) -> [u8; 153] {
+     let mut f = [0u8; 153];
+     f[0] = msg.bus;
+     f[1..].copy_from_slice(&msg.frame);
+     f
+ }
+ 
+-/// Keep a connection to `ctrl.sock`, send every [`CtrlMsg`], and pass LED
+-/// frames back to the UI. Reconnects when the guest restarts; returns when the
+-/// UI is gone. `AZ_CTRL_LOG=1` logs every frame sent (hex) to a scratch file.
+-/// The latest frame sent on each bus. The app sends a bus's whole state with
+-/// every frame, so these are the panel as it stands; they are sent again
+-/// whenever the socket (re)connects, so the guest starts from the app's state
+-/// (its initial mixer positions, for one) rather than the idle frames.
++/// Classify every receive before legacy cache/write, even while disconnected.
++/// An owned request is dispatched once; neither it nor an untagged mixer frame
++/// enters the legacy latest-frame replay cache when an owned route exists.
++fn route_message(msg: CtrlMsg, mixer: Option<&MixerRoute>) -> Option<LegacyFrame> {
++    match msg {
++        CtrlMsg::OwnedMixer(request) => {
++            if let Some(route) = mixer { let _ = route.dispatch(request); }
++            None
++        }
++        CtrlMsg::Legacy { bus: BUS_MIXER, .. } if mixer.is_some() => {
++            if let Some(route) = mixer { let _ = route.close(); }
++            None
++        }
++        CtrlMsg::Legacy { bus, frame } => Some(LegacyFrame { bus, frame }),
++    }
++}
++
++/// Legacy-only latest values. Owned mixer frames never reach this cache.
+ #[derive(Default)]
+ pub struct LatestFrames([Option<Frame>; 4]);
+-
+ impl LatestFrames {
+-    pub fn note(&mut self, msg: &CtrlMsg) {
++    pub fn note(&mut self, msg: &LegacyFrame) {
+         if let Some(slot) = self.0.get_mut(usize::from(msg.bus)) {
+             *slot = Some(msg.frame);
+         }
+     }
+-
+-    /// Every bus's latest frame, in bus order.
+-    pub fn messages(&self) -> Vec<CtrlMsg> {
+-        (0u8..)
+-            .zip(&self.0)
+-            .filter_map(|(bus, f)| f.map(|frame| CtrlMsg { bus, frame }))
+-            .collect()
++    pub fn messages(&self) -> Vec<LegacyFrame> {
++        (0u8..).zip(&self.0).filter_map(|(bus, f)|
++            f.map(|frame| LegacyFrame { bus, frame })).collect()
+     }
+ }
+ 
+@@ -905,10 +917,11 @@
+         .collect()
+ }
+ 
+-pub fn ctrl_thread(rx: Receiver<CtrlMsg>, led_tx: Sender<LedWire>) {
++pub fn ctrl_thread(rx: Receiver<CtrlMsg>, led_tx: Sender<LedWire>,
++    mixer: Option<Arc<MixerRoute>>) {
+     let log = std::env::var_os("AZ_CTRL_LOG").is_some();
+     let mut latest = LatestFrames::default();
+-    let send = |stream: &mut UnixStream, msg: &CtrlMsg| {
++    let send = |stream: &mut UnixStream, msg: &LegacyFrame| {
+         let frame = wire_frame(msg);
+         if log {
+             append_hex(&scratch("az-ctrl-sent.log"), "", &frame);
+@@ -921,7 +934,9 @@
+             Err(_) => {
+                 // Nothing to send to while disconnected: keep the latest state.
+                 while let Ok(msg) = rx.try_recv() {
+-                    latest.note(&msg);
++                    if let Some(msg) = route_message(msg, mixer.as_deref()) {
++                        latest.note(&msg);
++                    }
+                 }
+                 thread::sleep(Duration::from_millis(700));
+                 continue;
+@@ -943,6 +958,7 @@
+         }
+         loop {
+             let Ok(msg) = rx.recv() else { return };
++            let Some(msg) = route_message(msg, mixer.as_deref()) else { continue };
+             latest.note(&msg);
+             if send(&mut stream, &msg).is_err() {
+                 break; // guest gone: reconnect
+@@ -993,7 +1009,7 @@
+         let mut d = SPI5_IDLE;
+         jog_into(&mut d, JOG_TOUCH_FWD, 6500, 400);
+         tempo_into(&mut d, tempo_raw(1.0));
+-        let f = wire_frame(&CtrlMsg {
++        let f = wire_frame(&LegacyFrame {
+             bus: BUS_DECK_L,
+             frame: d,
+         });
+@@ -1385,7 +1401,7 @@
+             (BUS_ERP, ERP_IDLE),
+             (BUS_MIXER, later),
+         ] {
+-            latest.note(&CtrlMsg { bus, frame });
++            latest.note(&LegacyFrame { bus, frame });
+         }
+         let m = latest.messages();
+         assert_eq!(
+@@ -1473,3 +1489,59 @@
+         assert_eq!(MIXER_BUTTONS.len(), 31);
+     }
+ }
++
++
++#[cfg(test)]
++mod owned_route_tests {
++    use super::*;
++    use crate::mixer_producer::{BaselineReceipt, FrameAck, Key};
++    use crate::mixer_route::{BackendOutcome, MixerBackend, SettingsSink};
++    use std::sync::Mutex;
++    struct Backend(Arc<Mutex<Vec<Envelope>>>);
++    fn baseline()->BaselineReceipt {BaselineReceipt {key:Key {instance:[1,2],run_id:3,epoch:4,producer_id:5},
++        frame:SPI3_IDLE,kernel_sequence:6}}
++    impl MixerBackend for Backend {
++        fn baseline(&mut self)->Result<BaselineReceipt,String> {Ok(baseline())}
++        fn submit(&mut self,e:Envelope)->BackendOutcome {self.0.lock().unwrap().push(e);
++            BackendOutcome::Committed(FrameAck {request:e,kernel_sequence:7})}
++    }
++    struct Sink;
++    impl SettingsSink for Sink {fn commit(&mut self,_:FrameAck)->Result<(),String> {Ok(())}}
++    fn ready()->(MixerRoute,Arc<Mutex<Vec<Envelope>>>) {
++        let calls=Arc::new(Mutex::new(vec![]));
++        let r=MixerRoute::new(2,Box::new(Backend(calls.clone())),Box::new(Sink)).unwrap();
++        let b=r.refresh_baseline().unwrap();r.confirm_adoption(b,true).unwrap();(r,calls)
++    }
++    #[test] fn worker_owned_dispatch_is_not_legacy_cache_or_wire() {
++        let (route,calls)=ready();let b=baseline();let e=route.create_for_key(b.key,b.frame).unwrap();
++        let mut latest=LatestFrames::default();
++        if let Some(legacy)=route_message(CtrlMsg::OwnedMixer(e),Some(&route)) {latest.note(&legacy);}
++        assert!(latest.messages().is_empty());assert_eq!(*calls.lock().unwrap(),vec![e]);
++        assert!(route_message(CtrlMsg::OwnedMixer(e),Some(&route)).is_none());
++        assert_eq!(*calls.lock().unwrap(),vec![e]);
++    }
++    #[test] fn worker_untagged_mixer_refused_without_fallback() {
++        let (route,calls)=ready();let mut latest=LatestFrames::default();
++        if let Some(legacy)=route_message(CtrlMsg::Legacy {bus:BUS_MIXER,frame:SPI3_IDLE},Some(&route)) {latest.note(&legacy);}
++        assert!(latest.messages().is_empty());assert!(calls.lock().unwrap().is_empty());
++        assert!(route.current_key().is_none());
++    }
++    #[test] fn worker_other_buses_keep_exact_legacy_wire_and_replay() {
++        let (route,calls)=ready();let mut latest=LatestFrames::default();
++        for bus in [BUS_ERP,BUS_DECK_R,BUS_DECK_L] {
++            let frame=std::array::from_fn(|n|(n as u8).wrapping_add(bus));
++            let legacy=route_message(CtrlMsg::Legacy {bus,frame},Some(&route)).unwrap();
++            assert_eq!(wire_frame(&legacy)[0],bus);assert_eq!(&wire_frame(&legacy)[1..],&frame);
++            latest.note(&legacy);
++        }
++        assert_eq!(latest.messages().iter().map(|m|m.bus).collect::<Vec<_>>(),vec![0,1,3]);
++        assert!(calls.lock().unwrap().is_empty());
++    }
++    #[test] fn worker_none_preserves_legacy_and_never_falls_back_owned() {
++        let (route,calls)=ready();let e=route.create_for_key(baseline().key,SPI3_IDLE).unwrap();
++        assert!(route_message(CtrlMsg::OwnedMixer(e),None).is_none());
++        let f=route_message(CtrlMsg::Legacy {bus:BUS_MIXER,frame:SPI3_IDLE},None).unwrap();
++        assert_eq!(f.bus,BUS_MIXER);assert_eq!(f.frame,SPI3_IDLE);
++        assert!(calls.lock().unwrap().is_empty());
++    }
++}
+--- a/az-preview/src/main.rs
++++ b/az-preview/src/main.rs
+@@ -25,6 +25,8 @@
+ mod boot;
+ mod config;
+ mod controls;
++mod mixer_producer;
++mod mixer_route;
+ mod layout;
+ mod meter;
+ mod panel;
+@@ -48,6 +50,9 @@
+     let (frame_tx, frame_rx) = channel();
+     let (ctrl_tx, ctrl_rx) = channel();
+     let (led_tx, led_rx) = channel();
++    // This candidate has no live backend, enable flag, or connection factory.
++    let mixer: Option<std::sync::Arc<mixer_route::MixerRoute>> = None;
++    let ctrl_mixer = mixer.clone();
+     // A second AZ-EMU would find the emulator's single app connection taken (or,
+     // starting at the same moment as the first, boot a second QEMU on the same
+     // disk image): it says so and does nothing else.
+@@ -56,7 +61,7 @@
+     });
+     let launched = if shot_path.is_none() && notice.is_none() {
+         thread::spawn(move || screen::emu_thread(cmd_rx, frame_tx));
+-        thread::spawn(move || controls::ctrl_thread(ctrl_rx, led_tx));
++        thread::spawn(move || controls::ctrl_thread(ctrl_rx, led_tx, ctrl_mixer));
+         boot::start_if_needed()
+     } else {
+         None
+@@ -66,6 +71,7 @@
+         frame_rx,
+         ctrl_tx,
+         led_rx,
++        mixer,
+     };
+     let options = eframe::NativeOptions {
+         // The startup size is a guess for the screen-only view; App sets the
+--- /dev/null
++++ b/az-preview/src/mixer_producer.rs
+@@ -0,0 +1,610 @@
++// SPDX-License-Identifier: GPL-3.0-only
++//! Preview integration revision of the separately frozen producer gate.
++//! User-owned successor licensed GPL-3.0-only for the preview source tree.
++//! This module performs no transport, ioctl or host I/O itself.
++//! Receipt authenticity and physical/UI release observations belong to a future
++//! trusted broker adapter. Private request fields prevent mutation/retagging
++//! through this API; they do not establish the provenance of caller frame bytes.
++#![forbid(unsafe_code)]
++use std::collections::VecDeque;
++use std::sync::{Mutex, MutexGuard, TryLockError};
++
++pub const FRAME_BYTES: usize = 152;
++pub const MAX_QUEUE: usize = 64;
++pub type Frame = [u8; FRAME_BYTES];
++
++#[derive(Clone, Copy, Debug, PartialEq, Eq)]
++pub struct Key {
++    pub instance: [u64; 2],
++    pub run_id: u64,
++    pub epoch: u64,
++    pub producer_id: u64,
++}
++impl Key {
++    fn valid(self) -> bool {
++        self.instance != [0, 0] && self.run_id != 0 && self.epoch != 0 && self.producer_id != 0
++    }
++}
++
++/// Explicit broker adoption/readback value, not a self-authenticating capability.
++/// `kernel_sequence` may be nonzero when adopting an existing owned state.
++#[derive(Clone, Copy, Debug, PartialEq, Eq)]
++pub struct BaselineReceipt {
++    pub key: Key,
++    pub frame: Frame,
++    pub kernel_sequence: u64,
++}
++
++/// Immutable copy made under the gate lock at input creation.
++#[derive(Clone, Copy, Debug, PartialEq, Eq)]
++pub struct Envelope {
++    key: Key,
++    request_id: u64,
++    frame: Frame,
++}
++impl Envelope {
++    pub fn key(&self) -> Key { self.key }
++    pub fn request_id(&self) -> u64 { self.request_id }
++    pub fn frame(&self) -> &Frame { &self.frame }
++}
++
++/// A separate positive FRAME receipt; socket success is not this receipt.
++#[derive(Clone, Copy, Debug, PartialEq, Eq)]
++pub struct FrameAck {
++    pub request: Envelope,
++    pub kernel_sequence: u64,
++}
++
++#[derive(Clone, Copy, Debug, PartialEq, Eq)]
++pub enum Error {
++    InvalidCapacity, InvalidKey, Poisoned, Closed, Busy, QueueFull, Empty,
++    StaleKey, LifecycleChange, NotNewEpoch, OutOfOrder, Conflict,
++    NoBaseline, BaselineMismatch, BaselineUnacknowledged, HeldControls,
++    NoUnresolved, WrongAck, Overflow,
++}
++#[derive(Debug, PartialEq, Eq)]
++pub enum SettingsError<E> { Gate(Error), Callback(E) }
++
++#[derive(Clone, Copy, Debug, PartialEq, Eq)]
++pub struct Pending {
++    pub request: Envelope,
++    pub uncertain: bool,
++}
++#[derive(Clone, Copy, Debug, PartialEq, Eq)]
++pub struct Status {
++    pub admission_open: bool,
++    pub staged: bool,
++    pub baseline_acknowledged: bool,
++    pub last_key: Option<Key>,
++    pub queued: usize,
++    pub unresolved: Option<Pending>,
++    pub cached: Option<Envelope>,
++    pub next_request_id: u64,
++    pub kernel_sequence: u64,
++}
++
++struct Inner {
++    open: bool,
++    last_key: Option<Key>,
++    staged: Option<(BaselineReceipt, bool)>,
++    queue: VecDeque<Envelope>,
++    unresolved: Option<Pending>,
++    cached: Option<Envelope>,
++    next_request_id: u64,
++    kernel_sequence: u64,
++}
++impl Inner {
++    // Never erase an unresolved native/transport operation on closure.
++    fn close(&mut self) {
++        self.open = false;
++        self.staged = None;
++        self.queue.clear();
++        self.cached = None;
++    }
++}
++
++/// All creation, admission, closure and host-settings callbacks serialize here.
++/// The caller must NOT invoke gate methods recursively from a settings callback.
++/// A callback panic poisons the lock; every subsequent method fails closed.
++/// Destruction provides no broker cancellation or host/overlay recovery action.
++pub struct Producer {
++    capacity: usize,
++    inner: Mutex<Inner>,
++}
++impl Producer {
++    pub fn new(capacity: usize) -> Result<Self, Error> {
++        if capacity == 0 || capacity > MAX_QUEUE { return Err(Error::InvalidCapacity); }
++        Ok(Self { capacity, inner: Mutex::new(Inner {
++            open: false, last_key: None, staged: None,
++            queue: VecDeque::with_capacity(capacity), unresolved: None, cached: None,
++            next_request_id: 1, kernel_sequence: 0,
++        }) })
++    }
++    fn lock(&self) -> Result<MutexGuard<'_, Inner>, Error> {
++        self.inner.lock().map_err(|_| Error::Poisoned)
++    }
++    /// Stage an externally verified broker baseline, remaining closed. Any old
++    /// unresolved operation blocks staging. Reuse requires the same instance/run
++    /// and a strictly newer epoch, including after a rejected/abandoned staging.
++    pub fn stage_baseline(&self, baseline: BaselineReceipt) -> Result<(), Error> {
++        let mut s = self.lock()?;
++        if !baseline.key.valid() { return Err(Error::InvalidKey); }
++        if s.unresolved.is_some() || s.open { return Err(Error::Busy); }
++        if let Some(old) = s.last_key {
++            if baseline.key.instance != old.instance || baseline.key.run_id != old.run_id {
++                return Err(Error::LifecycleChange);
++            }
++            if baseline.key.epoch <= old.epoch { return Err(Error::NotNewEpoch); }
++        }
++        // The C broker refuses an operation without a nonwrapping next sequence.
++        if baseline.kernel_sequence == u64::MAX { return Err(Error::Overflow); }
++        s.close();
++        s.last_key = Some(baseline.key);
++        s.kernel_sequence = baseline.kernel_sequence;
++        s.next_request_id = 1;
++        s.staged = Some((baseline, false));
++        Ok(())
++    }
++    /// Only a complete exact broker adoption ACK advances this stage. Mismatch
++    /// invalidates the staging; identical values alone cannot authenticate ACKs.
++    pub fn acknowledge_baseline(&self, observed: BaselineReceipt) -> Result<(), Error> {
++        let mut s = self.lock()?;
++        let (expected, _) = s.staged.ok_or(Error::NoBaseline)?;
++        if expected != observed {
++            s.close();
++            return Err(Error::BaselineMismatch);
++        }
++        s.staged = Some((expected, true));
++        Ok(())
++    }
++    /// Caller asserts every relevant UI/physical control has been released after
++    /// acknowledged baseline adoption. This module has no hardware observation.
++    pub fn confirm_released(&self, baseline: BaselineReceipt, released: bool) -> Result<(), Error> {
++        let mut s = self.lock()?;
++        let (expected, acked) = s.staged.ok_or(Error::NoBaseline)?;
++        if expected != baseline {
++            s.close();
++            return Err(Error::BaselineMismatch);
++        }
++        if !acked { return Err(Error::BaselineUnacknowledged); }
++        if !released { return Err(Error::HeldControls); }
++        s.staged = None;
++        s.open = true;
++        Ok(())
++    }
++    /// Capture the current key and reserve a contiguous ID together with a
++    /// bounded canonical queue entry. A full queue consumes no request ID.
++    /// The caller attaches this envelope before any external mpsc/socket queue.
++    /// Legacy pure-library entry kept for its inherited tests. Actual preview
++    /// integration calls create_for_key with the key captured before UI mutation.
++    #[cfg(test)]
++    pub fn create(&self, frame: Frame) -> Result<Envelope, Error> {
++        let key = self.lock()?.last_key.ok_or(Error::Closed)?;
++        self.create_for_key(key, frame)
++    }
++    /// The caller captured expected before authoring this update's UI state.
++    /// Generation adoption between creation and enqueue must not retag its bytes.
++    pub fn create_for_key(&self, expected: Key, frame: Frame) -> Result<Envelope, Error> {
++        let mut s = self.lock()?;
++        if !s.open { return Err(Error::Closed); }
++        if s.last_key != Some(expected) { return Err(Error::StaleKey); }
++        if s.queue.len() + usize::from(s.unresolved.is_some()) >= self.capacity {
++            return Err(Error::QueueFull);
++        }
++        if s.next_request_id == u64::MAX || s.kernel_sequence == u64::MAX {
++            s.close();
++            return Err(Error::Overflow);
++        }
++        let request = Envelope { key: s.last_key.ok_or(Error::Closed)?,
++            request_id: s.next_request_id, frame };
++        s.next_request_id += 1;
++        s.queue.push_back(request);
++        s.cached = Some(request);
++        Ok(request)
++    }
++    /// Admit a delivered immutable envelope, once, only in canonical queue order.
++    /// A dropped external message cannot let a later ID skip the broker's next ID.
++    /// Dequeue never creates or replaces a key. At most one operation is unresolved.
++    pub fn admit(&self, delivered: Envelope) -> Result<Envelope, Error> {
++        let mut s = self.lock()?;
++        if !s.open { return Err(Error::Closed); }
++        if s.last_key != Some(delivered.key) { return Err(Error::StaleKey); }
++        if s.unresolved.is_some() { return Err(Error::Busy); }
++        if s.kernel_sequence == u64::MAX {
++            s.close();
++            return Err(Error::Overflow);
++        }
++        let front = *s.queue.front().ok_or(Error::Empty)?;
++        if front.request_id != delivered.request_id { return Err(Error::OutOfOrder); }
++        if front != delivered { s.close(); return Err(Error::Conflict); }
++        s.queue.pop_front();
++        s.unresolved = Some(Pending { request: front, uncertain: false });
++        Ok(front)
++    }
++    /// A transport enqueue/write success does not resolve or reopen anything.
++    pub fn transport_written(&self, request: Envelope) -> Result<(), Error> {
++        let s = self.lock()?;
++        if s.unresolved.map(|p| p.request) != Some(request) { return Err(Error::NoUnresolved); }
++        Ok(())
++    }
++    /// Reconciliation can acknowledge an exact retained request even after
++    /// closure. It never reopens admission, requeues work or clears another ID.
++    pub fn acknowledge_frame(&self, ack: FrameAck) -> Result<(), Error> {
++        let mut s = self.lock()?;
++        let pending = s.unresolved.ok_or(Error::NoUnresolved)?;
++        if pending.request != ack.request || s.kernel_sequence.checked_add(1) != Some(ack.kernel_sequence) {
++            s.close();
++            return Err(Error::WrongAck);
++        }
++        s.kernel_sequence = ack.kernel_sequence;
++        s.unresolved = None;
++        if s.kernel_sequence == u64::MAX || ack.request.request_id == u64::MAX - 1 {
++            s.close();
++        }
++        Ok(())
++    }
++    /// Validate and consume one positive native commit, then serialize its
++    /// settings effect before another request can be admitted. The callback must
++    /// write the exact ack payload, never the current UI or cached latest frame.
++    /// Returns true if it ran; false means the closed gate reconciled native state
++    /// without permitting a late settings write. Callback failure/panic cannot
++    /// turn a known native commit back into a request eligible for resubmission.
++    pub fn acknowledge_frame_with_settings<E, F>(&self, ack: FrameAck, f: F)
++        -> Result<bool, SettingsError<E>>
++    where F: FnOnce() -> Result<(), E> {
++        let mut s = self.lock().map_err(SettingsError::Gate)?;
++        let pending = s.unresolved.ok_or(SettingsError::Gate(Error::NoUnresolved))?;
++        if pending.request != ack.request || s.kernel_sequence.checked_add(1) != Some(ack.kernel_sequence) {
++            s.close();
++            return Err(SettingsError::Gate(Error::WrongAck));
++        }
++        // Receipt proves this one native commit, even if persistence fails.
++        s.kernel_sequence = ack.kernel_sequence;
++        s.unresolved = None;
++        if !s.open { return Ok(false); }
++        if let Err(error) = f() {
++            s.close();
++            return Err(SettingsError::Callback(error));
++        }
++        if s.kernel_sequence == u64::MAX || ack.request.request_id == u64::MAX - 1 {
++            s.close();
++        }
++        Ok(true)
++    }
++
++    /// Only an exact definitive broker rejection may resolve as not committed.
++    /// An I/O error or old STATE snapshot is not a definitive rejection. Require
++    /// a newer verified generation before admitting another input after rejection.
++    pub fn reject_known(&self, request: Envelope) -> Result<(), Error> {
++        let mut s = self.lock()?;
++        if s.unresolved.map(|p| p.request) != Some(request) {
++            s.close();
++            return Err(Error::WrongAck);
++        }
++        s.close();
++        s.unresolved = None;
++        Ok(())
++    }
++    /// Socket loss has unknown outcome. Retain exactly the original request for
++    /// a query; discard all unsent queue/cache data and never automatically retry.
++    pub fn connection_lost(&self) -> Result<(), Error> {
++        let mut s = self.lock()?;
++        s.close();
++        if let Some(pending) = &mut s.unresolved { pending.uncertain = true; }
++        Ok(())
++    }
++    /// Local quiescence only: not proof of a drained UI/transport/native queue.
++    pub fn close_generation(&self) -> Result<(), Error> {
++        self.lock()?.close();
++        Ok(())
++    }
++    /// Serialize a future settings side effect with gate transitions. The
++    /// captured key must come from input creation, not be refreshed at dequeue.
++    /// Error closes admission; it cannot undo any partial effect of the callback.
++    #[cfg(test)]
++    pub fn with_host_settings<T, E, F>(&self, created_key: Key, f: F) -> Result<T, SettingsError<E>>
++    where F: FnOnce() -> Result<T, E> {
++        let mut s = self.lock().map_err(SettingsError::Gate)?;
++        if !s.open { return Err(SettingsError::Gate(Error::Closed)); }
++        if s.last_key != Some(created_key) { return Err(SettingsError::Gate(Error::StaleKey)); }
++        match f() {
++            Ok(value) => Ok(value),
++            Err(error) => { s.close(); Err(SettingsError::Callback(error)) }
++        }
++    }
++    pub fn inspect(&self) -> Result<Status, Error> {
++        let s = self.lock()?;
++        Ok(Self::status(&s))
++    }
++    /// UI observation only. Busy means unavailable admission, not proven closure.
++    /// Creation/close remain serialized and may wait for a settings callback.
++    pub fn try_inspect(&self) -> Result<Status, Error> {
++        let s = match self.inner.try_lock() {
++            Ok(s) => s,
++            Err(TryLockError::WouldBlock) => return Err(Error::Busy),
++            Err(TryLockError::Poisoned(_)) => return Err(Error::Poisoned),
++        };
++        Ok(Self::status(&s))
++    }
++    fn status(s: &Inner) -> Status {
++        Status { admission_open: s.open, staged: s.staged.is_some(),
++            baseline_acknowledged: s.staged.map(|(_, acked)| acked).unwrap_or(false),
++            last_key: s.last_key, queued: s.queue.len(), unresolved: s.unresolved,
++            cached: s.cached, next_request_id: s.next_request_id,
++            kernel_sequence: s.kernel_sequence }
++    }
++}
++
++#[cfg(test)]
++mod tests {
++    use super::*;
++    use std::sync::{mpsc, Arc};
++    use std::thread;
++    fn key(epoch: u64) -> Key { Key { instance: [0x1234, 0x5678], run_id: 7, epoch, producer_id: 19 } }
++    fn frame(seed: u8) -> Frame { std::array::from_fn(|n| seed.wrapping_add((n as u8).wrapping_mul(23))) }
++    fn baseline(epoch: u64) -> BaselineReceipt { BaselineReceipt { key: key(epoch), frame: frame(3), kernel_sequence: 4 } }
++    fn arm(p: &Producer, b: BaselineReceipt) { p.stage_baseline(b).unwrap(); p.acknowledge_baseline(b).unwrap(); p.confirm_released(b, true).unwrap(); }
++    fn producer(n: usize) -> Producer { let p=Producer::new(n).unwrap(); arm(&p,baseline(1)); p }
++    fn ack(p: &Producer, e: Envelope) { let seq=p.inspect().unwrap().kernel_sequence+1; p.acknowledge_frame(FrameAck { request:e, kernel_sequence:seq }).unwrap(); }
++
++    #[test]
++    fn default_closed_and_bounded_capacity() {
++        assert!(matches!(Producer::new(0),Err(Error::InvalidCapacity)));
++        assert!(matches!(Producer::new(MAX_QUEUE+1),Err(Error::InvalidCapacity)));
++        let p=Producer::new(1).unwrap(); assert_eq!(p.create(frame(1)),Err(Error::Closed));
++        assert!(!p.inspect().unwrap().admission_open);
++        assert_eq!(p.acknowledge_baseline(baseline(1)),Err(Error::NoBaseline));
++    }
++    #[test]
++    fn exact_adoption_ack_and_release_required() {
++        let p=Producer::new(2).unwrap(); let b=baseline(1); p.stage_baseline(b).unwrap();
++        assert_eq!(p.create(frame(1)),Err(Error::Closed));
++        assert_eq!(p.confirm_released(b,true),Err(Error::BaselineUnacknowledged));
++        p.acknowledge_baseline(b).unwrap(); assert_eq!(p.confirm_released(b,false),Err(Error::HeldControls));
++        assert_eq!(p.create(frame(1)),Err(Error::Closed)); p.confirm_released(b,true).unwrap();
++        assert_eq!(p.create(frame(1)).unwrap().request_id(),1);
++        assert_eq!(p.confirm_released(b,true),Err(Error::NoBaseline));
++    }
++    #[test]
++    fn every_baseline_component_is_bound() {
++        for which in 0..7 {
++            let p=Producer::new(1).unwrap(); let b=baseline(1); p.stage_baseline(b).unwrap(); let mut bad=b;
++            match which { 0=>bad.key.instance[0]^=1,1=>bad.key.instance[1]^=1,2=>bad.key.run_id+=1,
++                3=>bad.key.epoch+=1,4=>bad.key.producer_id+=1,5=>bad.kernel_sequence+=1,_=>bad.frame[151]^=1 }
++            assert_eq!(p.acknowledge_baseline(bad),Err(Error::BaselineMismatch));
++            assert!(!p.inspect().unwrap().admission_open); assert_eq!(p.acknowledge_baseline(b),Err(Error::NoBaseline));
++        }
++    }
++    #[test]
++    fn key_validity_and_no_same_epoch_rearm() {
++        for which in 0..4 { let p=Producer::new(1).unwrap(); let mut b=baseline(1);
++            match which {0=>b.key.instance=[0,0],1=>b.key.run_id=0,2=>b.key.epoch=0,_=>b.key.producer_id=0}
++            assert_eq!(p.stage_baseline(b),Err(Error::InvalidKey)); }
++        let p=producer(2); p.close_generation().unwrap();
++        assert_eq!(p.stage_baseline(baseline(1)),Err(Error::NotNewEpoch));
++        let mut b=baseline(2); b.key.run_id+=1; assert_eq!(p.stage_baseline(b),Err(Error::LifecycleChange));
++        b=baseline(2); b.key.instance[1]^=1; assert_eq!(p.stage_baseline(b),Err(Error::LifecycleChange));
++        arm(&p,baseline(2)); assert!(p.inspect().unwrap().admission_open);
++    }
++    #[test]
++    fn full_queue_and_lost_message_do_not_skip_ids() {
++        let p=producer(2); let one=p.create(frame(1)).unwrap(); let two=p.create(frame(2)).unwrap();
++        assert_eq!(p.create(frame(9)),Err(Error::QueueFull));
++        assert_eq!(p.inspect().unwrap().next_request_id,3);
++        assert_eq!(p.admit(two),Err(Error::OutOfOrder));
++        assert_eq!(p.inspect().unwrap().queued,2); p.admit(one).unwrap();
++        assert_eq!(p.admit(two),Err(Error::Busy)); assert_eq!(p.create(frame(9)),Err(Error::QueueFull));
++        ack(&p,one); let three=p.create(frame(3)).unwrap(); assert_eq!(three.request_id(),3);
++        p.admit(two).unwrap(); ack(&p,two); p.admit(three).unwrap(); ack(&p,three);
++        assert_eq!(p.admit(one),Err(Error::Empty));
++    }
++    #[test]
++    fn no_enqueue_or_socket_success_ack() {
++        let p=producer(2); let one=p.create(frame(1)).unwrap();
++        assert!(p.inspect().unwrap().unresolved.is_none()); p.admit(one).unwrap();
++        p.transport_written(one).unwrap(); p.transport_written(one).unwrap();
++        assert_eq!(p.inspect().unwrap().unresolved.unwrap().request,one);
++        let two=p.create(frame(2)).unwrap(); assert_eq!(p.admit(two),Err(Error::Busy));
++        ack(&p,one); assert_eq!(p.acknowledge_frame(FrameAck{request:one,kernel_sequence:5}),Err(Error::NoUnresolved));
++        p.admit(two).unwrap();
++    }
++    #[test]
++    fn every_frame_ack_component_is_bound() {
++        for which in 0..8 {
++            let p=producer(2); let one=p.create(frame(1)).unwrap(); p.admit(one).unwrap();
++            let mut a=FrameAck{request:one,kernel_sequence:5};
++            match which {0=>a.request.key.instance[0]^=1,1=>a.request.key.instance[1]^=1,2=>a.request.key.run_id+=1,
++                3=>a.request.key.epoch+=1,4=>a.request.key.producer_id+=1,5=>a.request.request_id+=1,
++                6=>a.request.frame[151]^=1,_=>a.kernel_sequence+=1}
++            assert_eq!(p.acknowledge_frame(a),Err(Error::WrongAck));
++            assert!(!p.inspect().unwrap().admission_open); assert_eq!(p.inspect().unwrap().unresolved.unwrap().request,one);
++            ack(&p,one); assert!(!p.inspect().unwrap().admission_open);
++        }
++    }
++    #[test]
++    fn loss_retains_unknown_no_replay_or_adoption() {
++        let p=producer(3); let one=p.create(frame(1)).unwrap(); p.admit(one).unwrap(); let two=p.create(frame(2)).unwrap();
++        p.connection_lost().unwrap(); let s=p.inspect().unwrap();
++        assert_eq!(s.unresolved,Some(Pending{request:one,uncertain:true})); assert_eq!(s.queued,0); assert_eq!(s.cached,None);
++        assert_eq!(p.admit(one),Err(Error::Closed)); assert_eq!(p.admit(two),Err(Error::Closed));
++        assert_eq!(p.stage_baseline(baseline(2)),Err(Error::Busy)); p.close_generation().unwrap();
++        assert_eq!(p.stage_baseline(baseline(2)),Err(Error::Busy));
++        ack(&p,one); assert!(!p.inspect().unwrap().admission_open); arm(&p,baseline(2));
++        assert_eq!(p.create(frame(7)).unwrap().request_id(),1);
++    }
++    #[test]
++    fn exact_known_rejection_closes_but_can_transition() {
++        let p=producer(2); let one=p.create(frame(1)).unwrap(); p.admit(one).unwrap(); p.create(frame(2)).unwrap();
++        p.reject_known(one).unwrap(); let s=p.inspect().unwrap();
++        assert!(!s.admission_open); assert!(s.unresolved.is_none()); assert_eq!(s.queued,0);
++        assert_eq!(s.kernel_sequence,4); assert_eq!(p.stage_baseline(baseline(1)),Err(Error::NotNewEpoch));
++        arm(&p,baseline(2));
++    }
++    #[test]
++    fn stale_mpsc_and_cached_replay_cannot_retag() {
++        let p=Arc::new(producer(3)); let old=p.create(frame(1)).unwrap(); let cached=p.inspect().unwrap().cached.unwrap();
++        let (tx,rx)=mpsc::sync_channel(1); let (go_tx,go_rx)=mpsc::channel();
++        let t=thread::spawn(move||{go_rx.recv().unwrap();tx.send(old).unwrap();});
++        p.close_generation().unwrap(); assert_eq!(p.inspect().unwrap().cached,None); arm(&p,baseline(2));
++        let new=p.create(frame(1)).unwrap(); assert_eq!(new.request_id(),1); assert_ne!(new.key(),old.key());
++        go_tx.send(()).unwrap(); let delivered=rx.recv().unwrap();
++        assert_eq!(p.admit(delivered),Err(Error::StaleKey)); assert_eq!(p.admit(cached),Err(Error::StaleKey));
++        assert_eq!(p.inspect().unwrap().queued,1); p.admit(new).unwrap(); ack(&p,new); t.join().unwrap();
++    }
++    #[test]
++    fn altered_same_id_is_conflict_not_replacement() {
++        let p=producer(2); let one=p.create(frame(1)).unwrap(); let mut forged=one; forged.frame[0]^=1;
++        assert_eq!(p.admit(forged),Err(Error::Conflict)); assert!(!p.inspect().unwrap().admission_open);
++        assert_eq!(p.inspect().unwrap().queued,0);
++    }
++    #[test]
++    fn stale_or_failed_settings_callback_is_gated() {
++        let p=producer(2); let one=p.create(frame(1)).unwrap(); let mut calls=0;
++        assert_eq!(p.with_host_settings(one.key(),||{calls+=1;Ok::<_,()>(7)}),Ok(7)); assert_eq!(calls,1);
++        p.close_generation().unwrap(); arm(&p,baseline(2));
++        assert_eq!(p.with_host_settings(one.key(),||{calls+=1;Ok::<_,()>(())}),Err(SettingsError::Gate(Error::StaleKey)));
++        assert_eq!(calls,1); let two=p.create(frame(2)).unwrap(); p.admit(two).unwrap();
++        assert_eq!(p.with_host_settings(two.key(),||{calls+=1;Err::<(),_>("partial")}),Err(SettingsError::Callback("partial")));
++        assert_eq!(calls,2); assert!(!p.inspect().unwrap().admission_open); assert_eq!(p.inspect().unwrap().unresolved.unwrap().request,two);
++    }
++    #[test]
++    fn settings_and_closure_share_the_transition_lock() {
++        let p=Arc::new(producer(2)); let e=p.create(frame(1)).unwrap();
++        let (entered_tx,entered_rx)=mpsc::channel(); let (finish_tx,finish_rx)=mpsc::channel();
++        let callback_p=p.clone(); let t=thread::spawn(move||callback_p.with_host_settings(e.key(),||{entered_tx.send(()).unwrap();finish_rx.recv().unwrap();Ok::<_,()>(())}));
++        entered_rx.recv().unwrap(); assert!(matches!(p.inner.try_lock(),Err(std::sync::TryLockError::WouldBlock)));
++        let (closed_tx,closed_rx)=mpsc::channel();let close_p=p.clone();let closer=thread::spawn(move||{close_p.close_generation().unwrap();closed_tx.send(()).unwrap();});
++        assert!(matches!(closed_rx.try_recv(),Err(mpsc::TryRecvError::Empty))); finish_tx.send(()).unwrap();
++        t.join().unwrap().unwrap(); closed_rx.recv().unwrap(); closer.join().unwrap(); assert!(!p.inspect().unwrap().admission_open);
++    }
++    #[test]
++    fn callback_panic_poison_fails_closed() {
++        let p=producer(1);let e=p.create(frame(1)).unwrap();
++        let caught=std::panic::catch_unwind(||{let _:Result<(),SettingsError<()>>=p.with_host_settings(e.key(),||panic!("fixture callback"));});
++        assert!(caught.is_err()); assert_eq!(p.create(frame(2)),Err(Error::Poisoned)); assert_eq!(p.inspect(),Err(Error::Poisoned));
++    }
++    #[test]
++    fn counters_never_wrap() {
++        let p=producer(2);p.inner.lock().unwrap().next_request_id=u64::MAX-1;
++        let one=p.create(frame(1)).unwrap(); assert_eq!(one.request_id(),u64::MAX-1);p.admit(one).unwrap();ack(&p,one);
++        assert_eq!(p.create(frame(2)),Err(Error::Closed)); assert_eq!(p.inspect().unwrap().next_request_id,u64::MAX);
++        let p=Producer::new(2).unwrap();let mut b=baseline(1);b.kernel_sequence=u64::MAX;
++        assert_eq!(p.stage_baseline(b),Err(Error::Overflow));b.kernel_sequence=u64::MAX-1;arm(&p,b);
++        let one=p.create(frame(1)).unwrap();p.admit(one).unwrap();ack(&p,one);assert_eq!(p.create(frame(2)),Err(Error::Closed));
++    }
++    #[test]
++    fn queued_work_refuses_after_kernel_sequence_exhaustion() {
++        let p=Producer::new(2).unwrap(); let mut b=baseline(1); b.kernel_sequence=u64::MAX-1; arm(&p,b);
++        let one=p.create(frame(1)).unwrap(); let two=p.create(frame(2)).unwrap(); p.admit(one).unwrap(); ack(&p,one);
++        assert_eq!(p.with_host_settings(b.key,||Ok::<_,()>(())),Err(SettingsError::Gate(Error::Closed)));
++        assert_eq!(p.admit(two),Err(Error::Closed)); assert!(!p.inspect().unwrap().admission_open);
++        assert_eq!(p.inspect().unwrap().queued,0);
++    }
++    #[test]
++    fn same_generation_settings_order_is_an_explicit_limit() {
++        let p=producer(2); let first=p.create(frame(1)).unwrap(); let second=p.create(frame(2)).unwrap(); let mut saved=0;
++        p.with_host_settings(second.key(),||{saved=2;Ok::<_,()>(())}).unwrap();
++        p.with_host_settings(first.key(),||{saved=1;Ok::<_,()>(())}).unwrap();
++        assert_eq!(saved,1); assert_eq!(p.inspect().unwrap().queued,2);
++    }
++    #[test]
++    fn reauthoring_old_bytes_is_an_explicit_limit() {
++        let p=producer(2); let old=p.create(frame(8)).unwrap(); p.close_generation().unwrap(); arm(&p,baseline(2));
++        let reauthored=p.create(*old.frame()).unwrap(); assert_eq!(reauthored.frame(),old.frame());
++        assert_ne!(reauthored.key(),old.key()); assert_eq!(reauthored.request_id(),1);
++        p.admit(reauthored).unwrap(); ack(&p,reauthored);
++    }
++    #[test]
++    fn concurrent_creation_assigns_one_contiguous_queue() {
++        let p=Arc::new(producer(16));let barrier=Arc::new(std::sync::Barrier::new(9));let mut threads=Vec::new();
++        for n in 0..8{let p=p.clone();let b=barrier.clone();threads.push(thread::spawn(move||{b.wait();p.create(frame(n)).unwrap()}));}
++        barrier.wait();let mut messages:Vec<_>=threads.into_iter().map(|t|t.join().unwrap()).collect();messages.sort_by_key(|e|e.request_id());
++        assert_eq!(messages.iter().map(|e|e.request_id()).collect::<Vec<_>>(),(1..=8).collect::<Vec<_>>());
++        for e in messages{p.admit(e).unwrap();ack(&p,e);}assert_eq!(p.inspect().unwrap().kernel_sequence,12);
++    }
++}
++
++#[cfg(test)]
++mod preview_gate_tests {
++    use super::*;
++    use std::sync::{mpsc, Arc};
++    use std::thread;
++    fn baseline(epoch: u64) -> BaselineReceipt {
++        BaselineReceipt { key: Key { instance: [17,29], run_id: 7, epoch, producer_id: 9 }, frame: [31;152], kernel_sequence: 5 }
++    }
++    fn arm(p: &Producer,b: BaselineReceipt) {p.stage_baseline(b).unwrap();p.acknowledge_baseline(b).unwrap();p.confirm_released(b,true).unwrap();}
++    fn setup() -> (Producer,Key) {let p=Producer::new(4).unwrap();let b=baseline(1);arm(&p,b);(p,b.key)}
++    fn request(p:&Producer,k:Key,n:u8)->Envelope{p.create_for_key(k,[n;152]).unwrap()}
++    fn ack(e:Envelope,seq:u64)->FrameAck{FrameAck{request:e,kernel_sequence:seq}}
++
++    #[test]
++    fn captured_old_ui_key_cannot_author_after_new_adoption() {
++        let (p,old)=setup();p.close_generation().unwrap();let new=baseline(2);arm(&p,new);
++        assert_eq!(p.create_for_key(old,[41;152]),Err(Error::StaleKey));
++        assert_eq!(p.inspect().unwrap().next_request_id,1);assert_eq!(p.inspect().unwrap().queued,0);
++        assert_eq!(p.create_for_key(new.key,[42;152]).unwrap().request_id(),1);
++    }
++    #[test]
++    fn ack_payload_persists_once_in_request_order() {
++        let (p,k)=setup();let first=request(&p,k,41);let second=request(&p,k,42);let mut saved=Vec::new();p.admit(first).unwrap();
++        assert_eq!(p.acknowledge_frame_with_settings(ack(first,6),||{saved.push(first);Ok::<_,()>(())}),Ok(true));
++        p.admit(second).unwrap();assert_eq!(p.acknowledge_frame_with_settings(ack(second,7),||{saved.push(second);Ok::<_,()>(())}),Ok(true));
++        assert_eq!(p.acknowledge_frame_with_settings(ack(first,6),||{saved.push(first);Ok::<_,()>(())}),Err(SettingsError::Gate(Error::NoUnresolved)));
++        assert_eq!(saved,vec![first,second]);assert_eq!(p.inspect().unwrap().kernel_sequence,7);
++    }
++    #[test]
++    fn all_ack_fields_checked_before_settings_effect() {
++        for part in 0..8 {
++            let (p,k)=setup();let e=request(&p,k,41);p.admit(e).unwrap();let mut a=ack(e,6);let mut calls=0;
++            match part {0=>a.request.key.instance[0]^=1,1=>a.request.key.instance[1]^=1,2=>a.request.key.run_id+=1,3=>a.request.key.epoch+=1,4=>a.request.key.producer_id+=1,5=>a.request.request_id+=1,6=>a.request.frame[151]^=1,_=>a.kernel_sequence+=1}
++            assert_eq!(p.acknowledge_frame_with_settings(a,||{calls+=1;Ok::<_,()>(())}),Err(SettingsError::Gate(Error::WrongAck)));
++            assert_eq!(calls,0);assert_eq!(p.inspect().unwrap().unresolved.unwrap().request,e);
++            assert_eq!(p.acknowledge_frame_with_settings(ack(e,6),||{calls+=1;Ok::<_,()>(())}),Ok(false));
++            assert_eq!(calls,0);assert!(!p.inspect().unwrap().admission_open);
++        }
++    }
++    #[test]
++    fn late_positive_ack_reconciles_without_settings_write() {
++        let (p,k)=setup();let e=request(&p,k,41);p.admit(e).unwrap();p.connection_lost().unwrap();let mut calls=0;
++        assert_eq!(p.acknowledge_frame_with_settings(ack(e,6),||{calls+=1;Ok::<_,()>(())}),Ok(false));
++        let s=p.inspect().unwrap();assert_eq!(calls,0);assert_eq!(s.kernel_sequence,6);assert!(s.unresolved.is_none());assert!(!s.admission_open);
++        assert_eq!(p.create_for_key(k,[42;152]),Err(Error::Closed));
++    }
++    #[test]
++    fn partial_settings_error_keeps_native_commit_known() {
++        let (p,k)=setup();let e=request(&p,k,41);p.admit(e).unwrap();let mut writes=0;
++        assert_eq!(p.acknowledge_frame_with_settings(ack(e,6),||{writes+=1;Err("second file")}),Err(SettingsError::Callback("second file")));
++        let s=p.inspect().unwrap();assert_eq!(s.kernel_sequence,6);assert!(s.unresolved.is_none());assert!(!s.admission_open);
++        assert_eq!(p.acknowledge_frame_with_settings(ack(e,6),||{writes+=1;Ok::<_,&str>(())}),Err(SettingsError::Gate(Error::NoUnresolved)));
++        assert_eq!(writes,1);assert_eq!(p.admit(e),Err(Error::Closed));
++    }
++    #[test]
++    fn exhausting_commit_persists_then_closes() {
++        for request_limit in [false,true] {
++            let (p,k)=setup();{let mut s=p.inner.lock().unwrap();if request_limit{s.next_request_id=u64::MAX-1;}else{s.kernel_sequence=u64::MAX-1;}}
++            let e=request(&p,k,41);p.admit(e).unwrap();let seq=if request_limit {6}else{u64::MAX};let mut calls=0;
++            assert_eq!(p.acknowledge_frame_with_settings(ack(e,seq),||{calls+=1;Ok::<_,()>(())}),Ok(true));
++            let s=p.inspect().unwrap();assert_eq!(calls,1);assert_eq!(s.kernel_sequence,seq);assert!(s.unresolved.is_none());assert!(!s.admission_open);
++        }
++    }
++    #[test]
++    fn panic_cannot_leave_native_commit_as_pending() {
++        let (p,k)=setup();let e=request(&p,k,41);p.admit(e).unwrap();
++        let failed=std::panic::catch_unwind(||{let _:Result<bool,SettingsError<()>>=p.acknowledge_frame_with_settings(ack(e,6),||panic!("fixture persistence panic"));});
++        assert!(failed.is_err());assert_eq!(p.create_for_key(k,[42;152]),Err(Error::Poisoned));
++        // Fixture-only inspection of poisoned state; production never recovers it.
++        let s=match p.inner.lock(){Err(poison)=>poison.into_inner(),Ok(_)=>panic!("expected poisoned gate")};assert_eq!(s.kernel_sequence,6);assert!(s.unresolved.is_none());
++    }
++    #[test]
++    fn next_admission_waits_until_prior_settings_complete() {
++        let (p,k)=setup();let p=Arc::new(p);let first=request(&p,k,41);let second=request(&p,k,42);p.admit(first).unwrap();
++        let (entered_tx,entered_rx)=mpsc::channel();let (release_tx,release_rx)=mpsc::channel();let worker=p.clone();
++        let t=thread::spawn(move||worker.acknowledge_frame_with_settings(ack(first,6),||{entered_tx.send(()).unwrap();release_rx.recv().unwrap();Ok::<_,()>(())}));
++        entered_rx.recv().unwrap();assert!(matches!(p.inner.try_lock(),Err(std::sync::TryLockError::WouldBlock)));
++        let (started_tx,started_rx)=mpsc::channel();let (admitted_tx,admitted_rx)=mpsc::channel();let worker=p.clone();
++        let next=thread::spawn(move||{started_tx.send(()).unwrap();admitted_tx.send(worker.admit(second)).unwrap();});
++        started_rx.recv().unwrap();assert!(matches!(admitted_rx.try_recv(),Err(mpsc::TryRecvError::Empty)));
++        release_tx.send(()).unwrap();assert_eq!(t.join().unwrap(),Ok(true));assert_eq!(admitted_rx.recv().unwrap(),Ok(second));next.join().unwrap();
++        assert_eq!(p.acknowledge_frame_with_settings(ack(second,7),||Ok::<_,()>(())),Ok(true));
++    }
++}
+--- /dev/null
++++ b/az-preview/src/mixer_route.rs
+@@ -0,0 +1,326 @@
++// SPDX-License-Identifier: GPL-3.0-only
++//! Inactive same-process mixer seam. The injected endpoint is trusted to retain
++//! one broker session; this module implements no socket, ioctl, fd or settings I/O.
++//! Receipts are not self-authenticating. No backend is constructed by main.
++
++use crate::mixer_producer::{BaselineReceipt, Envelope, Error, Frame, FrameAck, Key,
++    Producer, SettingsError};
++use std::sync::{Arc, Mutex, TryLockError};
++
++#[derive(Clone, Copy, Debug, PartialEq, Eq)]
++pub enum BackendOutcome {
++    Committed(FrameAck),
++    /// Only a definite non-commit for this exact request may use this variant.
++    Rejected { request: Envelope, reason: i32 },
++    Unknown,
++}
++
++/// A trusted adapter must validate broker receipts and retain the same backend
++/// context/session for its lifetime. It must not retry, reopen, retag, or call
++/// back into this route. A successful transport write is never a Committed ACK.
++pub trait MixerBackend: Send {
++    fn baseline(&mut self) -> Result<BaselineReceipt, String>;
++    fn submit(&mut self, request: Envelope) -> BackendOutcome;
++}
++
++/// Invoked only for a matching positive ACK while admission was still open.
++/// Implementations must not reenter the route/producer. Error can mean partial
++/// effects; it closes admission and does not undo the known native commit.
++pub trait SettingsSink: Send {
++    fn commit(&mut self, ack: FrameAck) -> Result<(), String>;
++}
++
++#[derive(Debug, PartialEq, Eq)]
++pub enum RouteError { Gate(Error), EndpointPoisoned, Backend(String) }
++impl From<Error> for RouteError { fn from(e: Error) -> Self { Self::Gate(e) } }
++
++#[derive(Debug, PartialEq, Eq)]
++pub enum DispatchResult {
++    Committed { settings_written: bool },
++    CommittedSettingsFailed(String),
++    Rejected { reason: i32 },
++    Unknown,
++}
++
++struct Endpoint {
++    backend: Box<dyn MixerBackend>,
++    settings: Box<dyn SettingsSink>,
++    staged: Option<BaselineReceipt>,
++}
++
++pub struct MixerRoute {
++    producer: Arc<Producer>,
++    // The immutable endpoint identity serializes submit, receipt processing,
++    // settings and baseline acquisition. Logical close deliberately needs only
++    // the producer gate, so it can close while submit is still in flight.
++    endpoint: Mutex<Endpoint>,
++}
++
++impl MixerRoute {
++    pub fn new(capacity: usize, backend: Box<dyn MixerBackend>,
++        settings: Box<dyn SettingsSink>) -> Result<Self, RouteError> {
++        Ok(Self { producer: Arc::new(Producer::new(capacity)?), endpoint: Mutex::new(
++            Endpoint { backend, settings, staged: None }) })
++    }
++    pub fn refresh_baseline(&self) -> Result<BaselineReceipt, RouteError> {
++        let mut e = self.endpoint.lock().map_err(|_| RouteError::EndpointPoisoned)?;
++        // Do not query/adopt a new backend grant over an unresolved request.
++        let s = self.producer.inspect()?;
++        if s.admission_open || s.staged || s.unresolved.is_some() {
++            return Err(RouteError::Gate(Error::Busy));
++        }
++        let receipt = e.backend.baseline().map_err(RouteError::Backend)?;
++        self.producer.stage_baseline(receipt)?;
++        self.producer.acknowledge_baseline(receipt)?;
++        e.staged = Some(receipt);
++        Ok(receipt)
++    }
++    pub fn staged_baseline(&self) -> Option<BaselineReceipt> {
++        let e = self.endpoint.try_lock().ok()?;
++        let s = self.producer.try_inspect().ok()?;
++        if s.staged && s.baseline_acknowledged { e.staged } else { None }
++    }
++    pub fn confirm_adoption(&self, receipt: BaselineReceipt, released: bool)
++        -> Result<(), RouteError> {
++        let mut e = match self.endpoint.try_lock() {
++            Ok(e) => e,
++            Err(TryLockError::WouldBlock) => return Err(RouteError::Gate(Error::Busy)),
++            Err(TryLockError::Poisoned(_)) => return Err(RouteError::EndpointPoisoned),
++        };
++        self.producer.confirm_released(receipt, released)?;
++        e.staged = None;
++        Ok(())
++    }
++    pub fn current_key(&self) -> Option<Key> {
++        let s = self.producer.try_inspect().ok()?;
++        if s.admission_open { s.last_key } else { None }
++    }
++    // Creation/close serialize with ACK+settings and may wait for a callback.
++    // Only the UI status and staged-baseline observations below are nonblocking.
++    pub fn create_for_key(&self, key: Key, frame: Frame) -> Result<Envelope, RouteError> {
++        Ok(self.producer.create_for_key(key, frame)?)
++    }
++    pub fn close(&self) -> Result<(), RouteError> {
++        self.producer.close_generation()?;
++        Ok(())
++    }
++    pub fn dispatch(&self, request: Envelope) -> Result<DispatchResult, RouteError> {
++        let mut e = match self.endpoint.lock() {
++            Ok(e) => e,
++            Err(_) => { let _ = self.producer.connection_lost();
++                return Err(RouteError::EndpointPoisoned); }
++        };
++        self.producer.admit(request)?;
++        struct InFlight<'a>(Option<&'a Producer>);
++        impl Drop for InFlight<'_> { fn drop(&mut self) {
++            if let Some(p) = self.0 { let _ = p.connection_lost(); }
++        } }
++        let mut flight = InFlight(Some(&self.producer));
++        let result = match e.backend.submit(request) {
++            BackendOutcome::Committed(ack) => {
++                match self.producer.acknowledge_frame_with_settings(ack, || e.settings.commit(ack)) {
++                    Ok(written) => Ok(DispatchResult::Committed { settings_written: written }),
++                    Err(SettingsError::Callback(error)) =>
++                        Ok(DispatchResult::CommittedSettingsFailed(error)),
++                    Err(SettingsError::Gate(error)) => Err(RouteError::Gate(error)),
++                }
++            }
++            BackendOutcome::Rejected { request: echoed, reason } if echoed == request && reason > 0 => {
++                self.producer.reject_known(request)?;
++                Ok(DispatchResult::Rejected { reason })
++            }
++            // Malformed responses may describe a committed command; never
++            // classify them as known failure or clear the unresolved envelope.
++            _ => {
++                self.producer.connection_lost()?;
++                Ok(DispatchResult::Unknown)
++            }
++        };
++        flight.0 = None;
++        result
++    }
++}
++
++#[cfg(test)]
++mod tests {
++    use super::*;
++    use std::sync::mpsc::{channel, Receiver, Sender};
++    use std::thread;
++    #[derive(Clone, Copy)] enum Reply { Commit, Reject, Unknown, BadSequence, BadRequest,
++        InvalidReject, WrongReject, Panic }
++    struct Record { baseline: BaselineReceipt, calls: Vec<Envelope>, acks: Vec<FrameAck>,
++        reply: Reply, settings_fail: bool, baseline_calls: usize }
++    struct Fake(Arc<Mutex<Record>>);
++    impl MixerBackend for Fake {
++        fn baseline(&mut self) -> Result<BaselineReceipt,String> {
++            let mut r=self.0.lock().unwrap(); r.baseline_calls+=1; Ok(r.baseline)
++        }
++        fn submit(&mut self, request:Envelope)->BackendOutcome {
++            let mut r=self.0.lock().unwrap(); r.calls.push(request);
++            let seq=r.baseline.kernel_sequence+1;
++            match r.reply {
++                Reply::Commit => {r.baseline.kernel_sequence=seq;
++                    BackendOutcome::Committed(FrameAck {request,kernel_sequence:seq})},
++                Reply::Reject => BackendOutcome::Rejected {request,reason:5},
++                Reply::Unknown => BackendOutcome::Unknown,
++                Reply::BadSequence => BackendOutcome::Committed(FrameAck {request,kernel_sequence:seq+1}),
++                Reply::BadRequest | Reply::WrongReject => {
++                    let p=Producer::new(1).unwrap(); let mut b=r.baseline; b.frame[151]^=1;
++                    p.stage_baseline(b).unwrap(); p.acknowledge_baseline(b).unwrap();
++                    p.confirm_released(b,true).unwrap();
++                    let different=p.create_for_key(b.key,b.frame).unwrap();
++                    if matches!(r.reply,Reply::BadRequest) {
++                        BackendOutcome::Committed(FrameAck {request:different,kernel_sequence:seq})
++                    } else { BackendOutcome::Rejected {request:different,reason:5} }
++                },
++                Reply::InvalidReject => BackendOutcome::Rejected {request,reason:0},
++                Reply::Panic => {drop(r); panic!("backend panic before receipt")},
++            }
++        }
++    }
++    struct Sink(Arc<Mutex<Record>>);
++    impl SettingsSink for Sink { fn commit(&mut self,ack:FrameAck)->Result<(),String> {
++        let mut r=self.0.lock().unwrap(); r.acks.push(ack);
++        if r.settings_fail { Err("partial settings failure".into()) } else { Ok(()) }
++    } }
++    fn baseline(epoch:u64)->BaselineReceipt { BaselineReceipt { key:Key {
++        instance:[9,11],run_id:7,epoch,producer_id:3}, frame:std::array::from_fn(|n|n as u8),
++        kernel_sequence:4 } }
++    fn fresh(reply:Reply)->(Arc<MixerRoute>,Arc<Mutex<Record>>) {
++        let r=Arc::new(Mutex::new(Record {baseline:baseline(1),calls:vec![],acks:vec![],
++            reply,settings_fail:false,baseline_calls:0}));
++        (Arc::new(MixerRoute::new(4,Box::new(Fake(r.clone())),Box::new(Sink(r.clone()))).unwrap()),r)
++    }
++    fn arm(route:&MixerRoute)->BaselineReceipt {
++        let b=route.refresh_baseline().unwrap(); route.confirm_adoption(b,true).unwrap(); b
++    }
++    fn queued(route:&MixerRoute,b:BaselineReceipt,byte:u8)->Envelope {
++        let mut f=b.frame; f[34]=byte; route.create_for_key(b.key,f).unwrap()
++    }
++    #[test] fn route_requires_verified_baseline_and_release() {
++        let (route,r)=fresh(Reply::Commit); assert_eq!(route.current_key(),None);
++        assert!(route.create_for_key(baseline(1).key,[0;152]).is_err());
++        let b=route.refresh_baseline().unwrap(); assert_eq!(route.staged_baseline(),Some(b));
++        assert_eq!(route.refresh_baseline(),Err(RouteError::Gate(Error::Busy)));
++        assert_eq!(r.lock().unwrap().baseline_calls,1);
++        assert!(route.confirm_adoption(b,false).is_err()); assert_eq!(route.current_key(),None);
++        route.confirm_adoption(b,true).unwrap(); assert_eq!(route.current_key(),Some(b.key));
++        assert_eq!(route.staged_baseline(),None); assert_eq!(r.lock().unwrap().baseline_calls,1);
++    }
++    #[test] fn exact_ack_persists_once_in_request_order() {
++        let (route,r)=fresh(Reply::Commit); let b=arm(&route);
++        let a=queued(&route,b,80); let c=queued(&route,b,81);
++        assert_eq!(route.dispatch(a).unwrap(),DispatchResult::Committed {settings_written:true});
++        assert_eq!(route.dispatch(c).unwrap(),DispatchResult::Committed {settings_written:true});
++        assert!(route.dispatch(a).is_err()); assert!(route.dispatch(c).is_err());
++        let r=r.lock().unwrap(); assert_eq!(r.calls,vec![a,c]);
++        assert_eq!(r.acks,vec![FrameAck {request:a,kernel_sequence:5},FrameAck {request:c,kernel_sequence:6}]);
++    }
++    #[test] fn out_of_order_never_reaches_backend_or_settings() {
++        let (route,r)=fresh(Reply::Commit); let b=arm(&route);
++        let a=queued(&route,b,20); let c=queued(&route,b,21);
++        assert!(route.dispatch(c).is_err()); assert_eq!(r.lock().unwrap().calls.len(),0);
++        route.dispatch(a).unwrap(); assert_eq!(r.lock().unwrap().calls,vec![a]);
++    }
++    #[test] fn stale_creation_and_closed_dispatch_never_submit() {
++        let (route,r)=fresh(Reply::Commit); let b=arm(&route); let e=queued(&route,b,2);
++        let mut wrong=b.key; wrong.epoch+=1; assert!(route.create_for_key(wrong,b.frame).is_err());
++        route.close().unwrap(); assert!(route.dispatch(e).is_err());
++        assert_eq!(r.lock().unwrap().calls.len(),0); assert!(route.refresh_baseline().is_err());
++    }
++    #[test] fn definite_rejection_clears_pending_without_settings() {
++        let (route,r)=fresh(Reply::Reject); let b=arm(&route); let e=queued(&route,b,2);
++        assert_eq!(route.dispatch(e).unwrap(),DispatchResult::Rejected {reason:5});
++        assert_eq!(route.current_key(),None); assert!(route.producer.inspect().unwrap().unresolved.is_none());
++        assert_eq!(r.lock().unwrap().acks.len(),0); assert!(route.dispatch(e).is_err());
++    }
++    #[test] fn unknown_and_malformed_rejects_retain_exact_pending() {
++        for reply in [Reply::Unknown,Reply::InvalidReject,Reply::WrongReject] {
++            let (route,r)=fresh(reply); let b=arm(&route); let e=queued(&route,b,2);
++            assert_eq!(route.dispatch(e).unwrap(),DispatchResult::Unknown);
++            let s=route.producer.inspect().unwrap(); assert!(!s.admission_open);
++            assert_eq!(s.unresolved.unwrap().request,e); assert!(s.unresolved.unwrap().uncertain);
++            assert!(route.dispatch(e).is_err()); assert!(route.refresh_baseline().is_err());
++            let r=r.lock().unwrap(); assert_eq!(r.calls,vec![e]); assert!(r.acks.is_empty());
++            assert_eq!(r.baseline_calls,1);
++        }
++    }
++    #[test] fn malformed_positive_ack_does_not_authenticate_receipt() {
++        for reply in [Reply::BadSequence,Reply::BadRequest] {
++            let (route,r)=fresh(reply); let b=arm(&route); let e=queued(&route,b,2);
++            assert!(route.dispatch(e).is_err()); let s=route.producer.inspect().unwrap();
++            assert!(!s.admission_open); assert_eq!(s.unresolved.unwrap().request,e);
++            assert!(r.lock().unwrap().acks.is_empty());
++        }
++    }
++    #[test] fn settings_failure_preserves_commit_and_does_not_retry() {
++        let (route,r)=fresh(Reply::Commit); r.lock().unwrap().settings_fail=true;
++        let b=arm(&route); let e=queued(&route,b,2);
++        assert_eq!(route.dispatch(e).unwrap(),DispatchResult::CommittedSettingsFailed("partial settings failure".into()));
++        let s=route.producer.inspect().unwrap(); assert!(!s.admission_open);
++        assert!(s.unresolved.is_none()); assert_eq!(s.kernel_sequence,5);
++        assert!(route.dispatch(e).is_err()); let r=r.lock().unwrap();
++        assert_eq!(r.calls,vec![e]); assert_eq!(r.acks.len(),1);
++    }
++    struct Block { baseline:BaselineReceipt, entered:Sender<Envelope>, proceed:Receiver<()> }
++    impl MixerBackend for Block {
++        fn baseline(&mut self)->Result<BaselineReceipt,String> {Ok(self.baseline)}
++        fn submit(&mut self,e:Envelope)->BackendOutcome {
++            self.entered.send(e).unwrap(); self.proceed.recv().unwrap();
++            self.baseline.kernel_sequence+=1;
++            BackendOutcome::Committed(FrameAck {request:e,kernel_sequence:self.baseline.kernel_sequence})
++        }
++    }
++    #[test] fn close_during_submit_allows_late_positive_without_settings() {
++        let (_,r)=fresh(Reply::Commit); let (tx,rx)=channel(); let (go,proceed)=channel();
++        let route=Arc::new(MixerRoute::new(2,Box::new(Block {baseline:baseline(1),entered:tx,proceed}),
++            Box::new(Sink(r.clone()))).unwrap());
++        let b=arm(&route); let e=queued(&route,b,4); let worker=route.clone();
++        let t=thread::spawn(move || worker.dispatch(e)); assert_eq!(rx.recv().unwrap(),e);
++        // No sleep or timeout: this call must return while backend waits for
++        // the caller's go message. A blocking endpoint read would deadlock.
++        assert_eq!(route.staged_baseline(),None);
++        assert_eq!(route.confirm_adoption(b,true),Err(RouteError::Gate(Error::Busy)));
++        assert_eq!(route.current_key(),Some(b.key));
++        route.close().unwrap(); assert_eq!(route.current_key(),None); go.send(()).unwrap();
++        assert_eq!(t.join().unwrap().unwrap(),DispatchResult::Committed {settings_written:false});
++        assert!(route.producer.inspect().unwrap().unresolved.is_none());
++        assert_eq!(route.current_key(),None); assert!(r.lock().unwrap().acks.is_empty());
++    }
++    struct BlockingSink { entered:Sender<FrameAck>, proceed:Receiver<()> }
++    impl SettingsSink for BlockingSink {
++        fn commit(&mut self, ack:FrameAck)->Result<(),String> {
++            self.entered.send(ack).unwrap(); self.proceed.recv().unwrap(); Ok(())
++        }
++    }
++    #[test] fn ui_status_does_not_wait_for_settings_callback() {
++        let (_,r)=fresh(Reply::Commit);let (entered,seen)=channel();let (go,proceed)=channel();
++        let route=Arc::new(MixerRoute::new(2,Box::new(Fake(r)),
++            Box::new(BlockingSink {entered,proceed})).unwrap());
++        let b=arm(&route);let e=queued(&route,b,4);let worker=route.clone();
++        let t=thread::spawn(move ||worker.dispatch(e));assert_eq!(seen.recv().unwrap().request,e);
++        // The callback owns the producer gate until go. These observation
++        // methods must return immediately rather than wait for that callback.
++        assert_eq!(route.current_key(),None);assert_eq!(route.staged_baseline(),None);
++        assert_eq!(route.confirm_adoption(b,true),Err(RouteError::Gate(Error::Busy)));
++        go.send(()).unwrap();assert_eq!(t.join().unwrap().unwrap(),
++            DispatchResult::Committed {settings_written:true});
++        assert_eq!(route.current_key(),Some(b.key));
++    }
++    #[test] fn backend_panic_closes_and_retains_unknown_no_endpoint_replacement() {
++        let (route,r)=fresh(Reply::Panic); let b=arm(&route); let e=queued(&route,b,2);
++        assert!(std::panic::catch_unwind(std::panic::AssertUnwindSafe(||route.dispatch(e))).is_err());
++        let s=route.producer.inspect().unwrap(); assert!(!s.admission_open);
++        assert_eq!(s.unresolved.unwrap().request,e); assert!(s.unresolved.unwrap().uncertain);
++        assert_eq!(route.refresh_baseline(),Err(RouteError::EndpointPoisoned));
++        assert_eq!(r.lock().unwrap().calls,vec![e]);
++    }
++    #[test] fn only_a_new_verified_epoch_can_rearm_after_known_rejection() {
++        let (route,r)=fresh(Reply::Reject); let b=arm(&route); let e=queued(&route,b,2);
++        route.dispatch(e).unwrap(); assert!(route.refresh_baseline().is_err());
++        {let mut r=r.lock().unwrap();r.baseline=baseline(2);r.reply=Reply::Commit;}
++        let b2=arm(&route); assert_ne!(b.key,b2.key); let next=queued(&route,b2,3);
++        assert_eq!(next.request_id(),1); route.dispatch(next).unwrap();
++        assert!(route.dispatch(e).is_err()); assert_eq!(r.lock().unwrap().calls,vec![e,next]);
++    }
++}

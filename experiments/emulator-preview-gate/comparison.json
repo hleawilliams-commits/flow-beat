@@ -1,0 +1,41 @@
+{
+  "comparison_excludes_only": [
+    "production_check_log_sha256",
+    "runs[].compile_output_sha256",
+    "runs[].test_output_sha256"
+  ],
+  "differing_raw_log_hash_fields": [
+    "production_check_log_sha256",
+    "candidate/compile_output_sha256",
+    "stale-update-retagged-at-send/compile_output_sha256",
+    "stale-update-retagged-at-send/test_output_sha256",
+    "release-confirmation-update-admits-input/compile_output_sha256",
+    "release-confirmation-update-admits-input/test_output_sha256",
+    "fx-time-not-hydrated-from-baseline/compile_output_sha256",
+    "fx-time-not-hydrated-from-baseline/test_output_sha256",
+    "mixer-reset-erases-erp-held-button/compile_output_sha256",
+    "mixer-reset-erases-erp-held-button/test_output_sha256",
+    "owned-frame-enters-legacy-cache/compile_output_sha256",
+    "owned-frame-enters-legacy-cache/test_output_sha256",
+    "untagged-owned-mixer-falls-through/compile_output_sha256",
+    "untagged-owned-mixer-falls-through/test_output_sha256",
+    "settings-accept-wrong-ack/compile_output_sha256",
+    "settings-accept-wrong-ack/test_output_sha256",
+    "settings-error-retains-known-commit-as-pending/compile_output_sha256",
+    "settings-error-retains-known-commit-as-pending/test_output_sha256",
+    "zero-rejection-is-definite/compile_output_sha256",
+    "zero-rejection-is-definite/test_output_sha256",
+    "wrong-request-rejection-is-definite/compile_output_sha256",
+    "wrong-request-rejection-is-definite/test_output_sha256",
+    "unknown-keeps-admission-open/compile_output_sha256",
+    "unknown-keeps-admission-open/test_output_sha256",
+    "refresh-over-staged/compile_output_sha256",
+    "refresh-over-staged/test_output_sha256"
+  ],
+  "functional_fields_equal": true,
+  "independent_result_sha256": "e16f5e43364b6ce7fe650096705300ff81a1513bdf3b48f5a9a2bf5fd887ae01",
+  "primary_result_sha256": "33dd541807010d4129a1c4b62359b84b1b7c5806b6876de4b767580ad77c5465",
+  "scope": "Independent fresh pinned source export, production compilation and same37 selected actual-crate tests/12 strict controls. Exact private logs retained; path/time/thread diagnostics are not normalized in result hashes.",
+  "source_inputs_compiler_inventory_counts_exits_equal": true,
+  "whole_results_byte_identical": false
+}

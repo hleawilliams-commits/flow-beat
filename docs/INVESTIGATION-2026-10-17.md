@@ -357,3 +357,48 @@ contact, service action, physical access, package/core/catalog changes or new
 live run occurred. Old helpers, patches, released emulator state and unrelated
 untracked work were preserved. MODS 0.1.3 publication, native menu ownership,
 stems activation/staging, USB activation and physical validation remain open.
+
+
+### Inactive actual-preview integration — October 27
+
+The separate [preview-gate patch](../experiments/emulator-preview-gate/) now
+composes the pinned emulator App/control classifier with a copied producer and
+an injected in-process backend/settings seam. The original emulator checkout,
+frozen broker libraries, kernels and recovery helpers remain unchanged. Main
+supplies `None`, preserving legacy behavior; `Some(closed route)` has no bus-2
+fallback. There is no live adapter, enable flag or broker daemon.
+
+App captures its generation before UI mutation and validates it at creation.
+Full baseline adoption resets all mixer models, including Gray FX SELECT and
+independent FX TIME bytes, and only mixer gestures. ERP/deck/SHIFT state survives.
+A focused event-free release-only update cannot create mixer input. Typed owned
+requests bypass legacy cache/replay and the old optimistic counter-file paths.
+Exact positive ACK and settings callback are serialized; failure after a known
+native commit cannot make it eligible for resend. Unknown work stays retained
+and closed. `sent_mixer` is enqueue deduplication, not acknowledgment.
+
+Production cfg compiles offline on the macOS ARM64 host. The actual crate passes
+37 selected tests (35 new plus two retained App cases) and 12 strict compiling
+negative controls, with independently reviewed evidence in the experiment.
+Tests execute headless egui handlers and actual changed gate/route/classifier
+methods with synthetic in-memory receipts, not main, socket worker or filesystem
+settings. The full binary lists 95 tests; 58 unrelated/inherited cases are
+filtered. Locked sources, full private run snapshots and sanitized results are
+retained. Nine expected inactive-code warnings are not suppressed. No Linux
+ARM64 emulator/core, sanitizer, native timing or audio claim is made.
+
+The real backend and host writer remain unimplemented. Synchronous callbacks
+can delay other bus sends and App creation/close. The external mpsc queue remains
+unbounded across repeated generations, and UI-time MIN_HOLD does not guarantee
+native press duration after delayed delivery. UNKNOWN has no route query API.
+Baseline authority/neutrality and global producer quiescence remain external
+obligations; malformed positive ACKs retain pending work even though their
+uncertain diagnostic flag stays false. These limits are not a runtime permit.
+
+Next resolve bounded transport/lifecycle and native dwell semantics, then the
+ordered host writer and owned stopped-recovery transaction. Keep original full
+neutral overlay, injected mode and host bytes/modes verified before guarded
+restart. No emulator/device access, cleanup, service action, installation,
+physical control, package or catalog change occurred. Preserve untracked work.
+MODS publication/native menu ownership, stems gates, USB activation and physical
+validation remain open.

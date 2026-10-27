@@ -1,0 +1,52 @@
+{
+  "schema": "az-preview-app-controls-v1",
+  "candidate_file": "az-preview/src/app.rs",
+  "candidate_sha256": "cacd6793cdee27b71306b74a9e84816902e3e607a784466b6947c9add9515b6f",
+  "scope": "Specification only. Parent executes each mutation in a fresh isolated source copy. A compiler error, zero selected tests, unexpected failure count, or unchanged passing test rejects the control. No preview UI, device, filesystem settings path, or network is invoked by these selected tests.",
+  "controls": [
+    {
+      "name": "stale-update-retagged-at-send",
+      "old": "route.create_for_key(key, mix).ok().is_some_and(|request| {",
+      "new": "route.create_for_key(route.current_key().unwrap_or(key), mix).ok().is_some_and(|request| {",
+      "test": "app::tests::owned_stale_update_key_is_not_retagged_after_new_baseline",
+      "oracle": "The old-update frame must produce no channel message after a newer baseline is opened. Refreshing the key during send incorrectly authorizes the old frame under the newer generation.",
+      "expected_anchor_count": 1,
+      "expected_selected_tests": 1,
+      "expected_failed_tests": 1,
+      "expected_cargo_exit_code": 101
+    },
+    {
+      "name": "release-confirmation-update-admits-input",
+      "old": "if route.confirm_adoption(receipt, true).is_ok() {\n                    self.mixer_rearm_pending = false;",
+      "new": "if route.confirm_adoption(receipt, true).is_ok() {\n                    self.mixer_rearm_pending = false;\n                    self.mixer_creation_key = Some(receipt.key);",
+      "test": "app::tests::owned_release_click_and_confirmation_update_cannot_create_input",
+      "oracle": "The clean confirmation update must retain no creation key. Opening App input during that update violates the required release-only update.",
+      "expected_anchor_count": 1,
+      "expected_selected_tests": 1,
+      "expected_failed_tests": 1,
+      "expected_cargo_exit_code": 101
+    },
+    {
+      "name": "fx-time-not-hydrated-from-baseline",
+      "old": "self.fx_time = i16::from_le_bytes([\n            receipt.frame[FX_TIME_BYTES.0], receipt.frame[FX_TIME_BYTES.1],\n        ]);",
+      "new": "self.fx_time = 0;",
+      "test": "app::tests::owned_adoption_resets_every_mixer_model_without_changing_other_buses",
+      "oracle": "The adopted synthetic baseline carries FX TIME -1234. Zeroing only its UI model fails even though the full raw frame was copied.",
+      "expected_anchor_count": 1,
+      "expected_selected_tests": 1,
+      "expected_failed_tests": 1,
+      "expected_cargo_exit_code": 101
+    },
+    {
+      "name": "mixer-reset-erases-erp-held-button",
+      "old": "self.held.retain(|_, (bit, _)| !matches!(bit.bus, Bus::Mixer));",
+      "new": "self.held.clear();",
+      "test": "app::tests::owned_adoption_resets_every_mixer_model_without_changing_other_buses",
+      "oracle": "Adoption must retain the existing ERP held entry while removing the mixer held entry. Clearing the whole mixed-bus map loses unrelated ERP state.",
+      "expected_anchor_count": 1,
+      "expected_selected_tests": 1,
+      "expected_failed_tests": 1,
+      "expected_cargo_exit_code": 101
+    }
+  ]
+}

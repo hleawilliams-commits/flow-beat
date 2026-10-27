@@ -160,3 +160,21 @@ Next compose the actual queue/cache/reconnect/settings sources with explicit
 event and ACK ordering, then implement the owned stopped-recovery transaction.
 Keep both kernel candidates uninstalled, old runtime helpers unchanged and all
 live V2 dispatch disabled. No new live run or emulator/device action occurred.
+
+
+## Subsequent inactive actual-preview patch
+
+The [preview-gate candidate](../../../emulator-preview-gate/) now composes the
+actual pinned App/control-message classifier with captured generation keys,
+complete baseline/model adoption, release-only rearming, typed owned cache
+exclusion and exact-ACK ordered synthetic settings callbacks. It is an inactive
+in-process trait seam: main supplies no owned backend and host config remains
+unchanged. Selected actual-crate tests and strict controls pass offline; no
+socket worker, native delivery or real settings writer was executed.
+
+The next transport must bound external backlog and account for delayed native
+press/release, callback latency and unknown-result reconciliation. It must not
+retag queued payloads or treat socket success as an ACK. Real receipt authority,
+host-file effects and owned stopped recovery are still missing. Keep both kernel
+candidates uninstalled, all V2 dispatch disabled and old helpers unchanged. No
+emulator/device contact or new live run occurred for this patch.

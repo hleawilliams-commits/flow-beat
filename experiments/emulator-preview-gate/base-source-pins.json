@@ -1,0 +1,18 @@
+{
+  "emulator_commit": "06fc981707e69982c0554bb508e0c646c005a979",
+  "files": {
+    "az-preview/Cargo.toml": "7b7e4cbcd0a902964cb61e6bf8ba084ad2d07140dcfb8264e2a4b662a96814e6",
+    "az-preview/build.rs": "b12428b3ee8306f79126270c2875f8b4219f35fbe195d38ed9c2c2370340eb61",
+    "az-preview/layout/xdj-az.tsv": "651df7e29a679bdfa4712ed7fe4a3ffdd13c7c92f275542b79173253a1333590",
+    "az-preview/src/app.rs": "f6a7bb28c3f2dbce759582ac2c7b1147adf93f5137838a833ed5d35f1834864b",
+    "az-preview/src/boot.rs": "f907da478aa758d4cb2a9f740f529fbe256376230d77635a061a746ce75ec1eb",
+    "az-preview/src/config.rs": "0a1986611ec2642379a42f1f517d8d1decf1764e0cee8ab2f37c3e6c04782992",
+    "az-preview/src/controls.rs": "b9145e4b41439761abbfdec461b854412748af2fe95183fd5843ad34d4298445",
+    "az-preview/src/layout.rs": "7fb4577a6ccdc35414c7e24a311bd0353e3af36d67de8eb4fe7dda78a446e14f",
+    "az-preview/src/main.rs": "a13cf052beca509185cb71a56e4196624e0cf6e34d5e62ea43e8fe5f03abecde",
+    "az-preview/src/meter.rs": "a2511e52e24047352bf9bcdf17981769b917aa24719202aad1c524f00e399081",
+    "az-preview/src/panel.rs": "f54107111e4544aac34f110daa73febd5203ddc2d82731df9ebff4a761b71c5e",
+    "az-preview/src/parts.rs": "7bbe162b092fa5f0dadcea609762a2b38ff681a7e50bda5d0f3d89ce7c7f748c",
+    "az-preview/src/screen.rs": "2f867d991fe5d19ed9a19a08b19483f0e6d6affcd9749b7e8b587bb11d8e27be"
+  }
+}
