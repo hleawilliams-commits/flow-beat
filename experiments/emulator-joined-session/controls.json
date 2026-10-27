@@ -1,0 +1,77 @@
+{
+  "candidate_sha256": {
+    "az-preview/src/mixer_producer.rs": "ac4d1c2e0c03a3e3a50719c3fccd0ac08a056cfe77ac858bfc1e772accda1680",
+    "az-preview/src/mixer_route.rs": "6e2aad717deaed4407ced1648859f121c867810a973297f700de48791653d60e",
+    "az-preview/src/mixer_transport.rs": "7dcfa16de3eeecf90c729d37f8e48dffeb3887d9b9eaa6502b04498a3ce44d26"
+  },
+  "controls": [
+    {
+      "assertion_anchor": "assert_eq!(retained,(0,0,1,0,1));",
+      "edits": [
+        {
+          "file": "az-preview/src/mixer_transport.rs",
+          "new": "    _retained: std::sync::Weak<Shared>,",
+          "old": "    _retained: Arc<Shared>,"
+        },
+        {
+          "file": "az-preview/src/mixer_transport.rs",
+          "new": "Ok(JoinedMixerSession {_retained:Arc::downgrade(&self.shared),exit,",
+          "old": "Ok(JoinedMixerSession {_retained:self.shared.clone(),exit,"
+        }
+      ],
+      "file": "az-preview/src/mixer_transport.rs",
+      "name": "joined-session-weakened-lifetime",
+      "test": "mixer_transport::joined_session_tests::joined_object_retains_same_endpoint_after_all_ports_drop"
+    },
+    {
+      "assertion_anchor": "assert_eq!(s.status.last_ack,Some(AckCheckpoint {ack:a,settings:AckSettings::CallbackArmed}));",
+      "file": "az-preview/src/mixer_producer.rs",
+      "name": "validated-ack-not-recorded-before-callback",
+      "new": "        s.last_ack = None;",
+      "old": "        s.last_ack = Some(AckCheckpoint { ack, settings: if s.open {\n            AckSettings::CallbackArmed\n        } else { AckSettings::SkippedClosed } });",
+      "test": "mixer_producer::joined_session_tests::callback_panic_salvage_keeps_known_ack_and_poison"
+    },
+    {
+      "assertion_anchor": "assert_eq!(s.status.last_ack,Some(AckCheckpoint {ack:accepted,settings:AckSettings::NoSettingsRequested}));",
+      "file": "az-preview/src/mixer_producer.rs",
+      "name": "close-erases-prior-validated-ack",
+      "new": "    fn close(&mut self) {\n        self.last_ack = None;\n        self.open = false;",
+      "old": "    fn close(&mut self) {\n        self.open = false;",
+      "test": "mixer_producer::joined_session_tests::checkpoint_changes_only_for_exact_validated_ack"
+    },
+    {
+      "assertion_anchor": "assert_eq!(a.route.producer.status.unresolved,Some(Pending {request:e,uncertain:!malformed}));",
+      "assertion_file": "az-preview/src/mixer_transport.rs",
+      "file": "az-preview/src/mixer_producer.rs",
+      "name": "diagnostics-hide-unmarked-pending",
+      "new": "        let mut status=Self::status(&s);\n        status.unresolved=status.unresolved.filter(|pending|pending.uncertain);\n        ProducerAccounting { poisoned, status }",
+      "old": "        ProducerAccounting { poisoned, status: Self::status(&s) }",
+      "test": "mixer_transport::joined_session_tests::joined_unknown_and_malformed_positive_keep_every_pending_request"
+    },
+    {
+      "assertion_anchor": "assert!(s.poisoned);",
+      "file": "az-preview/src/mixer_producer.rs",
+      "name": "producer-poison-hidden-in-diagnostics",
+      "new": "            Err(error) => (error.into_inner(), false),",
+      "old": "            Err(error) => (error.into_inner(), true),",
+      "test": "mixer_producer::joined_session_tests::callback_panic_salvage_keeps_known_ack_and_poison"
+    },
+    {
+      "assertion_anchor": "assert_eq!(staged.last_baseline,Some(BaselineCheckpoint {receipt:old,released:true}));",
+      "file": "az-preview/src/mixer_producer.rs",
+      "name": "unacknowledged-stage-promoted-to-baseline-checkpoint",
+      "new": "        s.staged = Some((baseline, false));\n        s.last_baseline = Some(BaselineCheckpoint { receipt: baseline, released: false });",
+      "old": "        s.staged = Some((baseline, false));",
+      "test": "mixer_producer::joined_session_tests::baseline_checkpoint_distinguishes_staging_ack_and_release"
+    },
+    {
+      "assertion_anchor": "assert_eq!(result,Err(SettingsError::Gate(Error::WrongAck)));",
+      "file": "az-preview/src/mixer_producer.rs",
+      "name": "foreign-ack-payload-accepted",
+      "new": "        let _pending = s.unresolved.ok_or(SettingsError::Gate(Error::NoUnresolved))?;\n        if s.kernel_sequence.checked_add(1) != Some(ack.kernel_sequence) {",
+      "old": "        let pending = s.unresolved.ok_or(SettingsError::Gate(Error::NoUnresolved))?;\n        if pending.request != ack.request || s.kernel_sequence.checked_add(1) != Some(ack.kernel_sequence) {",
+      "test": "mixer_producer::joined_session_tests::checkpoint_changes_only_for_exact_validated_ack"
+    }
+  ],
+  "scope": "Strict functional controls; each compiles, runs one reviewed test, and must fail only the exact intended source assertion. Actual join and fixture cleanup are preserved."
+}

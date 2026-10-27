@@ -205,3 +205,30 @@ requesting stop without an owned join; a live lifecycle must coordinate that
 ordering and unresolved requests before enablement. Exclusive one-port use of
 the route is a constructor contract, not a type-enforced capability. No device,
 emulator endpoint, service, package, core or catalog changed for this successor.
+
+
+## Subsequent inactive retained joined session
+
+The [next local successor](../../../emulator-joined-session/) retains the same
+route/backend after a real worker join, plus the latest exact full ACK/settings
+disposition, latest acknowledged/released baseline and all unresolved envelopes.
+Poison salvage is read-only and remains explicitly flagged. These bounded copied
+values are diagnostic, not recovery capabilities or a durable event history.
+Stopped/empty does not resolve Unknown; uncertain=false on a malformed positive
+receipt also cannot establish noncommit. Dropping the session can close backend
+resources without neutralizing the overlay.
+
+Eleven new actual-crate host tests and seven exact-assertion source controls pass,
+with independent evidence retained. The 115 inherited listed tests were not
+repeated. No App/main, config or installed emulator change occurred. Main still
+supplies None and all V2 runtime dispatch remains closed.
+
+The next lifecycle owner must retain both worker and supervisor resources
+through real join before considering orderly guest shutdown, covering App exit
+and startup/return paths. Process-death supervisor/job policies remain separate.
+Real settings persistence also needs original mixer.state alongside the counter
+file, exclusion of preview/driver/boot writers and partial two-file accounting;
+the earlier recovery contract specifies counter restoration only. There is no
+implemented backend/receipt authority, native dwell guarantee, settings writer,
+unknown reconciliation or owned stopped recovery. Preserve all earlier evidence
+and do not infer a runtime permit from this joined lifetime holder.

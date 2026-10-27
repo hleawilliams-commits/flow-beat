@@ -1,0 +1,297 @@
+{
+  "all_other_result_fields_equal": true,
+  "explicitly_excluded_raw_log_hash_fields": [
+    "production_check_log_sha256",
+    "runs[0].compile_output_sha256",
+    "runs[0].test_output_sha256",
+    "runs[1].compile_output_sha256",
+    "runs[1].test_output_sha256",
+    "runs[2].compile_output_sha256",
+    "runs[2].test_output_sha256",
+    "runs[3].compile_output_sha256",
+    "runs[3].test_output_sha256",
+    "runs[4].compile_output_sha256",
+    "runs[4].test_output_sha256",
+    "runs[5].compile_output_sha256",
+    "runs[5].test_output_sha256",
+    "runs[6].compile_output_sha256",
+    "runs[6].test_output_sha256",
+    "runs[7].compile_output_sha256",
+    "runs[7].test_output_sha256"
+  ],
+  "independent_mutant_assertion_checks": [
+    {
+      "all_mutated_files_match_declared_edits": true,
+      "control": "joined-session-weakened-lifetime",
+      "independent_assertion_location": "mixer_transport.rs:589:9:",
+      "real_panic_header_matches": true,
+      "run": "primary",
+      "source_file": "az-preview/src/mixer_transport.rs",
+      "source_sha256": "d58792c6f4f8b323340ee87dc36a9f0ee7010415aa0229651e3cb8c3d345744c"
+    },
+    {
+      "all_mutated_files_match_declared_edits": true,
+      "control": "validated-ack-not-recorded-before-callback",
+      "independent_assertion_location": "mixer_producer.rs:711:9:",
+      "real_panic_header_matches": true,
+      "run": "primary",
+      "source_file": "az-preview/src/mixer_producer.rs",
+      "source_sha256": "fc80f3fbe06aa6d6df77951f44fd67c3048c764daae6c0b1009707223b63dd49"
+    },
+    {
+      "all_mutated_files_match_declared_edits": true,
+      "control": "close-erases-prior-validated-ack",
+      "independent_assertion_location": "mixer_producer.rs:671:13:",
+      "real_panic_header_matches": true,
+      "run": "primary",
+      "source_file": "az-preview/src/mixer_producer.rs",
+      "source_sha256": "4a3f8ed6e89aae83699914726e93a19f7cda6753ffd0b653e51f51d5f9a6cbbf"
+    },
+    {
+      "all_mutated_files_match_declared_edits": true,
+      "control": "diagnostics-hide-unmarked-pending",
+      "independent_assertion_location": "mixer_transport.rs:602:13:",
+      "real_panic_header_matches": true,
+      "run": "primary",
+      "source_file": "az-preview/src/mixer_transport.rs",
+      "source_sha256": "7dcfa16de3eeecf90c729d37f8e48dffeb3887d9b9eaa6502b04498a3ce44d26"
+    },
+    {
+      "all_mutated_files_match_declared_edits": true,
+      "control": "producer-poison-hidden-in-diagnostics",
+      "independent_assertion_location": "mixer_producer.rs:712:63:",
+      "real_panic_header_matches": true,
+      "run": "primary",
+      "source_file": "az-preview/src/mixer_producer.rs",
+      "source_sha256": "23d47ee53c97ee37472dcf4a374f1bb19d7ca9e3ec2f03ddc669c5c939aeee03"
+    },
+    {
+      "all_mutated_files_match_declared_edits": true,
+      "control": "unacknowledged-stage-promoted-to-baseline-checkpoint",
+      "independent_assertion_location": "mixer_producer.rs:683:9:",
+      "real_panic_header_matches": true,
+      "run": "primary",
+      "source_file": "az-preview/src/mixer_producer.rs",
+      "source_sha256": "71c4a3872bb19d6a4738ebfa7b267806540c1da125b29d0fce1c1b260bf4cc51"
+    },
+    {
+      "all_mutated_files_match_declared_edits": true,
+      "control": "foreign-ack-payload-accepted",
+      "independent_assertion_location": "mixer_producer.rs:669:13:",
+      "real_panic_header_matches": true,
+      "run": "primary",
+      "source_file": "az-preview/src/mixer_producer.rs",
+      "source_sha256": "5b26d30503eaba15505057b6a9f1a86746249cb2a505ad64eca4e39973ca83f8"
+    },
+    {
+      "all_mutated_files_match_declared_edits": true,
+      "control": "joined-session-weakened-lifetime",
+      "independent_assertion_location": "mixer_transport.rs:589:9:",
+      "real_panic_header_matches": true,
+      "run": "independent",
+      "source_file": "az-preview/src/mixer_transport.rs",
+      "source_sha256": "d58792c6f4f8b323340ee87dc36a9f0ee7010415aa0229651e3cb8c3d345744c"
+    },
+    {
+      "all_mutated_files_match_declared_edits": true,
+      "control": "validated-ack-not-recorded-before-callback",
+      "independent_assertion_location": "mixer_producer.rs:711:9:",
+      "real_panic_header_matches": true,
+      "run": "independent",
+      "source_file": "az-preview/src/mixer_producer.rs",
+      "source_sha256": "fc80f3fbe06aa6d6df77951f44fd67c3048c764daae6c0b1009707223b63dd49"
+    },
+    {
+      "all_mutated_files_match_declared_edits": true,
+      "control": "close-erases-prior-validated-ack",
+      "independent_assertion_location": "mixer_producer.rs:671:13:",
+      "real_panic_header_matches": true,
+      "run": "independent",
+      "source_file": "az-preview/src/mixer_producer.rs",
+      "source_sha256": "4a3f8ed6e89aae83699914726e93a19f7cda6753ffd0b653e51f51d5f9a6cbbf"
+    },
+    {
+      "all_mutated_files_match_declared_edits": true,
+      "control": "diagnostics-hide-unmarked-pending",
+      "independent_assertion_location": "mixer_transport.rs:602:13:",
+      "real_panic_header_matches": true,
+      "run": "independent",
+      "source_file": "az-preview/src/mixer_transport.rs",
+      "source_sha256": "7dcfa16de3eeecf90c729d37f8e48dffeb3887d9b9eaa6502b04498a3ce44d26"
+    },
+    {
+      "all_mutated_files_match_declared_edits": true,
+      "control": "producer-poison-hidden-in-diagnostics",
+      "independent_assertion_location": "mixer_producer.rs:712:63:",
+      "real_panic_header_matches": true,
+      "run": "independent",
+      "source_file": "az-preview/src/mixer_producer.rs",
+      "source_sha256": "23d47ee53c97ee37472dcf4a374f1bb19d7ca9e3ec2f03ddc669c5c939aeee03"
+    },
+    {
+      "all_mutated_files_match_declared_edits": true,
+      "control": "unacknowledged-stage-promoted-to-baseline-checkpoint",
+      "independent_assertion_location": "mixer_producer.rs:683:9:",
+      "real_panic_header_matches": true,
+      "run": "independent",
+      "source_file": "az-preview/src/mixer_producer.rs",
+      "source_sha256": "71c4a3872bb19d6a4738ebfa7b267806540c1da125b29d0fce1c1b260bf4cc51"
+    },
+    {
+      "all_mutated_files_match_declared_edits": true,
+      "control": "foreign-ack-payload-accepted",
+      "independent_assertion_location": "mixer_producer.rs:669:13:",
+      "real_panic_header_matches": true,
+      "run": "independent",
+      "source_file": "az-preview/src/mixer_producer.rs",
+      "source_sha256": "5b26d30503eaba15505057b6a9f1a86746249cb2a505ad64eca4e39973ca83f8"
+    }
+  ],
+  "independent_mutant_verification_method": "Reconstructed each declared edit from each retained base tree, compared all files, bounded the selected function by its own indentation closing brace, calculated the exact assertion macro line/column, and matched an actual panic header. Did not import the runner location routine.",
+  "independent_result_sha256": "c19a654b5a6e4e6a67724c38d19ec21bf9aaa8ea6a486f43cf1711185f08593e",
+  "inherited_tests_filtered": 115,
+  "limitations": "Raw result JSON and raw compile/test logs are not byte-identical. Compiler-log hashes are explicitly excluded; compiler logs were not normalized for full-body equality. Diagnostic ownership remains in-memory only; no native, restoration, lifecycle or endpoint proof.",
+  "listed_tests": 126,
+  "new_positive_tests": 11,
+  "normalized_test_outputs": [
+    {
+      "equal_after_declared_normalization": true,
+      "independent_normalized_sha256": "09372621a3b2900ee35c954ab63b9b5b1af57c8bc3387171a772506d64274192",
+      "primary_normalized_sha256": "09372621a3b2900ee35c954ab63b9b5b1af57c8bc3387171a772506d64274192",
+      "run": "candidate"
+    },
+    {
+      "equal_after_declared_normalization": true,
+      "independent_normalized_sha256": "7b7804b464ce0b11f43fdc40cfbec6f80e081f226bbb19d396c863195184723f",
+      "primary_normalized_sha256": "7b7804b464ce0b11f43fdc40cfbec6f80e081f226bbb19d396c863195184723f",
+      "run": "joined-session-weakened-lifetime"
+    },
+    {
+      "equal_after_declared_normalization": true,
+      "independent_normalized_sha256": "8328d4c6fbc159bf4b286c94c7abdf5d78a806d73a5bc92ea862379730af0a78",
+      "primary_normalized_sha256": "8328d4c6fbc159bf4b286c94c7abdf5d78a806d73a5bc92ea862379730af0a78",
+      "run": "validated-ack-not-recorded-before-callback"
+    },
+    {
+      "equal_after_declared_normalization": true,
+      "independent_normalized_sha256": "5a193e8d81e454007da7847bd009484fefc294c02482caa4c1aa54ff2c9f87d5",
+      "primary_normalized_sha256": "5a193e8d81e454007da7847bd009484fefc294c02482caa4c1aa54ff2c9f87d5",
+      "run": "close-erases-prior-validated-ack"
+    },
+    {
+      "equal_after_declared_normalization": true,
+      "independent_normalized_sha256": "b7b7c753d4a5887ba15c49befe1ce0cb35503eee381f7478e5efd684fbf4e1ac",
+      "primary_normalized_sha256": "b7b7c753d4a5887ba15c49befe1ce0cb35503eee381f7478e5efd684fbf4e1ac",
+      "run": "diagnostics-hide-unmarked-pending"
+    },
+    {
+      "equal_after_declared_normalization": true,
+      "independent_normalized_sha256": "20fabe9f9784c4fd7b12305bb5ce80d96344e3ac0e2fba01299b6240abe0bc4c",
+      "primary_normalized_sha256": "20fabe9f9784c4fd7b12305bb5ce80d96344e3ac0e2fba01299b6240abe0bc4c",
+      "run": "producer-poison-hidden-in-diagnostics"
+    },
+    {
+      "equal_after_declared_normalization": true,
+      "independent_normalized_sha256": "dd33ec76dc22d962613bb6d01a5f0f0b183a8c7d0cb576400a6bfc5630286c7e",
+      "primary_normalized_sha256": "dd33ec76dc22d962613bb6d01a5f0f0b183a8c7d0cb576400a6bfc5630286c7e",
+      "run": "unacknowledged-stage-promoted-to-baseline-checkpoint"
+    },
+    {
+      "equal_after_declared_normalization": true,
+      "independent_normalized_sha256": "28a5cbb729060f99b15c3677b096d9fddf940be2272cff28a113211ca962411d",
+      "primary_normalized_sha256": "28a5cbb729060f99b15c3677b096d9fddf940be2272cff28a113211ca962411d",
+      "run": "foreign-ack-payload-accepted"
+    }
+  ],
+  "primary_result_sha256": "0daa7fe345d41eb5b63520bcde429bd9db06c36adb046bce407c3cb89c9536d5",
+  "production_check_exit": 0,
+  "raw_log_hash_differences": [
+    {
+      "field": "production_check_log_sha256",
+      "independent": "5ceea564d471feeb89e1dd3be4d8d81bf90c881c70b11cfa6ace42db7e62c71d",
+      "primary": "9adc384ff2dc0be0d34fdbe50fb8b4ee355c5f224054a87e09965f63ec8470ee"
+    },
+    {
+      "field": "runs[0].compile_output_sha256",
+      "independent": "c099ddb14283edc6051a4aa241990080c194756d4cec5e7c744426a6602f0531",
+      "primary": "feb808192b15e8654bf63ebe1d82913aea01e16d45d60b3ae18df8cecc820c60"
+    },
+    {
+      "field": "runs[1].compile_output_sha256",
+      "independent": "901a84cdc13d7481ceacd20107c20a634033ea8800a865d92cc5be3a67f5c703",
+      "primary": "290dab10a412ffed795e42d08394a2fd9d88614cec7d1d4100c0519479794e65"
+    },
+    {
+      "field": "runs[1].test_output_sha256",
+      "independent": "22ad6098e2a1cbd2f5b01afb9a1b4b942d2c931c81e39b0737821975bdcc8297",
+      "primary": "8038e3582abaff6a2107d0300f1eda04ab895d7c37c133571a76e1d9dcbed6a9"
+    },
+    {
+      "field": "runs[2].compile_output_sha256",
+      "independent": "dd940c1d8f8286e26a1b79974ca1655699d53c7e55c57842eed980be079470bd",
+      "primary": "0807d8d1573b17353cf15a0ff718df6c6b03b545fb0dc599cd1819e070ea309f"
+    },
+    {
+      "field": "runs[2].test_output_sha256",
+      "independent": "ede02c70d3a9cf4b198645f239daa7dd22245f444e454a665851c6c4f80f9146",
+      "primary": "eb1a7c91519d5ec96b54278e19ce09e449a1e313cb8161e86f9283a9b0d7f9c1"
+    },
+    {
+      "field": "runs[3].compile_output_sha256",
+      "independent": "31e0e8abe396d33ef6f851e3f27730d5f7fb4f804ebb6adb5d9cd4469fe0020e",
+      "primary": "5f3139ed64e4c3fd44f6a09b775456912c7f96f27098f8d8777806d85c5c06e1"
+    },
+    {
+      "field": "runs[3].test_output_sha256",
+      "independent": "cd72973dbb3563f8f4142730a802bc123342152d7ff54fceb28b915404154e24",
+      "primary": "d39f9de06843b4e4a494a5ba1787fd1caf11274b96680112d4c1108998a3bea2"
+    },
+    {
+      "field": "runs[4].compile_output_sha256",
+      "independent": "1f84b445c5e6bee211d0cb898f85725331fb63c88156029021dbfe5265077586",
+      "primary": "b985797ef962b6264819c50028c52bfcc2d4224a4baacf117893ded7709d0fbb"
+    },
+    {
+      "field": "runs[4].test_output_sha256",
+      "independent": "f4e8b3d1b55476300720367f4157e0a79a1b3cfc406f3da110e2eeb4492bced2",
+      "primary": "ca8b4da6a92735cb6f2f84f216343f52adf927dc6c2d9534f2769131fd8167dc"
+    },
+    {
+      "field": "runs[5].compile_output_sha256",
+      "independent": "ed908c3b684345cf0cca0f1be1b9bbd55db958258b56113b9255f1eac0785841",
+      "primary": "49429eccb56733f89b23c1c7e8691d4c73007f1bc22ac73114ca6264db6acd83"
+    },
+    {
+      "field": "runs[5].test_output_sha256",
+      "independent": "647e9b08c8ddaedecd32d0cec30120a9b84f3001e15e6786bc22345408ea03c7",
+      "primary": "35faa690195b0f0f589ab78ae525dc6f7ee5516d23d64f6fe197e7c80968e3e8"
+    },
+    {
+      "field": "runs[6].compile_output_sha256",
+      "independent": "c06b81d70d9ac15dd5936f6088ea67bf057e7074ae7e49108a9f4d598383a463",
+      "primary": "dd9d5ad957340bdcf5581c2b95537272e50a89008d7f3f0eaec97a3a14188e38"
+    },
+    {
+      "field": "runs[6].test_output_sha256",
+      "independent": "2c89541133af2f82cb779ddba157a69f14a0a03f052ddd06db770dd67060a4c1",
+      "primary": "87c9e180a64bada3e474036a39f80d94bea5847eb34b7d47bfe9569a4073a231"
+    },
+    {
+      "field": "runs[7].compile_output_sha256",
+      "independent": "35a5b566f5429f824212d7920e657276dad5ec5a5af4053f782afde36e216893",
+      "primary": "2b4a72a744f71ab1bb96bac4545003d561544448814bf2f48274e3bff5d34332"
+    },
+    {
+      "field": "runs[7].test_output_sha256",
+      "independent": "d9974640029816b32a783da11784b00bec05650da0083a8b41a433b657697f58",
+      "primary": "2a74a21ae3bd7a5616d08d78331403019bb7ae8185afc44febe40c73baea3d9d"
+    }
+  ],
+  "scope": "Independent offline fresh export; no inherited test execution, no runtime or device access.",
+  "strict_controls": 7,
+  "test_log_normalization": [
+    "Each fresh private run directory replaced with <RUN>",
+    "Only named panic-thread numeric IDs replaced",
+    "Only libtest finished-in durations replaced"
+  ]
+}

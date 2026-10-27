@@ -1,0 +1,487 @@
+--- a/az-preview/src/mixer_producer.rs
++++ b/az-preview/src/mixer_producer.rs
+@@ -55,6 +55,18 @@
+     pub kernel_sequence: u64,
+ }
+ 
++/// Bounded callback disposition only; even ReturnedOk is not filesystem proof.
++#[derive(Clone, Copy, Debug, PartialEq, Eq)]
++pub enum AckSettings { NoSettingsRequested, SkippedClosed, CallbackArmed,
++    ReturnedOk, ReturnedErr }
++#[derive(Clone, Copy, Debug, PartialEq, Eq)]
++pub struct AckCheckpoint { pub ack: FrameAck, pub settings: AckSettings }
++/// Latest exact baseline ACK and whether that handshake opened locally.
++/// This is neither the original recovery baseline nor current kernel state.
++#[derive(Clone, Copy, Debug, PartialEq, Eq)]
++pub struct BaselineCheckpoint { pub receipt: BaselineReceipt, pub released: bool }
++
++
+ #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+ pub enum Error {
+     InvalidCapacity, InvalidKey, Poisoned, Closed, Busy, QueueFull, Empty,
+@@ -81,7 +93,13 @@
+     pub cached: Option<Envelope>,
+     pub next_request_id: u64,
+     pub kernel_sequence: u64,
+-}
++    pub last_ack: Option<AckCheckpoint>,
++    pub last_baseline: Option<BaselineCheckpoint>,
++}
++/// A copied diagnostic, never an admission or teardown capability. If poisoned,
++/// all salvaged booleans (including admission_open) are subordinate to poison.
++#[derive(Clone, Copy, Debug, PartialEq, Eq)]
++pub struct ProducerAccounting { pub poisoned: bool, pub status: Status }
+ 
+ struct Inner {
+     open: bool,
+@@ -92,9 +110,11 @@
+     cached: Option<Envelope>,
+     next_request_id: u64,
+     kernel_sequence: u64,
++    last_ack: Option<AckCheckpoint>,
++    last_baseline: Option<BaselineCheckpoint>,
+ }
+ impl Inner {
+-    // Never erase an unresolved native/transport operation on closure.
++    // Never erase unresolved operations or validated ACK/baseline checkpoints on closure.
+     fn close(&mut self) {
+         self.open = false;
+         self.staged = None;
+@@ -105,7 +125,7 @@
+ 
+ /// All creation, admission, closure and host-settings callbacks serialize here.
+ /// The caller must NOT invoke gate methods recursively from a settings callback.
+-/// A callback panic poisons the lock; every subsequent method fails closed.
++/// A callback panic poisons the lock; admission/mutation methods fail closed.
+ /// Destruction provides no broker cancellation or host/overlay recovery action.
+ pub struct Producer {
+     capacity: usize,
+@@ -117,7 +137,7 @@
+         Ok(Self { capacity, inner: Mutex::new(Inner {
+             open: false, last_key: None, staged: None,
+             queue: VecDeque::with_capacity(capacity), unresolved: None, cached: None,
+-            next_request_id: 1, kernel_sequence: 0,
++            next_request_id: 1, kernel_sequence: 0, last_ack: None, last_baseline: None,
+         }) })
+     }
+     fn lock(&self) -> Result<MutexGuard<'_, Inner>, Error> {
+@@ -155,6 +175,7 @@
+             return Err(Error::BaselineMismatch);
+         }
+         s.staged = Some((expected, true));
++        s.last_baseline = Some(BaselineCheckpoint { receipt: expected, released: false });
+         Ok(())
+     }
+     /// Caller asserts every relevant UI/physical control has been released after
+@@ -170,6 +191,7 @@
+         if !released { return Err(Error::HeldControls); }
+         s.staged = None;
+         s.open = true;
++        s.last_baseline = Some(BaselineCheckpoint { receipt: expected, released: true });
+         Ok(())
+     }
+     /// Capture the current key and reserve a contiguous ID together with a
+@@ -238,6 +260,7 @@
+         }
+         s.kernel_sequence = ack.kernel_sequence;
+         s.unresolved = None;
++        s.last_ack = Some(AckCheckpoint { ack, settings: AckSettings::NoSettingsRequested });
+         if s.kernel_sequence == u64::MAX || ack.request.request_id == u64::MAX - 1 {
+             s.close();
+         }
+@@ -261,11 +284,18 @@
+         // Receipt proves this one native commit, even if persistence fails.
+         s.kernel_sequence = ack.kernel_sequence;
+         s.unresolved = None;
++        s.last_ack = Some(AckCheckpoint { ack, settings: if s.open {
++            AckSettings::CallbackArmed
++        } else { AckSettings::SkippedClosed } });
+         if !s.open { return Ok(false); }
++        // The validated ACK survives a callback panic. CallbackArmed means no
++        // callback return outcome was recorded, not proof of any external effect.
+         if let Err(error) = f() {
++            s.last_ack = Some(AckCheckpoint { ack, settings: AckSettings::ReturnedErr });
+             s.close();
+             return Err(SettingsError::Callback(error));
+         }
++        s.last_ack = Some(AckCheckpoint { ack, settings: AckSettings::ReturnedOk });
+         if s.kernel_sequence == u64::MAX || ack.request.request_id == u64::MAX - 1 {
+             s.close();
+         }
+@@ -326,12 +356,21 @@
+         };
+         Ok(Self::status(&s))
+     }
++    /// Read-only salvage for joined-session diagnostics. Does not clear poison,
++    /// mutate the gate, query a backend, or authorize any further operation.
++    pub(crate) fn diagnostic_snapshot(&self) -> ProducerAccounting {
++        let (s, poisoned) = match self.inner.lock() {
++            Ok(s) => (s, false),
++            Err(error) => (error.into_inner(), true),
++        };
++        ProducerAccounting { poisoned, status: Self::status(&s) }
++    }
+     fn status(s: &Inner) -> Status {
+         Status { admission_open: s.open, staged: s.staged.is_some(),
+             baseline_acknowledged: s.staged.map(|(_, acked)| acked).unwrap_or(false),
+             last_key: s.last_key, queued: s.queue.len(), unresolved: s.unresolved,
+             cached: s.cached, next_request_id: s.next_request_id,
+-            kernel_sequence: s.kernel_sequence }
++            kernel_sequence: s.kernel_sequence, last_ack: s.last_ack, last_baseline: s.last_baseline }
+     }
+ }
+ 
+@@ -608,3 +647,83 @@
+         assert_eq!(p.acknowledge_frame_with_settings(ack(second,7),||Ok::<_,()>(())),Ok(true));
+     }
+ }
++
++#[cfg(test)]
++mod joined_session_tests {
++    use super::*;
++    fn baseline(epoch:u64)->BaselineReceipt {BaselineReceipt {key:Key {instance:[11,22],
++        run_id:33,epoch,producer_id:44},frame:std::array::from_fn(|i|i as u8),kernel_sequence:10}}
++    fn open(p:&Producer,b:BaselineReceipt) {p.stage_baseline(b).unwrap();p.acknowledge_baseline(b).unwrap();p.confirm_released(b,true).unwrap();}
++    fn pending(p:&Producer,key:Key,byte:u8)->Envelope {let e=p.create_for_key(key,[byte;152]).unwrap();p.admit(e).unwrap();e}
++    fn ack(request:Envelope,kernel_sequence:u64)->FrameAck {FrameAck {request,kernel_sequence}}
++    #[test] fn checkpoint_changes_only_for_exact_validated_ack() {
++        for part in 0..8 {
++            let p=Producer::new(2).unwrap();let b=baseline(1);open(&p,b);
++            let first=pending(&p,b.key,51);let accepted=ack(first,11);p.acknowledge_frame(accepted).unwrap();
++            let second=pending(&p,b.key,52);let mut bad=ack(second,12);
++            match part {0=>bad.request.key.instance[0]^=1,1=>bad.request.key.instance[1]^=1,
++                2=>bad.request.key.run_id+=1,3=>bad.request.key.epoch+=1,4=>bad.request.key.producer_id+=1,
++                5=>bad.request.request_id+=1,6=>bad.request.frame[151]^=1,_=>bad.kernel_sequence+=1}
++            let mut calls=0;let result=p.acknowledge_frame_with_settings(bad,||{calls+=1;Ok::<_,()>(())});
++            let s=p.diagnostic_snapshot();
++            assert_eq!(result,Err(SettingsError::Gate(Error::WrongAck)));assert_eq!(calls,0);
++            assert_eq!(s.status.last_ack,Some(AckCheckpoint {ack:accepted,settings:AckSettings::NoSettingsRequested}));
++            assert_eq!(s.status.unresolved,Some(Pending {request:second,uncertain:false}));
++            assert_eq!(s.status.kernel_sequence,11);assert!(!s.poisoned);
++            p.reject_known(second).unwrap();p.close_generation().unwrap();
++            assert_eq!(p.inspect().unwrap().last_ack,s.status.last_ack);
++        }
++    }
++    #[test] fn baseline_checkpoint_distinguishes_staging_ack_and_release() {
++        let p=Producer::new(2).unwrap();let old=baseline(1);open(&p,old);
++        let first=pending(&p,old.key,61);let accepted=ack(first,11);p.acknowledge_frame(accepted).unwrap();p.close_generation().unwrap();
++        let new=baseline(2);p.stage_baseline(new).unwrap();
++        let staged=p.inspect().unwrap();assert_eq!(staged.last_key,Some(new.key));
++        assert_eq!(staged.last_baseline,Some(BaselineCheckpoint {receipt:old,released:true}));
++        let mut mismatch=new;mismatch.frame[151]^=1;
++        assert_eq!(p.acknowledge_baseline(mismatch),Err(Error::BaselineMismatch));
++        assert_eq!(p.inspect().unwrap().last_baseline,Some(BaselineCheckpoint {receipt:old,released:true}));
++        let newer=baseline(3);p.stage_baseline(newer).unwrap();p.acknowledge_baseline(newer).unwrap();
++        assert_eq!(p.inspect().unwrap().last_baseline,Some(BaselineCheckpoint {receipt:newer,released:false}));
++        assert_eq!(p.confirm_released(newer,false),Err(Error::HeldControls));p.confirm_released(newer,true).unwrap();
++        let unresolved=pending(&p,newer.key,62);p.connection_lost().unwrap();let s=p.diagnostic_snapshot();
++        assert_eq!(s.status.last_baseline,Some(BaselineCheckpoint {receipt:newer,released:true}));
++        assert_eq!(s.status.last_ack,Some(AckCheckpoint {ack:accepted,settings:AckSettings::NoSettingsRequested}));
++        assert_eq!(s.status.unresolved,Some(Pending {request:unresolved,uncertain:true}));
++        assert_ne!(s.status.last_ack.unwrap().ack.request.key(),s.status.unresolved.unwrap().request.key());
++    }
++    #[test] fn checkpoint_dispositions_cover_direct_skipped_success_and_error() {
++        for mode in 0..4 {
++            let p=Producer::new(2).unwrap();let b=baseline(1);open(&p,b);let e=pending(&p,b.key,71);let a=ack(e,11);let mut calls=0;
++            let expected=match mode {
++                0=>{p.acknowledge_frame(a).unwrap();AckSettings::NoSettingsRequested},
++                1=>{p.close_generation().unwrap();assert_eq!(p.acknowledge_frame_with_settings(a,||{calls+=1;Ok::<_,()>(())}),Ok(false));AckSettings::SkippedClosed},
++                2=>{assert_eq!(p.acknowledge_frame_with_settings(a,||{calls+=1;Ok::<_,()>(())}),Ok(true));AckSettings::ReturnedOk},
++                _=>{assert_eq!(p.acknowledge_frame_with_settings(a,||{calls+=1;Err("partial")}),Err(SettingsError::Callback("partial")));AckSettings::ReturnedErr},
++            };
++            p.close_generation().unwrap();let s=p.diagnostic_snapshot();
++            assert_eq!(s.status.last_ack,Some(AckCheckpoint {ack:a,settings:expected}));
++            assert_eq!(calls,usize::from(mode>=2));assert!(s.status.unresolved.is_none());assert_eq!(s.status.kernel_sequence,11);
++        }
++    }
++    #[test] fn callback_panic_salvage_keeps_known_ack_and_poison() {
++        let p=Producer::new(2).unwrap();let b=baseline(1);open(&p,b);let e=pending(&p,b.key,81);let a=ack(e,11);
++        let panic=std::panic::catch_unwind(||{let _:Result<bool,SettingsError<()>>=p.acknowledge_frame_with_settings(a,||panic!("injected callback"));});
++        let s=p.diagnostic_snapshot();assert!(panic.is_err());assert!(s.poisoned);
++        assert_eq!(s.status.last_ack,Some(AckCheckpoint {ack:a,settings:AckSettings::CallbackArmed}));
++        assert!(s.status.unresolved.is_none());assert_eq!(s.status.kernel_sequence,11);
++        assert_eq!(p.create_for_key(b.key,[82;152]),Err(Error::Poisoned));
++        assert_eq!(p.close_generation(),Err(Error::Poisoned));assert_eq!(p.inspect(),Err(Error::Poisoned));
++        assert!(p.diagnostic_snapshot().poisoned);
++    }
++    #[test] fn later_success_replaces_one_bounded_ack_not_a_history() {
++        let p=Producer::new(2).unwrap();let b=baseline(1);open(&p,b);
++        let first=pending(&p,b.key,91);p.acknowledge_frame(ack(first,11)).unwrap();
++        let second=pending(&p,b.key,92);let a=ack(second,12);
++        p.acknowledge_frame_with_settings(a,||Ok::<_,()>(())).unwrap();p.close_generation().unwrap();
++        assert_eq!(p.inspect().unwrap().last_ack,Some(AckCheckpoint {ack:a,settings:AckSettings::ReturnedOk}));
++        let newer=baseline(2);p.stage_baseline(newer).unwrap();p.acknowledge_baseline(newer).unwrap();
++        let s=p.inspect().unwrap();assert_eq!(s.last_ack.unwrap().ack,a);
++        assert_eq!(s.last_baseline.unwrap().receipt,newer);assert_ne!(a.request.key(),newer.key);
++    }
++}
+--- a/az-preview/src/mixer_route.rs
++++ b/az-preview/src/mixer_route.rs
+@@ -4,7 +4,7 @@
+ //! Receipts are not self-authenticating. No backend is constructed by main.
+ 
+ use crate::mixer_producer::{BaselineReceipt, Envelope, Error, Frame, FrameAck, Key,
+-    Producer, SettingsError};
++    Producer, ProducerAccounting, SettingsError};
+ use std::sync::{Arc, Mutex, TryLockError};
+ 
+ #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+@@ -41,6 +41,11 @@
+     Rejected { reason: i32 },
+     Unknown,
+ }
++
++/// Copied local accounting only. Poison flags dominate salvaged gate fields;
++/// a healthy snapshot does not prove receipt authenticity or recovery readiness.
++#[derive(Clone, Copy, Debug, PartialEq, Eq)]
++pub struct RouteAccounting { pub endpoint_poisoned: bool, pub producer: ProducerAccounting }
+ 
+ struct Endpoint {
+     backend: Box<dyn MixerBackend>,
+@@ -103,6 +108,15 @@
+     pub fn close(&self) -> Result<(), RouteError> {
+         self.producer.close_generation()?;
+         Ok(())
++    }
++    /// Used after the sole worker is joined. Endpoint identity remains owned;
++    /// this does not invoke baseline/submit, recover poison, or reconcile UNKNOWN.
++    pub(crate) fn diagnostic_snapshot(&self) -> RouteAccounting {
++        let (_endpoint, endpoint_poisoned) = match self.endpoint.lock() {
++            Ok(e) => (e, false),
++            Err(error) => (error.into_inner(), true),
++        };
++        RouteAccounting { endpoint_poisoned, producer: self.producer.diagnostic_snapshot() }
+     }
+     pub fn dispatch(&self, request: Envelope) -> Result<DispatchResult, RouteError> {
+         let mut e = match self.endpoint.lock() {
+--- a/az-preview/src/mixer_transport.rs
++++ b/az-preview/src/mixer_transport.rs
+@@ -4,15 +4,21 @@
+ //! One port family must exclusively manage its route. Payloads are stamped and
+ //! enqueued under one mutex; a separate one-token wake channel cannot consume a
+ //! payload slot. Stop and Drop cannot cancel an already-started native call.
+-//! Drop requests stop only. A JoinReceipt exists only after a real thread join.
++//! Drop requests stop only. A JoinedMixerSession exists only after a real join.
++//! The session retains the same endpoint plus copied diagnostic accounting.
++//! Final Arc drop can run the backend destructor (including a future fd close).
++//! Dropping this session does not neutralize, restore,
++//! cancel, persist receipts, or authorize guest/backend teardown. The caller must
++//! keep the session alive across any future recovery decision. There is no such
++//! recovery API here, and process death cannot preserve this in-memory ownership.
+ //! Creation, generation closure, and explicit stop may wait for settings; UI
+ //! current-key/staged-baseline observations remain nonblocking; inspect may wait.
+ //! Backend/settings callbacks must not reenter this port, route, or producer;
+ //! doing so can deadlock against the ACK/settings producer lock.
+ //! Native dwell is out of scope.
+ 
+-use crate::mixer_producer::{BaselineReceipt, Envelope, Frame, Key, MAX_QUEUE};
+-use crate::mixer_route::{DispatchResult, MixerRoute, RouteError};
++use crate::mixer_producer::{AckCheckpoint, BaselineCheckpoint, BaselineReceipt, Envelope, Frame, Key, MAX_QUEUE};
++use crate::mixer_route::{DispatchResult, MixerRoute, RouteAccounting, RouteError};
+ use std::collections::VecDeque;
+ use std::sync::{Arc, Mutex, TryLockError};
+ use std::sync::atomic::{AtomicU8, Ordering};
+@@ -48,11 +54,39 @@
+     pub fn discarded(&self)->usize { self.discarded }
+     pub fn had_in_flight(&self)->bool { self.in_flight }
+ }
+-#[derive(Debug)]
+-pub struct JoinReceipt { exit: WorkerExit, status: Option<PortStatus> }
+-impl JoinReceipt {
++#[derive(Clone, Copy, Debug, PartialEq, Eq)]
++pub struct MailboxAccounting { pub poisoned: bool, pub status: PortStatus }
++#[derive(Clone, Copy, Debug, PartialEq, Eq)]
++pub struct JoinedAccounting { pub mailbox: MailboxAccounting, pub route: RouteAccounting }
++
++/// Non-Clone, privately constructed lifetime holder. The copied snapshots are
++/// diagnostic, not authorization. Exclusive route use remains a constructor
++/// contract; retaining an external Arc and bypassing the port violates it.
++pub struct JoinedMixerSession {
++    _retained: Arc<Shared>,
++    exit: WorkerExit,
++    accounting: JoinedAccounting,
++}
++impl std::fmt::Debug for JoinedMixerSession {
++    fn fmt(&self,f:&mut std::fmt::Formatter<'_>)->std::fmt::Result {
++        f.debug_struct("JoinedMixerSession").field("exit",&self.exit)
++            .field("accounting",&self.accounting).finish_non_exhaustive()
++    }
++}
++impl JoinedMixerSession {
+     pub fn exit(&self)->WorkerExit { self.exit }
+-    pub fn status(&self)->Option<PortStatus> { self.status }
++    /// Compatibility projection: unavailable on mailbox poison. The explicit
++    /// accounting getter additionally preserves poison-flagged diagnostic bytes.
++    pub fn status(&self)->Option<PortStatus> {
++        if self.accounting.mailbox.poisoned {None} else {Some(self.accounting.mailbox.status)}
++    }
++    pub fn accounting(&self)->JoinedAccounting { self.accounting }
++    /// Historical bounded latest ACK; consult accounting poison flags. A newer
++    /// baseline may coexist with this older-generation checkpoint. No I/O proof.
++    pub fn last_ack(&self)->Option<AckCheckpoint> { self.accounting.route.producer.status.last_ack }
++    /// Latest exact baseline handshake, not the saved recovery baseline.
++    /// Consult accounting poison flags; released does not imply current openness.
++    pub fn last_baseline(&self)->Option<BaselineCheckpoint> { self.accounting.route.producer.status.last_baseline }
+ }
+ 
+ struct State { queue: VecDeque<Envelope>, in_flight: Option<Envelope>,
+@@ -193,12 +227,21 @@
+ impl MixerWorker {
+     /// Always requests terminal stop, then joins without any mailbox or route
+     /// lock. A panicked thread still has a joined receipt, with a distinct exit.
+-    pub fn join(mut self)->Result<JoinReceipt,TransportError> {
++    pub fn join(mut self)->Result<JoinedMixerSession,TransportError> {
+         self.shared.stop(StopReason::Requested);
+         let handle=self.handle.take().expect("unique worker handle");
+         let exit=match handle.join() {Ok(exit)=>exit,Err(_)=>WorkerExit::Panicked};
+-        let status=self.shared.state.lock().ok().map(|s|self.shared.status(&s));
+-        Ok(JoinReceipt {exit,status})
++        let mailbox={
++            let (s, poisoned)=match self.shared.state.lock() {
++                Ok(s)=>(s,false), Err(error)=>(error.into_inner(),true),
++            };
++            MailboxAccounting {poisoned,status:self.shared.status(&s)}
++        };
++        // The actual worker is gone before either snapshot. Terminal port clones
++        // cannot rearm it. No backend methods are invoked to obtain accounting.
++        let route=self.shared.route.diagnostic_snapshot();
++        Ok(JoinedMixerSession {_retained:self.shared.clone(),exit,
++            accounting:JoinedAccounting {mailbox,route}})
+     }
+ }
+ fn worker_main(p:Arc<Shared>,wake:Receiver<()>)->WorkerExit {
+@@ -464,7 +507,7 @@
+     #[test] fn worker_drop_body_signals_only_harness_retains_handle_for_cleanup() {
+         let f=fixture(false,false);let (p,mut w,start)=paused(&f,1);let b=arm(&p);start.send(()).unwrap();
+         // Retain the real handle solely so this test never leaves a detached
+-        // thread behind. Drop itself emits no JoinReceipt or join operation.
++        // thread behind. Drop itself emits no joined session or join operation.
+         let handle=w.handle.take().unwrap();drop(w);
+         assert_eq!(handle.join().unwrap(),WorkerExit::Stopped);
+         assert_eq!(p.inspect().unwrap().stop_reason,StopReason::WorkerDropped);
+@@ -485,3 +528,125 @@
+         assert!(j.status().is_none());assert!(f.route.current_key().is_none());
+     }
+ }
++
++#[cfg(test)]
++mod joined_session_tests {
++    use super::*;
++    use crate::mixer_producer::{AckSettings,FrameAck,Pending};
++    use crate::mixer_route::{BackendOutcome,MixerBackend,SettingsSink};
++    #[derive(Clone,Copy)] enum Reply {Commit,Unknown,BadSequence,Reject,Panic}
++    struct Record {baseline:BaselineReceipt,reply:Reply,calls:usize,settings:usize,baseline_calls:usize,
++        backend_drops:usize,sink_drops:usize,settings_panic:bool,settings_error:bool}
++    struct Backend {r:Arc<Mutex<Record>>,entered:mpsc::Sender<Envelope>}
++    impl MixerBackend for Backend {
++        fn baseline(&mut self)->Result<BaselineReceipt,String> {let mut r=self.r.lock().unwrap();r.baseline_calls+=1;Ok(r.baseline)}
++        fn submit(&mut self,e:Envelope)->BackendOutcome {
++            self.entered.send(e).unwrap();let mut r=self.r.lock().unwrap();r.calls+=1;
++            match r.reply {
++                Reply::Commit=>{r.baseline.kernel_sequence+=1;BackendOutcome::Committed(FrameAck {request:e,kernel_sequence:r.baseline.kernel_sequence})},
++                Reply::Unknown=>BackendOutcome::Unknown,
++                Reply::BadSequence=>BackendOutcome::Committed(FrameAck {request:e,kernel_sequence:r.baseline.kernel_sequence+2}),
++                Reply::Reject=>BackendOutcome::Rejected {request:e,reason:5},
++                Reply::Panic=>{drop(r);panic!("joined backend panic")},
++            }
++        }
++    }
++    impl Drop for Backend {fn drop(&mut self){self.r.lock().unwrap().backend_drops+=1;}}
++    struct Sink {r:Arc<Mutex<Record>>,entered:mpsc::Sender<FrameAck>,proceed:Option<Receiver<()>>}
++    impl SettingsSink for Sink {
++        fn commit(&mut self,a:FrameAck)->Result<(),String> {
++            self.entered.send(a).unwrap();if let Some(rx)=&self.proceed {rx.recv().unwrap();}
++            let mut r=self.r.lock().unwrap();r.settings+=1;
++            if r.settings_panic {drop(r);panic!("joined settings panic")}
++            if r.settings_error {Err("partial settings".into())} else {Ok(())}
++        }
++    }
++    impl Drop for Sink {fn drop(&mut self){self.r.lock().unwrap().sink_drops+=1;}}
++    struct Fixture {route:Arc<MixerRoute>,r:Arc<Mutex<Record>>,entered:Receiver<Envelope>,
++        settings_entered:Receiver<FrameAck>,settings_go:mpsc::Sender<()>}
++    fn baseline()->BaselineReceipt {BaselineReceipt {key:Key {instance:[21,43],run_id:65,epoch:1,producer_id:87},
++        frame:std::array::from_fn(|i|(i as u8).wrapping_mul(3)),kernel_sequence:7}}
++    fn fixture(held_settings:bool)->Fixture {
++        let r=Arc::new(Mutex::new(Record {baseline:baseline(),reply:Reply::Commit,calls:0,settings:0,baseline_calls:0,
++            backend_drops:0,sink_drops:0,settings_panic:false,settings_error:false}));
++        let (tx,entered)=mpsc::channel();let (st,settings_entered)=mpsc::channel();let (settings_go,sr)=mpsc::channel();
++        let route=Arc::new(MixerRoute::new(4,Box::new(Backend {r:r.clone(),entered:tx}),
++            Box::new(Sink {r:r.clone(),entered:st,proceed:held_settings.then_some(sr)})).unwrap());
++        Fixture {route,r,entered,settings_entered,settings_go}
++    }
++    fn paused(f:&Fixture)->(MixerPort,MixerWorker,mpsc::Sender<()>,BaselineReceipt) {
++        let (go,start)=mpsc::channel();let (p,w)=channel_with_spawn(f.route.clone(),4,move |job|
++            thread::Builder::new().spawn(move ||{start.recv().unwrap();job()})).unwrap();
++        let b=p.refresh_baseline().unwrap();p.confirm_adoption(b,true).unwrap();(p,w,go,b)
++    }
++    fn frame(n:u8)->Frame {let mut f=baseline().frame;f[34]=n;f}
++    #[test] fn joined_object_retains_same_endpoint_after_all_ports_drop() {
++        let f=fixture(false);f.r.lock().unwrap().reply=Reply::Unknown;
++        let (p,w,start,b)=paused(&f);let e=p.enqueue_for_key(b.key,frame(1)).unwrap();start.send(()).unwrap();f.entered.recv().unwrap();
++        let joined=w.join().unwrap();let copied=joined.accounting();drop(p);drop(f.route);
++        let retained={let r=f.r.lock().unwrap();(r.backend_drops,r.sink_drops,r.calls,r.settings,r.baseline_calls)};
++        drop(joined);let released={let r=f.r.lock().unwrap();(r.backend_drops,r.sink_drops,r.calls,r.settings,r.baseline_calls)};
++        assert_eq!(retained,(0,0,1,0,1));
++        assert_eq!(released,(1,1,1,0,1));
++        assert_eq!(copied.route.producer.status.unresolved,Some(Pending {request:e,uncertain:true}));
++        // Copied diagnostics survive locally, but no endpoint/query/restoration
++        // ownership follows from retaining this ordinary Copy value.
++    }
++    #[test] fn joined_unknown_and_malformed_positive_keep_every_pending_request() {
++        for malformed in [false,true] {
++            let f=fixture(false);f.r.lock().unwrap().reply=if malformed {Reply::BadSequence} else {Reply::Unknown};
++            let (p,w,start,b)=paused(&f);let clone=p.clone();let e=p.enqueue_for_key(b.key,frame(2)).unwrap();
++            start.send(()).unwrap();f.entered.recv().unwrap();let joined=w.join().unwrap();
++            let a=joined.accounting();let resume=clone.enqueue_for_key(b.key,frame(3));
++            assert_eq!(joined.exit(),WorkerExit::Stopped);assert!(!a.mailbox.poisoned);assert!(!a.route.endpoint_poisoned);assert!(!a.route.producer.poisoned);
++            assert_eq!(a.route.producer.status.unresolved,Some(Pending {request:e,uncertain:!malformed}));
++            assert_eq!(joined.last_ack(),None);assert_eq!(a.route.producer.status.kernel_sequence,7);
++            assert_eq!(resume,Err(TransportError::Terminal));assert_eq!(f.r.lock().unwrap().calls,1);
++            assert_eq!(f.r.lock().unwrap().settings,0);
++        }
++    }
++    #[test] fn joined_settings_error_and_panic_retain_exact_known_ack() {
++        for panic in [false,true] {
++            let f=fixture(true);{let mut r=f.r.lock().unwrap();r.settings_panic=panic;r.settings_error=!panic;}
++            let (p,w,start,b)=paused(&f);let e=p.enqueue_for_key(b.key,frame(4)).unwrap();start.send(()).unwrap();
++            let actual=f.settings_entered.recv().unwrap();f.settings_go.send(()).unwrap();let joined=w.join().unwrap();
++            let a=joined.accounting();let expected=AckCheckpoint {ack:FrameAck {request:e,kernel_sequence:8},
++                settings:if panic {AckSettings::CallbackArmed} else {AckSettings::ReturnedErr}};
++            assert_eq!(joined.last_ack(),Some(expected));
++            assert_eq!(actual,expected.ack);assert_eq!(a.route.producer.status.kernel_sequence,8);assert!(a.route.producer.status.unresolved.is_none());
++            assert_eq!(a.route.producer.poisoned,panic);assert_eq!(a.route.endpoint_poisoned,panic);
++            assert_eq!(joined.exit(),if panic {WorkerExit::Panicked} else {WorkerExit::Stopped});
++            assert_eq!(p.enqueue_for_key(b.key,frame(5)),Err(TransportError::Terminal));
++            let r=f.r.lock().unwrap();assert_eq!((r.calls,r.settings),(1,1));
++        }
++    }
++    #[test] fn joined_backend_panic_retains_pending_and_endpoint_poison() {
++        let f=fixture(false);f.r.lock().unwrap().reply=Reply::Panic;let (p,w,start,b)=paused(&f);
++        let e=p.enqueue_for_key(b.key,frame(6)).unwrap();start.send(()).unwrap();f.entered.recv().unwrap();let joined=w.join().unwrap();
++        let a=joined.accounting();assert_eq!(joined.exit(),WorkerExit::Panicked);assert!(a.route.endpoint_poisoned);assert!(!a.route.producer.poisoned);
++        assert_eq!(a.route.producer.status.unresolved,Some(Pending {request:e,uncertain:true}));
++        assert_eq!(joined.last_ack(),None);let r=f.r.lock().unwrap();assert_eq!((r.calls,r.settings),(1,0));
++    }
++    #[test] fn joined_prior_commit_survives_later_noncommit_diagnostic() {
++        let f=fixture(false);let (p,w,start,b)=paused(&f);
++        let (entered,arrived)=mpsc::channel();let (resume,proceed)=mpsc::channel();
++        *p.shared().after_dispatch.lock().unwrap()=Some((entered,proceed));
++        let first=p.enqueue_for_key(b.key,frame(7)).unwrap();let second=p.enqueue_for_key(b.key,frame(8)).unwrap();
++        start.send(()).unwrap();arrived.recv().unwrap();f.r.lock().unwrap().reply=Reply::Reject;resume.send(()).unwrap();
++        f.entered.recv().unwrap();f.entered.recv().unwrap();let joined=w.join().unwrap();
++        assert_eq!(joined.exit(),WorkerExit::Stopped);
++        assert_eq!(joined.status().unwrap().last,Some(AttemptReceipt {request:second,outcome:AttemptOutcome::Rejected(5)}));
++        assert_eq!(joined.last_ack(),Some(AckCheckpoint {ack:FrameAck {request:first,kernel_sequence:8},settings:AckSettings::ReturnedOk}));
++        assert!(joined.accounting().route.producer.status.unresolved.is_none());assert_eq!(f.r.lock().unwrap().calls,2);
++    }
++    #[test] fn joined_mailbox_poison_is_salvaged_only_as_flagged_diagnostics() {
++        let f=fixture(false);let (p,w,start,b)=paused(&f);let shared=p.token.shared.clone();
++        let poison=thread::spawn(move ||{let _held=shared.state.lock().unwrap();panic!("joined mailbox poison")}).join();
++        start.send(()).unwrap();let joined=w.join().unwrap();let a=joined.accounting();
++        assert!(poison.is_err());assert_eq!(joined.exit(),WorkerExit::StatePoisoned);assert_eq!(joined.status(),None);
++        assert!(a.mailbox.poisoned);assert!(a.mailbox.status.worker_exited);assert!(!a.route.producer.poisoned);
++        assert_eq!(joined.last_baseline(),Some(BaselineCheckpoint {receipt:b,released:true}));
++        assert_eq!(p.enqueue_for_key(b.key,frame(9)),Err(TransportError::Poisoned));
++        assert_eq!(f.r.lock().unwrap().calls,0);
++    }
++}

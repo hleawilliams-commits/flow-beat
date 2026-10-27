@@ -469,3 +469,57 @@ verified restoration before guarded restart. No emulator/device contact,
 service action, physical control, core/package/catalog change or old cleanup
 occurred. MODS/native menu, stems activation/staging, USB activation and physical
 validation remain open. Preserve unrelated untracked work.
+
+
+## October 27 follow-up: retain the joined session and exact ACK evidence
+
+The separate [joined-session successor](../experiments/emulator-joined-session/)
+changes only producer, route and transport after the frozen bounded-mailbox
+candidate. All 17 prepared files are pinned; the other 14, including App, main,
+config, controls and lockfile, remain byte-identical. Patch SHA-256:
+`4267249c94882120ad9b8e2b37e3894704db95876d51b5c42a10a5f244596cad`.
+
+A completed real join now returns a non-Clone, privately constructed session
+retaining the same route/backend and copied accounting. The producer retains
+its latest exact full ACK before invoking settings, distinguishing no callback,
+closed-gate skip, armed/no recorded return, returned success and returned error.
+Close and later noncommits do not erase that ACK. A separate exact baseline
+checkpoint distinguishes stage, acknowledgment and local release/adoption.
+Both checkpoints carry their own keys and can refer to different generations;
+neither is a complete history or original recovery baseline.
+
+Read-only poison salvage never clears poison or reopens operations. A poisoned
+raw admission flag is not usable admission; an unresolved malformed-positive
+request remains unresolved even with uncertain=false. A normal worker exit,
+empty mailbox or copied diagnostic is not recovery permission. Dropping the
+final owner can destroy backend resources without restoring the overlay.
+
+Production locked/offline host compilation succeeds with 36 visible unused-code
+warnings. The actual crate lists 126 tests and passes the 11 new cases; 115
+inherited cases are compiled/listed but filtered. All seven strict source
+controls compile and fail their exact intended assertion, including filename,
+line/column, test name/count and exit 101. The ownership control uses Weak while
+preserving a real join and safe fixture cleanup. Independent host results are
+retained separately with comparison/review in the experiment. No Rust sanitizer,
+Linux ARM64 runtime, audio, native-consumption or physical-timing claim follows.
+
+Next implement a separately reviewed lifecycle owner holding both worker and
+supervisor resources through join, with idempotent App-exit and startup/return
+paths. Unix supervisor EOF and successful Windows job binding can stop QEMU
+independently on process death; main-only cleanup also misses macOS Cmd-Q paths.
+This patch does not change those policies or fix App's existing stop-without-join
+ordering. Main remains None, with no backend factory or enable flag.
+
+The [lifecycle/host-file audit](../experiments/emulator-joined-session/LIFECYCLE-LIMITS.md)
+records independent preview/driver writes and boot deletion of mixer.state and
+knob.ctr. The earlier recovery contract retains only the original counter file;
+a real settings sink must additionally retain mixer.state originals/absence/mode/
+identity, exclude writers and account for partial two-file progress. A callback
+outcome cannot prove file contents, durability or restoration. No such sink or
+stopped-recovery adapter exists here.
+
+Native ownership, MODS publication, stems staging/activation, USB activation and
+physical validation remain unfinished. Runtime dispatch and the stems staging
+gate remain closed. No emulator/device endpoint, service action, physical control,
+core/package/catalog change or old cleanup occurred. Preserve the original emulator checkout, frozen parents and
+unrelated untracked work, including deck-lights/.
