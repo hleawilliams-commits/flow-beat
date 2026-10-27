@@ -1,0 +1,69 @@
+{
+  "all_variant_extractions_and_host_outputs_byte_identical": true,
+  "declarations": {
+    "byte_identical": true,
+    "sha256": "6d401c8e5a06fba45a320f3887c1be0ec0a74cf1d184711ca535649ef972f323"
+  },
+  "exact_full_source_comparison": true,
+  "fixture_sha256": "f616e5670a5c368e3289ac3298a33152295d46e76bea856070a88a04c136e2f5",
+  "full_source_only_change": "One __MODULE_PARM_TYPE(spi_crc_len, \"array of int\") line added",
+  "function_extractions": {
+    "crc16_x25": {
+      "byte_identical": true,
+      "sha256": "0b35e2e8113ae437c1981b1e508dc29b1137d06764b73d67d94599e2cf07e542"
+    },
+    "crc_lengths_get": {
+      "byte_identical": true,
+      "sha256": "a7400ac05a8307c65501582b501a4023cd50f60803c6ecde5ddd919c8e5fa3b6"
+    },
+    "crc_lengths_set": {
+      "byte_identical": true,
+      "sha256": "9ac612419093bcfad305dd93ac73102a6611765334dd9ff6add32143fffc9b31"
+    },
+    "ctrl_ioctl": {
+      "byte_identical": true,
+      "sha256": "4156173e93c79199013f08ec7575ce276624cb51d627e27eac0ad4a934506e1c"
+    },
+    "ctrl_open": {
+      "byte_identical": true,
+      "sha256": "86023f56a787535249f4af1eea97b36d273cf0d9c642ea437dacc96223441d9c"
+    },
+    "ctrl_release": {
+      "byte_identical": true,
+      "sha256": "b86f6da35cda95f471a8863e57267ba4cf7605cf5a34f6b88e7254cbef0c97fc"
+    },
+    "ctrl_write": {
+      "byte_identical": true,
+      "sha256": "624817cdd9562c2d60d34b1861b95d9c1dbe41cf285157426cadb44b2be5b48a"
+    },
+    "mixer_owned_next": {
+      "byte_identical": true,
+      "sha256": "bec2720bce36e3f9a2faae64171ff567af02737b489edad415c79a402fe1425b"
+    },
+    "spi_open": {
+      "byte_identical": true,
+      "sha256": "40e931802f1da89622a8100984928079991f36df2134732d03c8a9547a831fbc"
+    },
+    "spi_read": {
+      "byte_identical": true,
+      "sha256": "f31e3acb35b10294366490eb0de61eded2cd48ab23d11de97c0f601e464d857b"
+    },
+    "spi_release": {
+      "byte_identical": true,
+      "sha256": "c0585bb9bf5dc21edcf7ae830f6bfbfe5d0024cd944a1ffa00f048ccc011cb33"
+    },
+    "xget_bytes": {
+      "byte_identical": true,
+      "sha256": "e6ef2b6cd673270aa3ba2531cd4d5449fa87339388da34630368a94d55067579"
+    },
+    "xput_bytes": {
+      "byte_identical": true,
+      "sha256": "adb6ccc20e19e9a91f18c705aada860497f73d709ea371c69adce6603827e3f4"
+    }
+  },
+  "new_patch_sha256": "34d870df06f902c04eb0c2029a1c0411e647519ff4a8fabdc17b16ffe8befb3f",
+  "new_result_sha256": "7fb98ccc51d3e4f4f102e0dd3bab7eb9e0c4ff2d0f200f759eb3bfac110181a5",
+  "old_patch_sha256": "2da71a718cd0ffc7fc192ad2281fae52afc954d167a3a5d7e4a578968b1c0919",
+  "old_result_sha256": "d84abda80147eda0ff8afdd68de9ded7b6d9f7f7069865f700c501a467078f8e",
+  "scope": "Offline byte comparisons between retained input/extraction/output snapshots; no runtime evidence."
+}

@@ -1,0 +1,330 @@
+--- a/guest/modules/subucom_virt/subucom_virt.c
++++ b/guest/modules/subucom_virt/subucom_virt.c
+@@ -47,7 +47,9 @@
+ #include <linux/sched.h>   /* schedule_timeout_interruptible */
+ #include <linux/poll.h>    /* poll_table, POLLIN, POLLRDNORM */
+ #include <linux/version.h>
++#include <linux/capability.h>
+ #include "subucom_frames.h"  /* real captured per-bus idle frames */
++#include "subucom_ownership.h"
+ 
+ #define DRV_NAME        "subucom_virt"
+ #define CTRL_DEV_NAME   "subucom_ctrl"
+@@ -136,6 +138,32 @@
+ static u8 inject_pending[N_SPI][MISO_SIZE];
+ static int has_inject[N_SPI];
+ 
++/* Phase-1 offline candidate. This is a permanent mixer fence for this module
++ * lifetime, not a producer handback or recovery protocol. All fields below,
++ * the overlay and spi_crc_len are serialized by miso_lock. Never retain an
++ * extra file reference: VFS final release must be able to orphan the lease. */
++#define OWNED_BUS 2
++#define OWNED_CRC 96
++static bool mixer_fenced;
++static struct file *mixer_owner;
++static u64 mixer_run;
++static u64 mixer_epoch;
++static u64 mixer_sequence;
++static bool allow_overlay_ownership;
++module_param(allow_overlay_ownership, bool, 0444);
++MODULE_PARM_DESC(allow_overlay_ownership,
++    "Allow privileged mixer ownership; default off, no legacy handback");
++
++static_assert(sizeof(struct az_overlay_command) == 32);
++static_assert(sizeof(struct az_overlay_frame) == 184);
++static_assert(sizeof(struct az_overlay_state) == 192);
++static_assert(offsetof(struct az_overlay_command, run_id) == 8);
++static_assert(offsetof(struct az_overlay_command, epoch) == 16);
++static_assert(offsetof(struct az_overlay_command, sequence) == 24);
++static_assert(offsetof(struct az_overlay_frame, frame) == 32);
++static_assert(offsetof(struct az_overlay_state, frame) == 40);
++static_assert(AZ_OVERLAY_BYTES == MISO_SIZE);
++
+ /* MOSI: EP122 writes LED frames via MOSI_TRANSFER ioctl, on every bus, each
+  * about 16 times a second. Each bus keeps its own latest payload (dereferenced
+  * from the ioctl cmd), so a write on one bus never hides another bus's: with a
+@@ -179,7 +207,62 @@
+ /* RE-sweep helper: override per-bus CRC prefix length via cmdline
+  * subucom_virt.spi_crc_len=28,LEN,96,LEN . Buses: [spi1,spi2,spi3,spi5]. */
+ static int n_crc = N_SPI;
+-module_param_array(spi_crc_len, int, &n_crc, 0644);
++/* Parse a complete request in private storage. A malformed list, or a mixer
++ * prefix change after acquisition, cannot partially change any live prefix.
++ * Short valid lists still replace only their supplied prefix and set n_crc. */
++static int crc_lengths_set(const char *val, const struct kernel_param *kp)
++{
++    int parsed[N_SPI], count = 0, ret = 0;
++    char *copy, *cursor, *token;
++    unsigned long flags;
++
++    copy = kstrdup(val, GFP_KERNEL);
++    if (!copy)
++        return -ENOMEM;
++    cursor = copy;
++    while ((token = strsep(&cursor, ",")) != NULL) {
++        if (count == N_SPI) {
++            ret = -EINVAL;
++            goto out;
++        }
++        ret = kstrtoint(token, 0, &parsed[count]);
++        if (ret)
++            goto out;
++        count++;
++    }
++    spin_lock_irqsave(&miso_lock, flags);
++    if (mixer_fenced && count > OWNED_BUS && parsed[OWNED_BUS] != OWNED_CRC) {
++        ret = -EBUSY;
++    } else {
++        memcpy(spi_crc_len, parsed, count * sizeof(parsed[0]));
++        n_crc = count;
++    }
++    spin_unlock_irqrestore(&miso_lock, flags);
++out:
++    kfree(copy);
++    return ret;
++}
++
++static int crc_lengths_get(char *buf, const struct kernel_param *kp)
++{
++    int values[N_SPI], count, i, len = 0;
++    unsigned long flags;
++
++    spin_lock_irqsave(&miso_lock, flags);
++    memcpy(values, spi_crc_len, sizeof(values));
++    count = n_crc;
++    spin_unlock_irqrestore(&miso_lock, flags);
++    for (i = 0; i < count; i++)
++        len += scnprintf(buf + len, PAGE_SIZE - len, "%s%d", i ? "," : "", values[i]);
++    return len;
++}
++
++static const struct kernel_param_ops crc_lengths_ops = {
++    .set = crc_lengths_set,
++    .get = crc_lengths_get,
++};
++module_param_cb(spi_crc_len, &crc_lengths_ops, NULL, 0644);
++__MODULE_PARM_TYPE(spi_crc_len, "array of int");
+ MODULE_PARM_DESC(spi_crc_len, "per-bus CRC prefix length {spi1,spi2,spi3,spi5}");
+ 
+ static int testmode_held;   /* 1 while the combo is ORed into every ErP frame */
+@@ -259,12 +342,12 @@
+             frame[6] |= 0x04;   /* BTN_TEMPO_RANGE */
+             frame[8] |= 0x08;   /* BTN_CALL_PREV */
+         }
++        len = spi_crc_len[bus];
+         spin_unlock_irqrestore(&miso_lock, flags);
+ 
+         /* Re-stamp the per-bus CRC so overlaid control bytes stay valid.
+          * No-op on an untouched idle frame (verified against captures). */
+-        len = spi_crc_len[bus];
+-        if (len >= 0 && len + 1 < MISO_SIZE) {
++        if (len >= 0 && len < MISO_SIZE - 1) {
+             crc = crc16_x25(frame, len);
+             frame[len]     = crc & 0xff;
+             frame[len + 1] = crc >> 8;
+@@ -374,7 +457,115 @@
+ 
+ static int ctrl_release(struct inode *inode, struct file *filp)
+ {
++    unsigned long flags;
++
++    spin_lock_irqsave(&miso_lock, flags);
++    if (mixer_owner == filp)
++        mixer_owner = NULL;
++    /* Keep overlay, CRC, epoch, sequence and fence: never synthesize release
++     * input on owner death or permit queued untagged frames to resume. */
++    spin_unlock_irqrestore(&miso_lock, flags);
+     return 0;
++}
++
++/* Called with miso_lock held. Explicit RELEASE may race other syscalls; final
++ * file release cannot run until in-flight file references have completed. */
++static int mixer_owned_next(struct file *filp, const struct az_overlay_command *h)
++{
++    if (mixer_owner != filp)
++        return -EACCES;
++    if (h->run_id != mixer_run || h->epoch != mixer_epoch)
++        return -ESTALE;
++    if (mixer_sequence == U64_MAX)
++        return -EOVERFLOW;
++    if (h->sequence != mixer_sequence + 1)
++        return -ESTALE;
++    return 0;
++}
++
++static long ctrl_ioctl(struct file *filp, unsigned int cmd, unsigned long arg)
++{
++    struct az_overlay_frame request;
++    struct az_overlay_command *h = &request.header;
++    unsigned long flags;
++    int ret = 0;
++    size_t size;
++
++    /* Exact command encodings validate direction and size, not just number. */
++    switch (cmd) {
++    case AZ_OVERLAY_STATE: {
++        struct az_overlay_state state = { 0 };
++
++        state.version = AZ_OVERLAY_VERSION;
++        spin_lock_irqsave(&miso_lock, flags);
++        state.flags = (mixer_fenced ? AZ_OVERLAY_FENCED : 0) |
++                      (mixer_owner ? AZ_OVERLAY_ACTIVE : 0) |
++                      (mixer_owner == filp ? AZ_OVERLAY_CALLER_OWNER : 0) |
++                      (has_inject[OWNED_BUS] ? AZ_OVERLAY_INJECTED : 0);
++        state.run_id = mixer_run;
++        state.epoch = mixer_epoch;
++        state.sequence = mixer_sequence;
++        state.crc_len = spi_crc_len[OWNED_BUS];
++        memcpy(state.frame, has_inject[OWNED_BUS] ? inject_pending[OWNED_BUS] :
++               az_bus_frame[OWNED_BUS], MISO_SIZE);
++        spin_unlock_irqrestore(&miso_lock, flags);
++        return xput_bytes((void __user *)arg, (u8 *)&state, sizeof(state));
++    }
++    case AZ_OVERLAY_CLAIM:
++    case AZ_OVERLAY_RELEASE:
++        size = sizeof(*h);
++        break;
++    case AZ_OVERLAY_FRAME:
++        size = sizeof(request);
++        break;
++    default:
++        return -ENOTTY;
++    }
++
++    if (!(filp->f_mode & FMODE_WRITE))
++        return -EBADF;
++    if (!capable(CAP_SYS_ADMIN))
++        return -EPERM;
++    if (!allow_overlay_ownership)
++        return -EOPNOTSUPP;
++    if (xget_bytes((u8 *)&request, (const void __user *)arg, size))
++        return -EFAULT;
++    if (h->version != AZ_OVERLAY_VERSION || h->reserved || !h->run_id)
++        return -EINVAL;
++
++    spin_lock_irqsave(&miso_lock, flags);
++    if (cmd == AZ_OVERLAY_CLAIM) {
++        if (h->sequence)
++            ret = -EINVAL;
++        else if (mixer_owner)
++            ret = -EBUSY;
++        else if (h->epoch != mixer_epoch)
++            ret = -ESTALE;
++        else if (mixer_epoch == U64_MAX)
++            ret = -EOVERFLOW;
++        else if (spi_crc_len[OWNED_BUS] != OWNED_CRC)
++            ret = -EINVAL;
++        else {
++            mixer_epoch++;
++            mixer_sequence = 0;
++            mixer_run = h->run_id;
++            mixer_owner = filp;
++            mixer_fenced = true;
++        }
++    } else {
++        ret = mixer_owned_next(filp, h);
++        if (!ret) {
++            if (cmd == AZ_OVERLAY_FRAME) {
++                memcpy(inject_pending[OWNED_BUS], request.frame, MISO_SIZE);
++                has_inject[OWNED_BUS] = 1;
++            } else {
++                mixer_owner = NULL;
++            }
++            mixer_sequence = h->sequence;
++        }
++    }
++    spin_unlock_irqrestore(&miso_lock, flags);
++    return ret;
+ }
+ 
+ /* Bus-tagged control protocol (byte 0 = bus id 0..N_SPI-1):
+@@ -392,6 +583,10 @@
+     if (count == 0) {
+         int i;
+         spin_lock_irqsave(&miso_lock, flags);
++        if (mixer_fenced) {
++            spin_unlock_irqrestore(&miso_lock, flags);
++            return -EBUSY;
++        }
+         for (i = 0; i < N_SPI; i++)
+             has_inject[i] = 0;
+         spin_unlock_irqrestore(&miso_lock, flags);
+@@ -405,6 +600,10 @@
+ 
+     if (count == 1) {
+         spin_lock_irqsave(&miso_lock, flags);
++        if (bus == OWNED_BUS && mixer_fenced) {
++            spin_unlock_irqrestore(&miso_lock, flags);
++            return -EBUSY;
++        }
+         has_inject[bus] = 0;
+         spin_unlock_irqrestore(&miso_lock, flags);
+         return 1;
+@@ -418,6 +617,10 @@
+         if (xget_bytes(tmp, buf + 1, MISO_SIZE))
+             return -EFAULT;
+         spin_lock_irqsave(&miso_lock, flags);
++        if (bus == OWNED_BUS && mixer_fenced) {
++            spin_unlock_irqrestore(&miso_lock, flags);
++            return -EBUSY;
++        }
+         memcpy(inject_pending[bus], tmp, MISO_SIZE);
+         has_inject[bus] = 1;
+         spin_unlock_irqrestore(&miso_lock, flags);
+@@ -480,6 +683,7 @@
+     .release = ctrl_release,
+     .read    = ctrl_read,
+     .write   = ctrl_write,
++    .unlocked_ioctl = ctrl_ioctl,
+ };
+ 
+ /* ------------------------------------------------------------------ */
+--- /dev/null
++++ b/guest/modules/subucom_virt/subucom_ownership.h
+@@ -0,0 +1,46 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++#ifndef SUBUCOM_OWNERSHIP_H
++#define SUBUCOM_OWNERSHIP_H
++
++#include <linux/types.h>
++#include <linux/ioctl.h>
++
++#define AZ_OVERLAY_VERSION 1u
++#define AZ_OVERLAY_BYTES 152
++#define AZ_OVERLAY_FENCED 1u
++#define AZ_OVERLAY_ACTIVE 2u
++#define AZ_OVERLAY_CALLER_OWNER 4u
++#define AZ_OVERLAY_INJECTED 8u
++
++struct az_overlay_command {
++    __u32 version;
++    __u32 reserved;
++    __aligned_u64 run_id;
++    __aligned_u64 epoch;
++    __aligned_u64 sequence;
++};
++
++struct az_overlay_frame {
++    struct az_overlay_command header;
++    __u8 frame[AZ_OVERLAY_BYTES];
++};
++
++struct az_overlay_state {
++    __u32 version;
++    __u32 flags;
++    __aligned_u64 run_id;
++    __aligned_u64 epoch;
++    __aligned_u64 sequence;
++    __s32 crc_len;
++    __u32 reserved;
++    __u8 frame[AZ_OVERLAY_BYTES];
++};
++
++/* Native 64-bit ABI only; no compat ioctl handler is provided. CLAIM and
++ * RELEASE have no output after commit. STATE is a snapshot, not delivery ACK. */
++#define AZ_OVERLAY_CLAIM _IOW('Z', 0x50, struct az_overlay_command)
++#define AZ_OVERLAY_FRAME _IOW('Z', 0x51, struct az_overlay_frame)
++#define AZ_OVERLAY_RELEASE _IOW('Z', 0x52, struct az_overlay_command)
++#define AZ_OVERLAY_STATE _IOR('Z', 0x53, struct az_overlay_state)
++
++#endif

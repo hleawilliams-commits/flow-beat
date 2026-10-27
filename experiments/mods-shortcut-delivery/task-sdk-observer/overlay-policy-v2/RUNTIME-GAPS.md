@@ -126,3 +126,8 @@ a new run, selective backup and bounded compatibility check be considered.
 Do not reuse the closed run, repeat its refusal or restore its old snapshot.
 Native task provenance/returns/ownership, direct menus, MODS 0.1.3 publication,
 stems staging/activation, USB activation and physical timing remain unresolved.
+
+
+## Subsequent offline ownership candidate
+
+The separate [emulator ownership experiment](../../../emulator-overlay-ownership/) now addresses final mixer mutation and CRC serialization in a default-off kernel patch. It deliberately retains a permanent fence after owner release/close. It has no queued-producer handback, stopped recovery, runtime adapter or installation, so the gaps and closed runner gate above remain applicable. Source, tests and review are recorded separately; no old helper is replaced.

@@ -293,3 +293,41 @@ Only then consider a new run and fresh selective backup. Do not repeat unchanged
 passing suites or reuse the closed refusal. Native task ownership/returns,
 MODS 0.1.3 publication, stems staging/activation, USB activation and physical
 validation remain open.
+
+
+### Emulator overlay ownership phase 1 — offline candidate
+
+A separate [emulator-kernel patch](../experiments/emulator-overlay-ownership/)
+now checks mixer ownership at the final mutation boundary. A default-off opt-in
+permits a privileged writable open-file description to acquire an epoch; tagged
+full-frame writes require that file, run ID and exact next sequence. Legacy
+mixer writes/clears are fenced after acquisition, including requests copied
+before it, and clear-all refuses atomically. CRC updates parse privately before
+locked commit; frame and CRC reads use one locked snapshot. Explicit release
+and final close preserve the overlay and permanent fence.
+
+The actual-source host suite passes 146 assertions in each of plain, ASan/UBSan
+and TSan modes, with seven exact failing mutation controls per mode and 17
+source integration checks. Independent full runs match byte for byte. Strict
+ARM64 compilation/modpost passes with no warnings, and all 33 undefined symbols
+resolve in the retained kernel export table. The final module hash is
+`bfc33fb721cf292b1472ac4c9cca6687a818624f5147f31f18b17a3c4503aaa2`.
+An initial build revealed missing CRC parameter-type metadata. Its one-line
+correction restores the original entry exactly once; all five executable
+sections remain byte-identical, independently checked. Both build/test
+checkpoints and the earlier fixture compile failure remain retained privately.
+
+This is a partial arbitration candidate, **not an installed module or a usable
+producer handback**. Owner loss can leave held input behind a permanent fence.
+The next work is an explicit module-instance/producer-generation handback route
+that cannot revive queued input, followed by owned stopped recovery verifying
+the complete original neutral overlay and exact host bytes before restart.
+Do not install this phase or wire the inert V2 runner on the strength of host
+and build results alone. No new live identity or enabling manifest exists.
+
+Only isolated local build/test work occurred; no emulator/device connection,
+input, service action, restart, installed core/module/package/catalog change or
+physical access occurred. The last released emulator state was neither changed
+nor revalidated. All old runner/policy helpers and the closed refusal remain
+unchanged. Native task provenance/returns/ownership, MODS 0.1.3 publication,
+stems staging/activation, USB activation and physical validation remain open.
