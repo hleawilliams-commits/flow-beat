@@ -523,3 +523,52 @@ physical validation remain unfinished. Runtime dispatch and the stems staging
 gate remain closed. No emulator/device endpoint, service action, physical control,
 core/package/catalog change or old cleanup occurred. Preserve the original emulator checkout, frozen parents and
 unrelated untracked work, including deck-lights/.
+
+
+## October 27 — owned lifecycle composition remains inactive
+
+The next [separate emulator patch](../experiments/emulator-owned-exit/) addresses
+local ownership through exit and returning startup errors. It holds the matching
+port/worker and optional guest value outside AppCreator, and returns a rejected
+pair intact. The owner transitions Running → Joining → Retained around an actual
+thread join without holding its own mutex during stop/backend work. Concurrent
+completion requests report Joining, then reuse retained diagnostics; a worker
+cannot consume its own join handle. The owned App branch returns before explicit
+guest Quit/stop, and a returning runner fallback also handles an App never made
+or dropped without on_exit. This does not permit final resource destruction.
+
+Review identified and corrected a draft path that could discard a completed
+session on post-join owner-lock poison before any candidate run. Completion now
+stores the typed stop/session/error without clearing poison; read-only diagnostics
+expose that flag. Poison
+before the worker is taken still refuses completion and may leave the worker
+active; that exceptional state is preserved in a focused test. A diagnostic
+NotRecorded stop value is not a claim that stop has never been called while a
+join is in progress. Main keeps the owned pair absent, with no factory or flag.
+
+The first frozen run compiles production with 32 visible unused-code warnings,
+passes 12 focused actual-crate tests, and compiles all seven mutants which each
+fail only their reviewed test/source assertion with exit 101. There are 138
+listed tests; the 126 inherited cases remain filtered. Controls distinguish
+pairing loss, omitted fallback/App finish, illegal owned Quit, lost post-join
+session under poison, erased stop error and premature synthetic guest release.
+Cleanup retains real joins before the control assertions. Independent run and
+comparison/review are preserved in the experiment, separately from raw logs.
+
+Candidate patch SHA-256:
+`b278c09b4db47e341ebc5542386dfa79d185586c905b8c4904c430f2aef51a3b`.
+Primary result SHA-256:
+`e9e1fafe9ac95cc677e9e582db49ab19c0690e87b5ec1268a1379d1eb23ee9d5`.
+All 18 candidate files are pinned; only App/main/transport plus the new owner
+differ from the frozen parent. Rust/Cargo 1.98.1 ran on macOS ARM64; no sanitizer,
+Linux ARM64, Windows, native framework event-loop or audio test is claimed.
+
+A cached-source audit pins eframe 0.29.1/winit 0.30.13. Native initialization can
+fail before AppCreator is called; on_exit cannot veto closure; macOS Cmd-Q can
+terminate without returning the runner. Holding a Unix Child keeps its stdin
+pipe locally alive, but final Drop/process death can still trigger supervisor
+shutdown. Windows retains only a PID, not the leaked process-scoped job handle;
+real owned construction is unavailable. The candidate does not alter these
+policies, leak resources to conceal the gap, or supply live shutdown recovery.
+No real guest, settings file, kernel, input route, physical deck or emulator
+endpoint was contacted, and no publication/staging/runtime gate reopened.

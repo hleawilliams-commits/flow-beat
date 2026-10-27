@@ -1,0 +1,65 @@
+{
+  "candidate_sha256": {
+    "az-preview/src/app.rs": "9e7d7dfe21857b72dde8ab9bae7585192328fb9152a1e0f593b04d2a2c94ccac",
+    "az-preview/src/owned_lifecycle.rs": "26e82ec371ee48ca265f1fb3e18dd613eca5f4a76354db93e1d2c87b31f23f51"
+  },
+  "controls": [
+    {
+      "assertion_anchor": "assert!(rejected);",
+      "file": "az-preview/src/owned_lifecycle.rs",
+      "name": "pair-identity-required",
+      "new": "if false && !worker.is_paired_with(&port) {",
+      "old": "if !worker.is_paired_with(&port) {",
+      "test": "owned_lifecycle::owned_exit_tests::rejected_pair_returns_every_resource_without_implicit_stop"
+    },
+    {
+      "assertion_anchor": "assert_eq!(first.phase, LifecyclePhase::Retained);",
+      "file": "az-preview/src/owned_lifecycle.rs",
+      "name": "returning-fallback-required",
+      "new": "if let Some(_owner) = owner { }",
+      "old": "if let Some(owner) = owner { let _ = owner.finish(); }",
+      "test": "owned_lifecycle::owned_exit_tests::returning_creator_error_joins_once_and_retains_guest_and_backend"
+    },
+    {
+      "assertion_anchor": "assert_eq!(app_snapshot.phase, LifecyclePhase::Retained);",
+      "file": "az-preview/src/app.rs",
+      "name": "app-exit-real-finish",
+      "new": "            let _ = owner.snapshot();",
+      "old": "            let _ = owner.finish();",
+      "test": "app::owned_exit_tests::actual_app_exit_and_return_fallback_retain_same_joined_owner_without_quit"
+    },
+    {
+      "assertion_anchor": "assert!(no_command);",
+      "file": "az-preview/src/app.rs",
+      "name": "owned-exit-never-quit",
+      "new": "            let _ = owner.finish(); let _ = self.links.cmd_tx.send(EmuCmd::Quit);",
+      "old": "            let _ = owner.finish();",
+      "test": "app::owned_exit_tests::actual_app_exit_and_return_fallback_retain_same_joined_owner_without_quit"
+    },
+    {
+      "assertion_anchor": "assert!(s.joined.is_some());",
+      "file": "az-preview/src/owned_lifecycle.rs",
+      "name": "post-join-poison-retains-session",
+      "new": "                if !poisoned { s.joined = Some(session); }",
+      "old": "                s.joined = Some(session);",
+      "test": "owned_lifecycle::owned_exit_tests::owner_poison_during_join_keeps_exact_completed_session_and_stop_result"
+    },
+    {
+      "assertion_anchor": "assert!(typed_stop_error);",
+      "file": "az-preview/src/owned_lifecycle.rs",
+      "name": "stop-error-retained-after-join",
+      "new": "        s.stop = stop.ok().map(Ok);",
+      "old": "        s.stop = Some(stop);",
+      "test": "owned_lifecycle::owned_exit_tests::stop_error_still_joins_and_keeps_exact_known_ack_and_panic_disposition"
+    },
+    {
+      "assertion_anchor": "assert_eq!(retained, (0, 0));",
+      "file": "az-preview/src/owned_lifecycle.rs",
+      "name": "guest-retained-after-join",
+      "new": "        s.stop = Some(stop); drop(s.guest.take());",
+      "old": "        s.stop = Some(stop);",
+      "test": "owned_lifecycle::owned_exit_tests::returning_creator_error_joins_once_and_retains_guest_and_backend"
+    }
+  ],
+  "scope": "Strict compiling actual-source controls. Each executes one selected test and must fail at the exact intended assertion. Real joins and fixture cleanup remain intact; all guest resources are synthetic or absent."
+}

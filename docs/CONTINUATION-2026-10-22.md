@@ -589,3 +589,39 @@ physical validation remain unfinished. Runtime dispatch and the stems staging
 gate remain closed. No emulator/device endpoint, service action, physical control,
 core/package/catalog change or old cleanup occurred. Preserve the original emulator checkout, frozen parents and
 unrelated untracked work, including deck-lights/.
+
+
+## October 27: inactive owner through exit and returning startup failures
+
+Continue from [emulator-owned-exit](../experiments/emulator-owned-exit/), after
+the frozen joined-session candidate. Patch
+`b278c09b4db47e341ebc5542386dfa79d185586c905b8c4904c430f2aef51a3b`
+changes App/main/transport and adds the owner; 14 other candidate files remain
+identical. All 18 final files and the nine frozen inputs are pinned. Main still
+selects no owned port/worker pair; the original emulator checkout is unchanged.
+
+The coordinator rejects a mismatched pair while returning every input, claims
+the worker once, and performs stop/real join outside its owner lock. A stop
+error cannot skip the join. It retains the exact joined session and available
+supervisor value, and neither owned App exit nor the returning fallback sends
+Quit or calls boot::stop. A direct worker-thread finish is refused before taking
+the handle. Poison during join retains completed accounting and its poison flag;
+poison before taking the worker remains Running/unjoined and does not establish
+terminal admission. Copied diagnostics grant no teardown/recovery authority.
+
+Production host compilation, 12 new selected tests and seven strict compiling
+controls pass; see the experiment for independent results, exact assertions and
+source review. The other 126 listed tests were not executed again. Headless App
+fixtures have no launched child. Synthetic generic guest counters prove only
+local retention, while a pinned cached eframe/winit source audit explains the
+unexecuted platform boundaries. No window, real backend, settings-file write,
+guest process, emulator endpoint, physical device or native input ran.
+
+The owned candidate remains unsuitable for live enablement: main's eventual
+Drop can release the Unix supervisor pipe; Cmd-Q/process death can bypass a
+returning wrapper; Windows Launched is a PID, not a job handle. Startup pairing
+rejection also ends in ordinary Drop. Callback dependency cycles/deadlines,
+authenticated backend/receipt authority, native consumption/dwell, unknown
+reconciliation, two-file settings restoration/writer exclusion and owned stopped
+recovery are still required. Do not install this candidate or infer a runtime
+permit. Preserve the prior source/evidence and all staging/publication gates.

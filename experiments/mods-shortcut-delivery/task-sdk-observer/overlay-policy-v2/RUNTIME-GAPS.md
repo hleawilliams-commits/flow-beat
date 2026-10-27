@@ -232,3 +232,28 @@ the earlier recovery contract specifies counter restoration only. There is no
 implemented backend/receipt authority, native dwell guarantee, settings writer,
 unknown reconciliation or owned stopped recovery. Preserve all earlier evidence
 and do not infer a runtime permit from this joined lifetime holder.
+
+
+## Subsequent inactive exit owner
+
+[emulator-owned-exit](../../../emulator-owned-exit/) now composes paired local
+worker/supervisor custody with App exit and returning-runner fallback. Twelve
+new host tests and seven strict compiling controls pass with separate
+independent evidence. The exact port/worker identity is checked; real join runs
+outside the owner lock even after a stop error. Completed accounting survives
+post-join owner poison with a visible flag. Pre-take poison remains a refusal
+that can leave Running/unjoined work. No status alone permits recovery.
+
+The owned branch has no guest Quit/boot::stop action and holds the session and
+optional supervisor value through that local boundary. Main still selects None.
+Its final return would nevertheless drop that owner; Unix supervisor EOF,
+macOS nonreturning termination and Windows process-scoped job lifetime are not
+solved. The Windows value is merely a PID, so the real owned constructor is
+unavailable there. App/runner host fixtures do not validate native platform
+shutdown, and no guest process or emulator endpoint was executed.
+
+Live dispatch stays CLOSED. Do not attach a factory until final custody and
+owned stopped recovery, authenticated backend/receipts, unknown reconciliation,
+callback deadlines, native dwell/ownership and two-file host settings restoration
+with writer exclusion have appropriate evidence. This local owner does not
+restore a native baseline, cancel a queued task or authorize resource release.

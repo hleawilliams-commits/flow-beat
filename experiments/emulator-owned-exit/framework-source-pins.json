@@ -1,0 +1,70 @@
+{
+  "dependency_selection": {
+    "eframe": "0.29.1",
+    "eframe_default_features": false,
+    "eframe_features": [
+      "default_fonts",
+      "glow"
+    ],
+    "lockfile_provenance": "Frozen emulator-joined-session prepared candidate; exact cached dependency selection, not proof of runtime behavior.",
+    "lockfile_relative_path": "az-preview/Cargo.lock",
+    "prepared_lockfile_sha256": "eaf66e88bd38ea8c3aa351330f631fb7ba6ba2194a22faa18ee332c1c595d119",
+    "preview_renderer": "glow",
+    "winit": "0.30.13"
+  },
+  "framework_execution_validated": false,
+  "framework_files": {
+    "eframe@0.29.1/src/epi.rs": {
+      "reviewed_scope": "on_exit contract; NativeOptions run_and_return default",
+      "sha256": "268d0aa4c4f66a750603fc8ea0b6683f6e4c52cdbb051f3080625d8edae74160"
+    },
+    "eframe@0.29.1/src/native/epi_integration.rs": {
+      "reviewed_scope": "ordinary root close request and CancelClose handling",
+      "sha256": "93a20974162d0dd25ffecae4f2d6fb9af95de6282488b5965481f5e33f7db8b2"
+    },
+    "eframe@0.29.1/src/native/glow_integration.rs": {
+      "reviewed_scope": "renderer initialization before AppCreator; optional running state; on_exit destruction",
+      "sha256": "20f8924586ac5249ca32237547c9be58bd220c291afc375aed48b0d555082e02"
+    },
+    "eframe@0.29.1/src/native/run.rs": {
+      "reviewed_scope": "event-loop creation, return/error path and LoopExiting save/destroy",
+      "sha256": "da4bcab737f5b23dc8f02901365dec6ddbb3b5486fdd3925c29ae44041e67f15"
+    },
+    "winit@0.30.13/src/platform_impl/macos/app_state.rs": {
+      "reviewed_scope": "applicationWillTerminate and LoopExiting dispatch",
+      "sha256": "cb346eda09cfb7ddb4941fead441e3242eec0c64639a621e7f3116702531b7a4"
+    },
+    "winit@0.30.13/src/platform_impl/macos/event_loop.rs": {
+      "reviewed_scope": "window-exit notification and native event loop",
+      "sha256": "c538c57419a311e335842f18e55d3e1ba4d493fa88c111d3e956ef81458f0c89"
+    },
+    "winit@0.30.13/src/platform_impl/macos/menu.rs": {
+      "reviewed_scope": "Cmd-Q terminate: menu action",
+      "sha256": "b0bcc89693df6c2f5ff5cbfadaad83cff7fd5815483e2aaeea07b55e61a32ceb"
+    }
+  },
+  "limits": [
+    "Hashes identify inspected source bytes, not executed platform behavior.",
+    "Pinned emulator files describe the original lifecycle; the new successor patch is identified separately by its own candidate evidence.",
+    "No framework source, full private path, runtime identifier, firmware or raw logs are embedded."
+  ],
+  "pinned_emulator": {
+    "commit": "06fc981707e69982c0554bb508e0c646c005a979",
+    "files": {
+      "az-preview/Cargo.toml": {
+        "sha256": "7b7e4cbcd0a902964cb61e6bf8ba084ad2d07140dcfb8264e2a4b662a96814e6"
+      },
+      "az-preview/src/app.rs": {
+        "sha256": "f6a7bb28c3f2dbce759582ac2c7b1147adf93f5137838a833ed5d35f1834864b"
+      },
+      "az-preview/src/boot.rs": {
+        "sha256": "f907da478aa758d4cb2a9f740f529fbe256376230d77635a061a746ce75ec1eb"
+      },
+      "az-preview/src/main.rs": {
+        "sha256": "a13cf052beca509185cb71a56e4196624e0cf6e34d5e62ea43e8fe5f03abecde"
+      }
+    }
+  },
+  "schema": 1,
+  "scope": "Read-only cached dependency and pinned emulator source audit. No UI, framework event loop, native platform shutdown, process, supervisor, guest or backend execution."
+}

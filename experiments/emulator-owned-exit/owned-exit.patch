@@ -1,0 +1,695 @@
+--- a/az-preview/src/app.rs
++++ b/az-preview/src/app.rs
+@@ -27,6 +27,7 @@
+ use crate::meter::{Meter, FLOOR_DB};
+ use crate::mixer_producer::{BaselineReceipt, Key};
+ use crate::mixer_transport::{MixerPort, TransportError};
++use crate::owned_lifecycle::LifecycleControl;
+ use crate::panel::{
+     self, browse_center, fit_rect, knob, lcd_rect, xpad_rect, DeckView, PanelView, Sc, ASPECT,
+     CH_CONTROLS, COL_BLACK, COL_SILVER, COL_TEAL, PANEL_MARGIN,
+@@ -69,11 +70,15 @@
+     pub led_rx: Receiver<LedWire>,
+     /// None preserves legacy operation. Some selects owned mode even while closed.
+     pub mixer: Option<Arc<MixerPort>>,
++    /// Trusted main composition supplies the owner for mixer; Links itself does
++    /// not prove that pairing. A clean join never permits guest shutdown.
++    pub owned_lifecycle: Option<Arc<dyn LifecycleControl>>,
+ }
+ 
+ pub struct App {
+     links: Links,
+-    /// The emulator this app started, stopped on exit. None if it attached.
++    /// Legacy supervisor only. Owned mode keeps its resource outside the App.
++    /// None is not proof of attachment (startup may also have failed).
+     launched: Option<Launched>,
+     /// Shown on the screen instead of the deck's: why this window shows no
+     /// emulator (another AZ-EMU has it).
+@@ -992,9 +997,18 @@
+ 
+ impl eframe::App for App {
+     fn on_exit(&mut self, _gl: Option<&eframe::glow::Context>) {
+-        // Terminal admission stop only. The lifecycle owner must join its
+-        // dedicated worker separately; this does not prove native quiescence.
+-        if let Some(port) = &self.links.mixer { let _ = port.request_stop(); }
++        if let Some(owner) = &self.links.owned_lifecycle {
++            let _ = owner.finish();
++            // Recovery remains required even after a normal local join. Main
++            // retains this owner after the App/creator is destroyed.
++            return;
++        }
++        if let Some(port) = &self.links.mixer {
++            // Inconsistent/unpaired owned setup has no guest teardown permit.
++            // Keep admission closed; this branch cannot manufacture a join.
++            let _ = port.request_stop();
++            return;
++        }
+         if let Some(launched) = &mut self.launched {
+             // QEMU quits on its own first (flushing its disk caches to the image
+             // files); stop() waits for that and kills it only if it hangs.
+@@ -1238,7 +1252,7 @@
+         let (_, frame_rx) = mpsc::channel();
+         let (ctrl_tx, ctrl_rx) = mpsc::channel();
+         let (_, led_rx) = mpsc::channel();
+-        (App::new(Links { cmd_tx, frame_rx, ctrl_tx, led_rx, mixer: route },
++        (App::new(Links { cmd_tx, frame_rx, ctrl_tx, led_rx, mixer: route, owned_lifecycle: None },
+             None, None, Some("offline fixture".into())), ctrl_rx)
+     }
+ 
+@@ -1647,3 +1661,85 @@
+         assert_eq!(jog_touch(Some(0.0), false), (0, JOG_STOPPED));
+     }
+ }
++
++#[cfg(test)]
++mod owned_exit_tests {
++    use super::*;
++    use crate::owned_lifecycle::{run_with_owner, FinishStatus, GuestPresence, LifecyclePhase};
++    use crate::owned_lifecycle::test_support::{fixture, Reply, Settings};
++    use crate::mixer_transport::WorkerExit;
++    use std::sync::atomic::Ordering;
++    use std::sync::mpsc;
++
++    fn headless(mixer: Option<Arc<MixerPort>>, owner: Option<Arc<dyn LifecycleControl>>)
++        -> (App, Receiver<EmuCmd>) {
++        let (cmd_tx, commands) = mpsc::channel(); let (_, frame_rx) = mpsc::channel();
++        let (ctrl_tx, _) = mpsc::channel(); let (_, led_rx) = mpsc::channel();
++        (App::new(Links { cmd_tx, frame_rx, ctrl_tx, led_rx, mixer, owned_lifecycle: owner },
++            None, None, Some("offline exit fixture".into())), commands)
++    }
++
++    #[test]
++    fn actual_app_exit_and_return_fallback_retain_same_joined_owner_without_quit() {
++        let mut f = fixture(Reply::Unknown, false, Settings::Ok, false);
++        let owner = f.owner::<Launched>(None); let external = Some(owner.clone());
++        let (mut app, commands) = headless(Some(owner.port()), Some(owner.clone()));
++        eframe::App::on_exit(&mut app, None);
++        let app_snapshot = owner.snapshot().unwrap();
++        eframe::App::on_exit(&mut app, None);
++        let returned: Result<(), &str> = run_with_owner(&external, || {
++            drop(app); Err("runner returned after exit")
++        });
++        let final_snapshot = owner.snapshot().unwrap();
++        // Cleanup repeats finish only to keep an omitted-App-finish mutant safe.
++        let completed = owner.finish(); let no_command = commands.try_recv().is_err();
++        let backend_retained = f.counts.backend_drops.load(Ordering::SeqCst);
++        drop(external); drop(owner); drop(f.port);
++        assert_eq!(app_snapshot.phase, LifecyclePhase::Retained);
++        assert_eq!(app_snapshot.joined_exit, Some(WorkerExit::Stopped));
++        assert!(app_snapshot.joined.unwrap().mailbox.status.worker_exited);
++        assert_eq!(app_snapshot, final_snapshot); assert_eq!(completed, FinishStatus::RecoveryRequired);
++        assert_eq!(app_snapshot.guest, GuestPresence::NoSupervisorResource);
++        assert!(no_command);
++        assert_eq!(returned, Err("runner returned after exit")); assert_eq!(backend_retained, 0);
++        assert_eq!(f.counts.backend_drops.load(Ordering::SeqCst), 1);
++    }
++
++    #[test]
++    fn returned_app_drop_without_on_exit_leaves_external_owner_for_fallback() {
++        let mut f = fixture(Reply::Unknown, false, Settings::Ok, false);
++        let owner = f.owner::<Launched>(None); let external = Some(owner.clone());
++        let (app, commands) = headless(Some(owner.port()), Some(owner.clone()));
++        let during = run_with_owner(&external, || {
++            drop(app); owner.snapshot().unwrap()
++        });
++        let after = owner.snapshot().unwrap(); let completed = owner.finish();
++        let no_command = commands.try_recv().is_err();
++        assert_eq!(during.phase, LifecyclePhase::Running); assert!(during.joined.is_none());
++        assert_eq!(after.phase, LifecyclePhase::Retained);
++        assert_eq!(after.joined_exit, Some(WorkerExit::Stopped));
++        assert!(after.joined.unwrap().mailbox.status.worker_exited);
++        assert_eq!(completed, FinishStatus::RecoveryRequired); assert!(no_command);
++        assert_eq!(f.counts.backend_drops.load(Ordering::SeqCst), 0);
++    }
++
++    #[test]
++    fn missing_owner_owned_app_stops_admission_without_claiming_join_or_quit() {
++        let mut f = fixture(Reply::Unknown, false, Settings::Ok, false);
++        let (mut app, commands) = headless(Some(f.port.clone()), None);
++        eframe::App::on_exit(&mut app, None);
++        let terminal = f.port.enqueue_for_key(f.baseline.key, f.baseline.frame);
++        // The caller still has the actual handle; the App cannot invent a session.
++        let session = f.worker.take().unwrap().join().unwrap(); drop(app);
++        let no_command = commands.try_recv().is_err();
++        assert_eq!(terminal, Err(TransportError::Terminal));
++        assert_eq!(session.exit(), WorkerExit::Stopped); assert!(no_command);
++    }
++
++    #[test]
++    fn legacy_without_supervisor_keeps_its_no_quit_exit_behavior() {
++        let (mut app, commands) = headless(None, None);
++        eframe::App::on_exit(&mut app, None); drop(app);
++        assert!(commands.try_recv().is_err());
++    }
++}
+--- a/az-preview/src/main.rs
++++ b/az-preview/src/main.rs
+@@ -28,6 +28,7 @@
+ mod mixer_producer;
+ mod mixer_route;
+ mod mixer_transport;
++mod owned_lifecycle;
+ mod layout;
+ mod meter;
+ mod panel;
+@@ -52,8 +53,14 @@
+     let (ctrl_tx, ctrl_rx) = channel();
+     let (led_tx, led_rx) = channel();
+     // This candidate has no live backend, enable flag, or connection factory.
+-    let mixer: Option<std::sync::Arc<mixer_transport::MixerPort>> = None;
+-    let owned_mixer = mixer.is_some();
++    // A real Windows owned setup is unsupported: Launched is only a PID there.
++    #[cfg(unix)]
++    let owned_pair: Option<(std::sync::Arc<mixer_transport::MixerPort>,
++        mixer_transport::MixerWorker)> = None;
++    #[cfg(unix)]
++    let owned_mixer = owned_pair.is_some();
++    #[cfg(not(unix))]
++    let owned_mixer = false;
+     // A second AZ-EMU would find the emulator's single app connection taken (or,
+     // starting at the same moment as the first, boot a second QEMU on the same
+     // disk image): it says so and does nothing else.
+@@ -67,26 +74,39 @@
+     } else {
+         None
+     };
+-    let links = app::Links {
+-        cmd_tx,
+-        frame_rx,
+-        ctrl_tx,
+-        led_rx,
+-        mixer,
+-    };
+-    let options = eframe::NativeOptions {
+-        // The startup size is a guess for the screen-only view; App sets the
+-        // exact one on its first frame. Clamping to the monitor keeps a switch
+-        // to the full panel from pushing the window off a small screen.
+-        viewport: egui::ViewportBuilder::default()
+-            .with_inner_size([screen::LCD_W, screen::LCD_H])
+-            .with_title("XDJ-AZ")
+-            .with_clamp_size_to_monitor_size(true),
+-        ..Default::default()
+-    };
+-    eframe::run_native(
+-        "az-preview",
+-        options,
+-        Box::new(move |_cc| Ok(Box::new(app::App::new(links, launched, shot_path, notice)))),
+-    )
++    // Keep the lifecycle owner outside both run_native and its creator closure.
++    // The legacy None path passes the same launched resource into App as before.
++    #[cfg(unix)]
++    let partition = owned_lifecycle::partition_launch(owned_pair, launched);
++    #[cfg(not(unix))]
++    let partition: Result<(Option<std::sync::Arc<owned_lifecycle::OwnedLifecycle<boot::Launched>>>,
++        Option<boot::Launched>), owned_lifecycle::RejectedOwner<boot::Launched>> = Ok((None, launched));
++    match partition {
++        Ok((owner, launched)) => {
++            let mixer = owner.as_ref().map(|o| o.port());
++            let lifecycle = owner.as_ref().map(|o| o.clone()
++                as std::sync::Arc<dyn owned_lifecycle::LifecycleControl>);
++            let links = app::Links { cmd_tx, frame_rx, ctrl_tx, led_rx, mixer,
++                owned_lifecycle: lifecycle };
++            let options = eframe::NativeOptions {
++                viewport: egui::ViewportBuilder::default()
++                    .with_inner_size([screen::LCD_W, screen::LCD_H])
++                    .with_title("XDJ-AZ")
++                    .with_clamp_size_to_monitor_size(true),
++                ..Default::default()
++            };
++            owned_lifecycle::run_with_owner(&owner, || eframe::run_native(
++                "az-preview", options,
++                Box::new(move |_cc| Ok(Box::new(app::App::new(links, launched, shot_path, notice)))),
++            ))
++        }
++        Err(rejected) => {
++            // Unselected with literal None. Every rejected input stays owned in
++            // this branch, but its ordinary final Drop is NOT recovery or safe
++            // shutdown. A live factory cannot be added until that gate is solved.
++            let _rejected = rejected;
++            Err(eframe::Error::AppCreation(Box::new(std::io::Error::other(
++                "owned mixer pairing rejected; recovery required"))))
++        }
++    }
+ }
+--- a/az-preview/src/mixer_transport.rs
++++ b/az-preview/src/mixer_transport.rs
+@@ -225,6 +225,15 @@
+     }
+ }
+ impl MixerWorker {
++    /// Identity only: the lifecycle owner must retain this exact port family.
++    pub(crate) fn is_paired_with(&self, port: &MixerPort) -> bool {
++        Arc::ptr_eq(&self.shared, &port.token.shared)
++    }
++    /// Refuse an attempted first lifecycle join from the worker itself. This
++    /// does not make arbitrary backend/settings reentry or dependency cycles safe.
++    pub(crate) fn is_current_thread(&self) -> bool {
++        self.handle.as_ref().is_some_and(|h| h.thread().id() == thread::current().id())
++    }
+     /// Always requests terminal stop, then joins without any mailbox or route
+     /// lock. A panicked thread still has a joined receipt, with a distinct exit.
+     pub fn join(mut self)->Result<JoinedMixerSession,TransportError> {
+--- /dev/null
++++ b/az-preview/src/owned_lifecycle.rs
+@@ -0,0 +1,441 @@
++// SPDX-License-Identifier: GPL-3.0-only
++//! Inactive local lifecycle owner. No backend factory or guest teardown API.
++//!
++//! The owner keeps the paired worker, port, optional supervisor and exact joined
++//! session across App exit and a returning GUI runner. A local join is never a
++//! permit to send Quit, stop the guest, release the backend, or restore files.
++//! There is deliberately no Drop cleanup claim: ordinary final Drop may close
++//! the supervisor pipe/backend, and process termination can stop the guest.
++//! Those policies, panic/abort paths, and owned recovery remain unimplemented.
++//! A returning runner is covered; macOS process termination need not return it.
++//! Backend/settings callbacks must not initiate finish or wait on a thread doing
++//! so. The worker-ID check prevents only direct self-join, not dependency cycles.
++
++use crate::mixer_transport::{JoinedAccounting, JoinedMixerSession, MixerPort,
++    MixerWorker, StopReceipt, TransportError, WorkerExit};
++use std::sync::{Arc, Mutex};
++
++#[derive(Clone, Copy, Debug, PartialEq, Eq)]
++pub enum LifecyclePhase { Running, Joining, Retained, JoinUnproven }
++#[derive(Clone, Copy, Debug, PartialEq, Eq)]
++pub enum GuestPresence { SupervisorResource, NoSupervisorResource }
++#[derive(Clone, Copy, Debug, PartialEq, Eq)]
++pub enum FinishStatus { InProgress, RecoveryRequired, JoinUnproven,
++    WorkerThreadRefused, OwnerPoisoned }
++#[derive(Clone, Debug, PartialEq, Eq)]
++pub enum StopStatus { NotRecorded, ReturnedOk { discarded: usize, in_flight: bool },
++    ReturnedErr(String) }
++#[derive(Clone, Debug, PartialEq, Eq)]
++pub struct LifecycleSnapshot {
++    /// Poison dominates all salvaged fields; never authorizes an operation.
++    pub owner_poisoned: bool,
++    pub phase: LifecyclePhase,
++    pub guest: GuestPresence,
++    pub stop: StopStatus,
++    pub joined_exit: Option<WorkerExit>,
++    pub joined: Option<JoinedAccounting>,
++    pub join_error: Option<String>,
++}
++
++/// The App can request completion and read copied local diagnostics. It cannot
++/// obtain the guest, worker or session, or authorize resource release.
++pub trait LifecycleControl: Send + Sync {
++    fn port(&self) -> Arc<MixerPort>;
++    fn finish(&self) -> FinishStatus;
++    fn snapshot(&self) -> Result<LifecycleSnapshot, FinishStatus>;
++}
++
++struct State<G> {
++    phase: LifecyclePhase,
++    worker: Option<MixerWorker>,
++    // Neither guest nor session is taken by finish; no extraction API exists.
++    guest: Option<G>,
++    stop: Option<Result<StopReceipt, TransportError>>,
++    joined: Option<JoinedMixerSession>,
++    join_error: Option<TransportError>,
++}
++
++pub struct OwnedLifecycle<G> { port: Arc<MixerPort>, state: Mutex<State<G>> }
++
++/// Failed pairing returns every input without stopping, joining or dropping it.
++/// Caller ownership does not establish recovery; eventually dropping these
++/// resources still has the ordinary process/supervisor lifetime limitations.
++pub struct RejectedOwner<G> {
++    pub port: Arc<MixerPort>,
++    pub worker: MixerWorker,
++    pub guest: Option<G>,
++}
++
++impl<G: Send> OwnedLifecycle<G> {
++    /// Real owned Windows construction is deliberately unavailable: Launched is
++    /// a PID there, not ownership of the Windows job resource. Tests use fake G.
++    #[cfg(any(unix, test))]
++    pub(crate) fn try_new(port: Arc<MixerPort>, worker: MixerWorker, guest: Option<G>)
++        -> Result<Self, RejectedOwner<G>> {
++        if !worker.is_paired_with(&port) {
++            return Err(RejectedOwner { port, worker, guest });
++        }
++        Ok(Self { port, state: Mutex::new(State { phase: LifecyclePhase::Running,
++            worker: Some(worker), guest, stop: None, joined: None, join_error: None }) })
++    }
++
++    pub fn port(&self) -> Arc<MixerPort> { self.port.clone() }
++
++    /// Idempotent after a completed attempt. Concurrent/reentrant callers see
++    /// Joining, without waiting for the backend while holding the owner lock.
++    /// A first call from the worker is refused before any resource is taken.
++    pub fn finish(&self) -> FinishStatus {
++        let worker = {
++            let Ok(mut s) = self.state.lock() else { return FinishStatus::OwnerPoisoned };
++            match s.phase {
++                LifecyclePhase::Joining => return FinishStatus::InProgress,
++                LifecyclePhase::Retained => return FinishStatus::RecoveryRequired,
++                LifecyclePhase::JoinUnproven => return FinishStatus::JoinUnproven,
++                LifecyclePhase::Running => {}
++            }
++            let Some(worker) = s.worker.as_ref() else { return FinishStatus::JoinUnproven };
++            if worker.is_current_thread() { return FinishStatus::WorkerThreadRefused; }
++            s.phase = LifecyclePhase::Joining;
++            s.worker.take().expect("paired worker retained while Running")
++        };
++        // Stop can fail on poisoned accounting. It never excuses skipping the
++        // real join, and neither operation runs under the lifecycle mutex.
++        let stop = self.port.request_stop();
++        let joined = worker.join();
++        // A poisoned owner still retains the exact completed results. Salvage
++        // does not clear poison or permit another operation.
++        let (mut s, poisoned) = match self.state.lock() {
++            Ok(s) => (s, false), Err(error) => (error.into_inner(), true),
++        };
++        s.stop = Some(stop);
++        let result = match joined {
++            Ok(session) => {
++                s.joined = Some(session);
++                s.phase = LifecyclePhase::Retained;
++                FinishStatus::RecoveryRequired
++            }
++            Err(error) => {
++                s.join_error = Some(error);
++                s.phase = LifecyclePhase::JoinUnproven;
++                FinishStatus::JoinUnproven
++            }
++        };
++        if poisoned { FinishStatus::OwnerPoisoned } else { result }
++    }
++
++    /// Copied bounded accounting only, including poison flags inside joined.
++    /// No callback, backend query or guest failure poll is performed here.
++    pub fn snapshot(&self) -> Result<LifecycleSnapshot, FinishStatus> {
++        let (s, owner_poisoned) = match self.state.lock() {
++            Ok(s) => (s, false), Err(error) => (error.into_inner(), true),
++        };
++        let stop = match &s.stop {
++            None => StopStatus::NotRecorded,
++            Some(Ok(r)) => StopStatus::ReturnedOk { discarded: r.discarded(),
++                in_flight: r.had_in_flight() },
++            Some(Err(error)) => StopStatus::ReturnedErr(format!("{error:?}")),
++        };
++        Ok(LifecycleSnapshot { owner_poisoned, phase: s.phase,
++            guest: if s.guest.is_some() { GuestPresence::SupervisorResource }
++                else { GuestPresence::NoSupervisorResource },
++            stop, joined_exit: s.joined.as_ref().map(JoinedMixerSession::exit),
++            joined: s.joined.as_ref().map(JoinedMixerSession::accounting),
++            join_error: s.join_error.as_ref().map(|e| format!("{e:?}")) })
++    }
++}
++impl<G: Send> LifecycleControl for OwnedLifecycle<G> {
++    fn port(&self) -> Arc<MixerPort> { self.port() }
++    fn finish(&self) -> FinishStatus { self.finish() }
++    fn snapshot(&self) -> Result<LifecycleSnapshot, FinishStatus> { self.snapshot() }
++}
++
++/// Main keeps this result outside the App-creator closure. NoSupervisorResource
++/// means only that no resource was supplied; it does not prove attachment.
++#[cfg(any(unix, test))]
++pub(crate) fn partition_launch<G: Send>(pair: Option<(Arc<MixerPort>, MixerWorker)>,
++    guest: Option<G>) -> Result<(Option<Arc<OwnedLifecycle<G>>>, Option<G>), RejectedOwner<G>> {
++    match pair {
++        None => Ok((None, guest)),
++        Some((port, worker)) => OwnedLifecycle::try_new(port, worker, guest)
++            .map(|owner| (Some(Arc::new(owner)), None)),
++    }
++}
++
++/// Covers every returning result, including creator/run errors; it preserves the
++/// original return value and leaves the exact completion in the external owner.
++/// It is not a panic/unwind guard and is not process-death recovery.
++pub(crate) fn run_with_owner<G: Send, R>(owner: &Option<Arc<OwnedLifecycle<G>>>,
++    run: impl FnOnce() -> R) -> R {
++    let result = run();
++    if let Some(owner) = owner { let _ = owner.finish(); }
++    result
++}
++
++#[cfg(test)]
++pub(crate) mod test_support {
++    use super::*;
++    use crate::mixer_producer::{BaselineReceipt, Envelope, FrameAck, Key};
++    use crate::mixer_route::{BackendOutcome, MixerBackend, MixerRoute, SettingsSink};
++    use crate::mixer_transport;
++    use std::sync::atomic::{AtomicUsize, Ordering};
++    use std::sync::mpsc::{self, Receiver, Sender};
++    use std::sync::Weak;
++
++    #[derive(Clone, Copy)] pub enum Reply { Unknown, Commit, SelfFinish }
++    #[derive(Clone, Copy)] pub enum Settings { Ok, Panic }
++    #[derive(Default)] pub struct Counts {
++        pub calls: AtomicUsize, pub settings: AtomicUsize,
++        pub baseline_calls: AtomicUsize, pub backend_drops: AtomicUsize,
++        pub sink_drops: AtomicUsize,
++    }
++    pub struct Guest(pub Arc<AtomicUsize>);
++    impl Drop for Guest { fn drop(&mut self) { self.0.fetch_add(1, Ordering::SeqCst); } }
++    struct Backend {
++        counts: Arc<Counts>, reply: Reply, baseline: BaselineReceipt,
++        entered: Sender<Envelope>, proceed: Option<Receiver<()>>,
++        callback: Arc<Mutex<Option<Weak<dyn LifecycleControl>>>>,
++        callback_result: Sender<FinishStatus>,
++    }
++    impl MixerBackend for Backend {
++        fn baseline(&mut self) -> Result<BaselineReceipt, String> {
++            self.counts.baseline_calls.fetch_add(1, Ordering::SeqCst); Ok(self.baseline)
++        }
++        fn submit(&mut self, request: Envelope) -> BackendOutcome {
++            self.counts.calls.fetch_add(1, Ordering::SeqCst);
++            self.entered.send(request).unwrap();
++            if let Some(rx) = &self.proceed { rx.recv().unwrap(); }
++            match self.reply {
++                Reply::Unknown => BackendOutcome::Unknown,
++                Reply::Commit => BackendOutcome::Committed(FrameAck {
++                    request, kernel_sequence: self.baseline.kernel_sequence + 1 }),
++                Reply::SelfFinish => {
++                    let owner = self.callback.lock().unwrap().as_ref().unwrap().upgrade().unwrap();
++                    self.callback_result.send(owner.finish()).unwrap();
++                    BackendOutcome::Unknown
++                }
++            }
++        }
++    }
++    impl Drop for Backend { fn drop(&mut self) { self.counts.backend_drops.fetch_add(1, Ordering::SeqCst); } }
++    struct Sink { counts: Arc<Counts>, behavior: Settings,
++        entered: Sender<FrameAck>, proceed: Option<Receiver<()>> }
++    impl SettingsSink for Sink {
++        fn commit(&mut self, ack: FrameAck) -> Result<(), String> {
++            self.counts.settings.fetch_add(1, Ordering::SeqCst);
++            self.entered.send(ack).unwrap();
++            if let Some(rx) = &self.proceed { rx.recv().unwrap(); }
++            match self.behavior { Settings::Ok => Ok(()), Settings::Panic => panic!("owned lifecycle settings panic") }
++        }
++    }
++    impl Drop for Sink { fn drop(&mut self) { self.counts.sink_drops.fetch_add(1, Ordering::SeqCst); } }
++    pub struct Fixture {
++        pub port: Arc<MixerPort>, pub worker: Option<MixerWorker>, pub counts: Arc<Counts>,
++        pub baseline: BaselineReceipt, pub entered: Receiver<Envelope>, pub proceed: Sender<()>,
++        pub settings_entered: Receiver<FrameAck>, pub settings_proceed: Sender<()>,
++        pub callback: Arc<Mutex<Option<Weak<dyn LifecycleControl>>>>,
++        pub callback_result: Receiver<FinishStatus>,
++    }
++    impl Fixture {
++        pub fn owner<G: Send>(&mut self, guest: Option<G>) -> Arc<OwnedLifecycle<G>> {
++            match OwnedLifecycle::try_new(self.port.clone(), self.worker.take().unwrap(), guest) {
++                Ok(owner) => Arc::new(owner), Err(_) => panic!("fixture pair rejected"),
++            }
++        }
++    }
++    pub fn fixture(reply: Reply, hold_submit: bool, settings: Settings, hold_settings: bool) -> Fixture {
++        let counts = Arc::new(Counts::default());
++        let baseline = BaselineReceipt { key: Key { instance: [17, 19], run_id: 23,
++            epoch: 2, producer_id: 29 }, frame: std::array::from_fn(|i| (i as u8).wrapping_mul(7)), kernel_sequence: 31 };
++        let (tx, entered) = mpsc::channel(); let (proceed, rx) = mpsc::channel();
++        let (sx, settings_entered) = mpsc::channel(); let (settings_proceed, sr) = mpsc::channel();
++        let (cx, callback_result) = mpsc::channel(); let callback = Arc::new(Mutex::new(None));
++        let route = Arc::new(MixerRoute::new(4, Box::new(Backend { counts: counts.clone(), reply,
++            baseline, entered: tx, proceed: hold_submit.then_some(rx), callback: callback.clone(), callback_result: cx }),
++            Box::new(Sink { counts: counts.clone(), behavior: settings,
++                entered: sx, proceed: hold_settings.then_some(sr) })).unwrap());
++        let b = route.refresh_baseline().unwrap(); route.confirm_adoption(b, true).unwrap();
++        let (port, worker) = mixer_transport::channel(route, 4).unwrap();
++        Fixture { port: Arc::new(port), worker: Some(worker), counts, baseline, entered, proceed,
++            settings_entered, settings_proceed, callback, callback_result }
++    }
++}
++
++#[cfg(test)]
++mod owned_exit_tests {
++    use super::*;
++    use super::test_support::*;
++    use crate::mixer_producer::{AckSettings, Pending};
++    use std::sync::atomic::{AtomicUsize, Ordering};
++    use std::thread;
++    use std::time::{Duration, Instant};
++
++    fn wait_joining<G: Send>(owner: &OwnedLifecycle<G>) -> bool {
++        let deadline = Instant::now() + Duration::from_secs(5);
++        while Instant::now() < deadline {
++            if owner.snapshot().unwrap().phase == LifecyclePhase::Joining { return true; }
++            thread::yield_now();
++        }
++        false
++    }
++    fn drops(count: &Arc<AtomicUsize>) -> usize { count.load(Ordering::SeqCst) }
++
++    #[test]
++    fn rejected_pair_returns_every_resource_without_implicit_stop() {
++        let mut a = fixture(Reply::Unknown, false, Settings::Ok, false);
++        let mut b = fixture(Reply::Unknown, false, Settings::Ok, false);
++        let guest = Arc::new(AtomicUsize::new(0));
++        let result = partition_launch(Some((a.port.clone(), b.worker.take().unwrap())), Some(Guest(guest.clone())));
++        let (rejected, intact, pre_drop, second_exit) = match result {
++            Err(r) => {
++                let intact = Arc::ptr_eq(&r.port, &a.port) && r.worker.is_paired_with(&b.port) && r.guest.is_some();
++                let pre_drop = drops(&guest);
++                let exit = r.worker.join().unwrap().exit(); drop(r.guest); drop(r.port);
++                (true, intact, pre_drop, exit)
++            }
++            Ok((owner, _)) => {
++                let owner = owner.unwrap(); let _ = owner.finish();
++                let exit = owner.snapshot().unwrap().joined_exit.unwrap(); drop(owner);
++                (false, false, drops(&guest), exit)
++            }
++        };
++        // Both actual handles are joined before any control assertion.
++        let first_exit = a.worker.take().unwrap().join().unwrap().exit();
++        assert!(rejected);
++        assert!(intact); assert_eq!(pre_drop, 0); assert_eq!(drops(&guest), 1);
++        assert_eq!((first_exit, second_exit), (WorkerExit::Stopped, WorkerExit::Stopped));
++    }
++
++    #[test]
++    fn returning_creator_error_joins_once_and_retains_guest_and_backend() {
++        let mut f = fixture(Reply::Unknown, false, Settings::Ok, false);
++        let guest = Arc::new(AtomicUsize::new(0)); let owner = f.owner(Some(Guest(guest.clone())));
++        let creator_clone = owner.clone(); let external = Some(owner.clone());
++        let original: Result<(), &str> = run_with_owner(&external, move || {
++            drop(creator_clone); Err("creator failed before App")
++        });
++        let first = owner.snapshot().unwrap();
++        // Cleanup also makes the omitted-fallback control safe before its oracle.
++        let repeat = owner.finish(); let second = owner.snapshot().unwrap();
++        let retained = (drops(&guest), f.counts.backend_drops.load(Ordering::SeqCst));
++        drop(external); drop(f.port); drop(owner);
++        let released = (drops(&guest), f.counts.backend_drops.load(Ordering::SeqCst));
++        assert_eq!(first.phase, LifecyclePhase::Retained);
++        assert_eq!(first, second); assert_eq!(repeat, FinishStatus::RecoveryRequired);
++        assert_eq!(original, Err("creator failed before App"));
++        assert_eq!(retained, (0, 0)); assert_eq!(released, (1, 1));
++        assert!(first.joined.unwrap().mailbox.status.worker_exited);
++    }
++
++    #[test]
++    fn joining_is_visible_without_locking_out_idempotent_calls_or_dropping_guest() {
++        let mut f = fixture(Reply::Unknown, true, Settings::Ok, false);
++        let guest = Arc::new(AtomicUsize::new(0)); let owner = f.owner(Some(Guest(guest.clone())));
++        let request = f.port.enqueue_for_key(f.baseline.key, f.baseline.frame).unwrap();
++        f.entered.recv().unwrap();
++        let other = owner.clone(); let joining = thread::spawn(move || other.finish());
++        let observed = wait_joining(&owner);
++        let during = owner.snapshot().unwrap();
++        let repeated = if observed { owner.finish() } else { FinishStatus::JoinUnproven };
++        let retained = drops(&guest);
++        f.proceed.send(()).unwrap(); let finished = joining.join().unwrap();
++        let after = owner.snapshot().unwrap(); drop(f.port); drop(owner);
++        assert!(observed); assert_eq!(during.phase, LifecyclePhase::Joining);
++        assert_eq!(repeated, FinishStatus::InProgress); assert_eq!(retained, 0);
++        assert_eq!(finished, FinishStatus::RecoveryRequired);
++        assert_eq!(after.joined.unwrap().route.producer.status.unresolved,
++            Some(Pending { request, uncertain: true }));
++        assert_eq!(after.joined_exit, Some(WorkerExit::Stopped)); assert_eq!(drops(&guest), 1);
++    }
++
++    #[test]
++    fn stop_error_still_joins_and_keeps_exact_known_ack_and_panic_disposition() {
++        let mut f = fixture(Reply::Commit, false, Settings::Panic, true);
++        let owner = f.owner::<()>(None);
++        let request = f.port.enqueue_for_key(f.baseline.key, f.baseline.frame).unwrap();
++        let ack = f.settings_entered.recv().unwrap();
++        let other = owner.clone(); let joining = thread::spawn(move || other.finish());
++        let observed = wait_joining(&owner);
++        f.settings_proceed.send(()).unwrap(); let finished = joining.join().unwrap();
++        let s = owner.snapshot().unwrap();
++        let typed_stop_error = matches!(&owner.state.lock().unwrap().stop, Some(Err(TransportError::Route(_))));
++        assert!(observed); assert_eq!(finished, FinishStatus::RecoveryRequired);
++        assert!(typed_stop_error);
++        assert_eq!(s.phase, LifecyclePhase::Retained); assert_eq!(s.joined_exit, Some(WorkerExit::Panicked));
++        let a = s.joined.unwrap(); assert!(a.route.producer.poisoned && a.route.endpoint_poisoned);
++        assert!(a.route.producer.status.unresolved.is_none());
++        let exact = a.route.producer.status.last_ack.unwrap();
++        assert_eq!(exact.ack, ack); assert_eq!(exact.ack.request, request);
++        assert_eq!(exact.settings, AckSettings::CallbackArmed);
++    }
++
++    #[test]
++    fn owner_poison_during_join_keeps_exact_completed_session_and_stop_result() {
++        let mut f = fixture(Reply::Unknown, true, Settings::Ok, false);
++        let owner = f.owner::<()>(None);
++        let request = f.port.enqueue_for_key(f.baseline.key, f.baseline.frame).unwrap(); f.entered.recv().unwrap();
++        let other = owner.clone(); let joining = thread::spawn(move || other.finish());
++        let observed = wait_joining(&owner);
++        if observed {
++            let _ = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
++                let _guard = owner.state.lock().unwrap(); panic!("poison owner while joining");
++            }));
++        }
++        f.proceed.send(()).unwrap(); let finished = joining.join().unwrap();
++        let s = owner.snapshot().unwrap(); let repeat = owner.finish();
++        assert!(observed); assert_eq!(finished, FinishStatus::OwnerPoisoned);
++        assert!(s.owner_poisoned);
++        assert_eq!(s.phase, LifecyclePhase::Retained);
++        assert!(matches!(s.stop, StopStatus::ReturnedOk { .. }));
++        assert!(s.joined.is_some());
++        assert_eq!(s.joined.unwrap().route.producer.status.unresolved,
++            Some(Pending { request, uncertain: true }));
++        assert_eq!(s.joined_exit, Some(WorkerExit::Stopped)); assert_eq!(repeat, FinishStatus::OwnerPoisoned);
++    }
++
++    #[test]
++    fn pre_take_poison_is_unjoined_and_test_cleanup_never_becomes_a_receipt() {
++        let mut f = fixture(Reply::Unknown, false, Settings::Ok, false); let owner = f.owner::<()>(None);
++        let _ = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
++            let _guard = owner.state.lock().unwrap(); panic!("poison before finish");
++        }));
++        let result = owner.finish(); let before = owner.snapshot().unwrap();
++        // Test-only custody recovery joins the actual handle; production has no
++        // such accessor and the owner must still report its unproven phase.
++        let worker = match owner.state.lock() {
++            Err(error) => error.into_inner().worker.take().unwrap(),
++            Ok(_) => panic!("test poison missing"),
++        };
++        let actual = worker.join().unwrap(); let after = owner.snapshot().unwrap();
++        assert_eq!(result, FinishStatus::OwnerPoisoned); assert!(before.owner_poisoned);
++        assert_eq!(before.phase, LifecyclePhase::Running); assert_eq!(before.stop, StopStatus::NotRecorded);
++        assert!(before.joined.is_none()); assert_eq!(after, before); assert_eq!(actual.exit(), WorkerExit::Stopped);
++    }
++
++    #[test]
++    fn direct_worker_finish_is_refused_without_consuming_the_pair() {
++        let mut f = fixture(Reply::SelfFinish, false, Settings::Ok, false); let owner = f.owner::<()>(None);
++        let erased: Arc<dyn LifecycleControl> = owner.clone();
++        *f.callback.lock().unwrap() = Some(Arc::downgrade(&erased)); drop(erased);
++        let request = f.port.enqueue_for_key(f.baseline.key, f.baseline.frame).unwrap();
++        let refused = f.callback_result.recv().unwrap(); let before = owner.snapshot().unwrap();
++        let finished = owner.finish(); let after = owner.snapshot().unwrap();
++        assert_eq!(refused, FinishStatus::WorkerThreadRefused);
++        assert_eq!(before.phase, LifecyclePhase::Running); assert!(before.joined.is_none());
++        assert_eq!(finished, FinishStatus::RecoveryRequired);
++        assert_eq!(after.joined.unwrap().route.producer.status.unresolved,
++            Some(Pending { request, uncertain: true }));
++    }
++
++    #[test]
++    fn partition_preserves_legacy_guest_and_absence_is_only_absence() {
++        let guest = Arc::new(AtomicUsize::new(0));
++        let (owner, legacy) = match partition_launch::<Guest>(None, Some(Guest(guest.clone()))) {
++            Ok(value) => value, Err(_) => panic!("legacy partition rejected"),
++        };
++        let value = run_with_owner(&owner, || 41); let before = drops(&guest); drop(legacy);
++        let mut f = fixture(Reply::Unknown, false, Settings::Ok, false); let owned = f.owner::<()>(None);
++        let finish = owned.finish(); let s = owned.snapshot().unwrap();
++        assert!(owner.is_none()); assert_eq!(value, 41); assert_eq!(before, 0); assert_eq!(drops(&guest), 1);
++        assert_eq!(finish, FinishStatus::RecoveryRequired); assert_eq!(s.guest, GuestPresence::NoSupervisorResource);
++    }
++}
