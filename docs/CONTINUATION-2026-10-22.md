@@ -468,3 +468,70 @@ restart. No emulator/device access, cleanup, service action, installation,
 physical control, package or catalog change occurred. Preserve untracked work.
 MODS publication/native menu ownership, stems gates, USB activation and physical
 validation remain open.
+
+
+### Inactive bounded preview transport — October 27
+
+The new [transport successor](../experiments/emulator-preview-transport/)
+removes owned mixer envelopes from the legacy mpsc channel. One dedicated
+worker uses a bounded mailbox, counting queued and reserved/in-flight values.
+Capacity check, canonical creation and insertion serialize together. Generation
+closure drops unsent work; a resolved route cannot adopt a new baseline while
+its mailbox reservation remains. Other bus classification has no owned callback
+or route reference, so it can progress while the synthetic backend/settings
+callback is held.
+
+A terminal flag and separate coalesced wake token do not require a payload slot.
+Drop requests stop only; an explicit consuming join proves local thread
+completion and distinguishes normal stop from panic/poison. Work reserved before
+stop can still reach the backend. Uncooperative callbacks can prevent join;
+no cancellation, native quiescence or held-overlay release follows from a stop
+receipt. Exclusive use of one route by one port family is a trusted constructor
+contract, not type-enforced ownership. Creation, inspection and explicit
+close/stop may block; only UI key/baseline observations use nonblocking attempts.
+
+Review found a draft App bug that closed the staged generation on transient
+confirmation Busy. The corrected App keeps it pending and waits for another
+clean update. A test-only local mutex forces the actual WouldBlock branch;
+the exact staged receipt survives and the eventual confirmation update still
+cannot create input. Endpoint Busy is also deferred, without a separate executed
+endpoint-contention App schedule. The earlier combined draft compiled but was
+superseded before testing; its source/log are retained privately.
+
+The final patch is
+`d630fd6c7b15b8d0f10f0020a9079833b42f839b8d7c1e84bffdbe833e1f485c`.
+All 17 prepared files are pinned; 13 parent files including producer, route,
+config and lockfile remain byte-identical. Production host compilation succeeds
+with 32 visible inactive-code warnings. The actual crate passes 37 selected
+cases (15 App, five classifier, 17 transport), with 78 of 115 listed cases
+filtered. All 11 compiling controls fail exactly the intended source assertion,
+including line/column, name, count and exit code; timeout or unrelated failure
+cannot pass. Tests use headless egui, local channels and injected callbacks;
+main, the window, socket loop and filesystem settings are not executed. No Rust
+sanitizer, Linux ARM64 runtime, audio or physical timing claim is made. An
+independent fresh source export and full selected run match every functional,
+source, compiler and exact-assertion field; only raw path/time/thread log hashes
+are excluded from comparison. See the experiment
+[comparison](../experiments/emulator-preview-transport/comparison.json).
+
+A separate [dwell counterexample](../experiments/emulator-preview-transport/DWELL-BOUNDARY.md)
+extracts six unchanged functions from the frozen V2 kernel candidate. Two
+successful full-overlay commits before a SPI read leave only the latest value;
+inserting a read between commits distinguishes both. Its arbitrary byte32 and
+byte6 markers are explicitly not the Browse mapping or native handler evidence.
+20 assertions pass per plain and ASan/UBSan mode, with three exact controls per
+mode, independently byte-identical. Kernel ACK is not consumption, and UI-time
+MIN_HOLD does not establish native dwell after queue backlog.
+
+Next compose an authenticated backend/receipt adapter, ordered host persistence
+and owned stopped recovery, with explicit callback/deadline and native input
+consumption policies. App on_exit requests stop but still continues legacy
+Quit/boot::stop before any owned worker join; a future live lifecycle must fix
+that ordering and preserve unresolved work before shutdown. Main remains None
+and constructs no owned worker; there is no enable flag, live backend adapter
+or new installation.
+Original neutral overlay, injected mode and host bytes/modes still require
+verified restoration before guarded restart. No emulator/device contact,
+service action, physical control, core/package/catalog change or old cleanup
+occurred. MODS/native menu, stems activation/staging, USB activation and physical
+validation remain open. Preserve unrelated untracked work.

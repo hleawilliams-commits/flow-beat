@@ -178,3 +178,30 @@ retag queued payloads or treat socket success as an ACK. Real receipt authority,
 host-file effects and owned stopped recovery are still missing. Keep both kernel
 candidates uninstalled, all V2 dispatch disabled and old helpers unchanged. No
 emulator/device contact or new live run occurred for this patch.
+
+
+## Subsequent inactive bounded transport
+
+The [transport successor](../../../emulator-preview-transport/) replaces the
+owned external mpsc lane with a dedicated bounded mailbox and local worker.
+Its bound includes reserved/in-flight requests; full/stale paths close the
+current generation and clear unsent work. Out-of-band terminal stop prevents
+rearming, while only a completed real join supplies worker-completion evidence.
+Drop, empty queues and stop receipts remain insufficient. Confirmation Busy
+now defers the release-only UI transition instead of closing a valid baseline.
+Selected actual-crate tests and exact-assertion negative controls pass, with
+independently matching functional results; main
+still selects None and the original emulator checkout is untouched.
+
+The separate actual-kernel serial test proves that two successful commits can
+replace the overlay before a SPI read. Its synthetic marker is not a native
+button mapping. Commit ACK and UI MIN_HOLD do not establish native consumption
+or dwell. A fixed delay alone cannot resolve that ownership boundary.
+
+Runtime remains closed. The real authenticated backend, settings-file writer,
+callback/deadline policy, unknown-result query/reconciliation and owned stopped
+recovery are missing. App on_exit still proceeds to guest Quit/boot::stop after
+requesting stop without an owned join; a live lifecycle must coordinate that
+ordering and unresolved requests before enablement. Exclusive one-port use of
+the route is a constructor contract, not a type-enforced capability. No device,
+emulator endpoint, service, package, core or catalog changed for this successor.

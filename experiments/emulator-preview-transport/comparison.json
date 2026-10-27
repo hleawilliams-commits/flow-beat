@@ -1,0 +1,136 @@
+{
+  "author_result_sha256": "3578c5473e084b02e05067b065d2bad00c0fa1a597c7ee933eae35ad8c16a108",
+  "compared": "All JSON fields except the explicitly listed raw compilation/test log hash fields. Includes public inputs, every variant source inventory, full test inventory, compiler identity, production exit, selected/passed/failed names, counts and exits.",
+  "different_excluded_fields": [
+    "production_check_log_sha256",
+    "runs[0].compile_output_sha256",
+    "runs[1].compile_output_sha256",
+    "runs[1].test_output_sha256",
+    "runs[2].compile_output_sha256",
+    "runs[2].test_output_sha256",
+    "runs[3].compile_output_sha256",
+    "runs[3].test_output_sha256",
+    "runs[4].compile_output_sha256",
+    "runs[4].test_output_sha256",
+    "runs[5].compile_output_sha256",
+    "runs[5].test_output_sha256",
+    "runs[6].compile_output_sha256",
+    "runs[6].test_output_sha256",
+    "runs[7].compile_output_sha256",
+    "runs[7].test_output_sha256",
+    "runs[8].compile_output_sha256",
+    "runs[8].test_output_sha256",
+    "runs[9].compile_output_sha256",
+    "runs[9].test_output_sha256",
+    "runs[10].compile_output_sha256",
+    "runs[10].test_output_sha256",
+    "runs[11].compile_output_sha256",
+    "runs[11].test_output_sha256"
+  ],
+  "different_raw_hash_count": 24,
+  "excluded_fields": [
+    "production_check_log_sha256",
+    "runs[0].compile_output_sha256",
+    "runs[0].test_output_sha256",
+    "runs[1].compile_output_sha256",
+    "runs[1].test_output_sha256",
+    "runs[2].compile_output_sha256",
+    "runs[2].test_output_sha256",
+    "runs[3].compile_output_sha256",
+    "runs[3].test_output_sha256",
+    "runs[4].compile_output_sha256",
+    "runs[4].test_output_sha256",
+    "runs[5].compile_output_sha256",
+    "runs[5].test_output_sha256",
+    "runs[6].compile_output_sha256",
+    "runs[6].test_output_sha256",
+    "runs[7].compile_output_sha256",
+    "runs[7].test_output_sha256",
+    "runs[8].compile_output_sha256",
+    "runs[8].test_output_sha256",
+    "runs[9].compile_output_sha256",
+    "runs[9].test_output_sha256",
+    "runs[10].compile_output_sha256",
+    "runs[10].test_output_sha256",
+    "runs[11].compile_output_sha256",
+    "runs[11].test_output_sha256"
+  ],
+  "filtered_tests": 78,
+  "functional_source_compiler_equal": true,
+  "independent_control_assertions": [
+    {
+      "intended_assertion": "src/app.rs:1517:9",
+      "matched": true,
+      "name": "stale-update-retagged-at-mailbox",
+      "test": "app::tests::owned_stale_update_key_is_not_retagged_after_new_baseline"
+    },
+    {
+      "intended_assertion": "src/controls.rs:1497:9",
+      "matched": true,
+      "name": "owned-legacy-bus2-refusal-disabled",
+      "test": "controls::owned_route_tests::worker_untagged_mixer_refused_without_callback_or_cache"
+    },
+    {
+      "intended_assertion": "src/app.rs:1541:13",
+      "matched": true,
+      "name": "failed-mailbox-enqueue-advances-app-cache",
+      "test": "app::tests::owned_terminal_stop_and_mailbox_full_do_not_advance_sent_cache"
+    },
+    {
+      "intended_assertion": "src/app.rs:1540:13",
+      "matched": true,
+      "name": "app-exit-omits-terminal-stop",
+      "test": "app::tests::owned_terminal_stop_and_mailbox_full_do_not_advance_sent_cache"
+    },
+    {
+      "intended_assertion": "src/app.rs:1377:9",
+      "matched": true,
+      "name": "busy-confirmation-discards-staged-baseline",
+      "test": "app::tests::owned_busy_confirmation_keeps_staged_baseline_without_opening_input"
+    },
+    {
+      "intended_assertion": "src/mixer_transport.rs:339:9",
+      "matched": true,
+      "name": "capacity-excludes-in-flight-reservation",
+      "test": "mixer_transport::tests::in_flight_counts_toward_capacity_and_stop_does_not_cancel_it"
+    },
+    {
+      "intended_assertion": "src/mixer_transport.rs:363:9",
+      "matched": true,
+      "name": "generation-close-keeps-unsent-queue",
+      "test": "mixer_transport::tests::generation_close_discards_unsent_before_join"
+    },
+    {
+      "intended_assertion": "src/mixer_transport.rs:352:9",
+      "matched": true,
+      "name": "terminal-stop-omits-terminal-admission-boundary",
+      "test": "mixer_transport::tests::terminal_stop_uses_no_data_slot_and_stale_clones_cannot_rearm"
+    },
+    {
+      "intended_assertion": "src/mixer_transport.rs:398:9",
+      "matched": true,
+      "name": "new-baseline-ignores-resolved-but-reserved-envelope",
+      "test": "mixer_transport::tests::resolved_route_still_reserved_refuses_new_baseline_before_bookkeeping"
+    },
+    {
+      "intended_assertion": "src/mixer_transport.rs:425:9",
+      "matched": true,
+      "name": "unknown-outcome-mislabeled-committed",
+      "test": "mixer_transport::tests::unknown_is_retained_closed_and_never_replayed"
+    },
+    {
+      "intended_assertion": "src/mixer_transport.rs:446:13",
+      "matched": true,
+      "name": "worker-panic-mislabeled-normal-stop",
+      "test": "mixer_transport::tests::backend_and_settings_panics_join_terminal_without_retry"
+    }
+  ],
+  "independent_production_unused_warnings": 32,
+  "independent_result_sha256": "138f962a41937c32b47d7ccd2ebe86b00ca327c2f6ccbae7113e4cba620f4362",
+  "listed_tests": 115,
+  "positive_tests": 37,
+  "schema": "az-preview-transport-independent-comparison-v1",
+  "scope": "One fresh independent locked/offline host run, no application/emu/device/socket/settings I/O. Raw export paths, durations and runtime thread IDs remain private; differing raw hashes do not establish log-text equality. No retries, source changes, workarounds, sanitizers or target deployment claimed.",
+  "strict_controls": 11,
+  "whole_json_byte_identical": false
+}

@@ -1,0 +1,87 @@
+{
+  "schema": "az-preview-transport-controls-v1",
+  "candidate_sha256": {
+    "az-preview/src/mixer_transport.rs": "81611d8a098e6d47ed7c43873905c4d4660e34c4bc2d7aeb93403b5b934823d0"
+  },
+  "scope": "Specification only; controls not executed by this author. Apply each single mutation in a fresh private source copy and compile/run exactly the selected test. Require its intended assertion line after actual worker cleanup to fail. Compile errors, zero tests, unrelated failures, timeout and unchanged passing output reject a control. All barriers/backends/settings are local synthetic fixtures; no device, native timing or runtime quiescence proof.",
+  "controls": [
+    {
+      "name": "capacity-excludes-in-flight-reservation",
+      "file": "az-preview/src/mixer_transport.rs",
+      "old": "if s.queue.len()+usize::from(s.in_flight.is_some())>=p.capacity {",
+      "new": "if s.queue.len()>=p.capacity {",
+      "test": "mixer_transport::tests::in_flight_counts_toward_capacity_and_stop_does_not_cancel_it",
+      "oracle": "One blocked backend request occupies the entire bound. A second canonical creation must refuse Full. The fixture retains the erroneous result, requests stop, releases the backend and joins before this assertion; admitting the extra request is a functional failure, not a hang.",
+      "expected_anchor_count": 1,
+      "expected_selected_tests": 1,
+      "expected_failed_tests": 1,
+      "expected_cargo_exit_code": 101,
+      "assertion_anchor": "        assert_eq!(capacity_result,Err(TransportError::Full));"
+    },
+    {
+      "name": "generation-close-keeps-unsent-queue",
+      "file": "az-preview/src/mixer_transport.rs",
+      "old": "        Shared::clear(&mut s);p.route.close()?;Ok(())",
+      "new": "        p.route.close()?;Ok(())",
+      "test": "mixer_transport::tests::generation_close_discards_unsent_before_join",
+      "oracle": "Generation close must clear two immutable unsent envelopes while the worker is paused. The fixture snapshots the resulting queue length, uses the independent terminal-stop cleanup, starts and joins the worker, then checks that generation close cleared it.",
+      "expected_anchor_count": 1,
+      "expected_selected_tests": 1,
+      "expected_failed_tests": 1,
+      "expected_cargo_exit_code": 101,
+      "assertion_anchor": "        assert_eq!(queued_after_close,0);"
+    },
+    {
+      "name": "terminal-stop-omits-terminal-admission-boundary",
+      "file": "az-preview/src/mixer_transport.rs",
+      "old": "        let p=self.shared();p.stop(StopReason::Requested);",
+      "new": "        let p=self.shared();",
+      "test": "mixer_transport::tests::terminal_stop_uses_no_data_slot_and_stale_clones_cannot_rearm",
+      "oracle": "A stop request on a full mailbox must permanently reject fresh-baseline adoption by a stale clone. The mutation merely closes the current generation, allowing a newer baseline to stage. The independently stopping join drains the paused worker before the stored result is checked.",
+      "expected_anchor_count": 1,
+      "expected_selected_tests": 1,
+      "expected_failed_tests": 1,
+      "expected_cargo_exit_code": 101,
+      "assertion_anchor": "        assert_eq!(refresh_after_stop,Err(TransportError::Terminal));"
+    },
+    {
+      "name": "new-baseline-ignores-resolved-but-reserved-envelope",
+      "file": "az-preview/src/mixer_transport.rs",
+      "old": "    pub fn refresh_baseline(&self)->Result<BaselineReceipt,TransportError> {\n        let p=self.shared();let s=p.state.lock().map_err(|_|TransportError::Poisoned)?;\n        if p.terminal() {return Err(TransportError::Terminal);}\n        if s.in_flight.is_some() || !s.queue.is_empty() {return Err(TransportError::Busy);}",
+      "new": "    pub fn refresh_baseline(&self)->Result<BaselineReceipt,TransportError> {\n        let p=self.shared();let s=p.state.lock().map_err(|_|TransportError::Poisoned)?;\n        if p.terminal() {return Err(TransportError::Terminal);}\n        if !s.queue.is_empty() {return Err(TransportError::Busy);}",
+      "test": "mixer_transport::tests::resolved_route_still_reserved_refuses_new_baseline_before_bookkeeping",
+      "oracle": "A test-only one-shot barrier pauses after exact route ACK/settings completion but before mailbox reservation is cleared. Generation closure and a fresh epoch make the route independently eligible; the mailbox must still refuse Busy. The barrier is released and the worker joined before checking the result. No wall-clock deadline or native execution timing is inferred.",
+      "expected_anchor_count": 1,
+      "expected_selected_tests": 1,
+      "expected_failed_tests": 1,
+      "expected_cargo_exit_code": 101,
+      "assertion_anchor": "        assert_eq!(refresh_while_reserved,Err(TransportError::Busy));"
+    },
+    {
+      "name": "unknown-outcome-mislabeled-committed",
+      "file": "az-preview/src/mixer_transport.rs",
+      "old": "Ok(DispatchResult::Unknown)=>(AttemptOutcome::Unknown,false),",
+      "new": "Ok(DispatchResult::Unknown)=>(AttemptOutcome::Committed {settings_written:false},false),",
+      "test": "mixer_transport::tests::unknown_is_retained_closed_and_never_replayed",
+      "oracle": "An ambiguous backend result must remain Unknown in the bounded copied worker receipt. The mutation preserves closure/no retry but lies about the outcome. The exact last receipt is checked after a real join.",
+      "expected_anchor_count": 1,
+      "expected_selected_tests": 1,
+      "expected_failed_tests": 1,
+      "expected_cargo_exit_code": 101,
+      "assertion_anchor": "        assert_eq!(j.status().unwrap().last.unwrap().outcome,AttemptOutcome::Unknown);"
+    },
+    {
+      "name": "worker-panic-mislabeled-normal-stop",
+      "file": "az-preview/src/mixer_transport.rs",
+      "old": "Err(_)=>{p.stop(StopReason::WorkerPanicked);WorkerExit::Panicked}",
+      "new": "Err(_)=>{p.stop(StopReason::WorkerPanicked);WorkerExit::Stopped}",
+      "test": "mixer_transport::tests::backend_and_settings_panics_join_terminal_without_retry",
+      "oracle": "A caught backend/settings panic must produce a distinct Panicked join disposition. The actual worker has joined before the oracle. The first backend-panic case discriminates this mutation before the second case is created; no detached worker or timeout is accepted.",
+      "expected_anchor_count": 1,
+      "expected_selected_tests": 1,
+      "expected_failed_tests": 1,
+      "expected_cargo_exit_code": 101,
+      "assertion_anchor": "            assert_eq!(j.exit(),WorkerExit::Panicked);"
+    }
+  ]
+}

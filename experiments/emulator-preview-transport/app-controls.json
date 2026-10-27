@@ -1,0 +1,75 @@
+{
+  "schema": "az-preview-transport-app-controls-v1",
+  "candidate_sha256": {
+    "az-preview/src/app.rs": "6a5c44efa28ce8f1b0c6d4e5f9cc5a673793df476c8518774821f4b44dc2e890",
+    "az-preview/src/controls.rs": "2d0fd49fe30879d9cfb73b28cf2bfbcc38cd5bde24066ae960a48728b111bf97"
+  },
+  "scope": "Specification only. Execute each mutation in a fresh private source copy. Require exactly the selected test to compile and fail; compiler failure, zero tests, unexpected failures, timeout or unchanged passing output reject the control. These tests use only synthetic channels, egui state and callback workers; no device, UI application, settings files or network.",
+  "controls": [
+    {
+      "name": "stale-update-retagged-at-mailbox",
+      "file": "az-preview/src/app.rs",
+      "old": "let queued = route.enqueue_for_key(key, mix).is_ok();",
+      "new": "let queued = route.enqueue_for_key(route.current_key().unwrap_or(key), mix).is_ok();",
+      "test": "app::tests::owned_stale_update_key_is_not_retagged_after_new_baseline",
+      "oracle": "A frame authored under the captured old key must not become a new-generation mailbox request. The App sent cache must remain at its prior value and the gate must close after refusal.",
+      "expected_anchor_count": 1,
+      "expected_selected_tests": 1,
+      "expected_failed_tests": 1,
+      "expected_cargo_exit_code": 101,
+      "assertion_anchor": "        assert_eq!(app.sent_mixer, sent);"
+    },
+    {
+      "name": "owned-legacy-bus2-refusal-disabled",
+      "file": "az-preview/src/controls.rs",
+      "old": "CtrlMsg::Legacy { bus: BUS_MIXER, .. } if owned_mixer => None,",
+      "new": "CtrlMsg::Legacy { bus: BUS_MIXER, .. } if false && owned_mixer => None,",
+      "test": "controls::owned_route_tests::worker_untagged_mixer_refused_without_callback_or_cache",
+      "oracle": "Raw bus2 bytes in owned mode must yield no legacy cache entry. Disabling the classifier refusal incorrectly admits those bytes for legacy replay.",
+      "expected_anchor_count": 1,
+      "expected_selected_tests": 1,
+      "expected_failed_tests": 1,
+      "expected_cargo_exit_code": 101,
+      "assertion_anchor": "        assert!(latest.messages().is_empty());"
+    },
+    {
+      "name": "failed-mailbox-enqueue-advances-app-cache",
+      "file": "az-preview/src/app.rs",
+      "old": "                    } else {\n                        let _ = route.close_generation();\n                        self.mixer_creation_key = None;",
+      "new": "                    } else {\n                        self.sent_mixer = mix;\n                        let _ = route.close_generation();\n                        self.mixer_creation_key = None;",
+      "test": "app::tests::owned_terminal_stop_and_mailbox_full_do_not_advance_sent_cache",
+      "oracle": "An in-flight request consumes the mailbox bound. A refused subsequent frame must not advance the App deduplication cache; terminal stop is tested in the same selected case.",
+      "expected_anchor_count": 1,
+      "expected_selected_tests": 1,
+      "expected_failed_tests": 1,
+      "expected_cargo_exit_code": 101,
+      "assertion_anchor": "            assert_eq!(app.sent_mixer, sent);"
+    },
+    {
+      "name": "app-exit-omits-terminal-stop",
+      "file": "az-preview/src/app.rs",
+      "old": "if let Some(port) = &self.links.mixer { let _ = port.request_stop(); }",
+      "new": "if let Some(_port) = &self.links.mixer { /* mutant omits terminal stop */ }",
+      "test": "app::tests::owned_terminal_stop_and_mailbox_full_do_not_advance_sent_cache",
+      "oracle": "Actual App on_exit must request terminal admission stop. Retaining the old captured key after exit must not allow a new mailbox enqueue or deduplication-cache advance. The fixture still owns explicit stop and join cleanup.",
+      "expected_anchor_count": 1,
+      "expected_selected_tests": 1,
+      "expected_failed_tests": 1,
+      "expected_cargo_exit_code": 101,
+      "assertion_anchor": "            assert_eq!(app.sent_mixer, sent);"
+    },
+    {
+      "name": "busy-confirmation-discards-staged-baseline",
+      "file": "az-preview/src/app.rs",
+      "old": "                    Err(TransportError::Busy | TransportError::Route(\n                        crate::mixer_route::RouteError::Gate(crate::mixer_producer::Error::Busy))) => {}",
+      "new": "                    Err(TransportError::Busy | TransportError::Route(\n                        crate::mixer_route::RouteError::Gate(crate::mixer_producer::Error::Busy))) => { let _ = route.close_generation(); }",
+      "test": "app::tests::owned_busy_confirmation_keeps_staged_baseline_without_opening_input",
+      "oracle": "A one-shot test-only local mutex holder forces the actual mailbox try_lock WouldBlock branch, and drops before App handles Busy. The exact staged receipt must remain and reject a false release as HeldControls; reverting to close returns NoBaseline and fails immediately, without treating timeout as a successful control.",
+      "expected_anchor_count": 1,
+      "expected_selected_tests": 1,
+      "expected_failed_tests": 1,
+      "expected_cargo_exit_code": 101,
+      "assertion_anchor": "        assert_eq!(refusal, Err(TransportError::Route("
+    }
+  ]
+}

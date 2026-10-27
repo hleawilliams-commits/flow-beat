@@ -1,0 +1,7 @@
+{
+  "Cargo.lock": "eaf66e88bd38ea8c3aa351330f631fb7ba6ba2194a22faa18ee332c1c595d119",
+  "base-source-pins.json": "702a66cfd56eb67f97ccfe3e2b6fafd7e14c68e3bf7dca7636b5e197f916cf8e",
+  "candidate-pins.json": "ce660bc537639c092e649337895e6e560e7d8beab16ee49f0fa900b731af2aa4",
+  "prepare-candidate.py": "1e7c8f75a8d1d3fb3222ea37575928a0d02069fa6870cf480fc5462f7fbf5c40",
+  "preview-gate.patch": "264d3d26cdc6a3534fb7df299220b02d4043b1190416b1b0d6a578f68247a84e"
+}

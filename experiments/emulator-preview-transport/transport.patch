@@ -1,0 +1,1271 @@
+diff --git a/az-preview/src/app.rs b/az-preview/src/app.rs
+--- a/az-preview/src/app.rs
++++ b/az-preview/src/app.rs
+@@ -26,7 +26,7 @@
+ };
+ use crate::meter::{Meter, FLOOR_DB};
+ use crate::mixer_producer::{BaselineReceipt, Key};
+-use crate::mixer_route::MixerRoute;
++use crate::mixer_transport::{MixerPort, TransportError};
+ use crate::panel::{
+     self, browse_center, fit_rect, knob, lcd_rect, xpad_rect, DeckView, PanelView, Sc, ASPECT,
+     CH_CONTROLS, COL_BLACK, COL_SILVER, COL_TEAL, PANEL_MARGIN,
+@@ -68,7 +68,7 @@
+     pub ctrl_tx: Sender<CtrlMsg>,
+     pub led_rx: Receiver<LedWire>,
+     /// None preserves legacy operation. Some selects owned mode even while closed.
+-    pub mixer: Option<Arc<MixerRoute>>,
++    pub mixer: Option<Arc<MixerPort>>,
+ }
+ 
+ pub struct App {
+@@ -291,10 +291,13 @@
+             }
+             if self.mixer_rearm_pending && mixer_controls_released(ctx) {
+                 self.clear_mixer_gestures();
+-                if route.confirm_adoption(receipt, true).is_ok() {
+-                    self.mixer_rearm_pending = false;
+-                } else {
+-                    let _ = route.close();
++                match route.confirm_adoption(receipt, true) {
++                    Ok(()) => self.mixer_rearm_pending = false,
++                    // This refusal precedes confirmation. Keep the staged
++                    // baseline and retry only on a later release-only update.
++                    Err(TransportError::Busy | TransportError::Route(
++                        crate::mixer_route::RouteError::Gate(crate::mixer_producer::Error::Busy))) => {}
++                    Err(_) => { let _ = route.close_generation(); }
+                 }
+             }
+             return;
+@@ -321,7 +324,7 @@
+             }
+         } else {
+             self.clear_mixer_gestures();
+-            if key.is_some() { let _ = route.close(); }
++            if key.is_some() { let _ = route.close_generation(); }
+         }
+     }
+ 
+@@ -938,13 +941,11 @@
+                 if let Some(key) = self.mixer_creation_key {
+                     // The key was captured before UI mutation. A concurrent
+                     // transition cannot reauthorize this frame under a new key.
+-                    let queued = route.create_for_key(key, mix).ok().is_some_and(|request| {
+-                        self.links.ctrl_tx.send(CtrlMsg::OwnedMixer(request)).is_ok()
+-                    });
++                    let queued = route.enqueue_for_key(key, mix).is_ok();
+                     if queued {
+                         self.sent_mixer = mix;
+                     } else {
+-                        let _ = route.close();
++                        let _ = route.close_generation();
+                         self.mixer_creation_key = None;
+                         self.clear_mixer_gestures();
+                     }
+@@ -991,7 +992,9 @@
+ 
+ impl eframe::App for App {
+     fn on_exit(&mut self, _gl: Option<&eframe::glow::Context>) {
+-        if let Some(route) = &self.links.mixer { let _ = route.close(); }
++        // Terminal admission stop only. The lifecycle owner must join its
++        // dedicated worker separately; this does not prove native quiescence.
++        if let Some(port) = &self.links.mixer { let _ = port.request_stop(); }
+         if let Some(launched) = &mut self.launched {
+             // QEMU quits on its own first (flushing its disk caches to the image
+             // files); stop() waits for that and kills it only if it hangs.
+@@ -1135,10 +1138,14 @@
+     use super::*;
+ 
+     use crate::mixer_producer::{Envelope, FrameAck};
+-    use crate::mixer_route::{BackendOutcome, MixerBackend, SettingsSink};
++    use crate::mixer_route::{BackendOutcome, MixerBackend, MixerRoute, SettingsSink};
++    use crate::mixer_transport::{channel as mixer_channel, MixerWorker, WorkerExit};
+     use std::sync::{mpsc, Mutex};
+ 
+-    struct TestBackend { baseline: Arc<Mutex<BaselineReceipt>>, sequence: u64 }
++    struct TestBackend {
++        baseline: Arc<Mutex<BaselineReceipt>>, sequence: u64,
++        entered: Sender<Envelope>, permit: Receiver<()>,
++    }
+     impl MixerBackend for TestBackend {
+         fn baseline(&mut self) -> Result<BaselineReceipt, String> {
+             let receipt = *self.baseline.lock().unwrap();
+@@ -1146,15 +1153,48 @@
+             Ok(receipt)
+         }
+         fn submit(&mut self, request: Envelope) -> BackendOutcome {
++            self.entered.send(request).unwrap();
++            if self.permit.recv_timeout(Duration::from_secs(5)).is_err() {
++                return BackendOutcome::Unknown;
++            }
+             self.sequence += 1;
+             BackendOutcome::Committed(FrameAck { request, kernel_sequence: self.sequence })
+         }
+     }
+-    struct TestSettings(Arc<Mutex<Vec<FrameAck>>>);
++    struct TestSettings {
++        saved: Arc<Mutex<Vec<FrameAck>>>, acknowledged: Sender<FrameAck>,
++    }
+     impl SettingsSink for TestSettings {
+         fn commit(&mut self, ack: FrameAck) -> Result<(), String> {
+-            self.0.lock().unwrap().push(ack);
++            self.saved.lock().unwrap().push(ack);
++            self.acknowledged.send(ack).unwrap();
+             Ok(())
++        }
++    }
++    struct TestWorker {
++        port: Arc<MixerPort>, worker: Option<MixerWorker>,
++        permit: Sender<()>, entered: Receiver<Envelope>, acknowledged: Receiver<FrameAck>,
++        saved: Arc<Mutex<Vec<FrameAck>>>,
++    }
++    impl TestWorker {
++        fn next_request(&self) -> Envelope {
++            self.entered.recv_timeout(Duration::from_secs(5)).expect("owned worker entry")
++        }
++        fn allow_one(&self) { self.permit.send(()).unwrap(); }
++        fn next_ack(&self) -> FrameAck {
++            self.acknowledged.recv_timeout(Duration::from_secs(5)).expect("exact ACK settings")
++        }
++    }
++    impl Drop for TestWorker {
++        fn drop(&mut self) {
++            // The fixture alone owns this synthetic worker. Release any test
++            // backend wait, request terminal stop, then actually join it.
++            for _ in 0..64 { let _ = self.permit.send(()); }
++            let _ = self.port.request_stop();
++            if let Some(worker) = self.worker.take() {
++                let receipt = worker.join().expect("fixture join");
++                assert_eq!(receipt.exit(), WorkerExit::Stopped, "fixture worker exit");
++            }
+         }
+     }
+ 
+@@ -1176,17 +1216,24 @@
+             epoch, producer_id: 3 }, frame, kernel_sequence: 20 }
+     }
+ 
+-    fn route(capacity: usize) -> (Arc<MixerRoute>, Arc<Mutex<BaselineReceipt>>,
+-        Arc<Mutex<Vec<FrameAck>>>) {
++    fn route(capacity: usize) -> (Arc<MixerPort>, Arc<Mutex<BaselineReceipt>>, TestWorker) {
+         let baseline = Arc::new(Mutex::new(receipt(1)));
+         let saved = Arc::new(Mutex::new(Vec::new()));
+-        let route = Arc::new(MixerRoute::new(capacity,
+-            Box::new(TestBackend { baseline: baseline.clone(), sequence: 0 }),
+-            Box::new(TestSettings(saved.clone()))).unwrap());
+-        (route, baseline, saved)
+-    }
+-
+-    fn test_app(route: Option<Arc<MixerRoute>>) -> (App, Receiver<CtrlMsg>) {
++        let (entered_tx, entered) = mpsc::channel();
++        let (permit, permit_rx) = mpsc::channel();
++        let (acknowledged_tx, acknowledged) = mpsc::channel();
++        let route = Arc::new(MixerRoute::new(64,
++            Box::new(TestBackend { baseline: baseline.clone(), sequence: 0,
++                entered: entered_tx, permit: permit_rx }),
++            Box::new(TestSettings { saved: saved.clone(), acknowledged: acknowledged_tx })).unwrap());
++        let (port, worker) = mixer_channel(route, capacity).unwrap();
++        let port = Arc::new(port);
++        let worker = TestWorker { port: port.clone(), worker: Some(worker), permit, entered,
++            acknowledged, saved };
++        (port, baseline, worker)
++    }
++
++    fn test_app(route: Option<Arc<MixerPort>>) -> (App, Receiver<CtrlMsg>) {
+         let (cmd_tx, _) = mpsc::channel();
+         let (_, frame_rx) = mpsc::channel();
+         let (ctrl_tx, ctrl_rx) = mpsc::channel();
+@@ -1205,27 +1252,37 @@
+         let _ = ctx.run(input(events), |ctx| app.begin_mixer_update(ctx));
+     }
+ 
++    /// Busy nonblocking status reads may legitimately skip a UI update while
++    /// the dedicated worker starts. Progress through real updates, never turn
++    /// elapsed time into readiness or count timeout as success.
++    fn tick_until(app: &mut App, ctx: &egui::Context, ready: impl Fn(&App) -> bool) {
++        let deadline = Instant::now() + Duration::from_secs(5);
++        loop {
++            tick(app, ctx, vec![]);
++            if ready(app) { return; }
++            assert!(Instant::now() < deadline, "App phase readiness timed out");
++            std::thread::yield_now();
++        }
++    }
++
+     fn pointer(pos: Pos2, pressed: bool) -> Vec<egui::Event> {
+         vec![egui::Event::PointerMoved(pos), egui::Event::PointerButton {
+             pos, button: egui::PointerButton::Primary, pressed,
+             modifiers: egui::Modifiers::NONE }]
+     }
+ 
+-    fn arm(app: &mut App, route: &MixerRoute, ctx: &egui::Context) {
++    fn arm(app: &mut App, route: &MixerPort, ctx: &egui::Context) {
+         let baseline = route.refresh_baseline().unwrap();
+-        tick(app, ctx, vec![]); // adopt; no input
+-        assert_eq!(app.mixer_baseline, Some(baseline));
+-        assert_eq!(app.mixer_creation_key, None);
+-        tick(app, ctx, vec![]); // release-only update
+-        assert_eq!(route.current_key(), Some(baseline.key));
+-        assert_eq!(app.mixer_creation_key, None);
+-        tick(app, ctx, vec![]); // first possible input update
+-        assert_eq!(app.mixer_creation_key, Some(baseline.key));
++        tick_until(app, ctx, |app| app.mixer_baseline == Some(baseline));
++        assert_eq!(app.mixer_creation_key, None); // adoption update cannot create
++        tick_until(app, ctx, |app| !app.mixer_rearm_pending);
++        assert_eq!(app.mixer_creation_key, None); // confirming update cannot create
++        tick_until(app, ctx, |app| app.mixer_creation_key == Some(baseline.key));
+     }
+ 
+     #[test]
+     fn owned_adoption_resets_every_mixer_model_without_changing_other_buses() {
+-        let (route, _, _) = route(8);
++        let (route, _, _worker) = route(8);
+         let (mut app, _) = test_app(Some(route.clone()));
+         let now = Instant::now();
+         let erp = Bit::erp(10, 2);
+@@ -1245,7 +1302,7 @@
+         let deck = app.deck_frame;
+         let erp_sent = app.sent_erp;
+         let baseline = route.refresh_baseline().unwrap();
+-        tick(&mut app, &egui::Context::default(), vec![]);
++        tick_until(&mut app, &egui::Context::default(), |app| app.mixer_baseline == Some(baseline));
+         assert_eq!(app.mixer_frame, baseline.frame);
+         assert_eq!(app.sent_mixer, baseline.frame);
+         for mx in 0..MX_COUNT { assert_eq!(app.mixer_pos[mx], get_mx(&baseline.frame, mx)); }
+@@ -1268,13 +1325,13 @@
+ 
+     #[test]
+     fn owned_release_click_and_confirmation_update_cannot_create_input() {
+-        let (route, _, _) = route(8);
++        let (route, _, _worker) = route(8);
+         let (mut app, rx) = test_app(Some(route.clone()));
+         let ctx = egui::Context::default();
+         let pos = Pos2::new(500.0, 400.0);
+         tick(&mut app, &ctx, pointer(pos, true));
+-        route.refresh_baseline().unwrap();
+-        tick(&mut app, &ctx, vec![]); // adoption while old gesture is held
++        let baseline = route.refresh_baseline().unwrap();
++        tick_until(&mut app, &ctx, |app| app.mixer_baseline == Some(baseline)); // old gesture held
+         tick(&mut app, &ctx, vec![]);
+         assert_eq!(route.current_key(), None);
+         app.screen_only = true;
+@@ -1282,13 +1339,48 @@
+         assert_eq!(route.current_key(), None);
+         assert!(!app.mixer_input_allowed());
+         app.screen_only = false;
+-        tick(&mut app, &ctx, vec![]); // clean release-only update
+-        assert!(route.current_key().is_some());
++        tick_until(&mut app, &ctx, |app| !app.mixer_rearm_pending); // clean release-only update
+         assert!(!app.mixer_input_allowed());
+         app.send_frames(&ctx);
+         assert!(rx.try_recv().is_err());
+         tick(&mut app, &ctx, pointer(pos, true)); // fresh action, new update
++        if !app.mixer_input_allowed() {
++            tick_until(&mut app, &ctx, |app| app.mixer_input_allowed());
++        }
+         assert!(app.mixer_input_allowed());
++    }
++
++    #[test]
++    fn owned_busy_confirmation_keeps_staged_baseline_without_opening_input() {
++        let (route, _, _worker) = route(8);
++        let (mut app, rx) = test_app(Some(route.clone()));
++        let ctx = egui::Context::default();
++        let baseline = route.refresh_baseline().unwrap();
++        tick_until(&mut app, &ctx, |app| app.mixer_baseline == Some(baseline));
++        route.force_confirmation_busy_once_for_test();
++        tick_until(&mut app, &ctx, |_| !route.confirmation_busy_pending_for_test());
++        assert!(app.mixer_rearm_pending);
++        assert_eq!(app.mixer_creation_key, None);
++        assert!(!app.mixer_input_allowed());
++        // This refused release cannot arm. HeldControls, rather than
++        // NoBaseline, proves that the exact acknowledged receipt survived.
++        let deadline = Instant::now() + Duration::from_secs(5);
++        let refusal = loop {
++            match route.confirm_adoption(baseline, false) {
++                Err(TransportError::Busy) => {
++                    assert!(Instant::now() < deadline, "confirmation probe timed out");
++                    std::thread::yield_now();
++                }
++                result => break result,
++            }
++        };
++        assert_eq!(refusal, Err(TransportError::Route(
++            crate::mixer_route::RouteError::Gate(crate::mixer_producer::Error::HeldControls))));
++        tick_until(&mut app, &ctx, |app| !app.mixer_rearm_pending);
++        assert_eq!(app.mixer_creation_key, None); // successful confirmation update
++        app.send_frames(&ctx);
++        assert!(rx.try_recv().is_err());
++        tick_until(&mut app, &ctx, |app| app.mixer_creation_key == Some(baseline.key));
+     }
+ 
+     #[test]
+@@ -1317,7 +1409,7 @@
+ 
+     #[test]
+     fn owned_closed_handlers_cannot_author_mixer_bytes() {
+-        let (route, _, _) = route(8);
++        let (route, _, _worker) = route(8);
+         let (mut app, rx) = test_app(Some(route));
+         let ctx = egui::Context::default();
+         let frame = app.mixer_frame;
+@@ -1355,7 +1447,7 @@
+ 
+     #[test]
+     fn owned_baseline_no_input_is_exact_and_ack_settings_follow_envelope() {
+-        let (route, _, saved) = route(8);
++        let (route, _, worker) = route(8);
+         let (mut app, rx) = test_app(Some(route.clone()));
+         let ctx = egui::Context::default();
+         arm(&mut app, &route, &ctx);
+@@ -1366,21 +1458,23 @@
+         let expected = app.mixer_frame;
+         app.send_frames(&ctx);
+         assert_eq!(app.sent_mixer, expected);
+-        assert!(saved.lock().unwrap().is_empty()); // enqueue is not ACK/settings
+-        let CtrlMsg::OwnedMixer(request) = rx.try_recv().unwrap() else { panic!("legacy fallback") };
++        assert!(worker.saved.lock().unwrap().is_empty()); // enqueue is not ACK/settings
++        assert!(rx.try_recv().is_err()); // no owned payload in the shared channel
++        let request = worker.next_request();
+         assert_eq!(request.key(), receipt(1).key);
+         assert_eq!(request.request_id(), 1);
+         assert_eq!(*request.frame(), expected);
+         for i in 0..152 { if i != KNOB_BYTE { assert_eq!(request.frame()[i], baseline[i]); } }
+         app.mixer_frame[KNOB_BYTE] += 1; // newer UI value cannot alter ACK payload
+-        route.dispatch(request).unwrap();
+-        assert_eq!(saved.lock().unwrap()[0].request, request);
+-        assert_eq!(*saved.lock().unwrap()[0].request.frame(), expected);
++        worker.allow_one();
++        assert_eq!(worker.next_ack().request, request);
++        assert_eq!(worker.saved.lock().unwrap()[0].request, request);
++        assert_eq!(*worker.saved.lock().unwrap()[0].request.frame(), expected);
+     }
+ 
+     #[test]
+     fn owned_real_fx_time_drag_starts_from_adopted_encoder_pair() {
+-        let (route, _, _) = route(8);
++        let (route, _, worker) = route(8);
+         let (mut app, rx) = test_app(Some(route.clone()));
+         let ctx = egui::Context::default();
+         arm(&mut app, &route, &ctx);
+@@ -1401,20 +1495,20 @@
+         expected[FX_TIME_BYTES.0] = lo;
+         expected[FX_TIME_BYTES.1] = hi;
+         assert_eq!(app.mixer_frame, expected);
+-        let CtrlMsg::OwnedMixer(request) = rx.try_recv().unwrap() else { panic!("legacy fallback") };
++        let request = worker.next_request();
+         assert_eq!(*request.frame(), expected);
+         assert!(rx.try_recv().is_err());
+     }
+ 
+     #[test]
+     fn owned_stale_update_key_is_not_retagged_after_new_baseline() {
+-        let (route, baseline, _) = route(8);
++        let (route, baseline, _worker) = route(8);
+         let (mut app, rx) = test_app(Some(route.clone()));
+         let ctx = egui::Context::default();
+         arm(&mut app, &route, &ctx);
+         let sent = app.sent_mixer;
+         app.mixer_frame[KNOB_BYTE] += 1; // authored under captured old key
+-        route.close().unwrap();
++        route.close_generation().unwrap();
+         *baseline.lock().unwrap() = receipt(2);
+         let newer = route.refresh_baseline().unwrap();
+         route.confirm_adoption(newer, true).unwrap();
+@@ -1426,28 +1520,50 @@
+     }
+ 
+     #[test]
+-    fn owned_channel_failure_and_queue_full_do_not_advance_sent_cache() {
+-        for disconnected in [false, true] {
+-            let (route, _, _) = route(1);
++    fn owned_terminal_stop_and_mailbox_full_do_not_advance_sent_cache() {
++        for stopped in [false, true] {
++            let (route, _, worker) = route(1);
+             let (mut app, rx) = test_app(Some(route.clone()));
+             let ctx = egui::Context::default();
+             arm(&mut app, &route, &ctx);
+-            if !disconnected {
+-                route.create_for_key(receipt(1).key, receipt(1).frame).unwrap();
++            if stopped {
++                eframe::App::on_exit(&mut app, None); // request only; fixture joins later
++            } else {
++                // The first backend call remains unresolved, consuming the
++                // entire mailbox bound even after the worker dequeues it.
++                let first = route.enqueue_for_key(receipt(1).key, receipt(1).frame).unwrap();
++                assert_eq!(worker.next_request(), first);
+             }
+             let sent = app.sent_mixer;
+-            if disconnected { drop(rx); }
+             app.mixer_frame[KNOB_BYTE] += 1;
+             app.send_frames(&ctx);
+             assert_eq!(app.sent_mixer, sent);
+             assert_eq!(route.current_key(), None);
+             assert_eq!(app.mixer_creation_key, None);
+-        }
++            assert!(rx.try_recv().is_err());
++        }
++    }
++
++    #[test]
++    fn owned_mailbox_does_not_depend_on_legacy_channel_receiver() {
++        let (route, _, worker) = route(2);
++        let (mut app, rx) = test_app(Some(route.clone()));
++        let ctx = egui::Context::default();
++        arm(&mut app, &route, &ctx);
++        drop(rx);
++        app.mixer_frame[KNOB_BYTE] += 1;
++        let expected = app.mixer_frame;
++        app.send_frames(&ctx);
++        assert_eq!(app.sent_mixer, expected);
++        let request = worker.next_request();
++        assert_eq!(*request.frame(), expected);
++        worker.allow_one();
++        assert_eq!(worker.next_ack().request, request);
+     }
+ 
+     #[test]
+     fn owned_hidden_pointer_release_clears_only_mixer_and_preserves_erp() {
+-        let (route, _, _) = route(8);
++        let (route, _, _worker) = route(8);
+         let (mut app, rx) = test_app(Some(route.clone()));
+         let ctx = egui::Context::default();
+         arm(&mut app, &route, &ctx);
+@@ -1462,7 +1578,7 @@
+         assert!(app.held.contains_key(&Id::new("erp")));
+         assert_eq!(app.xpad, None);
+         app.send_frames(&ctx);
+-        let CtrlMsg::Legacy { bus, frame } = rx.try_recv().unwrap() else { panic!("unexpected mixer") };
++        let CtrlMsg::Legacy { bus, frame } = rx.try_recv().unwrap();
+         assert_eq!(bus, BUS_ERP);
+         assert_eq!(frame[10] & 2, 2);
+         assert_eq!(frame[ERP_SHIFT.0] & ERP_SHIFT.1, ERP_SHIFT.1);
+@@ -1471,7 +1587,7 @@
+ 
+     #[test]
+     fn owned_close_then_new_baseline_drops_hidden_mixer_state_only() {
+-        let (route, baseline, _) = route(8);
++        let (route, baseline, _worker) = route(8);
+         let (mut app, _) = test_app(Some(route.clone()));
+         let ctx = egui::Context::default();
+         arm(&mut app, &route, &ctx);
+@@ -1483,14 +1599,14 @@
+         let now = Instant::now();
+         app.pending.push((Bit::erp(10, 2), now + MIN_HOLD));
+         app.shift[1] = true;
+-        route.close().unwrap();
++        route.close_generation().unwrap();
+         tick(&mut app, &ctx, vec![]);
+         assert_eq!(app.pending.len(), 1);
+         assert!(matches!(app.pending[0].0.bus, Bus::Erp));
+         assert_eq!((app.fx_time_drag, app.browse_cursor, app.xpad), (0.0, 0.0, None));
+         *baseline.lock().unwrap() = receipt(2);
+-        route.refresh_baseline().unwrap();
+-        tick(&mut app, &ctx, vec![]);
++        let newer = route.refresh_baseline().unwrap();
++        tick_until(&mut app, &ctx, |app| app.mixer_baseline == Some(newer));
+         assert_eq!(app.mixer_frame, receipt(2).frame);
+         assert_eq!(app.sent_mixer, receipt(2).frame);
+         assert!(app.shift[1]);
+@@ -1505,7 +1621,7 @@
+         assert!(app.mixer_input_allowed());
+         assert_eq!(app.mixer_baseline, None);
+         app.send_deck(0);
+-        let CtrlMsg::Legacy { bus, frame } = rx.try_recv().unwrap() else { panic!("tagged deck") };
++        let CtrlMsg::Legacy { bus, frame } = rx.try_recv().unwrap();
+         assert_eq!(bus, BUS_DECK_L);
+         assert_eq!(frame, app.deck_frame[0]);
+     }
+diff --git a/az-preview/src/controls.rs b/az-preview/src/controls.rs
+--- a/az-preview/src/controls.rs
++++ b/az-preview/src/controls.rs
+@@ -20,9 +20,6 @@
+ #[cfg(unix)]
+ use std::os::unix::net::UnixStream;
+ use std::sync::mpsc::{Receiver, Sender};
+-use std::sync::Arc;
+-use crate::mixer_producer::Envelope;
+-use crate::mixer_route::MixerRoute;
+ use std::thread;
+ use std::time::Duration;
+ // Windows 10 1803+ has AF_UNIX sockets and QEMU uses them there; std exposes
+@@ -844,12 +841,11 @@
+ 
+ // ---- The socket ---------------------------------------------------------------------
+ 
+-/// Legacy bus traffic and owned mixer traffic have different types. There is no
+-/// conversion from an owned envelope to a legacy wire frame.
++/// This channel carries legacy traffic only. Owned mixer requests use their
++/// dedicated bounded port and have no variant or wire conversion here.
+ #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+ pub enum CtrlMsg {
+     Legacy { bus: u8, frame: Frame },
+-    OwnedMixer(Envelope),
+ }
+ 
+ #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+@@ -864,18 +860,11 @@
+ }
+ 
+ /// Classify every receive before legacy cache/write, even while disconnected.
+-/// An owned request is dispatched once; neither it nor an untagged mixer frame
+-/// enters the legacy latest-frame replay cache when an owned route exists.
+-fn route_message(msg: CtrlMsg, mixer: Option<&MixerRoute>) -> Option<LegacyFrame> {
++/// Owned mode rejects untagged mixer bytes locally. A boolean is the only owned
++/// state available here: no owned callback/lock can stall ERP or deck routing.
++fn route_message(msg: CtrlMsg, owned_mixer: bool) -> Option<LegacyFrame> {
+     match msg {
+-        CtrlMsg::OwnedMixer(request) => {
+-            if let Some(route) = mixer { let _ = route.dispatch(request); }
+-            None
+-        }
+-        CtrlMsg::Legacy { bus: BUS_MIXER, .. } if mixer.is_some() => {
+-            if let Some(route) = mixer { let _ = route.close(); }
+-            None
+-        }
++        CtrlMsg::Legacy { bus: BUS_MIXER, .. } if owned_mixer => None,
+         CtrlMsg::Legacy { bus, frame } => Some(LegacyFrame { bus, frame }),
+     }
+ }
+@@ -918,7 +907,7 @@
+ }
+ 
+ pub fn ctrl_thread(rx: Receiver<CtrlMsg>, led_tx: Sender<LedWire>,
+-    mixer: Option<Arc<MixerRoute>>) {
++    owned_mixer: bool) {
+     let log = std::env::var_os("AZ_CTRL_LOG").is_some();
+     let mut latest = LatestFrames::default();
+     let send = |stream: &mut UnixStream, msg: &LegacyFrame| {
+@@ -934,7 +923,7 @@
+             Err(_) => {
+                 // Nothing to send to while disconnected: keep the latest state.
+                 while let Ok(msg) = rx.try_recv() {
+-                    if let Some(msg) = route_message(msg, mixer.as_deref()) {
++                    if let Some(msg) = route_message(msg, owned_mixer) {
+                         latest.note(&msg);
+                     }
+                 }
+@@ -958,7 +947,7 @@
+         }
+         loop {
+             let Ok(msg) = rx.recv() else { return };
+-            let Some(msg) = route_message(msg, mixer.as_deref()) else { continue };
++            let Some(msg) = route_message(msg, owned_mixer) else { continue };
+             latest.note(&msg);
+             if send(&mut stream, &msg).is_err() {
+                 break; // guest gone: reconnect
+@@ -1494,54 +1483,142 @@
+ #[cfg(test)]
+ mod owned_route_tests {
+     use super::*;
+-    use crate::mixer_producer::{BaselineReceipt, FrameAck, Key};
+-    use crate::mixer_route::{BackendOutcome, MixerBackend, SettingsSink};
+-    use std::sync::Mutex;
+-    struct Backend(Arc<Mutex<Vec<Envelope>>>);
+-    fn baseline()->BaselineReceipt {BaselineReceipt {key:Key {instance:[1,2],run_id:3,epoch:4,producer_id:5},
+-        frame:SPI3_IDLE,kernel_sequence:6}}
+-    impl MixerBackend for Backend {
+-        fn baseline(&mut self)->Result<BaselineReceipt,String> {Ok(baseline())}
+-        fn submit(&mut self,e:Envelope)->BackendOutcome {self.0.lock().unwrap().push(e);
+-            BackendOutcome::Committed(FrameAck {request:e,kernel_sequence:7})}
+-    }
+-    struct Sink;
+-    impl SettingsSink for Sink {fn commit(&mut self,_:FrameAck)->Result<(),String> {Ok(())}}
+-    fn ready()->(MixerRoute,Arc<Mutex<Vec<Envelope>>>) {
+-        let calls=Arc::new(Mutex::new(vec![]));
+-        let r=MixerRoute::new(2,Box::new(Backend(calls.clone())),Box::new(Sink)).unwrap();
+-        let b=r.refresh_baseline().unwrap();r.confirm_adoption(b,true).unwrap();(r,calls)
+-    }
+-    #[test] fn worker_owned_dispatch_is_not_legacy_cache_or_wire() {
+-        let (route,calls)=ready();let b=baseline();let e=route.create_for_key(b.key,b.frame).unwrap();
+-        let mut latest=LatestFrames::default();
+-        if let Some(legacy)=route_message(CtrlMsg::OwnedMixer(e),Some(&route)) {latest.note(&legacy);}
+-        assert!(latest.messages().is_empty());assert_eq!(*calls.lock().unwrap(),vec![e]);
+-        assert!(route_message(CtrlMsg::OwnedMixer(e),Some(&route)).is_none());
+-        assert_eq!(*calls.lock().unwrap(),vec![e]);
+-    }
+-    #[test] fn worker_untagged_mixer_refused_without_fallback() {
+-        let (route,calls)=ready();let mut latest=LatestFrames::default();
+-        if let Some(legacy)=route_message(CtrlMsg::Legacy {bus:BUS_MIXER,frame:SPI3_IDLE},Some(&route)) {latest.note(&legacy);}
+-        assert!(latest.messages().is_empty());assert!(calls.lock().unwrap().is_empty());
+-        assert!(route.current_key().is_none());
+-    }
+-    #[test] fn worker_other_buses_keep_exact_legacy_wire_and_replay() {
+-        let (route,calls)=ready();let mut latest=LatestFrames::default();
+-        for bus in [BUS_ERP,BUS_DECK_R,BUS_DECK_L] {
+-            let frame=std::array::from_fn(|n|(n as u8).wrapping_add(bus));
+-            let legacy=route_message(CtrlMsg::Legacy {bus,frame},Some(&route)).unwrap();
+-            assert_eq!(wire_frame(&legacy)[0],bus);assert_eq!(&wire_frame(&legacy)[1..],&frame);
++
++    #[test]
++    fn worker_untagged_mixer_refused_without_callback_or_cache() {
++        let mut latest = LatestFrames::default();
++        for _ in 0..32 {
++            if let Some(legacy) = route_message(
++                CtrlMsg::Legacy { bus: BUS_MIXER, frame: SPI3_IDLE }, true)
++            {
++                latest.note(&legacy);
++            }
++        }
++        assert!(latest.messages().is_empty());
++        // The classifier receives no route/port/backend, so rejection cannot
++        // invoke a serialized settings callback or logical close.
++    }
++
++    #[test]
++    fn worker_other_buses_keep_exact_legacy_wire_and_replay() {
++        let mut latest = LatestFrames::default();
++        for bus in [BUS_ERP, BUS_DECK_R, BUS_DECK_L] {
++            let frame = std::array::from_fn(|n| (n as u8).wrapping_add(bus));
++            let legacy = route_message(CtrlMsg::Legacy { bus, frame }, true).unwrap();
++            assert_eq!(wire_frame(&legacy)[0], bus);
++            assert_eq!(&wire_frame(&legacy)[1..], &frame);
+             latest.note(&legacy);
+         }
+-        assert_eq!(latest.messages().iter().map(|m|m.bus).collect::<Vec<_>>(),vec![0,1,3]);
+-        assert!(calls.lock().unwrap().is_empty());
+-    }
+-    #[test] fn worker_none_preserves_legacy_and_never_falls_back_owned() {
+-        let (route,calls)=ready();let e=route.create_for_key(baseline().key,SPI3_IDLE).unwrap();
+-        assert!(route_message(CtrlMsg::OwnedMixer(e),None).is_none());
+-        let f=route_message(CtrlMsg::Legacy {bus:BUS_MIXER,frame:SPI3_IDLE},None).unwrap();
+-        assert_eq!(f.bus,BUS_MIXER);assert_eq!(f.frame,SPI3_IDLE);
+-        assert!(calls.lock().unwrap().is_empty());
+-    }
+-}
++        assert_eq!(latest.messages().iter().map(|m| m.bus).collect::<Vec<_>>(), vec![0, 1, 3]);
++    }
++
++    #[test]
++    fn worker_owned_rejection_does_not_prevent_following_other_buses() {
++        let mut latest = LatestFrames::default();
++        for bus in [BUS_MIXER, BUS_ERP, BUS_MIXER, BUS_DECK_L, BUS_DECK_R] {
++            let frame = std::array::from_fn(|n| (n as u8).wrapping_mul(3).wrapping_add(bus));
++            if let Some(legacy) = route_message(CtrlMsg::Legacy { bus, frame }, true) {
++                latest.note(&legacy);
++            }
++        }
++        let replay = latest.messages();
++        assert_eq!(replay.iter().map(|m| m.bus).collect::<Vec<_>>(), vec![0, 1, 3]);
++        for message in replay {
++            let expected: Frame = std::array::from_fn(|n| (n as u8).wrapping_mul(3).wrapping_add(message.bus));
++            assert_eq!(message.frame, expected);
++        }
++    }
++
++    #[test]
++    fn worker_legacy_classification_progresses_while_owned_callback_is_blocked() {
++        use crate::mixer_producer::{BaselineReceipt, Envelope, FrameAck, Key};
++        use crate::mixer_route::{BackendOutcome, MixerBackend, MixerRoute, SettingsSink};
++        use crate::mixer_transport::{channel, TransportError, WorkerExit};
++        use std::sync::{Arc, Mutex, mpsc, atomic::{AtomicBool, Ordering}};
++
++        struct Pause {
++            entered: mpsc::Sender<()>, release: Mutex<mpsc::Receiver<()>>, finished: AtomicBool,
++        }
++        impl Pause {
++            fn wait(&self) -> bool {
++                self.entered.send(()).unwrap();
++                let released = self.release.lock().unwrap().recv_timeout(Duration::from_secs(5)).is_ok();
++                self.finished.store(true, Ordering::Release);
++                released
++            }
++        }
++        struct Backend { pause: Arc<Pause>, at_settings: bool }
++        impl MixerBackend for Backend {
++            fn baseline(&mut self) -> Result<BaselineReceipt, String> {
++                Ok(BaselineReceipt { key: Key { instance: [1, 2], run_id: 3, epoch: 4,
++                    producer_id: 5 }, frame: SPI3_IDLE, kernel_sequence: 6 })
++            }
++            fn submit(&mut self, request: Envelope) -> BackendOutcome {
++                if !self.at_settings && !self.pause.wait() { return BackendOutcome::Unknown; }
++                BackendOutcome::Committed(FrameAck { request, kernel_sequence: 7 })
++            }
++        }
++        struct Sink { pause: Arc<Pause>, at_settings: bool }
++        impl SettingsSink for Sink {
++            fn commit(&mut self, _: FrameAck) -> Result<(), String> {
++                if self.at_settings && !self.pause.wait() { return Err("fixture timeout".into()); }
++                Ok(())
++            }
++        }
++        for at_settings in [false, true] {
++            let (entered_tx, entered_rx) = mpsc::channel();
++            let (release_tx, release_rx) = mpsc::channel();
++            let pause = Arc::new(Pause { entered: entered_tx, release: Mutex::new(release_rx),
++                finished: AtomicBool::new(false) });
++            let route = Arc::new(MixerRoute::new(2,
++                Box::new(Backend { pause: pause.clone(), at_settings }),
++                Box::new(Sink { pause: pause.clone(), at_settings })).unwrap());
++            let (port, worker) = channel(route, 2).unwrap();
++            let baseline = port.refresh_baseline().unwrap();
++            let deadline = std::time::Instant::now() + Duration::from_secs(5);
++            loop {
++                match port.confirm_adoption(baseline, true) {
++                    Ok(()) => break,
++                    Err(TransportError::Busy) => {
++                        assert!(std::time::Instant::now() < deadline, "port confirmation timed out");
++                        std::thread::yield_now();
++                    }
++                    Err(error) => panic!("unexpected confirmation error: {error:?}"),
++                }
++            }
++            port.enqueue_for_key(baseline.key, baseline.frame).unwrap();
++            entered_rx.recv_timeout(Duration::from_secs(5)).unwrap();
++
++            let mut latest = LatestFrames::default();
++            for bus in [BUS_MIXER, BUS_ERP, BUS_DECK_L, BUS_DECK_R] {
++                if let Some(frame) = route_message(CtrlMsg::Legacy { bus, frame: SPI3_IDLE }, true) {
++                    latest.note(&frame);
++                }
++            }
++            let completed_before_release = !pause.finished.load(Ordering::Acquire);
++            let replay = latest.messages();
++            // Unblock before the explicit terminal stop/join. Neither stop nor
++            // join is a cancellation mechanism for a blocked native callback.
++            let _ = release_tx.send(());
++            let _ = port.request_stop();
++            let joined = worker.join().unwrap();
++            assert_eq!(joined.exit(), WorkerExit::Stopped);
++            assert!(completed_before_release, "legacy classifier waited for owned callback");
++            assert_eq!(replay.iter().map(|m| m.bus).collect::<Vec<_>>(), vec![0, 1, 3]);
++            assert!(replay.iter().all(|m| m.frame == SPI3_IDLE));
++        }
++    }
++
++    #[test]
++    fn worker_none_preserves_all_legacy_buses() {
++        let mut latest = LatestFrames::default();
++        for bus in [BUS_MIXER, BUS_ERP, BUS_DECK_L, BUS_DECK_R] {
++            let frame = std::array::from_fn(|n| (n as u8).wrapping_add(bus));
++            let message = route_message(CtrlMsg::Legacy { bus, frame }, false).unwrap();
++            assert_eq!(message.bus, bus);
++            assert_eq!(message.frame, frame);
++            latest.note(&message);
++        }
++        assert_eq!(latest.messages().iter().map(|m| m.bus).collect::<Vec<_>>(), vec![0, 1, 2, 3]);
++    }
++}
+diff --git a/az-preview/src/main.rs b/az-preview/src/main.rs
+--- a/az-preview/src/main.rs
++++ b/az-preview/src/main.rs
+@@ -27,6 +27,7 @@
+ mod controls;
+ mod mixer_producer;
+ mod mixer_route;
++mod mixer_transport;
+ mod layout;
+ mod meter;
+ mod panel;
+@@ -51,8 +52,8 @@
+     let (ctrl_tx, ctrl_rx) = channel();
+     let (led_tx, led_rx) = channel();
+     // This candidate has no live backend, enable flag, or connection factory.
+-    let mixer: Option<std::sync::Arc<mixer_route::MixerRoute>> = None;
+-    let ctrl_mixer = mixer.clone();
++    let mixer: Option<std::sync::Arc<mixer_transport::MixerPort>> = None;
++    let owned_mixer = mixer.is_some();
+     // A second AZ-EMU would find the emulator's single app connection taken (or,
+     // starting at the same moment as the first, boot a second QEMU on the same
+     // disk image): it says so and does nothing else.
+@@ -61,7 +62,7 @@
+     });
+     let launched = if shot_path.is_none() && notice.is_none() {
+         thread::spawn(move || screen::emu_thread(cmd_rx, frame_tx));
+-        thread::spawn(move || controls::ctrl_thread(ctrl_rx, led_tx, ctrl_mixer));
++        thread::spawn(move || controls::ctrl_thread(ctrl_rx, led_tx, owned_mixer));
+         boot::start_if_needed()
+     } else {
+         None
+diff --git a/az-preview/src/mixer_transport.rs b/az-preview/src/mixer_transport.rs
+new file mode 100644
+--- /dev/null
++++ b/az-preview/src/mixer_transport.rs
+@@ -0,0 +1,487 @@
++// SPDX-License-Identifier: GPL-3.0-only
++//! Bounded owned-mixer mailbox and dedicated worker. No device/backend factory.
++//!
++//! One port family must exclusively manage its route. Payloads are stamped and
++//! enqueued under one mutex; a separate one-token wake channel cannot consume a
++//! payload slot. Stop and Drop cannot cancel an already-started native call.
++//! Drop requests stop only. A JoinReceipt exists only after a real thread join.
++//! Creation, generation closure, and explicit stop may wait for settings; UI
++//! current-key/staged-baseline observations remain nonblocking; inspect may wait.
++//! Backend/settings callbacks must not reenter this port, route, or producer;
++//! doing so can deadlock against the ACK/settings producer lock.
++//! Native dwell is out of scope.
++
++use crate::mixer_producer::{BaselineReceipt, Envelope, Frame, Key, MAX_QUEUE};
++use crate::mixer_route::{DispatchResult, MixerRoute, RouteError};
++use std::collections::VecDeque;
++use std::sync::{Arc, Mutex, TryLockError};
++use std::sync::atomic::{AtomicU8, Ordering};
++#[cfg(test)]
++use std::sync::atomic::AtomicBool;
++use std::sync::mpsc::{self, Receiver, SyncSender};
++use std::thread::{self, JoinHandle};
++
++#[derive(Clone, Copy, Debug, PartialEq, Eq)]
++#[repr(u8)]
++pub enum StopReason { None=0, Requested=1, LastPortDropped=2, WorkerDropped=3,
++    SpawnFailed=4, WorkerPanicked=5, StatePoisoned=6 }
++#[derive(Clone, Copy, Debug, PartialEq, Eq)]
++pub enum WorkerExit { Stopped, Panicked, StatePoisoned }
++#[derive(Clone, Copy, Debug, PartialEq, Eq)]
++pub enum AttemptOutcome { Committed { settings_written: bool }, CommittedSettingsFailed,
++    Rejected(i32), Unknown, UnclassifiedError, NotForwarded, Panicked }
++#[derive(Clone, Copy, Debug, PartialEq, Eq)]
++pub struct AttemptReceipt { pub request: Envelope, pub outcome: AttemptOutcome }
++#[derive(Clone, Copy, Debug, PartialEq, Eq)]
++pub struct PortStatus { pub capacity: usize, pub queued: usize,
++    pub in_flight: Option<Envelope>, pub last: Option<AttemptReceipt>,
++    pub discarded: usize, pub stop_reason: StopReason,
++    pub worker_started: bool, pub worker_exited: bool }
++#[derive(Debug, PartialEq, Eq)]
++pub enum TransportError { InvalidCapacity, Terminal, Busy, Full, Poisoned,
++    SpawnFailed, Route(RouteError) }
++impl From<RouteError> for TransportError { fn from(e:RouteError)->Self { Self::Route(e) } }
++
++#[derive(Debug)]
++pub struct StopReceipt { discarded: usize, in_flight: bool }
++impl StopReceipt {
++    pub fn discarded(&self)->usize { self.discarded }
++    pub fn had_in_flight(&self)->bool { self.in_flight }
++}
++#[derive(Debug)]
++pub struct JoinReceipt { exit: WorkerExit, status: Option<PortStatus> }
++impl JoinReceipt {
++    pub fn exit(&self)->WorkerExit { self.exit }
++    pub fn status(&self)->Option<PortStatus> { self.status }
++}
++
++struct State { queue: VecDeque<Envelope>, in_flight: Option<Envelope>,
++    last: Option<AttemptReceipt>, discarded: usize, started: bool, exited: bool }
++struct Shared { route: Arc<MixerRoute>, capacity: usize, state: Mutex<State>,
++    stop: AtomicU8, wake: SyncSender<()>,
++    #[cfg(test)] confirmation_busy: AtomicBool,
++    #[cfg(test)] after_dispatch: Mutex<Option<(mpsc::Sender<()>,Receiver<()>)>>,
++}
++impl Shared {
++    fn reason(&self)->StopReason {
++        match self.stop.load(Ordering::Acquire) { 0=>StopReason::None,1=>StopReason::Requested,
++            2=>StopReason::LastPortDropped,3=>StopReason::WorkerDropped,
++            4=>StopReason::SpawnFailed,5=>StopReason::WorkerPanicked,_=>StopReason::StatePoisoned }
++    }
++    fn terminal(&self)->bool { self.stop.load(Ordering::Acquire)!=0 }
++    fn wake(&self) { let _ = self.wake.try_send(()); }
++    fn stop(&self, reason:StopReason) {
++        let _=self.stop.compare_exchange(0,reason as u8,Ordering::AcqRel,Ordering::Acquire);
++        // Full means a wake is already retained; no blocking send or data slot.
++        self.wake();
++    }
++    fn clear(s:&mut State) {
++        s.discarded=s.discarded.saturating_add(s.queue.len()); s.queue.clear();
++    }
++    fn status(&self,s:&State)->PortStatus {PortStatus {capacity:self.capacity,
++        queued:s.queue.len(),in_flight:s.in_flight,last:s.last,discarded:s.discarded,
++        stop_reason:self.reason(),worker_started:s.started,worker_exited:s.exited}}
++}
++struct PortToken { shared: Arc<Shared> }
++impl Drop for PortToken { fn drop(&mut self) {self.shared.stop(StopReason::LastPortDropped);} }
++#[derive(Clone)]
++pub struct MixerPort { token: Arc<PortToken> }
++pub struct MixerWorker { shared: Arc<Shared>, handle: Option<JoinHandle<WorkerExit>> }
++impl Drop for MixerWorker { fn drop(&mut self) {self.shared.stop(StopReason::WorkerDropped);} }
++
++/// Starts exactly one dedicated worker. Main does not call this constructor.
++pub fn channel(route:Arc<MixerRoute>,capacity:usize)->Result<(MixerPort,MixerWorker),TransportError> {
++    channel_with_spawn(route,capacity,|job|thread::Builder::new().name("owned-mixer".into()).spawn(job))
++}
++fn channel_with_spawn<F>(route:Arc<MixerRoute>,capacity:usize,spawn:F)
++    ->Result<(MixerPort,MixerWorker),TransportError>
++where F:FnOnce(Box<dyn FnOnce()->WorkerExit+Send>)->std::io::Result<JoinHandle<WorkerExit>> {
++    if capacity==0 || capacity>MAX_QUEUE {return Err(TransportError::InvalidCapacity);}
++    let (wake,rx)=mpsc::sync_channel(1);
++    let shared=Arc::new(Shared {route,capacity,state:Mutex::new(State {
++        queue:VecDeque::with_capacity(capacity),in_flight:None,last:None,discarded:0,
++        started:false,exited:false}),stop:AtomicU8::new(0),wake,
++        #[cfg(test)] confirmation_busy: AtomicBool::new(false),
++        #[cfg(test)] after_dispatch: Mutex::new(None),
++    });
++    let worker=shared.clone();
++    let handle=match spawn(Box::new(move ||worker_main(worker,rx))) {
++        Ok(h)=>h,
++        Err(_)=>{shared.stop(StopReason::SpawnFailed);let _=shared.route.close();
++            return Err(TransportError::SpawnFailed);}
++    };
++    Ok((MixerPort {token:Arc::new(PortToken {shared:shared.clone()})},
++        MixerWorker {shared,handle:Some(handle)}))
++}
++impl MixerPort {
++    fn shared(&self)->&Shared {&self.token.shared}
++    pub fn current_key(&self)->Option<Key> {
++        let p=self.shared();let _s=p.state.try_lock().ok()?;
++        if p.terminal() {None} else {p.route.current_key()}
++    }
++    pub fn staged_baseline(&self)->Option<BaselineReceipt> {
++        let p=self.shared();let s=p.state.try_lock().ok()?;
++        if p.terminal() || s.in_flight.is_some() || !s.queue.is_empty() {None}
++        else {p.route.staged_baseline()}
++    }
++    #[cfg(test)]
++    pub(crate) fn force_confirmation_busy_once_for_test(&self) {
++        self.shared().confirmation_busy.store(true,Ordering::Release);
++    }
++    #[cfg(test)]
++    pub(crate) fn confirmation_busy_pending_for_test(&self)->bool {
++        self.shared().confirmation_busy.load(Ordering::Acquire)
++    }
++    pub fn confirm_adoption(&self,b:BaselineReceipt,released:bool)->Result<(),TransportError> {
++        let p=self.shared();
++        // Test-only one-shot ownership uses the actual try_lock WouldBlock arm.
++        // The local guard is dropped before the caller handles Busy.
++        #[cfg(test)]
++        let _confirmation_test_guard=if p.confirmation_busy.swap(false,Ordering::AcqRel) {
++            Some(p.state.lock().unwrap())
++        } else {None};
++        let s=match p.state.try_lock() {
++            Ok(s)=>s,Err(TryLockError::WouldBlock)=>return Err(TransportError::Busy),
++            Err(TryLockError::Poisoned(_))=>return Err(TransportError::Poisoned)};
++        if p.terminal() {return Err(TransportError::Terminal);}
++        if s.in_flight.is_some() || !s.queue.is_empty() {return Err(TransportError::Busy);}
++        p.route.confirm_adoption(b,released)?;
++        if p.terminal() {p.route.close()?;return Err(TransportError::Terminal);}
++        Ok(())
++    }
++    pub fn refresh_baseline(&self)->Result<BaselineReceipt,TransportError> {
++        let p=self.shared();let s=p.state.lock().map_err(|_|TransportError::Poisoned)?;
++        if p.terminal() {return Err(TransportError::Terminal);}
++        if s.in_flight.is_some() || !s.queue.is_empty() {return Err(TransportError::Busy);}
++        let b=p.route.refresh_baseline()?;
++        if p.terminal() {p.route.close()?;return Err(TransportError::Terminal);}
++        Ok(b)
++    }
++    pub fn enqueue_for_key(&self,key:Key,frame:Frame)->Result<Envelope,TransportError> {
++        let p=self.shared();let mut s=p.state.lock().map_err(|_|TransportError::Poisoned)?;
++        if p.terminal() {return Err(TransportError::Terminal);}
++        if s.queue.len()+usize::from(s.in_flight.is_some())>=p.capacity {
++            Shared::clear(&mut s);p.route.close()?;return Err(TransportError::Full);
++        }
++        let e=match p.route.create_for_key(key,frame) {
++            Ok(e)=>e,
++            Err(error)=>{Shared::clear(&mut s);let _=p.route.close();return Err(error.into());}
++        };
++        if p.terminal() {Shared::clear(&mut s);p.route.close()?;return Err(TransportError::Terminal);}
++        s.queue.push_back(e);p.wake();
++        // This final terminal check defines acceptance relative to a racing
++        // Drop stop. A later stop may discard an already-accepted unsent value.
++        if p.terminal() {Shared::clear(&mut s);p.route.close()?;return Err(TransportError::Terminal);}
++        Ok(e)
++    }
++    pub fn close_generation(&self)->Result<(),TransportError> {
++        let p=self.shared();let mut s=p.state.lock().map_err(|_|TransportError::Poisoned)?;
++        Shared::clear(&mut s);p.route.close()?;Ok(())
++    }
++    /// Terminal, out-of-band, and never a cancellation or joined receipt.
++    /// May wait for a concurrent creation/settings operation to finish.
++    pub fn request_stop(&self)->Result<StopReceipt,TransportError> {
++        let p=self.shared();p.stop(StopReason::Requested);
++        let mut s=p.state.lock().map_err(|_|TransportError::Poisoned)?;
++        Shared::clear(&mut s);let r=StopReceipt {discarded:s.discarded,in_flight:s.in_flight.is_some()};
++        p.route.close()?;Ok(r)
++    }
++    pub fn inspect(&self)->Result<PortStatus,TransportError> {
++        let p=self.shared();let s=p.state.lock().map_err(|_|TransportError::Poisoned)?;Ok(p.status(&s))
++    }
++}
++impl MixerWorker {
++    /// Always requests terminal stop, then joins without any mailbox or route
++    /// lock. A panicked thread still has a joined receipt, with a distinct exit.
++    pub fn join(mut self)->Result<JoinReceipt,TransportError> {
++        self.shared.stop(StopReason::Requested);
++        let handle=self.handle.take().expect("unique worker handle");
++        let exit=match handle.join() {Ok(exit)=>exit,Err(_)=>WorkerExit::Panicked};
++        let status=self.shared.state.lock().ok().map(|s|self.shared.status(&s));
++        Ok(JoinReceipt {exit,status})
++    }
++}
++fn worker_main(p:Arc<Shared>,wake:Receiver<()>)->WorkerExit {
++    let outcome=std::panic::catch_unwind(std::panic::AssertUnwindSafe(||worker_loop(&p,&wake)));
++    let exit=match outcome {Ok(exit)=>exit,Err(_)=>{p.stop(StopReason::WorkerPanicked);WorkerExit::Panicked}};
++    if exit==WorkerExit::StatePoisoned {p.stop(StopReason::StatePoisoned);}
++    // Poison recovery here only records terminal cleanup; never admits input.
++    let mut s=p.state.lock().unwrap_or_else(|e|e.into_inner());
++    Shared::clear(&mut s);
++    if exit==WorkerExit::Panicked {
++        if let Some(e)=s.in_flight {s.last=Some(AttemptReceipt {request:e,outcome:AttemptOutcome::Panicked});}
++    }
++    // Any unresolved route request remains independent. A settings panic may
++    // instead follow a known commit; Panicked never classifies native outcome.
++    let _=p.route.close();s.exited=true;
++    exit
++}
++fn worker_loop(p:&Shared,wake:&Receiver<()>)->WorkerExit {
++    {let Ok(mut s)=p.state.lock() else{return WorkerExit::StatePoisoned};s.started=true;}
++    loop {
++        let next={
++            let Ok(mut s)=p.state.lock() else{return WorkerExit::StatePoisoned};
++            if p.terminal() {Shared::clear(&mut s);return WorkerExit::Stopped;}
++            let next=s.queue.pop_front();s.in_flight=next;next
++        };
++        let Some(e)=next else {
++            if wake.recv().is_err() {p.stop(StopReason::Requested);}
++            continue;
++        };
++        // A terminal signal after reservation can prevent forwarding. If it
++        // races later, route.close and dispatch determine whether it had begun.
++        if p.terminal() {
++            let _=p.route.close();
++            let Ok(mut s)=p.state.lock() else{return WorkerExit::StatePoisoned};
++            s.last=Some(AttemptReceipt {request:e,outcome:AttemptOutcome::NotForwarded});
++            s.in_flight=None;continue;
++        }
++        let (outcome,keep)=match p.route.dispatch(e) {
++            Ok(DispatchResult::Committed {settings_written})=>(AttemptOutcome::Committed {settings_written},settings_written),
++            Ok(DispatchResult::CommittedSettingsFailed(_))=>(AttemptOutcome::CommittedSettingsFailed,false),
++            Ok(DispatchResult::Rejected {reason})=>(AttemptOutcome::Rejected(reason),false),
++            Ok(DispatchResult::Unknown)=>(AttemptOutcome::Unknown,false),
++            Err(_)=>(AttemptOutcome::UnclassifiedError,false),
++        };
++        #[cfg(test)] {
++            // Pause after route resolution but before mailbox bookkeeping.
++            // This barrier has no production build representation.
++            let barrier=p.after_dispatch.lock().unwrap().take();
++            if let Some((entered,proceed))=barrier {
++                entered.send(()).unwrap();proceed.recv().unwrap();
++            }
++        }
++        let Ok(mut s)=p.state.lock() else{return WorkerExit::StatePoisoned};
++        s.last=Some(AttemptReceipt {request:e,outcome});s.in_flight=None;
++        if !keep {Shared::clear(&mut s);let _=p.route.close();}
++    }
++}
++
++#[cfg(test)]
++mod tests {
++    use super::*;
++    use crate::mixer_producer::FrameAck;
++    use crate::mixer_route::{BackendOutcome, MixerBackend, SettingsSink};
++    use std::sync::{Barrier, mpsc};
++    #[derive(Clone,Copy)] enum Reply {Commit,Reject,Unknown,Panic}
++    struct Record {baseline:BaselineReceipt,calls:Vec<Envelope>,acks:Vec<FrameAck>,reply:Reply,
++        settings_fail:bool,settings_panic:bool}
++    struct Backend {record:Arc<Mutex<Record>>,entered:mpsc::Sender<Envelope>,
++        proceed:Option<Receiver<()>>}
++    impl MixerBackend for Backend {
++        fn baseline(&mut self)->Result<BaselineReceipt,String> {Ok(self.record.lock().unwrap().baseline)}
++        fn submit(&mut self,e:Envelope)->BackendOutcome {
++            self.entered.send(e).unwrap();
++            if let Some(rx)=&self.proceed {rx.recv().unwrap();}
++            let mut r=self.record.lock().unwrap();r.calls.push(e);
++            match r.reply {
++                Reply::Commit=>{r.baseline.kernel_sequence+=1;
++                    BackendOutcome::Committed(FrameAck {request:e,kernel_sequence:r.baseline.kernel_sequence})},
++                Reply::Reject=>BackendOutcome::Rejected {request:e,reason:5},
++                Reply::Unknown=>BackendOutcome::Unknown,
++                Reply::Panic=>{drop(r);panic!("injected backend panic")}
++            }
++        }
++    }
++    struct Sink {record:Arc<Mutex<Record>>,entered:mpsc::Sender<FrameAck>,
++        proceed:Option<Receiver<()>>}
++    impl SettingsSink for Sink {
++        fn commit(&mut self,ack:FrameAck)->Result<(),String> {
++            self.entered.send(ack).unwrap();
++            if let Some(rx)=&self.proceed {rx.recv().unwrap();}
++            let mut r=self.record.lock().unwrap();r.acks.push(ack);
++            if r.settings_panic {drop(r);panic!("injected settings panic after native ACK")}
++            if r.settings_fail {Err("injected partial settings failure".into())} else {Ok(())}
++        }
++    }
++    struct Fixture {route:Arc<MixerRoute>,record:Arc<Mutex<Record>>,
++        backend:Receiver<Envelope>,acks:Receiver<FrameAck>,backend_go:Option<mpsc::Sender<()>>,
++        settings_go:Option<mpsc::Sender<()>>}
++    fn baseline(epoch:u64)->BaselineReceipt {BaselineReceipt {key:Key {instance:[1,2],run_id:3,
++        epoch,producer_id:5},frame:std::array::from_fn(|n|n as u8),kernel_sequence:7}}
++    fn fixture(block_backend:bool,block_settings:bool)->Fixture {
++        let record=Arc::new(Mutex::new(Record {baseline:baseline(1),calls:vec![],acks:vec![],
++            reply:Reply::Commit,settings_fail:false,settings_panic:false}));
++        let (bt,backend)=mpsc::channel();let (at,acks)=mpsc::channel();
++        let (bg,br)=mpsc::channel();let (sg,sr)=mpsc::channel();
++        let route=Arc::new(MixerRoute::new(MAX_QUEUE,Box::new(Backend {record:record.clone(),entered:bt,
++            proceed:block_backend.then_some(br)}),Box::new(Sink {record:record.clone(),entered:at,
++            proceed:block_settings.then_some(sr)})).unwrap());
++        Fixture {route,record,backend,acks,backend_go:block_backend.then_some(bg),settings_go:block_settings.then_some(sg)}
++    }
++    fn arm(p:&MixerPort)->BaselineReceipt {let b=p.refresh_baseline().unwrap();p.confirm_adoption(b,true).unwrap();b}
++    fn frame(byte:u8)->Frame {let mut f=baseline(1).frame;f[34]=byte;f}
++    fn paused(f:&Fixture,capacity:usize)->(MixerPort,MixerWorker,mpsc::Sender<()>) {
++        let (go,start)=mpsc::channel();let (p,w)=channel_with_spawn(f.route.clone(),capacity,move |job|
++            thread::Builder::new().spawn(move ||{start.recv().unwrap();job()})).unwrap();(p,w,go)
++    }
++    #[test] fn bounded_full_refuses_before_create_and_discards_old_generation() {
++        let f=fixture(false,false);let (p,w,start)=paused(&f,2);let b=arm(&p);
++        let a=p.enqueue_for_key(b.key,frame(10)).unwrap();let c=p.enqueue_for_key(b.key,frame(11)).unwrap();
++        assert_eq!((a.request_id(),c.request_id()),(1,2));assert_eq!(p.inspect().unwrap().queued,2);
++        assert_eq!(p.enqueue_for_key(b.key,frame(12)),Err(TransportError::Full));
++        assert_eq!(p.inspect().unwrap().queued,0);assert_eq!(p.current_key(),None);
++        f.record.lock().unwrap().baseline=baseline(2);let b2=arm(&p);
++        let new=p.enqueue_for_key(b2.key,frame(20)).unwrap();assert_eq!(new.request_id(),1);
++        start.send(()).unwrap();assert_eq!(f.acks.recv().unwrap().request,new);
++        assert_eq!(w.join().unwrap().exit(),WorkerExit::Stopped);
++        assert_eq!(f.record.lock().unwrap().calls,vec![new]);
++    }
++    #[test] fn in_flight_counts_toward_capacity_and_stop_does_not_cancel_it() {
++        let f=fixture(true,false);let (p,w,start)=paused(&f,1);let b=arm(&p);start.send(()).unwrap();
++        let e=p.enqueue_for_key(b.key,frame(1)).unwrap();assert_eq!(f.backend.recv().unwrap(),e);
++        let s=p.inspect().unwrap();assert_eq!(s.in_flight,Some(e));assert_eq!(s.queued,0);
++        let capacity_result=p.enqueue_for_key(b.key,frame(2));
++        let stop=p.request_stop().unwrap();let before_join=p.inspect().unwrap();
++        f.backend_go.as_ref().unwrap().send(()).unwrap();let joined=w.join().unwrap();
++        assert_eq!(joined.exit(),WorkerExit::Stopped);
++        // Strict-control oracles follow release and the actual join.
++        assert_eq!(capacity_result,Err(TransportError::Full));
++        assert!(stop.had_in_flight());assert!(!before_join.worker_exited);
++        assert_eq!(joined.status().unwrap().last.unwrap().outcome,AttemptOutcome::Committed {settings_written:false});
++        assert_eq!(f.record.lock().unwrap().calls,vec![e]);assert!(f.record.lock().unwrap().acks.is_empty());
++    }
++    #[test] fn terminal_stop_uses_no_data_slot_and_stale_clones_cannot_rearm() {
++        let f=fixture(false,false);let (p,w,start)=paused(&f,2);let b=arm(&p);let clone=p.clone();
++        p.enqueue_for_key(b.key,frame(1)).unwrap();p.enqueue_for_key(b.key,frame(2)).unwrap();
++        let stop=p.request_stop().unwrap();
++        f.record.lock().unwrap().baseline=baseline(2);
++        let refresh_after_stop=clone.refresh_baseline();
++        let enqueue_after_stop=clone.enqueue_for_key(b.key,frame(3));let key_after_stop=clone.current_key();
++        start.send(()).unwrap();let receipt=w.join().unwrap();assert_eq!(receipt.exit(),WorkerExit::Stopped);
++        assert_eq!(refresh_after_stop,Err(TransportError::Terminal));
++        assert_eq!(enqueue_after_stop,Err(TransportError::Terminal));assert!(key_after_stop.is_none());
++        assert_eq!(stop.discarded(),2);
++        assert!(f.record.lock().unwrap().calls.is_empty());assert!(receipt.status().unwrap().worker_exited);
++    }
++    #[test] fn generation_close_discards_unsent_before_join() {
++        let f=fixture(false,false);let (p,w,start)=paused(&f,2);let b=arm(&p);
++        p.enqueue_for_key(b.key,frame(1)).unwrap();p.enqueue_for_key(b.key,frame(2)).unwrap();
++        p.close_generation().unwrap();let queued_after_close=p.inspect().unwrap().queued;
++        p.request_stop().unwrap();start.send(()).unwrap();let joined=w.join().unwrap();
++        assert_eq!(joined.exit(),WorkerExit::Stopped);
++        assert_eq!(queued_after_close,0);
++        assert!(f.record.lock().unwrap().calls.is_empty());
++    }
++    #[test] fn generation_close_clears_unsent_without_resetting_global_mailbox() {
++        let f=fixture(false,false);let (p,w,start)=paused(&f,2);let b=arm(&p);
++        p.enqueue_for_key(b.key,frame(1)).unwrap();p.close_generation().unwrap();
++        f.record.lock().unwrap().baseline=baseline(2);let b2=arm(&p);
++        assert_eq!(p.enqueue_for_key(b.key,frame(2)),Err(TransportError::Route(
++            RouteError::Gate(crate::mixer_producer::Error::StaleKey))));
++        assert!(p.current_key().is_none());assert!(p.inspect().unwrap().queued==0);
++        // The stale request closes generation2; it cannot be re-adopted.
++        assert!(p.refresh_baseline().is_err());f.record.lock().unwrap().baseline=baseline(3);
++        let b3=arm(&p);assert_ne!(b2.key,b3.key);let e=p.enqueue_for_key(b3.key,frame(3)).unwrap();
++        start.send(()).unwrap();assert_eq!(f.acks.recv().unwrap().request,e);
++        assert_eq!(w.join().unwrap().exit(),WorkerExit::Stopped);assert_eq!(f.record.lock().unwrap().calls,vec![e]);
++    }
++    #[test] fn refresh_refuses_queued_or_reserved_work() {
++        let f=fixture(true,false);let (p,w,start)=paused(&f,2);let b=arm(&p);
++        let e=p.enqueue_for_key(b.key,frame(1)).unwrap();assert_eq!(p.refresh_baseline(),Err(TransportError::Busy));
++        start.send(()).unwrap();assert_eq!(f.backend.recv().unwrap(),e);
++        assert_eq!(p.refresh_baseline(),Err(TransportError::Busy));
++        assert_eq!(p.confirm_adoption(b,true),Err(TransportError::Busy));assert!(p.staged_baseline().is_none());
++        p.request_stop().unwrap();f.backend_go.as_ref().unwrap().send(()).unwrap();assert_eq!(w.join().unwrap().exit(),WorkerExit::Stopped);
++    }
++    #[test] fn resolved_route_still_reserved_refuses_new_baseline_before_bookkeeping() {
++        let f=fixture(false,false);let (p,w,start)=paused(&f,2);let b=arm(&p);
++        let (entered,arrived)=mpsc::channel();let (resume,proceed)=mpsc::channel();
++        *p.shared().after_dispatch.lock().unwrap()=Some((entered,proceed));
++        let e=p.enqueue_for_key(b.key,frame(1)).unwrap();start.send(()).unwrap();arrived.recv().unwrap();
++        // The backend and settings have resolved; only mailbox reservation remains.
++        let reserved=p.inspect().unwrap().in_flight;
++        p.close_generation().unwrap();f.record.lock().unwrap().baseline=baseline(2);
++        let refresh_while_reserved=p.refresh_baseline();
++        resume.send(()).unwrap();let joined=w.join().unwrap();
++        assert_eq!(joined.exit(),WorkerExit::Stopped);assert_eq!(reserved,Some(e));
++        assert_eq!(refresh_while_reserved,Err(TransportError::Busy));
++        assert_eq!(f.record.lock().unwrap().calls,vec![e]);
++    }
++    #[test] fn concurrent_creation_preserves_canonical_order_under_one_global_bound() {
++        let f=fixture(false,false);let (p,w,start)=paused(&f,4);let b=arm(&p);
++        let barrier=Arc::new(Barrier::new(5));let mut threads=vec![];
++        for value in 1..=4 {let p=p.clone();let barrier=barrier.clone();threads.push(thread::spawn(move ||{
++            barrier.wait();p.enqueue_for_key(b.key,frame(value)).unwrap()}));}
++        barrier.wait();let mut envelopes:Vec<_>=threads.into_iter().map(|t|t.join().unwrap()).collect();
++        envelopes.sort_by_key(|e|e.request_id());assert_eq!(p.inspect().unwrap().queued,4);
++        start.send(()).unwrap();for e in &envelopes {assert_eq!(f.acks.recv().unwrap().request,*e);}
++        assert_eq!(w.join().unwrap().exit(),WorkerExit::Stopped);assert_eq!(f.record.lock().unwrap().calls,envelopes);
++    }
++    #[test] fn settings_delay_keeps_reservation_but_ui_observations_do_not_wait() {
++        let f=fixture(false,true);let (p,w,start)=paused(&f,2);let b=arm(&p);start.send(()).unwrap();
++        let e=p.enqueue_for_key(b.key,frame(1)).unwrap();assert_eq!(f.acks.recv().unwrap().request,e);
++        assert_eq!(p.inspect().unwrap().in_flight,Some(e));assert!(p.current_key().is_none());
++        assert!(p.staged_baseline().is_none());assert_eq!(p.refresh_baseline(),Err(TransportError::Busy));
++        // Stop/join may wait for this callback, so release it before joining.
++        f.settings_go.as_ref().unwrap().send(()).unwrap();assert_eq!(w.join().unwrap().exit(),WorkerExit::Stopped);
++        assert_eq!(f.record.lock().unwrap().calls,vec![e]);
++    }
++    #[test] fn unknown_is_retained_closed_and_never_replayed() {
++        let f=fixture(false,false);f.record.lock().unwrap().reply=Reply::Unknown;
++        let (p,w,start)=paused(&f,2);let b=arm(&p);start.send(()).unwrap();
++        let e=p.enqueue_for_key(b.key,frame(1)).unwrap();assert_eq!(f.backend.recv().unwrap(),e);
++        let j=w.join().unwrap();assert_eq!(j.exit(),WorkerExit::Stopped);
++        assert_eq!(j.status().unwrap().last.unwrap().outcome,AttemptOutcome::Unknown);
++        assert_eq!(f.record.lock().unwrap().calls,vec![e]);assert!(f.route.refresh_baseline().is_err());
++    }
++    #[test] fn known_rejection_and_settings_failure_are_distinct_results() {
++        for fail in [false,true] {let f=fixture(false,false);
++            {let mut r=f.record.lock().unwrap();if fail {r.settings_fail=true;} else {r.reply=Reply::Reject;}}
++            let (p,w,start)=paused(&f,2);let b=arm(&p);start.send(()).unwrap();
++            let e=p.enqueue_for_key(b.key,frame(1)).unwrap();assert_eq!(f.backend.recv().unwrap(),e);
++            if fail {assert_eq!(f.acks.recv().unwrap().request,e);}
++            let j=w.join().unwrap();assert_eq!(j.exit(),WorkerExit::Stopped);assert_eq!(j.status().unwrap().last.unwrap().outcome,
++                if fail {AttemptOutcome::CommittedSettingsFailed} else {AttemptOutcome::Rejected(5)});
++            assert_eq!(f.record.lock().unwrap().calls,vec![e]);
++        }
++    }
++    #[test] fn backend_and_settings_panics_join_terminal_without_retry() {
++        for settings in [false,true] {let f=fixture(false,false);
++            {let mut r=f.record.lock().unwrap();if settings {r.settings_panic=true;} else {r.reply=Reply::Panic;}}
++            let (p,w,start)=paused(&f,2);let b=arm(&p);start.send(()).unwrap();
++            let e=p.enqueue_for_key(b.key,frame(1)).unwrap();assert_eq!(f.backend.recv().unwrap(),e);
++            if settings {assert_eq!(f.acks.recv().unwrap().request,e);}
++            let j=w.join().unwrap();
++            assert_eq!(j.exit(),WorkerExit::Panicked);
++            assert_eq!(j.status().unwrap().last.unwrap(),AttemptReceipt {request:e,outcome:AttemptOutcome::Panicked});
++            assert!(p.current_key().is_none());assert_eq!(p.enqueue_for_key(b.key,frame(2)),Err(TransportError::Terminal));
++            assert_eq!(f.record.lock().unwrap().calls,vec![e]);
++        }
++    }
++    #[test] fn explicit_join_requests_stop_even_without_prior_stop_call() {
++        let f=fixture(false,false);let (p,w,start)=paused(&f,1);arm(&p);start.send(()).unwrap();
++        let j=w.join().unwrap();assert_eq!(j.exit(),WorkerExit::Stopped);
++        assert_eq!(j.status().unwrap().stop_reason,StopReason::Requested);assert!(j.status().unwrap().worker_exited);
++        assert_eq!(p.refresh_baseline(),Err(TransportError::Terminal));
++    }
++    #[test] fn last_port_drop_wakes_idle_worker_but_only_join_yields_receipt() {
++        let f=fixture(false,false);let (p,w,start)=paused(&f,1);arm(&p);start.send(()).unwrap();let clone=p.clone();
++        drop(p);assert_eq!(clone.inspect().unwrap().stop_reason,StopReason::None);drop(clone);
++        let j=w.join().unwrap();assert_eq!(j.exit(),WorkerExit::Stopped);assert_eq!(j.status().unwrap().stop_reason,StopReason::LastPortDropped);
++        assert!(j.status().unwrap().worker_exited);assert!(f.route.current_key().is_none());
++    }
++    #[test] fn worker_drop_body_signals_only_harness_retains_handle_for_cleanup() {
++        let f=fixture(false,false);let (p,mut w,start)=paused(&f,1);let b=arm(&p);start.send(()).unwrap();
++        // Retain the real handle solely so this test never leaves a detached
++        // thread behind. Drop itself emits no JoinReceipt or join operation.
++        let handle=w.handle.take().unwrap();drop(w);
++        assert_eq!(handle.join().unwrap(),WorkerExit::Stopped);
++        assert_eq!(p.inspect().unwrap().stop_reason,StopReason::WorkerDropped);
++        assert_eq!(p.enqueue_for_key(b.key,frame(2)),Err(TransportError::Terminal));
++    }
++    #[test] fn injected_spawn_refusal_closes_route_without_fabricating_os_failure() {
++        let f=fixture(false,false);let b=f.route.refresh_baseline().unwrap();f.route.confirm_adoption(b,true).unwrap();
++        let r=channel_with_spawn(f.route.clone(),1,|_job|Err(std::io::Error::other("injected spawn seam")));
++        assert!(matches!(r,Err(TransportError::SpawnFailed)));assert!(f.route.current_key().is_none());
++        assert!(f.record.lock().unwrap().calls.is_empty());
++        assert!(matches!(channel(f.route.clone(),0),Err(TransportError::InvalidCapacity)));
++        assert!(matches!(channel(f.route.clone(),MAX_QUEUE+1),Err(TransportError::InvalidCapacity)));
++    }
++    #[test] fn poisoned_mailbox_fails_terminal_and_join_does_not_rearm() {
++        let f=fixture(false,false);let (p,w,start)=paused(&f,1);arm(&p);let shared=p.token.shared.clone();
++        assert!(thread::spawn(move ||{let _held=shared.state.lock().unwrap();panic!("poison test state");}).join().is_err());
++        start.send(()).unwrap();let j=w.join().unwrap();assert_eq!(j.exit(),WorkerExit::StatePoisoned);
++        assert!(j.status().is_none());assert!(f.route.current_key().is_none());
++    }
++}
