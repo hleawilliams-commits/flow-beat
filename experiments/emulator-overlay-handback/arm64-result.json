@@ -1,0 +1,200 @@
+{
+  "abi": {
+    "compat_handler": false,
+    "compile_time_command_size": 48,
+    "compile_time_frame_size": 200,
+    "compile_time_state_size": 208,
+    "encoded_v1_commands_not_supported": true,
+    "native_64_bit_only": true,
+    "scope": "Source review and compile-time assertions; no ioctl executed against the kernel.",
+    "version": 2
+  },
+  "artifact": {
+    "binary_kept_private": true,
+    "byte_order": "little",
+    "elf_class": 64,
+    "elf_type": "ET_REL",
+    "machine": "AArch64",
+    "machine_number": 183,
+    "name": "subucom_virt.ko",
+    "sha256": "bf8293addeb6570498965d4958db849c5e79b7e40f8f600772ed825f878a3184",
+    "size": 93424,
+    "vermagic": "6.6.138-dirty SMP preempt mod_unload aarch64"
+  },
+  "build": {
+    "compiler_warning_count": 0,
+    "downloads": false,
+    "exit_code": 0,
+    "input_hashes_unchanged": true,
+    "kbuild_modpost_warn_used": false,
+    "kernel_make_arguments": [
+      "ARCH=arm64",
+      "-j2",
+      "M=<private-candidate>",
+      "modules"
+    ],
+    "local_inputs_only": true,
+    "platform": "linux/arm64",
+    "private_compile_log_sha256": "0af62a660bb14b8afd039fe87d1360bf89423f8605d3f5971c81016b75b5c074",
+    "private_dockerfile_sha256": "267225413f1da8e5277033d7eeed869bfb376f85dc6f731cb12994f755f44399",
+    "private_rootfs_archive_sha256": "898432b5244d53de1b28943b829859d249241bf88b750337c2a9871d138ab54c",
+    "private_status_receipt_sha256": "e03a9d22f449b1d13d32d2ff1634e976edd84246fc15785e8f9beb01973e0b9d",
+    "private_verifier_sha256": "7f88de1f2b259ad01d8de2b8016921ffcc6b6d178e0fb4425a2758a6a77de562",
+    "pull": false,
+    "remote_base_image": false,
+    "remote_frontend": false,
+    "run_network": "none",
+    "scratch_stages": 2,
+    "strict_modpost": true
+  },
+  "independent_elf_review": {
+    "confirmed": [
+      "ELF64 little-endian AArch64 ET_REL",
+      "35 undefined names, all present in the retained table",
+      "Exactly two random API additions versus phase one, no removals",
+      "Parameter metadata unchanged; CRC array type exactly once; expected vermagic"
+    ],
+    "passed": true,
+    "private_receipt_sha256": "1ff6e92ef3ccc7100998063271d4d04019bbe8aeb34279ba615266c4f69585e4",
+    "scope": "Separate standard-library parsing of final ELF header, actual symtab and modinfo, with retained export-name matching; no module execution."
+  },
+  "kernel": {
+    "commit": "3b9f64db049687c0d38b4b3ef2f297f0642179af",
+    "config_compat": true,
+    "config_module_sig": false,
+    "config_module_unload": true,
+    "config_modversions": false,
+    "export_count": 14223,
+    "generated_compile_header_sha256": "bac388a74c230fbfdf5ed317a6c6a2b4862e658035743e94536eca99b055aa45",
+    "generated_release_header_sha256": "e4c50ddb4c469a45b1a2b2ea69f2cda3d8066c21fc6e37bc77422b48af3405f1",
+    "makefile_sha256": "425f067d3b5b53b6c3067955d47b0c4824ef808b589069347e2727a37239c34e",
+    "prepared_config_sha256": "93b0bcf3419d18cd5fbc86eed505252ee6c7207cf58241fa0d0a79d02d5d1dac",
+    "release": "6.6.138-dirty",
+    "retained_export_table": "vmlinux.symvers",
+    "retained_export_table_sha256": "dd157a5cd924cba495402cccb326d169e5c63f9252c13b5ca6d9535e0c08c329",
+    "seed_config_sha256": "0395adfa0c5a3290c8eb841a7ee64f719acad2cf6d09e5e82e9c9ba1f6313751",
+    "symvers_handling": "Copied retained vmlinux.symvers to Module.symvers only in the fresh isolated build layer.",
+    "tag": "v6.6.138"
+  },
+  "limits": {
+    "emulator_contact": false,
+    "instance_uniqueness_proven": false,
+    "live_ioctl_behavior_proven": false,
+    "module_installed": false,
+    "module_loaded": false,
+    "physical_contact": false,
+    "producer_handshake_proven": false,
+    "rng_wait_or_entropy_behavior_executed": false,
+    "runtime_loadability_proven": false,
+    "snapshot_clone_replay_prevention": false,
+    "statement": "Build and ELF checks establish the stated offline compatibility only. Kernel rotation does not validate neutrality, upstream queue freshness, native cancellation or a safe restart.",
+    "stopped_recovery_proven": false,
+    "whole_driver_race_or_lifetime_proof": false
+  },
+  "metadata": {
+    "crc_array_type_entry": "parmtype=spi_crc_len:array of int",
+    "crc_array_type_entry_count": 1,
+    "ownership_type_entry_count": 1,
+    "parm_and_parmtype_entries_unchanged_vs_phase_one": true
+  },
+  "runtime_gate": "closed",
+  "schema": 1,
+  "source_review": {
+    "observations": [
+      "Enabled wait failure returns before random fill and device allocation; disabled path skips RNG; all-zero instance fails initialization.",
+      "Instance comparison and final owner/run/epoch/sequence checks occur under mutation lock before committing.",
+      "ROTATE checks epoch overflow before installing opaque frame, advancing epoch and resetting sequence; it retains owner and run.",
+      "Changed exact ioctl sizes reject V1; default-off policy, legacy fence and parameter metadata remain."
+    ],
+    "passed": true,
+    "scope": "Read-only frozen patch, UAPI and initialization-boundary review before build; not a whole-driver proof."
+  },
+  "sources": {
+    "base_source_sha256": "9631ca05810408eb9cd40cb38fa3f90d8dd2ac1d4d09a2e73d084ea0dbe03654",
+    "candidate_source_sha256": "bab273a308dde0ba696394d2383461af10413f1975e836b2058456dba2833717",
+    "candidate_uapi_sha256": "355316f5047509ae4c787210fddf0bd8b659c600ac1e153adf0543e28cf35aec",
+    "emulator_base_commit": "06fc981707e69982c0554bb508e0c646c005a979",
+    "phase_one_and_original_checkout_unmodified": true,
+    "phase_one_patch_sha256": "34d870df06f902c04eb0c2029a1c0411e647519ff4a8fabdc17b16ffe8befb3f",
+    "phase_one_source_sha256": "09b73c132a245a46e9855888c8cb1ea0fac5e9adba195ed848983b71262a2180",
+    "phase_one_uapi_sha256": "77d0cb71414ec49750040cc22dd93f6553c418cee54f091aa6e4d23686ee43cc",
+    "prepare_script_sha256": "6a35c4ac9c3d9671d1d652bbba57ea6a49f2e4f8865427c1d58751b340ffad84",
+    "successor_patch_sha256": "fa800f32c5e9227cc1953028d35b896e711a40b0d4fd6f2e03dcdf2ac6eaf0dd",
+    "unchanged_frames_header_sha256": "4d9d833e583b7c6a5aa3f12de0fea2b7245e9dac915477ab96b9cfdfa75c2c0b",
+    "unchanged_makefile_sha256": "a85021fa4fb059ccbb89c3c2db6659720bcf8dfd80e826831b2363474f2e1be6"
+  },
+  "status": "offline-arm64-build-passed",
+  "symbols": {
+    "added_vs_original": [
+      "capable",
+      "get_random_bytes",
+      "kfree",
+      "kstrdup",
+      "kstrtoint",
+      "memcpy",
+      "param_ops_bool",
+      "scnprintf",
+      "strsep",
+      "wait_for_random_bytes"
+    ],
+    "added_vs_phase_one": [
+      "get_random_bytes",
+      "wait_for_random_bytes"
+    ],
+    "missing_exports": [],
+    "original_binary_sha256": "c97d19459a3e99116de70c0f3f781527baf710846a158a9ba051c36537fc338d",
+    "original_undefined_count": 26,
+    "phase_one_binary_sha256": "bfc33fb721cf292b1472ac4c9cca6687a818624f5147f31f18b17a3c4503aaa2",
+    "phase_one_undefined_count": 33,
+    "removed_vs_original": [
+      "param_array_ops"
+    ],
+    "removed_vs_phase_one": [],
+    "scope": "Actual module undefined symbol names matched to retained kernel exports; no runtime resolution.",
+    "undefined_count": 35,
+    "undefined_symbols": [
+      "__arch_copy_from_user",
+      "__arch_copy_to_user",
+      "__init_waitqueue_head",
+      "__stack_chk_fail",
+      "__usecs_to_jiffies",
+      "__wake_up",
+      "_printk",
+      "_raw_spin_lock_irqsave",
+      "_raw_spin_unlock_irqrestore",
+      "alloc_chrdev_region",
+      "capable",
+      "cdev_add",
+      "cdev_del",
+      "cdev_init",
+      "class_create",
+      "class_destroy",
+      "device_create",
+      "device_destroy",
+      "finish_wait",
+      "get_random_bytes",
+      "init_wait_entry",
+      "kfree",
+      "kstrdup",
+      "kstrtoint",
+      "memcpy",
+      "memset",
+      "param_ops_bool",
+      "param_ops_int",
+      "prepare_to_wait_event",
+      "schedule",
+      "schedule_timeout_interruptible",
+      "scnprintf",
+      "strsep",
+      "unregister_chrdev_region",
+      "wait_for_random_bytes"
+    ]
+  },
+  "toolchain": {
+    "compiler": "gcc (Alpine 13.2.1_git20231014) 13.2.1 20231014",
+    "compiler_executable_sha256": "d2fcfbe5ea467cbb15e6e4b0d1a0ee929575de38f5e9db5313def1b06c8b9fca",
+    "compiler_version_output_sha256": "0e8b316161076f257494c8ce0621c3b61b108070ceb12cbd61fa5545c03181d9",
+    "linker": "GNU ld (GNU Binutils) 2.41",
+    "make_executable_sha256": "e8b63fda267ea9d35bf53de1f4707787e71eb5ad7ef45fc74494bd7fe8fd3e3e"
+  }
+}

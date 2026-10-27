@@ -131,3 +131,17 @@ stems staging/activation, USB activation and physical timing remain unresolved.
 ## Subsequent offline ownership candidate
 
 The separate [emulator ownership experiment](../../../emulator-overlay-ownership/) now addresses final mixer mutation and CRC serialization in a default-off kernel patch. It deliberately retains a permanent fence after owner release/close. It has no queued-producer handback, stopped recovery, runtime adapter or installation, so the gaps and closed runner gate above remain applicable. Source, tests and review are recorded separately; no old helper is replaced.
+
+
+## Subsequent instance/generation primitive
+
+A [separate successor](../../../emulator-overlay-handback/) now adds instance-bound
+V2 mutations and same-broker atomic frame/generation rotation after phase one.
+It remains uninstalled. Actual-source tests distinguish final old-generation
+rejection from two unsupported conclusions: a low-sequence STATE is not
+cancellation, and the kernel cannot recognize a stale payload relabeled by a
+trusted broker. Preview queue/transport generation tagging, acknowledged baseline
+adoption and stopped recovery are still unimplemented. The recovery target must
+also preserve injected/idle mode; equal frame bytes alone do not restore it.
+Keep the old helpers unchanged and runtime dispatch disabled. The next work is
+broker/producer integration, not an unchanged repetition of passing kernel tests.

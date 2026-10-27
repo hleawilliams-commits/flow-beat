@@ -265,3 +265,48 @@ physical access occurred. The last released emulator state was neither changed
 nor revalidated. All old runner/policy helpers and the closed refusal remain
 unchanged. Native task provenance/returns/ownership, MODS 0.1.3 publication,
 stems staging/activation, USB activation and physical validation remain open.
+
+
+### Instance-bound generation rotation — offline successor, October 27
+
+A separate [successor patch](../experiments/emulator-overlay-handback/) applies
+**after** the frozen phase-one ownership patch. It generates a nonzero 128-bit
+module instance before publishing devices on the opted-in path; wait failure
+or a zero result aborts initialization. V2 tagged mutations bind that instance,
+file, run, epoch and sequence. V1 command sizes are refused. Same-broker ROTATE
+commits all 152 opaque bytes, increments the epoch and resets sequence to zero
+under one lock. It retains file/run ownership and the permanent legacy fence.
+No preview, forwarder or runtime adapter was changed.
+
+Fourteen extracted functions pass 228 host assertions and ten exact failing
+controls per plain, ASan/UBSan and TSan mode, with an independently byte-identical
+result and 22 integration checks. The new schedules reject old copied commands
+after rotation and expose two limits: an earlier low-sequence STATE does not
+cancel a pending command, and a broker can still retag an old payload as new.
+Kernel source review and strict ARM64 compilation/modpost pass without warnings;
+all 35 actual undefined symbols match the pinned export table. Independent ELF
+parsing confirms the two RNG additions and unchanged parameter metadata. The
+private binary is `bf8293addeb6570498965d4958db849c5e79b7e40f8f600772ed825f878a3184`.
+
+The producer review now specifies creation-time generation tags, quiescence of
+queued and saved-state writes, serialized request/ack accounting, and verified
+baseline adoption before rearming preview input. None is implemented. The kernel
+cannot retract native events already sampled before rotation, authenticate an
+upstream producer, or detect restored/cloned VM identity. Its random instance
+provides probabilistic ordinary-load separation only.
+
+Stopped recovery remains unimplemented. In addition to full original neutral
+bytes and exact host state before guarded restart, it must preserve injected/idle
+mode: writing idle-looking bytes sets INJECTED and cannot restore a baseline
+that had that mode off. The documented narrow admission requires an already
+injected baseline, or a separately reviewed tagged mode-restoration operation.
+No automatic restart or old cached input is authorized by a passing byte check.
+
+Next implement and test the broker/producer admission path against the actual
+queue/reconnect sources, then the owned stopped-recovery transaction. Keep both
+kernel candidates uninstalled and the V2 runner disabled until those gates pass.
+No new live run, enabling manifest, emulator/device contact, service action,
+physical access, core, package or catalog change occurred. The last released
+emulator state was not revalidated; old helpers, frozen patches and unrelated
+untracked work remain intact. All native menu, stems, USB and physical gates
+remain open.

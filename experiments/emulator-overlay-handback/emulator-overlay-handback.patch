@@ -1,0 +1,190 @@
+--- a/guest/modules/subucom_virt/subucom_virt.c
++++ b/guest/modules/subucom_virt/subucom_virt.c
+@@ -48,6 +48,7 @@
+ #include <linux/poll.h>    /* poll_table, POLLIN, POLLRDNORM */
+ #include <linux/version.h>
+ #include <linux/capability.h>
++#include <linux/random.h>
+ #include "subucom_frames.h"  /* real captured per-bus idle frames */
+ #include "subucom_ownership.h"
+ 
+@@ -138,14 +139,17 @@
+ static u8 inject_pending[N_SPI][MISO_SIZE];
+ static int has_inject[N_SPI];
+ 
+-/* Phase-1 offline candidate. This is a permanent mixer fence for this module
+- * lifetime, not a producer handback or recovery protocol. All fields below,
+- * the overlay and spi_crc_len are serialized by miso_lock. Never retain an
++/* Offline successor: one broker file owns generation-tagged mixer input.
++ * ROTATE fences older tagged input but does not authenticate a producer,
++ * prove a neutral frame, stop an application or restore host state.
++ * Mutable fields, overlay and spi_crc_len share miso_lock. The instance is
++ * initialized before device publication and never changed. Never retain an
+  * extra file reference: VFS final release must be able to orphan the lease. */
+ #define OWNED_BUS 2
+ #define OWNED_CRC 96
+ static bool mixer_fenced;
+ static struct file *mixer_owner;
++static u64 mixer_instance[2];
+ static u64 mixer_run;
+ static u64 mixer_epoch;
+ static u64 mixer_sequence;
+@@ -154,15 +158,36 @@
+ MODULE_PARM_DESC(allow_overlay_ownership,
+     "Allow privileged mixer ownership; default off, no legacy handback");
+ 
+-static_assert(sizeof(struct az_overlay_command) == 32);
+-static_assert(sizeof(struct az_overlay_frame) == 184);
+-static_assert(sizeof(struct az_overlay_state) == 192);
+-static_assert(offsetof(struct az_overlay_command, run_id) == 8);
+-static_assert(offsetof(struct az_overlay_command, epoch) == 16);
+-static_assert(offsetof(struct az_overlay_command, sequence) == 24);
+-static_assert(offsetof(struct az_overlay_frame, frame) == 32);
+-static_assert(offsetof(struct az_overlay_state, frame) == 40);
++static_assert(sizeof(struct az_overlay_command) == 48);
++static_assert(sizeof(struct az_overlay_frame) == 200);
++static_assert(sizeof(struct az_overlay_state) == 208);
++static_assert(offsetof(struct az_overlay_command, instance) == 8);
++static_assert(offsetof(struct az_overlay_command, run_id) == 24);
++static_assert(offsetof(struct az_overlay_command, epoch) == 32);
++static_assert(offsetof(struct az_overlay_command, sequence) == 40);
++static_assert(offsetof(struct az_overlay_frame, frame) == 48);
++static_assert(offsetof(struct az_overlay_state, instance) == 8);
++static_assert(offsetof(struct az_overlay_state, frame) == 56);
+ static_assert(AZ_OVERLAY_BYTES == MISO_SIZE);
++
++/* Called exactly once at module init, before any cdev is published. Disabled
++ * modules do not wait for randomness. An enabled module fails closed on an
++ * interrupted readiness wait or zero identity; no fallback or retry identity.
++ * This is probabilistic per-load uniqueness, not VM-snapshot clone detection. */
++static int mixer_instance_init(void)
++{
++    int ret;
++
++    if (!allow_overlay_ownership)
++        return 0;
++    ret = wait_for_random_bytes();
++    if (ret)
++        return ret;
++    get_random_bytes(mixer_instance, sizeof(mixer_instance));
++    if (!(mixer_instance[0] | mixer_instance[1]))
++        return -EIO;
++    return 0;
++}
+ 
+ /* MOSI: EP122 writes LED frames via MOSI_TRANSFER ioctl, on every bus, each
+  * about 16 times a second. Each bus keeps its own latest payload (dereferenced
+@@ -501,7 +526,9 @@
+         state.flags = (mixer_fenced ? AZ_OVERLAY_FENCED : 0) |
+                       (mixer_owner ? AZ_OVERLAY_ACTIVE : 0) |
+                       (mixer_owner == filp ? AZ_OVERLAY_CALLER_OWNER : 0) |
+-                      (has_inject[OWNED_BUS] ? AZ_OVERLAY_INJECTED : 0);
++                      (has_inject[OWNED_BUS] ? AZ_OVERLAY_INJECTED : 0) |
++                      (allow_overlay_ownership ? AZ_OVERLAY_ENABLED : 0);
++        memcpy(state.instance, mixer_instance, sizeof(state.instance));
+         state.run_id = mixer_run;
+         state.epoch = mixer_epoch;
+         state.sequence = mixer_sequence;
+@@ -516,6 +543,7 @@
+         size = sizeof(*h);
+         break;
+     case AZ_OVERLAY_FRAME:
++    case AZ_OVERLAY_ROTATE:
+         size = sizeof(request);
+         break;
+     default:
+@@ -534,7 +562,9 @@
+         return -EINVAL;
+ 
+     spin_lock_irqsave(&miso_lock, flags);
+-    if (cmd == AZ_OVERLAY_CLAIM) {
++    if (memcmp(h->instance, mixer_instance, sizeof(mixer_instance))) {
++        ret = -ESTALE;
++    } else if (cmd == AZ_OVERLAY_CLAIM) {
+         if (h->sequence)
+             ret = -EINVAL;
+         else if (mixer_owner)
+@@ -554,14 +584,24 @@
+         }
+     } else {
+         ret = mixer_owned_next(filp, h);
++        if (!ret && cmd == AZ_OVERLAY_ROTATE && mixer_epoch == U64_MAX)
++            ret = -EOVERFLOW;
+         if (!ret) {
+-            if (cmd == AZ_OVERLAY_FRAME) {
++            if (cmd == AZ_OVERLAY_FRAME || cmd == AZ_OVERLAY_ROTATE) {
+                 memcpy(inject_pending[OWNED_BUS], request.frame, MISO_SIZE);
+                 has_inject[OWNED_BUS] = 1;
+             } else {
+                 mixer_owner = NULL;
+             }
+-            mixer_sequence = h->sequence;
++            if (cmd == AZ_OVERLAY_ROTATE) {
++                /* Opaque frame and fresh generation commit together. Keep the
++                 * broker's open description and run. Old queued payloads must
++                 * keep their old epoch; the producer adapter must never retag. */
++                mixer_epoch++;
++                mixer_sequence = 0;
++            } else {
++                mixer_sequence = h->sequence;
++            }
+         }
+     }
+     spin_unlock_irqrestore(&miso_lock, flags);
+@@ -695,6 +735,9 @@
+     dev_t devno;
+     int ret, i, n_added = 0, ctrl_added = 0;
+ 
++    ret = mixer_instance_init();
++    if (ret)
++        return ret;
+     ret = alloc_chrdev_region(&devno, 0, NDEVS, DRV_NAME);
+     if (ret < 0) {
+         pr_err("%s: alloc_chrdev_region failed: %d\n", DRV_NAME, ret);
+--- a/guest/modules/subucom_virt/subucom_ownership.h
++++ b/guest/modules/subucom_virt/subucom_ownership.h
+@@ -5,16 +5,18 @@
+ #include <linux/types.h>
+ #include <linux/ioctl.h>
+ 
+-#define AZ_OVERLAY_VERSION 1u
++#define AZ_OVERLAY_VERSION 2u
+ #define AZ_OVERLAY_BYTES 152
+ #define AZ_OVERLAY_FENCED 1u
+ #define AZ_OVERLAY_ACTIVE 2u
+ #define AZ_OVERLAY_CALLER_OWNER 4u
+ #define AZ_OVERLAY_INJECTED 8u
++#define AZ_OVERLAY_ENABLED 16u
+ 
+ struct az_overlay_command {
+     __u32 version;
+     __u32 reserved;
++    __aligned_u64 instance[2];
+     __aligned_u64 run_id;
+     __aligned_u64 epoch;
+     __aligned_u64 sequence;
+@@ -28,6 +30,7 @@
+ struct az_overlay_state {
+     __u32 version;
+     __u32 flags;
++    __aligned_u64 instance[2];
+     __aligned_u64 run_id;
+     __aligned_u64 epoch;
+     __aligned_u64 sequence;
+@@ -36,11 +39,14 @@
+     __u8 frame[AZ_OVERLAY_BYTES];
+ };
+ 
+-/* Native 64-bit ABI only; no compat ioctl handler is provided. CLAIM and
+- * RELEASE have no output after commit. STATE is a snapshot, not delivery ACK. */
++/* Native 64-bit ABI only. V1 command sizes are deliberately unsupported.
++ * Mutations are input-only. STATE is a snapshot, not native delivery or
++ * cancellation ACK. ROTATE keeps broker ownership while changing generation;
++ * its frame is opaque here. Fresh producer input must be tagged before queuing. */
+ #define AZ_OVERLAY_CLAIM _IOW('Z', 0x50, struct az_overlay_command)
+ #define AZ_OVERLAY_FRAME _IOW('Z', 0x51, struct az_overlay_frame)
+ #define AZ_OVERLAY_RELEASE _IOW('Z', 0x52, struct az_overlay_command)
+ #define AZ_OVERLAY_STATE _IOR('Z', 0x53, struct az_overlay_state)
++#define AZ_OVERLAY_ROTATE _IOW('Z', 0x54, struct az_overlay_frame)
+ 
+ #endif
