@@ -376,3 +376,50 @@ physical access, core, package or catalog change occurred. The last released
 emulator state was not revalidated; old helpers, frozen patches and unrelated
 untracked work remain intact. All native menu, stems, USB and physical gates
 remain open.
+
+
+### Offline broker and producer gate — October 27
+
+The separate [mixer-broker candidate](../experiments/emulator-mixer-broker/)
+now implements an offline C broker and a standalone Rust producer gate for the
+frozen V2 kernel primitive. The broker serializes its immutable backend context,
+binds complete grants and contiguous request IDs, returns exact duplicate
+receipts without backend calls, and blocks generation changes while a result
+is unknown. An exact positive state can reconcile one pending operation under
+the same-file/sole-mutator assumptions; lower state is not cancellation and
+reconciliation never reopens the old grant. Rotation and fresh baseline adoption
+remain explicit operations.
+
+The C suite executes seven exact extracted kernel functions and passes 203
+assertions plus six strict failing controls in each plain, ASan/UBSan and TSan
+mode. Independent final results match byte for byte. The Rust gate passes 19
+named tests plus eight strict failing controls, independently reproduced with
+identical sources and functional results. Its failure-output hashes differ only
+in runtime panic thread IDs after the existing path/duration normalization;
+that distinction and both original results are retained. The C library also
+compiles as an ARM64 relocatable object, independently checked as ELF64 AArch64,
+with 14 recorded unresolved dependencies. It was neither linked nor executed.
+
+The producer stamps immutable envelopes at creation, preserves a canonical
+bounded queue, retains one unresolved request across connection loss, and
+requires exact baseline ACK plus caller-observed release before rearming.
+Executable counterexamples preserve two limits: callers can reauthor old raw
+bytes under a fresh grant, and settings callbacks within one generation can
+execute out of creation order. C requests remain mutable caller-owned values.
+Neither library establishes backend/receipt authority, fresh physical gestures,
+absence of older broker operations, durable receipt history or native delivery.
+
+Next integrate the producer/broker adapter with the pinned actual preview's
+creation, queue/cache, reconnect and saved-settings paths. Establish event/ACK
+ordering and invalidation of old UI state without changing other buses or
+forwarder outputs. No C/Rust wire/FFI adapter, broker daemon, preview patch or
+owned stopped-recovery transaction exists yet. The recovery contract still
+requires original neutral overlay, injected mode and exact host bytes verified
+before guarded restart. Both kernel patches remain uninstalled and the V2
+runtime runner stays disabled.
+
+Only isolated source, host tests and compile work occurred. No emulator/device
+contact, service action, physical access, package/core/catalog changes or new
+live run occurred. Old helpers, patches, released emulator state and unrelated
+untracked work were preserved. MODS 0.1.3 publication, native menu ownership,
+stems activation/staging, USB activation and physical validation remain open.

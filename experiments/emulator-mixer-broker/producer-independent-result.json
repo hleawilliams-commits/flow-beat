@@ -1,0 +1,129 @@
+{
+  "compiler": "rustc 1.98.1 (48a229cea 2026-09-01) (Homebrew)\nbinary: rustc\ncommit-hash: 48a229ceaefd4985c50990b14116b6d856af0985\ncommit-date: 2026-09-01\nhost: aarch64-apple-darwin\nrelease: 1.98.1\nLLVM version: 22.1.8",
+  "fingerprint_normalization": "Private run root and libtest elapsed duration only; exact output retained privately.",
+  "positive_tests": [
+    "tests::altered_same_id_is_conflict_not_replacement",
+    "tests::callback_panic_poison_fails_closed",
+    "tests::concurrent_creation_assigns_one_contiguous_queue",
+    "tests::counters_never_wrap",
+    "tests::default_closed_and_bounded_capacity",
+    "tests::every_baseline_component_is_bound",
+    "tests::every_frame_ack_component_is_bound",
+    "tests::exact_adoption_ack_and_release_required",
+    "tests::exact_known_rejection_closes_but_can_transition",
+    "tests::full_queue_and_lost_message_do_not_skip_ids",
+    "tests::key_validity_and_no_same_epoch_rearm",
+    "tests::loss_retains_unknown_no_replay_or_adoption",
+    "tests::no_enqueue_or_socket_success_ack",
+    "tests::queued_work_refuses_after_kernel_sequence_exhaustion",
+    "tests::reauthoring_old_bytes_is_an_explicit_limit",
+    "tests::same_generation_settings_order_is_an_explicit_limit",
+    "tests::settings_and_closure_share_the_transition_lock",
+    "tests::stale_mpsc_and_cached_replay_cannot_retag",
+    "tests::stale_or_failed_settings_callback_is_gated"
+  ],
+  "runner_sha256": "0cec1296a802f6138d5a706d853fe8ed34b91d7270a5c5d6b3d8ffa57ce2b01e",
+  "runs": [
+    {
+      "exit_code": 0,
+      "failed": [],
+      "filtered": 0,
+      "name": "candidate",
+      "normalized_output_sha256": "679ec0e01f049826a9711ba975e01506b9a7ab6d58a0044da8227d4a80c2b59c",
+      "passed": 19,
+      "source_sha256": "70ec0056c3f02ae24e7d2a90e8fd2310208b1092e54da4bc2469eab794f29a06"
+    },
+    {
+      "exit_code": 101,
+      "failed": [
+        "tests::stale_mpsc_and_cached_replay_cannot_retag"
+      ],
+      "filtered": 18,
+      "name": "retag-at-dequeue",
+      "normalized_output_sha256": "67b5783c6415f6502ad30e99f329841d12216f839852c4a24249c2f92e29feaa",
+      "passed": 0,
+      "source_sha256": "c1000e77e3843405ab52fd8825eec7730e8955bd0f1531ee773614877031c042"
+    },
+    {
+      "exit_code": 101,
+      "failed": [
+        "tests::every_baseline_component_is_bound"
+      ],
+      "filtered": 18,
+      "name": "baseline-key-only",
+      "normalized_output_sha256": "453b3169feaf5316fcbf5608e2ee48815e5e71870e371007b12aa871aaef8660",
+      "passed": 0,
+      "source_sha256": "730732c95f80b4a03a0a310acd3359f83d54eabafa2c2f3472410907f421a5cc"
+    },
+    {
+      "exit_code": 101,
+      "failed": [
+        "tests::loss_retains_unknown_no_replay_or_adoption"
+      ],
+      "filtered": 18,
+      "name": "close-erases-unresolved",
+      "normalized_output_sha256": "54f297aa3acfec6989b01501514dcbd5bcff5362fd812f1858ab8302649ee303",
+      "passed": 0,
+      "source_sha256": "668904e973769f4b3374863d1356d9a2693388cc810831d6aeab3bac4a6ffc41"
+    },
+    {
+      "exit_code": 101,
+      "failed": [
+        "tests::no_enqueue_or_socket_success_ack"
+      ],
+      "filtered": 18,
+      "name": "socket-write-is-ack",
+      "normalized_output_sha256": "14aade1ae30515f774411b6ada58d8df4ef9aa01fce0a9eec1d3c19433ef9584",
+      "passed": 0,
+      "source_sha256": "6176ffad18aaed7ef88bd60457408b41c17025d3dad3507c15ae7aecd5a842cb"
+    },
+    {
+      "exit_code": 101,
+      "failed": [
+        "tests::key_validity_and_no_same_epoch_rearm"
+      ],
+      "filtered": 18,
+      "name": "same-epoch-readoption",
+      "normalized_output_sha256": "ee6e4bc56e48748d19305a5629c980a79166cc8dfe9747328d67fba6afb08884",
+      "passed": 0,
+      "source_sha256": "588224beb768ddb4a567674226c1f13c865fc308de1e104a8e2a6e5f2d04d96f"
+    },
+    {
+      "exit_code": 101,
+      "failed": [
+        "tests::exact_adoption_ack_and_release_required"
+      ],
+      "filtered": 18,
+      "name": "skip-release-barrier",
+      "normalized_output_sha256": "56f320d8696fbeba7ec830117781ff69360697a1827c27951dbaf4e4ec088be9",
+      "passed": 0,
+      "source_sha256": "7175bdec6e37cb39ffe73a0bb6e99fd6f74889ef1bbc7c792c8aecd9ed54911d"
+    },
+    {
+      "exit_code": 101,
+      "failed": [
+        "tests::full_queue_and_lost_message_do_not_skip_ids"
+      ],
+      "filtered": 18,
+      "name": "queue-full-consumes-id",
+      "normalized_output_sha256": "7927fbc9b5d3c6d8d2a82620e50e88e9908bf570da9590a4014446750e411205",
+      "passed": 0,
+      "source_sha256": "1e937296c2ccba0300c64119968bf18910ef0ea10a12d87a88ea4d098bfafb7a"
+    },
+    {
+      "exit_code": 101,
+      "failed": [
+        "tests::queued_work_refuses_after_kernel_sequence_exhaustion"
+      ],
+      "filtered": 18,
+      "name": "exhausted-ack-keeps-admission",
+      "normalized_output_sha256": "c61d51d4ed5a00390947e0b7af6140ca1e3c77907d3131eeecb805fd90abc275",
+      "passed": 0,
+      "source_sha256": "3f3e6447c3cc170412071986d35e10755a4b86ec775c886d73f6923b64ed824c"
+    }
+  ],
+  "scope": "Actual standalone std-only Rust producer; synthetic frames and mpsc/thread callbacks. No preview/forwarder patch, real broker/FFI/ABI, I/O, native delivery, settings ordering, receipt authenticity, hardware release, queue drain or recovery proof.",
+  "source_sha256": "70ec0056c3f02ae24e7d2a90e8fd2310208b1092e54da4bc2469eab794f29a06",
+  "strict_control_count": 8,
+  "test_count": 19
+}

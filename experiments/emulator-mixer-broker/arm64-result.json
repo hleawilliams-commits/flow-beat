@@ -1,0 +1,86 @@
+{
+  "artifact": {
+    "byte_order": "little",
+    "elf_class": 64,
+    "elf_type": "ET_REL",
+    "kept_private": true,
+    "machine": "AArch64",
+    "machine_number": 183,
+    "name": "broker.o",
+    "sha256": "37aef6bdd44abb21472f90776ede920ae8b904d02cbd51ceb7e3ab1378bd2829",
+    "size": 10640
+  },
+  "build": {
+    "compile_log_empty": true,
+    "compiler_warning_count": 0,
+    "downloads": false,
+    "flags": [
+      "-std=c11",
+      "-O2",
+      "-fPIC",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-pthread",
+      "-c"
+    ],
+    "input_hashes_unchanged": true,
+    "local_inputs_only": true,
+    "platform": "linux/arm64",
+    "private_compile_log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "private_dockerfile_sha256": "6111ac89758e4d6e0a61e6a5cd761b19f8602669b78e773805b4932efedd4bc0",
+    "private_rootfs_archive_sha256": "898432b5244d53de1b28943b829859d249241bf88b750337c2a9871d138ab54c",
+    "private_status_receipt_sha256": "f9be46f8cf1afc8162646e0d0b96edf27e8f37e1e07a8cb8b42f0aefd3cbb67c",
+    "pull": false,
+    "remote_base_image": false,
+    "remote_frontend": false,
+    "run_network": "none",
+    "scratch_stages": 2
+  },
+  "runtime_gate": "closed",
+  "schema": 1,
+  "scope": {
+    "backend_callbacks_executed_by_this_check": false,
+    "device_contact": false,
+    "emulator_contact": false,
+    "firmware_abi_proven": false,
+    "kernel_ioctl_executed": false,
+    "linked": false,
+    "object_executed": false,
+    "physical_contact": false,
+    "runtime_lifetime_or_timing_proven": false,
+    "source_compilation_only": true,
+    "statement": "The object is an offline user-space library compile. Its unresolved libc, pthread and stack-guard dependencies are recorded, not proven linked or compatible with a running process."
+  },
+  "sources": {
+    "broker_c_sha256": "6d19795439378bd4c196b53e556bca2d67488a4ec9097177792d573541317cb8",
+    "broker_h_sha256": "5d854db2b15d5130ce2c47c6e48f8b9c20508c9d0f3cd5de8ea2f990ca1fbc32"
+  },
+  "status": "offline-arm64-relocatable-compile-passed",
+  "symbols": {
+    "direct_elf_symbol_table_matches_nm": true,
+    "link_resolution_checked": false,
+    "undefined_count": 14,
+    "undefined_symbols": [
+      "__stack_chk_fail",
+      "__stack_chk_guard",
+      "calloc",
+      "free",
+      "memcmp",
+      "memcpy",
+      "memset",
+      "pthread_mutex_destroy",
+      "pthread_mutex_init",
+      "pthread_mutex_lock",
+      "pthread_mutex_unlock",
+      "pthread_mutexattr_destroy",
+      "pthread_mutexattr_init",
+      "pthread_mutexattr_settype"
+    ]
+  },
+  "toolchain": {
+    "compiler": "gcc (Alpine 13.2.1_git20231014) 13.2.1 20231014",
+    "compiler_executable_sha256": "d2fcfbe5ea467cbb15e6e4b0d1a0ee929575de38f5e9db5313def1b06c8b9fca",
+    "compiler_version_output_sha256": "0e8b316161076f257494c8ce0621c3b61b108070ceb12cbd61fa5545c03181d9"
+  }
+}

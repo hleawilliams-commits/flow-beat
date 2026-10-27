@@ -1,0 +1,302 @@
+{
+  "compiler": "Apple clang version 16.0.0 (clang-1600.0.26.6)",
+  "frozen_helpers_sha256": {
+    "prepare.py": "6a35c4ac9c3d9671d1d652bbba57ea6a49f2e4f8865427c1d58751b340ffad84",
+    "run-tests.py": "1a8030db691cc6df52bf5afc7d94fd460360875f3c535a43070c859ed2745f83",
+    "test-guard.c": "37882354077f05ee87a5f9655a8325380d02c4a43b292081d8ecb8fd49ead9a4"
+  },
+  "kernel_declarations_sha256": "0069df900f6da37004cd929314d4e31e73f0d6ddd15174a5a8dbb4cb6c2e518b",
+  "kernel_extraction_sha256": "6523acac8201943f20aaf42906e496547835ff0b28881c4502adcaf293668f7f",
+  "kernel_function_sha256": {
+    "ctrl_ioctl": "aa2e1c0411828b39f587a86319a46d6faf7ac40ff8896298418ab7a80cd32f70",
+    "ctrl_release": "b86f6da35cda95f471a8863e57267ba4cf7605cf5a34f6b88e7254cbef0c97fc",
+    "ctrl_write": "624817cdd9562c2d60d34b1861b95d9c1dbe41cf285157426cadb44b2be5b48a",
+    "mixer_instance_init": "a02b19dc18f9a9b50c20d29fa45c7566ea20ba96f97c38a22d93f89641a21506",
+    "mixer_owned_next": "bec2720bce36e3f9a2faae64171ff567af02737b489edad415c79a402fe1425b",
+    "xget_bytes": "e6ef2b6cd673270aa3ba2531cd4d5449fa87339388da34630368a94d55067579",
+    "xput_bytes": "adb6ccc20e19e9a91f18c705aada860497f73d709ea371c69adce6603827e3f4"
+  },
+  "kernel_prepare_receipt": {
+    "base_commit": "06fc981707e69982c0554bb508e0c646c005a979",
+    "base_sha256": {
+      "Makefile": "a85021fa4fb059ccbb89c3c2db6659720bcf8dfd80e826831b2363474f2e1be6",
+      "subucom_frames.h": "4d9d833e583b7c6a5aa3f12de0fea2b7245e9dac915477ab96b9cfdfa75c2c0b",
+      "subucom_virt.c": "9631ca05810408eb9cd40cb38fa3f90d8dd2ac1d4d09a2e73d084ea0dbe03654"
+    },
+    "candidate_sha256": {
+      "Makefile": "a85021fa4fb059ccbb89c3c2db6659720bcf8dfd80e826831b2363474f2e1be6",
+      "subucom_frames.h": "4d9d833e583b7c6a5aa3f12de0fea2b7245e9dac915477ab96b9cfdfa75c2c0b",
+      "subucom_ownership.h": "355316f5047509ae4c787210fddf0bd8b659c600ac1e153adf0543e28cf35aec",
+      "subucom_virt.c": "bab273a308dde0ba696394d2383461af10413f1975e836b2058456dba2833717"
+    },
+    "patch_sha256": "fa800f32c5e9227cc1953028d35b896e711a40b0d4fd6f2e03dcdf2ac6eaf0dd",
+    "phase_one_patch_sha256": "34d870df06f902c04eb0c2029a1c0411e647519ff4a8fabdc17b16ffe8befb3f",
+    "phase_one_sha256": {
+      "Makefile": "a85021fa4fb059ccbb89c3c2db6659720bcf8dfd80e826831b2363474f2e1be6",
+      "subucom_frames.h": "4d9d833e583b7c6a5aa3f12de0fea2b7245e9dac915477ab96b9cfdfa75c2c0b",
+      "subucom_ownership.h": "77d0cb71414ec49750040cc22dd93f6553c418cee54f091aa6e4d23686ee43cc",
+      "subucom_virt.c": "09b73c132a245a46e9855888c8cb1ea0fac5e9adba195ed848983b71262a2180"
+    },
+    "scope": "fresh source copy only; no build, install, device contact or runtime action"
+  },
+  "kernel_shim_sha256": "ad7cce33ad8ea5caf69740b38d7add5499de8d3713024f5f9a000ae9c675533b",
+  "runs": [
+    {
+      "broker_sha256": "6d19795439378bd4c196b53e556bca2d67488a4ec9097177792d573541317cb8",
+      "case": "all",
+      "checks": 203,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "plain",
+      "output_sha256": "1b3e18d3137b19e1f235d546e152c649c971775edb2f2ec44a4d95246330e995",
+      "variant": "candidate"
+    },
+    {
+      "broker_sha256": "6d19795439378bd4c196b53e556bca2d67488a4ec9097177792d573541317cb8",
+      "case": "all",
+      "checks": 203,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "asan-ubsan",
+      "output_sha256": "1b3e18d3137b19e1f235d546e152c649c971775edb2f2ec44a4d95246330e995",
+      "variant": "candidate"
+    },
+    {
+      "broker_sha256": "6d19795439378bd4c196b53e556bca2d67488a4ec9097177792d573541317cb8",
+      "case": "all",
+      "checks": 203,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "tsan",
+      "output_sha256": "1b3e18d3137b19e1f235d546e152c649c971775edb2f2ec44a4d95246330e995",
+      "variant": "candidate"
+    },
+    {
+      "broker_sha256": "de31748ed9a7fa30845db92ff8ad9bfbe5aa14d7181642a0baa26df5d451ecc0",
+      "case": "stale",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "stale_epoch_refused_before_backend"
+      ],
+      "mode": "plain",
+      "output_sha256": "137ffc99fc1173f42318d7a457a9bd5ec49894ca4b7ed9ca669e31ea98e835ff",
+      "variant": "grant-ignores-epoch"
+    },
+    {
+      "broker_sha256": "de31748ed9a7fa30845db92ff8ad9bfbe5aa14d7181642a0baa26df5d451ecc0",
+      "case": "stale",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "stale_epoch_refused_before_backend"
+      ],
+      "mode": "asan-ubsan",
+      "output_sha256": "137ffc99fc1173f42318d7a457a9bd5ec49894ca4b7ed9ca669e31ea98e835ff",
+      "variant": "grant-ignores-epoch"
+    },
+    {
+      "broker_sha256": "de31748ed9a7fa30845db92ff8ad9bfbe5aa14d7181642a0baa26df5d451ecc0",
+      "case": "stale",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "stale_epoch_refused_before_backend"
+      ],
+      "mode": "tsan",
+      "output_sha256": "137ffc99fc1173f42318d7a457a9bd5ec49894ca4b7ed9ca669e31ea98e835ff",
+      "variant": "grant-ignores-epoch"
+    },
+    {
+      "broker_sha256": "562604b19d02cc4147263c90d53f81052f9f697020336952e70712b2ea54d9b5",
+      "case": "conflict",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "duplicate_compares_all_frame_bytes"
+      ],
+      "mode": "plain",
+      "output_sha256": "15cbbf53f77e22d3bd8fda2f6c64383bbd8dc149c6708f04da43bb3fc354b40d",
+      "variant": "cache-ignores-payload"
+    },
+    {
+      "broker_sha256": "562604b19d02cc4147263c90d53f81052f9f697020336952e70712b2ea54d9b5",
+      "case": "conflict",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "duplicate_compares_all_frame_bytes"
+      ],
+      "mode": "asan-ubsan",
+      "output_sha256": "15cbbf53f77e22d3bd8fda2f6c64383bbd8dc149c6708f04da43bb3fc354b40d",
+      "variant": "cache-ignores-payload"
+    },
+    {
+      "broker_sha256": "562604b19d02cc4147263c90d53f81052f9f697020336952e70712b2ea54d9b5",
+      "case": "conflict",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "duplicate_compares_all_frame_bytes"
+      ],
+      "mode": "tsan",
+      "output_sha256": "15cbbf53f77e22d3bd8fda2f6c64383bbd8dc149c6708f04da43bb3fc354b40d",
+      "variant": "cache-ignores-payload"
+    },
+    {
+      "broker_sha256": "fe7ff3c986425cc19c495a0734bf03df64a9e9c6979b4243022fe9d0e1b8e2e7",
+      "case": "lower",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "lower_state_is_not_cancellation"
+      ],
+      "mode": "plain",
+      "output_sha256": "7a66b7b195f9d06cf606a64c4e8d1e70e1cf126151eddd6a8d4dcbf2351fec57",
+      "variant": "any-valid-state-resolves-unknown"
+    },
+    {
+      "broker_sha256": "fe7ff3c986425cc19c495a0734bf03df64a9e9c6979b4243022fe9d0e1b8e2e7",
+      "case": "lower",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "lower_state_is_not_cancellation"
+      ],
+      "mode": "asan-ubsan",
+      "output_sha256": "7a66b7b195f9d06cf606a64c4e8d1e70e1cf126151eddd6a8d4dcbf2351fec57",
+      "variant": "any-valid-state-resolves-unknown"
+    },
+    {
+      "broker_sha256": "fe7ff3c986425cc19c495a0734bf03df64a9e9c6979b4243022fe9d0e1b8e2e7",
+      "case": "lower",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "lower_state_is_not_cancellation"
+      ],
+      "mode": "tsan",
+      "output_sha256": "7a66b7b195f9d06cf606a64c4e8d1e70e1cf126151eddd6a8d4dcbf2351fec57",
+      "variant": "any-valid-state-resolves-unknown"
+    },
+    {
+      "broker_sha256": "e258499d501b5c33855f4acd4ef9687c7a291f808c2b4ca767f9e6bf4533ad5c",
+      "case": "quiesce",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "quiesce_blocks_new_request"
+      ],
+      "mode": "plain",
+      "output_sha256": "705a078aa9b0d2cde40302437250ac8e42d3963096ea11f786f84023b9d93844",
+      "variant": "quiesce-keeps-admission"
+    },
+    {
+      "broker_sha256": "e258499d501b5c33855f4acd4ef9687c7a291f808c2b4ca767f9e6bf4533ad5c",
+      "case": "quiesce",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "quiesce_blocks_new_request"
+      ],
+      "mode": "asan-ubsan",
+      "output_sha256": "705a078aa9b0d2cde40302437250ac8e42d3963096ea11f786f84023b9d93844",
+      "variant": "quiesce-keeps-admission"
+    },
+    {
+      "broker_sha256": "e258499d501b5c33855f4acd4ef9687c7a291f808c2b4ca767f9e6bf4533ad5c",
+      "case": "quiesce",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "quiesce_blocks_new_request"
+      ],
+      "mode": "tsan",
+      "output_sha256": "705a078aa9b0d2cde40302437250ac8e42d3963096ea11f786f84023b9d93844",
+      "variant": "quiesce-keeps-admission"
+    },
+    {
+      "broker_sha256": "19759199a16bc32769f195f61425d4dd2000753ece90a25907fc80a534812c8a",
+      "case": "adopt",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "closed_epoch_cannot_reissue_grant"
+      ],
+      "mode": "plain",
+      "output_sha256": "70533871f1158c4be8ed0dd8d5f9aebbd26b9599644c58911c8d490810ab66d6",
+      "variant": "readopt-closed-epoch"
+    },
+    {
+      "broker_sha256": "19759199a16bc32769f195f61425d4dd2000753ece90a25907fc80a534812c8a",
+      "case": "adopt",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "closed_epoch_cannot_reissue_grant"
+      ],
+      "mode": "asan-ubsan",
+      "output_sha256": "70533871f1158c4be8ed0dd8d5f9aebbd26b9599644c58911c8d490810ab66d6",
+      "variant": "readopt-closed-epoch"
+    },
+    {
+      "broker_sha256": "19759199a16bc32769f195f61425d4dd2000753ece90a25907fc80a534812c8a",
+      "case": "adopt",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "closed_epoch_cannot_reissue_grant"
+      ],
+      "mode": "tsan",
+      "output_sha256": "70533871f1158c4be8ed0dd8d5f9aebbd26b9599644c58911c8d490810ab66d6",
+      "variant": "readopt-closed-epoch"
+    },
+    {
+      "broker_sha256": "cb18e6348fc7b3d3598a5ba6af60cd7ad4e1427decd0dde7dc7a7567ba97c650",
+      "case": "cached",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "cached_ack_does_not_reopen"
+      ],
+      "mode": "plain",
+      "output_sha256": "8924c65e226fa75604a89f6bcda8b4fab8fca4ad4b726eb0120f072410cf69cd",
+      "variant": "cached-ack-reopens"
+    },
+    {
+      "broker_sha256": "cb18e6348fc7b3d3598a5ba6af60cd7ad4e1427decd0dde7dc7a7567ba97c650",
+      "case": "cached",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "cached_ack_does_not_reopen"
+      ],
+      "mode": "asan-ubsan",
+      "output_sha256": "8924c65e226fa75604a89f6bcda8b4fab8fca4ad4b726eb0120f072410cf69cd",
+      "variant": "cached-ack-reopens"
+    },
+    {
+      "broker_sha256": "cb18e6348fc7b3d3598a5ba6af60cd7ad4e1427decd0dde7dc7a7567ba97c650",
+      "case": "cached",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "cached_ack_does_not_reopen"
+      ],
+      "mode": "tsan",
+      "output_sha256": "8924c65e226fa75604a89f6bcda8b4fab8fca4ad4b726eb0120f072410cf69cd",
+      "variant": "cached-ack-reopens"
+    }
+  ],
+  "scope": "Offline C broker plus seven exact extracted frozen V2 kernel methods. pthread, owned-memory usercopy and deterministic RNG shims; synthetic frames and selected deterministic/concurrent schedules. Direct setup seeds for counter boundaries. No actual kernel, VFS, IPC, broker daemon, crash durability, preview/host-settings/native stop/restore integration, native delivery, device or emulator installation proof.",
+  "source_sha256": {
+    "broker.c": "6d19795439378bd4c196b53e556bca2d67488a4ec9097177792d573541317cb8",
+    "broker.h": "5d854db2b15d5130ce2c47c6e48f8b9c20508c9d0f3cd5de8ea2f990ca1fbc32",
+    "run-tests.py": "f38384dbee2b775027fa01e090a30a86c60f8cfd64c8ee8a6ab6ed17c9101996",
+    "test-broker.c": "e15a938acc691c4d05ac8fb3d654aad53e1f62550e0fcf9089672c7a888f4afc"
+  },
+  "uapi_shims_sha256": {
+    "ioctl.h": "03e20cab7e05664e6c59b34ec21056751233961618f688f953d18d090d83ef7d",
+    "types.h": "c0be2296044ed1343b1a301a72df1ad44926311358a2086ce6f00bfdb5d21c16"
+  }
+}

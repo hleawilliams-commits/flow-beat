@@ -145,3 +145,18 @@ adoption and stopped recovery are still unimplemented. The recovery target must
 also preserve injected/idle mode; equal frame bytes alone do not restore it.
 Keep the old helpers unchanged and runtime dispatch disabled. The next work is
 broker/producer integration, not an unchanged repetition of passing kernel tests.
+
+
+## Subsequent offline broker / producer libraries
+
+The [mixer-broker candidate](../../../emulator-mixer-broker/) implements local
+grant/request accounting and a standalone creation-time envelope gate. Its C
+library runs against seven exact extracted V2 kernel methods; the Rust suite
+covers bounded queues, delayed mpsc messages, unknown ACKs and release gating.
+They are separate tested libraries, with no real wire/FFI adapter, preview patch,
+IPC authority or stopped recovery. Tests retain counterexamples for reauthoring
+old raw bytes and reversing settings callback order within the same generation.
+Next compose the actual queue/cache/reconnect/settings sources with explicit
+event and ACK ordering, then implement the owned stopped-recovery transaction.
+Keep both kernel candidates uninstalled, old runtime helpers unchanged and all
+live V2 dispatch disabled. No new live run or emulator/device action occurred.
