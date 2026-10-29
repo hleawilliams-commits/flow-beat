@@ -1,0 +1,122 @@
+[
+  {
+    "case": "fragments",
+    "expected_failures": [
+      "stream_fragments_once_per_step_and_archives_only_on_explicit_next"
+    ],
+    "file": "stream.c",
+    "name": "read-arm-before-call",
+    "new": "    record->last_read.attempted = 0;",
+    "old": "    record->last_read.attempted = 1;"
+  },
+  {
+    "case": "fragments",
+    "expected_failures": [
+      "stream_fragments_once_per_step_and_archives_only_on_explicit_next"
+    ],
+    "file": "stream.c",
+    "name": "write-arm-before-call",
+    "new": "    record->last_write.attempted = 0;",
+    "old": "    record->last_write.attempted = 1;"
+  },
+  {
+    "case": "fragments",
+    "expected_failures": [
+      "stream_fragments_once_per_step_and_archives_only_on_explicit_next"
+    ],
+    "file": "stream.c",
+    "name": "dispatch-arm-before-call",
+    "new": "    record->dispatch.attempted = 0;",
+    "old": "    record->dispatch.attempted = 1;"
+  },
+  {
+    "case": "read-errors",
+    "expected_failures": [
+      "stream_read_errors_keep_raw_effects_without_credit_retry_or_dispatch"
+    ],
+    "file": "stream.c",
+    "name": "retain-raw-read-return",
+    "new": "    record->last_read.raw = (struct mbgs_io_result){0};",
+    "old": "    record->last_read.raw = result;"
+  },
+  {
+    "case": "write-errors",
+    "expected_failures": [
+      "stream_failed_response_write_retains_committed_evidence_without_replay"
+    ],
+    "file": "stream.c",
+    "name": "retain-raw-write-return",
+    "new": "    record->last_write.raw = (struct mbgs_io_result){0};",
+    "old": "    record->last_write.raw = result;"
+  },
+  {
+    "case": "fragments",
+    "expected_failures": [
+      "stream_fragments_once_per_step_and_archives_only_on_explicit_next"
+    ],
+    "file": "stream.c",
+    "name": "retain-completed-record",
+    "new": "    owner->journal.last_completed_valid = 0;",
+    "old": "    owner->journal.last_completed_valid = 1;"
+  },
+  {
+    "case": "header-refusal",
+    "expected_failures": [
+      "stream_rejects_noncanonical_header_before_body_or_dispatch"
+    ],
+    "file": "stream.c",
+    "name": "require-request-header",
+    "new": "        if (mbw_decode_header(record->request, MBW_HEADER_SIZE, &header) != MBW_OK)",
+    "old": "        if (mbw_decode_header(record->request, MBW_HEADER_SIZE, &header) != MBW_OK ||\n            !((header.kind == MBW_ADOPT_REQUEST && header.length == MBW_ADOPT_REQUEST_SIZE) ||\n              (header.kind == MBW_FRAME_REQUEST && header.length == MBW_FRAME_REQUEST_SIZE)))"
+  },
+  {
+    "case": "fragments",
+    "expected_failures": [
+      "stream_fragments_once_per_step_and_archives_only_on_explicit_next"
+    ],
+    "file": "stream.c",
+    "name": "retain-raw-dispatch-size",
+    "new": "    record->dispatch.written = 0;",
+    "old": "    record->dispatch.written = written;"
+  },
+  {
+    "case": "dispose-order",
+    "expected_failures": [
+      "stream_disposal_stops_on_broker_failure_then_retires_graph_before_transport"
+    ],
+    "file": "stream.c",
+    "name": "preserve-first-disposal",
+    "new": "    if (report->attempt_number >= 1) {",
+    "old": "    if (report->attempt_number == 1) {"
+  },
+  {
+    "case": "partial-dispose",
+    "expected_failures": [
+      "stream_empty_and_partial_owners_only_release_resources_on_explicit_disposal"
+    ],
+    "file": "stream.c",
+    "name": "consume-successful-owner-slot",
+    "new": "    mbgs_disposal_done(owner, report, MBGS_OK);\n    free(owner);",
+    "old": "    mbgs_disposal_done(owner, report, MBGS_OK);\n    *slot = NULL;\n    free(owner);"
+  },
+  {
+    "case": "dispose-order",
+    "expected_failures": [
+      "stream_disposal_stops_on_broker_failure_then_retires_graph_before_transport"
+    ],
+    "file": "stream.c",
+    "name": "preserve-graph-disposal-error",
+    "new": "                result == MBOG_UNCERTAIN ? MBGS_UNCERTAIN : MBGS_OK);",
+    "old": "                result == MBOG_UNCERTAIN ? MBGS_UNCERTAIN : MBGS_GRAPH);"
+  },
+  {
+    "case": "reentry",
+    "expected_failures": [
+      "stream_same_thread_inspection_and_busy_reentry_preserve_inflight_custody"
+    ],
+    "file": "stream.c",
+    "name": "arm-stream-close-before-call",
+    "new": "        owner->journal.stream_close.attempted = 0;",
+    "old": "        owner->journal.stream_close.attempted = 1;"
+  }
+]

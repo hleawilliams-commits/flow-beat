@@ -1,0 +1,19 @@
+{
+  "cases": {
+    "close-uncertain": 1,
+    "dispatch-refusal": 1,
+    "dispose-order": 1,
+    "fragments": 1,
+    "header-refusal": 1,
+    "partial-dispose": 1,
+    "read-abnormal": 1,
+    "read-eof": 1,
+    "read-errors": 1,
+    "reentry": 1,
+    "retain": 1,
+    "unknown-response": 1,
+    "write-abnormal": 1,
+    "write-errors": 1
+  },
+  "scope": "14 stream-specific selectors, one final compound functional check each, per plain/ASan-UBSan/TSan mode. Compose actual frozen graph and children against the pinned driver model with scripted transport calls. No parent suites or native stream wrapper execution. Controls change only new stream.c and must fail their named final oracle after explicit modeled cleanup; setup/compiler/sanitizer failures do not satisfy a control."
+}

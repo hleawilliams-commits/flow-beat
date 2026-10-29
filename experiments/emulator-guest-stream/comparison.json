@@ -1,0 +1,29 @@
+{
+  "audit_attempts": 1,
+  "audit_script_sha256": "915598b1c98393438febf64c2d8f817a7057f895d831fdca1b673759116e9ac8",
+  "captured_inputs": 9,
+  "case_count": 14,
+  "compile_records_per_run": 61,
+  "control_count": 12,
+  "execution_records_per_run": 78,
+  "failed_matrix_attempt_receipt_sha256": [],
+  "failed_matrix_attempts": 0,
+  "frozen_inputs": 27,
+  "generated_sources": 28,
+  "link_records_per_run": 39,
+  "matrix_attempts": 2,
+  "modes": [
+    "plain",
+    "asan-ubsan",
+    "tsan"
+  ],
+  "native_wrapper_compile_only_records_per_run": 1,
+  "positive_checks_per_mode": 14,
+  "prior_audit_failures": 0,
+  "prior_audit_incomplete": 0,
+  "result_sha256": "3c1e91ed681a42f5a1b01053b384b9683ad08682ec7ac80f6032f6d7b88aad7f",
+  "retained_file_audit_sha256": "07df106db5b14e656db767a19a63b910b56f1829eabb5a06d7529d28f8afb598",
+  "scope": "Retained-file audit only, including any separately retained failed matrix attempts. Two successful matrices and their public copies matched byte-for-byte. No builds/tests rerun, wrapper execution, endpoint/device access, install or runtime gate change.",
+  "successful_matrix_attempts": 2,
+  "whole_result_bytes_equal": true
+}

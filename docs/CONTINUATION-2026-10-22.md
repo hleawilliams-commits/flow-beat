@@ -1288,3 +1288,38 @@ separate. Authoritative native originals/stop, external writer exclusion,
 deadlines, both-file restoration and durable/process-death recovery remain open.
 Main and all observer, stems staging, USB completion/cancellation, lifetime/race,
 audio-quality, physical-timing and release gates remain CLOSED.
+
+## October 29: retained guest byte-stream owner
+
+The [separate stream experiment](../experiments/emulator-guest-stream/) now owns
+a supplied stream fd and a fresh actual graph before transport I/O. Bounded
+steps record partial header/body reads, one graph dispatch and response writes;
+explicit next archives one completed record without read-ahead. EOF, errors,
+impossible counts and partial writes retain both resources and exact evidence.
+There is no automatic retry, replay, reopen, flush or cleanup. Disposal requires
+independent quiescence and uncertainty accounting, retires the graph first, and
+preserves uncertain graph/stream closes until explicit finalization.
+
+Two fresh focused matrices passed 14 final compound checks and 12 exact negative
+controls per plain, ASan/UBSan and TSan mode. Each records 61 clean compiles,
+39 clean links and 78 expected executions. Their sanitized result bytes match
+SHA256 3c1e91ed681a42f5a1b01053b384b9683ad08682ec7ac80f6032f6d7b88aad7f.
+The first byte-only audit verified 9 captured inputs, 27 frozen inputs and
+28 generated files, with two successful matrix attempts and no failed attempts.
+It reconstructs exact driver/core/fixture cuts and expected control logs without
+rerunning tests. Only the old graph fixture support prefix is reused; no parent
+selector or passing parent suite was replayed.
+
+This is serial host-model evidence. Transport calls and controller descriptors
+are modeled; the thin POSIX wrappers were compiled separately against host
+headers, never linked into the fixture or executed. No new stream ARM64 build,
+native endpoint, emulator restart, installation or physical-deck control occurred.
+A one-call step does not bound blocking time, prove SIGPIPE survival, authenticate
+a peer or establish native ownership. Complete local response writes can still
+carry UNKNOWN after a modeled native commit. External aliases, pending work,
+supervisor/host-transport binding, native-stop authority and durable recovery
+remain open. Raw captures, scripts, objects and logs stay private; source and
+sanitized evidence are the development checkpoint. All earlier observer, staging,
+USB completion/cancellation, lifetime/race, audio-quality, physical-timing and
+release gates remain CLOSED. Continue at supervisor/transport ownership rather
+than replaying these passing selectors unchanged.
