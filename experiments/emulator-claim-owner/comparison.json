@@ -1,0 +1,23 @@
+{
+  "audit_script_sha256": "c306795049074884c29678ce6db8046d3c1f61a646a2553f72be890c1048371c",
+  "captured_inputs": 7,
+  "case_count": 14,
+  "compile_records_per_run": 42,
+  "control_count": 12,
+  "execution_records_per_run": 78,
+  "failed_matrix_attempts": 0,
+  "frozen_inputs": 10,
+  "generated_sources": 10,
+  "link_records_per_run": 39,
+  "matrix_attempts": 2,
+  "modes": [
+    "plain",
+    "asan-ubsan",
+    "tsan"
+  ],
+  "positive_checks_per_mode": 14,
+  "prior_audit_failures": 0,
+  "result_sha256": "33494de42b49aaaff89b1b3e3cf19aa41be5b83dd453da59e9e7e79a9bb668b9",
+  "scope": "Retained-file audit only; no tests rerun, device access, install or runtime gate change.",
+  "whole_result_bytes_equal": true
+}

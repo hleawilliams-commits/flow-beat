@@ -1060,3 +1060,43 @@ package, catalog or prior cleanup changed. Main and observer runtime dispatch
 remain inactive; stems staging, USB completion/cancellation, lifetime/race,
 recovery, audio quality, native timing and community-release gates remain open
 work. Frozen parents, previous evidence and unrelated deck-lights/ are preserved.
+
+
+## October 29: retained original descriptor and one-shot CLAIM
+
+The separate [CLAIM owner](../experiments/emulator-claim-owner/) retains a caller-transferred original fd,
+including fd0, before preflight STATE or CLAIM. It copies the plan and authors
+the exact command before transfer; each syscall is armed once, with raw returns
+and all initialized/returned STATE bytes kept before interpretation. Failure
+does not implicitly close, release, retry or discard the owner.
+
+The actual extracted handler demonstrates two distinct races. A legacy write
+between preflight and CLAIM can change content: CLAIM commits, then exact
+postflight refuses readiness while retaining Committed history. A same-file
+alias can claim first: this attempt is EBUSY/Rejected even though that file
+description owns the overlay. Thus Rejected never proves the original unowned;
+Committed never proves current exclusive ownership. Scripted postcommit EIO
+stays Unknown even when fixture STATE matches. Idle acquisition stays idle,
+and prior fenced acquisition resets sequence without clearing the fence.
+
+Fourteen new compound selectors and 12 strict compiling controls pass per
+plain, ASan/UBSan and TSan mode in two fresh matrices. Entire result files match
+byte for byte; the retained-file audit independently checks generated source,
+variants, inventories and logs. Both matrices and audit passed first invocation.
+No unchanged parent suite ran, and no Linux ARM64 build is claimed here.
+The invalid-plan oracle has no allocator instrumentation; command overwrites,
+abnormal returns and STATE corruptions are explicitly synthetic. Disposal tests
+use only quiescent modeled fd cleanup, not runtime teardown authority.
+
+Next compose original/CLAIM custody with the retained adapter, broker and
+dispatcher, preserving every failed construction graph. No such composition
+or live endpoint exists yet. Supplied expected bytes and matching snapshots
+cannot establish authoritative originals or native stop. Alias exclusion,
+deadlines, checked graph destruction, complete overlay/both-file recovery and
+durable/process-death custody remain open.
+
+No endpoint, emulator start/restart, physical control, installation, settings,
+official core, package, catalog or prior cleanup changed. Frozen parents,
+previous failures and unrelated deck-lights/ remain preserved. Stems staging,
+USB completion/cancellation, observer runtime, lifetime/race, recovery,
+audio-quality, physical-timing and community-release gates stay CLOSED.

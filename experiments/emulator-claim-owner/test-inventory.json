@@ -1,0 +1,19 @@
+{
+  "cases": {
+    "busy": 1,
+    "claim-arm": 1,
+    "claim-input-fault": 1,
+    "classification": 1,
+    "disposal": 1,
+    "fenced": 1,
+    "idle": 1,
+    "legacy-race": 1,
+    "post-fault": 1,
+    "post-mismatch": 1,
+    "pre-arm": 1,
+    "pre-failure": 1,
+    "transfer": 1,
+    "unknown": 1
+  },
+  "scope": "14 new original-fd/CLAIM acquisition and disposal selectors; one final compound functional check per selector. Synchronous serial modeled cleanup follows copied observations; no setup/cleanup assertion or sanitizer failure can satisfy a control."
+}

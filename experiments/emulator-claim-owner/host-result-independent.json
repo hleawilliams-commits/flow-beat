@@ -1,0 +1,1452 @@
+{
+  "compiler": "Apple clang version 16.0.0 (clang-1600.0.26.6)\nTarget: arm64-apple-darwin25.2.0\nThread model: posix\nInstalledDir: /Library/Developer/CommandLineTools/usr/bin\n",
+  "compiles": [
+    {
+      "exit_code": 0,
+      "file": "claim.c",
+      "mode": "plain",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "4e715b718bb1b97db47c7b54beb4b4c939d7e11520bb849bc8c7dd0a2a4f2baa",
+      "variant": "candidate"
+    },
+    {
+      "exit_code": 0,
+      "file": "test-claim.c",
+      "mode": "plain",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "9529995c80da57a3e81b2c478304f6fe4905c175913325656a2f39e537e0615e",
+      "variant": "candidate"
+    },
+    {
+      "exit_code": 0,
+      "file": "claim.c",
+      "mode": "plain",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "617f0255bb9fc6ffb75da702906641ae2df4f0308e0c5fedded9c5ed094b9707",
+      "variant": "caller-slot-not-consumed"
+    },
+    {
+      "exit_code": 0,
+      "file": "claim.c",
+      "mode": "plain",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "fa017a76baff7d48deb3b175c611bd36ad96e399694575da8919edb65d17380b",
+      "variant": "pre-arm-is-late"
+    },
+    {
+      "exit_code": 0,
+      "file": "claim.c",
+      "mode": "plain",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "5af1f13b7bbed1eaff138f316c037c20595a70580c15f9fa86ccab877a5f1911",
+      "variant": "claim-arm-is-late"
+    },
+    {
+      "exit_code": 0,
+      "file": "claim.c",
+      "mode": "plain",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "470f5952da790b79695cd87f524e692bc9df3e313f6aa227def0e01663d95639",
+      "variant": "discard-failed-prestate"
+    },
+    {
+      "exit_code": 0,
+      "file": "claim.c",
+      "mode": "plain",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "24f654df410800c3f12faa20a6ffa56bb381723af42e4062ee435c5b1c720b50",
+      "variant": "discard-failed-poststate"
+    },
+    {
+      "exit_code": 0,
+      "file": "claim.c",
+      "mode": "plain",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "5ebe8d7ed3606204611b798a932b5bb6756a40095970927a35c5cab5c0b7a053",
+      "variant": "busy-is-unknown"
+    },
+    {
+      "exit_code": 0,
+      "file": "claim.c",
+      "mode": "plain",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "5b8b59b9783ca33b02ae3df70b2ab482213db7c8818de016e99e4e3a32733be4",
+      "variant": "access-denied-is-rejected"
+    },
+    {
+      "exit_code": 0,
+      "file": "claim.c",
+      "mode": "plain",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "4cdc28d47e297cbfc6ad09bf2d54a9af16b480500ce422875d74a1a0aa42ea2b",
+      "variant": "unknown-can-postflight"
+    },
+    {
+      "exit_code": 0,
+      "file": "claim.c",
+      "mode": "plain",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "17e7038a40b7d97c4913bdba66f54f12ebb3a77e1b826f3dd57e4af31976bfce",
+      "variant": "terminal-erases-committed-claim"
+    },
+    {
+      "exit_code": 0,
+      "file": "claim.c",
+      "mode": "plain",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "a67f69888b006c553863ee00f17b921891608dc981db0404bcbdcee4bb596306",
+      "variant": "poststate-tail-not-compared"
+    },
+    {
+      "exit_code": 0,
+      "file": "claim.c",
+      "mode": "plain",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "8a74cac995971677f02d0b5af8d56ebe7da96ec0c03507b44f60845d057d2013",
+      "variant": "omit-original-close"
+    },
+    {
+      "exit_code": 0,
+      "file": "claim.c",
+      "mode": "plain",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "868d7bd7f3aad24d010f0715e114eab10ed465b0250371a03237ca727956f9c2",
+      "variant": "mutable-claim-journal"
+    },
+    {
+      "exit_code": 0,
+      "file": "claim.c",
+      "mode": "asan-ubsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "4e715b718bb1b97db47c7b54beb4b4c939d7e11520bb849bc8c7dd0a2a4f2baa",
+      "variant": "candidate"
+    },
+    {
+      "exit_code": 0,
+      "file": "test-claim.c",
+      "mode": "asan-ubsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "9529995c80da57a3e81b2c478304f6fe4905c175913325656a2f39e537e0615e",
+      "variant": "candidate"
+    },
+    {
+      "exit_code": 0,
+      "file": "claim.c",
+      "mode": "asan-ubsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "617f0255bb9fc6ffb75da702906641ae2df4f0308e0c5fedded9c5ed094b9707",
+      "variant": "caller-slot-not-consumed"
+    },
+    {
+      "exit_code": 0,
+      "file": "claim.c",
+      "mode": "asan-ubsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "fa017a76baff7d48deb3b175c611bd36ad96e399694575da8919edb65d17380b",
+      "variant": "pre-arm-is-late"
+    },
+    {
+      "exit_code": 0,
+      "file": "claim.c",
+      "mode": "asan-ubsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "5af1f13b7bbed1eaff138f316c037c20595a70580c15f9fa86ccab877a5f1911",
+      "variant": "claim-arm-is-late"
+    },
+    {
+      "exit_code": 0,
+      "file": "claim.c",
+      "mode": "asan-ubsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "470f5952da790b79695cd87f524e692bc9df3e313f6aa227def0e01663d95639",
+      "variant": "discard-failed-prestate"
+    },
+    {
+      "exit_code": 0,
+      "file": "claim.c",
+      "mode": "asan-ubsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "24f654df410800c3f12faa20a6ffa56bb381723af42e4062ee435c5b1c720b50",
+      "variant": "discard-failed-poststate"
+    },
+    {
+      "exit_code": 0,
+      "file": "claim.c",
+      "mode": "asan-ubsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "5ebe8d7ed3606204611b798a932b5bb6756a40095970927a35c5cab5c0b7a053",
+      "variant": "busy-is-unknown"
+    },
+    {
+      "exit_code": 0,
+      "file": "claim.c",
+      "mode": "asan-ubsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "5b8b59b9783ca33b02ae3df70b2ab482213db7c8818de016e99e4e3a32733be4",
+      "variant": "access-denied-is-rejected"
+    },
+    {
+      "exit_code": 0,
+      "file": "claim.c",
+      "mode": "asan-ubsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "4cdc28d47e297cbfc6ad09bf2d54a9af16b480500ce422875d74a1a0aa42ea2b",
+      "variant": "unknown-can-postflight"
+    },
+    {
+      "exit_code": 0,
+      "file": "claim.c",
+      "mode": "asan-ubsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "17e7038a40b7d97c4913bdba66f54f12ebb3a77e1b826f3dd57e4af31976bfce",
+      "variant": "terminal-erases-committed-claim"
+    },
+    {
+      "exit_code": 0,
+      "file": "claim.c",
+      "mode": "asan-ubsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "a67f69888b006c553863ee00f17b921891608dc981db0404bcbdcee4bb596306",
+      "variant": "poststate-tail-not-compared"
+    },
+    {
+      "exit_code": 0,
+      "file": "claim.c",
+      "mode": "asan-ubsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "8a74cac995971677f02d0b5af8d56ebe7da96ec0c03507b44f60845d057d2013",
+      "variant": "omit-original-close"
+    },
+    {
+      "exit_code": 0,
+      "file": "claim.c",
+      "mode": "asan-ubsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "868d7bd7f3aad24d010f0715e114eab10ed465b0250371a03237ca727956f9c2",
+      "variant": "mutable-claim-journal"
+    },
+    {
+      "exit_code": 0,
+      "file": "claim.c",
+      "mode": "tsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "4e715b718bb1b97db47c7b54beb4b4c939d7e11520bb849bc8c7dd0a2a4f2baa",
+      "variant": "candidate"
+    },
+    {
+      "exit_code": 0,
+      "file": "test-claim.c",
+      "mode": "tsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "9529995c80da57a3e81b2c478304f6fe4905c175913325656a2f39e537e0615e",
+      "variant": "candidate"
+    },
+    {
+      "exit_code": 0,
+      "file": "claim.c",
+      "mode": "tsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "617f0255bb9fc6ffb75da702906641ae2df4f0308e0c5fedded9c5ed094b9707",
+      "variant": "caller-slot-not-consumed"
+    },
+    {
+      "exit_code": 0,
+      "file": "claim.c",
+      "mode": "tsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "fa017a76baff7d48deb3b175c611bd36ad96e399694575da8919edb65d17380b",
+      "variant": "pre-arm-is-late"
+    },
+    {
+      "exit_code": 0,
+      "file": "claim.c",
+      "mode": "tsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "5af1f13b7bbed1eaff138f316c037c20595a70580c15f9fa86ccab877a5f1911",
+      "variant": "claim-arm-is-late"
+    },
+    {
+      "exit_code": 0,
+      "file": "claim.c",
+      "mode": "tsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "470f5952da790b79695cd87f524e692bc9df3e313f6aa227def0e01663d95639",
+      "variant": "discard-failed-prestate"
+    },
+    {
+      "exit_code": 0,
+      "file": "claim.c",
+      "mode": "tsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "24f654df410800c3f12faa20a6ffa56bb381723af42e4062ee435c5b1c720b50",
+      "variant": "discard-failed-poststate"
+    },
+    {
+      "exit_code": 0,
+      "file": "claim.c",
+      "mode": "tsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "5ebe8d7ed3606204611b798a932b5bb6756a40095970927a35c5cab5c0b7a053",
+      "variant": "busy-is-unknown"
+    },
+    {
+      "exit_code": 0,
+      "file": "claim.c",
+      "mode": "tsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "5b8b59b9783ca33b02ae3df70b2ab482213db7c8818de016e99e4e3a32733be4",
+      "variant": "access-denied-is-rejected"
+    },
+    {
+      "exit_code": 0,
+      "file": "claim.c",
+      "mode": "tsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "4cdc28d47e297cbfc6ad09bf2d54a9af16b480500ce422875d74a1a0aa42ea2b",
+      "variant": "unknown-can-postflight"
+    },
+    {
+      "exit_code": 0,
+      "file": "claim.c",
+      "mode": "tsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "17e7038a40b7d97c4913bdba66f54f12ebb3a77e1b826f3dd57e4af31976bfce",
+      "variant": "terminal-erases-committed-claim"
+    },
+    {
+      "exit_code": 0,
+      "file": "claim.c",
+      "mode": "tsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "a67f69888b006c553863ee00f17b921891608dc981db0404bcbdcee4bb596306",
+      "variant": "poststate-tail-not-compared"
+    },
+    {
+      "exit_code": 0,
+      "file": "claim.c",
+      "mode": "tsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "8a74cac995971677f02d0b5af8d56ebe7da96ec0c03507b44f60845d057d2013",
+      "variant": "omit-original-close"
+    },
+    {
+      "exit_code": 0,
+      "file": "claim.c",
+      "mode": "tsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "868d7bd7f3aad24d010f0715e114eab10ed465b0250371a03237ca727956f9c2",
+      "variant": "mutable-claim-journal"
+    }
+  ],
+  "frozen_inputs_sha256": {
+    "emulator-broker-restore/broker.h": "04efb6b1eb22e56798837ae8ff72514a5a513da2d616215d77d4c8f6a85033c8",
+    "emulator-native64-adapter/syscalls.h": "bbc885c14c1d468a057d5aa40ee537ec20533390453b1abe53fad2257828fd6c",
+    "emulator-overlay-handback/emulator-overlay-handback.patch": "fa800f32c5e9227cc1953028d35b896e711a40b0d4fd6f2e03dcdf2ac6eaf0dd",
+    "emulator-overlay-ownership/emulator-overlay-ownership.patch": "34d870df06f902c04eb0c2029a1c0411e647519ff4a8fabdc17b16ffe8befb3f",
+    "emulator-overlay-restore/candidate-pins.json": "7410374d7690548b217763ee2ec2f260dd07b1319897e6560e624ff0f4791b2d",
+    "emulator-overlay-restore/overlay-restore.patch": "fdf40df07b76e22f1684186e4d725ccc5d1cc56e24d5cb9a7f7813534a045352",
+    "emulator-overlay-restore/parent-inputs.json": "d3590a456624e0c2f6530d52af4d176cf56a3e57e2c4741bf025d933779e0d34",
+    "emulator-overlay-restore/prepare.py": "2fd9e64c91ea4f7b82f9dd0292850d410df43711cd6ebffb5647d4285b552426",
+    "emulator-overlay-restore/run-tests.py": "4c625b2c59d7ab5580eab490bcf65f81503b8815a057a018a8a252c07736f719",
+    "emulator-overlay-restore/test-restore.c": "20d6c0b18b594e5b7c2c496aefd215cc81b14e4748fc58bbe47659a066bd715d"
+  },
+  "generated_sha256": {
+    "broker.h": "04efb6b1eb22e56798837ae8ff72514a5a513da2d616215d77d4c8f6a85033c8",
+    "candidate.inc": "ba8ec43417e9dde783d4fde4190e7203d370a97f002a86e5673bd1b6a5807df0",
+    "claim.c": "4e715b718bb1b97db47c7b54beb4b4c939d7e11520bb849bc8c7dd0a2a4f2baa",
+    "claim.h": "cca262a1de7f1d582109524f96ccc7b3555a42ee4c47285a519e82bd4247aef7",
+    "kernel-shim.inc": "af22d791c1fa0ca040d94ba32a640f6c6eeb1e7a82dbbdb8413ed98ca889e4ce",
+    "linux/ioctl.h": "03e20cab7e05664e6c59b34ec21056751233961618f688f953d18d090d83ef7d",
+    "linux/types.h": "c0be2296044ed1343b1a301a72df1ad44926311358a2086ce6f00bfdb5d21c16",
+    "subucom_frames.h": "4d9d833e583b7c6a5aa3f12de0fea2b7245e9dac915477ab96b9cfdfa75c2c0b",
+    "subucom_ownership.h": "a9f2cfa4d007053806ca97f3058c72bffd43756995cb23235c415358a3c7e990",
+    "syscalls.h": "bbc885c14c1d468a057d5aa40ee537ec20533390453b1abe53fad2257828fd6c"
+  },
+  "kernel_function_sha256": {
+    "ctrl_ioctl": "13ddb2919efade756f15773cf6fac4a050df49315f94a79ae0945fa12e8c6162",
+    "ctrl_release": "b86f6da35cda95f471a8863e57267ba4cf7605cf5a34f6b88e7254cbef0c97fc",
+    "ctrl_write": "624817cdd9562c2d60d34b1861b95d9c1dbe41cf285157426cadb44b2be5b48a",
+    "mixer_instance_init": "a02b19dc18f9a9b50c20d29fa45c7566ea20ba96f97c38a22d93f89641a21506",
+    "mixer_owned_next": "bec2720bce36e3f9a2faae64171ff567af02737b489edad415c79a402fe1425b",
+    "xget_bytes": "e6ef2b6cd673270aa3ba2531cd4d5449fa87339388da34630368a94d55067579",
+    "xput_bytes": "adb6ccc20e19e9a91f18c705aada860497f73d709ea371c69adce6603827e3f4"
+  },
+  "kernel_prepare": {
+    "base_commit": "06fc981707e69982c0554bb508e0c646c005a979",
+    "base_sha256": {
+      "Makefile": "a85021fa4fb059ccbb89c3c2db6659720bcf8dfd80e826831b2363474f2e1be6",
+      "subucom_frames.h": "4d9d833e583b7c6a5aa3f12de0fea2b7245e9dac915477ab96b9cfdfa75c2c0b",
+      "subucom_virt.c": "9631ca05810408eb9cd40cb38fa3f90d8dd2ac1d4d09a2e73d084ea0dbe03654"
+    },
+    "candidate_pins_sha256": "7410374d7690548b217763ee2ec2f260dd07b1319897e6560e624ff0f4791b2d",
+    "candidate_sha256": {
+      "Makefile": "a85021fa4fb059ccbb89c3c2db6659720bcf8dfd80e826831b2363474f2e1be6",
+      "subucom_frames.h": "4d9d833e583b7c6a5aa3f12de0fea2b7245e9dac915477ab96b9cfdfa75c2c0b",
+      "subucom_ownership.h": "a9f2cfa4d007053806ca97f3058c72bffd43756995cb23235c415358a3c7e990",
+      "subucom_virt.c": "5ea2023ccb8e058fad66b7317d545fc7a0328bcc5aae624cfc18c9769cf87124"
+    },
+    "parent_inputs_sha256": "d3590a456624e0c2f6530d52af4d176cf56a3e57e2c4741bf025d933779e0d34",
+    "scope": "fresh source export only; no build, install or endpoint access",
+    "stages": [
+      {
+        "output_sha256": {
+          "Makefile": "a85021fa4fb059ccbb89c3c2db6659720bcf8dfd80e826831b2363474f2e1be6",
+          "subucom_frames.h": "4d9d833e583b7c6a5aa3f12de0fea2b7245e9dac915477ab96b9cfdfa75c2c0b",
+          "subucom_ownership.h": "77d0cb71414ec49750040cc22dd93f6553c418cee54f091aa6e4d23686ee43cc",
+          "subucom_virt.c": "09b73c132a245a46e9855888c8cb1ea0fac5e9adba195ed848983b71262a2180"
+        },
+        "patch_sha256": "34d870df06f902c04eb0c2029a1c0411e647519ff4a8fabdc17b16ffe8befb3f"
+      },
+      {
+        "output_sha256": {
+          "Makefile": "a85021fa4fb059ccbb89c3c2db6659720bcf8dfd80e826831b2363474f2e1be6",
+          "subucom_frames.h": "4d9d833e583b7c6a5aa3f12de0fea2b7245e9dac915477ab96b9cfdfa75c2c0b",
+          "subucom_ownership.h": "355316f5047509ae4c787210fddf0bd8b659c600ac1e153adf0543e28cf35aec",
+          "subucom_virt.c": "bab273a308dde0ba696394d2383461af10413f1975e836b2058456dba2833717"
+        },
+        "patch_sha256": "fa800f32c5e9227cc1953028d35b896e711a40b0d4fd6f2e03dcdf2ac6eaf0dd"
+      },
+      {
+        "output_sha256": {
+          "Makefile": "a85021fa4fb059ccbb89c3c2db6659720bcf8dfd80e826831b2363474f2e1be6",
+          "subucom_frames.h": "4d9d833e583b7c6a5aa3f12de0fea2b7245e9dac915477ab96b9cfdfa75c2c0b",
+          "subucom_ownership.h": "a9f2cfa4d007053806ca97f3058c72bffd43756995cb23235c415358a3c7e990",
+          "subucom_virt.c": "5ea2023ccb8e058fad66b7317d545fc7a0328bcc5aae624cfc18c9769cf87124"
+        },
+        "patch_sha256": "fdf40df07b76e22f1684186e4d725ccc5d1cc56e24d5cb9a7f7813534a045352"
+      }
+    ]
+  },
+  "links": [
+    {
+      "exit_code": 0,
+      "mode": "plain",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "candidate"
+    },
+    {
+      "exit_code": 0,
+      "mode": "plain",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "caller-slot-not-consumed"
+    },
+    {
+      "exit_code": 0,
+      "mode": "plain",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "pre-arm-is-late"
+    },
+    {
+      "exit_code": 0,
+      "mode": "plain",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "claim-arm-is-late"
+    },
+    {
+      "exit_code": 0,
+      "mode": "plain",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "discard-failed-prestate"
+    },
+    {
+      "exit_code": 0,
+      "mode": "plain",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "discard-failed-poststate"
+    },
+    {
+      "exit_code": 0,
+      "mode": "plain",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "busy-is-unknown"
+    },
+    {
+      "exit_code": 0,
+      "mode": "plain",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "access-denied-is-rejected"
+    },
+    {
+      "exit_code": 0,
+      "mode": "plain",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "unknown-can-postflight"
+    },
+    {
+      "exit_code": 0,
+      "mode": "plain",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "terminal-erases-committed-claim"
+    },
+    {
+      "exit_code": 0,
+      "mode": "plain",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "poststate-tail-not-compared"
+    },
+    {
+      "exit_code": 0,
+      "mode": "plain",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "omit-original-close"
+    },
+    {
+      "exit_code": 0,
+      "mode": "plain",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "mutable-claim-journal"
+    },
+    {
+      "exit_code": 0,
+      "mode": "asan-ubsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "candidate"
+    },
+    {
+      "exit_code": 0,
+      "mode": "asan-ubsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "caller-slot-not-consumed"
+    },
+    {
+      "exit_code": 0,
+      "mode": "asan-ubsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "pre-arm-is-late"
+    },
+    {
+      "exit_code": 0,
+      "mode": "asan-ubsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "claim-arm-is-late"
+    },
+    {
+      "exit_code": 0,
+      "mode": "asan-ubsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "discard-failed-prestate"
+    },
+    {
+      "exit_code": 0,
+      "mode": "asan-ubsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "discard-failed-poststate"
+    },
+    {
+      "exit_code": 0,
+      "mode": "asan-ubsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "busy-is-unknown"
+    },
+    {
+      "exit_code": 0,
+      "mode": "asan-ubsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "access-denied-is-rejected"
+    },
+    {
+      "exit_code": 0,
+      "mode": "asan-ubsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "unknown-can-postflight"
+    },
+    {
+      "exit_code": 0,
+      "mode": "asan-ubsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "terminal-erases-committed-claim"
+    },
+    {
+      "exit_code": 0,
+      "mode": "asan-ubsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "poststate-tail-not-compared"
+    },
+    {
+      "exit_code": 0,
+      "mode": "asan-ubsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "omit-original-close"
+    },
+    {
+      "exit_code": 0,
+      "mode": "asan-ubsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "mutable-claim-journal"
+    },
+    {
+      "exit_code": 0,
+      "mode": "tsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "candidate"
+    },
+    {
+      "exit_code": 0,
+      "mode": "tsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "caller-slot-not-consumed"
+    },
+    {
+      "exit_code": 0,
+      "mode": "tsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "pre-arm-is-late"
+    },
+    {
+      "exit_code": 0,
+      "mode": "tsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "claim-arm-is-late"
+    },
+    {
+      "exit_code": 0,
+      "mode": "tsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "discard-failed-prestate"
+    },
+    {
+      "exit_code": 0,
+      "mode": "tsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "discard-failed-poststate"
+    },
+    {
+      "exit_code": 0,
+      "mode": "tsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "busy-is-unknown"
+    },
+    {
+      "exit_code": 0,
+      "mode": "tsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "access-denied-is-rejected"
+    },
+    {
+      "exit_code": 0,
+      "mode": "tsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "unknown-can-postflight"
+    },
+    {
+      "exit_code": 0,
+      "mode": "tsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "terminal-erases-committed-claim"
+    },
+    {
+      "exit_code": 0,
+      "mode": "tsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "poststate-tail-not-compared"
+    },
+    {
+      "exit_code": 0,
+      "mode": "tsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "omit-original-close"
+    },
+    {
+      "exit_code": 0,
+      "mode": "tsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "mutable-claim-journal"
+    }
+  ],
+  "runs": [
+    {
+      "case": "busy",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "plain",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "claim-arm",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "plain",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "claim-input-fault",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "plain",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "classification",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "plain",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "disposal",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "plain",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "fenced",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "plain",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "idle",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "plain",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "legacy-race",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "plain",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "post-fault",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "plain",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "post-mismatch",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "plain",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "pre-arm",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "plain",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "pre-failure",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "plain",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "transfer",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "plain",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "unknown",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "plain",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "transfer",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "claim_transfer_keeps_fd_zero_and_plan_before_any_io"
+      ],
+      "mode": "plain",
+      "output_sha256": "89107a6ad4c34610947203a119ecc77b59cdb3d3c0fc255fa1848cc56d3c119f",
+      "variant": "caller-slot-not-consumed"
+    },
+    {
+      "case": "pre-arm",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "claim_prestate_is_armed_after_original_transfer_before_state_call"
+      ],
+      "mode": "plain",
+      "output_sha256": "defc9a30940d0ff37711b314ce7ef496108fe3fc301b8b6beb0ca17b0621e009",
+      "variant": "pre-arm-is-late"
+    },
+    {
+      "case": "claim-arm",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "claim_intent_and_exact_command_are_retained_before_committing_syscall"
+      ],
+      "mode": "plain",
+      "output_sha256": "69e55b508ae6560ab5f50c5b6edd6861d8b73f481f018fed581f4603c99aa811",
+      "variant": "claim-arm-is-late"
+    },
+    {
+      "case": "pre-failure",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "claim_failed_prestate_keeps_raw_evidence_without_claim_or_close"
+      ],
+      "mode": "plain",
+      "output_sha256": "68d15b1b09678058906977857b14c876b75f3466892173418c0fe766394221fd",
+      "variant": "discard-failed-prestate"
+    },
+    {
+      "case": "post-fault",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "claim_partial_poststate_preserves_committed_claim_and_raw_failed_copy"
+      ],
+      "mode": "plain",
+      "output_sha256": "184e8c68b05f60f4bcdc3e5d8decc9980677d9186d8a6636f4d03f7f22352d70",
+      "variant": "discard-failed-poststate"
+    },
+    {
+      "case": "busy",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "claim_busy_rejects_this_attempt_without_claiming_original_is_unowned"
+      ],
+      "mode": "plain",
+      "output_sha256": "c78e7313f5eb0c9328cbcfc6c235cf21353efff06bf0840a398a26f540188363",
+      "variant": "busy-is-unknown"
+    },
+    {
+      "case": "classification",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "claim_nonhandler_or_malformed_returns_remain_unknown_before_or_after_commit"
+      ],
+      "mode": "plain",
+      "output_sha256": "a5cba05e89576ef73640764030d9c6361892cdfcde2250a2bb97723a684c03e1",
+      "variant": "access-denied-is-rejected"
+    },
+    {
+      "case": "unknown",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "claim_postcommit_eio_stays_unknown_without_poststate_promotion"
+      ],
+      "mode": "plain",
+      "output_sha256": "38ed3e092057f5add64386837f588c6ff2acd3473a3a119f138320e8b13b2452",
+      "variant": "unknown-can-postflight"
+    },
+    {
+      "case": "legacy-race",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "claim_legacy_race_keeps_committed_owned_fenced_mismatch"
+      ],
+      "mode": "plain",
+      "output_sha256": "15b5555dc1a83fac1b02fa3d02b27b791cc068cf7cd96a511be2e9b3707cc237",
+      "variant": "terminal-erases-committed-claim"
+    },
+    {
+      "case": "post-mismatch",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "claim_poststate_checks_complete_tuple_mode_crc_and_tail_without_erasing_commit"
+      ],
+      "mode": "plain",
+      "output_sha256": "e307a3b91d343306e5df048955e3c01aabcf67e5860f535307e3f7c2ce250b2c",
+      "variant": "poststate-tail-not-compared"
+    },
+    {
+      "case": "disposal",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "claim_disposal_consumes_only_transferred_original_once_without_recovery"
+      ],
+      "mode": "plain",
+      "output_sha256": "24c2fcf0578df258e4969f80cd46134bcfea8e7201683cdc825f00118070e2fa",
+      "variant": "omit-original-close"
+    },
+    {
+      "case": "claim-arm",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "claim_intent_and_exact_command_are_retained_before_committing_syscall"
+      ],
+      "mode": "plain",
+      "output_sha256": "69e55b508ae6560ab5f50c5b6edd6861d8b73f481f018fed581f4603c99aa811",
+      "variant": "mutable-claim-journal"
+    },
+    {
+      "case": "busy",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "asan-ubsan",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "claim-arm",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "asan-ubsan",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "claim-input-fault",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "asan-ubsan",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "classification",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "asan-ubsan",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "disposal",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "asan-ubsan",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "fenced",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "asan-ubsan",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "idle",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "asan-ubsan",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "legacy-race",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "asan-ubsan",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "post-fault",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "asan-ubsan",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "post-mismatch",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "asan-ubsan",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "pre-arm",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "asan-ubsan",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "pre-failure",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "asan-ubsan",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "transfer",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "asan-ubsan",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "unknown",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "asan-ubsan",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "transfer",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "claim_transfer_keeps_fd_zero_and_plan_before_any_io"
+      ],
+      "mode": "asan-ubsan",
+      "output_sha256": "89107a6ad4c34610947203a119ecc77b59cdb3d3c0fc255fa1848cc56d3c119f",
+      "variant": "caller-slot-not-consumed"
+    },
+    {
+      "case": "pre-arm",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "claim_prestate_is_armed_after_original_transfer_before_state_call"
+      ],
+      "mode": "asan-ubsan",
+      "output_sha256": "defc9a30940d0ff37711b314ce7ef496108fe3fc301b8b6beb0ca17b0621e009",
+      "variant": "pre-arm-is-late"
+    },
+    {
+      "case": "claim-arm",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "claim_intent_and_exact_command_are_retained_before_committing_syscall"
+      ],
+      "mode": "asan-ubsan",
+      "output_sha256": "69e55b508ae6560ab5f50c5b6edd6861d8b73f481f018fed581f4603c99aa811",
+      "variant": "claim-arm-is-late"
+    },
+    {
+      "case": "pre-failure",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "claim_failed_prestate_keeps_raw_evidence_without_claim_or_close"
+      ],
+      "mode": "asan-ubsan",
+      "output_sha256": "68d15b1b09678058906977857b14c876b75f3466892173418c0fe766394221fd",
+      "variant": "discard-failed-prestate"
+    },
+    {
+      "case": "post-fault",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "claim_partial_poststate_preserves_committed_claim_and_raw_failed_copy"
+      ],
+      "mode": "asan-ubsan",
+      "output_sha256": "184e8c68b05f60f4bcdc3e5d8decc9980677d9186d8a6636f4d03f7f22352d70",
+      "variant": "discard-failed-poststate"
+    },
+    {
+      "case": "busy",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "claim_busy_rejects_this_attempt_without_claiming_original_is_unowned"
+      ],
+      "mode": "asan-ubsan",
+      "output_sha256": "c78e7313f5eb0c9328cbcfc6c235cf21353efff06bf0840a398a26f540188363",
+      "variant": "busy-is-unknown"
+    },
+    {
+      "case": "classification",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "claim_nonhandler_or_malformed_returns_remain_unknown_before_or_after_commit"
+      ],
+      "mode": "asan-ubsan",
+      "output_sha256": "a5cba05e89576ef73640764030d9c6361892cdfcde2250a2bb97723a684c03e1",
+      "variant": "access-denied-is-rejected"
+    },
+    {
+      "case": "unknown",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "claim_postcommit_eio_stays_unknown_without_poststate_promotion"
+      ],
+      "mode": "asan-ubsan",
+      "output_sha256": "38ed3e092057f5add64386837f588c6ff2acd3473a3a119f138320e8b13b2452",
+      "variant": "unknown-can-postflight"
+    },
+    {
+      "case": "legacy-race",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "claim_legacy_race_keeps_committed_owned_fenced_mismatch"
+      ],
+      "mode": "asan-ubsan",
+      "output_sha256": "15b5555dc1a83fac1b02fa3d02b27b791cc068cf7cd96a511be2e9b3707cc237",
+      "variant": "terminal-erases-committed-claim"
+    },
+    {
+      "case": "post-mismatch",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "claim_poststate_checks_complete_tuple_mode_crc_and_tail_without_erasing_commit"
+      ],
+      "mode": "asan-ubsan",
+      "output_sha256": "e307a3b91d343306e5df048955e3c01aabcf67e5860f535307e3f7c2ce250b2c",
+      "variant": "poststate-tail-not-compared"
+    },
+    {
+      "case": "disposal",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "claim_disposal_consumes_only_transferred_original_once_without_recovery"
+      ],
+      "mode": "asan-ubsan",
+      "output_sha256": "24c2fcf0578df258e4969f80cd46134bcfea8e7201683cdc825f00118070e2fa",
+      "variant": "omit-original-close"
+    },
+    {
+      "case": "claim-arm",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "claim_intent_and_exact_command_are_retained_before_committing_syscall"
+      ],
+      "mode": "asan-ubsan",
+      "output_sha256": "69e55b508ae6560ab5f50c5b6edd6861d8b73f481f018fed581f4603c99aa811",
+      "variant": "mutable-claim-journal"
+    },
+    {
+      "case": "busy",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "tsan",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "claim-arm",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "tsan",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "claim-input-fault",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "tsan",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "classification",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "tsan",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "disposal",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "tsan",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "fenced",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "tsan",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "idle",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "tsan",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "legacy-race",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "tsan",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "post-fault",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "tsan",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "post-mismatch",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "tsan",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "pre-arm",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "tsan",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "pre-failure",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "tsan",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "transfer",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "tsan",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "unknown",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "tsan",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "transfer",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "claim_transfer_keeps_fd_zero_and_plan_before_any_io"
+      ],
+      "mode": "tsan",
+      "output_sha256": "89107a6ad4c34610947203a119ecc77b59cdb3d3c0fc255fa1848cc56d3c119f",
+      "variant": "caller-slot-not-consumed"
+    },
+    {
+      "case": "pre-arm",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "claim_prestate_is_armed_after_original_transfer_before_state_call"
+      ],
+      "mode": "tsan",
+      "output_sha256": "defc9a30940d0ff37711b314ce7ef496108fe3fc301b8b6beb0ca17b0621e009",
+      "variant": "pre-arm-is-late"
+    },
+    {
+      "case": "claim-arm",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "claim_intent_and_exact_command_are_retained_before_committing_syscall"
+      ],
+      "mode": "tsan",
+      "output_sha256": "69e55b508ae6560ab5f50c5b6edd6861d8b73f481f018fed581f4603c99aa811",
+      "variant": "claim-arm-is-late"
+    },
+    {
+      "case": "pre-failure",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "claim_failed_prestate_keeps_raw_evidence_without_claim_or_close"
+      ],
+      "mode": "tsan",
+      "output_sha256": "68d15b1b09678058906977857b14c876b75f3466892173418c0fe766394221fd",
+      "variant": "discard-failed-prestate"
+    },
+    {
+      "case": "post-fault",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "claim_partial_poststate_preserves_committed_claim_and_raw_failed_copy"
+      ],
+      "mode": "tsan",
+      "output_sha256": "184e8c68b05f60f4bcdc3e5d8decc9980677d9186d8a6636f4d03f7f22352d70",
+      "variant": "discard-failed-poststate"
+    },
+    {
+      "case": "busy",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "claim_busy_rejects_this_attempt_without_claiming_original_is_unowned"
+      ],
+      "mode": "tsan",
+      "output_sha256": "c78e7313f5eb0c9328cbcfc6c235cf21353efff06bf0840a398a26f540188363",
+      "variant": "busy-is-unknown"
+    },
+    {
+      "case": "classification",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "claim_nonhandler_or_malformed_returns_remain_unknown_before_or_after_commit"
+      ],
+      "mode": "tsan",
+      "output_sha256": "a5cba05e89576ef73640764030d9c6361892cdfcde2250a2bb97723a684c03e1",
+      "variant": "access-denied-is-rejected"
+    },
+    {
+      "case": "unknown",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "claim_postcommit_eio_stays_unknown_without_poststate_promotion"
+      ],
+      "mode": "tsan",
+      "output_sha256": "38ed3e092057f5add64386837f588c6ff2acd3473a3a119f138320e8b13b2452",
+      "variant": "unknown-can-postflight"
+    },
+    {
+      "case": "legacy-race",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "claim_legacy_race_keeps_committed_owned_fenced_mismatch"
+      ],
+      "mode": "tsan",
+      "output_sha256": "15b5555dc1a83fac1b02fa3d02b27b791cc068cf7cd96a511be2e9b3707cc237",
+      "variant": "terminal-erases-committed-claim"
+    },
+    {
+      "case": "post-mismatch",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "claim_poststate_checks_complete_tuple_mode_crc_and_tail_without_erasing_commit"
+      ],
+      "mode": "tsan",
+      "output_sha256": "e307a3b91d343306e5df048955e3c01aabcf67e5860f535307e3f7c2ce250b2c",
+      "variant": "poststate-tail-not-compared"
+    },
+    {
+      "case": "disposal",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "claim_disposal_consumes_only_transferred_original_once_without_recovery"
+      ],
+      "mode": "tsan",
+      "output_sha256": "24c2fcf0578df258e4969f80cd46134bcfea8e7201683cdc825f00118070e2fa",
+      "variant": "omit-original-close"
+    },
+    {
+      "case": "claim-arm",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "claim_intent_and_exact_command_are_retained_before_committing_syscall"
+      ],
+      "mode": "tsan",
+      "output_sha256": "69e55b508ae6560ab5f50c5b6edd6861d8b73f481f018fed581f4603c99aa811",
+      "variant": "mutable-claim-journal"
+    }
+  ],
+  "sanitizer_preload_environment_removed": [
+    "ASAN_OPTIONS",
+    "TSAN_OPTIONS",
+    "UBSAN_OPTIONS",
+    "LSAN_OPTIONS",
+    "DYLD_INSERT_LIBRARIES",
+    "DYLD_LIBRARY_PATH",
+    "LD_PRELOAD",
+    "LD_LIBRARY_PATH"
+  ],
+  "scope": "Offline retained owner for caller-transferred original fd, exact prestate, one-shot CLAIM and matched poststate, against seven exact extracted driver methods. Synchronous serial modeled fd/syscall/usercopy/RNG/lock fixtures only. No adapter/broker graph, live libc/VFS, native baseline/stop authority, alias exclusion, concurrent/durable custody, checked teardown, endpoint or install.",
+  "source_sha256": {
+    "claim.c": "4e715b718bb1b97db47c7b54beb4b4c939d7e11520bb849bc8c7dd0a2a4f2baa",
+    "claim.h": "cca262a1de7f1d582109524f96ccc7b3555a42ee4c47285a519e82bd4247aef7",
+    "controls.json": "6d19a890fc44de91ec9f46954fb97b00d16c49edb9cc35db6441d99294b3555b",
+    "parent-inputs.json": "fd3b7c77a437cf453f682580952becd8dcdfc989e4dc418c203878ecdba31bc1",
+    "run-tests.py": "ee73335d0011759cd7df653459e4340f0799380297e0b103777f5c3320e1582f",
+    "test-claim.c": "9529995c80da57a3e81b2c478304f6fe4905c175913325656a2f39e537e0615e",
+    "test-inventory.json": "fc4da69ce9797dba2a4cb27b07c8ebe8292d47bc74396136d8637a3aa50f5a26"
+  }
+}

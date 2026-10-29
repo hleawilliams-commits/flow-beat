@@ -1,0 +1,122 @@
+[
+  {
+    "case": "transfer",
+    "expected_failures": [
+      "claim_transfer_keeps_fd_zero_and_plan_before_any_io"
+    ],
+    "file": "claim.c",
+    "name": "caller-slot-not-consumed",
+    "new": "    (void)fd;",
+    "old": "    *fd = -1;"
+  },
+  {
+    "case": "pre-arm",
+    "expected_failures": [
+      "claim_prestate_is_armed_after_original_transfer_before_state_call"
+    ],
+    "file": "claim.c",
+    "name": "pre-arm-is-late",
+    "new": "    owner->evidence.phase = MBCO_FD_RETAINED;",
+    "old": "    owner->evidence.phase = MBCO_PREFLIGHT_ARMED;"
+  },
+  {
+    "case": "claim-arm",
+    "expected_failures": [
+      "claim_intent_and_exact_command_are_retained_before_committing_syscall"
+    ],
+    "file": "claim.c",
+    "name": "claim-arm-is-late",
+    "new": "    owner->evidence.phase = MBCO_PRE_MATCHED;",
+    "old": "    owner->evidence.phase = MBCO_CLAIM_ARMED;"
+  },
+  {
+    "case": "pre-failure",
+    "expected_failures": [
+      "claim_failed_prestate_keeps_raw_evidence_without_claim_or_close"
+    ],
+    "file": "claim.c",
+    "name": "discard-failed-prestate",
+    "new": "    memset(owner->evidence.preflight_wire, 0, sizeof(wire));",
+    "old": "    memcpy(owner->evidence.preflight_wire, &wire, sizeof(wire));"
+  },
+  {
+    "case": "post-fault",
+    "expected_failures": [
+      "claim_partial_poststate_preserves_committed_claim_and_raw_failed_copy"
+    ],
+    "file": "claim.c",
+    "name": "discard-failed-poststate",
+    "new": "    memset(owner->evidence.postflight_wire, 0, sizeof(wire));",
+    "old": "    memcpy(owner->evidence.postflight_wire, &wire, sizeof(wire));"
+  },
+  {
+    "case": "busy",
+    "expected_failures": [
+      "claim_busy_rejects_this_attempt_without_claiming_original_is_unowned"
+    ],
+    "file": "claim.c",
+    "name": "busy-is-unknown",
+    "new": "    case ESTALE: case EOVERFLOW: case ENOTTY: return 1;",
+    "old": "    case ESTALE: case EBUSY: case EOVERFLOW: case ENOTTY: return 1;"
+  },
+  {
+    "case": "classification",
+    "expected_failures": [
+      "claim_nonhandler_or_malformed_returns_remain_unknown_before_or_after_commit"
+    ],
+    "file": "claim.c",
+    "name": "access-denied-is-rejected",
+    "new": "    case ESTALE: case EBUSY: case EOVERFLOW: case ENOTTY: case EACCES: return 1;",
+    "old": "    case ESTALE: case EBUSY: case EOVERFLOW: case ENOTTY: return 1;"
+  },
+  {
+    "case": "unknown",
+    "expected_failures": [
+      "claim_postcommit_eio_stays_unknown_without_poststate_promotion"
+    ],
+    "file": "claim.c",
+    "name": "unknown-can-postflight",
+    "new": "    if (!owner->evidence.descriptor_held) return EPERM;",
+    "old": "    if (owner->evidence.phase != MBCO_CLAIM_COMMITTED ||\n        !owner->evidence.descriptor_held ||\n        owner->evidence.claim_outcome != MB_OUTCOME_COMMITTED)\n        return EPERM;"
+  },
+  {
+    "case": "legacy-race",
+    "expected_failures": [
+      "claim_legacy_race_keeps_committed_owned_fenced_mismatch"
+    ],
+    "file": "claim.c",
+    "name": "terminal-erases-committed-claim",
+    "new": "    owner->evidence.phase = MBCO_TERMINAL;\n    if (owner->evidence.claim_outcome == MB_OUTCOME_COMMITTED)\n        owner->evidence.claim_outcome = MB_OUTCOME_REJECTED;",
+    "old": "    owner->evidence.phase = MBCO_TERMINAL;"
+  },
+  {
+    "case": "post-mismatch",
+    "expected_failures": [
+      "claim_poststate_checks_complete_tuple_mode_crc_and_tail_without_erasing_commit"
+    ],
+    "file": "claim.c",
+    "name": "poststate-tail-not-compared",
+    "new": "        memcmp(left->frame, right->frame, MB_FRAME_BYTES - 1) == 0;",
+    "old": "        memcmp(left->frame, right->frame, MB_FRAME_BYTES) == 0;"
+  },
+  {
+    "case": "disposal",
+    "expected_failures": [
+      "claim_disposal_consumes_only_transferred_original_once_without_recovery"
+    ],
+    "file": "claim.c",
+    "name": "omit-original-close",
+    "new": "        report->call = (struct mba_sys_result){0,0};",
+    "old": "        report->call = mba_sys_close(owner->evidence.retained_fd);"
+  },
+  {
+    "case": "claim-arm",
+    "expected_failures": [
+      "claim_intent_and_exact_command_are_retained_before_committing_syscall"
+    ],
+    "file": "claim.c",
+    "name": "mutable-claim-journal",
+    "new": "    call = mba_sys_ioctl(owner->evidence.retained_fd, AZ_OVERLAY_CLAIM, owner->evidence.claim_command);",
+    "old": "    call = mba_sys_ioctl(owner->evidence.retained_fd, AZ_OVERLAY_CLAIM, &command);"
+  }
+]
