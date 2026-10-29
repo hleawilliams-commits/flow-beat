@@ -313,3 +313,33 @@ not cancellation. Historical cached results do not prove current recovery.
 The live runner stays CLOSED; no endpoint, installation, core/package/catalog
 change or physical action occurred. The remaining recovery contract above
 still applies.
+
+
+## Subsequent offline native64 adapter
+
+[emulator-native64-adapter](../../../emulator-native64-adapter/) now maps the
+frozen RESTORE broker to the exact Linux UAPI with one direct libc ioctl per
+operation. A private CLOEXEC duplicate retains the already-claimed controller
+reference; attachment verifies every expected STATE field and raw byte. STATE
+failures publish nothing, known pinned precommit errors are REJECTED, and
+unexpected replies remain UNKNOWN without retry/query/automatic disposal.
+Disposal is explicit, consumes before one close and requires external resolved
+lifecycle custody. It does not authorize recovery or erase the sticky fence.
+
+137 checks and 13 strict controls pass per sanitizer mode, with strict
+standalone compiles and a byte-identical independent result. ARM64 Linux
+compilation/shared linking pass with actual Linux headers and inspected musl
+imports; artifacts were not loaded or executed. The host fixture substitutes a
+serial fd table and syscall boundary around actual adapter/broker and seven
+extracted kernel methods. Native VFS/cancellation/fork/concurrency are not
+proved. Other duplicate writers, module provenance and acquisition remain
+external requirements; no actual preview/FFI or runner integration exists.
+
+Both-file host settings restoration remains unimplemented. The legacy writes
+are separate, and an injected-only SettingsSink does not retain per-file
+replacement progress or exclude competing writers. A later transaction must
+retain authoritative originals and uncertain outcomes without treating two
+renames as pair-atomic. Native-stop/process identity, durable custody,
+callback deadlines, final Drop/death, guarded restart, event ownership and
+dwell remain open. Runtime stays CLOSED. No endpoints, services, installation,
+physical access, core/package/catalog or old cleanup were touched.

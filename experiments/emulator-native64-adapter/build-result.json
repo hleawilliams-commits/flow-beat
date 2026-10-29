@@ -1,0 +1,356 @@
+{
+  "build": {
+    "archive_layer_reused_from_local_cache": true,
+    "attempt_count": 1,
+    "compile_and_link_logs_empty": true,
+    "compile_flags": [
+      "-std=c11",
+      "-O2",
+      "-fPIC",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-pthread",
+      "-I<source>",
+      "-MD",
+      "-MF<private-dependency-file>",
+      "-c"
+    ],
+    "compiler_warning_count": 0,
+    "downloads": false,
+    "exit_code": 0,
+    "input_hashes_unchanged": true,
+    "linker_warning_count": 0,
+    "local_inputs_only": true,
+    "new_compile_and_link_commands_executed": true,
+    "object_units": [
+      "broker.c",
+      "adapter.c",
+      "native.c"
+    ],
+    "platform": "linux/arm64",
+    "private_archive_bytes": 689524647,
+    "private_archive_sha256": "898432b5244d53de1b28943b829859d249241bf88b750337c2a9871d138ab54c",
+    "private_build_log_sha256": "9481ce945e749b44b3f3268fcf97f9fceaf26299171069ebf22705eb85abfa04",
+    "private_command_receipt_sha256": "bb8ad2d692f5098262cc21d2ad1b92be7b2152943d73e3eacee5515755b30319",
+    "private_dockerfile_sha256": "c2c15e4fb365ce0fa84f9bf7c22fdb16be5573c3235165560381ae30a548ed30",
+    "private_input_receipt_sha256": "c6dd0527ea2d45e77311c960ad8ecc23737bf3d13a9c6f437a23ab30d57110d1",
+    "private_link_map_sha256": "1e9b03c113bbb627406c3239d7e246364c31daf4c7ff43b3e1b9e67b7c8a6d18",
+    "private_log_sha256": {
+      "adapter-compile.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "broker-compile.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "link.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "native-compile.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "private_preparer_sha256": "43ca7c2941a8379cf76aab14acd359fc62d57911b78af5c52f8e5876dff65c3c",
+    "private_runner_sha256": "d4ad5f2a76574c4a8365659c3fefbc55d53540c4e82e10156243916948d23c95",
+    "private_source_freeze_sha256": "a8df130c6dc523288a1960bb04eb5f5da6bdacc5475cb5c7b6eca4e419dca0e8",
+    "private_status_receipt_sha256": "406429579f550f963034780c6a2992cd1d6c6d0130a82b49f3d7770825a4b138",
+    "pull": false,
+    "remote_base_image": false,
+    "remote_frontend": false,
+    "run_network": "none",
+    "scratch_stages": 2,
+    "shared_link_flags": [
+      "-shared",
+      "-pthread",
+      "-Wl,--no-undefined",
+      "-Wl,-Map,<private-link-map>"
+    ],
+    "source_gcc_and_libc_hashes_checked_inside_build": true
+  },
+  "byte_review": {
+    "all_nm_comparisons_passed": true,
+    "broker_object_identical_to_frozen_parent": true,
+    "passed": true,
+    "private_result_sha256": "123d053a7f5ea6cacc5336bc6620920c21814cbe43177f82e8e31dd5cb350ddc",
+    "private_script_sha256": "25813cc2f8838080163af859505125508e6dc553858a7f5237b9114010fdfd81",
+    "scope": "Separate standard-library ELF/section/dynamic/symbol parsing compared with compiler nm/readelf and the retained libc provider. No library loading or execution."
+  },
+  "dependency_provider": {
+    "byte_order": "little",
+    "bytes_kept_private": true,
+    "elf_class": 64,
+    "elf_type": "ET_DYN",
+    "machine_number": 183,
+    "matched_strong_imports": [
+      "__errno_location",
+      "__stack_chk_fail",
+      "__stack_chk_guard",
+      "calloc",
+      "close",
+      "fcntl",
+      "free",
+      "ioctl",
+      "memcmp",
+      "memcpy",
+      "memset",
+      "pthread_mutex_destroy",
+      "pthread_mutex_init",
+      "pthread_mutex_lock",
+      "pthread_mutex_unlock",
+      "pthread_mutexattr_destroy",
+      "pthread_mutexattr_init",
+      "pthread_mutexattr_settype"
+    ],
+    "missing_strong_imports": [],
+    "name": "libc.musl-aarch64.so.1",
+    "scope": "Strong dynamic import names match the exact retained musl ELF exports. The successful no-undefined link still leaves dynamic imports and optional weak symbols; no runtime loader/ABI check.",
+    "sha256": "7d605adcd1cdc4d37251f0e8e3099954e13554323aabfd5e9cf47c10ff63b76c",
+    "size": 723408,
+    "weak_imports_absent": [
+      "_ITM_deregisterTMCloneTable",
+      "_ITM_registerTMCloneTable",
+      "__deregister_frame_info",
+      "__register_frame_info"
+    ],
+    "weak_imports_present": [
+      "__cxa_finalize"
+    ]
+  },
+  "limits": {
+    "actual_fd_lifetime_or_driver_identity_proven": false,
+    "backend_callbacks_executed": false,
+    "device_contact": false,
+    "emulator_contact": false,
+    "host_restore_or_guarded_restart_proven": false,
+    "installed": false,
+    "ioctl_executed": false,
+    "libc_syscalls_called_by_adapter": false,
+    "library_loaded": false,
+    "linked_in_retained_toolchain": true,
+    "native_stopped_or_baseline_authority_proven": false,
+    "physical_contact": false,
+    "precommit_errno_classification_executed_against_kernel": false,
+    "runtime_loader_or_firmware_abi_proven": false,
+    "statement": "Static compile/link and byte inspection only. Link success does not authenticate a driver, establish exclusive mutation authority, cancel unknown work, execute fd lifetime, restore host files, or open any runtime/recovery gate.",
+    "target_code_executed": false
+  },
+  "linux_headers": {
+    "compiler_dependency_file_sha256": {
+      "adapter.d": "02c820c7540ec6c0343b4aa43037ef5d712e6c08f5f53293064603c5e8e4ea77",
+      "broker.d": "58b6c4cb16d312a8beb31aea3c213f2b4a77abf2474eae7337c6383b19a2211d",
+      "native.d": "0fc12a9c332b4b2ef6c13ae9f4f9946fb39d981c3f6c0bb7a28b6f8cac3d8c5e"
+    },
+    "confirmed_in_compiler_dependencies": [
+      "/usr/include/linux/types.h",
+      "/usr/include/linux/ioctl.h",
+      "/usr/include/asm/types.h",
+      "/usr/include/asm/ioctl.h",
+      "/usr/include/asm-generic/ioctl.h"
+    ],
+    "native_sys_ioctl_header_confirmed": true,
+    "selected_archive_members": {
+      "usr/include/asm-generic/ioctl.h": {
+        "linkname": "",
+        "sha256": "76396e5537d75285c3ca20e3b6a79b101eebfdc14d39c104ff7eab778672160e",
+        "size": 3478,
+        "type": "0"
+      },
+      "usr/include/asm/ioctl.h": {
+        "linkname": "",
+        "sha256": "9c6ca9e365296a6b66747cbebdcf76972b8cce7aab91e55bf4ab1f3581df9c2a",
+        "size": 31,
+        "type": "0"
+      },
+      "usr/include/asm/types.h": {
+        "linkname": "",
+        "sha256": "b6bdcd528bce555b2ecb58e8a1624e3e13e09312c31318023c4e86b957e2b01f",
+        "size": 31,
+        "type": "0"
+      },
+      "usr/include/linux/ioctl.h": {
+        "linkname": "",
+        "sha256": "ba73b5892de6605e6c40b151820e367dfcb98cbdb3f8f468c5ef2bd8437df873",
+        "size": 163,
+        "type": "0"
+      },
+      "usr/include/linux/types.h": {
+        "linkname": "",
+        "sha256": "89de4736e44cf154844fad3d6c40c435f3d15200801046becb1876030db247ce",
+        "size": 1773,
+        "type": "0"
+      },
+      "usr/include/sys/ioctl.h": {
+        "linkname": "",
+        "sha256": "18cc2b9eee923943e198f03f77cae411bd8f34d9a3fc2202851a1e95dc73532e",
+        "size": 3083,
+        "type": "0"
+      }
+    }
+  },
+  "objects": {
+    "adapter.o": {
+      "byte_order": "little",
+      "elf_class": 64,
+      "elf_type": "ET_REL",
+      "machine_number": 183,
+      "sha256": "010ce1333dfce202b20908eb7e7668df6a3c657609ca5a2a49c9c31ca93f3bae",
+      "size": 5200,
+      "undefined_symbols": [
+        "__stack_chk_fail",
+        "__stack_chk_guard",
+        "calloc",
+        "free",
+        "mba_sys_close",
+        "mba_sys_duplicate",
+        "mba_sys_ioctl",
+        "memcmp"
+      ]
+    },
+    "broker.o": {
+      "byte_order": "little",
+      "elf_class": 64,
+      "elf_type": "ET_REL",
+      "machine_number": 183,
+      "sha256": "80aa6bf60f98c59d72176c6bebd670688590142651bdbbedcdac7a7511c49fd9",
+      "size": 12976,
+      "undefined_symbols": [
+        "__stack_chk_fail",
+        "__stack_chk_guard",
+        "calloc",
+        "free",
+        "memcmp",
+        "memcpy",
+        "memset",
+        "pthread_mutex_destroy",
+        "pthread_mutex_init",
+        "pthread_mutex_lock",
+        "pthread_mutex_unlock",
+        "pthread_mutexattr_destroy",
+        "pthread_mutexattr_init",
+        "pthread_mutexattr_settype"
+      ]
+    },
+    "native.o": {
+      "byte_order": "little",
+      "elf_class": 64,
+      "elf_type": "ET_REL",
+      "machine_number": 183,
+      "sha256": "44caf36913812ab50a0a6350a1939d98d51daab6fd3e904b614db3db14609b28",
+      "size": 2008,
+      "undefined_symbols": [
+        "__errno_location",
+        "close",
+        "fcntl",
+        "ioctl"
+      ]
+    }
+  },
+  "runtime_gate": "closed",
+  "schema": 1,
+  "shared_library": {
+    "api_function_exports": [
+      "mb_adopt",
+      "mb_create",
+      "mb_destroy",
+      "mb_inspect",
+      "mb_quiesce",
+      "mb_reconcile",
+      "mb_restore",
+      "mb_rotate",
+      "mb_stamp",
+      "mb_submit",
+      "mba_attach",
+      "mba_dispose",
+      "mba_get_backend"
+    ],
+    "byte_order": "little",
+    "dynamic_exports": [
+      "_fini",
+      "_init",
+      "mb_adopt",
+      "mb_create",
+      "mb_destroy",
+      "mb_inspect",
+      "mb_quiesce",
+      "mb_reconcile",
+      "mb_restore",
+      "mb_rotate",
+      "mb_stamp",
+      "mb_submit",
+      "mba_attach",
+      "mba_dispose",
+      "mba_get_backend"
+    ],
+    "elf_class": 64,
+    "elf_type": "ET_DYN",
+    "kept_private": true,
+    "machine_number": 183,
+    "name": "libemulator-native64-adapter.so",
+    "needed": [
+      "libc.musl-aarch64.so.1"
+    ],
+    "other_exports": [
+      "_fini",
+      "_init"
+    ],
+    "rpath": [],
+    "runpath": [],
+    "sha256": "56d3b80c6ef57fe6b1129cfac7283e1639f5e09c63fa9898a40de16ae7d9f15a",
+    "size": 72464,
+    "soname": [],
+    "strong_imports": [
+      "__errno_location",
+      "__stack_chk_fail",
+      "__stack_chk_guard",
+      "calloc",
+      "close",
+      "fcntl",
+      "free",
+      "ioctl",
+      "memcmp",
+      "memcpy",
+      "memset",
+      "pthread_mutex_destroy",
+      "pthread_mutex_init",
+      "pthread_mutex_lock",
+      "pthread_mutex_unlock",
+      "pthread_mutexattr_destroy",
+      "pthread_mutexattr_init",
+      "pthread_mutexattr_settype"
+    ],
+    "unexpected_exports": [],
+    "unexpected_needed": [],
+    "weak_imports": [
+      "_ITM_deregisterTMCloneTable",
+      "_ITM_registerTMCloneTable",
+      "__cxa_finalize",
+      "__deregister_frame_info",
+      "__register_frame_info"
+    ]
+  },
+  "sources": {
+    "compiled_source_copies_match": true,
+    "original_or_frozen_parent_files_edited": false,
+    "sha256": {
+      "adapter.c": "0f7313437ece7cef07fd69df9f63bc4b167a7a47e6205a226779b02bb45fac92",
+      "adapter.h": "b6b01712383904b0d438e5ca1fbe20b0604a98831fe13b2e7951bf1f3b1f2d3d",
+      "broker.c": "f331713ac361f265b37c9e781f85400691195915076ca2604aeb2311fd12cbb7",
+      "broker.h": "04efb6b1eb22e56798837ae8ff72514a5a513da2d616215d77d4c8f6a85033c8",
+      "native.c": "10269247d44f43af38d312018fb5325e1101f96ef08e06c2002bf0caffa8609b",
+      "subucom_ownership.h": "a9f2cfa4d007053806ca97f3058c72bffd43756995cb23235c415358a3c7e990",
+      "syscalls.h": "bbc885c14c1d468a057d5aa40ee537ec20533390453b1abe53fad2257828fd6c"
+    },
+    "syscall_boundary": "production native.c, no test syscall definitions",
+    "uapi_scope": "Pinned restore Linux UAPI plus actual Linux headers in the local toolchain; no host type/ioctl shims."
+  },
+  "status": "offline-arm64-objects-and-shared-link-passed",
+  "toolchain": {
+    "compiler": "gcc (Alpine 13.2.1_git20231014) 13.2.1 20231014",
+    "compiler_executable_sha256": "d2fcfbe5ea467cbb15e6e4b0d1a0ee929575de38f5e9db5313def1b06c8b9fca",
+    "compiler_version_output_sha256": "0e8b316161076f257494c8ce0621c3b61b108070ceb12cbd61fa5545c03181d9",
+    "linker": "GNU ld (GNU Binutils) 2.41",
+    "linker_version_output_sha256": "8690a159a20def50e66407aef3ceb3fa222222219f8c201d06fe22fb17151fc9"
+  },
+  "visibility": {
+    "dynamic_exports_absent": true,
+    "linked_definitions_local": true,
+    "names": [
+      "mba_sys_close",
+      "mba_sys_duplicate",
+      "mba_sys_ioctl"
+    ],
+    "object_definitions_global_hidden": true
+  }
+}

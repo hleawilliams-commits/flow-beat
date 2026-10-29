@@ -1,0 +1,25 @@
+{
+  "checks": {
+    "all": 137,
+    "attach": 26,
+    "attach-tail": 1,
+    "binding": 1,
+    "broker": 14,
+    "consume": 1,
+    "fd": 1,
+    "lifecycle": 12,
+    "local": 1,
+    "mode": 1,
+    "outcomes": 27,
+    "payload": 1,
+    "positive": 1,
+    "rejected": 1,
+    "reserved": 1,
+    "state": 21,
+    "state-zero": 1,
+    "success-errno": 1,
+    "unknown": 1,
+    "wire": 24
+  },
+  "scope": "Manual count of focused adapter assertions: attachment 26, STATE 21, wire/local validation 24, syscall outcomes 27, descriptor lifecycle 12, actual broker integration 14, plus 13 single-oracle controls. Setup assertions abort and are not accepted control failures. Serial owned-memory fd/usercopy/syscall model; no native syscall execution or concurrency proof."
+}

@@ -1,0 +1,93 @@
+[
+  {
+    "case": "mode",
+    "label": "adapter_restore_preserves_explicit_idle_mode",
+    "name": "restore-forces-injection",
+    "new": "restore.injected = 1;",
+    "old": "restore.injected = copy.injected;"
+  },
+  {
+    "case": "payload",
+    "label": "adapter_copies_all_raw_restore_bytes",
+    "name": "restore-omits-tail",
+    "new": "memcpy(restore.frame, copy.frame, MB_FRAME_BYTES - 1);",
+    "old": "memcpy(restore.frame, copy.frame, MB_FRAME_BYTES);"
+  },
+  {
+    "case": "success-errno",
+    "label": "adapter_success_ignores_stale_errno",
+    "name": "success-uses-stale-errno",
+    "new": "if (call.result == 0) return (struct mb_backend_reply){MB_OUTCOME_COMMITTED, call.error};",
+    "old": "if (call.result == 0) return (struct mb_backend_reply){MB_OUTCOME_COMMITTED, 0};"
+  },
+  {
+    "case": "unknown",
+    "label": "adapter_eintr_is_unknown_without_retry_or_close",
+    "name": "eintr-rejected",
+    "new": "case EINTR: case EBADF: case EPERM: case EOPNOTSUPP: case EFAULT: case EINVAL:",
+    "old": "case EBADF: case EPERM: case EOPNOTSUPP: case EFAULT: case EINVAL:"
+  },
+  {
+    "case": "positive",
+    "label": "adapter_unexpected_positive_return_is_unknown",
+    "name": "positive-committed",
+    "new": "if (call.result >= 0) return (struct mb_backend_reply){MB_OUTCOME_COMMITTED, 0};",
+    "old": "if (call.result == 0) return (struct mb_backend_reply){MB_OUTCOME_COMMITTED, 0};"
+  },
+  {
+    "case": "rejected",
+    "label": "adapter_exact_precommit_error_is_rejected",
+    "name": "precommit-unknown",
+    "new": "case ESTALE: case EACCES: case EOVERFLOW: case ENOTTY: return 0;",
+    "old": "case ESTALE: case EACCES: case EOVERFLOW: case ENOTTY: return 1;"
+  },
+  {
+    "case": "state-zero",
+    "label": "adapter_failed_partial_state_never_publishes_fields",
+    "name": "failed-state-keeps-output",
+    "new": "if (!a || !out) return EINVAL;\n    call = mba_sys_ioctl",
+    "old": "if (out) memset(out, 0, sizeof(*out));\n    if (!a || !out) return EINVAL;\n    call = mba_sys_ioctl"
+  },
+  {
+    "case": "reserved",
+    "label": "adapter_state_reserved_field_must_be_zero",
+    "name": "accepts-reserved-state",
+    "new": "if (wire.version != AZ_OVERLAY_VERSION) return EPROTO;",
+    "old": "if (wire.version != AZ_OVERLAY_VERSION || wire.reserved) return EPROTO;"
+  },
+  {
+    "case": "binding",
+    "label": "adapter_snapshot_remains_bound_to_run",
+    "name": "unbound-state-run",
+    "new": "state.instance[1] != a->instance[1]",
+    "old": "state.instance[1] != a->instance[1] ||\n        state.run_id != a->run_id"
+  },
+  {
+    "case": "attach-tail",
+    "label": "adapter_attach_matches_full_expected_raw_state",
+    "name": "attach-ignores-tail",
+    "new": "memcmp(a->frame, b->frame, MB_FRAME_BYTES - 1) == 0;",
+    "old": "memcmp(a->frame, b->frame, MB_FRAME_BYTES) == 0;"
+  },
+  {
+    "case": "fd",
+    "label": "adapter_private_duplicate_survives_original_fd_reuse",
+    "name": "stores-original-fd",
+    "new": "a->fd = original_fd;",
+    "old": "a->fd = retained.result;"
+  },
+  {
+    "case": "consume",
+    "label": "adapter_dispose_consumes_before_one_uncertain_close",
+    "name": "consume-after-close",
+    "new": "report->attempted = 1;\n    report->call = mba_sys_close(a->fd);\n    *adapter = NULL;",
+    "old": "*adapter = NULL;\n    report->attempted = 1;\n    report->call = mba_sys_close(a->fd);"
+  },
+  {
+    "case": "local",
+    "label": "adapter_local_zero_sequence_never_calls_ioctl",
+    "name": "zero-sequence-reaches-ioctl",
+    "new": "if (!a || !command || !copy.epoch ||",
+    "old": "if (!a || !command || !copy.epoch || !copy.sequence ||"
+  }
+]

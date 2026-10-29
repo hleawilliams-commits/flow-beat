@@ -729,3 +729,52 @@ open. Main still supplies no owned backend. All runtime/staging/product gates
 remain CLOSED. No emulator/device endpoint contact, install, service action,
 physical access, package/core/catalog change, old cleanup or snapshot restore
 occurred. Frozen parents and unrelated deck-lights/ work are preserved.
+
+
+## October 29: native64 controller adapter (offline)
+
+The separate [native64 adapter](../experiments/emulator-native64-adapter/)
+now supplies explicit Linux wire translation for the frozen RESTORE broker.
+It duplicates an already-claimed controller fd with CLOEXEC, validates one
+complete owned STATE against every expected field and all 152 bytes, and binds
+callbacks to that retained reference, instance and run. Reusing the caller's
+original fd number cannot redirect those callbacks. Other duplicated or
+inherited references can still mutate the session; live module provenance,
+sole-mutator custody and original-fd stability during attach remain caller
+requirements. This library does not acquire or CLAIM a controller.
+
+FRAME, ROTATE and RESTORE each issue one typed ioctl. A zero return commits;
+only the pinned input-only handler's exact precommit errno set is REJECTED.
+Other errors and malformed result pairs are UNKNOWN, with no automatic retry,
+query, close or reopen. STATE publishes all fields only after success, strict
+shape/flags and identity validation. Failure cleanup preserves its primary
+error separately from one close result. Explicit disposal consumes the handle
+before one close attempt and requires external lifecycle/uncertainty resolution;
+it is not restoration, cancellation or a recovery permission.
+
+The first focused host matrix passes 137 checks per plain, ASan/UBSan and TSan
+mode, plus 13 strict single-oracle controls and clean standalone compilation.
+One fresh independent run matches the entire result byte for byte. The actual
+adapter and frozen broker execute seven exact extracted kernel methods with
+serial owned-memory fd/usercopy/syscall shims. Tests cover raw152/wire equality,
+partial STATE failures, original-number reuse, unknown replies before/after
+actual extracted commits, and exact positive broker reconciliation. The native
+libc wrappers are source-reviewed and separately compiled, not host-executed.
+Strict ARM64 Linux compilation and shared linking pass with real Linux headers;
+all 18 strong imports match the copied musl provider, while five weak CRT hooks
+retain their documented optional status. No artifact was loaded or executed.
+The original broker/kernel suites were not repeated.
+
+The adapter is not connected to the actual preview, FFI, runtime runner or
+stopped-recovery coordinator. It provides no authoritative original baseline,
+native-stop proof, durable journal, bounded callback, two-file host restoration,
+competing-writer exclusion or guarded restart. Review of the actual settings
+path confirms that legacy knob.ctr truncation and mixer.state temp/rename
+writes are separate operations; the owned SettingsSink is still injected-only.
+A later host-file transaction must retain both original identities/bytes and
+per-file progress, including uncertain rename outcomes, without claiming pair
+atomicity. Final Drop/process death and native event ownership/dwell remain
+open. All runtime, staging and product gates stay CLOSED. No emulator/device
+endpoint contact, install, service action, physical access, core/package/catalog
+change, old cleanup or snapshot restoration occurred. Unrelated deck-lights/
+work and all frozen parents are preserved.

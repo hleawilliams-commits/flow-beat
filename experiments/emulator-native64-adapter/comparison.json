@@ -1,0 +1,50 @@
+{
+  "candidate_checks_per_mode": 137,
+  "comparison_script_sha256": "129927863cbcf6d93a1243df080450dcd9e4501848fa2e9424c147997e7d9efc",
+  "complete_json_bytes_identical": true,
+  "excluded_fields": [],
+  "independent_result_sha256": "9b7000366cd33b664948d7a75cd102379ce78e03ca43acda0383c8319b6ccf32",
+  "independently_reconstructed_artifacts_across_two_snapshots": {
+    "applied_patches": 6,
+    "copied_frozen_broker_files": 6,
+    "fixture_compile_outputs": 84,
+    "frozen_inputs": 16,
+    "kernel_functions": 14,
+    "prepared_candidate_files": 8,
+    "source_files": 18,
+    "standalone_compile_outputs": 6,
+    "test_outputs": 84,
+    "uapi_shims": 4,
+    "variant_sources": 28
+  },
+  "manual_candidate_checks": {
+    "attach": 26,
+    "broker": 14,
+    "lifecycle": 12,
+    "outcomes": 27,
+    "state": 21,
+    "wire": 24
+  },
+  "modes": [
+    "plain",
+    "asan-ubsan",
+    "tsan"
+  ],
+  "normalizations": [],
+  "primary_result_sha256": "9b7000366cd33b664948d7a75cd102379ce78e03ca43acda0383c8319b6ccf32",
+  "result": "pass",
+  "scope": "Offline retained-source and result audit, without importing runner/extraction helpers or rerunning tests. Exact prepared kernel bytes, seven function bodies, declarations, inherited shim, unchanged copied frozen broker, all adapter variants and raw output bytes checked. Manual assertion inventory confirmed by source review. This serial fd-reference/syscall model executes no native libc wrapper or real fd and supplies no concurrency proof. No native stop, lifetime, baseline authority, durable history, kernel installation or endpoint proof.",
+  "single_oracle_checks": 13,
+  "source_sha256": {
+    "adapter.c": "0f7313437ece7cef07fd69df9f63bc4b167a7a47e6205a226779b02bb45fac92",
+    "adapter.h": "b6b01712383904b0d438e5ca1fbe20b0604a98831fe13b2e7951bf1f3b1f2d3d",
+    "controls.json": "9f242f9dfb779c2a7a3bd3de9c8a855ed33c6bbba76af0ca29c573436b1de2fe",
+    "native.c": "10269247d44f43af38d312018fb5325e1101f96ef08e06c2002bf0caffa8609b",
+    "parent-inputs.json": "d1b92095347c12e96e391427d6c24549853e7b98c9edc6412630a89122bd94dc",
+    "run-tests.py": "6e7d4cc5181d991442d81a29399ac30dc18691dec0ee983caf1bf373b73fdee5",
+    "syscalls.h": "bbc885c14c1d468a057d5aa40ee537ec20533390453b1abe53fad2257828fd6c",
+    "test-adapter.c": "43b4cbc15520c2bd444639e52691724242466097789a63ee62c39cd67c861acf",
+    "test-inventory.json": "2e5f6b9edaaacad4e74d0e8374e6077ecdb2d5b164a39303f5da9b64c9106239"
+  },
+  "strict_controls_per_mode": 13
+}

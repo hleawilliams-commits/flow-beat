@@ -1,0 +1,604 @@
+{
+  "compiler": "Apple clang version 16.0.0 (clang-1600.0.26.6)\nTarget: arm64-apple-darwin25.2.0\nThread model: posix\nInstalledDir: /Library/Developer/CommandLineTools/usr/bin\n",
+  "frozen_inputs_sha256": {
+    "emulator-broker-restore/broker.c": "f331713ac361f265b37c9e781f85400691195915076ca2604aeb2311fd12cbb7",
+    "emulator-broker-restore/broker.h": "04efb6b1eb22e56798837ae8ff72514a5a513da2d616215d77d4c8f6a85033c8",
+    "emulator-overlay-restore/candidate-pins.json": "7410374d7690548b217763ee2ec2f260dd07b1319897e6560e624ff0f4791b2d",
+    "emulator-overlay-restore/overlay-restore.patch": "fdf40df07b76e22f1684186e4d725ccc5d1cc56e24d5cb9a7f7813534a045352",
+    "emulator-overlay-restore/parent-inputs.json": "d3590a456624e0c2f6530d52af4d176cf56a3e57e2c4741bf025d933779e0d34",
+    "emulator-overlay-restore/prepare.py": "2fd9e64c91ea4f7b82f9dd0292850d410df43711cd6ebffb5647d4285b552426",
+    "emulator-overlay-restore/run-tests.py": "4c625b2c59d7ab5580eab490bcf65f81503b8815a057a018a8a252c07736f719",
+    "emulator-overlay-restore/test-restore.c": "20d6c0b18b594e5b7c2c496aefd215cc81b14e4748fc58bbe47659a066bd715d"
+  },
+  "kernel_declarations_sha256": "411d2862606467cfccbb3ab649c1fd398fac3d9894a8f93b8ae39532cd0134c7",
+  "kernel_extraction_sha256": "ba8ec43417e9dde783d4fde4190e7203d370a97f002a86e5673bd1b6a5807df0",
+  "kernel_function_sha256": {
+    "ctrl_ioctl": "13ddb2919efade756f15773cf6fac4a050df49315f94a79ae0945fa12e8c6162",
+    "ctrl_release": "b86f6da35cda95f471a8863e57267ba4cf7605cf5a34f6b88e7254cbef0c97fc",
+    "ctrl_write": "624817cdd9562c2d60d34b1861b95d9c1dbe41cf285157426cadb44b2be5b48a",
+    "mixer_instance_init": "a02b19dc18f9a9b50c20d29fa45c7566ea20ba96f97c38a22d93f89641a21506",
+    "mixer_owned_next": "bec2720bce36e3f9a2faae64171ff567af02737b489edad415c79a402fe1425b",
+    "xget_bytes": "e6ef2b6cd673270aa3ba2531cd4d5449fa87339388da34630368a94d55067579",
+    "xput_bytes": "adb6ccc20e19e9a91f18c705aada860497f73d709ea371c69adce6603827e3f4"
+  },
+  "kernel_prepare": {
+    "base_commit": "06fc981707e69982c0554bb508e0c646c005a979",
+    "base_sha256": {
+      "Makefile": "a85021fa4fb059ccbb89c3c2db6659720bcf8dfd80e826831b2363474f2e1be6",
+      "subucom_frames.h": "4d9d833e583b7c6a5aa3f12de0fea2b7245e9dac915477ab96b9cfdfa75c2c0b",
+      "subucom_virt.c": "9631ca05810408eb9cd40cb38fa3f90d8dd2ac1d4d09a2e73d084ea0dbe03654"
+    },
+    "candidate_pins_sha256": "7410374d7690548b217763ee2ec2f260dd07b1319897e6560e624ff0f4791b2d",
+    "candidate_sha256": {
+      "Makefile": "a85021fa4fb059ccbb89c3c2db6659720bcf8dfd80e826831b2363474f2e1be6",
+      "subucom_frames.h": "4d9d833e583b7c6a5aa3f12de0fea2b7245e9dac915477ab96b9cfdfa75c2c0b",
+      "subucom_ownership.h": "a9f2cfa4d007053806ca97f3058c72bffd43756995cb23235c415358a3c7e990",
+      "subucom_virt.c": "5ea2023ccb8e058fad66b7317d545fc7a0328bcc5aae624cfc18c9769cf87124"
+    },
+    "parent_inputs_sha256": "d3590a456624e0c2f6530d52af4d176cf56a3e57e2c4741bf025d933779e0d34",
+    "scope": "fresh source export only; no build, install or endpoint access",
+    "stages": [
+      {
+        "output_sha256": {
+          "Makefile": "a85021fa4fb059ccbb89c3c2db6659720bcf8dfd80e826831b2363474f2e1be6",
+          "subucom_frames.h": "4d9d833e583b7c6a5aa3f12de0fea2b7245e9dac915477ab96b9cfdfa75c2c0b",
+          "subucom_ownership.h": "77d0cb71414ec49750040cc22dd93f6553c418cee54f091aa6e4d23686ee43cc",
+          "subucom_virt.c": "09b73c132a245a46e9855888c8cb1ea0fac5e9adba195ed848983b71262a2180"
+        },
+        "patch_sha256": "34d870df06f902c04eb0c2029a1c0411e647519ff4a8fabdc17b16ffe8befb3f"
+      },
+      {
+        "output_sha256": {
+          "Makefile": "a85021fa4fb059ccbb89c3c2db6659720bcf8dfd80e826831b2363474f2e1be6",
+          "subucom_frames.h": "4d9d833e583b7c6a5aa3f12de0fea2b7245e9dac915477ab96b9cfdfa75c2c0b",
+          "subucom_ownership.h": "355316f5047509ae4c787210fddf0bd8b659c600ac1e153adf0543e28cf35aec",
+          "subucom_virt.c": "bab273a308dde0ba696394d2383461af10413f1975e836b2058456dba2833717"
+        },
+        "patch_sha256": "fa800f32c5e9227cc1953028d35b896e711a40b0d4fd6f2e03dcdf2ac6eaf0dd"
+      },
+      {
+        "output_sha256": {
+          "Makefile": "a85021fa4fb059ccbb89c3c2db6659720bcf8dfd80e826831b2363474f2e1be6",
+          "subucom_frames.h": "4d9d833e583b7c6a5aa3f12de0fea2b7245e9dac915477ab96b9cfdfa75c2c0b",
+          "subucom_ownership.h": "a9f2cfa4d007053806ca97f3058c72bffd43756995cb23235c415358a3c7e990",
+          "subucom_virt.c": "5ea2023ccb8e058fad66b7317d545fc7a0328bcc5aae624cfc18c9769cf87124"
+        },
+        "patch_sha256": "fdf40df07b76e22f1684186e4d725ccc5d1cc56e24d5cb9a7f7813534a045352"
+      }
+    ]
+  },
+  "kernel_shim_sha256": "af22d791c1fa0ca040d94ba32a640f6c6eeb1e7a82dbbdb8413ed98ca889e4ce",
+  "runs": [
+    {
+      "adapter_sha256": "0f7313437ece7cef07fd69df9f63bc4b167a7a47e6205a226779b02bb45fac92",
+      "case": "all",
+      "checks": 137,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "plain",
+      "output_sha256": "0a61a87b29c60610b52fe542deb93b4ec0782dbb744d0840612364584e2376cc",
+      "variant": "candidate"
+    },
+    {
+      "adapter_sha256": "0f7313437ece7cef07fd69df9f63bc4b167a7a47e6205a226779b02bb45fac92",
+      "case": "all",
+      "checks": 137,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "asan-ubsan",
+      "output_sha256": "0a61a87b29c60610b52fe542deb93b4ec0782dbb744d0840612364584e2376cc",
+      "variant": "candidate"
+    },
+    {
+      "adapter_sha256": "0f7313437ece7cef07fd69df9f63bc4b167a7a47e6205a226779b02bb45fac92",
+      "case": "all",
+      "checks": 137,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "tsan",
+      "output_sha256": "0a61a87b29c60610b52fe542deb93b4ec0782dbb744d0840612364584e2376cc",
+      "variant": "candidate"
+    },
+    {
+      "adapter_sha256": "43d34372a494f67db68c1389f8e7a0b9dd3cf7ecd6092e0927f76466f23dfff6",
+      "case": "mode",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "adapter_restore_preserves_explicit_idle_mode"
+      ],
+      "mode": "plain",
+      "output_sha256": "bfa71b261793cdbe4f087e928bbfe9a9cec0736e5f1cd3aa6bddc23b0d0750b2",
+      "variant": "restore-forces-injection"
+    },
+    {
+      "adapter_sha256": "43d34372a494f67db68c1389f8e7a0b9dd3cf7ecd6092e0927f76466f23dfff6",
+      "case": "mode",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "adapter_restore_preserves_explicit_idle_mode"
+      ],
+      "mode": "asan-ubsan",
+      "output_sha256": "bfa71b261793cdbe4f087e928bbfe9a9cec0736e5f1cd3aa6bddc23b0d0750b2",
+      "variant": "restore-forces-injection"
+    },
+    {
+      "adapter_sha256": "43d34372a494f67db68c1389f8e7a0b9dd3cf7ecd6092e0927f76466f23dfff6",
+      "case": "mode",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "adapter_restore_preserves_explicit_idle_mode"
+      ],
+      "mode": "tsan",
+      "output_sha256": "bfa71b261793cdbe4f087e928bbfe9a9cec0736e5f1cd3aa6bddc23b0d0750b2",
+      "variant": "restore-forces-injection"
+    },
+    {
+      "adapter_sha256": "53d0c27657b98e9a5916859e85905b45b6a4809092b2c9f0bc1fe047a29a0820",
+      "case": "payload",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "adapter_copies_all_raw_restore_bytes"
+      ],
+      "mode": "plain",
+      "output_sha256": "f696a837da166db24e4e6c046049657b8b4210c327a42ce790a8069a7841c527",
+      "variant": "restore-omits-tail"
+    },
+    {
+      "adapter_sha256": "53d0c27657b98e9a5916859e85905b45b6a4809092b2c9f0bc1fe047a29a0820",
+      "case": "payload",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "adapter_copies_all_raw_restore_bytes"
+      ],
+      "mode": "asan-ubsan",
+      "output_sha256": "f696a837da166db24e4e6c046049657b8b4210c327a42ce790a8069a7841c527",
+      "variant": "restore-omits-tail"
+    },
+    {
+      "adapter_sha256": "53d0c27657b98e9a5916859e85905b45b6a4809092b2c9f0bc1fe047a29a0820",
+      "case": "payload",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "adapter_copies_all_raw_restore_bytes"
+      ],
+      "mode": "tsan",
+      "output_sha256": "f696a837da166db24e4e6c046049657b8b4210c327a42ce790a8069a7841c527",
+      "variant": "restore-omits-tail"
+    },
+    {
+      "adapter_sha256": "c95a2c4095c1a00dd7cb8e8a1f0cc49517ad434233e1c397591c54191308b5a5",
+      "case": "success-errno",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "adapter_success_ignores_stale_errno"
+      ],
+      "mode": "plain",
+      "output_sha256": "e49ca951af06544b06339e95d29da59dd8edd510be0dd1c9ef42634384bb00f9",
+      "variant": "success-uses-stale-errno"
+    },
+    {
+      "adapter_sha256": "c95a2c4095c1a00dd7cb8e8a1f0cc49517ad434233e1c397591c54191308b5a5",
+      "case": "success-errno",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "adapter_success_ignores_stale_errno"
+      ],
+      "mode": "asan-ubsan",
+      "output_sha256": "e49ca951af06544b06339e95d29da59dd8edd510be0dd1c9ef42634384bb00f9",
+      "variant": "success-uses-stale-errno"
+    },
+    {
+      "adapter_sha256": "c95a2c4095c1a00dd7cb8e8a1f0cc49517ad434233e1c397591c54191308b5a5",
+      "case": "success-errno",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "adapter_success_ignores_stale_errno"
+      ],
+      "mode": "tsan",
+      "output_sha256": "e49ca951af06544b06339e95d29da59dd8edd510be0dd1c9ef42634384bb00f9",
+      "variant": "success-uses-stale-errno"
+    },
+    {
+      "adapter_sha256": "1c2dea55a6254656440d89586561305e8185aa9e603bca72f5fefa6f3842ad69",
+      "case": "unknown",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "adapter_eintr_is_unknown_without_retry_or_close"
+      ],
+      "mode": "plain",
+      "output_sha256": "0d587c49faa831ef4eb174dcd9aa8b9212141a01b839fcec3ecc60f7b74c2a46",
+      "variant": "eintr-rejected"
+    },
+    {
+      "adapter_sha256": "1c2dea55a6254656440d89586561305e8185aa9e603bca72f5fefa6f3842ad69",
+      "case": "unknown",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "adapter_eintr_is_unknown_without_retry_or_close"
+      ],
+      "mode": "asan-ubsan",
+      "output_sha256": "0d587c49faa831ef4eb174dcd9aa8b9212141a01b839fcec3ecc60f7b74c2a46",
+      "variant": "eintr-rejected"
+    },
+    {
+      "adapter_sha256": "1c2dea55a6254656440d89586561305e8185aa9e603bca72f5fefa6f3842ad69",
+      "case": "unknown",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "adapter_eintr_is_unknown_without_retry_or_close"
+      ],
+      "mode": "tsan",
+      "output_sha256": "0d587c49faa831ef4eb174dcd9aa8b9212141a01b839fcec3ecc60f7b74c2a46",
+      "variant": "eintr-rejected"
+    },
+    {
+      "adapter_sha256": "b16efbc7f2f02a5c8f70a7824a49035dc4562efa283ae632f88738946b6f6f86",
+      "case": "positive",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "adapter_unexpected_positive_return_is_unknown"
+      ],
+      "mode": "plain",
+      "output_sha256": "0ad1b44737a9f9fccb89967b0efaac22f3b91ec3959f89efd5f7d9ce442303bd",
+      "variant": "positive-committed"
+    },
+    {
+      "adapter_sha256": "b16efbc7f2f02a5c8f70a7824a49035dc4562efa283ae632f88738946b6f6f86",
+      "case": "positive",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "adapter_unexpected_positive_return_is_unknown"
+      ],
+      "mode": "asan-ubsan",
+      "output_sha256": "0ad1b44737a9f9fccb89967b0efaac22f3b91ec3959f89efd5f7d9ce442303bd",
+      "variant": "positive-committed"
+    },
+    {
+      "adapter_sha256": "b16efbc7f2f02a5c8f70a7824a49035dc4562efa283ae632f88738946b6f6f86",
+      "case": "positive",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "adapter_unexpected_positive_return_is_unknown"
+      ],
+      "mode": "tsan",
+      "output_sha256": "0ad1b44737a9f9fccb89967b0efaac22f3b91ec3959f89efd5f7d9ce442303bd",
+      "variant": "positive-committed"
+    },
+    {
+      "adapter_sha256": "2c6c53cf38846789967de9691162e327766391a287878b3e8feb61170815ace2",
+      "case": "rejected",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "adapter_exact_precommit_error_is_rejected"
+      ],
+      "mode": "plain",
+      "output_sha256": "1fa1bb3c0bdb9e98fb829093fb0a647c72f3302cfbd489e4f82456d30afac3d4",
+      "variant": "precommit-unknown"
+    },
+    {
+      "adapter_sha256": "2c6c53cf38846789967de9691162e327766391a287878b3e8feb61170815ace2",
+      "case": "rejected",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "adapter_exact_precommit_error_is_rejected"
+      ],
+      "mode": "asan-ubsan",
+      "output_sha256": "1fa1bb3c0bdb9e98fb829093fb0a647c72f3302cfbd489e4f82456d30afac3d4",
+      "variant": "precommit-unknown"
+    },
+    {
+      "adapter_sha256": "2c6c53cf38846789967de9691162e327766391a287878b3e8feb61170815ace2",
+      "case": "rejected",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "adapter_exact_precommit_error_is_rejected"
+      ],
+      "mode": "tsan",
+      "output_sha256": "1fa1bb3c0bdb9e98fb829093fb0a647c72f3302cfbd489e4f82456d30afac3d4",
+      "variant": "precommit-unknown"
+    },
+    {
+      "adapter_sha256": "4431c51eff9d7dbe05aba5ee4ae029c722a42f94c3f7ecf9bca9b64482fb4d3c",
+      "case": "state-zero",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "adapter_failed_partial_state_never_publishes_fields"
+      ],
+      "mode": "plain",
+      "output_sha256": "39d7d063274d65af1825376f7a7d556c21f493d70bd72af653c9f7109c880fd3",
+      "variant": "failed-state-keeps-output"
+    },
+    {
+      "adapter_sha256": "4431c51eff9d7dbe05aba5ee4ae029c722a42f94c3f7ecf9bca9b64482fb4d3c",
+      "case": "state-zero",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "adapter_failed_partial_state_never_publishes_fields"
+      ],
+      "mode": "asan-ubsan",
+      "output_sha256": "39d7d063274d65af1825376f7a7d556c21f493d70bd72af653c9f7109c880fd3",
+      "variant": "failed-state-keeps-output"
+    },
+    {
+      "adapter_sha256": "4431c51eff9d7dbe05aba5ee4ae029c722a42f94c3f7ecf9bca9b64482fb4d3c",
+      "case": "state-zero",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "adapter_failed_partial_state_never_publishes_fields"
+      ],
+      "mode": "tsan",
+      "output_sha256": "39d7d063274d65af1825376f7a7d556c21f493d70bd72af653c9f7109c880fd3",
+      "variant": "failed-state-keeps-output"
+    },
+    {
+      "adapter_sha256": "08e0a5b61092baaa2f391f0cbaf5286480ec8d85ddf130dbd1746a3c261b0e03",
+      "case": "reserved",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "adapter_state_reserved_field_must_be_zero"
+      ],
+      "mode": "plain",
+      "output_sha256": "6fccb19da5f1df970c4309f5ff5370dcfb911227fe712dd16e9ee469083787e6",
+      "variant": "accepts-reserved-state"
+    },
+    {
+      "adapter_sha256": "08e0a5b61092baaa2f391f0cbaf5286480ec8d85ddf130dbd1746a3c261b0e03",
+      "case": "reserved",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "adapter_state_reserved_field_must_be_zero"
+      ],
+      "mode": "asan-ubsan",
+      "output_sha256": "6fccb19da5f1df970c4309f5ff5370dcfb911227fe712dd16e9ee469083787e6",
+      "variant": "accepts-reserved-state"
+    },
+    {
+      "adapter_sha256": "08e0a5b61092baaa2f391f0cbaf5286480ec8d85ddf130dbd1746a3c261b0e03",
+      "case": "reserved",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "adapter_state_reserved_field_must_be_zero"
+      ],
+      "mode": "tsan",
+      "output_sha256": "6fccb19da5f1df970c4309f5ff5370dcfb911227fe712dd16e9ee469083787e6",
+      "variant": "accepts-reserved-state"
+    },
+    {
+      "adapter_sha256": "291e956739e63a59fef2c268dd3939f0821e377fc4b9747cc9e490af4339d204",
+      "case": "binding",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "adapter_snapshot_remains_bound_to_run"
+      ],
+      "mode": "plain",
+      "output_sha256": "ba8d33d2539c263a569e152fa4b451772807015e82143cf93017a2080b00552d",
+      "variant": "unbound-state-run"
+    },
+    {
+      "adapter_sha256": "291e956739e63a59fef2c268dd3939f0821e377fc4b9747cc9e490af4339d204",
+      "case": "binding",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "adapter_snapshot_remains_bound_to_run"
+      ],
+      "mode": "asan-ubsan",
+      "output_sha256": "ba8d33d2539c263a569e152fa4b451772807015e82143cf93017a2080b00552d",
+      "variant": "unbound-state-run"
+    },
+    {
+      "adapter_sha256": "291e956739e63a59fef2c268dd3939f0821e377fc4b9747cc9e490af4339d204",
+      "case": "binding",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "adapter_snapshot_remains_bound_to_run"
+      ],
+      "mode": "tsan",
+      "output_sha256": "ba8d33d2539c263a569e152fa4b451772807015e82143cf93017a2080b00552d",
+      "variant": "unbound-state-run"
+    },
+    {
+      "adapter_sha256": "46e78870cfd3377e4a639ea4434a9b77e1ba631a20be28099771f8b5487931ec",
+      "case": "attach-tail",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "adapter_attach_matches_full_expected_raw_state"
+      ],
+      "mode": "plain",
+      "output_sha256": "158571ee45bfef1b077436170442fa5ed4c137d36f31f35dfdc43406e231fb5b",
+      "variant": "attach-ignores-tail"
+    },
+    {
+      "adapter_sha256": "46e78870cfd3377e4a639ea4434a9b77e1ba631a20be28099771f8b5487931ec",
+      "case": "attach-tail",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "adapter_attach_matches_full_expected_raw_state"
+      ],
+      "mode": "asan-ubsan",
+      "output_sha256": "158571ee45bfef1b077436170442fa5ed4c137d36f31f35dfdc43406e231fb5b",
+      "variant": "attach-ignores-tail"
+    },
+    {
+      "adapter_sha256": "46e78870cfd3377e4a639ea4434a9b77e1ba631a20be28099771f8b5487931ec",
+      "case": "attach-tail",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "adapter_attach_matches_full_expected_raw_state"
+      ],
+      "mode": "tsan",
+      "output_sha256": "158571ee45bfef1b077436170442fa5ed4c137d36f31f35dfdc43406e231fb5b",
+      "variant": "attach-ignores-tail"
+    },
+    {
+      "adapter_sha256": "d0d565d9e96a9145f0e4919d58f3ce76698f1a3e039c58f8999f9cb9776a49f3",
+      "case": "fd",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "adapter_private_duplicate_survives_original_fd_reuse"
+      ],
+      "mode": "plain",
+      "output_sha256": "385052e88b343b4429ea5e34b1e114c0c0f2c8d0ba9023b26b0228a36e9405ea",
+      "variant": "stores-original-fd"
+    },
+    {
+      "adapter_sha256": "d0d565d9e96a9145f0e4919d58f3ce76698f1a3e039c58f8999f9cb9776a49f3",
+      "case": "fd",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "adapter_private_duplicate_survives_original_fd_reuse"
+      ],
+      "mode": "asan-ubsan",
+      "output_sha256": "385052e88b343b4429ea5e34b1e114c0c0f2c8d0ba9023b26b0228a36e9405ea",
+      "variant": "stores-original-fd"
+    },
+    {
+      "adapter_sha256": "d0d565d9e96a9145f0e4919d58f3ce76698f1a3e039c58f8999f9cb9776a49f3",
+      "case": "fd",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "adapter_private_duplicate_survives_original_fd_reuse"
+      ],
+      "mode": "tsan",
+      "output_sha256": "385052e88b343b4429ea5e34b1e114c0c0f2c8d0ba9023b26b0228a36e9405ea",
+      "variant": "stores-original-fd"
+    },
+    {
+      "adapter_sha256": "dd8a332d0bd67be38205da24deec9ddeb541bb3a2b1016b0be39456a95d86a64",
+      "case": "consume",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "adapter_dispose_consumes_before_one_uncertain_close"
+      ],
+      "mode": "plain",
+      "output_sha256": "d87f73d52e04faa31cdbc8966e4f816eaed99074e91905f12cafcd2a5fba2071",
+      "variant": "consume-after-close"
+    },
+    {
+      "adapter_sha256": "dd8a332d0bd67be38205da24deec9ddeb541bb3a2b1016b0be39456a95d86a64",
+      "case": "consume",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "adapter_dispose_consumes_before_one_uncertain_close"
+      ],
+      "mode": "asan-ubsan",
+      "output_sha256": "d87f73d52e04faa31cdbc8966e4f816eaed99074e91905f12cafcd2a5fba2071",
+      "variant": "consume-after-close"
+    },
+    {
+      "adapter_sha256": "dd8a332d0bd67be38205da24deec9ddeb541bb3a2b1016b0be39456a95d86a64",
+      "case": "consume",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "adapter_dispose_consumes_before_one_uncertain_close"
+      ],
+      "mode": "tsan",
+      "output_sha256": "d87f73d52e04faa31cdbc8966e4f816eaed99074e91905f12cafcd2a5fba2071",
+      "variant": "consume-after-close"
+    },
+    {
+      "adapter_sha256": "5f438b9d73684108175b64656268fa9d777187f2593679f9f4076b5d3a7a3419",
+      "case": "local",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "adapter_local_zero_sequence_never_calls_ioctl"
+      ],
+      "mode": "plain",
+      "output_sha256": "a77e63506c069ace0f4ddd63b1a4be383fe104f0ff0bfe416fc70813044049ac",
+      "variant": "zero-sequence-reaches-ioctl"
+    },
+    {
+      "adapter_sha256": "5f438b9d73684108175b64656268fa9d777187f2593679f9f4076b5d3a7a3419",
+      "case": "local",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "adapter_local_zero_sequence_never_calls_ioctl"
+      ],
+      "mode": "asan-ubsan",
+      "output_sha256": "a77e63506c069ace0f4ddd63b1a4be383fe104f0ff0bfe416fc70813044049ac",
+      "variant": "zero-sequence-reaches-ioctl"
+    },
+    {
+      "adapter_sha256": "5f438b9d73684108175b64656268fa9d777187f2593679f9f4076b5d3a7a3419",
+      "case": "local",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "adapter_local_zero_sequence_never_calls_ioctl"
+      ],
+      "mode": "tsan",
+      "output_sha256": "a77e63506c069ace0f4ddd63b1a4be383fe104f0ff0bfe416fc70813044049ac",
+      "variant": "zero-sequence-reaches-ioctl"
+    }
+  ],
+  "scope": "Offline native64 adapter with frozen broker and seven exact extracted RESTORE kernel methods. Test fd-table/syscall boundary plus owned-memory usercopy, RNG and pthread shims. Native libc wrappers are not executed in this host fixture; separately compiled/linked for ARM64 Linux. No actual kernel execution, live fd custody, native consumption, stop/recovery coordinator, durable journal, installation or endpoint contact.",
+  "source_sha256": {
+    "adapter.c": "0f7313437ece7cef07fd69df9f63bc4b167a7a47e6205a226779b02bb45fac92",
+    "adapter.h": "b6b01712383904b0d438e5ca1fbe20b0604a98831fe13b2e7951bf1f3b1f2d3d",
+    "controls.json": "9f242f9dfb779c2a7a3bd3de9c8a855ed33c6bbba76af0ca29c573436b1de2fe",
+    "native.c": "10269247d44f43af38d312018fb5325e1101f96ef08e06c2002bf0caffa8609b",
+    "parent-inputs.json": "d1b92095347c12e96e391427d6c24549853e7b98c9edc6412630a89122bd94dc",
+    "run-tests.py": "6e7d4cc5181d991442d81a29399ac30dc18691dec0ee983caf1bf373b73fdee5",
+    "syscalls.h": "bbc885c14c1d468a057d5aa40ee537ec20533390453b1abe53fad2257828fd6c",
+    "test-adapter.c": "43b4cbc15520c2bd444639e52691724242466097789a63ee62c39cd67c861acf",
+    "test-inventory.json": "2e5f6b9edaaacad4e74d0e8374e6077ecdb2d5b164a39303f5da9b64c9106239"
+  },
+  "standalone_compiles": [
+    {
+      "exit_code": 0,
+      "mode": "plain",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "exit_code": 0,
+      "mode": "asan-ubsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "exit_code": 0,
+      "mode": "tsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "uapi_shims_sha256": {
+    "ioctl.h": "03e20cab7e05664e6c59b34ec21056751233961618f688f953d18d090d83ef7d",
+    "types.h": "c0be2296044ed1343b1a301a72df1ad44926311358a2086ce6f00bfdb5d21c16"
+  }
+}
