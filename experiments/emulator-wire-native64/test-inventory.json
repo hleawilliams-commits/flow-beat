@@ -1,0 +1,19 @@
+{
+  "cases": {
+    "adopt": 1,
+    "adopt-divergence": 1,
+    "alias-cache": 1,
+    "alias-next": 1,
+    "conflict": 1,
+    "constructor": 1,
+    "constructor-drift": 1,
+    "copy-fault": 1,
+    "fd-reuse": 1,
+    "frame": 1,
+    "idle": 1,
+    "lost-response": 1,
+    "permission": 1,
+    "postcommit-unknown": 1
+  },
+  "scope": "14 new composition scenarios; one compound functional assertion per selector. Setup/cleanup assertions cannot satisfy a negative control."
+}

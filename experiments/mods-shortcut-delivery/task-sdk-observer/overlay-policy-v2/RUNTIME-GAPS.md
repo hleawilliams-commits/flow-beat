@@ -505,3 +505,35 @@ originals/stopped identity, external exclusion, native consumption, complete
 overlay/both-file recovery and durable custody remain unresolved. Main, live
 observer dispatch and all existing gates stay CLOSED. No endpoints, services,
 installations, physical access or earlier cleanup were used for this checkpoint.
+
+
+## October 29: wire/native64 actual-source composition
+
+The separate [wire/native64 integration](../../../emulator-wire-native64/)
+now links unchanged C wire/dispatcher, broker and adapter translation units to
+seven exact extracted driver methods. Fourteen new scenarios and six strict
+controls per plain, ASan/UBSan and TSan mode pass in two fresh matrices. Complete
+result JSON is byte-identical. The retained-file audit checks all source and log
+inventories; its first declaration reconstruction retained a trailing comment,
+was corrected without weakening equality, and then passed. That audit failure
+is recorded separately; no tests or captured inputs changed.
+
+The chain verifies full raw and canonical bytes, duplicate-fd identity through
+original-number reuse, fresh adoption state, exact modeled EPERM/EFAULT,
+UNKNOWN after actual modeled commit plus synthetic EIO, historical cache
+retrieval and same-capability alias divergence. A cached response remains
+historical and cannot exclude another mutator. These are serial host checks;
+native libc/VFS, Rust transport, external ownership and real input do not run.
+
+The [acquisition review](../../../emulator-wire-native64/ACQUISITION-REVIEW.md)
+narrows the next implementation gate: retain the original before one-shot CLAIM,
+retain exact pre/post state and returns, and separately revise failed attachment
+to preserve usable duplicate custody. Current mb_destroy has no observable
+success result, so checked teardown remains separate. CLAIM preserves content
+and injected mode; matching STATE is neither baseline nor stop authority.
+No automatic FRAME may turn idle acquisition into ready input.
+
+No emulator/device endpoint, service, core, package, catalog, settings or prior
+cleanup changed. Main and runtime wiring remain inactive. Stems staging,
+native ownership, USB completion/cancellation, recovery, audio quality and
+physical timing remain unresolved. Preserve all prior source and evidence.

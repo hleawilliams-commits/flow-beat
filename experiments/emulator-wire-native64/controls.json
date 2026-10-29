@@ -1,0 +1,62 @@
+[
+  {
+    "case": "frame",
+    "expected_failures": [
+      "wire_frame_commits_exact_raw_native_and_canonical_response_bytes"
+    ],
+    "file": "adapter.c",
+    "name": "adapter-truncates-raw-frame",
+    "new": "memcpy(frame.frame, copy.frame, MB_FRAME_BYTES - 1);",
+    "old": "memcpy(frame.frame, copy.frame, MB_FRAME_BYTES);"
+  },
+  {
+    "case": "fd-reuse",
+    "expected_failures": [
+      "wire_adopt_and_frame_keep_duplicate_file_after_original_number_reuse"
+    ],
+    "file": "adapter.c",
+    "name": "adapter-keeps-original-number",
+    "new": "a->fd = original_fd;",
+    "old": "a->fd = retained.result;"
+  },
+  {
+    "case": "postcommit-unknown",
+    "expected_failures": [
+      "wire_actual_commit_then_eio_retains_unknown_without_replay_or_disposal"
+    ],
+    "file": "adapter.c",
+    "name": "adapter-eio-becomes-rejected",
+    "new": "case ESTALE: case EACCES: case EOVERFLOW: case ENOTTY: case EIO: return 1;",
+    "old": "case ESTALE: case EACCES: case EOVERFLOW: case ENOTTY: return 1;"
+  },
+  {
+    "case": "adopt-divergence",
+    "expected_failures": [
+      "wire_adoption_rejects_actual_alias_state_drift_after_constructor"
+    ],
+    "file": "broker.c",
+    "name": "broker-skips-adopt-state",
+    "new": "if (b->state.expected.flags != MB_REQUIRED_FLAGS) return finish(b, MB_ERR_STATE);\n    rc = MB_OK;",
+    "old": "if (b->state.expected.flags != MB_REQUIRED_FLAGS) return finish(b, MB_ERR_STATE);\n    rc = check_snapshot(b); if (rc) return finish(b, rc);"
+  },
+  {
+    "case": "lost-response",
+    "expected_failures": [
+      "wire_lost_positive_response_cache_is_historical_without_second_native_call"
+    ],
+    "file": "guest_dispatch.c",
+    "name": "dispatcher-cached-response-is-fresh",
+    "new": "out[55]=0; *written=j->response_length; return MBWD_OK;",
+    "old": "out[55]=1; *written=j->response_length; return MBWD_OK;"
+  },
+  {
+    "case": "constructor-drift",
+    "expected_failures": [
+      "wire_constructor_checks_complete_retained_broker_seed"
+    ],
+    "file": "guest_dispatch.c",
+    "name": "dispatcher-omits-seed-tail",
+    "new": "a->flags==b->flags && a->crc_len==b->crc_len && !memcmp(a->frame,b->frame,MB_FRAME_BYTES-1);",
+    "old": "a->flags==b->flags && a->crc_len==b->crc_len && !memcmp(a->frame,b->frame,MB_FRAME_BYTES);"
+  }
+]
