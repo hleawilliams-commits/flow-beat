@@ -1,0 +1,546 @@
+{
+  "build_attempt_accounting": {
+    "all_private_attempts_enumerated": false,
+    "independent_byte_audit_invocations": 1,
+    "prior_failed_builds": [
+      {
+        "diagnostic": "-Werror=misleading-indentation",
+        "diagnostic_source_lines": [
+          136,
+          149,
+          166,
+          189
+        ],
+        "docker_exit_code": 0,
+        "files_sha256": {
+          "artifact/build-exit-code": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+          "artifact/stage.txt": "5d0790ae9f024bf4743e6ec5721d591bd8c9907c9ba6cee73879054bb6ef0156",
+          "artifact/wire-compile.log": "d7535741ae4213d07223bc4318bd1b75cedce3a16f57504301580ddf89c00346",
+          "status.json": "36983881e8eb81dc13a8091c31b628f4826de4585719aab50b79f656cd07ba37"
+        },
+        "inner_exit_code": 1,
+        "linked_graph_produced": false,
+        "no_audit_run_on_failed_build": true,
+        "prior_successful_objects_identical": {
+          "broker_owner.o": "d995069440118dda0f700ebf3e8248f51270d70efb70ad5d29f9a6fdd43a19b0",
+          "claim.o": "972c50ef0323d814755dda4fc94b08eb278090c0c1a0cd77f75dd8482c9e9c78",
+          "retained.o": "726da3054b0586616680520d9e5b92558196baeedefa230858dec7d3e8c63e44"
+        },
+        "stage": "compile-wire",
+        "target_executed": false
+      }
+    ],
+    "prior_preflight_failures": [
+      {
+        "corrected_top_level_uuid_filter_matches_manifest": true,
+        "docker_invoked": false,
+        "files_sha256": {
+          "context-after.json": "0dbf6745e56fa3ebaeebddb9b77843c8a85f8441fa775f5bd103357bee5da5ab",
+          "runner.py": "6b29be176f595930673955f597fb57a82ba79a4188fdd95f2a776c4cef08e9fd",
+          "status.json": "67829c78937d6658f159bca8cb08fd23b1ea385d6c760c9def8d061e27ad7d0b"
+        },
+        "kind": "context_inventory_filter",
+        "omitted_input_by_old_filter": [
+          "evidence/prior-build/artifact/build-exit-code"
+        ],
+        "target_build_attempt": false
+      }
+    ],
+    "selected_successful_builds": 1,
+    "selected_target_build_attempts": 2,
+    "unchanged_host_matrices_replayed": 0
+  },
+  "date": "2026-10-29",
+  "limitations": [
+    "No target object or library was loaded or executed; syscall and pthread wrappers were compiled only.",
+    "The retained musl link provider does not establish running guest or firmware libc compatibility.",
+    "No stream owner, host-peer/supervisor binding, authenticated session or native input authority is implemented by this build.",
+    "No live VFS lifetime, alias exclusion, quiescence, authoritative original baseline, native stop or recovery proof.",
+    "No both-file restoration, durable journal, deadline, cancellation, process-death, whole-engine race, audio-quality or physical-timing proof.",
+    "Existing observer, stems staging, USB completion/cancellation and all runtime/release gates remain closed.",
+    "Raw artifacts, source copies, firmware/UAPI copies, scripts, commands and logs remain private."
+  ],
+  "objects": {
+    "broker_owner": {
+      "elf_type": 1,
+      "machine": 183,
+      "sha256": "d995069440118dda0f700ebf3e8248f51270d70efb70ad5d29f9a6fdd43a19b0",
+      "size": 15080
+    },
+    "claim": {
+      "elf_type": 1,
+      "machine": 183,
+      "sha256": "972c50ef0323d814755dda4fc94b08eb278090c0c1a0cd77f75dd8482c9e9c78",
+      "size": 6504
+    },
+    "graph": {
+      "elf_type": 1,
+      "machine": 183,
+      "sha256": "6b0683a0867c00ed6de72b8aaadcd8e39765fcc2546a73e86349a50818bc92d3",
+      "size": 9512
+    },
+    "guest_dispatch": {
+      "elf_type": 1,
+      "machine": 183,
+      "sha256": "5ca4a80d982701f84f004f10cba7df3cdfcb4810e1bc0cc22de04b2cf90bd7ea",
+      "size": 8032
+    },
+    "native": {
+      "elf_type": 1,
+      "machine": 183,
+      "sha256": "44caf36913812ab50a0a6350a1939d98d51daab6fd3e904b614db3db14609b28",
+      "size": 2008
+    },
+    "retained": {
+      "elf_type": 1,
+      "machine": 183,
+      "sha256": "726da3054b0586616680520d9e5b92558196baeedefa230858dec7d3e8c63e44",
+      "size": 6992
+    },
+    "sync": {
+      "elf_type": 1,
+      "machine": 183,
+      "sha256": "360d50ccaec1fdb448b6fddcc8b33852463f1e4d283d40820c4c7d472f37bceb",
+      "size": 2072
+    },
+    "wire": {
+      "elf_type": 1,
+      "machine": 183,
+      "sha256": "bf525f0b316cdb880ed95808f2f42e8015da8b5db6abeb1ba3f347dfcaaae5ab",
+      "size": 8552
+    }
+  },
+  "retained_evidence_sha256": {
+    "build_script": "bdeef015d8346fd1243772ac9ca4a8a80d307fff7084bff8fb0b8570f768ebb8",
+    "compiler_identity": "0e8b316161076f257494c8ce0621c3b61b108070ceb12cbd61fa5545c03181d9",
+    "context_manifest": "55492868a0a48013a427cb9343ffd8dab7c0012935506e37b5467d2d4c47b97b",
+    "dependency_files": {
+      "broker_owner": "41958ebfb8d80ce5e3f4dcb47829600a075cd759d193e6f2917b01545d2b3e01",
+      "claim": "d5b92f430be06d79bd5c40a16b38ee8f97f67f6e898859e02b9ac61eabb75d38",
+      "graph": "e24edf98c592b41a476ed4e1653728e7a25523f046039042666d639ed100812b",
+      "guest_dispatch": "3ba7a165b4b721328cc115973e00c8f0bcdd5d9faf5ae145418fbdabbb97bf74",
+      "native": "0fc12a9c332b4b2ef6c13ae9f4f9946fb39d981c3f6c0bb7a28b6f8cac3d8c5e",
+      "retained": "92419449d9f7bad3742bba5fc7001b916b2f31dd530994621cb229e80dd3e3a8",
+      "sync": "6007f3d85a235580ba2c226f24b66bc925140627413e3a1c045f719e8c4752ce",
+      "wire": "5aaab9c6ab3a8a4b6d4415a7e2f20e1991c91188d321e63e2d49bf5c0bb8fc0c"
+    },
+    "dockerfile": "6e8facaac429b608c72324a1f634bb567abfb27a604a4eeb629f19a7b57b4782",
+    "independent_audit_result": "f8202a975299266f772c38a600c962bb7bfb96265373ffb20618412b3fd70a2f",
+    "independent_auditor": "79069849b0a5d6a6ddb2b5229642bac0737fb264ef0941a1404bdcd132096f9a",
+    "linker_identity": "8690a159a20def50e66407aef3ceb3fa222222219f8c201d06fe22fb17151fc9",
+    "preparation": "611e15e76052bdae500eff8eb17afb1d0f27956444e40d60e7c77b86ce2f766d",
+    "prepare_script": "fccdafdca804850928128b15e4a45a9337f44af6e7ab81f32fefd47fb6ff31d4",
+    "runner_script": "e1f5159023cc8904ffaa109bce7efa2f1dfe38493d7237a910f9bed3fd59eb9b",
+    "runner_status": "a30321d5e6d9d19abf22d01f1f894177c1b834696dd0c992c661005d525e8e72"
+  },
+  "runtime": {
+    "emulator_contact": false,
+    "endpoint_contact": false,
+    "installed": false,
+    "physical_contact": false,
+    "published_community_release": false,
+    "runtime_gate_reopened": false,
+    "target_executed": false,
+    "target_loaded": false
+  },
+  "schema": 1,
+  "scope": [
+    "Private independent file-byte audit only; no compiler, subprocess, target, loader, ioctl or endpoint invoked.",
+    "Corrected context compiled eight production TUs once with real Linux/musl headers; seven TUs and frozen private core methods are unchanged.",
+    "Only copied wire.c changes: exactly four reviewed adjacent-if line splits, identical non-whitespace bytes and whitespace-delimited tokens.",
+    "One preceding strict GCC compile failure is separately retained; its three successful object files match the corrected build byte-for-byte.",
+    "A separate inventory-filter preflight failure never invoked Docker and is recorded independently of selected target-build counts.",
+    "Baseline and candidate linked from those same eight retained objects; candidate exports exactly seven graph functions.",
+    "Compiler, retained rootfs, libc provider, input sources and anonymous export map are explicitly hash-bound.",
+    "Strong import presence in this provider proves link closure only; no running guest or firmware libc compatibility claim.",
+    "No graph, device, ownership, quiescence, writer exclusion, cleanup authority, runtime safety, audio or physical timing proof."
+  ],
+  "selected_successful_build": {
+    "candidate_link_policy": "graph-exports.map",
+    "compile_flags": [
+      "-std=c11",
+      "-O2",
+      "-fPIC",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-pthread",
+      "-I/source",
+      "-MD"
+    ],
+    "compiler": "gcc (Alpine 13.2.1_git20231014) 13.2.1 20231014",
+    "compiler_target": "aarch64-alpine-linux-musl",
+    "compiles": 8,
+    "docker_exit_code": 0,
+    "empty_compile_and_link_logs": 10,
+    "inner_exit_code": 0,
+    "linker": "GNU ld (GNU Binutils) 2.41",
+    "links": 2,
+    "network": "none",
+    "no_cache": true,
+    "pull": false,
+    "real_linux_headers": true,
+    "remote_base_or_frontend": false,
+    "shared_link_flags": [
+      "-shared",
+      "-pthread",
+      "-Wl,--no-undefined"
+    ],
+    "test_or_kernel_shims": false,
+    "translation_units": [
+      "claim",
+      "retained",
+      "broker_owner",
+      "wire",
+      "guest_dispatch",
+      "graph",
+      "native",
+      "sync"
+    ]
+  },
+  "shared_libraries": {
+    "libemulator-owned-graph-baseline.so": {
+      "dynamic_exports": [
+        "_fini",
+        "_init",
+        "mb_adopt",
+        "mb_inspect",
+        "mb_quiesce",
+        "mb_reconcile",
+        "mb_restore",
+        "mb_rotate",
+        "mb_stamp",
+        "mb_submit",
+        "mbco_claim",
+        "mbco_create",
+        "mbco_dispose",
+        "mbco_get_validated_post",
+        "mbco_inspect",
+        "mbco_postflight",
+        "mbco_preflight",
+        "mbco_take",
+        "mbog_create",
+        "mbog_dispose",
+        "mbog_exchange",
+        "mbog_finalize",
+        "mbog_inspect",
+        "mbog_start",
+        "mbog_take",
+        "mbra_create",
+        "mbra_dispose",
+        "mbra_duplicate",
+        "mbra_get_backend",
+        "mbra_inspect",
+        "mbra_validate",
+        "mbro_create",
+        "mbro_dispose",
+        "mbro_get_broker",
+        "mbro_initialize",
+        "mbro_inspect",
+        "mbro_validate",
+        "mbrs_attr_destroy",
+        "mbrs_attr_init",
+        "mbrs_attr_settype",
+        "mbrs_mutex_destroy",
+        "mbrs_mutex_init",
+        "mbw_decode_adopt_request",
+        "mbw_decode_adopt_response",
+        "mbw_decode_frame_request",
+        "mbw_decode_frame_response",
+        "mbw_decode_header",
+        "mbw_dispatch_create",
+        "mbw_dispatch_destroy",
+        "mbw_dispatch_exchange",
+        "mbw_dispatch_inspect",
+        "mbw_encode_adopt_request",
+        "mbw_encode_adopt_response",
+        "mbw_encode_frame_request",
+        "mbw_encode_frame_response"
+      ],
+      "elf_type": 3,
+      "link_map_sha256": "0897f2d853e70bfc94e19f34e4dc42f8448e884ad6317f973202c1cb867971c4",
+      "localized_helpers": [
+        "mba_sys_close",
+        "mba_sys_duplicate",
+        "mba_sys_ioctl"
+      ],
+      "machine": 183,
+      "needed": [
+        "libc.musl-aarch64.so.1"
+      ],
+      "rpath": [],
+      "runpath": [],
+      "section_count": 31,
+      "sha256": "ba41f0c2560560373d7c006fd7b23f772f23356e5ebe97f4b8f09bd31c58eb40",
+      "size": 75296,
+      "soname": [],
+      "strong_imports": [
+        "__errno_location",
+        "__stack_chk_fail",
+        "__stack_chk_guard",
+        "calloc",
+        "close",
+        "fcntl",
+        "free",
+        "ioctl",
+        "memcmp",
+        "memcpy",
+        "memset",
+        "pthread_mutex_destroy",
+        "pthread_mutex_init",
+        "pthread_mutex_lock",
+        "pthread_mutex_unlock",
+        "pthread_mutexattr_destroy",
+        "pthread_mutexattr_init",
+        "pthread_mutexattr_settype"
+      ],
+      "weak_imports": [
+        "_ITM_deregisterTMCloneTable",
+        "_ITM_registerTMCloneTable",
+        "__cxa_finalize",
+        "__deregister_frame_info",
+        "__register_frame_info"
+      ],
+      "weak_imports_absent": [
+        "_ITM_deregisterTMCloneTable",
+        "_ITM_registerTMCloneTable",
+        "__deregister_frame_info",
+        "__register_frame_info"
+      ],
+      "weak_imports_present": [
+        "__cxa_finalize"
+      ]
+    },
+    "libemulator-owned-graph.so": {
+      "dynamic_exports": [
+        "mbog_create",
+        "mbog_dispose",
+        "mbog_exchange",
+        "mbog_finalize",
+        "mbog_inspect",
+        "mbog_start",
+        "mbog_take"
+      ],
+      "elf_type": 3,
+      "link_map_sha256": "252b3478ed43a148c41a8cbc1047a6145325f1e6d578f216cdd3388da0cd0362",
+      "localized_helpers": [
+        "_fini",
+        "_init",
+        "mb_adopt",
+        "mb_inspect",
+        "mb_quiesce",
+        "mb_reconcile",
+        "mb_restore",
+        "mb_rotate",
+        "mb_stamp",
+        "mb_submit",
+        "mba_sys_close",
+        "mba_sys_duplicate",
+        "mba_sys_ioctl",
+        "mbco_claim",
+        "mbco_create",
+        "mbco_dispose",
+        "mbco_get_validated_post",
+        "mbco_inspect",
+        "mbco_postflight",
+        "mbco_preflight",
+        "mbco_take",
+        "mbra_create",
+        "mbra_dispose",
+        "mbra_duplicate",
+        "mbra_get_backend",
+        "mbra_inspect",
+        "mbra_validate",
+        "mbro_create",
+        "mbro_dispose",
+        "mbro_get_broker",
+        "mbro_initialize",
+        "mbro_inspect",
+        "mbro_validate",
+        "mbrs_attr_destroy",
+        "mbrs_attr_init",
+        "mbrs_attr_settype",
+        "mbrs_mutex_destroy",
+        "mbrs_mutex_init",
+        "mbw_decode_adopt_request",
+        "mbw_decode_adopt_response",
+        "mbw_decode_frame_request",
+        "mbw_decode_frame_response",
+        "mbw_decode_header",
+        "mbw_dispatch_create",
+        "mbw_dispatch_destroy",
+        "mbw_dispatch_exchange",
+        "mbw_dispatch_inspect",
+        "mbw_encode_adopt_request",
+        "mbw_encode_adopt_response",
+        "mbw_encode_frame_request",
+        "mbw_encode_frame_response"
+      ],
+      "machine": 183,
+      "needed": [
+        "libc.musl-aarch64.so.1"
+      ],
+      "rpath": [],
+      "runpath": [],
+      "section_count": 31,
+      "sha256": "d5e1ede4047aa09a6c024a296ff208f8a72e507d218ebfd81e316c46cf13b58f",
+      "size": 75296,
+      "soname": [],
+      "strong_imports": [
+        "__errno_location",
+        "__stack_chk_fail",
+        "__stack_chk_guard",
+        "calloc",
+        "close",
+        "fcntl",
+        "free",
+        "ioctl",
+        "memcmp",
+        "memcpy",
+        "memset",
+        "pthread_mutex_destroy",
+        "pthread_mutex_init",
+        "pthread_mutex_lock",
+        "pthread_mutex_unlock",
+        "pthread_mutexattr_destroy",
+        "pthread_mutexattr_init",
+        "pthread_mutexattr_settype"
+      ],
+      "weak_imports": [
+        "_ITM_deregisterTMCloneTable",
+        "_ITM_registerTMCloneTable",
+        "__cxa_finalize",
+        "__deregister_frame_info",
+        "__register_frame_info"
+      ],
+      "weak_imports_absent": [
+        "_ITM_deregisterTMCloneTable",
+        "_ITM_registerTMCloneTable",
+        "__deregister_frame_info",
+        "__register_frame_info"
+      ],
+      "weak_imports_present": [
+        "__cxa_finalize"
+      ]
+    }
+  },
+  "source_commit": "ab4c901afd4b6881ef65ff80c057af518767ad88",
+  "source_provenance": {
+    "broker_core_sha256": "4bfd81f15e656db6633c938556b013fdb55f27499960e6e26ceed8fd3cf3a2c3",
+    "broker_prefix_bytes": 4936,
+    "broker_suffix_bytes": 7117,
+    "export_map_sha256": "8c554ee5dc70b5cb831eb203ad75137235637aea0c773f43c2aef2f5948dbd28",
+    "frozen_repository_input_files": 20,
+    "native_core_bytes": 6378,
+    "native_core_sha256": "385ad0b7b604c5525c10b33de4683b4a4bbde25519d114a0c8c52a8b12410420",
+    "prepared_source_sha256": {
+      "adapter.h": "b6b01712383904b0d438e5ca1fbe20b0604a98831fe13b2e7951bf1f3b1f2d3d",
+      "broker-core.inc": "4bfd81f15e656db6633c938556b013fdb55f27499960e6e26ceed8fd3cf3a2c3",
+      "broker.h": "04efb6b1eb22e56798837ae8ff72514a5a513da2d616215d77d4c8f6a85033c8",
+      "broker_owner.c": "198442097c635774c6b8c70a6bd6688f937430b238cf7b0a3066faa27cef015f",
+      "broker_owner.h": "1ff440110c6b584c648df965550632db8fafe5f05d9f3f71c513953b5a2f728c",
+      "claim.c": "4e715b718bb1b97db47c7b54beb4b4c939d7e11520bb849bc8c7dd0a2a4f2baa",
+      "claim.h": "cca262a1de7f1d582109524f96ccc7b3555a42ee4c47285a519e82bd4247aef7",
+      "graph.c": "b5fdbf205814c3da60ee8322c76b2a8ef557feee4cb3209bbb29da7288c34e8b",
+      "graph.h": "d7376387d9fc9be7d568dec6a87def6bf13bb025dbe89a3d6c04f22d2c99472b",
+      "guest_dispatch.c": "bcfb879233f006116e2fd937a3a32fe4006e7c77217490e24c51a13a10bebb61",
+      "guest_dispatch.h": "8cd24ee69b4a931b8833396f7e5010f0df6f208aa2cdbca6c16413d50a3264ca",
+      "native.c": "10269247d44f43af38d312018fb5325e1101f96ef08e06c2002bf0caffa8609b",
+      "native64-core.inc": "385ad0b7b604c5525c10b33de4683b4a4bbde25519d114a0c8c52a8b12410420",
+      "retained.c": "e3dec2ec75e4b3d8fe516577adbcffc7bacbe6086a05f7b621470605365b33e9",
+      "retained.h": "ad5f4283824534d8668f6e7e3152e49f70e1fe4fc109a263ceb1e3142925defa",
+      "subucom_ownership.h": "a9f2cfa4d007053806ca97f3058c72bffd43756995cb23235c415358a3c7e990",
+      "sync.c": "b847a22d9d19ce7ab9ab952522f1d5b1e99d1e195043b972804b099ecbd3b351",
+      "sync.h": "c6a64f224d20495c231f6e6d737d6acf64c3f568d368f90893ae77a932071511",
+      "syscalls.h": "bbc885c14c1d468a057d5aa40ee537ec20533390453b1abe53fad2257828fd6c",
+      "wire.c": "55ba4604fea5019249283e2fc81da4467e71bffeacaff2b4be79ff1caca3b252",
+      "wire.h": "4730000196142ec3b234a92bf08f23f212505cb1828782ae97643968d6e82176"
+    },
+    "production_source_files": 21,
+    "repository_sha256": {
+      "experiments/emulator-broker-restore/broker.c": "f331713ac361f265b37c9e781f85400691195915076ca2604aeb2311fd12cbb7",
+      "experiments/emulator-broker-restore/broker.h": "04efb6b1eb22e56798837ae8ff72514a5a513da2d616215d77d4c8f6a85033c8",
+      "experiments/emulator-broker-wire/guest_dispatch.c": "bcfb879233f006116e2fd937a3a32fe4006e7c77217490e24c51a13a10bebb61",
+      "experiments/emulator-broker-wire/guest_dispatch.h": "8cd24ee69b4a931b8833396f7e5010f0df6f208aa2cdbca6c16413d50a3264ca",
+      "experiments/emulator-broker-wire/wire.c": "571fedc58c29766aafeab53ae2b7a9cff232bbc7df56ade0d4e4253514d97726",
+      "experiments/emulator-broker-wire/wire.h": "4730000196142ec3b234a92bf08f23f212505cb1828782ae97643968d6e82176",
+      "experiments/emulator-claim-owner/claim.c": "4e715b718bb1b97db47c7b54beb4b4c939d7e11520bb849bc8c7dd0a2a4f2baa",
+      "experiments/emulator-claim-owner/claim.h": "cca262a1de7f1d582109524f96ccc7b3555a42ee4c47285a519e82bd4247aef7",
+      "experiments/emulator-native64-adapter/adapter.c": "0f7313437ece7cef07fd69df9f63bc4b167a7a47e6205a226779b02bb45fac92",
+      "experiments/emulator-native64-adapter/adapter.h": "b6b01712383904b0d438e5ca1fbe20b0604a98831fe13b2e7951bf1f3b1f2d3d",
+      "experiments/emulator-native64-adapter/native.c": "10269247d44f43af38d312018fb5325e1101f96ef08e06c2002bf0caffa8609b",
+      "experiments/emulator-native64-adapter/syscalls.h": "bbc885c14c1d468a057d5aa40ee537ec20533390453b1abe53fad2257828fd6c",
+      "experiments/emulator-owned-graph/graph.c": "b5fdbf205814c3da60ee8322c76b2a8ef557feee4cb3209bbb29da7288c34e8b",
+      "experiments/emulator-owned-graph/graph.h": "d7376387d9fc9be7d568dec6a87def6bf13bb025dbe89a3d6c04f22d2c99472b",
+      "experiments/emulator-retained-adapter/retained.c": "e3dec2ec75e4b3d8fe516577adbcffc7bacbe6086a05f7b621470605365b33e9",
+      "experiments/emulator-retained-adapter/retained.h": "ad5f4283824534d8668f6e7e3152e49f70e1fe4fc109a263ceb1e3142925defa",
+      "experiments/emulator-retained-broker/broker_owner.c": "198442097c635774c6b8c70a6bd6688f937430b238cf7b0a3066faa27cef015f",
+      "experiments/emulator-retained-broker/broker_owner.h": "1ff440110c6b584c648df965550632db8fafe5f05d9f3f71c513953b5a2f728c",
+      "experiments/emulator-retained-broker/sync.c": "b847a22d9d19ce7ab9ab952522f1d5b1e99d1e195043b972804b099ecbd3b351",
+      "experiments/emulator-retained-broker/sync.h": "c6a64f224d20495c231f6e6d737d6acf64c3f568d368f90893ae77a932071511"
+    },
+    "sources_map_toolchain_before_after_match": true,
+    "uapi_sha256": "a9f2cfa4d007053806ca97f3058c72bffd43756995cb23235c415358a3c7e990",
+    "wire_format_transformation": {
+      "non_whitespace_bytes_equal": true,
+      "original_sha256": "571fedc58c29766aafeab53ae2b7a9cff232bbc7df56ade0d4e4253514d97726",
+      "output_sha256": "55ba4604fea5019249283e2fc81da4467e71bffeacaff2b4be79ff1caca3b252",
+      "relative": "experiments/emulator-owned-graph/wire-gcc-format.patch",
+      "replacements": 4,
+      "sha256": "d53292cb9addbbd53b372dd9f9cc537aa59f81530ff50061e3e22e98ad259511",
+      "whitespace_delimited_tokens_equal": true
+    }
+  },
+  "status": "pass_compile_link_and_byte_audit_only",
+  "symbol_audit": {
+    "baseline_api_exports": 53,
+    "baseline_defined_dynamic_exports": 55,
+    "baseline_toolchain_exports": [
+      "_init",
+      "_fini"
+    ],
+    "candidate_defined_dynamic_exports": 7,
+    "direct_elf_agrees_with_readelf_and_nm": true,
+    "export_localization_is_not_a_security_boundary": true,
+    "legacy_constructors_and_destructors_absent": [
+      "mb_create",
+      "mb_destroy",
+      "mba_attach",
+      "mba_get_backend",
+      "mba_dispose"
+    ],
+    "strong_import_count": 18,
+    "strong_import_names_present_in_retained_provider": true,
+    "weak_import_count": 5
+  },
+  "toolchain_provenance": {
+    "archive_bytes": 689524647,
+    "archive_sha256": "898432b5244d53de1b28943b829859d249241bf88b750337c2a9871d138ab54c",
+    "compiler_sha256": "d2fcfbe5ea467cbb15e6e4b0d1a0ee929575de38f5e9db5313def1b06c8b9fca",
+    "headers_sha256": {
+      "usr/include/asm-generic/ioctl.h": "76396e5537d75285c3ca20e3b6a79b101eebfdc14d39c104ff7eab778672160e",
+      "usr/include/asm/ioctl.h": "9c6ca9e365296a6b66747cbebdcf76972b8cce7aab91e55bf4ab1f3581df9c2a",
+      "usr/include/asm/types.h": "b6bdcd528bce555b2ecb58e8a1624e3e13e09312c31318023c4e86b957e2b01f",
+      "usr/include/fcntl.h": "22fb6921bcfbfd1ca74cdbea97ad811c9ce3df9ec410f6c9dedacd1da3d9680c",
+      "usr/include/linux/ioctl.h": "ba73b5892de6605e6c40b151820e367dfcb98cbdb3f8f468c5ef2bd8437df873",
+      "usr/include/linux/types.h": "89de4736e44cf154844fad3d6c40c435f3d15200801046becb1876030db247ce",
+      "usr/include/pthread.h": "85ecd05b6e9845851bf5444b480326281fb1484d3e4646742a50aaea612c4ef3",
+      "usr/include/sys/ioctl.h": "18cc2b9eee923943e198f03f77cae411bd8f34d9a3fc2202851a1e95dc73532e",
+      "usr/include/unistd.h": "d6365cc93a99349c2b5ef3eb9211659497c1390d0ad302454fabfaef78c98711"
+    },
+    "provider": {
+      "dynamic_exports_count": 1641,
+      "elf_type": 3,
+      "machine": 183,
+      "needed": [],
+      "rpath": [],
+      "runpath": [],
+      "section_count": 20,
+      "sha256": "7d605adcd1cdc4d37251f0e8e3099954e13554323aabfd5e9cf47c10ff63b76c",
+      "size": 723408,
+      "soname": [
+        "libc.musl-aarch64.so.1"
+      ]
+    }
+  }
+}

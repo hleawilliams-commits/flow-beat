@@ -1,0 +1,11 @@
+{
+  global:
+    mbog_create;
+    mbog_take;
+    mbog_start;
+    mbog_exchange;
+    mbog_inspect;
+    mbog_dispose;
+    mbog_finalize;
+  local: *;
+};

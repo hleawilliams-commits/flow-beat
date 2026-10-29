@@ -57,6 +57,14 @@ operation bodies are pinned and mechanically reused without policy changes.
 Private builds, patched source exports, raw logs and audit scripts stay ignored
 under private/. No existing parent suite is rerun unchanged.
 
+The separate [ARM64 build record](ARM64-BUILD.md) covers eight production
+compiles and two links from the same objects, with exactly seven graph exports in
+the candidate. A four-line whitespace-only wire copy fixes the retained initial
+GCC warning failure without weakening strict flags; a separate tooling preflight
+failure is also preserved. This is pinned-musl compile/link evidence only. No
+produced target artifact was loaded or executed, and guest/firmware ABI,
+transport and supervisor integration remain unproven.
+
 This is an offline source checkpoint. No endpoint is opened or authenticated;
 host transport/supervisor binding and live libc/VFS behavior remain unimplemented
 or untested here. No emulator restart, physical deck control, core change,

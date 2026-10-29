@@ -1,0 +1,42 @@
+--- a/wire.c
++++ b/wire.c
+@@ -133,7 +133,8 @@
+                              struct mbw_adopt_request *out)
+ {
+     struct mbw_header parsed={0}; struct mbw_adopt_request v={0};
+-    if(h) memset(h,0,sizeof(*h)); if(out) memset(out,0,sizeof(*out));
++    if(h) memset(h,0,sizeof(*h));
++    if(out) memset(out,0,sizeof(*out));
+     if(!h || !out || decode_record(p,n,MBW_ADOPT_REQUEST,&parsed)) return MBW_INVALID;
+     get_state(p+48,&v.state); v.producer_id=get64(p+248); *h=parsed; *out=v; return MBW_OK;
+ }
+@@ -146,7 +147,8 @@
+ int mbw_decode_frame_request(const uint8_t *p, size_t n, struct mbw_header *h, struct mb_request *out)
+ {
+     struct mbw_header parsed={0}; struct mb_request v={0};
+-    if(h) memset(h,0,sizeof(*h)); if(out) memset(out,0,sizeof(*out));
++    if(h) memset(h,0,sizeof(*h));
++    if(out) memset(out,0,sizeof(*out));
+     if(!h || !out || decode_record(p,n,MBW_FRAME_REQUEST,&parsed)) return MBW_INVALID;
+     get_request(p+48,&v); *h=parsed; *out=v; return MBW_OK;
+ }
+@@ -163,7 +165,8 @@
+                               struct mbw_adopt_response *out)
+ {
+     struct mbw_header parsed={0}; struct mbw_adopt_response v={0};
+-    if(h) memset(h,0,sizeof(*h)); if(out) memset(out,0,sizeof(*out));
++    if(h) memset(h,0,sizeof(*h));
++    if(out) memset(out,0,sizeof(*out));
+     if(!h || !out || decode_record(p,n,MBW_ADOPT_RESPONSE,&parsed) || get32(p+52)>1)
+         return MBW_INVALID;
+     v.result=gets32(p+48); v.provenance=get32(p+52);
+@@ -186,7 +189,8 @@
+                               struct mbw_frame_response *out)
+ {
+     struct mbw_header parsed={0}; struct mbw_frame_response v={0};
+-    if(h) memset(h,0,sizeof(*h)); if(out) memset(out,0,sizeof(*out));
++    if(h) memset(h,0,sizeof(*h));
++    if(out) memset(out,0,sizeof(*out));
+     if(!h || !out || decode_record(p,n,MBW_FRAME_RESPONSE,&parsed) || get32(p+52)>1 ||
+         get32(p+56)>MB_OUTCOME_UNKNOWN || get32(p+60)>MB_OP_RESTORE || get32(p+68))
+         return MBW_INVALID;

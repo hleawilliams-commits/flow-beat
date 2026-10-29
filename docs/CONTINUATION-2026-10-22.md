@@ -1245,3 +1245,46 @@ settings, package, catalog or previous cleanup changed. Frozen parents, prior
 failures and unrelated deck-lights/ are preserved. Main and all existing runtime,
 stems, USB, lifetime/race, recovery, audio-quality, physical-timing and release
 gates remain CLOSED.
+
+## October 29: retained graph ARM64 compile and export policy
+
+The [owned graph ARM64 checkpoint](../experiments/emulator-owned-graph/ARM64-BUILD.md) compiles the eight production units,
+including actual Linux syscall and pthread wrappers, and links two private shared
+libraries from those same objects. Twenty frozen repository inputs produce the
+21-file source/include closure with exact retained core cuts and the pinned restore
+UAPI. Seven units remain byte-identical; the copied wire source has only four
+independent adjacent-if line splits. The frozen wire parent remains unchanged.
+
+The first actual target build failed at wire compilation with four
+-Werror=misleading-indentation diagnostics. The isolated formatting patch
+preserves non-whitespace bytes and token order, and strict warning flags remain.
+A separate private runner preflight then falsely omitted a nested build-exit-code
+receipt from its inventory. Its narrow top-level build-UUID filter repair and
+Docker-never-invoked failure are retained separately. These records account for
+two selected target build attempts, one successful, plus that preflight failure;
+they do not claim an exhaustive inventory of all private preparation activity.
+
+The corrected build records eight empty compile logs and two empty link logs.
+The baseline exposes 53 APIs plus toolchain _init/_fini; the reviewed anonymous
+export map leaves exactly seven graph exports. All 18 strong imports exist in the
+pinned musl provider; five weak imports remain. Direct ELF parsing agrees with
+captured nm/readelf. The independent byte audit passed on its first invocation
+and verifies retained failures, exact source transformations, dependency headers,
+object symbols and before/after provenance. No passing host matrix was repeated.
+
+No object or library was loaded or executed. This establishes compile/link closure
+against retained inputs, not running guest/firmware ABI compatibility, native VFS
+custody, authentication or a security boundary. Source/format patch/export map and
+sanitized evidence are public; raw artifacts, toolchain, snapshots, logs and
+scripts remain private. No endpoint, restart, installation, physical control,
+official core, package, catalog or earlier cleanup changed.
+
+The next concrete boundary is a guest stream owner that retains both supplied
+transport and graph before I/O, records partial header/body reads and response
+writes, and preserves pending response/graph evidence after EOF, write failure
+or disconnect. Disconnect must not reopen, replay, dispose the graph or imply
+quiescence. Binding that owner to the host transport and guest supervisor is
+separate. Authoritative native originals/stop, external writer exclusion,
+deadlines, both-file restoration and durable/process-death recovery remain open.
+Main and all observer, stems staging, USB completion/cancellation, lifetime/race,
+audio-quality, physical-timing and release gates remain CLOSED.
