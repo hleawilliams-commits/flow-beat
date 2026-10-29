@@ -1,0 +1,77 @@
+{
+  "assertion_location": "settings_pair_tests.rs:253:9",
+  "attribution": "The first two full runs failed fixture assumptions about actual privileged bits. The second assertion failed before production attach. The same Rust binary reproduces privilege-bit masking under the root launcher; separate-agent probes did not. The mechanism of the context difference remains unproven. Future fixtures separate actual sticky-mode filesystem tests from direct metadata-policy tests for privilege bits; real attach privilege-bit proof is not claimed.",
+  "candidate_failed": 1,
+  "candidate_passed": 22,
+  "evidence_hashes": {
+    "candidate/compile.log": "b8488ecaf4da03b8c9c8a43715f40bbdc0facfe62c93de29e129261dd014e4f5",
+    "candidate/test.log": "5969a8eec6278d4477495f4e598f8582abc06cf905fdcf6c6295b7b1b3a18d16",
+    "inputs/run-tests.py": "69a7dfd02bd1b54a3f31a05fdf195e13b03e9f99b742a143b4fea28dbd18394b",
+    "inputs/settings_pair.rs": "8246b4782c1108d8fc2821abe6f2ad01a57350b41b85d741859b60f9c10a9d2d",
+    "inputs/settings_pair_tests.rs": "57a45367a56a0cb2fd18987d53f34db26e8b074543693d8499e95c1f81dc5ddc",
+    "production-check.log": "f1792ba45e743265d735a3fe55881f32ccff1f99f3ee9a47f6a3532f8defe39b"
+  },
+  "failing_test": "settings_pair::tests::attach_refuses_symlinks_hardlinks_nonregular_special_modes_and_oversize",
+  "inherited_filtered": 138,
+  "production_source_changed": false,
+  "requested_fixture_mode": "04600",
+  "retained_regular_file_mode": "0100600",
+  "root_launcher_probe": {
+    "binary_sha256": "bb129000f4ba6b7fe6ccec736a30ae4b1d8e22d2a98a2e59b6bb36c52c902890",
+    "finding": "Both inherited and runner-filtered environments clear mode06000 while retaining01000 under this root launcher. Earlier separate-agent probes retained06000. This identifies a launch-context difference, not its underlying mechanism or a general macOS rule. No escalation or alternate-context matrix is used to bypass it.",
+    "result_sha256": "bbb7d5a1df4c1b3946f36b27feccec50f4c4d5e96d2f44fd5e663b61c4a34034",
+    "results": [
+      {
+        "exit": 0,
+        "label": "inherited",
+        "log_sha256": "d1202269b272c254c8e7e92e8fc0aa6782fa8a7f4bc0fd7292dd245b4a86f03d",
+        "modes": {
+          "mode-1600": "0o101600",
+          "mode-1700": "0o101700",
+          "mode-2600": "0o100600",
+          "mode-2700": "0o100700",
+          "mode-4600": "0o100600",
+          "mode-4700": "0o100700",
+          "mode-600": "0o100600",
+          "mode-7600": "0o101600"
+        }
+      },
+      {
+        "exit": 0,
+        "label": "runner_env",
+        "log_sha256": "d1202269b272c254c8e7e92e8fc0aa6782fa8a7f4bc0fd7292dd245b4a86f03d",
+        "modes": {
+          "mode-1600": "0o101600",
+          "mode-1700": "0o101700",
+          "mode-2600": "0o100600",
+          "mode-2700": "0o100700",
+          "mode-4600": "0o100600",
+          "mode-4700": "0o100700",
+          "mode-600": "0o100600",
+          "mode-7600": "0o101600"
+        }
+      }
+    ],
+    "same_rust_binary_as_permission_review": true,
+    "script_sha256": "54fccb7ec7d73862ab618f49ec91c5ac382c3e7fa41061dcbb552e1513f2e779"
+  },
+  "status": "retained positive fixture failure; controls not reached",
+  "subsequent_strengthened_fixture_failure": {
+    "actual_permission_bits": "0600",
+    "assertion": "actual special-mode fixture precondition",
+    "assertion_location": "settings_pair_tests.rs:253:13",
+    "candidate_failed": 1,
+    "candidate_passed": 22,
+    "controls_run": 0,
+    "evidence_sha256": {
+      "candidate/compile.log": "37f6d8ae43f46b4053b63c8df2ed33cf70a25cf3648dfc79082dce0f8eacb7a8",
+      "candidate/test.log": "cd6d373d46d20a07e2220f6eb59bcafa1ba200a2451ab05ce23e51ec00377973",
+      "inputs/run-tests.py": "69a7dfd02bd1b54a3f31a05fdf195e13b03e9f99b742a143b4fea28dbd18394b",
+      "inputs/settings_pair_tests.rs": "f79d18597a0e446d480939e3f6ab91f08159eb85ffa96eb54466a2a51bb42109",
+      "production-check.log": "c79758572dce9e036a6daa97084bebb2589698be779f74dcc8a911448381c4a0"
+    },
+    "expected_permission_bits": "04600",
+    "inherited_filtered": 138,
+    "production_attach_reached_for_special_case": false
+  }
+}

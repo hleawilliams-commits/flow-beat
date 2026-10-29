@@ -1,0 +1,295 @@
+{
+  "conclusion": "The narrow Python and Rust probes preserve all tested requested bits here. A broad claim that macOS strips setuid is unsupported. Historical cause remains unexplained; stronger fixture preconditions expose missing or changed bits rather than silently attributing a false refusal failure to production.",
+  "fixture_revision": {
+    "after_source_sha256": "f79d18597a0e446d480939e3f6ab91f08159eb85ffa96eb54466a2a51bb42109",
+    "before_source_sha256": "57a45367a56a0cb2fd18987d53f34db26e8b074543693d8499e95c1f81dc5ddc",
+    "change": "Actual setuid 04600 and sticky 01600 permission bits are now asserted immediately before and after attach. No permission skip, fallback, retry or normalization is added.",
+    "controls_sha256": "eb6547262c3bca0bc456d05fefa12807f1ff82b519963fb700d2c56bf37c3062",
+    "selected_tests_unchanged": 23,
+    "strengthened_fixture_execution": "Not executed in this investigation; parent owns the next primary run.",
+    "strict_controls_unchanged": 8
+  },
+  "initial_failure": {
+    "case": "setuid variant 3",
+    "cause": "Unexplained. Retained mode differs from requested mode; no observation identifies why or when it changed. Later successes do not explain this failure.",
+    "failure": "assertion failed: rejected; fixture lacked an actual-mode precondition",
+    "primary_summary": {
+      "failed": 1,
+      "filtered": 138,
+      "passed": 22
+    },
+    "requested_permission_bits": "0o4600",
+    "retained_file_sha256": "7d4c5c8894e016e772e9b7acab04d2b775ad4e7861d162ca5a48de7a7151a6a2",
+    "retained_st_mode": "0o100600",
+    "selected_test": "settings_pair::tests::attach_refuses_symlinks_hardlinks_nonregular_special_modes_and_oversize",
+    "source_sha256": "57a45367a56a0cb2fd18987d53f34db26e8b074543693d8499e95c1f81dc5ddc",
+    "test_log_sha256": "5969a8eec6278d4477495f4e598f8582abc06cf905fdcf6c6295b7b1b3a18d16"
+  },
+  "one_selected_repeat": {
+    "artifacts_sha256": {
+      "output.log": "9342a91b2690d4fa295ab71826f1f7820c309e441ed0f4ef0812048b71ee4a23",
+      "result.json": "66de35d0017bd9ba41bf804ac7053badc15ba11215e3ac5edc3c995d8370aa78"
+    },
+    "binary_sha256": "d21b65e036406dd5336148fa25c2c33df48743e944d1dab95082819ee98f3ed1",
+    "exit": 0,
+    "final_modes": [
+      {
+        "st_mode": "0o120755",
+        "variant": 0
+      },
+      {
+        "st_mode": "0o100600",
+        "variant": 1
+      },
+      {
+        "st_mode": "0o40755",
+        "variant": 2
+      },
+      {
+        "st_mode": "0o104600",
+        "variant": 3
+      },
+      {
+        "st_mode": "0o100600",
+        "variant": 4
+      },
+      {
+        "st_mode": "0o101600",
+        "variant": 5
+      }
+    ],
+    "limit": "External mode observations and final stat do not prove metadata at every internal instruction. The unchanged selected test passing does not explain the earlier failure.",
+    "runs": 1,
+    "summary": {
+      "failed": 0,
+      "filtered": 160,
+      "ignored": 0,
+      "measured": 0,
+      "passed": 1
+    },
+    "test": "settings_pair::tests::attach_refuses_symlinks_hardlinks_nonregular_special_modes_and_oversize"
+  },
+  "production": {
+    "sha256": "8246b4782c1108d8fc2821abe6f2ad01a57350b41b85d741859b60f9c10a9d2d",
+    "unchanged": true
+  },
+  "python_probe": {
+    "artifacts_sha256": {
+      "later-stat.json": "322e5d6a5353ccd9431078d3e34ab3395e26d64347ced646f83ec64dbfd89624",
+      "probe.py": "8662ad1337311430ab50650410356b7e40671a487d5693dd8ae079e250c28921",
+      "result.json": "bc085566287be9d4043fac9b29ee0f16d1256000eab8b5d3b8b63e474f1ed22b"
+    },
+    "cases": 8,
+    "later_observed_modes": [
+      {
+        "mode": "0o100600",
+        "name": "mode-0600"
+      },
+      {
+        "mode": "0o101600",
+        "name": "mode-1600"
+      },
+      {
+        "mode": "0o101700",
+        "name": "mode-1700"
+      },
+      {
+        "mode": "0o102600",
+        "name": "mode-2600"
+      },
+      {
+        "mode": "0o102700",
+        "name": "mode-2700"
+      },
+      {
+        "mode": "0o104600",
+        "name": "mode-4600"
+      },
+      {
+        "mode": "0o104700",
+        "name": "mode-4700"
+      },
+      {
+        "mode": "0o107600",
+        "name": "mode-7600"
+      }
+    ],
+    "method": "Synthetic file write, os.chmod, stat, read-open/read and stat under ignored experiment/private.",
+    "modes": [
+      {
+        "after_chmod": "0o600",
+        "after_read": "0o600",
+        "after_read_open": "0o600",
+        "bytes_unchanged": true,
+        "chmod_error": null,
+        "requested": "0o600",
+        "same_inode": true
+      },
+      {
+        "after_chmod": "0o1600",
+        "after_read": "0o1600",
+        "after_read_open": "0o1600",
+        "bytes_unchanged": true,
+        "chmod_error": null,
+        "requested": "0o1600",
+        "same_inode": true
+      },
+      {
+        "after_chmod": "0o2600",
+        "after_read": "0o2600",
+        "after_read_open": "0o2600",
+        "bytes_unchanged": true,
+        "chmod_error": null,
+        "requested": "0o2600",
+        "same_inode": true
+      },
+      {
+        "after_chmod": "0o4600",
+        "after_read": "0o4600",
+        "after_read_open": "0o4600",
+        "bytes_unchanged": true,
+        "chmod_error": null,
+        "requested": "0o4600",
+        "same_inode": true
+      },
+      {
+        "after_chmod": "0o1700",
+        "after_read": "0o1700",
+        "after_read_open": "0o1700",
+        "bytes_unchanged": true,
+        "chmod_error": null,
+        "requested": "0o1700",
+        "same_inode": true
+      },
+      {
+        "after_chmod": "0o2700",
+        "after_read": "0o2700",
+        "after_read_open": "0o2700",
+        "bytes_unchanged": true,
+        "chmod_error": null,
+        "requested": "0o2700",
+        "same_inode": true
+      },
+      {
+        "after_chmod": "0o4700",
+        "after_read": "0o4700",
+        "after_read_open": "0o4700",
+        "bytes_unchanged": true,
+        "chmod_error": null,
+        "requested": "0o4700",
+        "same_inode": true
+      },
+      {
+        "after_chmod": "0o7600",
+        "after_read": "0o7600",
+        "after_read_open": "0o7600",
+        "bytes_unchanged": true,
+        "chmod_error": null,
+        "requested": "0o7600",
+        "same_inode": true
+      }
+    ],
+    "runs": 1
+  },
+  "rust_probe": {
+    "artifacts_sha256": {
+      "compile.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "later-stat.json": "0d573922c21c7423994f38b822df89516281c5e9ca77edf345ef59c4f7938bb8",
+      "output.log": "2c1ef904fc79e1a46784f1e602db06c4ae1f2d8adefb331a8bd24805a182a682",
+      "probe": "bb129000f4ba6b7fe6ccec736a30ae4b1d8e22d2a98a2e59b6bb36c52c902890",
+      "probe.rs": "4da07508e6e3c3d2ad6533c4574dd3279c0281922c554c9560b6a75a9afe8632",
+      "result.json": "5ddb3b9901319df451503787f26abf304d0ab03f694cb34ffb869338de7db730"
+    },
+    "cases": 8,
+    "compile_exit": 0,
+    "later_observed_modes": [
+      {
+        "mode": "0o101600",
+        "name": "mode-1600"
+      },
+      {
+        "mode": "0o101700",
+        "name": "mode-1700"
+      },
+      {
+        "mode": "0o102600",
+        "name": "mode-2600"
+      },
+      {
+        "mode": "0o102700",
+        "name": "mode-2700"
+      },
+      {
+        "mode": "0o104600",
+        "name": "mode-4600"
+      },
+      {
+        "mode": "0o104700",
+        "name": "mode-4700"
+      },
+      {
+        "mode": "0o100600",
+        "name": "mode-600"
+      },
+      {
+        "mode": "0o107600",
+        "name": "mode-7600"
+      }
+    ],
+    "method": "Actual std::fs::write, PermissionsExt::from_mode, std::fs::set_permissions, metadata, read and metadata; no production component execution.",
+    "modes": [
+      {
+        "observed_after_read": "0o100600",
+        "observed_after_set_permissions": "0o100600",
+        "represented_permission_bits": "0o600",
+        "requested_permission_bits": "0o600"
+      },
+      {
+        "observed_after_read": "0o101600",
+        "observed_after_set_permissions": "0o101600",
+        "represented_permission_bits": "0o1600",
+        "requested_permission_bits": "0o1600"
+      },
+      {
+        "observed_after_read": "0o102600",
+        "observed_after_set_permissions": "0o102600",
+        "represented_permission_bits": "0o2600",
+        "requested_permission_bits": "0o2600"
+      },
+      {
+        "observed_after_read": "0o104600",
+        "observed_after_set_permissions": "0o104600",
+        "represented_permission_bits": "0o4600",
+        "requested_permission_bits": "0o4600"
+      },
+      {
+        "observed_after_read": "0o101700",
+        "observed_after_set_permissions": "0o101700",
+        "represented_permission_bits": "0o1700",
+        "requested_permission_bits": "0o1700"
+      },
+      {
+        "observed_after_read": "0o102700",
+        "observed_after_set_permissions": "0o102700",
+        "represented_permission_bits": "0o2700",
+        "requested_permission_bits": "0o2700"
+      },
+      {
+        "observed_after_read": "0o104700",
+        "observed_after_set_permissions": "0o104700",
+        "represented_permission_bits": "0o4700",
+        "requested_permission_bits": "0o4700"
+      },
+      {
+        "observed_after_read": "0o107600",
+        "observed_after_set_permissions": "0o107600",
+        "represented_permission_bits": "0o7600",
+        "requested_permission_bits": "0o7600"
+      }
+    ],
+    "run_exit": 0,
+    "runs": 1
+  },
+  "scope": "Sanitized permission-fixture investigation only. Two narrow synthetic filesystem probes and one authorized repeat of exactly one already-built test. No full-suite rerun, production change, live settings, emulator, device or endpoint access.",
+  "source_retention": "Probe.py and probe.rs were retained before execution. The single-test orchestration was submitted through the tool and was not separately saved as a standalone script; its exact command, binary hash, output and result were retained. No reconstructed script is represented as contemporaneous."
+}

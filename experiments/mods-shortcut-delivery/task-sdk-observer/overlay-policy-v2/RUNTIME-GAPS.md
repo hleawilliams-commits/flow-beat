@@ -343,3 +343,34 @@ renames as pair-atomic. Native-stop/process identity, durable custody,
 callback deadlines, final Drop/death, guarded restart, event ownership and
 dwell remain open. Runtime stays CLOSED. No endpoints, services, installation,
 physical access, core/package/catalog or old cleanup were touched.
+
+
+## Subsequent offline ACK-bound settings pair
+
+[emulator-settings-pair](../../../emulator-settings-pair/) supplies a separate
+inactive Unix primitive for the two explicit host file images. It retains exact
+original absence/bytes/mode/identity and the current transaction's per-file stages
+before operations. One retained directory fd, complete ACK identity/order and
+exclusive temporaries bind the operation; partial or uncertain replacements close
+new writes and remain inspectable after writer Drop. There is no rollback,
+implicit cleanup, native FRAME replay or restoration API. Current images are last
+individually verified values and can represent a partial pair.
+
+Production host compilation and 24 focused tests plus eight strict controls pass;
+138 inherited tests remain filtered. Actual synthetic filesystem cases cover
+partial replacements, drift, panic, custody and ordering. Two earlier fixture
+failures remain recorded. Final permission evidence separates actual sticky-mode
+attach from copied-metadata setuid/setgid policy; the observed launcher masking
+mechanism is still unproven. Fault hooks surround real calls but do not prove
+actual kernel partial-write/fsync failures or power-loss durability.
+
+The writer audit identifies independent preview, az-drive and boot/test paths.
+No common exclusion is established by this component. A directory fd/nofollow
+open/identity check is not a conditional rename, and two files are not an atomic
+pair. There is no ACK-derived mapper, real SettingsSink bridge, enforced external
+writer/reader exclusion, durable journal or recovery coordinator. Native baseline
+and scoped stop authority, both-file/overlay restoration, final Drop/death,
+guarded restart, callback limits and native dwell/event ownership remain open.
+Main and runtime dispatch remain inactive. All staging/product/runtime gates
+stay CLOSED; no endpoint, service, install, physical access, existing core/package/
+catalog, cleanup or snapshot was changed.

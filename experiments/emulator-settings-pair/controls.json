@@ -1,0 +1,81 @@
+{
+  "candidate_sha256": {
+    "az-preview/src/settings_pair.rs": "8246b4782c1108d8fc2821abe6f2ad01a57350b41b85d741859b60f9c10a9d2d",
+    "az-preview/src/settings_pair_tests.rs": "a7de908b8b654dc6821cc8d9bf6de028ceacbdba352e42ef78d58a99034a361f"
+  },
+  "controls": [
+    {
+      "assertion_anchor": "assert!(result.is_err());",
+      "assertion_file": "az-preview/src/settings_pair_tests.rs",
+      "file": "az-preview/src/settings_pair.rs",
+      "name": "completed-duplicate-rechecks-current",
+      "new": "                        let _ = &s;",
+      "old": "                        if let Err(e) = self.verify_current(&s) {\n                            return self.refuse(e);\n                        }",
+      "test": "settings_pair::tests::completed_duplicate_checks_current_files_before_cached_success"
+    },
+    {
+      "assertion_anchor": "assert!(rejected.is_err());",
+      "assertion_file": "az-preview/src/settings_pair_tests.rs",
+      "file": "az-preview/src/settings_pair.rs",
+      "name": "full-ack-sequence-required",
+      "new": "if ack.request.request_id() != s.next_request_id {",
+      "old": "if ack.request.request_id() != s.next_request_id || ack.kernel_sequence != next {",
+      "test": "settings_pair::tests::full_key_request_order_and_kernel_sequence_are_checked_before_writes"
+    },
+    {
+      "assertion_anchor": "assert!(pair.commit(next, images).is_err());",
+      "assertion_file": "az-preview/src/settings_pair_tests.rs",
+      "file": "az-preview/src/settings_pair.rs",
+      "name": "duplicate-targets-bound",
+      "new": "if ack != last.ack {",
+      "old": "if ack != last.ack || targets != last.targets {",
+      "test": "settings_pair::tests::altered_duplicate_payload_or_target_closes_without_replacement"
+    },
+    {
+      "assertion_anchor": "assert_eq!(mode(&case.path.join(\"mixer.state\")), 0o600);",
+      "assertion_file": "az-preview/src/settings_pair_tests.rs",
+      "file": "az-preview/src/settings_pair.rs",
+      "name": "per-file-mode-preserved",
+      "new": ".map(|_i| self.absent_mode)",
+      "old": ".map(|i| i.mode & 0o777)",
+      "test": "settings_pair::tests::present_pair_preserves_original_bytes_modes_and_verifies_both_replacements"
+    },
+    {
+      "assertion_anchor": "assert_eq!(case.read(&name), b\"external-collision\", \"collision must survive refused creation\");",
+      "assertion_file": "az-preview/src/settings_pair_tests.rs",
+      "file": "az-preview/src/settings_pair.rs",
+      "name": "temporary-create-is-exclusive",
+      "new": "libc::O_WRONLY | libc::O_CREAT | libc::O_NOFOLLOW | libc::O_CLOEXEC",
+      "old": "libc::O_WRONLY | libc::O_CREAT | libc::O_EXCL | libc::O_NOFOLLOW | libc::O_CLOEXEC",
+      "test": "settings_pair::tests::exclusive_temp_collision_is_retained_and_never_truncated_or_unlinked"
+    },
+    {
+      "assertion_anchor": "assert!(result.is_err());",
+      "assertion_file": "az-preview/src/settings_pair_tests.rs",
+      "file": "az-preview/src/settings_pair.rs",
+      "name": "replacement-readback-must-match",
+      "new": "if false && !target_matches(&observed, &ready, &bytes, mode) {",
+      "old": "if !target_matches(&observed, &ready, &bytes, mode) {",
+      "test": "settings_pair::tests::readback_drift_refuses_success_and_preserves_observed_external_file"
+    },
+    {
+      "assertion_anchor": "assert!(result.is_err());",
+      "assertion_file": "az-preview/src/settings_pair_tests.rs",
+      "file": "az-preview/src/settings_pair.rs",
+      "name": "final-pair-recheck-required",
+      "new": "        let _ = &e;\n        fault!(self, FaultPoint::AfterPairVerify);",
+      "old": "        self.verify_current(&e)?;\n        fault!(self, FaultPoint::AfterPairVerify);",
+      "test": "settings_pair::tests::final_pair_verification_rejects_drift_after_both_individual_readbacks"
+    },
+    {
+      "assertion_anchor": "assert!(after_closed.is_err());",
+      "assertion_file": "az-preview/src/settings_pair_tests.rs",
+      "file": "az-preview/src/settings_pair.rs",
+      "name": "terminal-component-stays-closed",
+      "new": "if false && s.terminal.is_some() {",
+      "old": "if s.terminal.is_some() {",
+      "test": "settings_pair::tests::old_ack_after_later_commit_is_not_a_cached_replay"
+    }
+  ],
+  "scope": "Eight actual-source compiling controls; each selected test must fail at its exact designated assertion. Only fresh private filesystem fixtures are used."
+}

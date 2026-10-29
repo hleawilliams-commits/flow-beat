@@ -1,0 +1,116 @@
+{
+  "differing_raw_hash_fields": [
+    "production_check_log_sha256",
+    "runs[0].compile_output_sha256",
+    "runs[0].test_output_sha256",
+    "runs[1].compile_output_sha256",
+    "runs[1].test_output_sha256",
+    "runs[2].compile_output_sha256",
+    "runs[2].test_output_sha256",
+    "runs[3].compile_output_sha256",
+    "runs[3].test_output_sha256",
+    "runs[4].compile_output_sha256",
+    "runs[4].test_output_sha256",
+    "runs[5].compile_output_sha256",
+    "runs[5].test_output_sha256",
+    "runs[6].compile_output_sha256",
+    "runs[6].test_output_sha256",
+    "runs[7].compile_output_sha256",
+    "runs[7].test_output_sha256",
+    "runs[8].compile_output_sha256",
+    "runs[8].test_output_sha256"
+  ],
+  "excluded_raw_hash_fields": [
+    "production_check_log_sha256",
+    "runs[0].compile_output_sha256",
+    "runs[0].test_output_sha256",
+    "runs[1].compile_output_sha256",
+    "runs[1].test_output_sha256",
+    "runs[2].compile_output_sha256",
+    "runs[2].test_output_sha256",
+    "runs[3].compile_output_sha256",
+    "runs[3].test_output_sha256",
+    "runs[4].compile_output_sha256",
+    "runs[4].test_output_sha256",
+    "runs[5].compile_output_sha256",
+    "runs[5].test_output_sha256",
+    "runs[6].compile_output_sha256",
+    "runs[6].test_output_sha256",
+    "runs[7].compile_output_sha256",
+    "runs[7].test_output_sha256",
+    "runs[8].compile_output_sha256",
+    "runs[8].test_output_sha256"
+  ],
+  "functional_equal": true,
+  "independent_artifact_audit": {
+    "base_comparison_sha256": "2c1bbbf3b6389d82a96113a080aca289c17a0aa6b107b5dd2a6a466588c5a243",
+    "candidate_files_per_run": 20,
+    "exact_control_panics_per_run": 8,
+    "receipt_sha256": "7f8477c10fbf9cd07f9ded034dabceff85b411546d7d2af07fc6835989f841c5",
+    "reconstructed_variants_per_run": 9,
+    "regular_fixture_files_per_run": 165,
+    "retained_setuid_setgid_files": 0,
+    "runner_inputs_per_run": 8,
+    "runs": 2,
+    "script_sha256": "5ecd608fca33f03184406c629672554ab4114b72e7a01c491eb642529c433dbc"
+  },
+  "independent_result_sha256": "3b93c53c5686e27d5028016a844717fc57f471323077bc40a5f400e26b1eb6ec",
+  "inherited_filtered": 138,
+  "limits": "No power-loss or real failed-syscall model, real setuid/setgid attach, writer exclusion, live settings, SettingsSink, mapper, restoration, native-stop or deployment proof.",
+  "positive_count": 24,
+  "primary_result_sha256": "7d27671d43767c86b0e5db85768d567fdc025dcef645785a6f7112d8828be6c0",
+  "root_complete_test_log_comparison": {
+    "all_nine_complete_test_logs_equal_after_explicit_normalization": true,
+    "audit_runs": 2,
+    "logs": [
+      {
+        "normalized_sha256": "fd36d1dae0bff84747d89b44f52703f9fd95e5e920ecc93d7d20d01ea05a09e9",
+        "variant": "candidate"
+      },
+      {
+        "normalized_sha256": "e137298f493b6457d2b5d99d0d007a4ae2a829d427a7226a801e6f48a83a1b5c",
+        "variant": "completed-duplicate-rechecks-current"
+      },
+      {
+        "normalized_sha256": "d8f374edc5b6bcc97651b68a1696dbd44da1cfd8652c44d075487f0b9b1847a8",
+        "variant": "full-ack-sequence-required"
+      },
+      {
+        "normalized_sha256": "05e1051f3d1b258860618a84058df00b80d6c4c1b782b33bbbf15dc2e796f8a0",
+        "variant": "duplicate-targets-bound"
+      },
+      {
+        "normalized_sha256": "a4b8477d3a39781f05bce6ddfaaba9d4f0a975be4421b98ff8e1e0702a64f6c6",
+        "variant": "per-file-mode-preserved"
+      },
+      {
+        "normalized_sha256": "c14053341f25bc52d54468945162d94319b8c1d959de3c187c2bac93a6bf3d8c",
+        "variant": "temporary-create-is-exclusive"
+      },
+      {
+        "normalized_sha256": "0ae9fb6214bb84ff3fac9fd3f55715ec2a5e6d4a44e658426f413375d5d665a6",
+        "variant": "replacement-readback-must-match"
+      },
+      {
+        "normalized_sha256": "afbb101e7b04692d8afac61a4f18a3d52ab4bac5c80bad739c445ff774335f49",
+        "variant": "final-pair-recheck-required"
+      },
+      {
+        "normalized_sha256": "5aa81ce65a85d1a90973168eb6f2a8484d440b696b0bf4cb62b8f4fb51c72efe",
+        "variant": "terminal-component-stays-closed"
+      }
+    ],
+    "normalizations": [
+      "exact private run root prefix",
+      "numeric panic thread ID",
+      "test summary elapsed seconds"
+    ],
+    "private_audit_receipt_sha256": "7f8477c10fbf9cd07f9ded034dabceff85b411546d7d2af07fc6835989f841c5",
+    "private_audit_script_sha256": "5ecd608fca33f03184406c629672554ab4114b72e7a01c491eb642529c433dbc",
+    "script_sha256": "319caf1bc3df788ade8c5b225c76fef5578dd198902a2eb422d12f8c3fd02483",
+    "source_retention": "Read-only comparison submitted through the tool; identical source retained afterward. No prior local-script retention is claimed."
+  },
+  "scope": "Independent fresh safe-fixture actual-crate run. Compare all source/compiler/inventory/function/outcome fields; exclude only exact raw log SHA fields, with no edits to source or test output.",
+  "strict_control_count": 8,
+  "whole_json_equal": false
+}

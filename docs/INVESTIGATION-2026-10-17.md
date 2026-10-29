@@ -725,3 +725,48 @@ open. All runtime, staging and product gates stay CLOSED. No emulator/device
 endpoint contact, install, service action, physical access, core/package/catalog
 change, old cleanup or snapshot restoration occurred. Unrelated deck-lights/
 work and all frozen parents are preserved.
+
+
+## October 29: ACK-bound host file-pair component (offline)
+
+The separate [settings-pair experiment](../experiments/emulator-settings-pair/)
+now retains both original host file images and per-file progress for explicit
+FrameAck and target-byte inputs. It accepts an explicit directory descriptor,
+uses only knob.ctr and mixer.state, and requires one exact baseline generation,
+next request ID and kernel sequence. It captures exact originals including
+absence/mode/identity; exclusive temporary creation, content/mode, file sync,
+armed rename, directory sync and readback each have distinct retained stages.
+A partial second-file update preserves the first result. Error, panic, drift or
+conflict blocks later writes without rollback, transaction retry or cleanup.
+An independent evidence handle keeps the same directory and journal after
+writer Drop; the last handle or process disappearing can still lose custody.
+
+Final production host compilation and 24 focused tests/eight exact-assertion
+controls pass, with independently matching functional results; all 138 inherited
+tests were compiled/listed and filtered.
+The actual Rust crate uses real filesystem operations in fresh private synthetic
+directories, with no application main, backend or emulator/device access.
+Two earlier full runs passed 22/23 but failed an invalid special-mode fixture;
+the strengthened failure occurred before attach. The same Rust permission probe
+preserves privilege bits under one launch context but masks `06000` under the root
+launcher, even with its inherited environment. The mechanism remains unproven.
+Final tests distinguish real sticky-mode attach rejection from copied-metadata
+setuid/setgid rejection. No privileged-file workaround, production-policy change,
+skipped assertion or runtime gate opening follows from the passing matrix.
+The failures, bounded probes, exact pins and independent review are retained.
+
+A source audit maps preview, az-drive and boot/test writer/deleter paths, their
+different formatting/order/error handling, and the preview's 51 analog offsets
+versus the historical 54 saved offsets. A future mapper must derive the intended
+persisted fields from the same ACK and preserve supported unrelated state;
+permissive legacy parsing is not adopted as proof. The new primitive accepts
+opaque bytes and does not implement SettingsSink or restoration. External writers
+and readers needing a consistent pair must be excluded; nofollow/identity checks
+are not conditional inode replacement, and two renames are not pair-atomic.
+Native adapter/FFI composition, authoritative original baseline and stopped
+process identity, durable custody, actual both-file restoration and guarded
+restart remain open. Boundary fault hooks do not simulate kernel partial-write
+errors or power loss. All runtime, stems staging and release gates stay CLOSED.
+No services, endpoint contact, installation, physical action, core/package/catalog
+change, old cleanup or snapshot restoration occurred. Frozen parents, original
+emulator checkout and unrelated deck-lights/ work remain preserved.
