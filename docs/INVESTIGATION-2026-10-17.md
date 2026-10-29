@@ -809,3 +809,48 @@ runtime, stems staging, native ownership, USB and release gates remain CLOSED.
 No endpoint, service, installation, physical access, core/package/catalog change,
 old cleanup or snapshot restoration occurred. Frozen parents and unrelated
 deck-lights/ work are preserved.
+
+
+## October 29: retained ACK settings callback (offline)
+
+The separate [settings-sink experiment](../experiments/emulator-settings-sink/)
+now implements the actual preview SettingsSink using the frozen strict mapper
+and retained file-pair engine. Construction binds one explicit baseline, fixed
+selector/TIME policy and the writer's own evidence handle. Each accepted callback
+retains the full ACK and last verified source image before mapping, then the full
+target plan before file operations. Errors, duplicates and interrupted phases
+close later writes without replay, repair, rollback or implicit cleanup.
+
+Production host compilation, 22 focused tests and 14 strict compiling controls
+pass with an independent fresh reproduction. All 189 inherited tests remain
+compiled/listed and filtered; 211 total names are pinned. The 24-file candidate
+changes only an inactive Unix module declaration among parent files. The build
+has 91 inactive-code warnings. The first preparation invocation failed before
+candidate creation because a redirect substring matched both a quoted anchor
+and its assignment; the exact-line repair and original inputs are preserved.
+The runner verifies captured compilation bytes and requires the final panic
+to identify the designated assertion, excluding earlier caught-panic text.
+
+Actual route/producer/worker fixtures use synthetic backend receipts and real
+isolated host files. They preserve mapping refusal after a known native commit,
+partial replacements, independent evidence during blocked callbacks, panic gaps,
+poison and joined worker custody. Bridge completion is distinct from producer
+callback completion; snapshots copy separate journals and are not coherent or
+fresh filesystem observations. A pair may be committed while bridge/producer
+completion remains armed. No replay or recovery permission follows.
+
+Two counterexamples remain explicit: a constructor/backend baseline mismatch
+and rearming a newer route epoch after callback error can commit a native FRAME
+before this bridge refuses its callback. Its permanent closure therefore does
+not enforce permanent native admission closure. The next owner composition must
+establish baseline correspondence and prevent failed-route rearming before
+submission. This checkpoint creates no live backend or factory.
+
+Enforceable external writer/reader exclusion, native acquisition/FFI and receipt
+authority, authoritative originals/stopped-process identity, callback deadlines,
+native dwell, both-file/overlay restoration, durable custody, final Drop/death
+and guarded restart remain unresolved. Main and runtime dispatch stay inactive;
+all stems staging, native ownership, USB and release gates remain CLOSED.
+No endpoint, service, installation, physical access, core/package/catalog change,
+old cleanup or snapshot restoration occurred. Frozen parents and unrelated
+deck-lights/ work remain preserved.

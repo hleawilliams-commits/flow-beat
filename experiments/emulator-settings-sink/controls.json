@@ -1,0 +1,144 @@
+{
+  "candidate_sha256": {
+    "az-preview/src/settings_sink.rs": "9aac3208f2439cac6d81a107c358989d16b268655a2982194d0d9d9b0f6f0fef",
+    "az-preview/src/settings_sink_tests.rs": "914584d6368026fda0913c0e0bffc88ed8685dc13a7dea1e397f7575eadb7231"
+  },
+  "controls": [
+    {
+      "assertion_anchor": "assert_eq!(first_attempt.ack, first_ack);",
+      "assertion_file": "az-preview/src/settings_sink_tests.rs",
+      "file": "az-preview/src/settings_sink.rs",
+      "name": "full-ack",
+      "new": "                ack: FrameAck { kernel_sequence: ack.kernel_sequence.wrapping_add(1), ..ack },\n                source_mixer: source_mixer.clone(),",
+      "old": "                ack,\n                source_mixer: source_mixer.clone(),",
+      "test": "settings_sink::tests::queued_frames_persist_each_exact_ack_and_use_last_verified_mixer_image"
+    },
+    {
+      "assertion_anchor": "assert_eq!(attempt.source_mixer, first_state.pair.current.mixer);",
+      "assertion_file": "az-preview/src/settings_sink_tests.rs",
+      "file": "az-preview/src/settings_sink.rs",
+      "name": "last-verified-image",
+      "new": "let source_mixer = pair.original.mixer;",
+      "old": "let source_mixer = pair.current.mixer;",
+      "test": "settings_sink::tests::queued_frames_persist_each_exact_ack_and_use_last_verified_mixer_image"
+    },
+    {
+      "assertion_anchor": "assert_eq!(attempt.targets, Some(targets(*accepted.request.frame(), ALL, true)));",
+      "assertion_file": "az-preview/src/settings_sink_tests.rs",
+      "file": "az-preview/src/settings_sink.rs",
+      "name": "retained-target-plan",
+      "new": "attempt.targets = None;",
+      "old": "attempt.targets = Some(targets.clone());",
+      "test": "settings_sink::tests::fixed_optional_selection_maps_only_the_ack_and_retains_full_transient_bytes"
+    },
+    {
+      "assertion_anchor": "assert_eq!(attempt.targets, Some(targets(*accepted.request.frame(), ALL, true)));",
+      "assertion_file": "az-preview/src/settings_sink_tests.rs",
+      "file": "az-preview/src/settings_sink.rs",
+      "name": "fixed-selection",
+      "new": "settings_mapper::map(ack, saved, Selection { selector: false, fx_time: false })",
+      "old": "settings_mapper::map(ack, saved, journal.selection)",
+      "test": "settings_sink::tests::fixed_optional_selection_maps_only_the_ack_and_retains_full_transient_bytes"
+    },
+    {
+      "assertion_anchor": "assert_eq!(sink.persist(later), Err(SinkError::Closed));",
+      "assertion_file": "az-preview/src/settings_sink_tests.rs",
+      "file": "az-preview/src/settings_sink.rs",
+      "name": "terminal-admission",
+      "new": "if false && journal.terminal.is_some() {",
+      "old": "if journal.terminal.is_some() {",
+      "test": "settings_sink::tests::refusal_after_success_preserves_last_plan_and_first_refusal_independently"
+    },
+    {
+      "assertion_anchor": "assert_eq!(sink.persist(wrong), Err(expected.clone()));",
+      "assertion_file": "az-preview/src/settings_sink_tests.rs",
+      "file": "az-preview/src/settings_sink.rs",
+      "name": "fixed-key",
+      "new": "if false && ack.request.key() != journal.baseline.key {",
+      "old": "if ack.request.key() != journal.baseline.key {",
+      "test": "settings_sink::tests::every_key_component_and_sequence_order_are_checked_before_plan_or_io"
+    },
+    {
+      "assertion_anchor": "assert_eq!(sink.persist(duplicate), Err(SinkError::DuplicateOrStale));",
+      "assertion_file": "az-preview/src/settings_sink_tests.rs",
+      "file": "az-preview/src/settings_sink.rs",
+      "name": "duplicate-refusal",
+      "new": "if false && ack.request.request_id() < journal.next_request_id {",
+      "old": "if ack.request.request_id() < journal.next_request_id {",
+      "test": "settings_sink::tests::exact_and_changed_duplicate_are_terminal_without_any_pair_operation"
+    },
+    {
+      "assertion_anchor": "assert_eq!(sink.persist(first), Err(SinkError::Interrupted));",
+      "assertion_file": "az-preview/src/settings_sink_tests.rs",
+      "file": "az-preview/src/settings_sink.rs",
+      "name": "armed-refusal",
+      "new": "if false && journal\n            .last_accepted_attempt",
+      "old": "if journal\n            .last_accepted_attempt",
+      "test": "settings_sink::tests::interrupted_mapping_and_plan_are_retained_and_refuse_later_attempts"
+    },
+    {
+      "assertion_anchor": "assert_eq!(state.journal.first_refusal, Some(Refusal { ack: skipped, error: SinkError::OutOfOrder }));",
+      "assertion_file": "az-preview/src/settings_sink_tests.rs",
+      "file": "az-preview/src/settings_sink.rs",
+      "name": "first-refusal",
+      "new": "if true {",
+      "old": "if value.first_refusal.is_none() {",
+      "test": "settings_sink::tests::refusal_after_success_preserves_last_plan_and_first_refusal_independently"
+    },
+    {
+      "assertion_anchor": "assert_eq!(evidence.snapshot().journal.kernel_sequence, accepted.kernel_sequence);",
+      "assertion_file": "az-preview/src/settings_sink_tests.rs",
+      "file": "az-preview/src/settings_sink.rs",
+      "name": "successful-sequence",
+      "new": "value.kernel_sequence = ack.kernel_sequence - 1;",
+      "old": "value.kernel_sequence = ack.kernel_sequence;",
+      "test": "settings_sink::tests::fixed_optional_selection_maps_only_the_ack_and_retains_full_transient_bytes"
+    },
+    {
+      "assertion_anchor": "assert_eq!(state.journal.terminal, Some(SinkError::Overflow));",
+      "assertion_file": "az-preview/src/settings_sink_tests.rs",
+      "file": "az-preview/src/settings_sink.rs",
+      "name": "capacity-closure",
+      "new": "if false {",
+      "old": "if value.next_request_id == u64::MAX || value.kernel_sequence == u64::MAX {",
+      "test": "settings_sink::tests::final_sequence_capacity_commit_succeeds_before_future_callbacks_are_closed"
+    },
+    {
+      "assertion_anchor": "assert_eq!(attempt.phase, AttemptPhase::PairArmed);",
+      "assertion_file": "az-preview/src/settings_sink_tests.rs",
+      "edits": [
+        {
+          "file": "az-preview/src/settings_sink.rs",
+          "new": "",
+          "old": "        hook!(self, HookPoint::AfterPairReturn);\n"
+        },
+        {
+          "file": "az-preview/src/settings_sink.rs",
+          "new": "                hook!(self, HookPoint::AfterPairReturn);\n                Ok(receipt)\n            }",
+          "old": "                Ok(receipt)\n            }"
+        }
+      ],
+      "name": "pair-return-gap",
+      "test": "settings_sink::tests::panic_after_pair_return_does_not_invent_bridge_or_callback_completion"
+    },
+    {
+      "assertion_anchor": "assert_eq!(snapshot.is_ok(), true, \"snapshot must complete before the callback is released\");",
+      "assertion_file": "az-preview/src/settings_sink_tests.rs",
+      "file": "az-preview/src/settings_sink.rs",
+      "name": "inspection-without-lock",
+      "new": "        {\n            let held = self.evidence.journal.lock().unwrap();\n            hook!(self, HookPoint::AfterMappingIntent);\n            drop(held);\n        }",
+      "old": "        hook!(self, HookPoint::AfterMappingIntent);",
+      "test": "settings_sink::tests::evidence_snapshot_completes_while_callback_is_blocked_without_journal_lock"
+    },
+    {
+      "assertion_anchor": "assert_eq!(state.journal.poisoned, true);",
+      "assertion_file": "az-preview/src/settings_sink_tests.rs",
+      "file": "az-preview/src/settings_sink.rs",
+      "name": "poison-visible",
+      "new": "value.poisoned = false;",
+      "old": "value.poisoned = true;",
+      "test": "settings_sink::tests::poisoned_bridge_journal_is_diagnostic_only_and_never_touches_pair"
+    }
+  ],
+  "scope": "Fourteen compiling actual bridge controls. Exact final assertion diagnostic required; inherited tests are compiled/listed and filtered."
+}

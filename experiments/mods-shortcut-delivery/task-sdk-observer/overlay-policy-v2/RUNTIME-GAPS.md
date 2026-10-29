@@ -394,3 +394,33 @@ validated callback with mapper/pair evidence and retain failures without native
 FRAME replay. The external exclusion, baseline/stop identity, durable custody,
 both-file/overlay recovery, final Drop/death and guarded-restart requirements
 above remain unresolved. No endpoint/device access or gate opening occurred.
+
+
+## Subsequent offline retained settings callback
+
+[emulator-settings-sink](../../../emulator-settings-sink/) connects the actual
+SettingsSink to the unchanged mapper and pair writer, with one fixed baseline/
+selection and internally paired evidence custody. It retains full ACK/source
+before mapping, full targets before pair operations, typed failures and armed
+panic phases. The first refusal and last accepted plan remain separate. Exact
+duplicates are refused before I/O; no native FRAME replay or file repair follows.
+
+Production compilation, 22 new tests and 14 strict controls pass with independent
+reproduction; 189 inherited tests remain filtered. Actual route/producer/worker
+types use synthetic backend values and fresh private host files. The initial
+preparation-anchor failure is retained. A known pair commit with missing bridge/
+producer completion stays ambiguous; snapshots are separate diagnostic copies.
+
+The frozen route can adopt a newer epoch after settings failure, allowing another
+native FRAME before the closed bridge refuses its callback. A mismatched
+constructor/backend baseline likewise refuses too late. Both counterexamples
+are tested. Next enforce baseline correspondence and failed-route admission
+closure in an owned construction path before native submission. Callback closure
+alone is not that native fence.
+
+External writer/reader exclusion, authoritative originals/stop identity, real
+backend/FFI, durable custody, actual both-file/overlay restoration, final Drop/
+death, guarded restart and native event ownership/dwell remain unresolved.
+Main and all runtime/staging/product gates remain CLOSED. No endpoints, services,
+installation, physical device, existing packages/cores/catalog, cleanup or
+snapshot restoration were changed.

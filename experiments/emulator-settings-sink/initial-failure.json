@@ -1,0 +1,19 @@
+{
+  "failed_condition": "assert raw.count(anchor) == 1",
+  "observed_substring_count": 2,
+  "original_inputs_sha256": {
+    "candidate-pins.json": "0202b355ce270188c346cbdaefeadaa6c16cc28c9c75b09c4264aaeed2a83ad6",
+    "controls.json": "92c243039a062131b42a649b9dd6ffc527f083c9f6deccae0ef121b940cfac3a",
+    "parent-inputs.json": "cddec947d52855bc80d168dfd61530298396a84b8e737854fcbbe84b3efcd69d",
+    "prepare-candidate.py": "153b3ec7456062d75074fddcdbb4cf328c180f0c9f378308bc70d90576829caa",
+    "run-tests.py": "4dc001ba2719c04ce58ae1e98235b0ac7b32928df224e1f9ee3ca1f8157952aa",
+    "settings_sink.rs": "9aac3208f2439cac6d81a107c358989d16b268655a2982194d0d9d9b0f6f0fef",
+    "settings_sink_tests.rs": "914584d6368026fda0913c0e0bffc88ed8685dc13a7dea1e397f7575eadb7231",
+    "test-inventory.json": "09d3488545bc78637e961048162486b7aa5959cd40f942ad207da0ad44a62fda"
+  },
+  "process_exit": 1,
+  "reason": "The frozen mapper contains the redirect substring both as its child anchor string and as an actual assignment. No candidate, production build, tests or final result was created.",
+  "repair": "Match the exact indented assignment line including newline in the successor preparer. No frozen parent, production source, fixture predicate or runner criterion changes.",
+  "stage": "preparation-before-parent-invocation",
+  "status": "failed"
+}
