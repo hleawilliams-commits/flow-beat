@@ -1,0 +1,1547 @@
+{
+  "broker_core": {
+    "combined_sha256": "4bfd81f15e656db6633c938556b013fdb55f27499960e6e26ceed8fd3cf3a2c3",
+    "excluded_start": "int mb_create(",
+    "prefix_bytes": 4936,
+    "prefix_sha256": "e82af72a6c30f3255aae3c700912c97f30ec1485838f53dddb42445b2b3a7db0",
+    "source": "emulator-broker-restore/broker.c",
+    "suffix_bytes": 7117,
+    "suffix_sha256": "668167090cb6b2924e842014057c1b37c1fbfdfd2898c701e2a519d2d3434559",
+    "suffix_start": "int mb_adopt("
+  },
+  "compiler": "Apple clang version 16.0.0 (clang-1600.0.26.6)\nTarget: arm64-apple-darwin25.2.0\nThread model: posix\nInstalledDir: /Library/Developer/CommandLineTools/usr/bin\n",
+  "compiles": [
+    {
+      "exit_code": 0,
+      "file": "wire.c",
+      "mode": "plain",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "571fedc58c29766aafeab53ae2b7a9cff232bbc7df56ade0d4e4253514d97726",
+      "variant": "candidate"
+    },
+    {
+      "exit_code": 0,
+      "file": "guest_dispatch.c",
+      "mode": "plain",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "bcfb879233f006116e2fd937a3a32fe4006e7c77217490e24c51a13a10bebb61",
+      "variant": "candidate"
+    },
+    {
+      "exit_code": 0,
+      "file": "broker_owner.c",
+      "mode": "plain",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "198442097c635774c6b8c70a6bd6688f937430b238cf7b0a3066faa27cef015f",
+      "variant": "candidate"
+    },
+    {
+      "exit_code": 0,
+      "file": "test-broker-owner.c",
+      "mode": "plain",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "aa95225ee761a6158cfac1c114065f454e41b94ef8d0343dcafccd3f8110d036",
+      "variant": "candidate"
+    },
+    {
+      "exit_code": 0,
+      "file": "sync.c",
+      "mode": "plain",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "b847a22d9d19ce7ab9ab952522f1d5b1e99d1e195043b972804b099ecbd3b351",
+      "variant": "production-sync"
+    },
+    {
+      "exit_code": 0,
+      "file": "production-smoke.c",
+      "mode": "plain",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "9c39b6dfda0fd2f2bd2b963be49ba73c537c5b44fd3ee0af528bb57e1bcace37",
+      "variant": "production-sync"
+    },
+    {
+      "exit_code": 0,
+      "file": "broker_owner.c",
+      "mode": "plain",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "e1793acf1e337fa6d6b09bce20fe9f92b547f02a03ed31b77e7b33c89f7a6976",
+      "variant": "initialization-arm-is-late"
+    },
+    {
+      "exit_code": 0,
+      "file": "broker_owner.c",
+      "mode": "plain",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "82cb2b7dea1a0611c8fd5ea44c5c88d91555e43a9c3c15e41fff0a899f260b26",
+      "variant": "discard-settype-error"
+    },
+    {
+      "exit_code": 0,
+      "file": "broker_owner.c",
+      "mode": "plain",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "bca716fffc96315683e79fcfc85402e83eb11841e4a13f81e0bcd06e3a206b83",
+      "variant": "validation-arm-is-late"
+    },
+    {
+      "exit_code": 0,
+      "file": "broker_owner.c",
+      "mode": "plain",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "9e3b256d7f114903091e1926fba942b1b8008baddfae7a7016c244875514ca7d",
+      "variant": "discard-returned-state"
+    },
+    {
+      "exit_code": 0,
+      "file": "broker_owner.c",
+      "mode": "plain",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "96068b716acd6c1b11a3f9f133d2ab2338bd070f57b9fb7108dfecb84e9ae223",
+      "variant": "mask-final-snapshot-byte"
+    },
+    {
+      "exit_code": 0,
+      "file": "broker_owner.c",
+      "mode": "plain",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "597522dead78349acc92b4b752f0bcd6eaba6f7543e82cb6bc14262b51a3234c",
+      "variant": "export-before-ready"
+    },
+    {
+      "exit_code": 0,
+      "file": "broker_owner.c",
+      "mode": "plain",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "63d15b174980a5eeb1ef1609a6b3d30062e05eb18fb970fe4c944e652528c061",
+      "variant": "omit-destroy-arm-publication"
+    },
+    {
+      "exit_code": 0,
+      "file": "broker_owner.c",
+      "mode": "plain",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "f82ef83efe20cc0c70d227a36c611e137b09e8681032e0e6d5c991d74f735a98",
+      "variant": "discard-destroy-returned-flag"
+    },
+    {
+      "exit_code": 0,
+      "file": "broker_owner.c",
+      "mode": "plain",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "c89c22a513bca852d2b07b28218527603fe4345506c38a5a1b4cac5e76276cd6",
+      "variant": "replace-first-disposal-report"
+    },
+    {
+      "exit_code": 0,
+      "file": "broker_owner.c",
+      "mode": "plain",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "59ab6e57dbd44bced96aeb7d3196b56d8480988a39dbf52811212f7dd3d073e4",
+      "variant": "omit-owner-slot-consume"
+    },
+    {
+      "exit_code": 0,
+      "file": "broker_owner.c",
+      "mode": "plain",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "8ebdbeaea708d9a547df0067affd4ee95295c5f4e0b0afe2b220b21effcf4315",
+      "variant": "omit-permanent-disposal-closure"
+    },
+    {
+      "exit_code": 0,
+      "file": "broker_owner.c",
+      "mode": "plain",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "69841b039f135539fb8249bc7973edaf59af999a355f8c5f8e8389069bc149ff",
+      "variant": "validate-ready-again"
+    },
+    {
+      "exit_code": 0,
+      "file": "wire.c",
+      "mode": "asan-ubsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "571fedc58c29766aafeab53ae2b7a9cff232bbc7df56ade0d4e4253514d97726",
+      "variant": "candidate"
+    },
+    {
+      "exit_code": 0,
+      "file": "guest_dispatch.c",
+      "mode": "asan-ubsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "bcfb879233f006116e2fd937a3a32fe4006e7c77217490e24c51a13a10bebb61",
+      "variant": "candidate"
+    },
+    {
+      "exit_code": 0,
+      "file": "broker_owner.c",
+      "mode": "asan-ubsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "198442097c635774c6b8c70a6bd6688f937430b238cf7b0a3066faa27cef015f",
+      "variant": "candidate"
+    },
+    {
+      "exit_code": 0,
+      "file": "test-broker-owner.c",
+      "mode": "asan-ubsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "aa95225ee761a6158cfac1c114065f454e41b94ef8d0343dcafccd3f8110d036",
+      "variant": "candidate"
+    },
+    {
+      "exit_code": 0,
+      "file": "sync.c",
+      "mode": "asan-ubsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "b847a22d9d19ce7ab9ab952522f1d5b1e99d1e195043b972804b099ecbd3b351",
+      "variant": "production-sync"
+    },
+    {
+      "exit_code": 0,
+      "file": "production-smoke.c",
+      "mode": "asan-ubsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "9c39b6dfda0fd2f2bd2b963be49ba73c537c5b44fd3ee0af528bb57e1bcace37",
+      "variant": "production-sync"
+    },
+    {
+      "exit_code": 0,
+      "file": "broker_owner.c",
+      "mode": "asan-ubsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "e1793acf1e337fa6d6b09bce20fe9f92b547f02a03ed31b77e7b33c89f7a6976",
+      "variant": "initialization-arm-is-late"
+    },
+    {
+      "exit_code": 0,
+      "file": "broker_owner.c",
+      "mode": "asan-ubsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "82cb2b7dea1a0611c8fd5ea44c5c88d91555e43a9c3c15e41fff0a899f260b26",
+      "variant": "discard-settype-error"
+    },
+    {
+      "exit_code": 0,
+      "file": "broker_owner.c",
+      "mode": "asan-ubsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "bca716fffc96315683e79fcfc85402e83eb11841e4a13f81e0bcd06e3a206b83",
+      "variant": "validation-arm-is-late"
+    },
+    {
+      "exit_code": 0,
+      "file": "broker_owner.c",
+      "mode": "asan-ubsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "9e3b256d7f114903091e1926fba942b1b8008baddfae7a7016c244875514ca7d",
+      "variant": "discard-returned-state"
+    },
+    {
+      "exit_code": 0,
+      "file": "broker_owner.c",
+      "mode": "asan-ubsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "96068b716acd6c1b11a3f9f133d2ab2338bd070f57b9fb7108dfecb84e9ae223",
+      "variant": "mask-final-snapshot-byte"
+    },
+    {
+      "exit_code": 0,
+      "file": "broker_owner.c",
+      "mode": "asan-ubsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "597522dead78349acc92b4b752f0bcd6eaba6f7543e82cb6bc14262b51a3234c",
+      "variant": "export-before-ready"
+    },
+    {
+      "exit_code": 0,
+      "file": "broker_owner.c",
+      "mode": "asan-ubsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "63d15b174980a5eeb1ef1609a6b3d30062e05eb18fb970fe4c944e652528c061",
+      "variant": "omit-destroy-arm-publication"
+    },
+    {
+      "exit_code": 0,
+      "file": "broker_owner.c",
+      "mode": "asan-ubsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "f82ef83efe20cc0c70d227a36c611e137b09e8681032e0e6d5c991d74f735a98",
+      "variant": "discard-destroy-returned-flag"
+    },
+    {
+      "exit_code": 0,
+      "file": "broker_owner.c",
+      "mode": "asan-ubsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "c89c22a513bca852d2b07b28218527603fe4345506c38a5a1b4cac5e76276cd6",
+      "variant": "replace-first-disposal-report"
+    },
+    {
+      "exit_code": 0,
+      "file": "broker_owner.c",
+      "mode": "asan-ubsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "59ab6e57dbd44bced96aeb7d3196b56d8480988a39dbf52811212f7dd3d073e4",
+      "variant": "omit-owner-slot-consume"
+    },
+    {
+      "exit_code": 0,
+      "file": "broker_owner.c",
+      "mode": "asan-ubsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "8ebdbeaea708d9a547df0067affd4ee95295c5f4e0b0afe2b220b21effcf4315",
+      "variant": "omit-permanent-disposal-closure"
+    },
+    {
+      "exit_code": 0,
+      "file": "broker_owner.c",
+      "mode": "asan-ubsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "69841b039f135539fb8249bc7973edaf59af999a355f8c5f8e8389069bc149ff",
+      "variant": "validate-ready-again"
+    },
+    {
+      "exit_code": 0,
+      "file": "wire.c",
+      "mode": "tsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "571fedc58c29766aafeab53ae2b7a9cff232bbc7df56ade0d4e4253514d97726",
+      "variant": "candidate"
+    },
+    {
+      "exit_code": 0,
+      "file": "guest_dispatch.c",
+      "mode": "tsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "bcfb879233f006116e2fd937a3a32fe4006e7c77217490e24c51a13a10bebb61",
+      "variant": "candidate"
+    },
+    {
+      "exit_code": 0,
+      "file": "broker_owner.c",
+      "mode": "tsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "198442097c635774c6b8c70a6bd6688f937430b238cf7b0a3066faa27cef015f",
+      "variant": "candidate"
+    },
+    {
+      "exit_code": 0,
+      "file": "test-broker-owner.c",
+      "mode": "tsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "aa95225ee761a6158cfac1c114065f454e41b94ef8d0343dcafccd3f8110d036",
+      "variant": "candidate"
+    },
+    {
+      "exit_code": 0,
+      "file": "sync.c",
+      "mode": "tsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "b847a22d9d19ce7ab9ab952522f1d5b1e99d1e195043b972804b099ecbd3b351",
+      "variant": "production-sync"
+    },
+    {
+      "exit_code": 0,
+      "file": "production-smoke.c",
+      "mode": "tsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "9c39b6dfda0fd2f2bd2b963be49ba73c537c5b44fd3ee0af528bb57e1bcace37",
+      "variant": "production-sync"
+    },
+    {
+      "exit_code": 0,
+      "file": "broker_owner.c",
+      "mode": "tsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "e1793acf1e337fa6d6b09bce20fe9f92b547f02a03ed31b77e7b33c89f7a6976",
+      "variant": "initialization-arm-is-late"
+    },
+    {
+      "exit_code": 0,
+      "file": "broker_owner.c",
+      "mode": "tsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "82cb2b7dea1a0611c8fd5ea44c5c88d91555e43a9c3c15e41fff0a899f260b26",
+      "variant": "discard-settype-error"
+    },
+    {
+      "exit_code": 0,
+      "file": "broker_owner.c",
+      "mode": "tsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "bca716fffc96315683e79fcfc85402e83eb11841e4a13f81e0bcd06e3a206b83",
+      "variant": "validation-arm-is-late"
+    },
+    {
+      "exit_code": 0,
+      "file": "broker_owner.c",
+      "mode": "tsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "9e3b256d7f114903091e1926fba942b1b8008baddfae7a7016c244875514ca7d",
+      "variant": "discard-returned-state"
+    },
+    {
+      "exit_code": 0,
+      "file": "broker_owner.c",
+      "mode": "tsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "96068b716acd6c1b11a3f9f133d2ab2338bd070f57b9fb7108dfecb84e9ae223",
+      "variant": "mask-final-snapshot-byte"
+    },
+    {
+      "exit_code": 0,
+      "file": "broker_owner.c",
+      "mode": "tsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "597522dead78349acc92b4b752f0bcd6eaba6f7543e82cb6bc14262b51a3234c",
+      "variant": "export-before-ready"
+    },
+    {
+      "exit_code": 0,
+      "file": "broker_owner.c",
+      "mode": "tsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "63d15b174980a5eeb1ef1609a6b3d30062e05eb18fb970fe4c944e652528c061",
+      "variant": "omit-destroy-arm-publication"
+    },
+    {
+      "exit_code": 0,
+      "file": "broker_owner.c",
+      "mode": "tsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "f82ef83efe20cc0c70d227a36c611e137b09e8681032e0e6d5c991d74f735a98",
+      "variant": "discard-destroy-returned-flag"
+    },
+    {
+      "exit_code": 0,
+      "file": "broker_owner.c",
+      "mode": "tsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "c89c22a513bca852d2b07b28218527603fe4345506c38a5a1b4cac5e76276cd6",
+      "variant": "replace-first-disposal-report"
+    },
+    {
+      "exit_code": 0,
+      "file": "broker_owner.c",
+      "mode": "tsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "59ab6e57dbd44bced96aeb7d3196b56d8480988a39dbf52811212f7dd3d073e4",
+      "variant": "omit-owner-slot-consume"
+    },
+    {
+      "exit_code": 0,
+      "file": "broker_owner.c",
+      "mode": "tsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "8ebdbeaea708d9a547df0067affd4ee95295c5f4e0b0afe2b220b21effcf4315",
+      "variant": "omit-permanent-disposal-closure"
+    },
+    {
+      "exit_code": 0,
+      "file": "broker_owner.c",
+      "mode": "tsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_sha256": "69841b039f135539fb8249bc7973edaf59af999a355f8c5f8e8389069bc149ff",
+      "variant": "validate-ready-again"
+    }
+  ],
+  "frozen_inputs_sha256": {
+    "emulator-broker-restore/broker.c": "f331713ac361f265b37c9e781f85400691195915076ca2604aeb2311fd12cbb7",
+    "emulator-broker-restore/broker.h": "04efb6b1eb22e56798837ae8ff72514a5a513da2d616215d77d4c8f6a85033c8",
+    "emulator-broker-wire/guest_dispatch.c": "bcfb879233f006116e2fd937a3a32fe4006e7c77217490e24c51a13a10bebb61",
+    "emulator-broker-wire/guest_dispatch.h": "8cd24ee69b4a931b8833396f7e5010f0df6f208aa2cdbca6c16413d50a3264ca",
+    "emulator-broker-wire/wire.c": "571fedc58c29766aafeab53ae2b7a9cff232bbc7df56ade0d4e4253514d97726",
+    "emulator-broker-wire/wire.h": "4730000196142ec3b234a92bf08f23f212505cb1828782ae97643968d6e82176"
+  },
+  "generated_sha256": {
+    "broker-core.inc": "4bfd81f15e656db6633c938556b013fdb55f27499960e6e26ceed8fd3cf3a2c3",
+    "broker.h": "04efb6b1eb22e56798837ae8ff72514a5a513da2d616215d77d4c8f6a85033c8",
+    "broker_owner.c": "198442097c635774c6b8c70a6bd6688f937430b238cf7b0a3066faa27cef015f",
+    "broker_owner.h": "1ff440110c6b584c648df965550632db8fafe5f05d9f3f71c513953b5a2f728c",
+    "guest_dispatch.c": "bcfb879233f006116e2fd937a3a32fe4006e7c77217490e24c51a13a10bebb61",
+    "guest_dispatch.h": "8cd24ee69b4a931b8833396f7e5010f0df6f208aa2cdbca6c16413d50a3264ca",
+    "sync.c": "b847a22d9d19ce7ab9ab952522f1d5b1e99d1e195043b972804b099ecbd3b351",
+    "sync.h": "c6a64f224d20495c231f6e6d737d6acf64c3f568d368f90893ae77a932071511",
+    "wire.c": "571fedc58c29766aafeab53ae2b7a9cff232bbc7df56ade0d4e4253514d97726",
+    "wire.h": "4730000196142ec3b234a92bf08f23f212505cb1828782ae97643968d6e82176"
+  },
+  "links": [
+    {
+      "exit_code": 0,
+      "mode": "plain",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "production-sync"
+    },
+    {
+      "exit_code": 0,
+      "mode": "plain",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "candidate"
+    },
+    {
+      "exit_code": 0,
+      "mode": "plain",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "initialization-arm-is-late"
+    },
+    {
+      "exit_code": 0,
+      "mode": "plain",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "discard-settype-error"
+    },
+    {
+      "exit_code": 0,
+      "mode": "plain",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "validation-arm-is-late"
+    },
+    {
+      "exit_code": 0,
+      "mode": "plain",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "discard-returned-state"
+    },
+    {
+      "exit_code": 0,
+      "mode": "plain",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "mask-final-snapshot-byte"
+    },
+    {
+      "exit_code": 0,
+      "mode": "plain",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "export-before-ready"
+    },
+    {
+      "exit_code": 0,
+      "mode": "plain",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "omit-destroy-arm-publication"
+    },
+    {
+      "exit_code": 0,
+      "mode": "plain",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "discard-destroy-returned-flag"
+    },
+    {
+      "exit_code": 0,
+      "mode": "plain",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "replace-first-disposal-report"
+    },
+    {
+      "exit_code": 0,
+      "mode": "plain",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "omit-owner-slot-consume"
+    },
+    {
+      "exit_code": 0,
+      "mode": "plain",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "omit-permanent-disposal-closure"
+    },
+    {
+      "exit_code": 0,
+      "mode": "plain",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "validate-ready-again"
+    },
+    {
+      "exit_code": 0,
+      "mode": "asan-ubsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "production-sync"
+    },
+    {
+      "exit_code": 0,
+      "mode": "asan-ubsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "candidate"
+    },
+    {
+      "exit_code": 0,
+      "mode": "asan-ubsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "initialization-arm-is-late"
+    },
+    {
+      "exit_code": 0,
+      "mode": "asan-ubsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "discard-settype-error"
+    },
+    {
+      "exit_code": 0,
+      "mode": "asan-ubsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "validation-arm-is-late"
+    },
+    {
+      "exit_code": 0,
+      "mode": "asan-ubsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "discard-returned-state"
+    },
+    {
+      "exit_code": 0,
+      "mode": "asan-ubsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "mask-final-snapshot-byte"
+    },
+    {
+      "exit_code": 0,
+      "mode": "asan-ubsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "export-before-ready"
+    },
+    {
+      "exit_code": 0,
+      "mode": "asan-ubsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "omit-destroy-arm-publication"
+    },
+    {
+      "exit_code": 0,
+      "mode": "asan-ubsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "discard-destroy-returned-flag"
+    },
+    {
+      "exit_code": 0,
+      "mode": "asan-ubsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "replace-first-disposal-report"
+    },
+    {
+      "exit_code": 0,
+      "mode": "asan-ubsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "omit-owner-slot-consume"
+    },
+    {
+      "exit_code": 0,
+      "mode": "asan-ubsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "omit-permanent-disposal-closure"
+    },
+    {
+      "exit_code": 0,
+      "mode": "asan-ubsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "validate-ready-again"
+    },
+    {
+      "exit_code": 0,
+      "mode": "tsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "production-sync"
+    },
+    {
+      "exit_code": 0,
+      "mode": "tsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "candidate"
+    },
+    {
+      "exit_code": 0,
+      "mode": "tsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "initialization-arm-is-late"
+    },
+    {
+      "exit_code": 0,
+      "mode": "tsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "discard-settype-error"
+    },
+    {
+      "exit_code": 0,
+      "mode": "tsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "validation-arm-is-late"
+    },
+    {
+      "exit_code": 0,
+      "mode": "tsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "discard-returned-state"
+    },
+    {
+      "exit_code": 0,
+      "mode": "tsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "mask-final-snapshot-byte"
+    },
+    {
+      "exit_code": 0,
+      "mode": "tsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "export-before-ready"
+    },
+    {
+      "exit_code": 0,
+      "mode": "tsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "omit-destroy-arm-publication"
+    },
+    {
+      "exit_code": 0,
+      "mode": "tsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "discard-destroy-returned-flag"
+    },
+    {
+      "exit_code": 0,
+      "mode": "tsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "replace-first-disposal-report"
+    },
+    {
+      "exit_code": 0,
+      "mode": "tsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "omit-owner-slot-consume"
+    },
+    {
+      "exit_code": 0,
+      "mode": "tsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "omit-permanent-disposal-closure"
+    },
+    {
+      "exit_code": 0,
+      "mode": "tsan",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "variant": "validate-ready-again"
+    }
+  ],
+  "runs": [
+    {
+      "case": "real-sync",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "plain",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "production-sync"
+    },
+    {
+      "case": "allocated",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "plain",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "attr-failure",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "plain",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "dispatcher",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "plain",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "disposal-history",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "plain",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "dispose-empty",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "plain",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "dispose-init-failure",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "plain",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "dispose-ready",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "plain",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "init-arm",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "plain",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "init-failures",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "plain",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "mismatch",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "plain",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "mutex-failure",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "plain",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "ready-repeat",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "plain",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "validate-arm",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "plain",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "validation-failure",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "plain",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "init-arm",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "broker_owner_is_published_and_each_initialization_call_is_armed"
+      ],
+      "mode": "plain",
+      "output_sha256": "6a271acf94ccc086d010050b7f305cf6f6a49bc83f5bd5904bda1c5aefa294ba",
+      "variant": "initialization-arm-is-late"
+    },
+    {
+      "case": "init-failures",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "broker_owner_initialization_failure_retains_prior_resources_without_cleanup"
+      ],
+      "mode": "plain",
+      "output_sha256": "5158874ff44f31998d93f4865367e78e956527b8da10567ec7df52a8e4de5e77",
+      "variant": "discard-settype-error"
+    },
+    {
+      "case": "validate-arm",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "broker_owner_retains_storage_and_armed_journal_before_snapshot_callback"
+      ],
+      "mode": "plain",
+      "output_sha256": "9f0b61f6c0575d4c74c5dff29e30adef0568a476edcb897b89a6f76db0e2c713",
+      "variant": "validation-arm-is-late"
+    },
+    {
+      "case": "validation-failure",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "broker_owner_snapshot_error_keeps_partial_or_complete_returned_state"
+      ],
+      "mode": "plain",
+      "output_sha256": "9cd7b54a9f2637725f8e7d4e0d223e5d36fe8dd77db012a4742312dc84fda746",
+      "variant": "discard-returned-state"
+    },
+    {
+      "case": "mismatch",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "broker_owner_requires_full_matching_state_before_export"
+      ],
+      "mode": "plain",
+      "output_sha256": "24c70a0c48b19e82348e730000c13988685a98bd7245c07ce359488e7c1edc76",
+      "variant": "mask-final-snapshot-byte"
+    },
+    {
+      "case": "allocated",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "broker_owner_copies_borrowed_plan_before_any_sync_or_backend_call"
+      ],
+      "mode": "plain",
+      "output_sha256": "42667bf982aa299d3e5837b1fde582af5e493c78dd5ddd7318e6651272c49074",
+      "variant": "export-before-ready"
+    },
+    {
+      "case": "dispose-ready",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "broker_owner_disposal_arms_mutex_then_attribute_before_consuming_owner"
+      ],
+      "mode": "plain",
+      "output_sha256": "3078595a78560e56e50ebc10c5bfba089018d17cabb2f5edfed25f5229581842",
+      "variant": "omit-destroy-arm-publication"
+    },
+    {
+      "case": "mutex-failure",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "broker_owner_failed_mutex_destroy_retains_every_resource_and_closes_exports"
+      ],
+      "mode": "plain",
+      "output_sha256": "1081101ff5753ecc6ef7336ea9741de15026bf42438c6425b644602e3efc2cab",
+      "variant": "discard-destroy-returned-flag"
+    },
+    {
+      "case": "disposal-history",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "broker_owner_explicit_disposal_retries_preserve_first_error_and_latest_report"
+      ],
+      "mode": "plain",
+      "output_sha256": "f3e440b33afbdc92fa4584ad24bf31c0a5366b1fc16a91e47b72b4a5ca56f104",
+      "variant": "replace-first-disposal-report"
+    },
+    {
+      "case": "dispose-ready",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "broker_owner_disposal_arms_mutex_then_attribute_before_consuming_owner"
+      ],
+      "mode": "plain",
+      "output_sha256": "3078595a78560e56e50ebc10c5bfba089018d17cabb2f5edfed25f5229581842",
+      "variant": "omit-owner-slot-consume"
+    },
+    {
+      "case": "mutex-failure",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "broker_owner_failed_mutex_destroy_retains_every_resource_and_closes_exports"
+      ],
+      "mode": "plain",
+      "output_sha256": "1081101ff5753ecc6ef7336ea9741de15026bf42438c6425b644602e3efc2cab",
+      "variant": "omit-permanent-disposal-closure"
+    },
+    {
+      "case": "ready-repeat",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "broker_owner_ready_export_and_repeats_do_not_revalidate_or_rewrite_evidence"
+      ],
+      "mode": "plain",
+      "output_sha256": "c5cd504da9de5e7398fe92bb73a4d6b103ee1b16807201388d33892d849e85c1",
+      "variant": "validate-ready-again"
+    },
+    {
+      "case": "real-sync",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "asan-ubsan",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "production-sync"
+    },
+    {
+      "case": "allocated",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "asan-ubsan",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "attr-failure",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "asan-ubsan",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "dispatcher",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "asan-ubsan",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "disposal-history",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "asan-ubsan",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "dispose-empty",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "asan-ubsan",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "dispose-init-failure",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "asan-ubsan",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "dispose-ready",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "asan-ubsan",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "init-arm",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "asan-ubsan",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "init-failures",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "asan-ubsan",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "mismatch",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "asan-ubsan",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "mutex-failure",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "asan-ubsan",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "ready-repeat",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "asan-ubsan",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "validate-arm",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "asan-ubsan",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "validation-failure",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "asan-ubsan",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "init-arm",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "broker_owner_is_published_and_each_initialization_call_is_armed"
+      ],
+      "mode": "asan-ubsan",
+      "output_sha256": "6a271acf94ccc086d010050b7f305cf6f6a49bc83f5bd5904bda1c5aefa294ba",
+      "variant": "initialization-arm-is-late"
+    },
+    {
+      "case": "init-failures",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "broker_owner_initialization_failure_retains_prior_resources_without_cleanup"
+      ],
+      "mode": "asan-ubsan",
+      "output_sha256": "5158874ff44f31998d93f4865367e78e956527b8da10567ec7df52a8e4de5e77",
+      "variant": "discard-settype-error"
+    },
+    {
+      "case": "validate-arm",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "broker_owner_retains_storage_and_armed_journal_before_snapshot_callback"
+      ],
+      "mode": "asan-ubsan",
+      "output_sha256": "9f0b61f6c0575d4c74c5dff29e30adef0568a476edcb897b89a6f76db0e2c713",
+      "variant": "validation-arm-is-late"
+    },
+    {
+      "case": "validation-failure",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "broker_owner_snapshot_error_keeps_partial_or_complete_returned_state"
+      ],
+      "mode": "asan-ubsan",
+      "output_sha256": "9cd7b54a9f2637725f8e7d4e0d223e5d36fe8dd77db012a4742312dc84fda746",
+      "variant": "discard-returned-state"
+    },
+    {
+      "case": "mismatch",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "broker_owner_requires_full_matching_state_before_export"
+      ],
+      "mode": "asan-ubsan",
+      "output_sha256": "24c70a0c48b19e82348e730000c13988685a98bd7245c07ce359488e7c1edc76",
+      "variant": "mask-final-snapshot-byte"
+    },
+    {
+      "case": "allocated",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "broker_owner_copies_borrowed_plan_before_any_sync_or_backend_call"
+      ],
+      "mode": "asan-ubsan",
+      "output_sha256": "42667bf982aa299d3e5837b1fde582af5e493c78dd5ddd7318e6651272c49074",
+      "variant": "export-before-ready"
+    },
+    {
+      "case": "dispose-ready",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "broker_owner_disposal_arms_mutex_then_attribute_before_consuming_owner"
+      ],
+      "mode": "asan-ubsan",
+      "output_sha256": "3078595a78560e56e50ebc10c5bfba089018d17cabb2f5edfed25f5229581842",
+      "variant": "omit-destroy-arm-publication"
+    },
+    {
+      "case": "mutex-failure",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "broker_owner_failed_mutex_destroy_retains_every_resource_and_closes_exports"
+      ],
+      "mode": "asan-ubsan",
+      "output_sha256": "1081101ff5753ecc6ef7336ea9741de15026bf42438c6425b644602e3efc2cab",
+      "variant": "discard-destroy-returned-flag"
+    },
+    {
+      "case": "disposal-history",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "broker_owner_explicit_disposal_retries_preserve_first_error_and_latest_report"
+      ],
+      "mode": "asan-ubsan",
+      "output_sha256": "f3e440b33afbdc92fa4584ad24bf31c0a5366b1fc16a91e47b72b4a5ca56f104",
+      "variant": "replace-first-disposal-report"
+    },
+    {
+      "case": "dispose-ready",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "broker_owner_disposal_arms_mutex_then_attribute_before_consuming_owner"
+      ],
+      "mode": "asan-ubsan",
+      "output_sha256": "3078595a78560e56e50ebc10c5bfba089018d17cabb2f5edfed25f5229581842",
+      "variant": "omit-owner-slot-consume"
+    },
+    {
+      "case": "mutex-failure",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "broker_owner_failed_mutex_destroy_retains_every_resource_and_closes_exports"
+      ],
+      "mode": "asan-ubsan",
+      "output_sha256": "1081101ff5753ecc6ef7336ea9741de15026bf42438c6425b644602e3efc2cab",
+      "variant": "omit-permanent-disposal-closure"
+    },
+    {
+      "case": "ready-repeat",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "broker_owner_ready_export_and_repeats_do_not_revalidate_or_rewrite_evidence"
+      ],
+      "mode": "asan-ubsan",
+      "output_sha256": "c5cd504da9de5e7398fe92bb73a4d6b103ee1b16807201388d33892d849e85c1",
+      "variant": "validate-ready-again"
+    },
+    {
+      "case": "real-sync",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "tsan",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "production-sync"
+    },
+    {
+      "case": "allocated",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "tsan",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "attr-failure",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "tsan",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "dispatcher",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "tsan",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "disposal-history",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "tsan",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "dispose-empty",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "tsan",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "dispose-init-failure",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "tsan",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "dispose-ready",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "tsan",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "init-arm",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "tsan",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "init-failures",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "tsan",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "mismatch",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "tsan",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "mutex-failure",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "tsan",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "ready-repeat",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "tsan",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "validate-arm",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "tsan",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "validation-failure",
+      "checks": 1,
+      "exit_code": 0,
+      "failures": [],
+      "mode": "tsan",
+      "output_sha256": "6ea7b27715f692b25ffbb7589945cd49ad686be4c9a596be865567499c9dea24",
+      "variant": "candidate"
+    },
+    {
+      "case": "init-arm",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "broker_owner_is_published_and_each_initialization_call_is_armed"
+      ],
+      "mode": "tsan",
+      "output_sha256": "6a271acf94ccc086d010050b7f305cf6f6a49bc83f5bd5904bda1c5aefa294ba",
+      "variant": "initialization-arm-is-late"
+    },
+    {
+      "case": "init-failures",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "broker_owner_initialization_failure_retains_prior_resources_without_cleanup"
+      ],
+      "mode": "tsan",
+      "output_sha256": "5158874ff44f31998d93f4865367e78e956527b8da10567ec7df52a8e4de5e77",
+      "variant": "discard-settype-error"
+    },
+    {
+      "case": "validate-arm",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "broker_owner_retains_storage_and_armed_journal_before_snapshot_callback"
+      ],
+      "mode": "tsan",
+      "output_sha256": "9f0b61f6c0575d4c74c5dff29e30adef0568a476edcb897b89a6f76db0e2c713",
+      "variant": "validation-arm-is-late"
+    },
+    {
+      "case": "validation-failure",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "broker_owner_snapshot_error_keeps_partial_or_complete_returned_state"
+      ],
+      "mode": "tsan",
+      "output_sha256": "9cd7b54a9f2637725f8e7d4e0d223e5d36fe8dd77db012a4742312dc84fda746",
+      "variant": "discard-returned-state"
+    },
+    {
+      "case": "mismatch",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "broker_owner_requires_full_matching_state_before_export"
+      ],
+      "mode": "tsan",
+      "output_sha256": "24c70a0c48b19e82348e730000c13988685a98bd7245c07ce359488e7c1edc76",
+      "variant": "mask-final-snapshot-byte"
+    },
+    {
+      "case": "allocated",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "broker_owner_copies_borrowed_plan_before_any_sync_or_backend_call"
+      ],
+      "mode": "tsan",
+      "output_sha256": "42667bf982aa299d3e5837b1fde582af5e493c78dd5ddd7318e6651272c49074",
+      "variant": "export-before-ready"
+    },
+    {
+      "case": "dispose-ready",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "broker_owner_disposal_arms_mutex_then_attribute_before_consuming_owner"
+      ],
+      "mode": "tsan",
+      "output_sha256": "3078595a78560e56e50ebc10c5bfba089018d17cabb2f5edfed25f5229581842",
+      "variant": "omit-destroy-arm-publication"
+    },
+    {
+      "case": "mutex-failure",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "broker_owner_failed_mutex_destroy_retains_every_resource_and_closes_exports"
+      ],
+      "mode": "tsan",
+      "output_sha256": "1081101ff5753ecc6ef7336ea9741de15026bf42438c6425b644602e3efc2cab",
+      "variant": "discard-destroy-returned-flag"
+    },
+    {
+      "case": "disposal-history",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "broker_owner_explicit_disposal_retries_preserve_first_error_and_latest_report"
+      ],
+      "mode": "tsan",
+      "output_sha256": "f3e440b33afbdc92fa4584ad24bf31c0a5366b1fc16a91e47b72b4a5ca56f104",
+      "variant": "replace-first-disposal-report"
+    },
+    {
+      "case": "dispose-ready",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "broker_owner_disposal_arms_mutex_then_attribute_before_consuming_owner"
+      ],
+      "mode": "tsan",
+      "output_sha256": "3078595a78560e56e50ebc10c5bfba089018d17cabb2f5edfed25f5229581842",
+      "variant": "omit-owner-slot-consume"
+    },
+    {
+      "case": "mutex-failure",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "broker_owner_failed_mutex_destroy_retains_every_resource_and_closes_exports"
+      ],
+      "mode": "tsan",
+      "output_sha256": "1081101ff5753ecc6ef7336ea9741de15026bf42438c6425b644602e3efc2cab",
+      "variant": "omit-permanent-disposal-closure"
+    },
+    {
+      "case": "ready-repeat",
+      "checks": 1,
+      "exit_code": 1,
+      "failures": [
+        "broker_owner_ready_export_and_repeats_do_not_revalidate_or_rewrite_evidence"
+      ],
+      "mode": "tsan",
+      "output_sha256": "c5cd504da9de5e7398fe92bb73a4d6b103ee1b16807201388d33892d849e85c1",
+      "variant": "validate-ready-again"
+    }
+  ],
+  "sanitizer_preload_environment_removed": [
+    "ASAN_OPTIONS",
+    "TSAN_OPTIONS",
+    "UBSAN_OPTIONS",
+    "LSAN_OPTIONS",
+    "DYLD_INSERT_LIBRARIES",
+    "DYLD_LIBRARY_PATH",
+    "LD_PRELOAD",
+    "LD_LIBRARY_PATH"
+  ],
+  "scope": "Offline retained broker lifecycle with exact frozen operation bodies and C dispatcher; real pthread success paths, explicit scripted synchronization refusals and synthetic backend state only. Production pthread wrapper smoke is linked separately. No native adapter/CLAIM graph, descriptor custody, endpoint, install, runtime permission, checked alias exclusion, concurrency proof or recovery authority.",
+  "source_sha256": {
+    "broker_owner.c": "198442097c635774c6b8c70a6bd6688f937430b238cf7b0a3066faa27cef015f",
+    "broker_owner.h": "1ff440110c6b584c648df965550632db8fafe5f05d9f3f71c513953b5a2f728c",
+    "controls.json": "19543c64a04df98246b330f9347da6f014d4d99ec31c8aee486b03f51567f5cd",
+    "parent-inputs.json": "4420fdac643bb63e1e9d2bdbc2acd4d175611ec886e6310cc8c382901e9d5b0b",
+    "production-smoke.c": "9c39b6dfda0fd2f2bd2b963be49ba73c537c5b44fd3ee0af528bb57e1bcace37",
+    "run-tests.py": "e6e064d90a54a5c1ae43facd5d149d4f3418d36666811079ca7c1f64b7a3c63b",
+    "sync.c": "b847a22d9d19ce7ab9ab952522f1d5b1e99d1e195043b972804b099ecbd3b351",
+    "sync.h": "c6a64f224d20495c231f6e6d737d6acf64c3f568d368f90893ae77a932071511",
+    "test-broker-owner.c": "aa95225ee761a6158cfac1c114065f454e41b94ef8d0343dcafccd3f8110d036",
+    "test-inventory.json": "cdf6e773b68d2b3386960aba71dbf9f8545c2fd268e409f2394487d95a0a456e"
+  }
+}

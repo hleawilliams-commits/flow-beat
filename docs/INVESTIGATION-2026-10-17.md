@@ -1100,3 +1100,47 @@ official core, package, catalog or prior cleanup changed. Frozen parents,
 previous failures and unrelated deck-lights/ remain preserved. Stems staging,
 USB completion/cancellation, observer runtime, lifetime/race, recovery,
 audio-quality, physical-timing and community-release gates stay CLOSED.
+
+
+## October 29: retained broker initialization and observable disposal
+
+The separate [retained broker](../experiments/emulator-retained-broker/) publishes an owner before synchronization
+setup or backend validation. One-shot initialization records each armed call
+and raw result; failure keeps all previously initialized objects. One-shot
+validation keeps returned semantic state and raw callback result before full
+equality checks. Only Ready exports the embedded core. The exact frozen broker
+helper/operation bodies and C dispatcher remain unchanged; old create/destroy
+bodies are excluded from this successor.
+
+The first explicit disposal permanently closes setup/export and invalidates all
+earlier borrows. Failed mutex destruction retains all remaining resources;
+failed attr destruction after mutex success keeps owner/attr and permits only
+inspection or independently justified later disposal. First/latest reports and
+raw results survive. Later explicit attempts skip released resources. This
+observable result depends on external serialization, quiescence and uncertainty
+accounting; it cannot establish them or authorize graph teardown/recovery.
+
+Fourteen new fixture selectors plus a separate production pthread-wrapper smoke,
+and 12 strict compiling controls, pass per plain, ASan/UBSan and TSan mode in
+two fresh matrices. Whole results are byte-identical; retained-file audit checks
+source generation, variants, inventories and all logs without rerunning tests.
+Both matrices and audit passed first invocation. No parent suite was repeated,
+and no Linux ARM64 build is claimed.
+
+Successful synchronization paths execute pthread. Refusal scripts occur before
+pthread calls and do not demonstrate real busy-thread destruction or contention.
+Backend values remain synthetic. Same-thread inspection proves no concurrent
+custody; disposal overflow is source-reviewed only. Fixture cleanup uses known
+quiescence and gives no runtime retry permission.
+
+Next compose original/CLAIM, retained adapter, broker and dispatcher while keeping
+every acquired child on failed construction. That full graph and owned transport/
+supervisor binding remain unimplemented. Backend context is still borrowed;
+raw aliases, native originals/stop authority, deadlines, complete overlay/both-file
+recovery and durable/process-death custody remain open.
+
+No endpoint, emulator start/restart, physical control, install, core, settings,
+package, catalog or prior cleanup changed. Frozen source, historical failures
+and unrelated deck-lights/ remain preserved. Main/runtime wiring stays inactive;
+stems staging, USB completion/cancellation, observer, lifetime/race, recovery,
+audio-quality, physical-timing and community-release gates remain CLOSED.

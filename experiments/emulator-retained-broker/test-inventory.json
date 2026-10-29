@@ -1,0 +1,22 @@
+{
+  "cases": {
+    "allocated": 1,
+    "attr-failure": 1,
+    "dispatcher": 1,
+    "disposal-history": 1,
+    "dispose-empty": 1,
+    "dispose-init-failure": 1,
+    "dispose-ready": 1,
+    "init-arm": 1,
+    "init-failures": 1,
+    "mismatch": 1,
+    "mutex-failure": 1,
+    "ready-repeat": 1,
+    "validate-arm": 1,
+    "validation-failure": 1
+  },
+  "production_cases": {
+    "real-sync": 1
+  },
+  "scope": "14 new lifecycle/dispatcher fixture selectors and one separate production pthread-wrapper smoke per mode; one final compound check each. Strict controls alter only new lifecycle source and must fail their exact functional oracle after safe modeled cleanup; setup, compiler or sanitizer failures do not satisfy controls."
+}

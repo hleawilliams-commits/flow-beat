@@ -1,0 +1,122 @@
+[
+  {
+    "case": "init-arm",
+    "expected_failures": [
+      "broker_owner_is_published_and_each_initialization_call_is_armed"
+    ],
+    "file": "broker_owner.c",
+    "name": "initialization-arm-is-late",
+    "new": "owner->evidence.phase = MBRO_ALLOCATED;",
+    "old": "owner->evidence.phase = MBRO_ATTR_INIT_ARMED;"
+  },
+  {
+    "case": "init-failures",
+    "expected_failures": [
+      "broker_owner_initialization_failure_retains_prior_resources_without_cleanup"
+    ],
+    "file": "broker_owner.c",
+    "name": "discard-settype-error",
+    "new": "owner->evidence.attr_settype_result = 0;",
+    "old": "owner->evidence.attr_settype_result = result;"
+  },
+  {
+    "case": "validate-arm",
+    "expected_failures": [
+      "broker_owner_retains_storage_and_armed_journal_before_snapshot_callback"
+    ],
+    "file": "broker_owner.c",
+    "name": "validation-arm-is-late",
+    "new": "owner->evidence.phase = MBRO_INITIALIZED;",
+    "old": "owner->evidence.phase = MBRO_VALIDATE_ARMED;"
+  },
+  {
+    "case": "validation-failure",
+    "expected_failures": [
+      "broker_owner_snapshot_error_keeps_partial_or_complete_returned_state"
+    ],
+    "file": "broker_owner.c",
+    "name": "discard-returned-state",
+    "new": "memset(&owner->evidence.validation_state, 0, sizeof(owner->evidence.validation_state));",
+    "old": "owner->evidence.validation_state = actual;"
+  },
+  {
+    "case": "mismatch",
+    "expected_failures": [
+      "broker_owner_requires_full_matching_state_before_export"
+    ],
+    "file": "broker_owner.c",
+    "name": "mask-final-snapshot-byte",
+    "new": "    actual.frame[MB_FRAME_BYTES - 1] = owner->evidence.expected.frame[MB_FRAME_BYTES - 1];\n    if (!state_valid(&actual) ||\n        !state_equal(&actual, &owner->evidence.expected))",
+    "old": "    if (!state_valid(&actual) ||\n        !state_equal(&actual, &owner->evidence.expected))"
+  },
+  {
+    "case": "allocated",
+    "expected_failures": [
+      "broker_owner_copies_borrowed_plan_before_any_sync_or_backend_call"
+    ],
+    "file": "broker_owner.c",
+    "name": "export-before-ready",
+    "new": "/* control: export before readiness */",
+    "old": "if (owner->evidence.phase != MBRO_READY || !owner->evidence.mutex_held)\n        return MB_ERR_STATE;"
+  },
+  {
+    "case": "dispose-ready",
+    "expected_failures": [
+      "broker_owner_disposal_arms_mutex_then_attribute_before_consuming_owner"
+    ],
+    "file": "broker_owner.c",
+    "name": "omit-destroy-arm-publication",
+    "new": "report->mutex_attempted = 1;\n        report->mutex_result = mbrs_mutex_destroy(&owner->core.mutex);",
+    "old": "report->mutex_attempted = 1;\n        mbro_record_disposal(owner, report);\n        report->mutex_result = mbrs_mutex_destroy(&owner->core.mutex);"
+  },
+  {
+    "case": "mutex-failure",
+    "expected_failures": [
+      "broker_owner_failed_mutex_destroy_retains_every_resource_and_closes_exports"
+    ],
+    "file": "broker_owner.c",
+    "name": "discard-destroy-returned-flag",
+    "new": "report->mutex_returned = 0;",
+    "old": "report->mutex_returned = 1;"
+  },
+  {
+    "case": "disposal-history",
+    "expected_failures": [
+      "broker_owner_explicit_disposal_retries_preserve_first_error_and_latest_report"
+    ],
+    "file": "broker_owner.c",
+    "name": "replace-first-disposal-report",
+    "new": "if (report->attempt_number >= 1) {",
+    "old": "if (report->attempt_number == 1) {"
+  },
+  {
+    "case": "dispose-ready",
+    "expected_failures": [
+      "broker_owner_disposal_arms_mutex_then_attribute_before_consuming_owner"
+    ],
+    "file": "broker_owner.c",
+    "name": "omit-owner-slot-consume",
+    "new": "/* control: leave caller slot */\n    free(owner);",
+    "old": "*slot = NULL;\n    free(owner);"
+  },
+  {
+    "case": "mutex-failure",
+    "expected_failures": [
+      "broker_owner_failed_mutex_destroy_retains_every_resource_and_closes_exports"
+    ],
+    "file": "broker_owner.c",
+    "name": "omit-permanent-disposal-closure",
+    "new": "owner->evidence.disposal_started = 0;",
+    "old": "owner->evidence.disposal_started = 1;"
+  },
+  {
+    "case": "ready-repeat",
+    "expected_failures": [
+      "broker_owner_ready_export_and_repeats_do_not_revalidate_or_rewrite_evidence"
+    ],
+    "file": "broker_owner.c",
+    "name": "validate-ready-again",
+    "new": "    if ((owner->evidence.phase != MBRO_INITIALIZED && owner->evidence.phase != MBRO_READY) ||\n        !owner->evidence.mutex_held)\n        return MB_ERR_STATE;",
+    "old": "    if (owner->evidence.validation_attempted ||\n        owner->evidence.phase != MBRO_INITIALIZED || !owner->evidence.mutex_held)\n        return MB_ERR_STATE;"
+  }
+]
