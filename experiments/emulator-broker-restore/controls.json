@@ -1,0 +1,114 @@
+[
+  {
+    "case": "mode",
+    "label": "restore_mode_prediction_matches_kernel",
+    "name": "force-injected-prediction",
+    "new": "receipt->expected_after.flags = MB_REQUIRED_FLAGS;",
+    "old": "receipt->expected_after.flags = MB_OWNED_FLAGS | (injected ? MB_INJECTED_FLAG : 0u);"
+  },
+  {
+    "case": "cached",
+    "label": "restore_duplicate_cache_precedes_stale_source_and_exhaustion",
+    "name": "skip-retained-restore-cache",
+    "new": "if (0 && b->state.last.operation == MB_OP_RESTORE &&",
+    "old": "if (b->state.last.operation == MB_OP_RESTORE &&"
+  },
+  {
+    "case": "conflict-mode",
+    "label": "restore_duplicate_compares_explicit_mode",
+    "name": "cache-ignores-mode",
+    "new": "memcmp(a->frame, b->frame, MB_FRAME_BYTES) == 0;",
+    "old": "a->injected == b->injected && memcmp(a->frame, b->frame, MB_FRAME_BYTES) == 0;"
+  },
+  {
+    "case": "conflict-source",
+    "label": "restore_duplicate_compares_full_source",
+    "name": "cache-ignores-source",
+    "new": "a->restore_id == b->restore_id &&",
+    "old": "a->restore_id == b->restore_id && state_equal(&a->source, &b->source) &&"
+  },
+  {
+    "case": "conflict-tail",
+    "label": "restore_duplicate_compares_full_target",
+    "name": "cache-ignores-target-tail",
+    "new": "a->injected == b->injected && memcmp(a->frame, b->frame, MB_FRAME_BYTES - 1) == 0;",
+    "old": "a->injected == b->injected && memcmp(a->frame, b->frame, MB_FRAME_BYTES) == 0;"
+  },
+  {
+    "case": "lower",
+    "label": "restore_lower_state_is_not_cancellation",
+    "name": "any-valid-state-resolves-unknown",
+    "new": "state_valid(&actual)",
+    "old": "state_valid(&actual) && state_equal(&actual, &b->state.last.expected_after)"
+  },
+  {
+    "case": "adopt-idle",
+    "label": "idle_owned_state_cannot_open_producer",
+    "name": "allow-idle-producer",
+    "new": "if (0) return finish(b, MB_ERR_STATE);",
+    "old": "if (b->state.expected.flags != MB_REQUIRED_FLAGS) return finish(b, MB_ERR_STATE);"
+  },
+  {
+    "case": "history",
+    "label": "restore_identity_not_reset_by_rotate",
+    "name": "reset-restore-id-on-generation",
+    "new": "b->state.next_request_id = 1;\n        b->state.next_restore_id = 1;\n        memset",
+    "old": "b->state.next_request_id = 1;\n        memset"
+  },
+  {
+    "case": "unresolved",
+    "label": "restore_cannot_replace_unresolved_frame",
+    "name": "restore-replaces-unknown",
+    "new": "return finish(b, MB_ERR_INVALID);\n    if (0) return finish(b, MB_ERR_BUSY);",
+    "old": "return finish(b, MB_ERR_INVALID);\n    if (b->state.unresolved) return finish(b, MB_ERR_BUSY);"
+  },
+  {
+    "case": "snapshot",
+    "label": "restore_requires_fresh_exact_source_snapshot",
+    "name": "restore-skips-fresh-state",
+    "new": "rc = MB_OK; if (rc) return finish(b, rc);\n    build_command(b, MB_OP_RESTORE",
+    "old": "rc = check_snapshot(b); if (rc) return finish(b, rc);\n    build_command(b, MB_OP_RESTORE"
+  },
+  {
+    "case": "source",
+    "label": "restore_source_epoch_bound_before_backend",
+    "name": "restore-reauthors-stale-source",
+    "new": "if (0) return finish(b, MB_ERR_STALE);",
+    "old": "if (!state_equal(&copy.source, &b->state.expected)) return finish(b, MB_ERR_STALE);"
+  },
+  {
+    "case": "open",
+    "label": "restore_requires_explicit_closed_admission",
+    "name": "restore-bypasses-admission",
+    "new": "if (0) return finish(b, MB_ERR_CLOSED);\n    if (copy.restore_id",
+    "old": "if (b->state.admission_open) return finish(b, MB_ERR_CLOSED);\n    if (copy.restore_id"
+  },
+  {
+    "case": "grant",
+    "label": "restore_commit_revokes_grant_without_opening",
+    "name": "restore-retains-old-grant",
+    "new": "if (b->state.last.operation == MB_OP_ROTATE) {",
+    "old": "if (b->state.last.operation == MB_OP_ROTATE ||\n        b->state.last.operation == MB_OP_RESTORE) {"
+  },
+  {
+    "case": "alias",
+    "label": "restore_input_output_alias_copied_before_clear",
+    "name": "clear-before-copy-restore",
+    "new": "struct mb_restore_request copy = {0};\n    struct mb_receipt pending;\n    int rc;\n    if (out) memset(out, 0, sizeof(*out));\n    if (request) copy = *request;",
+    "old": "struct mb_restore_request copy = {0};\n    struct mb_receipt pending;\n    int rc;\n    if (request) copy = *request;\n    if (out) memset(out, 0, sizeof(*out));"
+  },
+  {
+    "case": "conflict-invalid-mode",
+    "label": "retained_identity_invalid_mode_conflict_closes",
+    "name": "invalid-mode-before-conflict",
+    "new": "if (!out || !request || !copy.restore_id || copy.injected > 1) return MB_ERR_INVALID;",
+    "old": "if (!out || !request || !copy.restore_id) return MB_ERR_INVALID;"
+  },
+  {
+    "case": "conflict-invalid-source",
+    "label": "retained_identity_invalid_source_conflict_closes",
+    "name": "invalid-source-before-conflict",
+    "new": "if (!out || !request || !copy.restore_id || !state_valid(&copy.source)) return MB_ERR_INVALID;",
+    "old": "if (!out || !request || !copy.restore_id) return MB_ERR_INVALID;"
+  }
+]

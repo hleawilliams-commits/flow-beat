@@ -1,0 +1,48 @@
+{
+  "candidate_checks_per_mode": 207,
+  "comparison_script_sha256": "b46d507e9e1d49b54b345e227b62bdc59d5aa71ab24e58cbf5118a90ea16eef9",
+  "complete_json_bytes_identical": true,
+  "excluded_fields": [],
+  "independent_result_sha256": "8afc621df2f38ccd74e0d0ee4c7a5f542fe30c01015a42174e6903ff5fc4c217",
+  "independently_reconstructed_artifacts_across_two_snapshots": {
+    "applied_patches": 6,
+    "fixture_compile_outputs": 102,
+    "frozen_inputs": 16,
+    "kernel_functions": 14,
+    "prepared_candidate_files": 8,
+    "source_files": 14,
+    "standalone_compile_outputs": 6,
+    "test_outputs": 102,
+    "uapi_shims": 4,
+    "variant_sources": 34
+  },
+  "manual_candidate_checks": {
+    "baseline": 28,
+    "capacity": 5,
+    "concurrency": 7,
+    "identity": 44,
+    "rejected": 17,
+    "reopened": 3,
+    "unknown": 87
+  },
+  "modes": [
+    "plain",
+    "asan-ubsan",
+    "tsan"
+  ],
+  "normalizations": [],
+  "primary_result_sha256": "8afc621df2f38ccd74e0d0ee4c7a5f542fe30c01015a42174e6903ff5fc4c217",
+  "result": "pass",
+  "scope": "Offline retained-source and result audit, without importing runner/extraction helpers or rerunning tests. Exact prepared kernel bytes, seven function bodies, declarations, inherited shim, all broker variants and raw output bytes checked. Manual assertion inventory confirmed by source review. Concurrent contender start flags do not prove arrival at the mutex. No native stop, lifetime, baseline authority, durable history, kernel installation or endpoint proof.",
+  "single_oracle_checks": 16,
+  "source_sha256": {
+    "broker.c": "f331713ac361f265b37c9e781f85400691195915076ca2604aeb2311fd12cbb7",
+    "broker.h": "04efb6b1eb22e56798837ae8ff72514a5a513da2d616215d77d4c8f6a85033c8",
+    "controls.json": "d8796a5d7f5c6c677531aa281b39450c575b53cc5598e0f10a13cbe6675ff1e7",
+    "parent-inputs.json": "8282264a5f758a2eac47bcc34ce12188c667d77444d0d16c4ba5230e9f6ffd65",
+    "run-tests.py": "d4355548f4003e844756a3c248b3e4f1afe8e3d1eaba1b2599a760d3a0360df2",
+    "test-broker.c": "30060a7700816b00f45d23794f3fd2c5d046d628fff77390e20fab08395c60d2",
+    "test-inventory.json": "e75d20edfd35153de8728e584d1e2cdbc471f160abf1cac30d08db032bf41885"
+  },
+  "strict_controls_per_mode": 16
+}

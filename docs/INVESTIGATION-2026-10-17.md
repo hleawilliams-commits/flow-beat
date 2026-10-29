@@ -627,3 +627,52 @@ remain open. Main supplies no owned backend and all runtime dispatch stays CLOSE
 No installation, emulator/device endpoint, service action, physical access,
 core/package/catalog change, old cleanup or snapshot restoration occurred.
 Preserve unrelated untracked work including deck-lights/ and all prior gates.
+
+## October 29: retained broker RESTORE accounting (offline)
+
+A separate [broker successor](../experiments/emulator-broker-restore/) now
+accounts for the kernel RESTORE primitive using a copied value request: an
+independent monotonic restore ID, complete expected source state, explicit
+injected/idle mode and all 152 target bytes. Closed admission, no unresolved
+command and a fresh exact source snapshot precede the single backend attempt.
+The exact request, kernel command and expected result are retained before
+submission. Local refusals consume no ID; attempted REJECTED and UNKNOWN
+operations do. FRAME/ROTATE never reset the restore-ID high-watermark.
+
+Exact last duplicates return historical receipts without queries or resends.
+Changed requests with that same ID close admission and preserve the valid
+receipt, including malformed source/mode conflicts. A source review caught
+the original malformed-input ordering before testing; dedicated strict
+controls now reproduce it. No assertions were weakened. After another
+operation replaces the last receipt, the older restore ID cannot be replayed.
+Successful or positively reconciled RESTORE clears the old grant, advances
+epoch/sequence state and stays closed. Idle flags23 are valid bookkeeping
+state but never producer-adoptable; FRAME/ROTATE explicitly predict flags31.
+A cached receipt after a separate fresh adoption changes no admission state
+and is not current recovery evidence.
+
+The focused fixture passes 207 assertions per plain, ASan/UBSan and TSan mode,
+with 16 strict controls per mode and clean standalone C compilation. It
+executes seven exact methods from the frozen kernel RESTORE candidate, with
+explicit test-only semantic/wire translation. Tests cover both modes, lost
+responses versus retained not-yet-delivered commands, full exact positive
+reconciliation, stale/malformed identity, raw CRC/tail bytes, capacity limits,
+input/output aliasing and selected synchronized concurrency schedules. The
+old passing broker/kernel suites were not repeated. The first full focused
+run passes; a fresh independent run matches the complete result byte for byte,
+with no exclusions. Strict
+ARM64 object compilation also passes: no link or execution, with the same
+14 unresolved dependencies and only mb_restore added to the global functions.
+
+This library is not wired to the Rust preview, native fd, runtime runner or
+a stopped-recovery coordinator. Semantic structs changed and need separately
+compiled consumers; they are not an ioctl ABI. There is no durable journal,
+authoritative original baseline or native-stop proof. An old/lower STATE is
+not cancellation; another same-capability mutator could invalidate causal
+attribution, and a caller can still reauthor old bytes under a fresh identity.
+Host-file restoration/writer exclusion, guarded restart, process-death/final
+Drop custody, callback deadlines, native event ownership and timing remain
+open. Main still supplies no owned backend. All runtime/staging/product gates
+remain CLOSED. No emulator/device endpoint contact, install, service action,
+physical access, package/core/catalog change, old cleanup or snapshot restore
+occurred. Frozen parents and unrelated deck-lights/ work are preserved.

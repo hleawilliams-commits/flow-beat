@@ -1,0 +1,126 @@
+{
+  "artifact": {
+    "byte_order": "little",
+    "elf_class": 64,
+    "elf_type": "ET_REL",
+    "kept_private": true,
+    "machine": "AArch64",
+    "machine_number": 183,
+    "name": "broker.o",
+    "sha256": "80aa6bf60f98c59d72176c6bebd670688590142651bdbbedcdac7a7511c49fd9",
+    "size": 12976
+  },
+  "build": {
+    "archive_layer_reused_from_local_cache": true,
+    "attempt_count": 1,
+    "compile_log_empty": true,
+    "compiler_warning_count": 0,
+    "downloads": false,
+    "exit_code": 0,
+    "flags": [
+      "-std=c11",
+      "-O2",
+      "-fPIC",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-pthread",
+      "-c"
+    ],
+    "input_hashes_unchanged": true,
+    "local_inputs_only": true,
+    "new_candidate_compile_executed": true,
+    "platform": "linux/arm64",
+    "private_build_log_sha256": "63bf29ed3f185ef5d7d80cd286f32f2fde457be5e9887ac0c68caf3536057a1e",
+    "private_command_receipt_sha256": "f62ae812d47a175aab2f2f722399a71f4c8adeaa3e1a0a6ad282d39322e8d2b5",
+    "private_compile_log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "private_dockerfile_sha256": "3879dd465bd256697f9b26228cc98f7b265baa5c5259c1381fae1aa06b70c312",
+    "private_input_receipt_sha256": "b08b8b4f322bda25a0fe5543f49fd1b063ba26712009dde5482e51d53ce63873",
+    "private_preparer_sha256": "f498614d65a96d8e384fd1c057ec10435ed97d0aaf0327f79fa7d4e64f807273",
+    "private_rootfs_archive_bytes": 689524647,
+    "private_rootfs_archive_sha256": "898432b5244d53de1b28943b829859d249241bf88b750337c2a9871d138ab54c",
+    "private_runner_sha256": "702f9fa7943aaeee51d0c01d66fa1116fcd20c30892b8656e2a6602518d99ba4",
+    "private_status_receipt_sha256": "f9be46f8cf1afc8162646e0d0b96edf27e8f37e1e07a8cb8b42f0aefd3cbb67c",
+    "pull": false,
+    "remote_base_image": false,
+    "remote_frontend": false,
+    "run_network": "none",
+    "scratch_stages": 2,
+    "source_and_gcc_hashes_checked_inside_build": true
+  },
+  "byte_review": {
+    "passed": true,
+    "private_result_sha256": "01ebfc3540fc52c4ecca1fa662e83bbc13608a70afe5cf7bff7fe5f55be1141c",
+    "private_script_sha256": "3359ad0728a7568b99ff206bd8cd3cd36d5704df02d205d5585a84ebcbc597b6",
+    "scope": "Separate standard-library parsing of actual ELF sections and symbol table, compared with nm and the frozen predecessor object; no execution."
+  },
+  "runtime_gate": "closed",
+  "schema": 1,
+  "scope": {
+    "backend_callbacks_executed_by_this_check": false,
+    "device_contact": false,
+    "emulator_contact": false,
+    "firmware_or_runtime_libc_abi_proven": false,
+    "kernel_ioctl_executed": false,
+    "linked": false,
+    "object_executed": false,
+    "original_baseline_or_stop_authority_proven": false,
+    "physical_contact": false,
+    "runtime_lifetime_or_timing_proven": false,
+    "source_compilation_only": true,
+    "statement": "Offline user-space object compilation only. Unresolved libc, pthread and stack-guard names are recorded, not proven linked or compatible with a running process. Semantic broker structs are not validated ioctl wire layouts by this build.",
+    "stopped_recovery_proven": false
+  },
+  "sources": {
+    "broker_c_sha256": "f331713ac361f265b37c9e781f85400691195915076ca2604aeb2311fd12cbb7",
+    "broker_h_sha256": "04efb6b1eb22e56798837ae8ff72514a5a513da2d616215d77d4c8f6a85033c8",
+    "copied_compiled_and_public_sources_identical": true,
+    "original_and_frozen_parent_files_edited": false
+  },
+  "status": "offline-arm64-relocatable-compile-passed",
+  "symbols": {
+    "added_global_functions": [
+      "mb_restore"
+    ],
+    "added_undefined_symbols": [],
+    "defined_global_functions": [
+      "mb_adopt",
+      "mb_create",
+      "mb_destroy",
+      "mb_inspect",
+      "mb_quiesce",
+      "mb_reconcile",
+      "mb_restore",
+      "mb_rotate",
+      "mb_stamp",
+      "mb_submit"
+    ],
+    "direct_elf_symbol_table_matches_nm": true,
+    "link_resolution_checked": false,
+    "parent_artifact_sha256": "37aef6bdd44abb21472f90776ede920ae8b904d02cbd51ceb7e3ab1378bd2829",
+    "removed_global_functions": [],
+    "removed_undefined_symbols": [],
+    "undefined_count": 14,
+    "undefined_symbols": [
+      "__stack_chk_fail",
+      "__stack_chk_guard",
+      "calloc",
+      "free",
+      "memcmp",
+      "memcpy",
+      "memset",
+      "pthread_mutex_destroy",
+      "pthread_mutex_init",
+      "pthread_mutex_lock",
+      "pthread_mutex_unlock",
+      "pthread_mutexattr_destroy",
+      "pthread_mutexattr_init",
+      "pthread_mutexattr_settype"
+    ]
+  },
+  "toolchain": {
+    "compiler": "gcc (Alpine 13.2.1_git20231014) 13.2.1 20231014",
+    "compiler_executable_sha256": "d2fcfbe5ea467cbb15e6e4b0d1a0ee929575de38f5e9db5313def1b06c8b9fca",
+    "compiler_version_output_sha256": "0e8b316161076f257494c8ce0621c3b61b108070ceb12cbd61fa5545c03181d9"
+  }
+}

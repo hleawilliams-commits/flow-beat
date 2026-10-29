@@ -285,3 +285,31 @@ full overlay/mode/host verification and separately guarded restart/adoption.
 Lifecycle final Drop/process death, callback deadlines, native dwell and event
 ownership remain unresolved. No module installation, emulator/device endpoint,
 service action, physical access, package/core/catalog change or old cleanup occurred.
+
+
+## Subsequent offline retained RESTORE broker
+
+[emulator-broker-restore](../../../emulator-broker-restore/) now supplies a
+separate C successor with exact source/mode/payload request identity, independent
+restore-ID high-watermark, cached historical receipts and no automatic resend.
+A fresh exact source snapshot precedes any attempt; UNKNOWN blocks new work
+until the entire expected result is positively observed. Idle flags23 are
+valid bookkeeping but cannot be adopted by a producer. Successful/reconciled
+RESTORE retires the old grant and stays closed. A same-ID malformed conflict
+also closes admission; source review and strict controls cover that ordering.
+
+207 focused assertions and 16 strict controls pass per sanitizer mode, with
+clean standalone C compilation and separate ARM64 object evidence. The
+entire result matches a fresh independent run byte for byte. No old passing
+suite was repeated.
+A test-only translation executes seven frozen kernel methods with host shims;
+no native fd/wire/FFI adapter or preview integration exists. The original
+broker and kernel candidates remain unchanged.
+
+This does not prove native stop, immutable original baseline custody, host-file
+restoration/writer exclusion, causal attribution under shared capabilities,
+process-death recovery or a guarded restart. Lower STATE remains uncertainty,
+not cancellation. Historical cached results do not prove current recovery.
+The live runner stays CLOSED; no endpoint, installation, core/package/catalog
+change or physical action occurred. The remaining recovery contract above
+still applies.

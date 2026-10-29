@@ -1,0 +1,29 @@
+{
+  "checks": {
+    "adopt-idle": 1,
+    "alias": 1,
+    "all": 207,
+    "baseline": 28,
+    "cached": 1,
+    "capacity": 5,
+    "concurrency": 7,
+    "conflict-invalid-mode": 1,
+    "conflict-invalid-source": 1,
+    "conflict-mode": 1,
+    "conflict-source": 1,
+    "conflict-tail": 1,
+    "grant": 1,
+    "history": 1,
+    "identity": 44,
+    "lower": 1,
+    "mode": 1,
+    "open": 1,
+    "rejected": 17,
+    "reopened": 3,
+    "snapshot": 1,
+    "source": 1,
+    "unknown": 87,
+    "unresolved": 1
+  },
+  "scope": "Manual inventory of focused successor assertions; setup assertions and pthread create/join errors abort, not accepted negative controls. Four mode pairs, complete source/snapshot identity, cache history, uncertain outcome, rejection, capacities and selected synchronized concurrency schedules."
+}
