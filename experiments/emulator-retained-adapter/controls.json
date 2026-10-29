@@ -1,0 +1,92 @@
+[
+  {
+    "case": "duplicate-arm",
+    "expected_failures": [
+      "retained_duplicate_is_armed_before_call_and_owned_before_validation"
+    ],
+    "file": "retained.c",
+    "name": "duplicate-arm-is-late",
+    "new": "owner->evidence.phase = MBRA_ALLOCATED;",
+    "old": "owner->evidence.phase = MBRA_DUPLICATE_ARMED;"
+  },
+  {
+    "case": "state-arm",
+    "expected_failures": [
+      "retained_state_is_armed_with_descriptor_before_syscall"
+    ],
+    "file": "retained.c",
+    "name": "state-arm-is-late",
+    "new": "owner->evidence.phase = MBRA_DUPLICATE_RETAINED;",
+    "old": "owner->evidence.phase = MBRA_VALIDATE_ARMED;"
+  },
+  {
+    "case": "partial-state",
+    "expected_failures": [
+      "retained_partial_state_fault_keeps_exact_observed_bytes_and_descriptor"
+    ],
+    "file": "retained.c",
+    "name": "discard-partial-wire",
+    "new": "memset(owner->evidence.validation_wire, 0, sizeof(wire));",
+    "old": "memcpy(owner->evidence.validation_wire, &wire, sizeof(wire));"
+  },
+  {
+    "case": "mismatch",
+    "expected_failures": [
+      "retained_full_state_disagreement_keeps_plan_raw_state_and_custody"
+    ],
+    "file": "retained.c",
+    "name": "ignore-final-state-byte",
+    "new": "    state.frame[MB_FRAME_BYTES - 1] = owner->evidence.expected.frame[MB_FRAME_BYTES - 1];\n    if (!mba_state_equal(&owner->evidence.expected, &state))",
+    "old": "    if (!mba_state_equal(&owner->evidence.expected, &state))"
+  },
+  {
+    "case": "repeat-ready",
+    "expected_failures": [
+      "retained_ready_refusals_preserve_one_validation_and_exact_journal"
+    ],
+    "file": "retained.c",
+    "name": "validate-ready-again",
+    "new": "    if (owner->evidence.validation_attempted && owner->evidence.phase != MBRA_READY) return EALREADY;\n    if ((owner->evidence.phase != MBRA_DUPLICATE_RETAINED && owner->evidence.phase != MBRA_READY) ||\n        !owner->evidence.descriptor_held)",
+    "old": "    if (owner->evidence.validation_attempted) return EALREADY;\n    if (owner->evidence.phase != MBRA_DUPLICATE_RETAINED ||\n        !owner->evidence.descriptor_held)"
+  },
+  {
+    "case": "allocated",
+    "expected_failures": [
+      "retained_allocate_copies_plan_without_io_or_early_validation"
+    ],
+    "file": "retained.c",
+    "name": "export-before-ready",
+    "new": "    if (0 && owner->evidence.phase != MBRA_READY) return EPERM;\n    *out = (struct mb_backend){owner, mbra_snapshot, mbra_submit};",
+    "old": "    if (owner->evidence.phase != MBRA_READY) return EPERM;\n    *out = (struct mb_backend){owner, mbra_snapshot, mbra_submit};"
+  },
+  {
+    "case": "fd-zero",
+    "expected_failures": [
+      "retained_fd_zero_survives_original_reuse_and_stale_errno"
+    ],
+    "file": "retained.c",
+    "name": "use-original-number",
+    "new": "owner->core.fd = owner->evidence.original_fd;",
+    "old": "owner->core.fd = call.result;"
+  },
+  {
+    "case": "fd-zero",
+    "expected_failures": [
+      "retained_fd_zero_survives_original_reuse_and_stale_errno"
+    ],
+    "file": "retained.c",
+    "name": "fd-zero-is-absent",
+    "new": "owner->evidence.descriptor_held = call.result > 0;",
+    "old": "owner->evidence.descriptor_held = 1;"
+  },
+  {
+    "case": "disposal",
+    "expected_failures": [
+      "retained_disposal_consumes_once_and_closes_only_its_held_duplicate"
+    ],
+    "file": "retained.c",
+    "name": "omit-held-close",
+    "new": "report->call = (struct mba_sys_result){0, 0};",
+    "old": "report->call = mba_sys_close(owner->core.fd);"
+  }
+]

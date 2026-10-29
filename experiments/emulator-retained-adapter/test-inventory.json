@@ -1,0 +1,19 @@
+{
+  "cases": {
+    "allocated": 1,
+    "broker-wire": 1,
+    "disposal": 1,
+    "duplicate-arm": 1,
+    "duplicate-errors": 1,
+    "fd-zero": 1,
+    "invalid": 1,
+    "malformed": 1,
+    "mismatch": 1,
+    "partial-state": 1,
+    "positive-state": 1,
+    "repeat-failure": 1,
+    "repeat-ready": 1,
+    "state-arm": 1
+  },
+  "scope": "14 new retained-acquisition/disposal selectors; one final compound functional check per selector. Synchronous modeled fixture cleanup follows copied observations; no setup/cleanup assertion or sanitizer failure can satisfy a control."
+}

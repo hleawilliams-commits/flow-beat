@@ -1075,3 +1075,41 @@ No emulator/device endpoint, service, core, package, catalog, settings or prior
 cleanup changed. Main and runtime wiring remain inactive. Stems staging,
 native ownership, USB completion/cancellation, recovery, audio quality and
 physical timing remain unresolved. Preserve all prior source and evidence.
+
+
+## October 29: retained-before-validation adapter
+
+The separate [retained adapter](../experiments/emulator-retained-adapter/) allocates/copies an owner before separate
+one-shot duplication and STATE validation. Failed validation preserves the held
+duplicate, raw syscall return and all 208 initialized/returned bytes. Diagnostic
+bytes are not a usable semantic state; full version/shape/identity/counter/mode/
+CRC/all 152-byte equality is required before backend admission. Stage repeats
+make no I/O and preserve first evidence. The frozen snapshot/submit prefix is
+mechanically included byte for byte; legacy public lifecycle is not linked.
+
+Fourteen new focused selectors and nine strict compiling controls per plain,
+ASan/UBSan and TSan mode pass in two fresh matrices. Whole result JSON is
+byte-identical; the retained-file audit independently verifies source generation,
+variants and every recorded log. Both matrices and the audit passed on their
+first invocations. No unchanged parent suite ran. Review corrected descriptor
+wording, a harness field typo, verifier optimization guards and disposal coverage
+before either matrix.
+
+The new disposal case checks explicit owner consumption, held/unheld close
+branches, exact raw uncertain close reports and no retry under synthetic
+quiescence. Its fallback fixture cleanup is not runtime teardown permission.
+The original fd remains borrowed; inspection exposes actual descriptor numbers,
+so aliases and external writer exclusion remain unresolved. Same-thread syscall
+inspection does not prove blocked/concurrent inspection or durable custody.
+
+Next retain an original fd before one-shot CLAIM, exact pre/poststate and raw
+returns, then compose retained adapter/broker/dispatcher ownership through failed
+construction. The frozen broker's void destroy still cannot certify graph
+teardown. Matching state supplies neither authoritative originals nor native
+stop; idle acquisition must never be converted automatically to injected input.
+
+No endpoint, emulator start/restart, install, physical control, settings, core,
+package, catalog or prior cleanup changed. Main and observer runtime dispatch
+remain inactive; stems staging, USB completion/cancellation, lifetime/race,
+recovery, audio quality, native timing and community-release gates remain open
+work. Frozen parents, previous evidence and unrelated deck-lights/ are preserved.
