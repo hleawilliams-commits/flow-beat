@@ -451,3 +451,32 @@ overlay and both-file restoration, durable custody and guarded restart remain
 open. All live dispatch and existing runtime/staging/release gates remain CLOSED.
 No endpoint, service, settings/core/package/catalog change or physical access
 occurred.
+
+
+## October 29: retained startup closes only the returned-pair custody gap
+
+The [owned-startup successor](../../../emulator-owned-startup/) composes the
+fixed route, actual worker channel and frozen lifecycle with retained supplied
+supervisor custody. Exact returned products precede later hooks. Explicit finish
+after a tested publication unwind can promote and join the retained pair.
+Busy finish remains InProgress without cancellation; ChannelArmed without a
+returned pair remains StartupUnproven, and poison can leave retained unjoined
+work. Final Drop/death and the unreturned channel interior remain unresolved.
+
+Production compilation, 16 new focused tests and 12 strict controls pass with an
+independent fresh run and retained-file audit; 236 inherited tests stay filtered.
+Synthetic backend/supervisor values, real local worker threads and private host
+files do not establish native ownership or recovery authority. Control-only
+custody preserves the sink's duplicated directory capability, not the original
+File Arc or startup evidence container.
+
+The [boundary review](../../../emulator-owned-startup/REVIEW.md) distinguishes
+the native64 adapter's required guest Linux descriptor from the host preview. A later
+integration requires an owned guest broker/transport (or explicit relocation),
+complete request/receipt validation and conservative unknown outcomes. A host
+FFI wrapper alone cannot bridge that process boundary. Acquisition, external
+exclusion, authoritative originals/stopped identity, native dwell, callback
+deadlines, full restoration, durable custody and guarded restart stay open.
+Main and runtime dispatch remain inactive. No endpoint/device access, service,
+settings/core/package/catalog change, cleanup, snapshot restoration or gate
+opening occurred.

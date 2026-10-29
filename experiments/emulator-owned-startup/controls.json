@@ -1,0 +1,144 @@
+{
+  "candidate_sha256": {
+    "az-preview/src/owned_startup.rs": "c82c949ec8af5d9d5b3579b2542af3fafab246d33c2c880add7570a0a9ef504d",
+    "az-preview/src/owned_startup_tests.rs": "94bb8bb225a2ab6525784658c123d20a74952a277d7fe108d898144d2457cbed"
+  },
+  "controls": [
+    {
+      "assertion_anchor": "assert_eq!(before.supervisor_retained, true);",
+      "assertion_file": "az-preview/src/owned_startup_tests.rs",
+      "file": "az-preview/src/owned_startup.rs",
+      "name": "retain-actual-supervisor",
+      "new": "            supervisor: None,",
+      "old": "            supervisor: supervisor.map(|value| Arc::new(Mutex::new(value))),",
+      "test": "owned_startup::tests::retention_and_finish_before_start_preserve_inputs_without_queries_or_join_claim"
+    },
+    {
+      "assertion_anchor": "assert_eq!(before.journal.channel_return, Some(ChannelReturn::Failed(ChannelFailure::SpawnFailed)));",
+      "assertion_file": "az-preview/src/owned_startup_tests.rs",
+      "file": "az-preview/src/owned_startup.rs",
+      "name": "record-exact-channel-error",
+      "new": "                shared.record_channel_return(ChannelReturn::Succeeded)?;",
+      "old": "                shared.record_channel_return(ChannelReturn::Failed(failure.clone()))?;",
+      "test": "owned_startup::tests::actual_channel_spawn_error_arm_retains_inputs_and_never_fabricates_join"
+    },
+    {
+      "assertion_anchor": "assert_eq!(finish, FinishResult::StartupUnproven);",
+      "assertion_file": "az-preview/src/owned_startup_tests.rs",
+      "file": "az-preview/src/owned_startup.rs",
+      "name": "uncertain-channel-is-unproven",
+      "new": "                    FinishResult::NoWorkerRetained\n                } else { FinishResult::NoWorkerRetained });",
+      "old": "                    FinishResult::StartupUnproven\n                } else { FinishResult::NoWorkerRetained });",
+      "test": "owned_startup::tests::armed_channel_unwind_is_unproven_without_a_captured_pair_or_return"
+    },
+    {
+      "assertion_anchor": "assert_eq!(handle.finish(), FinishResult::NoWorkerRetained);",
+      "assertion_file": "az-preview/src/owned_startup_tests.rs",
+      "file": "az-preview/src/owned_startup.rs",
+      "name": "unattempted-channel-has-no-worker",
+      "new": "                let unknown_channel = matches!(phase, StartPhase::Retained | StartPhase::ChannelArmed",
+      "old": "                let unknown_channel = matches!(phase, StartPhase::ChannelArmed",
+      "test": "owned_startup::tests::retention_and_finish_before_start_preserve_inputs_without_queries_or_join_claim"
+    },
+    {
+      "assertion_anchor": "assert_eq!(observed.journal.phase, phase);",
+      "assertion_file": "az-preview/src/owned_startup_tests.rs",
+      "edits": [
+        {
+          "file": "az-preview/src/owned_startup.rs",
+          "new": "",
+          "old": "        hook!(self, HookPoint::PairRetained);\n"
+        },
+        {
+          "file": "az-preview/src/owned_startup.rs",
+          "new": "        hook!(self, HookPoint::PairRetained);\n        let pending = PendingPair { port, worker };",
+          "old": "        let pending = PendingPair { port, worker };"
+        }
+      ],
+      "name": "pair-publication-precedes-hook",
+      "test": "owned_startup::tests::publication_checkpoints_observe_resources_before_hooks_and_cleanup_always_joins"
+    },
+    {
+      "assertion_anchor": "assert_eq!(observed.journal.phase, phase);",
+      "assertion_file": "az-preview/src/owned_startup_tests.rs",
+      "edits": [
+        {
+          "file": "az-preview/src/owned_startup.rs",
+          "new": "",
+          "old": "        hook!(self, HookPoint::OwnerRetained);\n"
+        },
+        {
+          "file": "az-preview/src/owned_startup.rs",
+          "new": "        hook!(self, HookPoint::OwnerRetained);\n        let owner = match shared.promote() {",
+          "old": "        let owner = match shared.promote() {"
+        }
+      ],
+      "name": "owner-publication-precedes-hook",
+      "test": "owned_startup::tests::publication_checkpoints_observe_resources_before_hooks_and_cleanup_always_joins"
+    },
+    {
+      "assertion_anchor": "assert_eq!(observed.journal.finish_requested, false);",
+      "assertion_file": "az-preview/src/owned_startup_tests.rs",
+      "file": "az-preview/src/owned_startup.rs",
+      "name": "busy-finish-does-not-cancel",
+      "new": "        let Some(_lease) = OperationLease::acquire(&self.shared.operation) else {\n            self.shared.journal.lock().unwrap().finish_requested = true;\n            return FinishResult::InProgress;\n        };",
+      "old": "        let Some(_lease) = OperationLease::acquire(&self.shared.operation) else {\n            return FinishResult::InProgress;\n        };",
+      "test": "owned_startup::tests::busy_finish_during_blocked_baseline_is_not_cancellation_and_snapshot_does_not_wait"
+    },
+    {
+      "assertion_anchor": "assert_eq!(busy, FinishResult::InProgress);",
+      "assertion_file": "az-preview/src/owned_startup_tests.rs",
+      "file": "az-preview/src/owned_startup.rs",
+      "name": "start-finish-lease-exclusion",
+      "new": "        flag.compare_exchange(false, false, Ordering::Acquire, Ordering::Relaxed)",
+      "old": "        flag.compare_exchange(false, true, Ordering::Acquire, Ordering::Relaxed)",
+      "test": "owned_startup::tests::busy_finish_during_blocked_baseline_is_not_cancellation_and_snapshot_does_not_wait"
+    },
+    {
+      "assertion_anchor": "assert_eq!(observed.is_ok(), true, \"snapshot must finish before baseline release\");",
+      "assertion_file": "az-preview/src/owned_startup_tests.rs",
+      "file": "az-preview/src/owned_startup.rs",
+      "name": "snapshot-does-not-lock-fixed-session",
+      "new": "    pub fn snapshot(&self) -> StartupSnapshot {\n        let _blocked = self.shared.fixed.lock().unwrap();\n",
+      "old": "    pub fn snapshot(&self) -> StartupSnapshot {\n",
+      "test": "owned_startup::tests::busy_finish_during_blocked_baseline_is_not_cancellation_and_snapshot_does_not_wait"
+    },
+    {
+      "assertion_anchor": "assert_eq!(held_drops, (0, 0));",
+      "assertion_file": "az-preview/src/owned_startup_tests.rs",
+      "file": "az-preview/src/owned_startup.rs",
+      "name": "lifecycle-retains-supervisor",
+      "new": "        let supervisor = self.supervisor.as_ref()\n            .and_then(|_| None::<SupervisorRef<G>>);",
+      "old": "        let supervisor = self.supervisor.as_ref()\n            .map(|value| SupervisorRef { _value: value.clone() });",
+      "test": "owned_startup::tests::returned_control_alone_keeps_backend_supervisor_and_duplicated_directory_through_join"
+    },
+    {
+      "assertion_anchor": "assert_eq!(refused, expected);",
+      "assertion_file": "az-preview/src/owned_startup_tests.rs",
+      "edits": [
+        {
+          "file": "az-preview/src/owned_startup.rs",
+          "new": "        if false && self.shared.products.is_poisoned() {",
+          "old": "        if self.shared.products.is_poisoned() {"
+        },
+        {
+          "file": "az-preview/src/owned_startup.rs",
+          "new": "        let mut products = self.products.lock()\n            .unwrap_or_else(|error| error.into_inner());",
+          "old": "        let mut products = self.products.lock()\n            .map_err(|_| StartError::Poisoned(PoisonTarget::Products))?;"
+        }
+      ],
+      "name": "products-poison-refuses-operational-salvage",
+      "test": "owned_startup::tests::poisoned_ready_startup_refuses_finish_but_retained_control_can_join_and_keep_diagnostics"
+    },
+    {
+      "assertion_anchor": "assert_eq!(after.journal.last_finish,\n        Some(FinishResult::Lifecycle(FinishStatus::RecoveryRequired)));",
+      "assertion_file": "az-preview/src/owned_startup_tests.rs",
+      "file": "az-preview/src/owned_startup.rs",
+      "name": "poison-retains-observed-join-result",
+      "new": "                journal.last_finish = None;\n                FinishResult::Poisoned(PoisonTarget::Journal)",
+      "old": "                journal.last_finish = Some(result);\n                FinishResult::Poisoned(PoisonTarget::Journal)",
+      "test": "owned_startup::tests::journal_poison_during_real_join_retains_observed_finish_without_claiming_success"
+    }
+  ],
+  "scope": "Twelve actual owned-startup source controls, each required to compile and fail the selected final uncaught assertion after any real worker is explicitly joined. Synthetic backend/supervisor values only. Caught test panics, missing workers, detached handles and timeouts are not passing controls; 236 inherited tests remain compiled/listed and filtered."
+}

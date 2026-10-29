@@ -1,0 +1,218 @@
+{
+  "audit_script_sha256": "ed953be2a6a9fbe3017655caaa1ee41ffe86511750c1b60c1a14419c06e2183f",
+  "comparison_method": "Exact structural JSON equality after excluding only the 27 enumerated raw-log SHA-256 fields; all other fields remain compared.",
+  "declared_exclusions": [
+    {
+      "differ": true,
+      "field": "production_check_log_sha256",
+      "independent_sha256": "47845f5bbee49718a6caed6a8caba09792d3c511cbb24987214db20bf29ad456",
+      "primary_sha256": "43a1ba096b268077f34ef6c69529f19f2e73a97fa2570f521490946e4b2bdc0c"
+    },
+    {
+      "differ": true,
+      "field": "runs[0].compile_output_sha256",
+      "independent_sha256": "5ee7a32e093bc50d64754ef47ae3a89b501b3d81cf34ced28a9218edc7957e6d",
+      "primary_sha256": "e969711f689b99b3172747bdb54068be1210ef38c393118cd3e71dca57e7a868"
+    },
+    {
+      "differ": false,
+      "field": "runs[0].test_output_sha256",
+      "independent_sha256": "c32c8e4dd4b297429334f3e37367f32b3d7e1737aa8f9a0f3a11f34c86abb87b",
+      "primary_sha256": "c32c8e4dd4b297429334f3e37367f32b3d7e1737aa8f9a0f3a11f34c86abb87b"
+    },
+    {
+      "differ": true,
+      "field": "runs[1].compile_output_sha256",
+      "independent_sha256": "e7b185a994db8ec20a63f489fc87b12b7d7986635b1aab796c4c52f22aeddfca",
+      "primary_sha256": "3e2bf70b330f5daf5c84e918d1ff15853680ba0ee2470e8b1ecb8c0d20799c31"
+    },
+    {
+      "differ": true,
+      "field": "runs[1].test_output_sha256",
+      "independent_sha256": "abbbf1dae864b46174907d244a4d45bfb53ef64931af1f88f1f6715240da2596",
+      "primary_sha256": "62910929c693614141ce8bbcc3d9e519edafb1a78cf99b604efa4b767d32c1a3"
+    },
+    {
+      "differ": true,
+      "field": "runs[2].compile_output_sha256",
+      "independent_sha256": "c7d733fcbba28de4fcaefc4e4688661f2155c884407a130bc4e3badffeddd0f2",
+      "primary_sha256": "f3e9cc1fa86ebeb1febd32f9da3bea243a42b0ee41d082145bc233d01c66ecd6"
+    },
+    {
+      "differ": true,
+      "field": "runs[2].test_output_sha256",
+      "independent_sha256": "38d685e196f80a573b9c06424726829517e57f0b3381e78c1bb56311a6dbd5ca",
+      "primary_sha256": "0bdaf60f84277c19b8e72f675cfadd1d8edc8ab699965c2d3cdf3926055eb2eb"
+    },
+    {
+      "differ": true,
+      "field": "runs[3].compile_output_sha256",
+      "independent_sha256": "bd5c1d97c8c8e685e29f4ecaacd4bd7d80cf16cb196b2f1fc2137ff04c3b539e",
+      "primary_sha256": "733847b4f6eda23b7e6efe5ebfedb6eb03a0a64d59ff04f6d206d1468534000a"
+    },
+    {
+      "differ": true,
+      "field": "runs[3].test_output_sha256",
+      "independent_sha256": "b85a3eb6b653271d94ab7e90fd90fe8187f90e3ed159c63a07a8bce7dffc2fba",
+      "primary_sha256": "af7404e280d7adfb36d31419c84af445dc9f203ce3e744aa0f9d5bff44f131a1"
+    },
+    {
+      "differ": true,
+      "field": "runs[4].compile_output_sha256",
+      "independent_sha256": "9e3aeea21245029487f6a0dc48bc30a42ed7b42aa84df0bc1710a7f0228a8172",
+      "primary_sha256": "096a8e30d0ed1ce11c4c96237486a6b17e5ca6ef60c3679ee1aa59235fae51d1"
+    },
+    {
+      "differ": true,
+      "field": "runs[4].test_output_sha256",
+      "independent_sha256": "166dc3c9de45ff729a5db68f1917461dbc46eac447be18dc4f03e6bb99f9ba51",
+      "primary_sha256": "d7f13ebcc7804111fd60421d3870fe95fdafef31b38df930e8b6c2725f3fbc1f"
+    },
+    {
+      "differ": true,
+      "field": "runs[5].compile_output_sha256",
+      "independent_sha256": "a8731be6b4277b523f3981872b002dcc5bc0c1d57810789da202488d64cbeb8b",
+      "primary_sha256": "ac653d6b8b187d5b0418cbb89a089887628763b9b21fdc453bca076c15553c7b"
+    },
+    {
+      "differ": true,
+      "field": "runs[5].test_output_sha256",
+      "independent_sha256": "e9158433544ceca689beee26f01c6673255ca683a381bc3a475110d6c4fff60a",
+      "primary_sha256": "d2abe430bd59e940929136d43d39f2361c711f5a442f1abe616d69ce30a567b2"
+    },
+    {
+      "differ": true,
+      "field": "runs[6].compile_output_sha256",
+      "independent_sha256": "a80e5755ac73bc4e47df958affbe2b73d73dec682cad7fe5c5d789fd72ee9a0d",
+      "primary_sha256": "8dbfe7c0cfcbd63c1a4e94d4a4ef223e52e1a8deee8fe33fa88b0aba503b0a39"
+    },
+    {
+      "differ": true,
+      "field": "runs[6].test_output_sha256",
+      "independent_sha256": "adfc9b9ca9cec4b38a91bcf75176f5f5148e4e8ed2c3a0fb387813513a0a0a35",
+      "primary_sha256": "23cdebe884e5d71ff8e9312dfa5ec80bb9632b707a5fd02b8597187b9ac6b02d"
+    },
+    {
+      "differ": true,
+      "field": "runs[7].compile_output_sha256",
+      "independent_sha256": "487c3a347ae3c3112dc87bee572e919b0140584f7f4c6cf93379f250ef3694ae",
+      "primary_sha256": "7c47a4e99c1016d5595b8d5ee59755de403040114ab64fc46f676ba74a9103b3"
+    },
+    {
+      "differ": true,
+      "field": "runs[7].test_output_sha256",
+      "independent_sha256": "dc0e3b089e2d95589f934f58693d51c025a2f98c641b66771d008cef2948959e",
+      "primary_sha256": "c69358efed387a77c3bb3c809be0ce0ad873ba3be1c89d7b5d8858e94602071c"
+    },
+    {
+      "differ": true,
+      "field": "runs[8].compile_output_sha256",
+      "independent_sha256": "1ed8a55622d97a8bf1e2214b39d41610f828f421b7991fb76b953a020a348f01",
+      "primary_sha256": "c9a5795811b6229f16bb88c46d2695dec48ef7b29298a968c9a28813d56d89df"
+    },
+    {
+      "differ": true,
+      "field": "runs[8].test_output_sha256",
+      "independent_sha256": "bdd70bea9f67bf7f1b8ff6e56151050c7b027380b048c4283fd74e70eb27c437",
+      "primary_sha256": "9cc85adb2e0e3729b25bb68ef95f4ed135b3f78864e05803fa781fd7e907674a"
+    },
+    {
+      "differ": true,
+      "field": "runs[9].compile_output_sha256",
+      "independent_sha256": "d8ec3d795a3024e3c7ec47dde4e5b0fbbe4dba89ec77eea614008903475496af",
+      "primary_sha256": "71aee3275f2ad0dce7b8d02589cc210f271deac987bb57992dea79ef040c67d1"
+    },
+    {
+      "differ": true,
+      "field": "runs[9].test_output_sha256",
+      "independent_sha256": "6429523b4d8b001b388f4f96fec07cd62a8de70678d5a8357ca0fe9a71a2111b",
+      "primary_sha256": "b211537e9ca814b43722a529405c89206919387e7360b5e5b2f60ba09b331a26"
+    },
+    {
+      "differ": true,
+      "field": "runs[10].compile_output_sha256",
+      "independent_sha256": "4571d8f78679fcf53043d9aa138b0f06f28480d0cbe9e3c641260949005a2efc",
+      "primary_sha256": "23e1493c2505ad3788a4d928d2eeb768b86829439ab9e663953029762eb1be30"
+    },
+    {
+      "differ": true,
+      "field": "runs[10].test_output_sha256",
+      "independent_sha256": "3c20fdf755a9ca3b3a87f68e865e0dd6f04222d9e5b96cf0871d5b116099d703",
+      "primary_sha256": "b42f5d6fb1452f776f71bd8cbdb157763616dd9fee6863ff63ed5938f68378a5"
+    },
+    {
+      "differ": true,
+      "field": "runs[11].compile_output_sha256",
+      "independent_sha256": "c4345b52814ac27d3e4448a2da32352a94893d9b31dd9a7f4a5ee31944db1106",
+      "primary_sha256": "541607cb163133cbc5785229c57c34e8fdd9c88173920e3ec43e145e6df4941c"
+    },
+    {
+      "differ": true,
+      "field": "runs[11].test_output_sha256",
+      "independent_sha256": "3cb6f2033f2f4662678e7b6d41cc44a7ee3c6584b62b5684256ee6c7b98ef352",
+      "primary_sha256": "5d0ecf93d77bc140d70743e682ac5bd778461014221899eb7cd4aeea069fc5c6"
+    },
+    {
+      "differ": true,
+      "field": "runs[12].compile_output_sha256",
+      "independent_sha256": "b65feda7919d877ccd3f7beb71a23b0670402c6cb7f88fbd8d311c589ed530de",
+      "primary_sha256": "fd13852de6ccbb3600889fe4391589fbc19a7651126b1f5879f52f00c3462a0d"
+    },
+    {
+      "differ": true,
+      "field": "runs[12].test_output_sha256",
+      "independent_sha256": "38d9dd74fe08021205845272c8461b39e0999222002bb73ef1a063610ee7ae15",
+      "primary_sha256": "204ed776c7fe8b18cb9283d1208136f26f6c4e3e98f0d4c2b16255cbf5c178e6"
+    }
+  ],
+  "differing_excluded_field_count": 26,
+  "excluded_field_count": 27,
+  "functional_result_json_equal": true,
+  "independent_result_sha256": "a4cc880e853efe9fd83fdc6c897444844c2737d4c0099c26ebaa7c72ce030cea",
+  "limits": [
+    "Recorded process exits are audited from results; original process execution belongs to each runner.",
+    "No normalization or equivalence of raw logs is claimed.",
+    "No real native ACK authentication, baseline freshness, backend-alias exclusion, external writer/reader exclusion, restore, sanitizer, power-loss or physical-timing proof.",
+    "A retained post-return pair is covered; an unreturned frozen channel call may remain StartupUnproven. No interior unwind, abort or process-death custody proof.",
+    "The test-only helper exercises the actual channel spawn-error arm; it does not demonstrate an actual OS thread-spawn failure.",
+    "Whole result JSON is unequal. Only specifically enumerated raw-log hash fields are excluded; raw log bytes remain separately hashed.",
+    "Fixture manifests record exact retained private bytes and modes. Execution and functional assertions belong to the original runner; this audit does not rerun them."
+  ],
+  "per_run": [
+    {
+      "candidate_files": 28,
+      "captured_inputs": 8,
+      "fixture_directories": 36,
+      "fixture_regular_files": 72,
+      "frozen_parent_files": 33,
+      "production_warning_count": 132,
+      "result_sha256": "02a220b721145b87d49a4eebbfe8babd783432e4b9ef417743b2af57e0f63a32",
+      "variant_count": 13
+    },
+    {
+      "candidate_files": 28,
+      "captured_inputs": 8,
+      "fixture_directories": 36,
+      "fixture_regular_files": 72,
+      "frozen_parent_files": 33,
+      "production_warning_count": 132,
+      "result_sha256": "a4cc880e853efe9fd83fdc6c897444844c2737d4c0099c26ebaa7c72ce030cea",
+      "variant_count": 13
+    }
+  ],
+  "primary_result_sha256": "02a220b721145b87d49a4eebbfe8babd783432e4b9ef417743b2af57e0f63a32",
+  "private_audit_result_sha256": "ecf25551db3bfcfaa11cb045c993e2dd39fdc4189d1c09e31054431d5e49283f",
+  "review": [
+    "Owned-startup retained preparation lineage, exact helper-only transport delta, strict runner, frozen input captures and focused matrix evidence independently audited.",
+    "Captured runner candidate bytes explicitly match pins before compilation.",
+    "Each control final uncaught panic matches its exact functional assertion; earlier caught diagnostics cannot suffice.",
+    "All inherited tests were compiled/listed but filtered from execution.",
+    "This successor composes the frozen fixed session, actual local worker channel and owned lifecycle without main wiring, guest startup or native resource acquisition. Exact post-return custody differs from unreturned channel uncertainty."
+  ],
+  "status": "independent-agreement",
+  "toolchain": {
+    "cargo": "cargo 1.98.1 (797e8a9bc 2026-08-05) (Homebrew)",
+    "rustc": "rustc 1.98.1 (48a229cea 2026-09-01) (Homebrew)\nbinary: rustc\ncommit-hash: 48a229ceaefd4985c50990b14116b6d856af0985\ncommit-date: 2026-09-01\nhost: aarch64-apple-darwin\nrelease: 1.98.1\nLLVM version: 22.1.8"
+  },
+  "whole_result_json_equal": false
+}

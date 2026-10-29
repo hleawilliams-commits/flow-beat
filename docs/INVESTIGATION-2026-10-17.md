@@ -896,3 +896,53 @@ All runtime, stems staging, native ownership, USB and release gates remain
 CLOSED. No endpoint, service, installation, physical access, core/package/catalog
 change, old cleanup or snapshot restoration occurred. Frozen parents and
 unrelated deck-lights/ work remain preserved.
+
+
+## October 29: retained worker and supervisor startup composition
+
+The separate [owned-startup successor](../experiments/emulator-owned-startup/)
+retains injected backend, original directory and supplied supervisor before
+constructing the fixed session, actual worker channel and frozen lifecycle.
+It stores the exact returned port/worker pair before later hooks. A tested
+publication unwind with usable startup journal/products leaves the external
+handle able to perform an explicit actual join. Poison can refuse that access;
+no implicit cleanup or restoration occurs.
+
+Production host compilation, 16 new focused tests and 12 exact-assertion source
+controls pass with one independent fresh reproduction. The 236 inherited tests
+remain compiled/listed and filtered; 252 names and 28 candidate files are pinned.
+The retained-file audit verifies 33 frozen inputs and eight runner inputs per
+run, reconstructs all 26 variants, and checks 72 regular fixture files in 36
+directories per run. Exactly 27 enumerated log-hash fields are excluded from
+functional comparison; 26 differ. Every other field agrees; whole JSON differs.
+The build has 132 inactive-code warnings and uses no sanitizers.
+
+Busy finish is not cancellation: it returns InProgress, and startup may still
+reach Ready before another explicit finish. ChannelArmed without a returned
+pair remains StartupUnproven. The spawn-error helper invokes the frozen actual
+error arm but does not induce OS spawn failure. Poison refuses operations while
+retaining resources; an independently returned lifecycle can still perform its
+own join. A real join completed during journal poison is retained diagnostically,
+while the startup return remains Poisoned.
+
+Handle-only custody and control-only custody are distinct. The control retains
+the sink's duplicated directory capability after the original File Arc expires;
+a private rename and subsequent ACK-bound write exercise that capability.
+Final Drop, process death and unreturned channel interior custody remain open.
+
+The [native-boundary review](../experiments/emulator-owned-startup/REVIEW.md)
+also records that the native64 adapter requires an already-claimed Linux
+descriptor and retains a private duplicate only after successful attachment.
+Preview runs on the host; a direct host C/Rust cast cannot reach the guest
+controller. Next review a guest-resident broker transport with complete
+request/result identity, conservative unknown outcomes and explicit ownership;
+ABI translation alone cannot establish acquisition or receipt authority.
+Authoritative originals/stopped identity, external writer/reader exclusion,
+callback deadlines, native dwell, full overlay/both-file restoration, durable
+custody and guarded restart remain unresolved.
+
+Main and all existing runtime/stems-staging/native-ownership/USB/release gates
+remain CLOSED. No endpoint, service, guest start, installation, physical access,
+core/package/catalog change, old cleanup or snapshot restoration occurred.
+Frozen parents and unrelated deck-lights/ work remain preserved. Do not repeat
+this passing matrix unchanged or treat it as native observation evidence.
