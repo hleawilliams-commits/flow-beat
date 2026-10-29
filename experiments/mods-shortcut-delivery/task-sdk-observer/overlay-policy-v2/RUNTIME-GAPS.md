@@ -374,3 +374,23 @@ guarded restart, callback limits and native dwell/event ownership remain open.
 Main and runtime dispatch remain inactive. All staging/product/runtime gates
 stay CLOSED; no endpoint, service, install, physical access, existing core/package/
 catalog, cleanup or snapshot was changed.
+
+
+## Subsequent offline ACK settings mapper
+
+[emulator-settings-mapper](../../../emulator-settings-mapper/) adds a separate
+pure projection from complete ACK to counter/analog settings, with explicit
+selector/TIME refresh and preservation of supported unselected entries. Strict
+bounded parsing refuses ambiguous maps, unknown offsets, prior selector button
+bits and incomplete TIME pairs. Full shared analog bytes and the exact full ACK
+are retained; this is not receipt authentication or a native-consumption proof.
+
+Production compilation, 27 new tests and 13 strict controls pass with an
+independent fresh reproduction; 162 inherited tests remain filtered. The initial
+custom-assert diagnostic failure and equivalent fixture repair remain recorded.
+No filesystem operation, real SettingsSink, writer exclusion or restoration is
+added. Main and runtime dispatch stay inactive. Next compose the ordered
+validated callback with mapper/pair evidence and retain failures without native
+FRAME replay. The external exclusion, baseline/stop identity, durable custody,
+both-file/overlay recovery, final Drop/death and guarded-restart requirements
+above remain unresolved. No endpoint/device access or gate opening occurred.

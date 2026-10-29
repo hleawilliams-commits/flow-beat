@@ -770,3 +770,42 @@ errors or power loss. All runtime, stems staging and release gates stay CLOSED.
 No services, endpoint contact, installation, physical action, core/package/catalog
 change, old cleanup or snapshot restoration occurred. Frozen parents, original
 emulator checkout and unrelated deck-lights/ work remain preserved.
+
+
+## October 29: strict ACK-to-settings mapper (offline)
+
+The separate [settings-mapper experiment](../experiments/emulator-settings-mapper/)
+now projects one complete FrameAck into the browse counter and all 51 complete
+analog bytes. Explicit selector/TIME choices either refresh those fields from
+the same frame or preserve valid existing values/absence. Selector low-nibble
+momentary bits are never copied. TIME bytes remain an exact paired bit pattern.
+A bounded strict JSON subset refuses duplicates, aliases, unsupported offsets,
+malformed/ranged values, unsafe prior selector bits and incomplete TIME pairs,
+even when a selected update would overwrite them. Exact original file custody
+remains with the unchanged pair engine; mapped target formatting is canonical.
+
+Production host compilation, 27 focused synthetic tests and 13 strict compiling
+controls pass in both final runs. All 162 inherited tests were compiled/listed
+and filtered. The independent audit reconstructs both runs' 28 variants and
+compares every result field after only 29 declared raw-log-hash exclusions;
+28 hashes differ, one agrees, and whole result JSON is not identical. The build
+has 81 inactive-code warnings. An initial run stopped because the trailing-data
+control's custom assert message lacked the runner's required assertion wording.
+Its exact assertion had failed; only the fixture macro changed to the equivalent
+assert_eq!(predicate, true). Production and runner bytes remained unchanged,
+and the interrupted run is preserved. Explicit optimized-Python refusal now
+protects frozen preparer assertions without changing parent sources.
+
+This mapper uses real preview types and parser/control helpers in value fixtures,
+but performs no host settings I/O and implements no SettingsSink. It does not
+authenticate ACKs or prove callbacks ran in order, file persistence, a native
+poll or physical timing. Main remains a literal absent owned pair. Next connect
+the validated ACK callback to the same mapper/pair custody, retaining mapping
+refusals and partial file outcomes without replaying a committed native FRAME.
+External writer/reader exclusion, native adapter/FFI and receipt authority,
+authoritative originals/stopped-process identity, both-file/overlay restoration,
+durable custody, final Drop/death and guarded restart remain open. All existing
+runtime, stems staging, native ownership, USB and release gates remain CLOSED.
+No endpoint, service, installation, physical access, core/package/catalog change,
+old cleanup or snapshot restoration occurred. Frozen parents and unrelated
+deck-lights/ work are preserved.

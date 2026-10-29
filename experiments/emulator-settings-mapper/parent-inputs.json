@@ -1,0 +1,20 @@
+{
+  "emulator-joined-session/candidate-pins.json": "41c7fb0674a645d74bb226445b5f2cfa9e0bf370aaec8f4baede87260497e375",
+  "emulator-joined-session/joined-session.patch": "4267249c94882120ad9b8e2b37e3894704db95876d51b5c42a10a5f244596cad",
+  "emulator-owned-exit/candidate-pins.json": "d04ee4d33e5999021a549994f37ada62c5938e56882acff3e1fae02ad249cc69",
+  "emulator-owned-exit/owned-exit.patch": "b278c09b4db47e341ebc5542386dfa79d185586c905b8c4904c430f2aef51a3b",
+  "emulator-owned-exit/parent-inputs.json": "38cffb45fdd8fdcf532097584ab4d862872dd45643450631503d88fad24c0572",
+  "emulator-owned-exit/prepare-candidate.py": "fdf8691bd0466983655278109a33183675241e1df73f812cf319500650136a93",
+  "emulator-preview-gate/Cargo.lock": "eaf66e88bd38ea8c3aa351330f631fb7ba6ba2194a22faa18ee332c1c595d119",
+  "emulator-preview-gate/base-source-pins.json": "702a66cfd56eb67f97ccfe3e2b6fafd7e14c68e3bf7dca7636b5e197f916cf8e",
+  "emulator-preview-gate/candidate-pins.json": "ce660bc537639c092e649337895e6e560e7d8beab16ee49f0fa900b731af2aa4",
+  "emulator-preview-gate/prepare-candidate.py": "1e7c8f75a8d1d3fb3222ea37575928a0d02069fa6870cf480fc5462f7fbf5c40",
+  "emulator-preview-gate/preview-gate.patch": "264d3d26cdc6a3534fb7df299220b02d4043b1190416b1b0d6a578f68247a84e",
+  "emulator-preview-transport/candidate-pins.json": "cb392bcee2358e71b0426d11fe906dd0749ac8a629c26e0cb949a2b2ffcd6bcf",
+  "emulator-preview-transport/transport.patch": "d630fd6c7b15b8d0f10f0020a9079833b42f839b8d7c1e84bffdbe833e1f485c",
+  "emulator-settings-pair/candidate-pins.json": "793334e78f4fed7c434b0fceea190e71dca3438d98eb474b472cbf084d04f930",
+  "emulator-settings-pair/parent-inputs.json": "71a66aaa0efc57b050e374aa396d2688d0205d37661f821d0aa0b146bfef0beb",
+  "emulator-settings-pair/prepare-candidate.py": "e1918b3fc0fd5d6a7ad3f00f1eaac7727f67487ad7a430053d1eb97797c19f90",
+  "emulator-settings-pair/settings_pair.rs": "8246b4782c1108d8fc2821abe6f2ad01a57350b41b85d741859b60f9c10a9d2d",
+  "emulator-settings-pair/settings_pair_tests.rs": "a7de908b8b654dc6821cc8d9bf6de028ceacbdba352e42ef78d58a99034a361f"
+}

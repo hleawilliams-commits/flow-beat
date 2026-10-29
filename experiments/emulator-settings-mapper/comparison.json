@@ -1,0 +1,646 @@
+{
+  "audit_script_sha256": "a522d6507f7e656e6b72868d177a997bb938b82ae3c413cfc6f919491d3a6542",
+  "candidate_files_sha256": {
+    "az-preview/Cargo.lock": "bf999ec77e487b2c3cae1bc0adfb9dffc314500cb6e072571d38e5cd7b27a588",
+    "az-preview/Cargo.toml": "02dd8dbd78f214a522106ca1a22a15d1e2de4faa64d77b83263f7d5a9435f9d6",
+    "az-preview/build.rs": "b12428b3ee8306f79126270c2875f8b4219f35fbe195d38ed9c2c2370340eb61",
+    "az-preview/layout/xdj-az.tsv": "651df7e29a679bdfa4712ed7fe4a3ffdd13c7c92f275542b79173253a1333590",
+    "az-preview/src/app.rs": "9e7d7dfe21857b72dde8ab9bae7585192328fb9152a1e0f593b04d2a2c94ccac",
+    "az-preview/src/boot.rs": "f907da478aa758d4cb2a9f740f529fbe256376230d77635a061a746ce75ec1eb",
+    "az-preview/src/config.rs": "0a1986611ec2642379a42f1f517d8d1decf1764e0cee8ab2f37c3e6c04782992",
+    "az-preview/src/controls.rs": "2d0fd49fe30879d9cfb73b28cf2bfbcc38cd5bde24066ae960a48728b111bf97",
+    "az-preview/src/layout.rs": "7fb4577a6ccdc35414c7e24a311bd0353e3af36d67de8eb4fe7dda78a446e14f",
+    "az-preview/src/main.rs": "b8ea6513d805a1f85baf5c3c0726be9ae502181a392e9184252fe26bca20ed38",
+    "az-preview/src/meter.rs": "a2511e52e24047352bf9bcdf17981769b917aa24719202aad1c524f00e399081",
+    "az-preview/src/mixer_producer.rs": "ac4d1c2e0c03a3e3a50719c3fccd0ac08a056cfe77ac858bfc1e772accda1680",
+    "az-preview/src/mixer_route.rs": "6e2aad717deaed4407ced1648859f121c867810a973297f700de48791653d60e",
+    "az-preview/src/mixer_transport.rs": "fe1aea1ebe7fa6b563bc5581734a40ca25a9da34be536640d966bb332b5a6ab4",
+    "az-preview/src/owned_lifecycle.rs": "26e82ec371ee48ca265f1fb3e18dd613eca5f4a76354db93e1d2c87b31f23f51",
+    "az-preview/src/panel.rs": "f54107111e4544aac34f110daa73febd5203ddc2d82731df9ebff4a761b71c5e",
+    "az-preview/src/parts.rs": "7bbe162b092fa5f0dadcea609762a2b38ff681a7e50bda5d0f3d89ce7c7f748c",
+    "az-preview/src/screen.rs": "2f867d991fe5d19ed9a19a08b19483f0e6d6affcd9749b7e8b587bb11d8e27be",
+    "az-preview/src/settings_mapper.rs": "7b4634a60f8e07f5d114d6ad0e58331f4d80723a5a59956deafdd541637ec6e0",
+    "az-preview/src/settings_mapper_tests.rs": "1d76ba459dd0b9ca2a759a41252089f97d04b3b6ddb8558e3ef7b811fe5a924b",
+    "az-preview/src/settings_pair.rs": "8246b4782c1108d8fc2821abe6f2ad01a57350b41b85d741859b60f9c10a9d2d",
+    "az-preview/src/settings_pair_tests.rs": "a7de908b8b654dc6821cc8d9bf6de028ceacbdba352e42ef78d58a99034a361f"
+  },
+  "comparison_policy": "Compare every result field after deleting exactly production_check_log_sha256 and runs[].test_output_sha256 / compile_output_sha256. No other omission or normalization.",
+  "different_raw_log_hash_count": 28,
+  "equal_after_only_declared_log_hash_exclusions": true,
+  "equal_raw_log_hash_count": 1,
+  "excluded_log_hash_count": 29,
+  "initial_failure_preserved": {
+    "raw_failed_run_and_log_hashes_verified": true,
+    "record_sha256": "d38eccbf02863e6aaa16fe9c1f67fb6e08a0e9de4f9a2ffc1e3715253a808b82",
+    "repair": "Exact single equivalent assert!(predicate, message) to assert_eq!(predicate, true, message); production source and runner byte-identical.",
+    "status": "strict runner refused custom assert diagnostic; no completed result",
+    "unreached_control": "number-range",
+    "verified_retained_test_logs": 13
+  },
+  "inputs_sha256": {
+    "candidate-pins.json": "c41857f7cf7ff2a41584a8aa32cb0af9443d0c16c09c8f47fe242459f8796ad7",
+    "controls.json": "3dc2497a40749c2c71af307df04f809b4cc514bee7823cb2866a28f62bee9165",
+    "parent-inputs.json": "c4323c860a3dc2d68f6924e20ebcbcdf0b3f7d3f48cad5f191e2401e6d07a73d",
+    "prepare-candidate.py": "0a17fcc1cc06e93e9e68b8f88464927d8edd5458dd1e74506d6147b5f9612e40",
+    "run-tests.py": "70d809ddcfdae24195fb62e7ee9401bd342952a9d23d86cfb13237e780401be2",
+    "settings_mapper.rs": "7b4634a60f8e07f5d114d6ad0e58331f4d80723a5a59956deafdd541637ec6e0",
+    "settings_mapper_tests.rs": "1d76ba459dd0b9ca2a759a41252089f97d04b3b6ddb8558e3ef7b811fe5a924b",
+    "test-inventory.json": "c2d186d1b72222930c281388b059b447e763d79acd75ef12bb697e02931ff1d8"
+  },
+  "limitations": "Production check emits 81 inactive/dead-code warnings; not warning-free. Only 27 new cases execute, 162 inherited cases are compiled/listed and filtered. Each of 13 controls compiles and fails exactly its designated assertion, with 188 tests filtered. Cross-component persistence/order/recovery and receipt authenticity remain outside this run.",
+  "public_result_sha256": {
+    "host-result-independent.json": "d67895600c8f8b68f44b173e6fa5186cf8d40062a9a792d619248c253c9d0af0",
+    "host-result.json": "fd3db46ff346b518cc35fde377457e1c431878c70aaff17d76a52124b9dde52a"
+  },
+  "raw_log_hash_comparisons": [
+    {
+      "equal": false,
+      "field": "production_check_log_sha256",
+      "independent_sha256": "219a2fe0049650dfb05141c822bfabc336724067c737f76e1685e4a98976615d",
+      "primary_sha256": "1ff6f0fc7255229a7e055095e93364533094cffd921b70785cd0a1837abb5563"
+    },
+    {
+      "equal": true,
+      "field": "runs[0].test_output_sha256",
+      "independent_sha256": "2a7be3e09ce921cab8c2aadb394f4d9483170e020d7573d62ebadc0682ba7b8d",
+      "primary_sha256": "2a7be3e09ce921cab8c2aadb394f4d9483170e020d7573d62ebadc0682ba7b8d"
+    },
+    {
+      "equal": false,
+      "field": "runs[0].compile_output_sha256",
+      "independent_sha256": "8a960dfe24bae33259a8d9d32ca6692d0077bd165140be9c182c536b0da0ce36",
+      "primary_sha256": "a39bcd3bee7180c9c3fb755a746feeea085b60ec8bd7d7d874801e0046493f42"
+    },
+    {
+      "equal": false,
+      "field": "runs[1].test_output_sha256",
+      "independent_sha256": "84658322d854225d6fa06cab01b4e29e35a6925707f1bdfe692e53c71a4a9538",
+      "primary_sha256": "eb1ac4791db7fc187d8ba8be5df549756ee728d4b0ce36e7ae877b8568692a43"
+    },
+    {
+      "equal": false,
+      "field": "runs[1].compile_output_sha256",
+      "independent_sha256": "0035ea29569a9fd9cfa2b7f88c68de52287d020620e718a5c92ef496c8eb5d70",
+      "primary_sha256": "c209478c776637184d26b728a8da48fc48a79cda79f5ea339109a166049d6055"
+    },
+    {
+      "equal": false,
+      "field": "runs[2].test_output_sha256",
+      "independent_sha256": "2a2b9a7c67e8c77c03158be8195435c2aeaeed0acb423f4c354d1ceccab5a878",
+      "primary_sha256": "27923249613d2a1e6826495c6e29ba9b055e9646ff472b7b87f106c0f534709a"
+    },
+    {
+      "equal": false,
+      "field": "runs[2].compile_output_sha256",
+      "independent_sha256": "9f2a0b0c1a7a4659090c0fefd5bd5e3e0fc4c4f3903db268863d3dd3df3161e5",
+      "primary_sha256": "c35b274a02074bf54397a9501ccb87f265dfa9f998632b6a3850281a63669912"
+    },
+    {
+      "equal": false,
+      "field": "runs[3].test_output_sha256",
+      "independent_sha256": "f32e9e887eae78b38b285b38d6a1ba2dd36c984c57bca79a7b7297b79b66f1e9",
+      "primary_sha256": "ccbac40152134fd4e3772b4ff53aafab4f2fde91808898b46c38d7d331a9703d"
+    },
+    {
+      "equal": false,
+      "field": "runs[3].compile_output_sha256",
+      "independent_sha256": "fe4ca8eccfeff03057dffa00ba38b3d45450a2f19ae2cc1bc1548cb54656ddfe",
+      "primary_sha256": "ce8ea7f5f74b848ac5715d713fdea06528b1ce045a2ba6ebac6a43307aeda9ca"
+    },
+    {
+      "equal": false,
+      "field": "runs[4].test_output_sha256",
+      "independent_sha256": "4be3b31946c788a9a16444b42435cff351510eedfe677b9de2a43087ae48e0d0",
+      "primary_sha256": "23e74f12cd8431e4728c27094668bacf527c85380391f4cfe2eb66d916bfbe77"
+    },
+    {
+      "equal": false,
+      "field": "runs[4].compile_output_sha256",
+      "independent_sha256": "5ad247f545d940cb16da774a86142d92a2f94f85d82ded978c93c91f2683b373",
+      "primary_sha256": "4f960af0406752a26965902d3d6fe67ff0a756c4e9107983fcdde22e5772bc68"
+    },
+    {
+      "equal": false,
+      "field": "runs[5].test_output_sha256",
+      "independent_sha256": "69365f5bd8558e8907ea8eea27c252f15fcfd2054f39788074633255c49c1d79",
+      "primary_sha256": "2134a768e14f30e893214134ee3b00445cd15eab5e7d6e3d8e41969e99b79d8d"
+    },
+    {
+      "equal": false,
+      "field": "runs[5].compile_output_sha256",
+      "independent_sha256": "c02e62deaaea2838826947e7e64f0e045112931bc39605968fabf6127dd78581",
+      "primary_sha256": "52dd0b2583cd68edb985d5f9c0085c3b2cba2b92c6db75d4d0bfc67771fd8f7b"
+    },
+    {
+      "equal": false,
+      "field": "runs[6].test_output_sha256",
+      "independent_sha256": "fa632b012a92214cd11ccf34a53c551bc5f22f652d8584f77318e6d7da71d3a6",
+      "primary_sha256": "cd22f5af73ff9484c505a878d7ca1135cde4d330c828811f9d257d72863e1d25"
+    },
+    {
+      "equal": false,
+      "field": "runs[6].compile_output_sha256",
+      "independent_sha256": "b0d9339f6103b2c8a455c6d1bd58f28d919bd537d01980067d484e4e3e6c4fb8",
+      "primary_sha256": "78b819e41e30e77fbcb8f76ee60f9bf15769a7aaf2a7fc632533d0f3d5e1bd52"
+    },
+    {
+      "equal": false,
+      "field": "runs[7].test_output_sha256",
+      "independent_sha256": "85ffc56f46a750dc75ca2e6cfba7c7c0c72346da75111ea0b2feb7d254c78c13",
+      "primary_sha256": "ff02cbf3099a0414e489329e0d18ad12bd0de49dac2078d13c8652fd592f8019"
+    },
+    {
+      "equal": false,
+      "field": "runs[7].compile_output_sha256",
+      "independent_sha256": "3f65f71f72af598e9dacb895de71ed4d6877513a8f6290a3118f72311d962138",
+      "primary_sha256": "b7d546fdd9b71a703541b8867164c694020189c84bd779d07fcbb6e4533f94ad"
+    },
+    {
+      "equal": false,
+      "field": "runs[8].test_output_sha256",
+      "independent_sha256": "98b2bdcde6bb860015ac9bb84f504d344d7a4312c7455afeeef88849a8ad2d00",
+      "primary_sha256": "b0f9c7267c747415d0a8b01a128822bc2d8860400bc11c1a4ac99269fcc82142"
+    },
+    {
+      "equal": false,
+      "field": "runs[8].compile_output_sha256",
+      "independent_sha256": "abc6a0f542a0fad3a9d6a76a03a7514c7b5094506704774ac1f1e9d32a1a1f3b",
+      "primary_sha256": "30b37b2c0ae372122b81e33b2c67e931de9a7142b7a92fc83058a05980f5b188"
+    },
+    {
+      "equal": false,
+      "field": "runs[9].test_output_sha256",
+      "independent_sha256": "6303c99c595d48a857f554a4462bd2f42550caabb45a2a387401bd4b687c4688",
+      "primary_sha256": "0a21b34e6a2a568a464e70f0ab58350e062eb59db32fa51f8d9215e52d415aec"
+    },
+    {
+      "equal": false,
+      "field": "runs[9].compile_output_sha256",
+      "independent_sha256": "6eb85bb77841e70d70175d8808b31953779ac5250bd882a2984a9b2809ffda25",
+      "primary_sha256": "7bcdcf63679bf4e0a23f1b3a6d4aa04298b521bc62655f6385c644555043b198"
+    },
+    {
+      "equal": false,
+      "field": "runs[10].test_output_sha256",
+      "independent_sha256": "e55f0ba14c462fd887a0c781808549aad1b92e50de3177d52d9b8aba1bcb248d",
+      "primary_sha256": "ac6517333fd80be795d1fa735ba84e95a78d2cf2bff69ef62fc93a5d470cdfc0"
+    },
+    {
+      "equal": false,
+      "field": "runs[10].compile_output_sha256",
+      "independent_sha256": "7f87385ef5792096f684faabfcab6fa44535873d9780384dfd9cb45adfb5dc9c",
+      "primary_sha256": "ddd552f898d05b3e390b1fd01b1f330c9bd0884a59df2154fe11b67f1f4e5c27"
+    },
+    {
+      "equal": false,
+      "field": "runs[11].test_output_sha256",
+      "independent_sha256": "7c0392a96784e776c4f5c1636c588de3a30e3c4493a3b294fa598f4aef3f2b17",
+      "primary_sha256": "6a3be8fb122ce8b2e44d89b6c99e92541a9382863c0c6c5b35873f7b632dfbfe"
+    },
+    {
+      "equal": false,
+      "field": "runs[11].compile_output_sha256",
+      "independent_sha256": "287048af24d8abee8dd64168d2adeaffba300f1d04808d2343d4e4b559f0e53f",
+      "primary_sha256": "cef08b418a3380af6adb75c83f41025ad60ab9fd97d0fe3f05bc41bf52f1f239"
+    },
+    {
+      "equal": false,
+      "field": "runs[12].test_output_sha256",
+      "independent_sha256": "4e6fc30b143517eb3b9a2ad28497572028ec251ba43225d2d2d4ba360b813f5e",
+      "primary_sha256": "0cde59a92d21ec5266345869c394ff0e1c8b42e8ea64061536c11fedc3852def"
+    },
+    {
+      "equal": false,
+      "field": "runs[12].compile_output_sha256",
+      "independent_sha256": "51fa2594fddb53b7d35d28df9db09bfd653638c837c0c9d42f28d0d1a602cb2e",
+      "primary_sha256": "6758fa4f64df45bc5f8fd4a7cc44b326f4d6661cdac8323188ddf11689797b4d"
+    },
+    {
+      "equal": false,
+      "field": "runs[13].test_output_sha256",
+      "independent_sha256": "6547cf8e8aa7d65942efec722cf099a408526f69ef31a4903df8b925395bb676",
+      "primary_sha256": "cd123c041411ca2870396d75838b30a8ff67c1cee3670b066a7a7549cfb9754d"
+    },
+    {
+      "equal": false,
+      "field": "runs[13].compile_output_sha256",
+      "independent_sha256": "175d5a0d4c91ab1ddc676fe2d1e726cbaf67e3fb6e07cbdccb000d55268d91aa",
+      "primary_sha256": "727e7b431e3ca27ca509865761dbc5fd7891f539733945fdccc07b8078c1bcd8"
+    }
+  ],
+  "retained_source_and_receipt_audits": [
+    {
+      "base_candidate_files_verified": 22,
+      "captured_parent_inputs_verified": 18,
+      "captured_public_inputs_verified": 8,
+      "production_warning_count": 81,
+      "run": "primary",
+      "variants": [
+        {
+          "compile_and_test_logs_match_recorded_hashes": true,
+          "complete_inventory_verified": true,
+          "expected_assertion_location": null,
+          "name": "candidate",
+          "retained_source_files_verified": 22,
+          "summary_counts": [
+            27,
+            0,
+            0,
+            0,
+            162
+          ]
+        },
+        {
+          "compile_and_test_logs_match_recorded_hashes": true,
+          "complete_inventory_verified": true,
+          "expected_assertion_location": "settings_mapper_tests.rs:109:9:",
+          "name": "full-shared-byte",
+          "retained_source_files_verified": 22,
+          "summary_counts": [
+            0,
+            1,
+            0,
+            0,
+            188
+          ]
+        },
+        {
+          "compile_and_test_logs_match_recorded_hashes": true,
+          "complete_inventory_verified": true,
+          "expected_assertion_location": "settings_mapper_tests.rs:126:9:",
+          "name": "browse-offset",
+          "retained_source_files_verified": 22,
+          "summary_counts": [
+            0,
+            1,
+            0,
+            0,
+            188
+          ]
+        },
+        {
+          "compile_and_test_logs_match_recorded_hashes": true,
+          "complete_inventory_verified": true,
+          "expected_assertion_location": "settings_mapper_tests.rs:207:9:",
+          "name": "selector-transients",
+          "retained_source_files_verified": 22,
+          "summary_counts": [
+            0,
+            1,
+            0,
+            0,
+            188
+          ]
+        },
+        {
+          "compile_and_test_logs_match_recorded_hashes": true,
+          "complete_inventory_verified": true,
+          "expected_assertion_location": "settings_mapper_tests.rs:251:9:",
+          "name": "time-high-byte",
+          "retained_source_files_verified": 22,
+          "summary_counts": [
+            0,
+            1,
+            0,
+            0,
+            188
+          ]
+        },
+        {
+          "compile_and_test_logs_match_recorded_hashes": true,
+          "complete_inventory_verified": true,
+          "expected_assertion_location": "settings_mapper_tests.rs:166:21:",
+          "name": "explicit-selection",
+          "retained_source_files_verified": 22,
+          "summary_counts": [
+            0,
+            1,
+            0,
+            0,
+            188
+          ]
+        },
+        {
+          "compile_and_test_logs_match_recorded_hashes": true,
+          "complete_inventory_verified": true,
+          "expected_assertion_location": "settings_mapper_tests.rs:309:9:",
+          "name": "supported-keys",
+          "retained_source_files_verified": 22,
+          "summary_counts": [
+            0,
+            1,
+            0,
+            0,
+            188
+          ]
+        },
+        {
+          "compile_and_test_logs_match_recorded_hashes": true,
+          "complete_inventory_verified": true,
+          "expected_assertion_location": "settings_mapper_tests.rs:347:9:",
+          "name": "duplicate-keys",
+          "retained_source_files_verified": 22,
+          "summary_counts": [
+            0,
+            1,
+            0,
+            0,
+            188
+          ]
+        },
+        {
+          "compile_and_test_logs_match_recorded_hashes": true,
+          "complete_inventory_verified": true,
+          "expected_assertion_location": "settings_mapper_tests.rs:507:5:",
+          "name": "raw-input-bound",
+          "retained_source_files_verified": 22,
+          "summary_counts": [
+            0,
+            1,
+            0,
+            0,
+            188
+          ]
+        },
+        {
+          "compile_and_test_logs_match_recorded_hashes": true,
+          "complete_inventory_verified": true,
+          "expected_assertion_location": "settings_mapper_tests.rs:224:13:",
+          "name": "prior-selector",
+          "retained_source_files_verified": 22,
+          "summary_counts": [
+            0,
+            1,
+            0,
+            0,
+            188
+          ]
+        },
+        {
+          "compile_and_test_logs_match_recorded_hashes": true,
+          "complete_inventory_verified": true,
+          "expected_assertion_location": "settings_mapper_tests.rs:267:21:",
+          "name": "time-pair",
+          "retained_source_files_verified": 22,
+          "summary_counts": [
+            0,
+            1,
+            0,
+            0,
+            188
+          ]
+        },
+        {
+          "compile_and_test_logs_match_recorded_hashes": true,
+          "complete_inventory_verified": true,
+          "expected_assertion_location": "settings_mapper_tests.rs:544:13:",
+          "name": "full-ack",
+          "retained_source_files_verified": 22,
+          "summary_counts": [
+            0,
+            1,
+            0,
+            0,
+            188
+          ]
+        },
+        {
+          "compile_and_test_logs_match_recorded_hashes": true,
+          "complete_inventory_verified": true,
+          "expected_assertion_location": "settings_mapper_tests.rs:441:9:",
+          "name": "trailing-data",
+          "retained_source_files_verified": 22,
+          "summary_counts": [
+            0,
+            1,
+            0,
+            0,
+            188
+          ]
+        },
+        {
+          "compile_and_test_logs_match_recorded_hashes": true,
+          "complete_inventory_verified": true,
+          "expected_assertion_location": "settings_mapper_tests.rs:530:5:",
+          "name": "number-range",
+          "retained_source_files_verified": 22,
+          "summary_counts": [
+            0,
+            1,
+            0,
+            0,
+            188
+          ]
+        }
+      ]
+    },
+    {
+      "base_candidate_files_verified": 22,
+      "captured_parent_inputs_verified": 18,
+      "captured_public_inputs_verified": 8,
+      "production_warning_count": 81,
+      "run": "independent",
+      "variants": [
+        {
+          "compile_and_test_logs_match_recorded_hashes": true,
+          "complete_inventory_verified": true,
+          "expected_assertion_location": null,
+          "name": "candidate",
+          "retained_source_files_verified": 22,
+          "summary_counts": [
+            27,
+            0,
+            0,
+            0,
+            162
+          ]
+        },
+        {
+          "compile_and_test_logs_match_recorded_hashes": true,
+          "complete_inventory_verified": true,
+          "expected_assertion_location": "settings_mapper_tests.rs:109:9:",
+          "name": "full-shared-byte",
+          "retained_source_files_verified": 22,
+          "summary_counts": [
+            0,
+            1,
+            0,
+            0,
+            188
+          ]
+        },
+        {
+          "compile_and_test_logs_match_recorded_hashes": true,
+          "complete_inventory_verified": true,
+          "expected_assertion_location": "settings_mapper_tests.rs:126:9:",
+          "name": "browse-offset",
+          "retained_source_files_verified": 22,
+          "summary_counts": [
+            0,
+            1,
+            0,
+            0,
+            188
+          ]
+        },
+        {
+          "compile_and_test_logs_match_recorded_hashes": true,
+          "complete_inventory_verified": true,
+          "expected_assertion_location": "settings_mapper_tests.rs:207:9:",
+          "name": "selector-transients",
+          "retained_source_files_verified": 22,
+          "summary_counts": [
+            0,
+            1,
+            0,
+            0,
+            188
+          ]
+        },
+        {
+          "compile_and_test_logs_match_recorded_hashes": true,
+          "complete_inventory_verified": true,
+          "expected_assertion_location": "settings_mapper_tests.rs:251:9:",
+          "name": "time-high-byte",
+          "retained_source_files_verified": 22,
+          "summary_counts": [
+            0,
+            1,
+            0,
+            0,
+            188
+          ]
+        },
+        {
+          "compile_and_test_logs_match_recorded_hashes": true,
+          "complete_inventory_verified": true,
+          "expected_assertion_location": "settings_mapper_tests.rs:166:21:",
+          "name": "explicit-selection",
+          "retained_source_files_verified": 22,
+          "summary_counts": [
+            0,
+            1,
+            0,
+            0,
+            188
+          ]
+        },
+        {
+          "compile_and_test_logs_match_recorded_hashes": true,
+          "complete_inventory_verified": true,
+          "expected_assertion_location": "settings_mapper_tests.rs:309:9:",
+          "name": "supported-keys",
+          "retained_source_files_verified": 22,
+          "summary_counts": [
+            0,
+            1,
+            0,
+            0,
+            188
+          ]
+        },
+        {
+          "compile_and_test_logs_match_recorded_hashes": true,
+          "complete_inventory_verified": true,
+          "expected_assertion_location": "settings_mapper_tests.rs:347:9:",
+          "name": "duplicate-keys",
+          "retained_source_files_verified": 22,
+          "summary_counts": [
+            0,
+            1,
+            0,
+            0,
+            188
+          ]
+        },
+        {
+          "compile_and_test_logs_match_recorded_hashes": true,
+          "complete_inventory_verified": true,
+          "expected_assertion_location": "settings_mapper_tests.rs:507:5:",
+          "name": "raw-input-bound",
+          "retained_source_files_verified": 22,
+          "summary_counts": [
+            0,
+            1,
+            0,
+            0,
+            188
+          ]
+        },
+        {
+          "compile_and_test_logs_match_recorded_hashes": true,
+          "complete_inventory_verified": true,
+          "expected_assertion_location": "settings_mapper_tests.rs:224:13:",
+          "name": "prior-selector",
+          "retained_source_files_verified": 22,
+          "summary_counts": [
+            0,
+            1,
+            0,
+            0,
+            188
+          ]
+        },
+        {
+          "compile_and_test_logs_match_recorded_hashes": true,
+          "complete_inventory_verified": true,
+          "expected_assertion_location": "settings_mapper_tests.rs:267:21:",
+          "name": "time-pair",
+          "retained_source_files_verified": 22,
+          "summary_counts": [
+            0,
+            1,
+            0,
+            0,
+            188
+          ]
+        },
+        {
+          "compile_and_test_logs_match_recorded_hashes": true,
+          "complete_inventory_verified": true,
+          "expected_assertion_location": "settings_mapper_tests.rs:544:13:",
+          "name": "full-ack",
+          "retained_source_files_verified": 22,
+          "summary_counts": [
+            0,
+            1,
+            0,
+            0,
+            188
+          ]
+        },
+        {
+          "compile_and_test_logs_match_recorded_hashes": true,
+          "complete_inventory_verified": true,
+          "expected_assertion_location": "settings_mapper_tests.rs:441:9:",
+          "name": "trailing-data",
+          "retained_source_files_verified": 22,
+          "summary_counts": [
+            0,
+            1,
+            0,
+            0,
+            188
+          ]
+        },
+        {
+          "compile_and_test_logs_match_recorded_hashes": true,
+          "complete_inventory_verified": true,
+          "expected_assertion_location": "settings_mapper_tests.rs:530:5:",
+          "name": "number-range",
+          "retained_source_files_verified": 22,
+          "summary_counts": [
+            0,
+            1,
+            0,
+            0,
+            188
+          ]
+        }
+      ]
+    }
+  ],
+  "scope": "One independent fresh offline build and selected mapper suite, plus readback audit of both final runs. No application main, settings file operation, SettingsSink, backend/driver, endpoint, native consumption, sanitizer, Linux/Windows execution or physical timing proof.",
+  "status": "verified",
+  "whole_result_json_bytes_equal": false
+}

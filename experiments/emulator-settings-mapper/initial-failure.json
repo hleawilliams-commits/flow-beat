@@ -1,0 +1,98 @@
+{
+  "completed_variant_logs": [
+    {
+      "compile_log_sha256": "0e8b7818ad76cc3166dd3454a824690ccc673124ac227a344fa4356f854ed444",
+      "name": "candidate",
+      "summary": "ok. 27 passed; 0 failed; 0 ignored; 0 measured; 162 filtered out; finished in 0.03s",
+      "test_log_sha256": "2a7be3e09ce921cab8c2aadb394f4d9483170e020d7573d62ebadc0682ba7b8d"
+    },
+    {
+      "compile_log_sha256": "5d59cfb3fbcf7f82f67cf4faa98a7d57f3bc1a4ad9eb986e04e2f450cc3377cd",
+      "name": "full-shared-byte",
+      "summary": "FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 188 filtered out; finished in 0.00s",
+      "test_log_sha256": "6136ce1ac20c3db6da2fd8d875abb35c564aba5689e055349bc269524b7f230b"
+    },
+    {
+      "compile_log_sha256": "127a4719373cf7c84e5a7e138ebb288f2486a36bc1b5b2a7f06219235ab0288a",
+      "name": "browse-offset",
+      "summary": "FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 188 filtered out; finished in 0.00s",
+      "test_log_sha256": "fff3b1440983ba950c4f5ca1765e5fa730a7db55fb753c4e2746e74853c2c2c1"
+    },
+    {
+      "compile_log_sha256": "420f6a3c02cdcd5d78e070c4b80be1cd55af03b72d6764ab752140d09112b243",
+      "name": "selector-transients",
+      "summary": "FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 188 filtered out; finished in 0.00s",
+      "test_log_sha256": "4458294a497a36f6e62398b485a8ce302316ef4c5f2d485013c3e6f53d9f0d3d"
+    },
+    {
+      "compile_log_sha256": "3455dcbe9c392935925855b65473e1f0a779be80571ef828dfc3fd93aec9e28c",
+      "name": "time-high-byte",
+      "summary": "FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 188 filtered out; finished in 0.00s",
+      "test_log_sha256": "b2acaa99dcb0ce0feb1d3e25c227123848fb88d78404875576fb3f7b5e4803a5"
+    },
+    {
+      "compile_log_sha256": "51e82af8cf0e7909e8be93fa86db914ba1b076cb3a4ebe3f4da9ff190b30de94",
+      "name": "explicit-selection",
+      "summary": "FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 188 filtered out; finished in 0.00s",
+      "test_log_sha256": "2997f91dcb23b381f549cff432d20d8931709a30a69636f6d4979e1dd915f44a"
+    },
+    {
+      "compile_log_sha256": "085056b01849aa4e13bf6a6b4252e5f38470a0ac7674ba897d5c961dea368241",
+      "name": "supported-keys",
+      "summary": "FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 188 filtered out; finished in 0.00s",
+      "test_log_sha256": "d0bcb736789c58aa03eb32003f27d7b6dad10d4b1e6c908469c7aeb43df19bb5"
+    },
+    {
+      "compile_log_sha256": "c3548691b30f7726e21022552002db4e636b28c3265dc8b1be7637d4fa754d0c",
+      "name": "duplicate-keys",
+      "summary": "FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 188 filtered out; finished in 0.00s",
+      "test_log_sha256": "a175e136ad2c3c4d36dc3be0ad7454f14410d68f8a44b9beeb6614513312d702"
+    },
+    {
+      "compile_log_sha256": "bdf3e6afdce53eeb0b41a8361691c9dbd4cd972967e6e980a7aab9b419b61fcb",
+      "name": "raw-input-bound",
+      "summary": "FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 188 filtered out; finished in 0.00s",
+      "test_log_sha256": "cb73c8d5546d111bf29e175860b6abf579ef7662abafe987b400ca1e4e8c68a6"
+    },
+    {
+      "compile_log_sha256": "3e168f2fbdac836f303c53e0548a66d7ba2111dbc0f5664b14669d4799dfaff5",
+      "name": "prior-selector",
+      "summary": "FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 188 filtered out; finished in 0.00s",
+      "test_log_sha256": "27a0666e4b8cb924334a4cafeabb7a48b6b7ca485dc7fa5cd7b5cfcac48d5e23"
+    },
+    {
+      "compile_log_sha256": "b38bb654234f39c566e4d7dfc13562c681a55587148f2e266b2d06d1ff5477ba",
+      "name": "time-pair",
+      "summary": "FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 188 filtered out; finished in 0.00s",
+      "test_log_sha256": "f91bda9a2000afa6eff17d9fd5333ed67c5b079fae5bcf3ee241af593797987a"
+    },
+    {
+      "compile_log_sha256": "70009c7ddb35da9beae77ba23595312e0a9ab177445273098d406ea65c969b78",
+      "name": "full-ack",
+      "summary": "FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 188 filtered out; finished in 0.00s",
+      "test_log_sha256": "1467620d4909b5775dcdd280a9c2e5d8dc51f2e1f377feada7ab92a3c4767d89"
+    },
+    {
+      "compile_log_sha256": "891be8d34a731e1cfdcc25739e9d1c96385e395daf657a26513b9d5849fbae0d",
+      "name": "trailing-data",
+      "summary": "FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 188 filtered out; finished in 0.00s",
+      "test_log_sha256": "a80c25e979b55d87d01dc94764dc7b9c531f632e02d3bd240e68bdacf84f9b28"
+    }
+  ],
+  "inputs_sha256": {
+    "candidate-pins.json": "592383e4f2fb7156c2bf24c815175bbecb6e11d384c566129006d82e98291e5b",
+    "controls.json": "391528b2ca111344a878b96ea8f1896e42446470d3bb5720879931792cb0a2ae",
+    "parent-inputs.json": "c4323c860a3dc2d68f6924e20ebcbcdf0b3f7d3f48cad5f191e2401e6d07a73d",
+    "prepare-candidate.py": "0a17fcc1cc06e93e9e68b8f88464927d8edd5458dd1e74506d6147b5f9612e40",
+    "run-tests.py": "70d809ddcfdae24195fb62e7ee9401bd342952a9d23d86cfb13237e780401be2",
+    "settings_mapper.rs": "7b4634a60f8e07f5d114d6ad0e58331f4d80723a5a59956deafdd541637ec6e0",
+    "settings_mapper_tests.rs": "3a23b2dd45c70dc344874c1f09a43e83f408b07723e0799e01312995b32cf953",
+    "test-inventory.json": "c2d186d1b72222930c281388b059b447e763d79acd75ef12bb697e02931ff1d8"
+  },
+  "production_check_log_sha256": "52dbce279761149fb4fa97cf3bbb068861f5d09d00a9d7de72f905fda4a4bf51",
+  "reason": "The trailing-data mutation failed the exact selected assertion at 441:9 for {}{}, but custom assert!(predicate, message) did not emit the literal assertion required by the strict runner. The run exited 1 and produced no completed result.json.",
+  "remaining_control_not_reached": "number-range",
+  "repair": "Only that fixture macro changed to assert_eq!(predicate, true, same message). Predicate, production source, runner criteria and all policies are unchanged.",
+  "runtime_or_device_access": false,
+  "status": "runner-refused-control-diagnostic"
+}

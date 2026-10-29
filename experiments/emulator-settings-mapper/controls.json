@@ -1,0 +1,126 @@
+{
+  "candidate_sha256": {
+    "az-preview/src/settings_mapper.rs": "7b4634a60f8e07f5d114d6ad0e58331f4d80723a5a59956deafdd541637ec6e0",
+    "az-preview/src/settings_mapper_tests.rs": "1d76ba459dd0b9ca2a759a41252089f97d04b3b6ddb8558e3ef7b811fe5a924b"
+  },
+  "controls": [
+    {
+      "assertion_anchor": "assert_eq!(\n            result.targets().mixer,\n            encode(&expected),\n            \"full byte {}\",\n            value\n        );",
+      "assertion_file": "az-preview/src/settings_mapper_tests.rs",
+      "file": "az-preview/src/settings_mapper.rs",
+      "name": "full-shared-byte",
+      "new": "*value = Some(frame[key] & 0x7f);",
+      "old": "*value = Some(frame[key]);",
+      "test": "settings_mapper::tests::all_256_values_preserve_every_analog_shared_bit"
+    },
+    {
+      "assertion_anchor": "assert_eq!(\n            result.targets().knob,\n            value.to_string().into_bytes(),\n            \"counter {}\",\n            value\n        );",
+      "assertion_file": "az-preview/src/settings_mapper_tests.rs",
+      "file": "az-preview/src/settings_mapper.rs",
+      "name": "browse-offset",
+      "new": "knob: frame[KNOB-1].to_string().into_bytes(),",
+      "old": "knob: frame[KNOB].to_string().into_bytes(),",
+      "test": "settings_mapper::tests::knob_counter_uses_byte_34_without_sign_mask_newline_or_other_byte"
+    },
+    {
+      "assertion_anchor": "assert_eq!(\n            result.targets().mixer,\n            encode(&expected),\n            \"selector byte {}\",\n            byte\n        );",
+      "assertion_file": "az-preview/src/settings_mapper_tests.rs",
+      "file": "az-preview/src/settings_mapper.rs",
+      "name": "selector-transients",
+      "new": "Some(frame[SELECTOR])",
+      "old": "Some(frame[SELECTOR] & 0xf0)",
+      "test": "settings_mapper::tests::selected_selector_strips_all_transient_low_nibble_patterns"
+    },
+    {
+      "assertion_anchor": "assert_eq!(\n            result.targets().mixer,\n            encode(&expected),\n            \"signed TIME {}\",\n            value\n        );",
+      "assertion_file": "az-preview/src/settings_mapper_tests.rs",
+      "file": "az-preview/src/settings_mapper.rs",
+      "name": "time-high-byte",
+      "new": "map.values[TIME_HI] = Some(frame[TIME_LO]);",
+      "old": "map.values[TIME_HI] = Some(frame[TIME_HI]);",
+      "test": "settings_mapper::tests::signed_time_patterns_remain_exact_little_endian_bytes"
+    },
+    {
+      "assertion_anchor": "assert_eq!(\n                        result.targets().mixer,\n                        encode(&expected),\n                        \"selection {:?}, old selector {}, old time {}\",\n                        selected,\n                        selector_present,\n                        time_present\n                    );",
+      "assertion_file": "az-preview/src/settings_mapper_tests.rs",
+      "file": "az-preview/src/settings_mapper.rs",
+      "name": "explicit-selection",
+      "new": "if true {",
+      "old": "if selection.selector {",
+      "test": "settings_mapper::tests::all_four_selections_preserve_or_create_each_valid_optional_group"
+    },
+    {
+      "assertion_anchor": "assert_eq!(\n            map(acknowledged(canary()), Some(saved.as_bytes()), ALL),\n            Err(MapError::UnsupportedKey),\n            \"unsupported offset {}\",\n            offset\n        );",
+      "assertion_file": "az-preview/src/settings_mapper_tests.rs",
+      "file": "az-preview/src/settings_mapper.rs",
+      "name": "supported-keys",
+      "new": "if false && !supported_key(key) {",
+      "old": "if !supported_key(key) {",
+      "test": "settings_mapper::tests::every_unsupported_in_frame_offset_is_rejected"
+    },
+    {
+      "assertion_anchor": "assert_eq!(\n            map(acknowledged(canary()), Some(saved.as_bytes()), ALL),\n            Err(MapError::DuplicateKey),\n            \"duplicate key {}\",\n            offset\n        );",
+      "assertion_file": "az-preview/src/settings_mapper_tests.rs",
+      "file": "az-preview/src/settings_mapper.rs",
+      "name": "duplicate-keys",
+      "new": "if false && map.values[key].is_some() {",
+      "old": "if map.values[key].is_some() {",
+      "test": "settings_mapper::tests::every_supported_duplicate_key_is_refused_before_overwrite"
+    },
+    {
+      "assertion_anchor": "assert_eq!(\n        map(acknowledged(canary()), Some(&exact), NONE),\n        Err(MapError::TooLarge)\n    );",
+      "assertion_file": "az-preview/src/settings_mapper_tests.rs",
+      "file": "az-preview/src/settings_mapper.rs",
+      "name": "raw-input-bound",
+      "new": "if input.len() > MAX_INPUT_BYTES + 1 {",
+      "old": "if input.len() > MAX_INPUT_BYTES {",
+      "test": "settings_mapper::tests::parse_limit_accepts_exact_bound_and_refuses_one_byte_more"
+    },
+    {
+      "assertion_anchor": "assert_eq!(\n                map(acknowledged(canary()), Some(saved.as_bytes()), selection),\n                Err(MapError::SelectorMomentaryBits),\n                \"prior selector {}\",\n                byte\n            );",
+      "assertion_file": "az-preview/src/settings_mapper_tests.rs",
+      "file": "az-preview/src/settings_mapper.rs",
+      "name": "prior-selector",
+      "new": "if false && map.values[SELECTOR].is_some_and(|value| value & 0x0f != 0) {",
+      "old": "if map.values[SELECTOR].is_some_and(|value| value & 0x0f != 0) {",
+      "test": "settings_mapper::tests::unsafe_prior_selector_is_refused_before_any_selected_overwrite"
+    },
+    {
+      "assertion_anchor": "assert_eq!(\n                        map(\n                            acknowledged(canary()),\n                            Some(saved.as_bytes()),\n                            Selection { selector, fx_time }\n                        ),\n                        Err(MapError::IncompleteFxTime),\n                        \"lone TIME offset {}\",\n                        lone_offset\n                    );",
+      "assertion_file": "az-preview/src/settings_mapper_tests.rs",
+      "file": "az-preview/src/settings_mapper.rs",
+      "name": "time-pair",
+      "new": "if false && map.values[TIME_LO].is_some() != map.values[TIME_HI].is_some() {",
+      "old": "if map.values[TIME_LO].is_some() != map.values[TIME_HI].is_some() {",
+      "test": "settings_mapper::tests::incomplete_saved_time_is_refused_even_when_time_would_be_overwritten"
+    },
+    {
+      "assertion_anchor": "assert_eq!(mapped.ack(), &ack, \"complete ACK must be retained\");",
+      "assertion_file": "az-preview/src/settings_mapper_tests.rs",
+      "file": "az-preview/src/settings_mapper.rs",
+      "name": "full-ack",
+      "new": "Ok(MappedSettings { ack: FrameAck { kernel_sequence: ack.kernel_sequence.wrapping_add(1), ..ack }, targets })",
+      "old": "Ok(MappedSettings { ack, targets })",
+      "test": "settings_mapper::tests::returned_ack_retains_complete_identity_sequence_request_and_all_152_bytes"
+    },
+    {
+      "assertion_anchor": "assert_eq!(\n            map(acknowledged(canary()), Some(saved.as_bytes()), NONE).is_err(),\n            true,\n            \"syntax {:?}\",\n            saved\n        );",
+      "assertion_file": "az-preview/src/settings_mapper_tests.rs",
+      "file": "az-preview/src/settings_mapper.rs",
+      "name": "trailing-data",
+      "new": "if self.at <= self.input.len() {",
+      "old": "if self.at == self.input.len() {",
+      "test": "settings_mapper::tests::malformed_object_structure_and_trailing_data_are_refused"
+    },
+    {
+      "assertion_anchor": "assert_eq!(\n        map(acknowledged(frame), Some(b\"{\\\"10\\\": 256}\"), NONE),\n        Err(MapError::Number)\n    );",
+      "assertion_file": "az-preview/src/settings_mapper_tests.rs",
+      "file": "az-preview/src/settings_mapper.rs",
+      "name": "number-range",
+      "new": "if false && value > u16::from(u8::MAX) {",
+      "old": "if value > u16::from(u8::MAX) {",
+      "test": "settings_mapper::tests::saved_bytes_zero_and_255_are_valid_without_modulo_coercion"
+    }
+  ],
+  "scope": "Thirteen actual-source compiling controls; each must fail its one exact designated assertion. No inherited test execution."
+}
