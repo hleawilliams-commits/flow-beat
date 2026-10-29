@@ -1,0 +1,17 @@
+{
+  "checks": {
+    "all": 148,
+    "atomic": 3,
+    "epoch": 1,
+    "frame": 1,
+    "idle": 1,
+    "instance": 1,
+    "mode": 1,
+    "overflow": 1,
+    "owner": 1,
+    "partial": 1,
+    "sequence": 1,
+    "stale": 3
+  },
+  "scope": "focused RESTORE interaction cases only; 152 idle mismatches aggregate into one assertion; thread creation/join included in counts"
+}

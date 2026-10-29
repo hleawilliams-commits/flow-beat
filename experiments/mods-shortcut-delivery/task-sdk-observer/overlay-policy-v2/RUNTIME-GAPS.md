@@ -257,3 +257,31 @@ owned stopped recovery, authenticated backend/receipts, unknown reconciliation,
 callback deadlines, native dwell/ownership and two-file host settings restoration
 with writer exclusion have appropriate evidence. This local owner does not
 restore a native baseline, cancel a queued task or authorize resource release.
+
+
+## Subsequent offline selected-mode restoration primitive
+
+[emulator-overlay-restore](../../../emulator-overlay-restore/) adds an exact
+208-byte tagged request which changes selected raw bytes and injected/idle mode
+while revoking the old generation under the kernel mutation lock. Mode 0 rejects
+any mismatch from the pinned 152-byte idle template. Owner/run/instance,
+legacy fencing and CRC policy survive. Existing operations and STATE layout
+remain unchanged. This fills the frozen kernel's mode-0 restoration gap only;
+the old broker and runtime runner have no adapter for it.
+
+The focused extracted-source suite passes 148 checks and 11 strict controls per
+plain, ASan/UBSan and TSan mode, with 26 static checks and byte-identical
+independent results. Strict ARM64 compilation/modpost passes with 36 matched
+exports. The experiment retains independent review, build evidence and the corrected draft
+fixture-barrier failure. No kernel candidate assertion or stems gate was weakened.
+Earlier SPI snapshots can complete after this mutation, and newly retagged old
+bytes remain accepted. Selected-mode restoration is not native quiescence or
+neutrality; hidden dormant-buffer history is not restored.
+
+Runtime stays CLOSED. A live recovery transaction still needs authoritative
+original baseline/process identity, all-producer closure, verified scoped stop,
+unknown-outcome reconciliation, both original host files with writer exclusion,
+full overlay/mode/host verification and separately guarded restart/adoption.
+Lifecycle final Drop/process death, callback deadlines, native dwell and event
+ownership remain unresolved. No module installation, emulator/device endpoint,
+service action, physical access, package/core/catalog change or old cleanup occurred.

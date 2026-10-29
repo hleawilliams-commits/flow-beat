@@ -1,0 +1,107 @@
+--- a/guest/modules/subucom_virt/subucom_ownership.h
++++ b/guest/modules/subucom_virt/subucom_ownership.h
+@@ -27,6 +27,14 @@
+     __u8 frame[AZ_OVERLAY_BYTES];
+ };
+ 
++/* Mode and selected raw frame only, not dormant internal-buffer history. */
++struct az_overlay_restore {
++    struct az_overlay_command header;
++    __u32 injected;
++    __u32 reserved;
++    __u8 frame[AZ_OVERLAY_BYTES];
++};
++
+ struct az_overlay_state {
+     __u32 version;
+     __u32 flags;
+@@ -49,4 +57,10 @@
+ #define AZ_OVERLAY_STATE _IOR('Z', 0x53, struct az_overlay_state)
+ #define AZ_OVERLAY_ROTATE _IOW('Z', 0x54, struct az_overlay_frame)
+ 
++/* Restore selected raw bytes/mode and revoke the old generation together.
++ * injected must be 0 or 1; reserved must be zero. For mode 0 every frame byte
++ * must equal this module's idle template. No normalization, legacy unfencing,
++ * native quiescence, baseline authority or host-file restoration is implied. */
++#define AZ_OVERLAY_RESTORE _IOW('Z', 0x55, struct az_overlay_restore)
++
+ #endif
+--- a/guest/modules/subucom_virt/subucom_virt.c
++++ b/guest/modules/subucom_virt/subucom_virt.c
+@@ -161,6 +161,10 @@
+ static_assert(sizeof(struct az_overlay_command) == 48);
+ static_assert(sizeof(struct az_overlay_frame) == 200);
+ static_assert(sizeof(struct az_overlay_state) == 208);
++static_assert(sizeof(struct az_overlay_restore) == 208);
++static_assert(offsetof(struct az_overlay_restore, injected) == 48);
++static_assert(offsetof(struct az_overlay_restore, reserved) == 52);
++static_assert(offsetof(struct az_overlay_restore, frame) == 56);
+ static_assert(offsetof(struct az_overlay_command, instance) == 8);
+ static_assert(offsetof(struct az_overlay_command, run_id) == 24);
+ static_assert(offsetof(struct az_overlay_command, epoch) == 32);
+@@ -511,7 +515,9 @@
+ static long ctrl_ioctl(struct file *filp, unsigned int cmd, unsigned long arg)
+ {
+     struct az_overlay_frame request;
++    struct az_overlay_restore restore;
+     struct az_overlay_command *h = &request.header;
++    void *input = &request;
+     unsigned long flags;
+     int ret = 0;
+     size_t size;
+@@ -546,6 +552,11 @@
+     case AZ_OVERLAY_ROTATE:
+         size = sizeof(request);
+         break;
++    case AZ_OVERLAY_RESTORE:
++        size = sizeof(restore);
++        input = &restore;
++        h = &restore.header;
++        break;
+     default:
+         return -ENOTTY;
+     }
+@@ -556,9 +567,16 @@
+         return -EPERM;
+     if (!allow_overlay_ownership)
+         return -EOPNOTSUPP;
+-    if (xget_bytes((u8 *)&request, (const void __user *)arg, size))
++    if (xget_bytes((u8 *)input, (const void __user *)arg, size))
+         return -EFAULT;
+     if (h->version != AZ_OVERLAY_VERSION || h->reserved || !h->run_id)
++        return -EINVAL;
++    /* The idle source is immutable. Refuse a mismatched mode-0 payload rather
++     * than silently replacing any submitted byte with a template value. */
++    if (cmd == AZ_OVERLAY_RESTORE &&
++        (restore.injected > 1 || restore.reserved ||
++         (!restore.injected && memcmp(restore.frame,
++                                     az_bus_frame[OWNED_BUS], MISO_SIZE))))
+         return -EINVAL;
+ 
+     spin_lock_irqsave(&miso_lock, flags);
+@@ -584,16 +602,22 @@
+         }
+     } else {
+         ret = mixer_owned_next(filp, h);
+-        if (!ret && cmd == AZ_OVERLAY_ROTATE && mixer_epoch == U64_MAX)
++        if (!ret && (cmd == AZ_OVERLAY_ROTATE || cmd == AZ_OVERLAY_RESTORE) &&
++            mixer_epoch == U64_MAX)
+             ret = -EOVERFLOW;
+         if (!ret) {
+-            if (cmd == AZ_OVERLAY_FRAME || cmd == AZ_OVERLAY_ROTATE) {
++            if (cmd == AZ_OVERLAY_RESTORE) {
++                /* Retain the owner/run/fence/CRC. This selects raw content and
++                 * mode only; older SPI snapshots may still complete afterward. */
++                memcpy(inject_pending[OWNED_BUS], restore.frame, MISO_SIZE);
++                has_inject[OWNED_BUS] = restore.injected;
++            } else if (cmd == AZ_OVERLAY_FRAME || cmd == AZ_OVERLAY_ROTATE) {
+                 memcpy(inject_pending[OWNED_BUS], request.frame, MISO_SIZE);
+                 has_inject[OWNED_BUS] = 1;
+             } else {
+                 mixer_owner = NULL;
+             }
+-            if (cmd == AZ_OVERLAY_ROTATE) {
++            if (cmd == AZ_OVERLAY_ROTATE || cmd == AZ_OVERLAY_RESTORE) {
+                 /* Opaque frame and fresh generation commit together. Keep the
+                  * broker's open description and run. Old queued payloads must
+                  * keep their old epoch; the producer adapter must never retag. */

@@ -625,3 +625,58 @@ authenticated backend/receipt authority, native consumption/dwell, unknown
 reconciliation, two-file settings restoration/writer exclusion and owned stopped
 recovery are still required. Do not install this candidate or infer a runtime
 permit. Preserve the prior source/evidence and all staging/publication gates.
+
+
+## October 29: tagged selected-mode restoration, offline only
+
+The separate [RESTORE successor](../experiments/emulator-overlay-restore/)
+applies after the frozen ownership and instance/generation patches. It adds a
+208-byte input-only V2 request (`0x40d05a55`) with the existing bound header,
+explicit injected value (0 or 1), zero reserved field and 152 raw frame bytes.
+Mode 0 must match every pinned idle-template byte. The final mutation lock checks
+instance/file/run/epoch/exact-next sequence and counter capacity, then commits
+mode/frame, epoch increment and sequence zero together. Existing FRAME/ROTATE
+encodings and semantics, owner/run/instance, permanent legacy fence and mixer
+CRC policy remain intact. No new STATE flag or legacy fallback is introduced.
+
+Patch SHA-256:
+`fdf40df07b76e22f1684186e4d725ccc5d1cc56e24d5cb9a7f7813534a045352`.
+Only the C module and ownership header change; frame header and Makefile remain
+identical. Preparation exports pinned Git blobs and checks all three captured
+patches and each intermediate inventory. The original emulator and frozen
+parents are unchanged.
+
+The focused host fixture passes 148 assertions per plain, ASan/UBSan and TSan
+mode, 11 strict compiling controls per mode and 26 static source/ABI checks.
+It executes exact extracted methods with owned-memory usercopy and pthread
+shims, testing both modes, all-byte idle mismatch rejection, partial copies,
+all ownership/generation gates, old copied mutators, concurrent winners,
+legacy/CRC fencing, coherent historical STATE and delayed SPI snapshots.
+The frozen parents' complete passing suites were not repeated. A fresh independent
+run matches the entire result byte for byte, with no excluded fields. Strict
+ARM64 compilation/modpost passes; all 36 actual undefined symbols match the
+pinned export table, and the original CRC parameter metadata is retained.
+Source review and separate build evidence are retained in the experiment.
+
+Two draft-fixture failures remain recorded: a first compile rejected an unused
+fixture variable, then a plain run failed both delayed-SPI-history assertions
+because a reused fixture barrier was still signaled from the earlier STATE
+read. Per-launch barrier reset under its mutex fixes that schedule. The
+assertions and kernel candidate were unchanged; this is unrelated to the
+unexplained historical stems ASan failure, whose gate stays closed.
+
+The target is selected raw bytes and mode, not hidden dormant-buffer history.
+A previously sampled SPI frame can still complete after RESTORE, and a producer
+can still reauthor old bytes under a fresh tag. No native event cancellation,
+neutrality, application-stop proof or recovery completion follows. An uncertain
+RESTORE needs exact retained request/result reconciliation, not blind retries or
+inferred sequence advancement. The old broker does not yet support this command.
+
+Next compose a separately reviewed broker/recovery adapter with retained original
+baseline authority, closed producer admission, verified native process/start
+stop, exact two-file host restoration/writer exclusion and guarded restart.
+Platform final-Drop/process-death custody, callback deadlines and native dwell
+remain open. Main supplies no owned backend and all runtime dispatch stays CLOSED.
+No installation, emulator/device endpoint, service action, physical access,
+core/package/catalog change, old cleanup or snapshot restoration occurred.
+Preserve unrelated untracked work including deck-lights/ and all prior gates.

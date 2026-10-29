@@ -1,0 +1,247 @@
+{
+  "abi": {
+    "compat_handler": false,
+    "existing_command_size": 48,
+    "existing_frame_size": 200,
+    "existing_operations_redefined": false,
+    "existing_state_size": 208,
+    "native_64_bit_only": true,
+    "new_operation_number": "0x55",
+    "restore_frame_offset": 56,
+    "restore_injected_offset": 48,
+    "restore_reserved_offset": 52,
+    "restore_size": 208,
+    "scope": "Source compile-time assertions and build only; no ioctl or kernel execution.",
+    "version": 2
+  },
+  "artifact": {
+    "binary_kept_private": true,
+    "byte_order": "little",
+    "elf_class": 64,
+    "elf_type": "ET_REL",
+    "machine": "AArch64",
+    "machine_number": 183,
+    "name": "subucom_virt.ko",
+    "sha256": "ae6f19b677d0bfce1846863bd30d6e0f893181a7b7023e47a48db4a101c7aa75",
+    "size": 94432,
+    "vermagic": "6.6.138-dirty SMP preempt mod_unload aarch64"
+  },
+  "build": {
+    "archive_layer_reused_from_local_cache": true,
+    "build_count": 1,
+    "candidate_compilation_executed": true,
+    "compiler_warning_count": 0,
+    "downloads": false,
+    "exit_code": 0,
+    "input_hashes_unchanged": true,
+    "kbuild_modpost_warn_used": false,
+    "kernel_make_arguments": [
+      "ARCH=arm64",
+      "-j2",
+      "M=<private-candidate>",
+      "modules"
+    ],
+    "local_inputs_only": true,
+    "platform": "linux/arm64",
+    "private_archive_bytes": 689524647,
+    "private_archive_sha256": "898432b5244d53de1b28943b829859d249241bf88b750337c2a9871d138ab54c",
+    "private_build_log_sha256": "f99ac37e9df09068834c9ab61362b8dd64bc99b041b83f38a52fba2693354e83",
+    "private_command_receipt_sha256": "99fddb64ff04e04869965f9d1d008f80a4d11b90684bb2690952e01d3ac9081e",
+    "private_compile_log_sha256": "0af62a660bb14b8afd039fe87d1360bf89423f8605d3f5971c81016b75b5c074",
+    "private_dockerfile_sha256": "267225413f1da8e5277033d7eeed869bfb376f85dc6f731cb12994f755f44399",
+    "private_in_build_verifier_sha256": "7f88de1f2b259ad01d8de2b8016921ffcc6b6d178e0fb4425a2758a6a77de562",
+    "private_runner_sha256": "a5b05ea9c98a1646efbbb1312384f269891fde1f1293fa57b2a4de162fad5f54",
+    "private_status_receipt_sha256": "f8ebd5900ad55bb3acd65296a4dd06679d6579ab73dfc96ba761a192588304c0",
+    "pull": false,
+    "remote_base_image": false,
+    "remote_frontend": false,
+    "run_network": "none",
+    "scratch_stages": 2,
+    "strict_modpost": true
+  },
+  "byte_review": {
+    "passed": true,
+    "private_result_sha256": "450d0c889cb748182406179d9718a389254d77e93e0430336e44c1c85c4b73dc",
+    "private_script_sha256": "f5471b6d2415adc9a272e2168edcbb3647149c1468c9e84b58ee25e3f7ad226f",
+    "scope": "Separate standard-library ELF parsing compared with in-build nm/verifier output, parent ELF and retained exports."
+  },
+  "independent_root_review": {
+    "confirmed": [
+      "Final binary SHA-256 and 94432-byte length",
+      "ELF64 little-endian AArch64 ET_REL",
+      "CRC array parameter type entry",
+      "Expected vermagic"
+    ],
+    "private_receipt_sha256": "1036031f0e50778708d9e9772e251746593a3eaf97c74e29736795dbb507ba38",
+    "reported_passed": true,
+    "scope": "Parent independently inspected the saved binary using Python struct and file; no second build or module execution."
+  },
+  "kernel": {
+    "archive_member_sha256": {
+      "kernel/.config": "93b0bcf3419d18cd5fbc86eed505252ee6c7207cf58241fa0d0a79d02d5d1dac",
+      "kernel/.git/HEAD": "17d932c990b0f933283fdea035b5f2af30d835523607c87e249189bc3d702126",
+      "kernel/Makefile": "425f067d3b5b53b6c3067955d47b0c4824ef808b589069347e2727a37239c34e",
+      "kernel/include/generated/compile.h": "bac388a74c230fbfdf5ed317a6c6a2b4862e658035743e94536eca99b055aa45",
+      "kernel/include/generated/utsrelease.h": "e4c50ddb4c469a45b1a2b2ea69f2cda3d8066c21fc6e37bc77422b48af3405f1",
+      "kernel/vmlinux.symvers": "dd157a5cd924cba495402cccb326d169e5c63f9252c13b5ca6d9535e0c08c329"
+    },
+    "commit": "3b9f64db049687c0d38b4b3ef2f297f0642179af",
+    "config_values": {
+      "CONFIG_COMPAT": true,
+      "CONFIG_MODULE_SIG": false,
+      "CONFIG_MODULE_UNLOAD": true,
+      "CONFIG_MODVERSIONS": false
+    },
+    "export_count": 14223,
+    "release": "6.6.138-dirty",
+    "symvers_handling": "Retained vmlinux.symvers copied to Module.symvers only inside the isolated build layer.",
+    "tag": "v6.6.138"
+  },
+  "limits": {
+    "complete_stopped_recovery_proven": false,
+    "emulator_contact": false,
+    "host_settings_or_counter_restored": false,
+    "kernel_locking_or_vfs_lifetime_proven": false,
+    "live_ioctl_behavior_proven": false,
+    "module_installed": false,
+    "module_loaded": false,
+    "native_stopped_attestation": false,
+    "physical_contact": false,
+    "producer_admission_or_recovery_authority_proven": false,
+    "runtime_loadability_proven": false,
+    "statement": "Offline compile and byte checks only. The new primitive supplies no native pause, queue drain, authentic original baseline, producer authorization, host-file restoration or restart permission."
+  },
+  "metadata": {
+    "crc_array_type_entry_count": 1,
+    "parameter_entries": [
+      "parm=allow_overlay_ownership:Allow privileged mixer ownership; default off, no legacy handback",
+      "parm=inject_testmode:Hold the testmode buttons from loading until the first LED frame (0 off, 1 on)",
+      "parm=spi_crc_len:per-bus CRC prefix length {spi1,spi2,spi3,spi5}",
+      "parmtype=allow_overlay_ownership:bool",
+      "parmtype=inject_testmode:int",
+      "parmtype=spi_crc_len:array of int"
+    ],
+    "parameter_entries_unchanged_vs_handback": true
+  },
+  "preparation_failure_retained": {
+    "candidate_or_build_failure": false,
+    "cause": "The inspector wrongly required a regular tar member; gcc is the exact retained hard link to aarch64-alpine-linux-musl-gcc.",
+    "correction": "Verify the exact hard-link target and target executable hash; prepare a fresh context.",
+    "full_stderr_file_retained": false,
+    "observed": "AssertionError: usr/bin/gcc",
+    "private_initial_script_sha256": "d0b6858c60b9fbae3c05b85d041b13f0cb7fdddd61d4c107ac5fbf29ffe50431",
+    "private_observed_excerpt_receipt_sha256": "a5ffbdff422fb9a9833ee9f12a234081c17808d1ba02ac559a33c7c0d3776501",
+    "stage": "Initial offline archive-member inspection before source preparation/build"
+  },
+  "runtime_gate": "closed",
+  "schema": 1,
+  "sources": {
+    "base_sha256": {
+      "Makefile": "a85021fa4fb059ccbb89c3c2db6659720bcf8dfd80e826831b2363474f2e1be6",
+      "subucom_frames.h": "4d9d833e583b7c6a5aa3f12de0fea2b7245e9dac915477ab96b9cfdfa75c2c0b",
+      "subucom_virt.c": "9631ca05810408eb9cd40cb38fa3f90d8dd2ac1d4d09a2e73d084ea0dbe03654"
+    },
+    "candidate_pins_sha256": "7410374d7690548b217763ee2ec2f260dd07b1319897e6560e624ff0f4791b2d",
+    "candidate_sha256": {
+      "Makefile": "a85021fa4fb059ccbb89c3c2db6659720bcf8dfd80e826831b2363474f2e1be6",
+      "subucom_frames.h": "4d9d833e583b7c6a5aa3f12de0fea2b7245e9dac915477ab96b9cfdfa75c2c0b",
+      "subucom_ownership.h": "a9f2cfa4d007053806ca97f3058c72bffd43756995cb23235c415358a3c7e990",
+      "subucom_virt.c": "5ea2023ccb8e058fad66b7317d545fc7a0328bcc5aae624cfc18c9769cf87124"
+    },
+    "emulator_base_commit": "06fc981707e69982c0554bb508e0c646c005a979",
+    "original_checkout_and_frozen_parents_edited": false,
+    "parent_inputs_sha256": "d3590a456624e0c2f6530d52af4d176cf56a3e57e2c4741bf025d933779e0d34",
+    "prepare_script_sha256": "2fd9e64c91ea4f7b82f9dd0292850d410df43711cd6ebffb5647d4285b552426",
+    "prepared_receipt_sha256": "19b8337dcad5f4b26760f477ace0204a7f30f5123a53328b25c198a0f4834807",
+    "stages": [
+      {
+        "output_sha256": {
+          "Makefile": "a85021fa4fb059ccbb89c3c2db6659720bcf8dfd80e826831b2363474f2e1be6",
+          "subucom_frames.h": "4d9d833e583b7c6a5aa3f12de0fea2b7245e9dac915477ab96b9cfdfa75c2c0b",
+          "subucom_ownership.h": "77d0cb71414ec49750040cc22dd93f6553c418cee54f091aa6e4d23686ee43cc",
+          "subucom_virt.c": "09b73c132a245a46e9855888c8cb1ea0fac5e9adba195ed848983b71262a2180"
+        },
+        "patch_sha256": "34d870df06f902c04eb0c2029a1c0411e647519ff4a8fabdc17b16ffe8befb3f"
+      },
+      {
+        "output_sha256": {
+          "Makefile": "a85021fa4fb059ccbb89c3c2db6659720bcf8dfd80e826831b2363474f2e1be6",
+          "subucom_frames.h": "4d9d833e583b7c6a5aa3f12de0fea2b7245e9dac915477ab96b9cfdfa75c2c0b",
+          "subucom_ownership.h": "355316f5047509ae4c787210fddf0bd8b659c600ac1e153adf0543e28cf35aec",
+          "subucom_virt.c": "bab273a308dde0ba696394d2383461af10413f1975e836b2058456dba2833717"
+        },
+        "patch_sha256": "fa800f32c5e9227cc1953028d35b896e711a40b0d4fd6f2e03dcdf2ac6eaf0dd"
+      },
+      {
+        "output_sha256": {
+          "Makefile": "a85021fa4fb059ccbb89c3c2db6659720bcf8dfd80e826831b2363474f2e1be6",
+          "subucom_frames.h": "4d9d833e583b7c6a5aa3f12de0fea2b7245e9dac915477ab96b9cfdfa75c2c0b",
+          "subucom_ownership.h": "a9f2cfa4d007053806ca97f3058c72bffd43756995cb23235c415358a3c7e990",
+          "subucom_virt.c": "5ea2023ccb8e058fad66b7317d545fc7a0328bcc5aae624cfc18c9769cf87124"
+        },
+        "patch_sha256": "fdf40df07b76e22f1684186e4d725ccc5d1cc56e24d5cb9a7f7813534a045352"
+      }
+    ]
+  },
+  "status": "offline-arm64-build-passed",
+  "symbols": {
+    "added_vs_handback": [
+      "memcmp"
+    ],
+    "handback_binary_sha256": "bf8293addeb6570498965d4958db849c5e79b7e40f8f600772ed825f878a3184",
+    "handback_undefined_count": 35,
+    "missing_exports": [],
+    "removed_vs_handback": [],
+    "scope": "Actual ELF undefined names matched to the retained export table; not runtime symbol resolution.",
+    "undefined_count": 36,
+    "undefined_symbols": [
+      "__arch_copy_from_user",
+      "__arch_copy_to_user",
+      "__init_waitqueue_head",
+      "__stack_chk_fail",
+      "__usecs_to_jiffies",
+      "__wake_up",
+      "_printk",
+      "_raw_spin_lock_irqsave",
+      "_raw_spin_unlock_irqrestore",
+      "alloc_chrdev_region",
+      "capable",
+      "cdev_add",
+      "cdev_del",
+      "cdev_init",
+      "class_create",
+      "class_destroy",
+      "device_create",
+      "device_destroy",
+      "finish_wait",
+      "get_random_bytes",
+      "init_wait_entry",
+      "kfree",
+      "kstrdup",
+      "kstrtoint",
+      "memcmp",
+      "memcpy",
+      "memset",
+      "param_ops_bool",
+      "param_ops_int",
+      "prepare_to_wait_event",
+      "schedule",
+      "schedule_timeout_interruptible",
+      "scnprintf",
+      "strsep",
+      "unregister_chrdev_region",
+      "wait_for_random_bytes"
+    ]
+  },
+  "toolchain": {
+    "compiler": "gcc (Alpine 13.2.1_git20231014) 13.2.1 20231014",
+    "compiler_archive_hardlink": {
+      "usr/bin/gcc": "usr/bin/aarch64-alpine-linux-musl-gcc"
+    },
+    "compiler_executable_sha256": "d2fcfbe5ea467cbb15e6e4b0d1a0ee929575de38f5e9db5313def1b06c8b9fca",
+    "compiler_version_output_sha256": "0e8b316161076f257494c8ce0621c3b61b108070ceb12cbd61fa5545c03181d9",
+    "linker": "GNU ld (GNU Binutils) 2.41",
+    "linker_identity_scope": "Same fully hash-verified retained archive; linker version was recorded in predecessor evidence, not queried again.",
+    "make_executable_sha256": "e8b63fda267ea9d35bf53de1f4707787e71eb5ad7ef45fc74494bd7fe8fd3e3e"
+  }
+}

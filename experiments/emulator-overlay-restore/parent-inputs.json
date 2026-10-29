@@ -1,0 +1,31 @@
+{
+  "base_commit": "06fc981707e69982c0554bb508e0c646c005a979",
+  "base_sha256": {
+    "Makefile": "a85021fa4fb059ccbb89c3c2db6659720bcf8dfd80e826831b2363474f2e1be6",
+    "subucom_frames.h": "4d9d833e583b7c6a5aa3f12de0fea2b7245e9dac915477ab96b9cfdfa75c2c0b",
+    "subucom_virt.c": "9631ca05810408eb9cd40cb38fa3f90d8dd2ac1d4d09a2e73d084ea0dbe03654"
+  },
+  "scope": "frozen parent source inputs only",
+  "stages": [
+    {
+      "output_sha256": {
+        "Makefile": "a85021fa4fb059ccbb89c3c2db6659720bcf8dfd80e826831b2363474f2e1be6",
+        "subucom_frames.h": "4d9d833e583b7c6a5aa3f12de0fea2b7245e9dac915477ab96b9cfdfa75c2c0b",
+        "subucom_ownership.h": "77d0cb71414ec49750040cc22dd93f6553c418cee54f091aa6e4d23686ee43cc",
+        "subucom_virt.c": "09b73c132a245a46e9855888c8cb1ea0fac5e9adba195ed848983b71262a2180"
+      },
+      "path": "emulator-overlay-ownership/emulator-overlay-ownership.patch",
+      "sha256": "34d870df06f902c04eb0c2029a1c0411e647519ff4a8fabdc17b16ffe8befb3f"
+    },
+    {
+      "output_sha256": {
+        "Makefile": "a85021fa4fb059ccbb89c3c2db6659720bcf8dfd80e826831b2363474f2e1be6",
+        "subucom_frames.h": "4d9d833e583b7c6a5aa3f12de0fea2b7245e9dac915477ab96b9cfdfa75c2c0b",
+        "subucom_ownership.h": "355316f5047509ae4c787210fddf0bd8b659c600ac1e153adf0543e28cf35aec",
+        "subucom_virt.c": "bab273a308dde0ba696394d2383461af10413f1975e836b2058456dba2833717"
+      },
+      "path": "emulator-overlay-handback/emulator-overlay-handback.patch",
+      "sha256": "fa800f32c5e9227cc1953028d35b896e711a40b0d4fd6f2e03dcdf2ac6eaf0dd"
+    }
+  ]
+}

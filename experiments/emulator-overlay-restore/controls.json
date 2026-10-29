@@ -1,0 +1,90 @@
+[
+  {
+    "case": "mode",
+    "function": "ctrl_ioctl",
+    "label": "restore_idle_mode_selected",
+    "name": "restore-forces-injected",
+    "new": "                has_inject[OWNED_BUS] = 1;",
+    "old": "                has_inject[OWNED_BUS] = restore.injected;"
+  },
+  {
+    "case": "frame",
+    "function": "ctrl_ioctl",
+    "label": "restore_injected_full_payload_committed",
+    "name": "restore-omits-frame",
+    "new": "                /* deliberately omitted by control */",
+    "old": "                memcpy(inject_pending[OWNED_BUS], restore.frame, MISO_SIZE);"
+  },
+  {
+    "case": "epoch",
+    "function": "ctrl_ioctl",
+    "label": "restore_advances_generation",
+    "name": "restore-keeps-epoch",
+    "new": "                if (cmd != AZ_OVERLAY_RESTORE) mixer_epoch++;\n                mixer_sequence = 0;",
+    "old": "                mixer_epoch++;\n                mixer_sequence = 0;"
+  },
+  {
+    "case": "sequence",
+    "function": "ctrl_ioctl",
+    "label": "restore_resets_sequence",
+    "name": "restore-keeps-sequence",
+    "new": "                mixer_epoch++;\n                if (cmd != AZ_OVERLAY_RESTORE) mixer_sequence = 0;",
+    "old": "                mixer_epoch++;\n                mixer_sequence = 0;"
+  },
+  {
+    "case": "idle",
+    "function": "ctrl_ioctl",
+    "label": "restore_idle_mismatch_refused",
+    "name": "restore-ignores-idle-target",
+    "new": "         (0 && !restore.injected && memcmp(restore.frame,\n                                     az_bus_frame[OWNED_BUS], MISO_SIZE))",
+    "old": "         (!restore.injected && memcmp(restore.frame,\n                                     az_bus_frame[OWNED_BUS], MISO_SIZE))"
+  },
+  {
+    "case": "overflow",
+    "function": "ctrl_ioctl",
+    "label": "restore_epoch_exhaustion_unchanged",
+    "name": "restore-wraps-epoch",
+    "new": "        if (!ret && cmd == AZ_OVERLAY_ROTATE && mixer_epoch == U64_MAX)",
+    "old": "        if (!ret && (cmd == AZ_OVERLAY_ROTATE || cmd == AZ_OVERLAY_RESTORE) &&\n            mixer_epoch == U64_MAX)"
+  },
+  {
+    "case": "partial",
+    "function": "ctrl_ioctl",
+    "label": "restore_partial_input_never_commits",
+    "name": "restore-ignores-partial-copy",
+    "new": "    if (xget_bytes((u8 *)input, (const void __user *)arg, size) &&\n        cmd != AZ_OVERLAY_RESTORE)\n        return -EFAULT;",
+    "old": "    if (xget_bytes((u8 *)input, (const void __user *)arg, size))\n        return -EFAULT;"
+  },
+  {
+    "case": "owner",
+    "function": "mixer_owned_next",
+    "label": "restore_requires_same_file",
+    "name": "missing-owner-file",
+    "new": "    (void)filp;",
+    "old": "    if (mixer_owner != filp)\n        return -EACCES;"
+  },
+  {
+    "case": "instance",
+    "function": "ctrl_ioctl",
+    "label": "restore_requires_full_instance",
+    "name": "restore-ignores-instance",
+    "new": "    if (cmd != AZ_OVERLAY_RESTORE &&\n        memcmp(h->instance, mixer_instance, sizeof(mixer_instance))) {",
+    "old": "    if (memcmp(h->instance, mixer_instance, sizeof(mixer_instance))) {"
+  },
+  {
+    "case": "stale",
+    "function": "mixer_owned_next",
+    "label": "copied_old_generation_refused_after_restore",
+    "name": "stale-epoch-accepted",
+    "new": "h->run_id != mixer_run",
+    "old": "h->run_id != mixer_run || h->epoch != mixer_epoch"
+  },
+  {
+    "case": "atomic",
+    "function": "ctrl_ioctl",
+    "label": "restore_mode_frame_epoch_are_one_locked_transition",
+    "name": "restore-split-transition",
+    "new": "                has_inject[OWNED_BUS] = restore.injected;\n                spin_unlock_irqrestore(&miso_lock, flags);\n                spin_lock_irqsave(&miso_lock, flags);",
+    "old": "                has_inject[OWNED_BUS] = restore.injected;"
+  }
+]

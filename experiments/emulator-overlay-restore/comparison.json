@@ -1,0 +1,213 @@
+{
+  "candidate_checks_per_mode": 148,
+  "comparison_script_sha256": "cca901cf8fc4a852d9127f612b4ac1c6f773d0f0286d58daeba2b06e1b502c11",
+  "excluded_fields": [],
+  "fixture_barrier_correction": "The old consecutive STATE/SPI launches reused gate.waiting=gate.resume=1 after the first joined job. The corrected launch resets both under gate.mu before creating each worker; all preceding paused workers are joined. Thread creation failure now exits rather than proceeding. Assertions and kernel candidate bytes are unchanged.",
+  "full_result_json_byte_identical": true,
+  "independent_function_extractions": 28,
+  "independent_result_sha256": "9f66159d2acedc789efbe32513392748ff4dee4f5cf1b4e5cecfe2b8190662a4",
+  "independent_variant_checks": [
+    {
+      "all_three_mode_outputs_match": true,
+      "exact_declared_edit": true,
+      "run": "primary",
+      "source_sha256": "52742dc237fa65aa9d61551f618f5a60dc4ca3d5cdbe90a88461f72a629bf3f5",
+      "variant": "candidate"
+    },
+    {
+      "all_three_mode_outputs_match": true,
+      "exact_declared_edit": true,
+      "run": "primary",
+      "source_sha256": "0ee859cb429fcc73d34b0cd8a169c7b69aad763a14cd0ea3b02cd058fd9e41ac",
+      "variant": "restore-forces-injected"
+    },
+    {
+      "all_three_mode_outputs_match": true,
+      "exact_declared_edit": true,
+      "run": "primary",
+      "source_sha256": "a6703cc7a806d672685b534ed725c044eb3e8a2af011d34ba6b87f5a1c28afd0",
+      "variant": "restore-omits-frame"
+    },
+    {
+      "all_three_mode_outputs_match": true,
+      "exact_declared_edit": true,
+      "run": "primary",
+      "source_sha256": "f8dd708abab15eb3935db2da8f66bc7699dbf4f0709ec36aa2dc5d5c5a1bc354",
+      "variant": "restore-keeps-epoch"
+    },
+    {
+      "all_three_mode_outputs_match": true,
+      "exact_declared_edit": true,
+      "run": "primary",
+      "source_sha256": "2825ad079979cefad397c0c7ad237c5c924e381fea360ac0de551813200d486e",
+      "variant": "restore-keeps-sequence"
+    },
+    {
+      "all_three_mode_outputs_match": true,
+      "exact_declared_edit": true,
+      "run": "primary",
+      "source_sha256": "a6533e272c8101f2138ed8b72876008b1bd3da2a56ccae4e922cc8f3449bcab9",
+      "variant": "restore-ignores-idle-target"
+    },
+    {
+      "all_three_mode_outputs_match": true,
+      "exact_declared_edit": true,
+      "run": "primary",
+      "source_sha256": "fb990322b979a8a99af590ca793dc80937c7b891a606b3dae6062dc915765397",
+      "variant": "restore-wraps-epoch"
+    },
+    {
+      "all_three_mode_outputs_match": true,
+      "exact_declared_edit": true,
+      "run": "primary",
+      "source_sha256": "148fbb5fe3b310c7724e4b7d5ca28de8395aa811796f05e472255513ef708f86",
+      "variant": "restore-ignores-partial-copy"
+    },
+    {
+      "all_three_mode_outputs_match": true,
+      "exact_declared_edit": true,
+      "run": "primary",
+      "source_sha256": "25300034b574dbc8a3704882e488ae1fa053b7d845d0c0368e679664bb7a9bfa",
+      "variant": "missing-owner-file"
+    },
+    {
+      "all_three_mode_outputs_match": true,
+      "exact_declared_edit": true,
+      "run": "primary",
+      "source_sha256": "0a23f2ad37eb3a9ef3a1eeb7dc72e91d309a78b2b712f38fa108da2d6c3f3cd8",
+      "variant": "restore-ignores-instance"
+    },
+    {
+      "all_three_mode_outputs_match": true,
+      "exact_declared_edit": true,
+      "run": "primary",
+      "source_sha256": "b143a75657ef17f5fbadd4dbcfe00b1d65c0760ec61a791c6dbbdc09024a08f9",
+      "variant": "stale-epoch-accepted"
+    },
+    {
+      "all_three_mode_outputs_match": true,
+      "exact_declared_edit": true,
+      "run": "primary",
+      "source_sha256": "dac98b2af766f72d3bfd6382dca780cd0c5cd3fafb0d8e90e335693dacc11ee3",
+      "variant": "restore-split-transition"
+    },
+    {
+      "all_three_mode_outputs_match": true,
+      "exact_declared_edit": true,
+      "run": "independent",
+      "source_sha256": "52742dc237fa65aa9d61551f618f5a60dc4ca3d5cdbe90a88461f72a629bf3f5",
+      "variant": "candidate"
+    },
+    {
+      "all_three_mode_outputs_match": true,
+      "exact_declared_edit": true,
+      "run": "independent",
+      "source_sha256": "0ee859cb429fcc73d34b0cd8a169c7b69aad763a14cd0ea3b02cd058fd9e41ac",
+      "variant": "restore-forces-injected"
+    },
+    {
+      "all_three_mode_outputs_match": true,
+      "exact_declared_edit": true,
+      "run": "independent",
+      "source_sha256": "a6703cc7a806d672685b534ed725c044eb3e8a2af011d34ba6b87f5a1c28afd0",
+      "variant": "restore-omits-frame"
+    },
+    {
+      "all_three_mode_outputs_match": true,
+      "exact_declared_edit": true,
+      "run": "independent",
+      "source_sha256": "f8dd708abab15eb3935db2da8f66bc7699dbf4f0709ec36aa2dc5d5c5a1bc354",
+      "variant": "restore-keeps-epoch"
+    },
+    {
+      "all_three_mode_outputs_match": true,
+      "exact_declared_edit": true,
+      "run": "independent",
+      "source_sha256": "2825ad079979cefad397c0c7ad237c5c924e381fea360ac0de551813200d486e",
+      "variant": "restore-keeps-sequence"
+    },
+    {
+      "all_three_mode_outputs_match": true,
+      "exact_declared_edit": true,
+      "run": "independent",
+      "source_sha256": "a6533e272c8101f2138ed8b72876008b1bd3da2a56ccae4e922cc8f3449bcab9",
+      "variant": "restore-ignores-idle-target"
+    },
+    {
+      "all_three_mode_outputs_match": true,
+      "exact_declared_edit": true,
+      "run": "independent",
+      "source_sha256": "fb990322b979a8a99af590ca793dc80937c7b891a606b3dae6062dc915765397",
+      "variant": "restore-wraps-epoch"
+    },
+    {
+      "all_three_mode_outputs_match": true,
+      "exact_declared_edit": true,
+      "run": "independent",
+      "source_sha256": "148fbb5fe3b310c7724e4b7d5ca28de8395aa811796f05e472255513ef708f86",
+      "variant": "restore-ignores-partial-copy"
+    },
+    {
+      "all_three_mode_outputs_match": true,
+      "exact_declared_edit": true,
+      "run": "independent",
+      "source_sha256": "25300034b574dbc8a3704882e488ae1fa053b7d845d0c0368e679664bb7a9bfa",
+      "variant": "missing-owner-file"
+    },
+    {
+      "all_three_mode_outputs_match": true,
+      "exact_declared_edit": true,
+      "run": "independent",
+      "source_sha256": "0a23f2ad37eb3a9ef3a1eeb7dc72e91d309a78b2b712f38fa108da2d6c3f3cd8",
+      "variant": "restore-ignores-instance"
+    },
+    {
+      "all_three_mode_outputs_match": true,
+      "exact_declared_edit": true,
+      "run": "independent",
+      "source_sha256": "b143a75657ef17f5fbadd4dbcfe00b1d65c0760ec61a791c6dbbdc09024a08f9",
+      "variant": "stale-epoch-accepted"
+    },
+    {
+      "all_three_mode_outputs_match": true,
+      "exact_declared_edit": true,
+      "run": "independent",
+      "source_sha256": "dac98b2af766f72d3bfd6382dca780cd0c5cd3fafb0d8e90e335693dacc11ee3",
+      "variant": "restore-split-transition"
+    }
+  ],
+  "independently_counted_execution_groups": {
+    "abi_and_authorization": 46,
+    "restore_schedules": 60,
+    "successful_modes_and_fence": 42
+  },
+  "limits": "Pthread locks and owned-memory usercopy shims are not actual kernel locking, VFS or page-fault proof. SPI and STATE historical-return limits are exercised at source level. No native stop/consumption, authoritative baseline, host-file recovery, producer admission, installation or physical-device evidence.",
+  "modes": [
+    "plain",
+    "asan-ubsan",
+    "tsan"
+  ],
+  "primary_result_sha256": "9f66159d2acedc789efbe32513392748ff4dee4f5cf1b4e5cecfe2b8190662a4",
+  "retained_draft_failures": [
+    {
+      "fixture_sha256": "10acd3db0f8c222869fcf6b63bfada9f03fb320ae4616b73c47a70f1b0b282e1",
+      "kernel_candidate_unchanged": true,
+      "kind": "compile_unused_readonly",
+      "log_sha256": "4e73984fe29464ae52dbed5351f8acc95799c4460b7013d274f10b4dddf7e203",
+      "not_a_passing_run": true
+    },
+    {
+      "fixture_sha256": "209b6edda190cc6c9fc5f886c27924cfb574484134aa87dc659ea12680509a14",
+      "kernel_candidate_unchanged": true,
+      "kind": "stale_fixture_pause_gate",
+      "log_sha256": "270fa377eab3212d11abc6c0df5ed735d9108d1c65d69ac26f25ce8abf055e35",
+      "not_a_passing_run": true
+    }
+  ],
+  "retained_output_checks": 72,
+  "scope": "One fresh independent offline actual-source host/sanitizer run; no inherited whole-suite reruns or runtime endpoints.",
+  "source_integration_checks": 26,
+  "strict_controls_per_mode": 11,
+  "variant_mode_runs_per_matrix": 36,
+  "variant_reconstruction_method": "Independently extracted 14 inspected top-level C bodies by declaration plus standalone closing brace, reconstructed actual global declarations and function order from a literal AST value without importing the runner, applied each unique declared edit only to its named function, compared every generated candidate.inc and all named failure/count/exit/output hashes."
+}
