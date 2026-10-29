@@ -999,3 +999,47 @@ remain CLOSED. No endpoint, service, guest start, installation, physical access,
 core/package/catalog change, old cleanup or snapshot restoration occurred.
 Frozen parents and unrelated deck-lights/ work remain preserved. Do not repeat
 this passing matrix unchanged or treat it as native observation evidence.
+
+
+## October 29: bounded broker wire seam (offline)
+
+The separate [broker-wire experiment](../experiments/emulator-broker-wire/)
+adds canonical C/Rust records between a borrowed already-created broker and a
+host MixerBackend owning one caller-supplied stream. It invokes actual frozen
+mb_adopt/mb_submit in its synthetic C fixtures. Exact last-exchange retrieval
+has cached provenance and cannot become a fresh host grant or ACK. Full identity,
+sequence and all 152 raw frame bytes are checked before acceptance.
+
+Production host compilation and 20 focused Rust tests pass with seven strict
+compiling controls. The 252 inherited tests remain filtered (272 total names).
+The new C suite passes 5,248 checks per plain, ASan/UBSan and TSan mode, with five
+strict controls per mode and separate clean production translation-unit builds.
+One independent fresh matrix also passes. Retained-file audit reconstructs all
+variants and verifies 30 candidate files, 40 frozen parent inputs and 15 runner
+inputs per run. Exactly 63 enumerated log-hash fields are excluded from comparison;
+17 differ, every other JSON field agrees, and whole JSON differs. The production
+host build has 162 inactive-code warnings; Rust tests are nonsanitized.
+
+The pipe integration exercises commit, definite rejection, unknown, lost reply
+after synthetic commit, cached receipt and synthetic API error with positive
+receipt. The error injection follows actual broker return; it does not induce
+an OS mutex failure. Any nonzero API result stays uncertain. A repeated earlier
+committed Envelope is Unknown without another send, never a fabricated rejection.
+Pre-I/O intent and returned progress/errors survive tested panic/poison boundaries;
+independent diagnostic snapshots remain available while I/O blocks.
+
+This is an inactive value/transport seam, not a live guest adapter. The host
+stream can block indefinitely, buffer data or refer to an unauthenticated peer.
+Its label is correlation only. Evidence handles retain diagnostics, not stream
+custody after backend Drop. The C wrapper borrows a broker and cannot exclude
+aliases. Native acquisition, authoritative originals/stopped identity, owned
+endpoint/supervisor binding, external exclusion, native consumption/dwell,
+full overlay/both-file recovery and durable custody remain open. The static
+[legacy transport review](../experiments/emulator-broker-wire/REVIEW.md) explains
+why cache/reconnect/SSH fallback cannot supply matching native receipts.
+
+Main and all runtime/stems-staging/native-ownership/USB/release gates stay CLOSED.
+No endpoint, service, guest start, installation, physical access, core/package/
+catalog change, old cleanup or snapshot restoration occurred. Frozen parents,
+previous releases and unrelated deck-lights/ work remain preserved. Do not repeat
+this passing matrix unchanged or treat it as native observation evidence.

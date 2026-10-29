@@ -480,3 +480,28 @@ deadlines, full restoration, durable custody and guarded restart stay open.
 Main and runtime dispatch remain inactive. No endpoint/device access, service,
 settings/core/package/catalog change, cleanup, snapshot restoration or gate
 opening occurred.
+
+
+## October 29: bounded host/guest broker value seam
+
+The separate [broker-wire successor](../../../emulator-broker-wire/) now
+implements bounded canonical C/Rust records and full request/receipt identity.
+The actual frozen broker is exercised with a synthetic C backend over private
+pipes; no guest endpoint is acquired. Cached provenance cannot become a fresh
+host ACK. Nonzero API results remain uncertain even beside a positive receipt;
+a known earlier commit cannot become a local rejection on duplicate submission.
+Armed intent and returned I/O evidence are retained through tested panic/poison.
+
+Production compilation, 20 focused Rust tests/seven strict controls and 5,248 C
+checks/five controls per sanitizer mode pass with an independent reproduction.
+The retained audit verifies all variants and captures; 252 old tests stay
+filtered. These are host checks only. A correlation label does not authenticate
+a peer, a copied journal does not retain stream custody after backend Drop,
+and a borrowed broker pointer does not exclude aliases or prove native ownership.
+
+Next bind an owned guest acquisition/adapter/broker lifetime to its host transport
+and supervisor, preserving unresolved outcomes across failures. Authoritative
+originals/stopped identity, external exclusion, native consumption, complete
+overlay/both-file recovery and durable custody remain unresolved. Main, live
+observer dispatch and all existing gates stay CLOSED. No endpoints, services,
+installations, physical access or earlier cleanup were used for this checkpoint.
