@@ -424,3 +424,30 @@ death, guarded restart and native event ownership/dwell remain unresolved.
 Main and all runtime/staging/product gates remain CLOSED. No endpoints, services,
 installation, physical device, existing packages/cores/catalog, cleanup or
 snapshot restoration were changed.
+
+
+## October 29: fixed-generation route construction remains inactive
+
+The [fixed-session successor](../../../emulator-fixed-session/) now retains the
+actual injected backend and original directory before a one-attempt constructor,
+then the actual settings bridge and immutable route. Both use the same complete
+captured baseline. The wrapper serves that cached grant once and refuses later
+baseline requests without querying the backend; a failed or closed route cannot
+use a newer epoch to submit another native FRAME through this wrapper.
+
+Production host compilation, 25 new focused tests and 16 exact-assertion source
+controls pass with an independent fresh reproduction; 211 inherited cases remain
+compiled/listed and filtered. Wrapper-return evidence, producer ACK, settings
+bridge and pair completion remain separate. Poison salvage never authorizes
+receipt acceptance. Blocked calls retain independently readable evidence, and
+actual worker/lifecycle tests retain custody after join or callback panic.
+
+This is historical receipt correspondence and a local immutable-route fence.
+Separate constructions, backend-internal aliases and external writers/readers
+remain outside it. There is no native backend/FFI acquisition, worker or guest
+startup, main wiring, authentication, timeout/cancellation or recovery action.
+Final Drop/death, authoritative original/stopped identity, native dwell, full
+overlay and both-file restoration, durable custody and guarded restart remain
+open. All live dispatch and existing runtime/staging/release gates remain CLOSED.
+No endpoint, service, settings/core/package/catalog change or physical access
+occurred.

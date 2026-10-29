@@ -1,0 +1,153 @@
+{
+  "candidate_sha256": {
+    "az-preview/src/fixed_session.rs": "c6a325d9f8ccf748bfd14eeccc267da807d7144a6393e2aa23139d16587db418",
+    "az-preview/src/fixed_session_tests.rs": "ac159e7b519fc7b18ba5442d2b8ce0b97b6ce79a9014cf75f74851f7ae6aa35d"
+  },
+  "controls": [
+    {
+      "assertion_anchor": "assert_eq!(supplied, baseline());",
+      "assertion_file": "az-preview/src/fixed_session_tests.rs",
+      "file": "az-preview/src/fixed_session.rs",
+      "name": "captured-grant",
+      "new": "        self.backend.lock().unwrap().baseline()\n    }\n\n    fn submit",
+      "old": "        Ok(baseline)\n    }\n\n    fn submit",
+      "test": "fixed_session::tests::changed_backend_receipt_cannot_replace_constructor_captured_grant"
+    },
+    {
+      "assertion_anchor": "assert_eq!(evidence.snapshot().journal.baseline_served, true);",
+      "assertion_file": "az-preview/src/fixed_session_tests.rs",
+      "file": "az-preview/src/fixed_session.rs",
+      "name": "grant-consumed-before-return",
+      "new": "journal.baseline_served = false;",
+      "old": "journal.baseline_served = true;",
+      "test": "fixed_session::tests::baseline_delivery_unwind_never_restores_or_requeries_consumed_grant"
+    },
+    {
+      "assertion_anchor": "assert_eq!(calls(&counts), 0);",
+      "assertion_file": "az-preview/src/fixed_session_tests.rs",
+      "file": "az-preview/src/fixed_session.rs",
+      "name": "preflight-before-query",
+      "new": "if let Some(_error) = invalid { /* control: bypass local preflight */ }",
+      "old": "if let Some(error) = invalid { return self.fail(error); }",
+      "test": "fixed_session::tests::invalid_preflight_configuration_is_terminal_before_query_or_file_io"
+    },
+    {
+      "assertion_anchor": "assert_eq!(calls(&counts), 1);",
+      "assertion_file": "az-preview/src/fixed_session_tests.rs",
+      "file": "az-preview/src/fixed_session.rs",
+      "name": "one-initialization-attempt",
+      "new": "if false && journal.phase != InitPhase::Retained {",
+      "old": "if journal.phase != InitPhase::Retained {",
+      "test": "fixed_session::tests::baseline_error_keeps_exact_response_real_inputs_and_never_requeries"
+    },
+    {
+      "assertion_anchor": "assert_eq!(failed.journal.captured_baseline, Some(Err(\"synthetic baseline refusal\".into())));",
+      "assertion_file": "az-preview/src/fixed_session_tests.rs",
+      "file": "az-preview/src/fixed_session.rs",
+      "name": "returned-baseline-evidence",
+      "new": "                journal.captured_baseline = None;\n                journal.phase = InitPhase::BaselineCaptured;\n                false",
+      "old": "                journal.captured_baseline = Some(baseline_result.clone());\n                journal.phase = InitPhase::BaselineCaptured;\n                false",
+      "test": "fixed_session::tests::baseline_error_keeps_exact_response_real_inputs_and_never_requeries"
+    },
+    {
+      "assertion_anchor": "assert_eq!(state.journal.phase, InitPhase::BaselineArmed);",
+      "assertion_file": "az-preview/src/fixed_session_tests.rs",
+      "file": "az-preview/src/fixed_session.rs",
+      "name": "baseline-armed-before-call",
+      "new": "self.set_phase(InitPhase::Preflight)?;",
+      "old": "self.set_phase(InitPhase::BaselineArmed)?;",
+      "test": "fixed_session::tests::baseline_unwind_keeps_armed_phase_poison_and_actual_backend_custody"
+    },
+    {
+      "assertion_anchor": "assert_eq!(state.settings_retained, settings);",
+      "assertion_file": "az-preview/src/fixed_session_tests.rs",
+      "file": "az-preview/src/fixed_session.rs",
+      "name": "settings-resource-custody",
+      "new": "Ok(mut slots) => { slots.settings = None; false }",
+      "old": "Ok(mut slots) => { slots.settings = Some(settings.clone()); false }",
+      "test": "fixed_session::tests::initialization_hook_unwinds_keep_each_published_resource_and_forbid_retry"
+    },
+    {
+      "assertion_anchor": "assert_eq!(state.route_retained, route_retained);",
+      "assertion_file": "az-preview/src/fixed_session_tests.rs",
+      "file": "az-preview/src/fixed_session.rs",
+      "name": "route-resource-custody",
+      "new": "Ok(mut slots) => { slots.route = None; false }",
+      "old": "Ok(mut slots) => { slots.route = Some(route.clone()); false }",
+      "test": "fixed_session::tests::initialization_hook_unwinds_keep_each_published_resource_and_forbid_retry"
+    },
+    {
+      "assertion_anchor": "assert_eq!(evidence.snapshot().journal.last_submit,\n            Some(SubmitAttempt { request, phase: SubmitPhase::Returned(expected) }));",
+      "assertion_file": "az-preview/src/fixed_session_tests.rs",
+      "file": "az-preview/src/fixed_session.rs",
+      "name": "full-submit-outcome",
+      "new": "                journal.last_submit = None;\n                outcome",
+      "old": "                journal.last_submit = Some(SubmitAttempt { request, phase: SubmitPhase::Returned(outcome) });\n                outcome",
+      "test": "fixed_session::tests::exact_submit_outcomes_are_retained_without_inventing_ack_or_settings"
+    },
+    {
+      "assertion_anchor": "assert_eq!(route.dispatch(request).unwrap(), DispatchResult::Unknown);",
+      "assertion_file": "az-preview/src/fixed_session_tests.rs",
+      "file": "az-preview/src/fixed_session.rs",
+      "name": "poisoned-return-not-acceptance",
+      "new": "                outcome\n            }\n        }\n    }\n}\n\nstruct SinkProxy",
+      "old": "                BackendOutcome::Unknown\n            }\n        }\n    }\n}\n\nstruct SinkProxy",
+      "test": "fixed_session::tests::journal_poison_after_native_return_salvages_outcome_but_refuses_ack_acceptance"
+    },
+    {
+      "assertion_anchor": "assert_eq!(observed.is_ok(), true, \"snapshot must finish before baseline release\");",
+      "assertion_file": "az-preview/src/fixed_session_tests.rs",
+      "file": "az-preview/src/fixed_session.rs",
+      "name": "snapshot-without-backend-lock",
+      "new": "    pub fn snapshot(&self) -> Evidence {\n        let _blocking_backend = self.retention.backend.lock().unwrap();\n",
+      "old": "    pub fn snapshot(&self) -> Evidence {\n",
+      "test": "fixed_session::tests::snapshot_finishes_before_blocked_baseline_query_is_released"
+    },
+    {
+      "assertion_anchor": "assert_eq!(observed.is_ok(), true, \"snapshot must finish before settings release\");",
+      "assertion_file": "az-preview/src/fixed_session_tests.rs",
+      "file": "az-preview/src/fixed_session.rs",
+      "name": "snapshot-without-settings-lock",
+      "new": "let settings_evidence = settings.as_ref().map(|s| { let _blocked = s.writer.lock().unwrap(); s.evidence.snapshot() });",
+      "old": "let settings_evidence = settings.as_ref().map(|s| s.evidence.snapshot());",
+      "test": "fixed_session::tests::snapshot_finishes_before_blocked_settings_writer_is_released"
+    },
+    {
+      "assertion_anchor": "assert_eq!(after.journal.first_refusal, Some(Refusal {\n        operation: RefusalOperation::Baseline, error: InitError::BaselineAlreadyServed, request: None }));",
+      "assertion_file": "az-preview/src/fixed_session_tests.rs",
+      "file": "az-preview/src/fixed_session.rs",
+      "name": "one-grant-refusal",
+      "new": "} else if false && journal.baseline_served {",
+      "old": "} else if journal.baseline_served {",
+      "test": "fixed_session::tests::mapping_failure_cannot_rearm_newer_epoch_or_submit_a_repair_frame"
+    },
+    {
+      "assertion_anchor": "assert_eq!(before.settings.as_ref().unwrap().journal.baseline, baseline());",
+      "assertion_file": "az-preview/src/fixed_session_tests.rs",
+      "file": "az-preview/src/fixed_session.rs",
+      "name": "sink-baseline-correspondence",
+      "new": "            directory, { let mut b = baseline; b.frame[151] ^= 1; b }, namespace, absent_mode, selection,",
+      "old": "            directory, baseline, namespace, absent_mode, selection,",
+      "test": "fixed_session::tests::captured_full_baseline_binds_sink_and_requires_exact_explicit_adoption"
+    },
+    {
+      "assertion_anchor": "assert_eq!(result.err(), Some(InitError::Poisoned(PoisonTarget::Settings)));",
+      "assertion_file": "az-preview/src/fixed_session_tests.rs",
+      "file": "az-preview/src/fixed_session.rs",
+      "name": "settings-poison-before-ready",
+      "new": "if false && settings.as_ref().is_some_and(|settings| settings.writer.is_poisoned()) {",
+      "old": "if settings.as_ref().is_some_and(|settings| settings.writer.is_poisoned()) {",
+      "test": "fixed_session::tests::poisoned_retained_settings_writer_cannot_publish_a_ready_route"
+    },
+    {
+      "assertion_anchor": "assert_eq!(after.journal.terminal, None);",
+      "assertion_file": "az-preview/src/fixed_session_tests.rs",
+      "file": "az-preview/src/fixed_session.rs",
+      "name": "repeat-preserves-ready-route",
+      "new": "                let error = InitError::AlreadyAttempted;\n                journal.terminal = Some(error.clone());\n                record_refusal",
+      "old": "                let error = InitError::AlreadyAttempted;\n                record_refusal",
+      "test": "fixed_session::tests::repeated_initialize_after_ready_preserves_original_grant_and_configuration"
+    }
+  ],
+  "scope": "Sixteen compiling actual fixed-session source controls. Exact final assertion diagnostic required; inherited tests compiled/listed and filtered."
+}

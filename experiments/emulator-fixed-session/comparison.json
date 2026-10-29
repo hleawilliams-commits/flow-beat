@@ -1,0 +1,262 @@
+{
+  "audit_script_sha256": "7af1a66ceb60e9782f10cf6e3887092e7158fce53f842208ff001f36a6e276bb",
+  "comparison_method": "Exact structural JSON equality after excluding only the 35 enumerated raw-log SHA-256 fields; all other fields remain compared.",
+  "declared_exclusions": [
+    {
+      "differ": true,
+      "field": "production_check_log_sha256",
+      "independent_sha256": "09dea3480fbf2d332ab2748575f302a8c1668991ca7aba5fb72b795c223feb93",
+      "primary_sha256": "8fecb620cbad4e6a4f3ab6f3ec1ab8a1005cc3c42f36069259107ba5cfeeda20"
+    },
+    {
+      "differ": true,
+      "field": "runs[0].compile_output_sha256",
+      "independent_sha256": "81a99331475a687e57649bb37347babc017a25210d14bc08762c63c12bc1726a",
+      "primary_sha256": "64473ce6a8c2a2ce470099284b7742b5f93eb0b9f83af320c8b968819060971d"
+    },
+    {
+      "differ": true,
+      "field": "runs[0].test_output_sha256",
+      "independent_sha256": "b39db728f1ec7c058773796e9b09cfad5ede1751e40c5df737f970177d928749",
+      "primary_sha256": "41bb289b5c4e602d37f31c1e2b6e8067c705660912616a41919c066a491a658b"
+    },
+    {
+      "differ": true,
+      "field": "runs[1].compile_output_sha256",
+      "independent_sha256": "9d1bc5a3b5e22f2e78f9ad1cf48ce58e520f8fd52cd04af9cda47ba498893ea2",
+      "primary_sha256": "320cbbdaece66997498a1504cdadc761d3221c7dce3702c50a103ab413a88647"
+    },
+    {
+      "differ": true,
+      "field": "runs[1].test_output_sha256",
+      "independent_sha256": "36e282201c621543de56e13668414c44c936c2a09678c91958b59467b9b9bca7",
+      "primary_sha256": "32ca78e2482455ed5bd93f8cec7e54673c504e679de0cd94d70468d560db6f5b"
+    },
+    {
+      "differ": true,
+      "field": "runs[2].compile_output_sha256",
+      "independent_sha256": "1839a9a70f932123ff3208e35df63f2172f72f5cf374ccbc439e2a39e66ce54e",
+      "primary_sha256": "daf45664c1fb2c193dfbba51f71820d4826a5771d75780ba71c048ccd01b5315"
+    },
+    {
+      "differ": true,
+      "field": "runs[2].test_output_sha256",
+      "independent_sha256": "2a5f44d6e31ee13ac03c2dabebbb61c210e4e0bfb195c7d1c3aa72e0cff1e1d7",
+      "primary_sha256": "cb3a5d3c8b085caf633698d859a3198fe51c40dac911ef0fd0fd8e80a0548db8"
+    },
+    {
+      "differ": true,
+      "field": "runs[3].compile_output_sha256",
+      "independent_sha256": "d5236eee86bedeb672fb844a34937fe03de828d89747f2b7cec9030b38136b9e",
+      "primary_sha256": "ab64dab63fc8d723a51ba5757f3dbc7522125d4157ce7a6e0d2c92156260696c"
+    },
+    {
+      "differ": true,
+      "field": "runs[3].test_output_sha256",
+      "independent_sha256": "038b298d02f85da1a79dbf0824e3e5a3ff8de62876fe94c81642b7c10d5c1c66",
+      "primary_sha256": "6c8b5637c54b9070ee50004808b326bb7ac2c81de71b4f2ffc51cab487d0af5c"
+    },
+    {
+      "differ": true,
+      "field": "runs[4].compile_output_sha256",
+      "independent_sha256": "6b325abb43b488cf517de8815875e35f590351764a9aa572e50bba14cbdd4406",
+      "primary_sha256": "34b01a8d06a2fd4f888d59f0aecce8fd43cda6a36ea10318c0f1179518fe2579"
+    },
+    {
+      "differ": true,
+      "field": "runs[4].test_output_sha256",
+      "independent_sha256": "183196362ecd781eedaaf48926cea784637430055e91f5ed7d83fa47afafac8b",
+      "primary_sha256": "0ad9453c372fc5f2a38eab35a93bb6e0a14b37827d585ed726b46df41dbfc798"
+    },
+    {
+      "differ": true,
+      "field": "runs[5].compile_output_sha256",
+      "independent_sha256": "75c668d5a4ae6c09261b84e8efc610d72d42b929ffd5b151355c63154f2210a9",
+      "primary_sha256": "36200cddebd88a031809bca06a3db75ad94be264cd65f8f1ab2f8203c681a873"
+    },
+    {
+      "differ": true,
+      "field": "runs[5].test_output_sha256",
+      "independent_sha256": "c2f13645f63ad6eb21691a37afbd76f657a36c1e4519ab56d0255a084c7437f7",
+      "primary_sha256": "2157bdd86e2da432b43166add17ceb5d8a7a69186eb4a4a475196b863a94c63d"
+    },
+    {
+      "differ": true,
+      "field": "runs[6].compile_output_sha256",
+      "independent_sha256": "c64ef5f9065b8c3b8cc7a78871da9c2212c6d163ff1436386af8820947ed2f61",
+      "primary_sha256": "05507e098b26250e5c38292fd1c62150b3ae0ec8300889a95a6620abea504db3"
+    },
+    {
+      "differ": true,
+      "field": "runs[6].test_output_sha256",
+      "independent_sha256": "2fa744cdac283162359ef479bfb7619862289d465aaacd342a53eab96649a8cd",
+      "primary_sha256": "91d23e33fa50d077fb8e81189b9a20fad98b16a79b64dc577b1cf494f022ab9b"
+    },
+    {
+      "differ": true,
+      "field": "runs[7].compile_output_sha256",
+      "independent_sha256": "2bbdd3aac63328c06c4caf67022de70e423310bdb607e64330b6cf9823814712",
+      "primary_sha256": "8af14de540d4aad62707a21ead650d48bf4fd5d24024d21a9ea02561815d648d"
+    },
+    {
+      "differ": true,
+      "field": "runs[7].test_output_sha256",
+      "independent_sha256": "eec43d3106c456bc86d00e0adff9e44c9469e2deda7f7ab7b1d54bd3cbe8d25f",
+      "primary_sha256": "c0bf305f2d339da8d705682cfbb03f9fe47edb72e0ff18f1007d69d2a41b1334"
+    },
+    {
+      "differ": true,
+      "field": "runs[8].compile_output_sha256",
+      "independent_sha256": "b41e457cac6f70eda17a900fc17b61e0d55ff1f59cecabaa56cae42a85953e10",
+      "primary_sha256": "346ad0fdd1c0d6c0e2c0db474826edd5ebfeaca0d515b0dbf38d069c7e091063"
+    },
+    {
+      "differ": true,
+      "field": "runs[8].test_output_sha256",
+      "independent_sha256": "a0e2ad13ec6fe62805f95f39b23d9305e03877cb67bc8b638915a3604fd01f13",
+      "primary_sha256": "b452471ff836aa55e36f70a37b71b32eeddff98b7f4bd6b43f7003441e447536"
+    },
+    {
+      "differ": true,
+      "field": "runs[9].compile_output_sha256",
+      "independent_sha256": "0ad51b2712746d5bac3492338b4808822ee748c7735b41ae3206e2875394621f",
+      "primary_sha256": "3370c6e616d44c950eecef2d03039055db25063aa9f46f3fd3d0267b7e4b64b6"
+    },
+    {
+      "differ": true,
+      "field": "runs[9].test_output_sha256",
+      "independent_sha256": "4ca16c1b5f9507fca2066f6d1d7963c4c9a3f847db65896a34854d53a95bf26d",
+      "primary_sha256": "e463ca33c74e9f14cff141a66fed6908771a16235e9eb1912407b7b617c8e846"
+    },
+    {
+      "differ": true,
+      "field": "runs[10].compile_output_sha256",
+      "independent_sha256": "434a5c777d9d933d645d06cfeee8e699d8380485d4d566ea69e19bf43afa932e",
+      "primary_sha256": "6af624ecf7e784b1d4fcbdb14fba0db3b4a7626a90c2ee25ffa152433a207ecc"
+    },
+    {
+      "differ": true,
+      "field": "runs[10].test_output_sha256",
+      "independent_sha256": "a4ea4667187d6ffc86b09d504be8e9722d874b31ffb7fead28b50303de6524d3",
+      "primary_sha256": "bc5e6083fabdc225e1a983321926bc9524c116b42b8c41de9cc85d825c1a474e"
+    },
+    {
+      "differ": true,
+      "field": "runs[11].compile_output_sha256",
+      "independent_sha256": "91bce2e4184f0e279fd52a23e491ca9914a6322bc6d9e465c8dabdd0bbb11a1d",
+      "primary_sha256": "737aa24cf2dc2dad998b0cff0a7bb26b1f556be541cc558a057ba08bcd4534a5"
+    },
+    {
+      "differ": true,
+      "field": "runs[11].test_output_sha256",
+      "independent_sha256": "878aad8e63901b6d13ee3be7e6f7c5d7bdbca67e4f4c21adf9164f9127371865",
+      "primary_sha256": "c4bccfe2e1fee4ca7d4e1297d6081c712de03f7db9d8d8dd1eb55b74b1ffef5a"
+    },
+    {
+      "differ": true,
+      "field": "runs[12].compile_output_sha256",
+      "independent_sha256": "6f8fcc2c12d97ec0147cd8161e4dc2b7976cad5b5fdb086af1cbc3df5b3ba03e",
+      "primary_sha256": "cbb9d6dda0c90748c3c0442185b2deca2d87b07656d2e08f12e467ffed5a67ac"
+    },
+    {
+      "differ": true,
+      "field": "runs[12].test_output_sha256",
+      "independent_sha256": "63d5dcbf39c343834cddeebd39fb2bc4b2dfb6007a96ef1b048363e381e7271f",
+      "primary_sha256": "7f8eb6635a82e95c606a84c6fe6093e0c882c7e15bf8f391f5764e6c8f684674"
+    },
+    {
+      "differ": true,
+      "field": "runs[13].compile_output_sha256",
+      "independent_sha256": "96b5cf3b27835fcb16cb728376cf00382a6098a0a82756139a5179b8f0b2c49b",
+      "primary_sha256": "5a033c05ea780c9f96793e15ec9a375058385ff55157a063ab44eecb7450b249"
+    },
+    {
+      "differ": true,
+      "field": "runs[13].test_output_sha256",
+      "independent_sha256": "478345fbe651c887169b827ab339f937c6075da9eabd3fd5c99fa3bf9f0dadb1",
+      "primary_sha256": "e819c8b2827378feab9190faab7e7ac8aa084b982dcbed14bc41877702ce5b52"
+    },
+    {
+      "differ": true,
+      "field": "runs[14].compile_output_sha256",
+      "independent_sha256": "fc457f4f8bc71cddb42883ff6f8e65e53663c56bbd27f0ff4ea85a12b1375b96",
+      "primary_sha256": "e5529b43061b7ab7c91b9c106ba3d8814a652b5f801e9a6f2c5f2532b56395d2"
+    },
+    {
+      "differ": true,
+      "field": "runs[14].test_output_sha256",
+      "independent_sha256": "5c179d59ef8bb221ff153bee9c5e0f72db4b326d153dad21bb98b2e5d49434b6",
+      "primary_sha256": "c04fe2a2423196aa0ce22f491b39c8f767407a7f5bd925609ce98bd6e885df15"
+    },
+    {
+      "differ": true,
+      "field": "runs[15].compile_output_sha256",
+      "independent_sha256": "f2cd616912cdb187f25af0edc6a0ee6542a1a9b072267142910617337b1cd651",
+      "primary_sha256": "97aa6260ef70a60c49be9a6639529b6d6c6d93387f5dbd70542c241257b2670a"
+    },
+    {
+      "differ": true,
+      "field": "runs[15].test_output_sha256",
+      "independent_sha256": "ee832810ff502bf7d745455eab1563f531fc67710834840f69039d9c7586210c",
+      "primary_sha256": "331e73b731235ff4326b0d1f44a5f5ac86b6f86f0fab999bd2ac3fbb506bcbd0"
+    },
+    {
+      "differ": true,
+      "field": "runs[16].compile_output_sha256",
+      "independent_sha256": "af407c80a462ae8d842226a0d844b721de23e34d80a072e19062a88cc000efa7",
+      "primary_sha256": "62254072b444ecc7f8422d43e53d18801acd4a523e3bb9093b40eb48ad0ae5af"
+    },
+    {
+      "differ": true,
+      "field": "runs[16].test_output_sha256",
+      "independent_sha256": "e1b1acd65cf4af998852d9a42b5751c39032993bbf7707e454f76584c5d5b7b4",
+      "primary_sha256": "624bd19471ec2530a19481bf58630f4ec8111619ef30176e6463e6612a58331e"
+    }
+  ],
+  "differing_excluded_field_count": 35,
+  "excluded_field_count": 35,
+  "functional_result_json_equal": true,
+  "independent_result_sha256": "ba6a3ce730badba911c4e453a593bfce73b5e274988975dfbdc03eaab519aae5",
+  "limits": [
+    "Recorded process exits are audited from results; original process execution belongs to each runner.",
+    "No normalization or equivalence of raw logs is claimed.",
+    "No real native ACK authentication, baseline freshness, backend-alias exclusion, external writer/reader exclusion, restore, sanitizer, power-loss or physical-timing proof."
+  ],
+  "per_run": [
+    {
+      "candidate_files": 26,
+      "captured_inputs": 8,
+      "fixture_directories": 62,
+      "fixture_regular_files": 121,
+      "frozen_parent_files": 28,
+      "production_warning_count": 113,
+      "result_sha256": "ba15dd07093a87ba90f62b89c9a3485d104b793607ac271befbc5574246a6635",
+      "variant_count": 17
+    },
+    {
+      "candidate_files": 26,
+      "captured_inputs": 8,
+      "fixture_directories": 62,
+      "fixture_regular_files": 121,
+      "frozen_parent_files": 28,
+      "production_warning_count": 113,
+      "result_sha256": "ba6a3ce730badba911c4e453a593bfce73b5e274988975dfbdc03eaab519aae5",
+      "variant_count": 17
+    }
+  ],
+  "primary_result_sha256": "ba15dd07093a87ba90f62b89c9a3485d104b793607ac271befbc5574246a6635",
+  "private_audit_result_sha256": "b8f04698045628570d92797355e161e438a3ea5a57d5c597e0fa98dad851bc43",
+  "review": [
+    "Production fixed-session constructor/proxies, preparation lineage, strict runner and all focused fixtures/controls independently reviewed.",
+    "Captured runner candidate bytes explicitly match pins before compilation.",
+    "Each control final uncaught panic matches its exact functional assertion; earlier caught diagnostics cannot suffice.",
+    "All inherited tests were compiled/listed but filtered from execution.",
+    "One captured full baseline binds this immutable route and settings bridge; its cached grant is served once and cannot rearm a later epoch. Historical correspondence does not prove freshness or authenticate receipts."
+  ],
+  "status": "independent-agreement",
+  "toolchain": {
+    "cargo": "cargo 1.98.1 (797e8a9bc 2026-08-05) (Homebrew)",
+    "rustc": "rustc 1.98.1 (48a229cea 2026-09-01) (Homebrew)\nbinary: rustc\ncommit-hash: 48a229ceaefd4985c50990b14116b6d856af0985\ncommit-date: 2026-09-01\nhost: aarch64-apple-darwin\nrelease: 1.98.1\nLLVM version: 22.1.8"
+  },
+  "whole_result_json_equal": false
+}

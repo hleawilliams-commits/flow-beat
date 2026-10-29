@@ -907,3 +907,45 @@ all stems staging, native ownership, USB and release gates remain CLOSED.
 No endpoint, service, installation, physical access, core/package/catalog change,
 old cleanup or snapshot restoration occurred. Frozen parents and unrelated
 deck-lights/ work remain preserved.
+
+
+## October 29: retained single-generation route construction (offline)
+
+The separate [fixed-session experiment](../experiments/emulator-fixed-session/)
+binds the actual settings bridge and immutable preview route to the same full
+backend baseline. It retains the actual backend and original directory before
+initialization, permits one construction attempt, publishes settings/route
+custody before later boundaries, and returns an unarmed route. The cached receipt
+can be issued once. A closed route cannot query a newer epoch through this
+wrapper after a settings failure, known rejection or abandoned adoption.
+
+Production host compilation, 25 focused actual-crate tests and 16 strict
+compiling controls pass with an independent fresh reproduction. The 211 inherited
+tests are compiled/listed and filtered; 236 total names and 26 candidate files
+are pinned. Only an inactive Unix module declaration changes among parent files.
+The build has 113 inactive-code warnings. The parent settings sink and its
+counterexamples remain frozen; this composition closes their local baseline
+correspondence and rearming gaps only for the constructed route.
+
+The backend journal records full requests before forwarding and exact returned
+outcomes before producer processing. Poison after a returned result retains it
+for diagnostics but yields Unknown to the route. Constructor errors, unwind
+boundaries, callback panic, late ACKs and actual worker/lifecycle joins retain
+their separate evidence. Snapshot tests complete while backend or settings
+calls are blocked without acquiring those operation locks. Evidence-only and
+route-only ownership retain actual resources, while final release tests detect
+built-in cycles. Final Drop/death can still lose custody and never permits
+restore or safe teardown.
+
+Captured receipts are historical correspondence, not freshness or authority.
+This component creates no native backend, worker, supervisor, endpoint or main
+wiring. A supplied backend can share outside resources, and separately
+constructed sessions do not inherit this route's one-generation restriction.
+External native/file writer and reader exclusion, acquisition/FFI, authoritative
+originals and stopped identity, callback deadlines, native dwell, both-file and
+overlay restoration, durable custody and guarded restart remain unresolved.
+
+All runtime, stems staging, native ownership, USB and release gates remain
+CLOSED. No endpoint, service, installation, physical access, core/package/catalog
+change, old cleanup or snapshot restoration occurred. Frozen parents and
+unrelated deck-lights/ work remain preserved.
