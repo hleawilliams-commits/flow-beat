@@ -1,0 +1,112 @@
+[
+  {
+    "case": "armed-chain",
+    "expected_failures": [
+      "graph_retains_each_child_before_its_native_or_sync_call"
+    ],
+    "file": "graph.c",
+    "name": "omit-stage-arm",
+    "new": "graph->journal.setup[stage].attempted = 0;",
+    "old": "graph->journal.setup[stage].attempted = 1;"
+  },
+  {
+    "case": "preflight-stop",
+    "expected_failures": [
+      "graph_preflight_failure_keeps_original_and_stops_acquisition"
+    ],
+    "file": "graph.c",
+    "name": "discard-raw-stage-result",
+    "new": "graph->journal.setup[stage].result = 0;",
+    "old": "graph->journal.setup[stage].result = result;"
+  },
+  {
+    "case": "armed-chain",
+    "expected_failures": [
+      "graph_retains_each_child_before_its_native_or_sync_call"
+    ],
+    "file": "graph.c",
+    "name": "lose-retained-original-borrow",
+    "new": "(void)original;\n    graph->original_fd = -1;",
+    "old": "graph->original_fd = original;"
+  },
+  {
+    "case": "armed-chain",
+    "expected_failures": [
+      "graph_retains_each_child_before_its_native_or_sync_call"
+    ],
+    "file": "graph.c",
+    "name": "repeat-start-after-ready",
+    "new": "if (graph->journal.phase != MBOG_RETAINED && graph->journal.phase != MBOG_READY)",
+    "old": "if (graph->journal.start_attempted || graph->journal.phase != MBOG_RETAINED)"
+  },
+  {
+    "case": "ready-wire",
+    "expected_failures": [
+      "graph_ready_exchange_uses_the_full_frozen_native_chain"
+    ],
+    "file": "graph.c",
+    "name": "hide-dispatcher-cache-after-error",
+    "new": "graph->journal.last_exchange.returned = 1;\n    if (result != MBWD_OK) graph->journal.phase = MBOG_TERMINAL;",
+    "old": "graph->journal.last_exchange.returned = 1;"
+  },
+  {
+    "case": "partial-dispose",
+    "expected_failures": [
+      "graph_partial_disposal_closes_only_transferred_resources"
+    ],
+    "file": "graph.c",
+    "name": "omit-child-diagnostic-archive",
+    "new": "/* control: omit diagnostic archive */",
+    "old": "if (mbog_copy_children(graph, &graph->journal) != MBOG_OK)\n        return mbog_disposal_done(graph, report, MBOG_CHILD);"
+  },
+  {
+    "case": "dispose-order",
+    "expected_failures": [
+      "graph_broker_disposal_failure_stops_before_descriptor_teardown"
+    ],
+    "file": "graph.c",
+    "name": "omit-duplicate-close-arm",
+    "new": "graph->journal.adapter_close.attempted = 0;",
+    "old": "graph->journal.adapter_close.attempted = 1;"
+  },
+  {
+    "case": "close-uncertain",
+    "expected_failures": [
+      "graph_uncertain_close_is_retained_and_never_retried"
+    ],
+    "file": "graph.c",
+    "name": "continue-after-uncertain-duplicate",
+    "new": "if (report->adapter_close.report.attempted &&\n            report->adapter_close.report.call.result != 0) {\n            graph->journal.uncertain_close_seen = 1;\n            /* control: continue to original close too soon */\n        }",
+    "old": "if (report->adapter_close.report.attempted &&\n            report->adapter_close.report.call.result != 0) {\n            graph->journal.uncertain_close_seen = 1;\n            return mbog_disposal_done(graph, report, MBOG_UNCERTAIN);\n        }"
+  },
+  {
+    "case": "close-uncertain",
+    "expected_failures": [
+      "graph_uncertain_close_is_retained_and_never_retried"
+    ],
+    "file": "graph.c",
+    "name": "replace-first-disposal-report",
+    "new": "if (report->attempt_number >= 1) {",
+    "old": "if (report->attempt_number == 1) {"
+  },
+  {
+    "case": "partial-dispose",
+    "expected_failures": [
+      "graph_partial_disposal_closes_only_transferred_resources"
+    ],
+    "file": "graph.c",
+    "name": "omit-graph-slot-consume",
+    "new": "mbog_disposal_done(graph, report, MBOG_OK);\n    /* control: leave caller slot */\n    free(graph);",
+    "old": "mbog_disposal_done(graph, report, MBOG_OK);\n    *slot = NULL;\n    free(graph);"
+  },
+  {
+    "case": "armed-chain",
+    "expected_failures": [
+      "graph_retains_each_child_before_its_native_or_sync_call"
+    ],
+    "file": "graph.c",
+    "name": "export-callable-backend-diagnostics",
+    "new": "static int mbog_copy_children(const struct mbog_graph *graph, struct mbog_evidence *out)\n{\n    out->claim_present = graph->claim != NULL;\n    out->adapter_present = graph->adapter != NULL;\n    out->broker_present = graph->broker != NULL;\n    out->dispatch_present = graph->dispatch != NULL;\n    if (graph->claim) {\n        if (mbco_inspect(graph->claim, &out->claim) != 0) return MBOG_CHILD;\n        out->claim_evidence_valid = 1;\n    }\n    if (graph->adapter) {\n        if (mbra_inspect(graph->adapter, &out->adapter) != 0) return MBOG_CHILD;\n        out->adapter_evidence_valid = 1;\n    }\n    if (graph->broker) {\n        int result = mbro_inspect(graph->broker, &out->broker);\n        /* control: expose borrowed backend pointers */\n        if (result != MB_OK) return MBOG_CHILD;\n        out->broker_evidence_valid = 1;\n    }\n    /* Also scrub archived copies, so no retained adapter callback escapes. */\n    /* control: expose borrowed backend pointers */\n    if (graph->dispatch) {\n        if (mbw_dispatch_inspect(graph->dispatch, &out->dispatch) != MBWD_OK)\n            return MBOG_CHILD;\n        out->dispatch_evidence_valid = 1;\n    }\n    return MBOG_OK;\n}\n",
+    "old": "static int mbog_copy_children(const struct mbog_graph *graph, struct mbog_evidence *out)\n{\n    out->claim_present = graph->claim != NULL;\n    out->adapter_present = graph->adapter != NULL;\n    out->broker_present = graph->broker != NULL;\n    out->dispatch_present = graph->dispatch != NULL;\n    if (graph->claim) {\n        if (mbco_inspect(graph->claim, &out->claim) != 0) return MBOG_CHILD;\n        out->claim_evidence_valid = 1;\n    }\n    if (graph->adapter) {\n        if (mbra_inspect(graph->adapter, &out->adapter) != 0) return MBOG_CHILD;\n        out->adapter_evidence_valid = 1;\n    }\n    if (graph->broker) {\n        int result = mbro_inspect(graph->broker, &out->broker);\n        memset(&out->broker.backend, 0, sizeof(out->broker.backend));\n        if (result != MB_OK) return MBOG_CHILD;\n        out->broker_evidence_valid = 1;\n    }\n    /* Also scrub archived copies, so no retained adapter callback escapes. */\n    memset(&out->broker.backend, 0, sizeof(out->broker.backend));\n    if (graph->dispatch) {\n        if (mbw_dispatch_inspect(graph->dispatch, &out->dispatch) != MBWD_OK)\n            return MBOG_CHILD;\n        out->dispatch_evidence_valid = 1;\n    }\n    return MBOG_OK;\n}\n"
+  }
+]

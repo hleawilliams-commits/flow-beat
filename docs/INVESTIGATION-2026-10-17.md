@@ -1144,3 +1144,51 @@ package, catalog or prior cleanup changed. Frozen source, historical failures
 and unrelated deck-lights/ remain preserved. Main/runtime wiring stays inactive;
 stems staging, USB completion/cancellation, observer, lifetime/race, recovery,
 audio-quality, physical-timing and community-release gates remain CLOSED.
+
+## October 29: retained native construction graph
+
+The separate [owned graph](../experiments/emulator-owned-graph/) now composes original-descriptor/CLAIM custody,
+retained duplicate attachment, retained broker and the actual C dispatcher.
+The caller retains graph storage before transfer. Each child is stored before
+its effectful stage; construction failure leaves acquired dependencies and
+armed/returned child results inspectable. Constructor Ready means the dispatcher
+exists, not that ADOPT or a native input succeeded.
+
+The first graph accepts injected prestates only and rejects idle plans before
+taking a descriptor. No automatic FRAME changes idle mode. It exports no raw
+child, broker, dispatcher or callable backend; diagnostic fd numbers remain
+usable in-process and do not establish alias exclusion.
+
+Explicit disposal requires external quiescence and uncertainty/ownership
+accounting. It retires the dispatcher first, then the broker. A broker failure
+keeps both descriptor dependencies. An uncertain duplicate close stops before
+original close; later explicit disposal skips consumed children, never retries
+old fd numbers and keeps the uncertainty-bearing graph shell. Only separate
+finalization can discard that empty shell after independent accounting. Fully
+known-success disposal returns its final report and consumes the graph.
+
+Thirteen new graph selectors and 11 strict compiling controls pass per plain,
+ASan/UBSan and TSan mode in two fresh matrices. Whole results are byte-identical.
+Each matrix records 54 clean compiles, 36 clean links and 72 executions; the
+retained-file audit verifies source generation, variants, inventories and logs
+without replaying tests. Both matrices and the audit passed on first invocation.
+No unchanged parent suite was repeated and no Linux ARM64 build is claimed.
+
+The fixture executes exact extracted driver methods through frozen child sources
+and operation bodies. Descriptor/syscall/usercopy/RNG/kernel-lock behavior is
+modeled, pthread success calls are real and synchronization refusals are scripted
+before calls. No allocator substitution is used; allocation-error branches and
+counter exhaustion are source-reviewed only. Same-thread inspection does not
+prove concurrent custody or real quiescence. Synthetic disposal/close outcomes
+provide no native recovery permission.
+
+This closes a local construction/dependency-lifetime gap under stated external
+preconditions. Owned transport/supervisor binding, live libc/VFS, external writer
+exclusion, authoritative originals/native stop, deadlines, complete overlay/
+both-file recovery and durable/process-death custody remain open.
+
+No emulator/device endpoint, restart, physical control, installation, core,
+settings, package, catalog or previous cleanup changed. Frozen parents, prior
+failures and unrelated deck-lights/ are preserved. Main and all existing runtime,
+stems, USB, lifetime/race, recovery, audio-quality, physical-timing and release
+gates remain CLOSED.

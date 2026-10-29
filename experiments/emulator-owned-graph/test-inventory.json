@@ -1,0 +1,18 @@
+{
+  "cases": {
+    "adapter-state-stop": 1,
+    "armed-chain": 1,
+    "broker-init-stop": 1,
+    "broker-state-stop": 1,
+    "claim-unknown": 1,
+    "close-uncertain": 1,
+    "dispose-order": 1,
+    "duplicate-stop": 1,
+    "partial-dispose": 1,
+    "postflight-stop": 1,
+    "preflight-stop": 1,
+    "ready-wire": 1,
+    "retain": 1
+  },
+  "scope": "13 graph-specific selectors, one final compound functional check each, per plain/ASan-UBSan/TSan mode. No parent suites, allocation substitution or private counter mutation. Strict controls change only new graph.c and must fail their named final oracle after safe modeled cleanup; setup/compiler/sanitizer failures do not satisfy a control."
+}
