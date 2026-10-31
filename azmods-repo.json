@@ -360,6 +360,27 @@
       "license": "GPL-3.0-only",
       "min_core": "1.2.3",
       "description": "Press SHIFT + TAP (the Beat FX TAP button) during a set to mark a moment. Each mark saves the time, the minutes into the set and every loaded deck's track, position and BPM to MODS/community-mods/reel-marks/data/marks-<date>.csv on the USB, and shows a short banner. On the Mac, tools/reel_cut.py cuts a clip around each mark from your phone video or recording. SHIFT + TAP never reaches the deck; TAP alone works as usual. Writes only its own file on the USB."
+    },
+    {
+      "id": "custom-screen",
+      "name": "Custom Screen",
+      "version": "0.5.1",
+      "author": "hleawilliams-commits",
+      "summary": "Your own deck-screen panels from a text file: readouts, 4-deck rekordbox waveforms and FlowVJ's status.",
+      "icon": "https://github.com/hleawilliams-commits/flow-beat/releases/download/custom-screen-0.5.1/custom-screen-0.5.1-icon.png",
+      "package": "https://github.com/hleawilliams-commits/flow-beat/releases/download/custom-screen-0.5.1/custom-screen-0.5.1.azmod",
+      "sha256": "01959d5e3c85b25947c4ecf97cd43ae1298652212659a78b3104acd8ffd44a55",
+      "size": 120655,
+      "firmware": [
+        "any"
+      ],
+      "hooks": false,
+      "source": "https://github.com/hleawilliams-commits/flow-beat/tree/main/custom-screen",
+      "updated": "2026-10-31",
+      "category": "visual",
+      "license": "GPL-3.0-only",
+      "min_core": "1.2.3",
+      "description": "Up to four click-through panels on the deck screen, each holding the readouts you pick: deck number, title, artist, key (green/amber/red against the other playing deck), BPM, BPM gap, BPMs that fit, pitch move, phrase meter (4/8/16 bars from rekordbox's grid), beat dots, time left, stems, play state, LEFT/RIGHT, clock, text, boxes, zoomed and whole-track rekordbox waveforms for all four decks (from the USB's analysis), and FlowVJ's look, lights and LOCK/SAFE/HOLD with tap buttons back to FlowVJ (UDP 9102/9103). The layout comes from layout.txt on the USB, re-read within a second. No audio, tempo, key, control or library changes."
     }
   ]
 }

@@ -1,0 +1,22 @@
+# Custom Screen layout, made in Deck Screen Designer
+# Coordinates are deck pixels (1280 x 800). Widget x/y are inside their panel.
+version 1
+name Clean: one strip per side
+
+panel 1 x=10 y=561 w=520 h=46 views=4,24 bg=auto border=accent bw=3 edge=top
+widget 1 deck_num deck=L x=0 y=0 w=44 h=46 size=27 color=auto align=l
+widget 1 title deck=L x=54 y=1 w=300 h=24 size=16 color=auto align=l
+widget 1 key deck=L x=54 y=25 w=90 h=21 size=14 color=auto align=l
+widget 1 bpm deck=L x=110 y=23 w=80 h=24 size=15 color=auto align=l
+widget 1 time_left deck=L x=190 y=23 w=70 h=24 size=15 color=auto align=l
+widget 1 phrase_bar deck=L x=320 y=30 w=189 h=10 size=14 color=auto align=l
+widget 1 stems deck=L x=448 y=4 w=62 h=20 size=12 color=auto align=l
+
+panel 2 x=650 y=561 w=520 h=46 views=4,24 bg=auto border=accent bw=3 edge=top
+widget 2 deck_num deck=R x=0 y=0 w=44 h=46 size=27 color=auto align=l
+widget 2 title deck=R x=54 y=1 w=300 h=24 size=16 color=auto align=l
+widget 2 key deck=R x=54 y=25 w=90 h=21 size=14 color=auto align=l
+widget 2 bpm deck=R x=110 y=23 w=80 h=24 size=15 color=auto align=l
+widget 2 time_left deck=R x=190 y=23 w=70 h=24 size=15 color=auto align=l
+widget 2 phrase_bar deck=R x=320 y=30 w=189 h=10 size=14 color=auto align=l
+widget 2 stems deck=R x=448 y=4 w=62 h=20 size=12 color=auto align=l

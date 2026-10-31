@@ -1,0 +1,39 @@
+# Custom Screen layout, made in Deck Screen Designer
+# Coordinates are deck pixels (1280 x 800). Widget x/y are inside their panel.
+version 1
+name Mix + drop, key wheels
+
+panel 1 x=0 y=80 w=140 h=478 views=4 bg=180d25 border=none bw=0 edge=all
+widget 1 title deck=3 x=8 y=2 w=130 h=26 size=17 color=auto align=l
+widget 1 key deck=3 x=8 y=30 w=62 h=36 size=26 color=auto align=l
+widget 1 bpm deck=3 x=72 y=30 w=66 h=18 size=14 color=dim align=r
+widget 1 time_left deck=3 x=72 y=48 w=66 h=18 size=14 color=auto align=r
+widget 1 box x=0 y=116 w=140 h=6 size=14 color=090611 align=l
+widget 1 title deck=1 x=8 y=124 w=130 h=26 size=17 color=auto align=l
+widget 1 key deck=1 x=8 y=152 w=62 h=36 size=26 color=auto align=l
+widget 1 bpm deck=1 x=72 y=152 w=66 h=18 size=14 color=dim align=r
+widget 1 time_left deck=1 x=72 y=170 w=66 h=18 size=14 color=auto align=r
+widget 1 box x=0 y=238 w=140 h=6 size=14 color=090611 align=l
+widget 1 title deck=2 x=8 y=246 w=130 h=26 size=17 color=auto align=l
+widget 1 key deck=2 x=8 y=274 w=62 h=36 size=26 color=auto align=l
+widget 1 bpm deck=2 x=72 y=274 w=66 h=18 size=14 color=dim align=r
+widget 1 time_left deck=2 x=72 y=292 w=66 h=18 size=14 color=auto align=r
+widget 1 box x=0 y=360 w=140 h=6 size=14 color=090611 align=l
+widget 1 title deck=4 x=8 y=368 w=130 h=26 size=17 color=auto align=l
+widget 1 key deck=4 x=8 y=396 w=62 h=36 size=26 color=auto align=l
+widget 1 bpm deck=4 x=72 y=396 w=66 h=18 size=14 color=dim align=r
+widget 1 time_left deck=4 x=72 y=414 w=66 h=18 size=14 color=auto align=r
+
+panel 2 x=0 y=0 w=180 h=76 views=4 bg=auto border=none bw=0 edge=all
+widget 2 label x=6 y=4 w=18 h=30 size=13 color=dim align=l text=L
+widget 2 mix_with deck=L x=22 y=4 w=70 h=30 size=14 color=auto align=l
+widget 2 drop_in deck=L x=92 y=4 w=84 h=30 size=12 color=auto align=r
+widget 2 label x=6 y=40 w=18 h=30 size=13 color=dim align=l text=R
+widget 2 mix_with deck=R x=22 y=40 w=70 h=30 size=14 color=auto align=l
+widget 2 drop_in deck=R x=92 y=40 w=84 h=30 size=12 color=auto align=r
+
+panel 3 x=1090 y=490 w=180 h=66 views=4 bg=auto border=none bw=0 edge=all
+widget 3 key_wheel deck=L x=6 y=4 w=58 h=58 size=14 color=auto align=l
+widget 3 key deck=L x=66 y=6 w=40 h=24 size=16 color=auto align=l
+widget 3 key_wheel deck=R x=112 y=4 w=58 h=58 size=14 color=auto align=l
+widget 3 key deck=R x=66 y=36 w=40 h=24 size=16 color=auto align=l

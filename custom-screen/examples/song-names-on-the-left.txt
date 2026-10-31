@@ -1,0 +1,20 @@
+# Custom Screen layout, made in Deck Screen Designer
+# Coordinates are deck pixels (1280 x 800). Widget x/y are inside their panel.
+version 1
+name Song names on the left
+
+panel 1 x=0 y=80 w=140 h=38 views=4 bg=180d25 border=none bw=0 edge=all
+widget 1 title deck=3 x=8 y=1 w=128 h=20 size=14 color=auto align=l
+widget 1 artist deck=3 x=8 y=19 w=128 h=17 size=11 color=dim align=l
+
+panel 2 x=0 y=202 w=140 h=38 views=4 bg=180d25 border=none bw=0 edge=all
+widget 2 title deck=1 x=8 y=1 w=128 h=20 size=14 color=auto align=l
+widget 2 artist deck=1 x=8 y=19 w=128 h=17 size=11 color=dim align=l
+
+panel 3 x=0 y=324 w=140 h=38 views=4 bg=180d25 border=none bw=0 edge=all
+widget 3 title deck=2 x=8 y=1 w=128 h=20 size=14 color=auto align=l
+widget 3 artist deck=2 x=8 y=19 w=128 h=17 size=11 color=dim align=l
+
+panel 4 x=0 y=446 w=140 h=38 views=4 bg=180d25 border=none bw=0 edge=all
+widget 4 title deck=4 x=8 y=1 w=128 h=20 size=14 color=auto align=l
+widget 4 artist deck=4 x=8 y=19 w=128 h=17 size=11 color=dim align=l
