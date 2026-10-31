@@ -369,8 +369,8 @@
       "summary": "Your own deck-screen panels from a text file: readouts, 4-deck rekordbox waveforms and FlowVJ's status.",
       "icon": "https://github.com/hleawilliams-commits/flow-beat/releases/download/custom-screen-0.5.2/custom-screen-0.5.2-icon.png",
       "package": "https://github.com/hleawilliams-commits/flow-beat/releases/download/custom-screen-0.5.2/custom-screen-0.5.2.azmod",
-      "sha256": "d8bc39e36688d72c812915c1da4faed7c1c6b2df8d0f711ee846084f843bd93f",
-      "size": 121123,
+      "sha256": "77c8c17a2b8e56bf66ff972341fa32432ba9b34817f212628a85f7e1c07cdff7",
+      "size": 121196,
       "firmware": [
         "any"
       ],
@@ -380,7 +380,8 @@
       "category": "visual",
       "license": "GPL-3.0-only",
       "min_core": "1.2.3",
-      "description": "Up to four click-through panels on the deck screen, each holding the readouts you pick: deck number, title, artist, key (green/amber/red against the other playing deck), BPM, BPM gap, BPMs that fit, pitch move, phrase meter (4/8/16 bars from rekordbox's grid), beat dots, time left, stems, play state, LEFT/RIGHT, clock, text, boxes, zoomed and whole-track rekordbox waveforms for all four decks (from the USB's analysis), and FlowVJ's look, lights and LOCK/SAFE/HOLD with tap buttons back to FlowVJ (UDP 9102/9103). The layout comes from layout.txt on the USB, re-read within a second. No audio, tempo, key, control or library changes."
+      "description": "Up to four click-through panels on the deck screen, each holding the readouts you pick: deck number, title, artist, key (green/amber/red against the other playing deck), BPM, BPM gap, BPMs that fit, pitch move, phrase meter (4/8/16 bars from rekordbox's grid), beat dots, time left, stems, play state, LEFT/RIGHT, clock, text, boxes, zoomed and whole-track rekordbox waveforms for all four decks (from the USB's analysis), and FlowVJ's look, lights and LOCK/SAFE/HOLD with tap buttons back to FlowVJ (UDP 9102/9103). The layout comes from layout.txt on the USB, re-read within a second. No audio, tempo, key, control or library changes.",
+      "assets_kb": 4
     }
   ]
 }
