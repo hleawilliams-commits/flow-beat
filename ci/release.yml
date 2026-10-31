@@ -36,6 +36,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          submodules: recursive   # third_party/link: Ableton Link and asio (Link on Deck)
 
       - name: Check SDK_REF exists
         # a tag or branch of the SDK repository (or a full commit id); a ref that does not

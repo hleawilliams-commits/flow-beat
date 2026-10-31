@@ -31,7 +31,12 @@
 # otherwise exported, which the deck refuses. A C-only build is unchanged by any of this.
 
 MOD_ID          := flow-beat
-SRCS            := flow-beat.c
+SRCS            := flow-beat.c link.cpp
+# Ableton Link (GPL-2.0-or-later) and its asio, as git submodules:
+#   git submodule update --init --recursive
+LINK_DIR        := third_party/link
+# third_party/link-gcc7 comes first: one Link Audio header with a GCC 7.5 fix (see its README)
+LINK_INCLUDE    := -Ithird_party/link-gcc7 -I$(LINK_DIR)/include -I$(LINK_DIR)/modules/asio-standalone/asio/include
 AZ_SDK_INCLUDE  ?= ../include
 AZ_SDK          ?= ..
 MAX_REDRAWS     ?= 0          # the most repaints a second your tick asks for
@@ -50,7 +55,7 @@ CFLAGS  := -O2 -Wall -Wextra -Werror=implicit-function-declaration \
            -fexceptions -fasynchronous-unwind-tables \
            -I$(AZ_SDK_INCLUDE)
 LDFLAGS := -shared -static-libgcc -Wl,--no-undefined -Wl,--hash-style=gnu
-LDLIBS  := -lm     # sqrt for the deck audio meters (0.3.0); add -lpthread if you start a thread yourself
+LDLIBS  := -lm -lpthread -ldl   # sqrt for the deck audio meters (0.3.0); Link's own threads; dlsym (0.5.3)
 
 # GCC 10+ on aarch64 defaults to outline atomics (a libgcc helper). The SDK's GCC 7
 # does not know the flag; probe for it so the same Makefile works on both.
@@ -61,7 +66,9 @@ CFLAGS += $(NO_OUTLINE_ATOMICS)
 CXX_SRCS   := $(filter %.cpp %.cc,$(SRCS))
 CXXFLAGS   := -O2 -Wall -Wextra -fPIC -fvisibility=hidden -fvisibility-inlines-hidden \
               -fno-omit-frame-pointer -fexceptions -fasynchronous-unwind-tables \
-              -I$(AZ_SDK_INCLUDE) $(NO_OUTLINE_ATOMICS)
+              -I$(AZ_SDK_INCLUDE) $(NO_OUTLINE_ATOMICS) \
+              -std=c++17 -DLINK_PLATFORM_LINUX=1 $(LINK_INCLUDE) \
+              -Wno-multichar   # Link's four-letter payload keys
 CXXLDFLAGS := -shared -Wl,--no-undefined -Wl,--hash-style=gnu \
               -Wl,--version-script=$(OUT)/exports.map
 ifeq ($(strip $(DEBUG)),1)
@@ -76,14 +83,14 @@ space := $(subst ,, )
 all: $(OUT)/$(MOD_ID).so
 
 ifeq ($(strip $(CXX_SRCS)),)
-$(OUT)/$(MOD_ID).so: $(SRCS) $(AZ_SDK_INCLUDE)/azmod-mod.h | $(OUT)
+$(OUT)/$(MOD_ID).so: $(SRCS) mixer.h $(AZ_SDK_INCLUDE)/azmod-mod.h | $(OUT)
 	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $(SRCS) $(LDLIBS)
 else
 OBJS := $(patsubst %,$(OUT)/obj/%.o,$(SRCS))
-$(OUT)/obj/%.c.o: %.c $(AZ_SDK_INCLUDE)/azmod-mod.h
+$(OUT)/obj/%.c.o: %.c mixer.h link.h $(AZ_SDK_INCLUDE)/azmod-mod.h
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c -o $@ $<
-$(OUT)/obj/%.cpp.o: %.cpp $(AZ_SDK_INCLUDE)/azmod-mod.h
+$(OUT)/obj/%.cpp.o: %.cpp link.h $(AZ_SDK_INCLUDE)/azmod-mod.h
 	@mkdir -p $(dir $@)
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 $(OUT)/obj/%.cc.o: %.cc $(AZ_SDK_INCLUDE)/azmod-mod.h
@@ -102,6 +109,7 @@ test:
 	@test -f $(AZ_SDK)/tools/harness/sanitize.sh || \
 	    { echo "make test: set AZ_SDK to your az-mods-sdk checkout" >&2; exit 2; }
 	CC=$(TEST_CC) CXX=$(TEST_CXX) sh $(AZ_SDK)/tools/harness/sanitize.sh --passes "$(SAN)" \
+	    -I third_party/link-gcc7 -I $(LINK_DIR)/include -I $(LINK_DIR)/modules/asio-standalone/asio/include \
 	    $(MOD_ID):$(strip $(MAX_REDRAWS)):$(subst $(space),$(comma),$(strip $(SRCS)))
 
 clean:

@@ -28,22 +28,22 @@
     {
       "id": "flow-beat",
       "name": "FLOW Beat Link",
-      "version": "0.3.0",
+      "version": "0.5.3",
       "author": "hleawilliams-commits",
-      "summary": "Sends each deck's beat, BPM, play state and track to FLOW VJ over the network, to lock visuals and lights.",
-      "icon": "https://github.com/hleawilliams-commits/flow-beat/releases/download/flow-beat-0.3.0/flow-beat-0.3.0-icon.png",
-      "package": "https://github.com/hleawilliams-commits/flow-beat/releases/download/flow-beat-0.3.0/flow-beat-0.3.0.azmod",
-      "sha256": "624b3c442f1159bfd837e00c49d17325d319380a09c3adfc10c976fdb49906af",
-      "size": 53434,
+      "summary": "Sends each deck's beat, BPM, track, mixer and Stem FX / Drum Roll / loop state to FLOW VJ; can lead Ableton Link.",
+      "icon": "https://github.com/hleawilliams-commits/flow-beat/releases/download/flow-beat-0.5.3/flow-beat-0.5.3-icon.png",
+      "package": "https://github.com/hleawilliams-commits/flow-beat/releases/download/flow-beat-0.5.3/flow-beat-0.5.3.azmod",
+      "sha256": "a4ecf8f7388eb18d1bd93afb15e209b7dfb95929da0b6eb66941847485514930",
+      "size": 860569,
       "firmware": [
         "any"
       ],
       "hooks": false,
       "source": "https://github.com/hleawilliams-commits/flow-beat",
-      "updated": "2026-10-17",
+      "updated": "2026-10-31",
       "license": "GPL-3.0-only",
       "min_core": "1.2.3",
-      "description": "Rows: Send beat to FLOW (on) and Send mixer data (test) (off).\n\nSends UDP packets on the deck's network (Wi-Fi or LINK), broadcast to port 9100 unless flow-beat:host in MODS/azmods.cfg names one computer: each new beat, each deck's BPM and beat position 50 times a second, track title and artist, and each deck's own audio level and bass (read before the hardware mixer). FLOW VJ listens for them.\n\nRead-only: it does not patch the deck, change controls or audio, or write files."
+      "description": "Rows: Send beat to FLOW (on), Send mixer to FLOW (on), Send track analysis to FLOW (on), Ableton Link from this deck (off, test), Send decks to Ableton (off, test), Send mixer data (test) (off).\n\nLink: the playing deck leads the Ableton Link session (tempo, beat, bar), no computer bridge. Link Audio offers each deck's sound to Ableton 12.4+ as inputs Deck 1-4.\n\nFLOW: UDP port 9100: beats, BPM, titles, levels, rekordbox grid, waveform, phrases, cues, the mixer and AZ-MODS 1.2.6+ Stem FX, Drum Roll HOLD, loops. Uses Ableton Link (GPL-2.0-or-later). Reads files; never writes or patches the deck."
     },
     {
       "id": "grouped-panels",
