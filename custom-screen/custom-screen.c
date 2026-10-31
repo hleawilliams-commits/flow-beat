@@ -31,7 +31,7 @@
 
 static const az_core_v1 *C;
 static az_surface *cs_surface[CS_PANELS];
-static int cs_show_row = -1, cs_view_row = -1, cs_bars_row = -1;
+static int cs_show_row = -1, cs_view_row = -1, cs_bars_row = -1, cs_shipped_row = -1;
 static const int CS_BARS[] = { 4, 8, 16 };   /* the Phrase length row's choices */
 
 /* ---- the layout: the worker parses into cs_shared, the UI copies it into cs_ui ---------- */
@@ -40,6 +40,7 @@ static pthread_mutex_t cs_layout_mu = PTHREAD_MUTEX_INITIALIZER;
 static unsigned cs_layout_serial, cs_layout_seen;   /* atomics */
 static int cs_force_reload;                          /* atomic: Mod Menu "Reload layout" */
 static int cs_from;                                  /* atomic: 0 built-in, 1 assets, 2 data */
+static int cs_shipped;                               /* atomic: 1 = the Mod Menu says use assets/, not data/ */
 static char cs_data_path[512], cs_assets_path[512];  /* set in init, read by the worker */
 static char cs_file_buf[CS_FILE_MAX];
 
@@ -200,7 +201,8 @@ static void *cs_file_worker(void *arg)
         long long mt = 0, sz = 0;
         int from = 0;
         const char *path = NULL;
-        if (cs_read_file(cs_data_path, &mt, &sz)) { from = 2; path = cs_data_path; }
+        int shipped = __atomic_load_n(&cs_shipped, __ATOMIC_ACQUIRE);
+        if (!shipped && cs_read_file(cs_data_path, &mt, &sz)) { from = 2; path = cs_data_path; }
         else if (cs_read_file(cs_assets_path, &mt, &sz)) { from = 1; path = cs_assets_path; }
         if (force || from != last_from || mt != last_mtime || sz != last_size) {
             size_t n = 0;
@@ -677,6 +679,7 @@ static void cs_tick(void)
     int relayout = 0;
     cs_take_layout(&relayout);
     int enabled = cs_show_row < 0 || C->row_value(cs_show_row) == 1;
+    if (cs_shipped_row >= 0) __atomic_store_n(&cs_shipped, C->row_value(cs_shipped_row) == 1, __ATOMIC_RELEASE);
     if (cs_bars_row >= 0) {
         int pick = C->row_value(cs_bars_row);
         int nb = pick >= 0 && pick < 3 ? CS_BARS[pick] : 4;
@@ -866,6 +869,10 @@ static int cs_init(const az_core_v1 *core)
             .parent = "show", .choices = bars, .n_choices = 3, .default_choice = 0,
             .help = "Bars in the phrase meter. Counted from rekordbox's grid" };
         cs_bars_row = C->register_row(MOD_ID, &len);
+        az_row_v1 ship = { .size = sizeof ship, .key = "shipped", .label = "Use this version's layout", .kind = AZ_ROW_TOGGLE,
+            .parent = "show", .flags = AZ_ROW_DEFAULT_ON,
+            .help = "On: the layout that comes with the mod. Off: your own data/layout.txt (kept, never changed)" };
+        cs_shipped_row = C->register_row(MOD_ID, &ship);
         static const char *const keys[] = { "reset1", "reset2", "reset3", "reset4" };
         static const char *const labels[] = { "Deck 1 phrase starts now", "Deck 2 phrase starts now", "Deck 3 phrase starts now", "Deck 4 phrase starts now" };
         for (int i = 0; i < 4; i++) {

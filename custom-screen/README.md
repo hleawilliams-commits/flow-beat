@@ -59,7 +59,7 @@ A track with no analysis on the stick shows "No rekordbox waveform for this trac
 
 ## Mod Menu
 
-**Custom Screen** turns it on or idle. Under it: **Reload layout**, **Two-deck view** (A = Auto, 2 = 2 DECK, 24 = 2/4 DECK, as in Grouped Panels; one- and two-character labels because the Mod Menu's choice boxes are narrow), **Phrase length** (4, 8 or 16 bars) and **Deck N phrase starts now**.
+**Custom Screen** turns it on or idle. Under it: **Reload layout**, **Two-deck view** (A = Auto, 2 = 2 DECK, 24 = 2/4 DECK, as in Grouped Panels; one- and two-character labels because the Mod Menu's choice boxes are narrow), **Phrase length** (4, 8 or 16 bars), **Use this version's layout** (0.5.2, on by default: shows the layout that ships in assets/ even when data/layout.txt exists; off goes back to your own data/layout.txt, which is never changed) and **Deck N phrase starts now**.
 
 ## Try a layout on the emulator
 

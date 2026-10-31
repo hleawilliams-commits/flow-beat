@@ -1,0 +1,52 @@
+# Custom Screen layout, made in Deck Screen Designer
+# Coordinates are deck pixels (1280 x 800). Widget x/y are inside their panel.
+version 1
+name My picks + phrase and drop per deck
+
+panel 1 x=0 y=80 w=140 h=478 views=4 bg=180d25 border=none bw=0 edge=all
+widget 1 title deck=3 x=8 y=2 w=130 h=28 size=18 color=auto align=l
+widget 1 key deck=3 x=8 y=34 w=62 h=40 size=28 color=auto align=l
+widget 1 bpm deck=3 x=72 y=34 w=66 h=20 size=14 color=dim align=r
+widget 1 time_left deck=3 x=72 y=54 w=66 h=20 size=14 color=auto align=r
+widget 1 phrase_name deck=3 x=8 y=76 w=62 h=20 size=13 color=auto align=l
+widget 1 drop_in deck=3 x=72 y=76 w=66 h=20 size=12 color=auto align=r
+widget 1 phrase deck=3 x=8 y=97 w=38 h=13 size=11 color=auto align=l
+widget 1 phrase_bar deck=3 x=48 y=98 w=88 h=11 size=11 color=auto align=l
+widget 1 title deck=1 x=8 y=124 w=130 h=28 size=18 color=auto align=l
+widget 1 key deck=1 x=8 y=156 w=62 h=40 size=28 color=auto align=l
+widget 1 bpm deck=1 x=72 y=156 w=66 h=20 size=14 color=dim align=r
+widget 1 time_left deck=1 x=72 y=176 w=66 h=20 size=14 color=auto align=r
+widget 1 phrase_name deck=1 x=8 y=198 w=62 h=20 size=13 color=auto align=l
+widget 1 drop_in deck=1 x=72 y=198 w=66 h=20 size=12 color=auto align=r
+widget 1 phrase deck=1 x=8 y=219 w=38 h=13 size=11 color=auto align=l
+widget 1 phrase_bar deck=1 x=48 y=220 w=88 h=11 size=11 color=auto align=l
+widget 1 title deck=2 x=8 y=246 w=130 h=28 size=18 color=auto align=l
+widget 1 key deck=2 x=8 y=278 w=62 h=40 size=28 color=auto align=l
+widget 1 bpm deck=2 x=72 y=278 w=66 h=20 size=14 color=dim align=r
+widget 1 time_left deck=2 x=72 y=298 w=66 h=20 size=14 color=auto align=r
+widget 1 phrase_name deck=2 x=8 y=320 w=62 h=20 size=13 color=auto align=l
+widget 1 drop_in deck=2 x=72 y=320 w=66 h=20 size=12 color=auto align=r
+widget 1 phrase deck=2 x=8 y=341 w=38 h=13 size=11 color=auto align=l
+widget 1 phrase_bar deck=2 x=48 y=342 w=88 h=11 size=11 color=auto align=l
+widget 1 title deck=4 x=8 y=368 w=130 h=28 size=18 color=auto align=l
+widget 1 key deck=4 x=8 y=400 w=62 h=40 size=28 color=auto align=l
+widget 1 bpm deck=4 x=72 y=400 w=66 h=20 size=14 color=dim align=r
+widget 1 time_left deck=4 x=72 y=420 w=66 h=20 size=14 color=auto align=r
+widget 1 phrase_name deck=4 x=8 y=442 w=62 h=20 size=13 color=auto align=l
+widget 1 drop_in deck=4 x=72 y=442 w=66 h=20 size=12 color=auto align=r
+widget 1 phrase deck=4 x=8 y=463 w=38 h=13 size=11 color=auto align=l
+widget 1 phrase_bar deck=4 x=48 y=464 w=88 h=11 size=11 color=auto align=l
+
+panel 2 x=0 y=0 w=180 h=76 views=4 bg=auto border=none bw=0 edge=all
+widget 2 label x=6 y=4 w=18 h=30 size=13 color=dim align=l text=L
+widget 2 mix_with deck=L x=22 y=4 w=70 h=30 size=14 color=auto align=l
+widget 2 drop_in deck=L x=92 y=4 w=84 h=30 size=12 color=auto align=r
+widget 2 label x=6 y=40 w=18 h=30 size=13 color=dim align=l text=R
+widget 2 mix_with deck=R x=22 y=40 w=70 h=30 size=14 color=auto align=l
+widget 2 drop_in deck=R x=92 y=40 w=84 h=30 size=12 color=auto align=r
+
+panel 3 x=1090 y=490 w=180 h=66 views=4 bg=auto border=none bw=0 edge=all
+widget 3 flowvj x=8 y=6 w=166 h=26 size=15 color=auto align=l text=VJ 
+widget 3 vj_tap x=8 y=34 w=52 h=28 size=13 color=auto align=l act=next
+widget 3 vj_tap x=64 y=34 w=52 h=28 size=13 color=auto align=l act=hold
+widget 3 vj_tap x=120 y=34 w=52 h=28 size=13 color=auto align=l act=safe
