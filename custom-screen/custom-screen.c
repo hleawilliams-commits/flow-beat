@@ -31,7 +31,8 @@
 
 static const az_core_v1 *C;
 static az_surface *cs_surface[CS_PANELS];
-static int cs_show_row = -1, cs_view_row = -1, cs_bars_row = -1, cs_shipped_row = -1;
+static int cs_show_row = -1, cs_view_row = -1, cs_bars_row = -1, cs_shipped_row = -1, cs_colours_row = -1;
+static int cs_colours;   /* atomic: 0 Mod Menu theme, 1 riso, 2 FlowVJ, 3 classic */
 static const int CS_BARS[] = { 4, 8, 16 };   /* the Phrase length row's choices */
 
 /* ---- the layout: the worker parses into cs_shared, the UI copies it into cs_ui ---------- */
@@ -304,6 +305,17 @@ static void cs_fit(char *s, int px, int width)
 
 typedef struct { int day; uint32_t text, muted, cell, accent, bg; } cs_theme;
 
+/* a + (b - a) * pct / 255, per channel */
+static uint32_t cs_mix(uint32_t a, uint32_t b, int pct)
+{
+    uint32_t o = 0;
+    for (int sh = 0; sh <= 16; sh += 8) {
+        int x = (int)((a >> sh) & 255), y = (int)((b >> sh) & 255);
+        o |= (uint32_t)(x + (y - x) * pct / 255) << sh;
+    }
+    return o;
+}
+
 static uint32_t cs_resolve(uint32_t c, uint32_t automatic, const cs_theme *t)
 {
     switch (c) {
@@ -388,7 +400,7 @@ static void cs_widget_paint(az_draw *d, az_rect a, const cs_widget *w, const cs_
     switch (w->type) {
     case CS_DECK_NUM: {
         int sel = i >= 0 && cs_selected[i], al = loaded ? v->alert : 0;
-        uint32_t block = al == GP_ALERT_RED ? 0xE5484D : al == GP_ALERT_AMBER ? 0xD49A21 : sel ? CS_ACCENT : cs_resolve(w->color, t->cell, t);
+        uint32_t block = al == GP_ALERT_RED ? 0xE5484D : al == GP_ALERT_AMBER ? 0xD49A21 : sel ? t->accent : cs_resolve(w->color, t->cell, t);
         cs_fill(d, a, x, y, w->w, w->h, block);
         cs_widget c = *w; c.align = CS_ALIGN_C;
         snprintf(s, sizeof s, "%c", i >= 0 ? '1' + i : '?');
@@ -627,10 +639,20 @@ static void cs_paint_timed(az_draw *d, az_rect a, void *user)
     if (slot < 0 || slot >= cs_ui.n) return;
     const cs_panel *p = &cs_ui.p[slot];
     cs_theme t;
-    t.day = AZ_HAS(C, ui_theme) && C->ui_theme() == 1;
+    int ui = AZ_HAS(C, ui_theme) ? C->ui_theme() : 0;
+    int pick = __atomic_load_n(&cs_colours, __ATOMIC_ACQUIRE), themed = 1;
+    t.day = ui == 1;
     t.text = C->color(AZ_COL_TEXT); t.bg = C->color(AZ_COL_BG);
     t.muted = t.day ? 0x505967 : 0xA5A2B0; t.cell = t.day ? 0xD5D9DF : 0x30303D; t.accent = t.day ? 0x006482 : CS_ACCENT;
-    if (p->bg != CS_COL_AUTO) cs_fill(d, a, a.x, a.y, a.w, a.h, cs_resolve(p->bg, t.bg, &t));
+    if (pick == 0 && ui >= 2) {          /* one of the Mod Menu's dark themes (AZ-MODS, Midnight, Ember, Forest) */
+        t.muted = C->color(AZ_COL_TEXT_DIM); t.accent = C->color(AZ_COL_HI); t.cell = cs_mix(t.bg, t.text, 40);
+    } else if (pick == 1) {              /* riso: red and teal ink, cream paper text */
+        t.day = 0; t.bg = 0x1A1614; t.text = 0xEFE5CF; t.muted = 0xA89F8C; t.cell = 0x1F6F78; t.accent = 0xE2402B;
+    } else if (pick == 2) {              /* FlowVJ: cyan on violet */
+        t.day = 0; t.bg = 0x180D25; t.text = 0xF2F0FF; t.muted = 0xA5A2B0; t.cell = 0x3A2560; t.accent = 0x32D5FF;
+    } else themed = 0;                   /* classic, or the Mod Menu's themes are off / Day */
+    /* a theme colours every panel that has a background; classic keeps the layout's own */
+    if (p->bg != CS_COL_AUTO) cs_fill(d, a, a.x, a.y, a.w, a.h, themed && p->bg != CS_COL_NONE ? t.bg : cs_resolve(p->bg, t.bg, &t));
     for (int k = 0; k < p->n; k++) cs_widget_paint(d, a, &p->wd[k], &t);
     if (p->border != CS_COL_NONE && p->bw > 0) {
         uint32_t c = cs_resolve(p->border, t.accent, &t);
@@ -692,6 +714,14 @@ static void cs_tick(void)
     int relayout = 0;
     cs_take_layout(&relayout);
     int enabled = cs_show_row < 0 || C->row_value(cs_show_row) == 1;
+    if (cs_colours_row >= 0) {
+        int pick = C->row_value(cs_colours_row);
+        pick = pick >= 0 && pick < 4 ? pick : 0;
+        if (pick != __atomic_load_n(&cs_colours, __ATOMIC_RELAXED)) {
+            __atomic_store_n(&cs_colours, pick, __ATOMIC_RELEASE);
+            memset(cs_v, 0, sizeof cs_v); cs_last_poll = -1000;   /* repaint everything */
+        }
+    }
     if (cs_shipped_row >= 0) __atomic_store_n(&cs_shipped, C->row_value(cs_shipped_row) == 1, __ATOMIC_RELEASE);
     if (cs_bars_row >= 0) {
         int pick = C->row_value(cs_bars_row);
@@ -888,6 +918,11 @@ static int cs_init(const az_core_v1 *core)
             .parent = "show", .choices = bars, .n_choices = 3, .default_choice = 0,
             .help = "Bars in the phrase meter. Counted from rekordbox's grid" };
         cs_bars_row = C->register_row(MOD_ID, &len);
+        static const char *const colours[] = { "M", "R", "F", "C" };
+        az_row_v1 col = { .size = sizeof col, .key = "colours", .label = "Colours", .kind = AZ_ROW_CHOICE,
+            .parent = "show", .choices = colours, .n_choices = 4, .default_choice = 0,
+            .help = "M = Mod Menu theme, R = riso, F = FlowVJ, C = classic" };
+        cs_colours_row = C->register_row(MOD_ID, &col);
         az_row_v1 ship = { .size = sizeof ship, .key = "shipped", .label = "Use this version's layout", .kind = AZ_ROW_TOGGLE,
             .parent = "show", .flags = AZ_ROW_DEFAULT_ON,
             .help = "On: the layout that comes with the mod. Off: your own data/layout.txt (kept, never changed)" };
