@@ -369,8 +369,8 @@
       "summary": "Your own deck-screen panels from a text file: readouts, 4-deck rekordbox waveforms and FlowVJ's status.",
       "icon": "https://github.com/hleawilliams-commits/flow-beat/releases/download/custom-screen-0.5.2/custom-screen-0.5.2-icon.png",
       "package": "https://github.com/hleawilliams-commits/flow-beat/releases/download/custom-screen-0.5.2/custom-screen-0.5.2.azmod",
-      "sha256": "77c8c17a2b8e56bf66ff972341fa32432ba9b34817f212628a85f7e1c07cdff7",
-      "size": 121196,
+      "sha256": "92490fe236aab801cec19578309abeace744917372190ae4f856883d73a0b09c",
+      "size": 122181,
       "firmware": [
         "any"
       ],

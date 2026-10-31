@@ -46,8 +46,11 @@ widget 2 mix_with deck=R x=22 y=40 w=70 h=30 size=14 color=auto align=l
 widget 2 drop_in deck=R x=92 y=40 w=84 h=30 size=12 color=auto align=r
 
 panel 3 x=1090 y=490 w=180 h=66 views=4 bg=auto border=none bw=0 edge=all
-widget 3 flowvj x=8 y=6 w=166 h=26 size=15 color=auto align=l text=VJ 
-widget 3 vj_tap x=8 y=34 w=40 h=28 size=12 color=auto align=l act=next
-widget 3 vj_tap x=50 y=34 w=40 h=28 size=12 color=auto align=l act=auto
-widget 3 vj_tap x=92 y=34 w=40 h=28 size=12 color=auto align=l act=drop
-widget 3 vj_tap x=134 y=34 w=40 h=28 size=12 color=auto align=l act=black
+widget 3 flowvj x=8 y=2 w=166 h=18 size=12 color=auto align=l text=VJ 
+widget 3 vj_tap x=8 y=22 w=40 h=21 size=11 color=auto align=l act=next
+widget 3 vj_tap x=50 y=22 w=40 h=21 size=11 color=auto align=l act=prev
+widget 3 vj_tap x=92 y=22 w=40 h=21 size=11 color=auto align=l act=auto
+widget 3 vj_tap x=134 y=22 w=40 h=21 size=11 color=auto align=l act=black
+widget 3 vj_tap x=8 y=45 w=54 h=21 size=11 color=auto align=l act=drop
+widget 3 vj_tap x=64 y=45 w=54 h=21 size=11 color=auto align=l act=strobe
+widget 3 vj_tap x=120 y=45 w=54 h=21 size=11 color=auto align=l act=fog

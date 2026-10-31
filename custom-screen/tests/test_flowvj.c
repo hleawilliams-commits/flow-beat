@@ -54,6 +54,9 @@ static void taps(void)
     char b[64];
     CHECK(fv_cmd(b, sizeof b, 7, FV_ACT_NEXT) > 0 && !strcmp(b, "FVC1 7 next\n"));
     CHECK(fv_cmd(b, sizeof b, 8, FV_ACT_SAFE) > 0 && !strcmp(b, "FVC1 8 safe\n"));
+    CHECK(fv_cmd(b, sizeof b, 9, FV_ACT_STROBE_OFF) > 0 && !strcmp(b, "FVC1 9 strobe_off\n"));
+    CHECK(fv_cmd(b, sizeof b, 10, FV_ACT_FOG) > 0 && !strcmp(b, "FVC1 10 fog\n"));
+    CHECK(fv_act_of("strobe", 6) == FV_ACT_STROBE);
     CHECK(fv_cmd(b, sizeof b, 1, FV_ACT_NONE) == 0 && fv_cmd(b, sizeof b, 1, FV_ACTS) == 0);
     CHECK(fv_cmd(b, 6, 1, FV_ACT_NEXT) == 0);   /* too small: nothing half-written is sent */
     for (int a = 1; a < FV_ACTS; a++) CHECK(fv_act_of(FV_ACT_NAME[a], strlen(FV_ACT_NAME[a])) == a);

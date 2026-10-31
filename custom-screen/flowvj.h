@@ -24,10 +24,14 @@
 #define FV_TAPS 8          /* vj_tap buttons the touch filter checks, across all panels */
 
 /* Tap actions. FlowVJ's deck-status.js runs each one (see its ACTS table). */
+/* strobe is held: sent when the finger comes down, strobe_off when it lifts (FlowVJ also stops
+ * it on its own if strobe_off never comes). strobe_off is sent only, never a button. */
 enum { FV_ACT_NONE = 0, FV_ACT_NEXT, FV_ACT_PREV, FV_ACT_HOLD, FV_ACT_SAFE, FV_ACT_AUTO, FV_ACT_DROP,
-       FV_ACT_BLACK, FV_ACTS };
-static const char *const FV_ACT_NAME[FV_ACTS] = { "", "next", "prev", "hold", "safe", "auto", "drop", "black" };
-static const char *const FV_ACT_LABEL[FV_ACTS] = { "", "NEXT", "PREV", "HOLD", "SAFE", "AUTO", "DROP", "BLACK" };
+       FV_ACT_BLACK, FV_ACT_STROBE, FV_ACT_STROBE_OFF, FV_ACT_FOG, FV_ACTS };
+static const char *const FV_ACT_NAME[FV_ACTS] = { "", "next", "prev", "hold", "safe", "auto", "drop", "black",
+                                                  "strobe", "strobe_off", "fog" };
+static const char *const FV_ACT_LABEL[FV_ACTS] = { "", "NEXT", "PREV", "HOLD", "SAFE", "AUTO", "DROP", "BLACK",
+                                                   "STROBE", "", "FOG" };
 
 typedef struct {
     unsigned seq;

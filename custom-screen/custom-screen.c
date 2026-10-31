@@ -111,6 +111,7 @@ static fv_tap fv_taps[2][FV_TAPS];
 static int fv_tap_n[2], fv_tap_cur;                  /* fv_tap_cur atomic */
 static long fv_flash_until[FV_ACTS];                 /* UI: a tapped button shows lit briefly */
 static unsigned fv_flash_bits;                       /* atomic: taps the UI hasn't flashed yet */
+static int fv_strobe_held;                           /* atomic: a finger is on STROBE (bus thread writes) */
 
 static long cs_now_ms(void)
 {
@@ -224,7 +225,14 @@ static void *cs_file_worker(void *arg)
 static int cs_touch(const az_touch *t, void *user)
 {
     (void)user;
-    if (!t || !t->down || C->view() != AZ_VIEW_DECK) return AZ_TOUCH_PASS;
+    if (!t) return AZ_TOUCH_PASS;
+    /* STROBE lasts while the finger is on it: its lift sends strobe_off */
+    if (!t->down) {
+        if (__atomic_exchange_n(&fv_strobe_held, 0, __ATOMIC_ACQ_REL))
+            __atomic_or_fetch(&fv_pending, 1u << FV_ACT_STROBE_OFF, __ATOMIC_ACQ_REL);
+        return AZ_TOUCH_PASS;
+    }
+    if (C->view() != AZ_VIEW_DECK) return AZ_TOUCH_PASS;
     int tab = gp_layout_tab(t->x, t->y);
     if (tab) __atomic_store_n(&cs_tab_seen, tab, __ATOMIC_RELAXED);
     /* A vj_tap button takes its touch only while FlowVJ is answering; otherwise the deck gets it. */
@@ -232,6 +240,11 @@ static int cs_touch(const az_touch *t, void *user)
         int cur = __atomic_load_n(&fv_tap_cur, __ATOMIC_ACQUIRE);
         int act = fv_tap_hit(fv_taps[cur], fv_tap_n[cur], t->x, t->y);
         if (act) {
+            if (act == FV_ACT_STROBE) {
+                if (__atomic_exchange_n(&fv_strobe_held, 1, __ATOMIC_ACQ_REL)) return AZ_TOUCH_TAKE;   /* still held */
+            } else if (__atomic_exchange_n(&fv_strobe_held, 0, __ATOMIC_ACQ_REL)) {
+                __atomic_or_fetch(&fv_pending, 1u << FV_ACT_STROBE_OFF, __ATOMIC_ACQ_REL);
+            }
             __atomic_or_fetch(&fv_pending, 1u << act, __ATOMIC_ACQ_REL);
             __atomic_or_fetch(&fv_flash_bits, 1u << act, __ATOMIC_ACQ_REL);
             return AZ_TOUCH_TAKE;
@@ -710,7 +723,13 @@ static void cs_tick(void)
     if (live != __atomic_load_n(&fv_live, __ATOMIC_RELAXED)) { __atomic_store_n(&fv_live, live, __ATOMIC_RELEASE); dirty = 1; }
     unsigned flash = __atomic_exchange_n(&fv_flash_bits, 0u, __ATOMIC_ACQ_REL);
     for (int act = 1; act < FV_ACTS; act++) {
-        if (flash & (1u << act)) { fv_flash_until[act] = now + 300; dirty = 1; }
+        if (act == FV_ACT_STROBE && __atomic_load_n(&fv_strobe_held, __ATOMIC_ACQUIRE)) {
+            /* FlowVJ lets a strobe go after 2.5 s: say it again every second while held */
+            static long resent;
+            if (!fv_flash_until[act] || (flash & (1u << act))) { dirty = 1; resent = now; }
+            else if (now - resent >= 1000) { resent = now; __atomic_or_fetch(&fv_pending, 1u << act, __ATOMIC_ACQ_REL); }
+            fv_flash_until[act] = now + 300;
+        } else if (flash & (1u << act)) { fv_flash_until[act] = now + 300; dirty = 1; }
         else if (fv_flash_until[act] && fv_flash_until[act] <= now) { fv_flash_until[act] = 0; dirty = 1; }
     }
     for (int i = 0; i < 4; i++) {
