@@ -595,19 +595,31 @@ static void on_enter(void *user)
     if (AZ_HAS(C, request_redraw)) C->request_redraw();
 }
 
-/* draw text only if it fits inside the page area, cutting it short to the area width */
-static int put(az_draw *d, az_rect a, int x, int y, const char *s, int px, uint32_t col)
+/* The page is drawn like the AZ's own browser list: a column header row (TITLE / ARTIST /
+ * BPM / KEY / MATCH), one full-width row per track at the Mod Menu's row height, thin
+ * separators, and the cursor row filled in the theme's highlight colour. */
+static void cell(az_draw *d, az_rect a, int x, int w, int y, int h, const char *s, int px, uint32_t col, int right)
 {
-    int h = px * 3 / 2;
-    if (x >= a.x + a.w || y < a.y || y + h > a.y + a.h) return 0;
+    if (x < a.x || x >= a.x + a.w) return;
+    if (x + w > a.x + a.w) w = a.x + a.w - x;
+    if (w <= 4 || y < a.y || y + h > a.y + a.h) return;
     char buf[200];
     snprintf(buf, sizeof buf, "%s", s);
-    int room = a.x + a.w - x;
     size_t n = strlen(buf);
-    while (n > 0 && (int)(n * px * 64 / 100 + 2) > room) buf[--n] = 0;
-    if (n == 0) return 0;
-    C->draw_text(d, x, y, buf, px, col);
-    return 1;
+    int tw = 0;
+    for (;;) {
+        tw = AZ_HAS(C, text_width) ? C->text_width(buf, px) : (int)(n * px * 64 / 100);
+        if (tw <= w - 4 || n == 0) break;
+        buf[--n] = 0;
+    }
+    if (n == 0) return;
+    int ty = y + (h - px * 3 / 2) / 2;
+    C->draw_text(d, right ? x + w - 4 - tw : x, ty, buf, px, col);
+}
+
+static void hline(az_draw *d, az_rect a, int y, uint32_t col)
+{
+    if (AZ_HAS(C, fill_rect) && y >= a.y && y < a.y + a.h) C->fill_rect(d, a.x, y, a.w, 1, col);
 }
 
 static void draw(az_draw *d, az_rect a, void *user)
@@ -617,18 +629,38 @@ static void draw(az_draw *d, az_rect a, void *user)
     int rh = AZ_HAS(C, row_height) ? C->row_height(d) : 50;
     if (rh < 30) rh = 30;
     uint32_t text = C->color(AZ_COL_TEXT), dim = C->color(AZ_COL_TEXT_DIM), hi = C->color(AZ_COL_HI);
-    C->draw_header(d, g_vox_only ? "Harmonic picks: acapellas, whole library" : "Harmonic picks: whole library");
-    int y = a.y + rh + 6;
-    put(d, a, a.x + 16, y, g_seed_text, 20, hi);
-    y += 32;
-    if (g_status[0]) { put(d, a, a.x + 16, y, g_status, 16, dim); }
-    y += 28;
-    if (!g_reader_ok) { put(d, a, a.x + 16, y, "No library service on this AZ-MODS", 20, dim); return; }
-    if (!g_show_lib) { put(d, a, a.x + 16, y, "Reading the library...", 20, dim); return; }
-    int line = 34;
+    uint32_t hitext = C->color(AZ_COL_HI_TEXT), sep = dim & 0x3F3F3F;
+    C->draw_header(d, g_vox_only ? "Harmonic picks  (acapellas)" : "Harmonic picks  (whole library)");
+    int y = a.y + rh;
+    /* what the picks match, like the browser's info line */
+    cell(d, a, a.x + 12, a.w - 24, y, 34, g_seed_text, 20, hi, 0);
+    y += 34;
+    if (g_status[0]) cell(d, a, a.x + 12, a.w - 24, y, 24, g_status, 16, dim, 0);
+    y += 24;
+    if (!g_reader_ok) { cell(d, a, a.x + 12, a.w - 24, y, 34, "No library service on this AZ-MODS", 20, dim, 0); return; }
+    if (!g_show_lib) { cell(d, a, a.x + 12, a.w - 24, y, 34, "Reading the library...", 20, dim, 0); return; }
+
+    /* columns: TITLE | ARTIST | BPM | KEY | MATCH */
+    int x0 = a.x + 12, wM = 90, wK = 70, wB = 90;
+    int rest = a.w - 24 - wM - wK - wB;
+    if (rest < 120) rest = 120;
+    int wT = rest * 60 / 100, wA = rest - wT;
+    int xT = x0, xA = xT + wT, xB = xA + wA, xK = xB + wB, xM = xK + wK;
+    int hh = 28;
+    cell(d, a, xT, wT, y, hh, "TITLE", 14, dim, 0);
+    cell(d, a, xA, wA, y, hh, "ARTIST", 14, dim, 0);
+    cell(d, a, xB, wB, y, hh, "BPM", 14, dim, 1);
+    cell(d, a, xK, wK, y, hh, "KEY", 14, dim, 1);
+    cell(d, a, xM, wM, y, hh, "MATCH", 14, dim, 1);
+    y += hh;
+    hline(d, a, y - 1, dim);
+
+    int line = rh * 3 / 4;
+    if (line < 34) line = 34;
+    int foot_h = 30;
     /* row 0: the all / acapellas switch; rows 1..n: the picks */
     int nrows = g_nshow + 1;
-    int fit = (a.y + a.h - y - 24) / line;
+    int fit = (a.y + a.h - y - foot_h) / line;
     if (fit < 1) fit = 1;
     if (g_cursor < g_scroll) g_scroll = g_cursor;
     if (g_cursor >= g_scroll + fit) g_scroll = g_cursor - fit + 1;
@@ -636,41 +668,40 @@ static void draw(az_draw *d, az_rect a, void *user)
     if (g_scroll < 0) g_scroll = 0;
     for (int r = g_scroll; r < nrows && r < g_scroll + fit; r++) {
         int sel = r == g_cursor;
-        if (sel && AZ_HAS(C, fill_rect) && a.w > 12 && y - 2 >= a.y && y + line - 4 <= a.y + a.h)
-            C->fill_rect(d, a.x + 6, y - 2, a.w - 12, line - 2, C->color(AZ_COL_HI) & 0x3F3F3F);
-        if (sel) put(d, a, a.x + 4, y, ">", 20, hi);
+        if (y + line > a.y + a.h) break;
+        if (sel && AZ_HAS(C, fill_rect)) C->fill_rect(d, a.x, y, a.w, line - 1, hi);
+        uint32_t fg = sel ? hitext : text, fd = sel ? hitext : dim;
         if (r == 0) {
             char t[96];
-            snprintf(t, sizeof t, "%s   (press to show %s)", g_vox_only ? "Acapellas only" : "All tracks",
+            snprintf(t, sizeof t, "%s     press: show %s", g_vox_only ? "Showing: acapellas only" : "Showing: all tracks",
                      g_vox_only ? "all tracks" : "acapellas only");
-            put(d, a, a.x + 24, y, t, 18, sel ? text : dim);
-            y += line;
-            continue;
+            cell(d, a, xT, a.w - 24, y, line, t, 18, fd, 0);
+        } else {
+            const struct pick *p = &g_show[r - 1];
+            char k[8], b[16], g[16], title[72];
+            snprintf(k, sizeof k, "%s%s", WHEEL[p->idx].camelot, p->minor ? "A" : "B");
+            snprintf(b, sizeof b, "%.1f", p->bpm);
+            snprintf(g, sizeof g, "%.1f%%", p->gap);   /* ASCII only: the deck font has no +/- sign */
+            snprintf(title, sizeof title, "%s%s", p->vox ? "[VOX] " : "", p->title);
+            cell(d, a, xT, wT, y, line, title, 20, fg, 0);
+            cell(d, a, xA, wA, y, line, p->artist, 20, fd, 0);
+            cell(d, a, xB, wB, y, line, b, 20, fg, 1);
+            cell(d, a, xK, wK, y, line, k, 20, sel ? hitext : p->step == 0 ? 0x3CCB5A : text, 1);
+            cell(d, a, xM, wM, y, line, g, 18, fd, 1);
         }
-        const struct pick *p = &g_show[r - 1];
-        char k[8], b[16], g[16], name[100];
-        snprintf(k, sizeof k, "%s%s", WHEEL[p->idx].camelot, p->minor ? "A" : "B");
-        snprintf(b, sizeof b, "%.1f", p->bpm);
-        snprintf(g, sizeof g, "%.1f%%", p->gap);
-        snprintf(name, sizeof name, "%s%s%s", p->artist, p->artist[0] ? " - " : "", p->title);
-        put(d, a, a.x + 24, y, k, 20, p->step == 0 ? 0x3CCB5A : text);
-        put(d, a, a.x + 84, y, b, 20, text);
-        put(d, a, a.x + 164, y, g, 20, dim);
-        int nx = a.x + 244;
-        if (p->vox) { put(d, a, nx, y, "VOX", 20, 0xF2C230); nx += 56; }
-        put(d, a, nx, y, name, 20, text);
         y += line;
+        if (!sel) hline(d, a, y - 1, sep);
     }
     if (g_nshow == 0) {
         char t[48];
         snprintf(t, sizeof t, "Nothing fits within %.0f%%", g_range);
-        put(d, a, a.x + 24, y, t, 20, dim);
+        cell(d, a, xT, a.w - 24, y, line, t, 20, dim, 0);
     }
     int loads = g_row_load < 0 || C->row_value(g_row_load) == 1;
-    char foot[96];
-    snprintf(foot, sizeof foot, "%d picks within %.0f%%   knob: move   press: %s", g_nshow, g_range,
-             loads ? "load on a stopped deck" : "show in browser");
-    put(d, a, a.x + 16, a.y + a.h - 28, foot, 14, dim);
+    char foot[120];
+    snprintf(foot, sizeof foot, "%d tracks within %.0f%%    Turn: move    Press: %s", g_nshow, g_range,
+             loads ? "load to the stopped deck" : "show in browser");
+    cell(d, a, a.x + 12, a.w - 24, a.y + a.h - foot_h, foot_h, foot, 14, dim, 0);
 }
 
 static int input(const az_event *ev, void *user)
