@@ -14,11 +14,14 @@
  *             4 bars at full level with the band running twice a beat.
  *   mixer     the playing channel's fader dims the rig (25 % floor), like FLOW's MIXER FOLLOW.
  *   idle      nothing playing: a slow 20 % breath in the palette.
+ *   panel     0.6.2, the FLOW Lights panel (panel.h): follow beat off (a steady wash), drop flash off,
+ *             intensity, blackout, white / accent hits, DROP now, and a held white flicker (8 a second).
  *
  * Fixtures are the ones FLOW VJ's dmx_patch.json uses (same channel maps as lightbridge.py),
  * listed as "type@address[:flip]" separated by commas in flow-beat:artnet_patch. Anything not
  * listed (hazer, Scorpion laser) is never sent: those channels stay 0. No fixture strobe
- * channel is ever used: the only flash is the one-beat white hit on a drop.
+ * channel is ever used: the flashes are the one-beat white hit on a drop and the panel's hits and
+ * held STROBE, made with the colour channels.
  *
  * Pure code (no sockets, no clock): flow-beat.c feeds it a step at a time and sends the bytes.
  * Header-only so tests/test_lights.c compiles it as it ships. */
@@ -120,15 +123,17 @@ static inline int lt_artdmx_universe(const uint8_t *p, int n)
 /* ---- the show ----------------------------------------------------------------------------- */
 
 typedef struct { uint8_t r, g, b; } lt_rgb;
-/* palettes: A, B. 0 riso (MLT's house look: riso red / teal), 1 FLOW, 2 sunset, 3 ice */
-static const lt_rgb LT_PAL[4][2] = {
+/* palettes: A, B. 0 riso (MLT's house look: riso red / teal), 1 FLOW, 2 sunset, 3 ice, 4 white (0.6.2) */
+#define LT_NPAL 5
+static const lt_rgb LT_PAL[LT_NPAL][2] = {
     { { 255, 36, 24 }, { 0, 178, 168 } },
     { { 230, 0, 200 }, { 0, 200, 255 } },
     { { 255, 110, 0 }, { 120, 0, 255 } },
     { { 0, 70, 255 }, { 150, 230, 255 } },
+    { { 255, 255, 255 }, { 255, 170, 90 } },          /* 0.6.2: white / warm white */
 };
-#define LT_CHOICES { "Cycle", "Riso red/teal", "FLOW pink/blue", "Sunset", "Ice" }
-#define LT_NCHOICES 5
+#define LT_CHOICES { "Cycle", "Riso red/teal", "FLOW pink/blue", "Sunset", "Ice", "White" }
+#define LT_NCHOICES 6
 
 typedef struct {
     int playing;        /* a deck plays */
@@ -140,6 +145,12 @@ typedef struct {
     double dim;         /* 0..1 master level (fader), 1 if unknown */
     int look;           /* the colour row: 0 Cycle, 1.. a fixed palette */
     double dt_ms;       /* time since the last step */
+    /* 0.6.2, the FLOW Lights panel. All 0 = the show exactly as before. */
+    int no_follow;      /* 1: no beat chase or bass pump: a steady wash that slowly blends A and B */
+    int no_dropflash;   /* 1: a drop is still found, but gives no white hit and no 4 bars at full */
+    double cut;         /* 0..1 taken off the whole rig (the panel's INTENSITY is 1 - cut) */
+    int black;          /* 1: everything dark */
+    int strobe;         /* 1: white flicker while held (8 a second, 40 ms on), over everything but black */
 } lt_in;
 
 typedef struct {
@@ -154,7 +165,23 @@ typedef struct {
     int drop_beats;     /* >0: drop mode, in beats left */
     double fade;        /* breakdown cross-fade 0..1 */
     int drops;          /* drops seen (for logs and tests) */
+    double flash_ms;    /* 0.6.2: >0 a hit from the panel, ms left (also when nothing plays) */
+    int flash_accent;   /* that hit is the accent colour B, not white */
 } lt_state;
+
+/* 0.6.2: the panel's hits. One beat long (250 ms when the tempo is unknown). */
+static inline double lt_beat_ms(double bpm) { return bpm > 40 && bpm < 300 ? 60000.0 / bpm : 250.0; }
+static inline void lt_flash(lt_state *s, double bpm, int accent)
+{
+    s->flash_ms = lt_beat_ms(bpm);
+    s->flash_accent = accent;
+}
+/* DROP from the panel: the white hit now, and 4 bars at full if a deck plays. */
+static inline void lt_drop_now(lt_state *s, double bpm, int playing)
+{
+    lt_flash(s, bpm, 0);
+    if (playing) { s->drop_beats = 16; s->breakdown = 0; s->low_beats = 0; s->fade = 0; }
+}
 
 static inline void lt_init(lt_state *s) { memset(s, 0, sizeof *s); }
 
@@ -186,6 +213,7 @@ static inline void lt_track(lt_state *s, const lt_in *in)
 {
     s->t_ms += in->dt_ms;
     if (s->hit_ms > 0) s->hit_ms -= in->dt_ms;
+    if (s->flash_ms > 0) s->flash_ms -= in->dt_ms;
     if (!in->playing) {
         s->beats = s->bars = s->low_beats = s->breakdown = s->drop_beats = 0;
         s->hit_ms = 0;
@@ -196,8 +224,10 @@ static inline void lt_track(lt_state *s, const lt_in *in)
     if (in->bass > s->beat_peak) s->beat_peak = in->bass;
     if (s->breakdown && s->slow > 0.02 && in->bass >= 0.7 * s->slow) {
         double bpm = in->bpm > 40 && in->bpm < 300 ? in->bpm : 120;
-        s->hit_ms = 60000.0 / bpm;                     /* one beat of white */
-        s->drop_beats = 16;                            /* then 4 bars at full */
+        if (!in->no_dropflash) {
+            s->hit_ms = 60000.0 / bpm;                 /* one beat of white */
+            s->drop_beats = 16;                        /* then 4 bars at full */
+        }
         s->breakdown = 0;
         s->low_beats = 0;
         s->drops++;
@@ -225,10 +255,34 @@ static inline void lt_track(lt_state *s, const lt_in *in)
 /* The palette for now. */
 static inline void lt_palette(const lt_state *s, int look, lt_rgb *a, lt_rgb *b)
 {
-    int p = look >= 1 && look <= 4 ? look - 1 : (s->bars / 16) % 4;
+    int p = look >= 1 && look <= LT_NPAL ? look - 1 : (s->bars / 16) % 4;   /* Cycle skips White */
     int swap = look == 0 && (s->bars / 8) % 2 == 1;
     *a = LT_PAL[p][swap];
     *b = LT_PAL[p][!swap];
+}
+
+/* 0.6.2: scales only the colour and white channels by k (0..1): dimmer, mode and master
+ * channels stay as they are (the Shocker's background dimmer runs backwards, 255 = 0 %). */
+static inline void lt_master(const lt_fix *fix, int nfix, uint8_t *dmx, double k)
+{
+    k = lt_clamp(k);
+    for (int i = 0; i < nfix; i++) {
+        const lt_fix *f = &fix[i];
+        int a = 0, b = -1, c = 0, d = -1;              /* channels a..b and c..d */
+        switch (f->kind) {
+        case LT_4BAR: a = 4; b = 15; break;
+        case LT_SLIMPAR: a = 2; b = 4; c = 6; d = 6; break;
+        case LT_EZPAR3: case LT_RGB3: case LT_EZPAR7: a = 1; b = 3; break;
+        case LT_SPECTRA: a = 1; b = 160; break;
+        case LT_SHOCK47: a = 15; b = 46; break;
+        case LT_SHOCK18: a = 3; b = 5; c = 12; d = 12; break;
+        }
+        for (int ch = 1; ch <= f->span; ch++) {
+            if (!((ch >= a && ch <= b) || (ch >= c && ch <= d))) continue;
+            int at = f->addr + ch - 2;
+            if (at >= 0 && at < 512) dmx[at] = (uint8_t)lrint(dmx[at] * k);
+        }
+    }
 }
 
 /* One frame of the show into dmx[512] (cleared first). */
@@ -237,11 +291,18 @@ static inline void lt_render(const lt_state *s, const lt_in *in, const lt_fix *f
     memset(dmx, 0, 512);
     lt_rgb A, B;
     lt_palette(s, in->look, &A, &B);
+    if (in->black) return;
     double dim = in->dim < 0 ? 1 : 0.25 + 0.75 * lt_clamp(in->dim);
     double ph = in->ph >= 0 ? in->ph : fmod(s->t_ms / 500.0, 1.0);
     int bb = in->bar_beat >= 0 ? in->bar_beat : (s->beats + 3) % 4;
-    int hit = in->playing && s->hit_ms > 0;
+    int strobe_on = in->strobe && fmod(s->t_ms, 125.0) < 40.0;
+    if (in->strobe && !strobe_on) return;                         /* the dark half of the flicker */
+    int hit = (in->playing && s->hit_ms > 0) || s->flash_ms > 0 || strobe_on;
+    lt_rgb hitc = { 255, 255, 255 };
+    int white = 1;                                                /* fixture white channels on the hit */
+    if (!strobe_on && !(in->playing && s->hit_ms > 0) && s->flash_ms > 0 && s->flash_accent) { hitc = B; white = 0; }
     int drop = in->playing && s->drop_beats > 0;
+    int wash = !in->playing || in->no_follow;                     /* no chase: the slow blend */
     double brk = s->fade;                              /* 1 = full breakdown look */
     double breath = 0.5 - 0.5 * cos(s->t_ms / 4000.0 * 2 * M_PI);
     double pump = lt_clamp(0.55 + 0.6 * (s->slow > 0.02 ? in->bass / s->slow : 0));
@@ -250,12 +311,15 @@ static inline void lt_render(const lt_state *s, const lt_in *in, const lt_fix *f
         const lt_fix *f = &fix[i];
         lt_rgb c;
         double lvl;
-        if (!in->playing) {                            /* idle: slow breath */
+        if (hit) {
+            c = hitc;
+            lvl = 1;
+        } else if (!in->playing) {                     /* idle: slow breath */
             c = lt_mix(A, B, breath);
             lvl = 0.08 + 0.12 * breath;
-        } else if (hit) {
-            c = (lt_rgb){ 255, 255, 255 };
-            lvl = 1;
+        } else if (in->no_follow) {                    /* follow off: a steady wash */
+            c = lt_mix(A, B, breath);
+            lvl = 0.8;
         } else {
             c = (f->nth % 2) ? B : A;
             lvl = drop ? 1.0 : pump * (1 - brk) + 0.35 * brk;
@@ -267,7 +331,7 @@ static inline void lt_render(const lt_state *s, const lt_in *in, const lt_fix *f
             lt_put(dmx, f, 1, 0); lt_put(dmx, f, 2, 255); lt_put(dmx, f, 3, 0);
             for (int p = 0; p < 4; p++) {
                 lt_rgb pc;
-                if (!in->playing || hit) pc = lt_scale(c, lvl);
+                if (wash || hit) pc = lt_scale(c, lvl);
                 else {
                     int on = p == (f->flip ? 3 - bb : bb);
                     double k = on ? 1.0 - 0.5 * ph : 0.25;     /* the beat's pod, fading through the beat */
@@ -283,7 +347,7 @@ static inline void lt_render(const lt_state *s, const lt_in *in, const lt_fix *f
             lt_rgb o = lt_scale(c, lvl);
             lt_put(dmx, f, 1, 255);
             lt_put(dmx, f, 2, o.r); lt_put(dmx, f, 3, o.g); lt_put(dmx, f, 4, o.b);
-            lt_put(dmx, f, 6, hit ? 255 : 0);
+            lt_put(dmx, f, 6, hit && white ? 255 : 0);
             break;
         }
         case LT_EZPAR3: case LT_RGB3: case LT_EZPAR7: {
@@ -298,7 +362,7 @@ static inline void lt_render(const lt_state *s, const lt_in *in, const lt_fix *f
                 double y = (f->flip ? 39 - p : p) / 39.0;
                 lt_rgb pc;
                 double k;
-                if (!in->playing || hit) { pc = c; k = lvl; }
+                if (wash || hit) { pc = c; k = lvl; }
                 else {
                     pc = lt_mix(A, B, y);                         /* A at the bottom, B at the top */
                     if (f->nth % 2) pc = lt_mix(B, A, y);
@@ -309,7 +373,7 @@ static inline void lt_render(const lt_state *s, const lt_in *in, const lt_fix *f
                 }
                 lt_rgb o = lt_scale(pc, k);
                 lt_put(dmx, f, 4 * p + 1, o.r); lt_put(dmx, f, 4 * p + 2, o.g); lt_put(dmx, f, 4 * p + 3, o.b);
-                lt_put(dmx, f, 4 * p + 4, hit ? 255 : 0);
+                lt_put(dmx, f, 4 * p + 4, hit && white ? 255 : 0);
             }
             lt_put(dmx, f, 161, 0); lt_put(dmx, f, 162, 255);
             lt_put(dmx, f, 163, 128); lt_put(dmx, f, 164, 200);
@@ -320,7 +384,7 @@ static inline void lt_render(const lt_state *s, const lt_in *in, const lt_fix *f
             int lead = (bb * 2 + (ph >= 0.5)) % 8;
             for (int k = 0; k < 8; k++) {
                 lt_rgb pc;
-                if (!in->playing || hit) pc = lt_scale(c, lvl);
+                if (wash || hit) pc = lt_scale(c, lvl);
                 else {
                     int seg = f->flip ? 7 - k : k;
                     double kk = seg == lead ? 1.0 : 0.2;
@@ -329,7 +393,7 @@ static inline void lt_render(const lt_state *s, const lt_in *in, const lt_fix *f
                     if (brk > 0) pc = lt_scale(c, 0.3 * dim);
                 }
                 lt_put(dmx, f, 15 + 3 * k, pc.r); lt_put(dmx, f, 16 + 3 * k, pc.g); lt_put(dmx, f, 17 + 3 * k, pc.b);
-                lt_put(dmx, f, 39 + k, hit ? 255 : 0);
+                lt_put(dmx, f, 39 + k, hit && white ? 255 : 0);
             }
             break;
         }
@@ -337,11 +401,12 @@ static inline void lt_render(const lt_state *s, const lt_in *in, const lt_fix *f
             lt_rgb o = lt_scale(c, lvl);
             lt_put(dmx, f, 1, 255); lt_put(dmx, f, 2, 255);
             lt_put(dmx, f, 3, o.r); lt_put(dmx, f, 4, o.g); lt_put(dmx, f, 5, o.b);
-            lt_put(dmx, f, 11, 255); lt_put(dmx, f, 12, hit ? 255 : 0);
+            lt_put(dmx, f, 11, 255); lt_put(dmx, f, 12, hit && white ? 255 : 0);
             break;
         }
         }
     }
+    if (in->cut > 0) lt_master(fix, nfix, dmx, 1 - in->cut);
 }
 
 #endif

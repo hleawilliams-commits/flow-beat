@@ -91,6 +91,14 @@
  *   flow-beat:artnet_universe = 0       the Art-Net Port-Address (0 = Net 0, Sub-Net 0, Universe 0)
  *   flow-beat:artnet_patch = "4bar_tri_15@59,slimpar_h6_8@74,..."   the rig, type@address[:flip];
  *                                       default: MLT's rig as in FLOW VJ's dmx_patch.json
+ *
+ * FLOW Lights panel (0.6.2, row "FLOW Lights button", on by default; panel.h): a LIGHTS button in the
+ * deck screen's top bar opens a panel over the waveforms. Looks 1-8 and the WHITE / COLOR hits go to
+ * FLOW VJ as the same "vjpad" packets Pad Lights' VJ page sends; PREV, NEXT, HOLD, AUTO, SAFE, DROP,
+ * FOG, BLACK and STROBE (held) as Custom Screen's "FVC1 <seq> <act>" to UDP 9103. Colour, intensity,
+ * follow beat, drop flash, fader dim and the hits also drive the deck's own Art-Net show. FLOW VJ's
+ * state (look name, HOLD / SAFE / AUTO / BLACK) shows when it sends FVS1 to UDP 9104. Two surfaces.
+ *   flow-beat:panel_level, panel_follow, panel_dropflash, panel_fader   the panel's last settings
  */
 #define _GNU_SOURCE             /* RTLD_DEFAULT (0.5.3: azstem_stem_fx_on) */
 #include <arpa/inet.h>
@@ -117,6 +125,7 @@
 #include "link.h"
 #include "fx.h"
 #include "lights.h"
+#include "panel.h"
 
 #define MOD_ID "flow-beat"
 #define NDECKS 4
@@ -680,6 +689,23 @@ static void link_step(const az_deck_info *di, const double *ph, const unsigned *
     }
 }
 
+/* ---- 0.6.2: FLOW Lights panel (panel.h): state shared by the touch filter, tick, worker ------- */
+/* The touch filter (bus thread) only sets these bits; the UI tick acts on them; the worker sends. */
+static unsigned long long pn_tapped;      /* atomic: 1 << PN_* tapped on the panel, for the tick */
+static unsigned long long pn_out;         /* atomic: 1 << PN_* the worker sends to FlowVJ */
+static unsigned pn_hits;                  /* atomic: 1 << PN_WHITE / PN_COLOR / PN_DROP for the deck show */
+static int pn_toggle;                     /* atomic: the LIGHTS button was tapped */
+static int pn_open;                       /* atomic: the panel is up (the touch filter reads it) */
+static int pn_strobe_held;                /* atomic: a finger is on STROBE */
+static int pn_strobe_off;                 /* atomic: STROBE was let go, the worker says strobe_off */
+static int pn_level = 100;                /* atomic: INTENSITY 0..100 (the fader writes, the show reads) */
+static int pn_follow = 1, pn_dflash = 1, pn_fader = 1;   /* atomics: the deck show's switches */
+static int pn_black, pn_safe;             /* atomics: BLACK (deck show dark), SAFE (no deck strobe) */
+static int pn_fv_serial;                  /* atomic: the worker got a new FVS1 */
+static pn_fv pn_fv_shared;
+static atomic_flag pn_fv_lock = ATOMIC_FLAG_INIT;
+static int pn_yielding;                   /* atomic: the deck show stepped back for another sender */
+
 /* ---- 0.6.0: Lights from this deck (lights.h): the deck's own show, as Art-Net -------------- */
 static int row_lights = -1;            /* "Lights from this deck", off by default */
 static int row_look = -1;              /* "Deck lights colours" */
@@ -833,6 +859,7 @@ static void lights_step(unsigned step, const az_deck_info *di, const double *ph,
             uni = lights_cfg(fix, &nfix, 0);
             lt_init(&st);
             yielding = 0;
+            __atomic_store_n(&pn_yielding, 0, __ATOMIC_RELEASE);
             other_at = 0;
             C->log(MOD_ID, "lights on: the deck runs the lights over Art-Net");
         } else {
@@ -846,7 +873,7 @@ static void lights_step(unsigned step, const az_deck_info *di, const double *ph,
         }
         was_on = on;
     }
-    if (!on) return;
+    if (!on) { __atomic_store_n(&pn_hits, 0u, __ATOMIC_RELEASE); return; }
     if (step % CFG_STEPS == 3) uni = lights_cfg(fix, &nfix, 1);
 
     /* gather between frames: a beat edge or bass peak must not fall between two frames */
@@ -857,12 +884,21 @@ static void lights_step(unsigned step, const az_deck_info *di, const double *ph,
     }
     if (step % LT_STEPS != 0) return;
 
+    /* 0.6.2: the panel's hits, taken even between frames so none is lost */
+    unsigned hits = __atomic_exchange_n(&pn_hits, 0u, __ATOMIC_ACQ_REL);
+    double lbpm = lead >= 0 ? di[lead].bpm : 0;
+    if (hits & (1u << PN_DROP)) lt_drop_now(&st, lbpm, lead >= 0);
+    else if (hits & (1u << PN_WHITE)) lt_flash(&st, lbpm, 0);
+    else if (hits & (1u << PN_COLOR)) lt_flash(&st, lbpm, 1);
+
     if (lights_other(uni)) {
         if (!yielding) C->log(MOD_ID, "lights: another Art-Net sender on universe %d: the deck steps back", uni);
         yielding = 1;
         other_at = step;
+        __atomic_store_n(&pn_yielding, 1, __ATOMIC_RELEASE);
     } else if (yielding && (step - other_at) * POLL_MS > LT_YIELD_MS) {
         yielding = 0;
+        __atomic_store_n(&pn_yielding, 0, __ATOMIC_RELEASE);
         C->log(MOD_ID, "lights: the other sender stopped: the deck runs the lights again");
     }
 
@@ -873,6 +909,11 @@ static void lights_step(unsigned step, const az_deck_info *di, const double *ph,
     in.bar_beat = -1;
     in.dim = -1;
     in.dt_ms = LT_STEPS * POLL_MS;
+    in.no_follow = !__atomic_load_n(&pn_follow, __ATOMIC_RELAXED);
+    in.no_dropflash = !__atomic_load_n(&pn_dflash, __ATOMIC_RELAXED);
+    in.black = __atomic_load_n(&pn_black, __ATOMIC_RELAXED);
+    in.strobe = __atomic_load_n(&pn_strobe_held, __ATOMIC_ACQUIRE) && !__atomic_load_n(&pn_safe, __ATOMIC_RELAXED);
+    in.cut = 1.0 - __atomic_load_n(&pn_level, __ATOMIC_RELAXED) / 100.0;
     in.look = row_look >= 0 ? C->row_value(row_look) : C->cfg_get(MOD_ID, "artnet_look", 0);
     if (in.look < 0 || in.look >= LT_NCHOICES) in.look = 0;
     if (lead >= 0) {
@@ -882,7 +923,7 @@ static void lights_step(unsigned step, const az_deck_info *di, const double *ph,
         in.bass = bass_peak;
         in.bar_beat = bars_at(lead, (uint32_t)(fnv(di[lead].title, di[lead].artist) ^ di[lead].content_id),
                               di[lead].pos_s, ph[lead]);
-        if (ms_have) in.dim = ms->fader[lead] / 1023.0;
+        if (ms_have && __atomic_load_n(&pn_fader, __ATOMIC_RELAXED)) in.dim = ms->fader[lead] / 1023.0;
     }
     beat_pending = 0;
     bass_peak = 0;
@@ -895,6 +936,350 @@ static void lights_step(unsigned step, const az_deck_info *di, const double *ph,
     lt_render(&st, &in, fix, nfix, dmx);
     if (++seq == 0) seq = 1;
     lights_send(pkt, lt_artdmx(pkt, seq, uni, dmx));
+}
+
+/* ---- 0.6.2: FLOW Lights panel: touch, tick, paint, and the worker's part --------------------- */
+static int row_panel = -1;                /* "FLOW Lights button" */
+static az_surface *pn_btn_surf, *pn_surf;
+
+/* bus thread: rectangle tests and atomics only. The deck screen only; the panel's own area only. */
+static int pn_touch(const az_touch *t, void *user)
+{
+    (void)user;
+    static int touching, taken, cur;
+    if (!t) return AZ_TOUCH_PASS;
+    if (!t->down) {
+        if (touching && taken && cur == PN_STROBE && __atomic_exchange_n(&pn_strobe_held, 0, __ATOMIC_ACQ_REL))
+            __atomic_store_n(&pn_strobe_off, 1, __ATOMIC_RELEASE);
+        int was = taken;
+        touching = taken = 0;
+        cur = PN_NONE;
+        return was ? AZ_TOUCH_TAKE : AZ_TOUCH_PASS;
+    }
+    if (touching) {                                     /* the same finger moving */
+        if (taken && cur == PN_LEVEL) __atomic_store_n(&pn_level, pn_level_at(t->y), __ATOMIC_RELEASE);
+        return taken ? AZ_TOUCH_TAKE : AZ_TOUCH_PASS;
+    }
+    touching = 1;
+    taken = 0;
+    cur = PN_NONE;
+    if (row_panel >= 0 && C->row_value(row_panel) != 1) return AZ_TOUCH_PASS;
+    if (C->view() != AZ_VIEW_DECK) return AZ_TOUCH_PASS;
+    if (pn_in_button(t->x, t->y)) {
+        __atomic_store_n(&pn_toggle, 1, __ATOMIC_RELEASE);
+        taken = 1;
+        return AZ_TOUCH_TAKE;
+    }
+    if (!__atomic_load_n(&pn_open, __ATOMIC_ACQUIRE) || !pn_in_panel(t->x, t->y)) return AZ_TOUCH_PASS;
+    taken = 1;                                          /* the whole panel is ours while it is up */
+    cur = pn_hit(t->x, t->y);
+    if (cur == PN_LEVEL) __atomic_store_n(&pn_level, pn_level_at(t->y), __ATOMIC_RELEASE);
+    else if (cur != PN_NONE) {
+        if (cur == PN_STROBE) __atomic_store_n(&pn_strobe_held, 1, __ATOMIC_RELEASE);
+        __atomic_or_fetch(&pn_tapped, 1ull << cur, __ATOMIC_ACQ_REL);
+    }
+    return AZ_TOUCH_TAKE;
+}
+
+/* What the painter shows: the tick fills the idle copy and flips (the painter runs on the overlay thread). */
+typedef struct {
+    unsigned long long lit;               /* 1 << PN_* drawn lit */
+    int level, show, fv_live;             /* show: 0 off, 1 running, 2 stepped back */
+    char look[40];
+} pn_view;
+static pn_view pn_vw[2];
+static int pn_vw_cur;                     /* atomic */
+
+static long pn_now_ms(void)
+{
+    struct timespec ts;
+    clock_gettime(CLOCK_MONOTONIC, &ts);
+    return ts.tv_sec * 1000L + ts.tv_nsec / 1000000L;
+}
+
+static void pn_tick(void)
+{
+    if (!pn_surf || !pn_btn_surf) return;
+    static int shown_btn = -1, shown_panel = -1, cfg_level = -1, placed;
+    if (!placed) {                                      /* place and show from the UI thread only */
+        C->surface_place(pn_btn_surf, (az_rect){ PN_BTN_X, PN_BTN_Y, PN_BTN_W, PN_BTN_H });
+        C->surface_place(pn_surf, (az_rect){ PN_X, PN_Y, PN_W, PN_H });
+        placed = 1;
+    }
+    static long flash_until[PN_IDS], fv_at, level_moved;
+    static pn_fv fv;
+    static int fv_seen;
+    long now = pn_now_ms();
+    int want_btn = row_panel < 0 || C->row_value(row_panel) == 1;
+    int open = __atomic_load_n(&pn_open, __ATOMIC_ACQUIRE);
+    if (__atomic_exchange_n(&pn_toggle, 0, __ATOMIC_ACQ_REL)) open = !open;
+    if (!want_btn) open = 0;
+
+    unsigned long long tap = __atomic_exchange_n(&pn_tapped, 0ull, __ATOMIC_ACQ_REL);
+    if (!open) tap = 0;
+    unsigned long long out = 0;
+    unsigned hits = 0;
+    for (int id = 1; id < PN_IDS; id++) {
+        if (!(tap & (1ull << id))) continue;
+        flash_until[id] = now + 250;
+        int pad, shift;
+        if (pn_act(id) || pn_vjpad(id, &pad, &shift)) out |= 1ull << id;
+        switch (id) {
+        case PN_WHITE: case PN_COLOR: case PN_DROP: hits |= 1u << id; break;
+        case PN_BLACK: __atomic_store_n(&pn_black, !__atomic_load_n(&pn_black, __ATOMIC_RELAXED), __ATOMIC_RELEASE); break;
+        case PN_SAFE: __atomic_store_n(&pn_safe, !__atomic_load_n(&pn_safe, __ATOMIC_RELAXED), __ATOMIC_RELEASE); break;
+        case PN_FOLLOW: { int nv = !__atomic_load_n(&pn_follow, __ATOMIC_RELAXED); __atomic_store_n(&pn_follow, nv, __ATOMIC_RELEASE); C->cfg_set(MOD_ID, "panel_follow", nv); } break;
+        case PN_DFLASH: { int nv = !__atomic_load_n(&pn_dflash, __ATOMIC_RELAXED); __atomic_store_n(&pn_dflash, nv, __ATOMIC_RELEASE); C->cfg_set(MOD_ID, "panel_dropflash", nv); } break;
+        case PN_FADER: { int nv = !__atomic_load_n(&pn_fader, __ATOMIC_RELAXED); __atomic_store_n(&pn_fader, nv, __ATOMIC_RELEASE); C->cfg_set(MOD_ID, "panel_fader", nv); } break;
+        case PN_SHOW: if (row_lights >= 0 && AZ_HAS(C, row_set)) C->row_set(row_lights, C->row_value(row_lights) != 1); break;
+        case PN_CLOSE: open = 0; break;
+        default:
+            if (id >= PN_COL0 && id <= PN_COL5 && row_look >= 0 && AZ_HAS(C, row_set)) C->row_set(row_look, id - PN_COL0);
+        }
+    }
+    if (out) __atomic_or_fetch(&pn_out, out, __ATOMIC_ACQ_REL);
+    if (hits) __atomic_or_fetch(&pn_hits, hits, __ATOMIC_ACQ_REL);
+    if (!open && __atomic_exchange_n(&pn_strobe_held, 0, __ATOMIC_ACQ_REL))
+        __atomic_store_n(&pn_strobe_off, 1, __ATOMIC_RELEASE);   /* closed while held: let go */
+    __atomic_store_n(&pn_open, open, __ATOMIC_RELEASE);
+
+    /* the intensity is saved once the fader rests for a second */
+    int level = __atomic_load_n(&pn_level, __ATOMIC_ACQUIRE);
+    if (cfg_level < 0) cfg_level = level;
+    if (level != cfg_level) {
+        if (!level_moved) level_moved = now;
+        if (now - level_moved > 1000) { C->cfg_set(MOD_ID, "panel_level", level); cfg_level = level; level_moved = 0; }
+    }
+
+    int s = __atomic_load_n(&pn_fv_serial, __ATOMIC_ACQUIRE);
+    if (s != fv_seen && !atomic_flag_test_and_set_explicit(&pn_fv_lock, memory_order_acquire)) {
+        fv = pn_fv_shared;
+        atomic_flag_clear_explicit(&pn_fv_lock, memory_order_release);
+        fv_seen = s;
+        fv_at = now;
+    }
+    int fv_live = fv_at && now - fv_at < PN_FV_STALE_MS;
+
+    pn_view v;
+    memset(&v, 0, sizeof v);
+    v.fv_live = fv_live;
+    v.level = level;
+    v.show = row_lights < 0 || C->row_value(row_lights) != 1 ? 0 : __atomic_load_n(&pn_yielding, __ATOMIC_ACQUIRE) ? 2 : 1;
+    if (fv_live) snprintf(v.look, sizeof v.look, "%s", fv.look);
+    for (int id = 1; id < PN_IDS; id++) if (flash_until[id] > now) v.lit |= 1ull << id;
+    if (__atomic_load_n(&pn_strobe_held, __ATOMIC_ACQUIRE)) v.lit |= 1ull << PN_STROBE;
+    if (fv_live ? fv.hold : 0) v.lit |= 1ull << PN_HOLD;
+    if (fv_live && fv.autop) v.lit |= 1ull << PN_AUTO;
+    if (fv_live ? fv.safe : __atomic_load_n(&pn_safe, __ATOMIC_RELAXED)) v.lit |= 1ull << PN_SAFE;
+    if (__atomic_load_n(&pn_black, __ATOMIC_RELAXED) || (fv_live && fv.black)) v.lit |= 1ull << PN_BLACK;
+    if (__atomic_load_n(&pn_follow, __ATOMIC_RELAXED)) v.lit |= 1ull << PN_FOLLOW;
+    if (__atomic_load_n(&pn_dflash, __ATOMIC_RELAXED)) v.lit |= 1ull << PN_DFLASH;
+    if (__atomic_load_n(&pn_fader, __ATOMIC_RELAXED)) v.lit |= 1ull << PN_FADER;
+    if (v.show) v.lit |= 1ull << PN_SHOW;
+    int look = row_look >= 0 ? C->row_value(row_look) : 0;
+    if (look >= 0 && look <= PN_COL5 - PN_COL0) v.lit |= 1ull << (PN_COL0 + look);
+
+    if (want_btn != shown_btn) { C->surface_show(pn_btn_surf, want_btn); shown_btn = want_btn; }
+    if (open != shown_panel) {
+        C->surface_show(pn_surf, open);
+        shown_panel = open;
+        C->surface_redraw(pn_btn_surf);
+    }
+    int cur = __atomic_load_n(&pn_vw_cur, __ATOMIC_ACQUIRE);
+    if (open && memcmp(&v, &pn_vw[cur], sizeof v) != 0) {
+        pn_vw[!cur] = v;
+        __atomic_store_n(&pn_vw_cur, !cur, __ATOMIC_RELEASE);
+        C->surface_redraw(pn_surf);
+    }
+}
+
+#define PN_BG 0x0E0C14u
+#define PN_BTN 0x22202Au
+#define PN_EDGE 0x46445Au
+#define PN_TXT 0xE1E1E8u
+#define PN_DIM 0x82808Cu
+#define PN_BLUE 0x2896E6u
+#define PN_PINK 0xE6288Cu
+#define PN_GREEN 0x3CC85Au
+#define PN_RED 0xDC2828u
+#define PN_AMBER 0xF0961Eu
+#define PN_TEAL 0x00B4AAu
+
+static void pn_text_c(az_draw *d, int cx, int y, const char *s, int px, uint32_t rgb)
+{
+    C->draw_text(d, cx - C->text_width(s, px) / 2, y, s, px, rgb);
+}
+
+static void pn_paint_btn(az_draw *d, az_rect a, void *user)
+{
+    (void)user;
+    int open = __atomic_load_n(&pn_open, __ATOMIC_ACQUIRE);
+    C->fill_rect(d, a.x, a.y, a.w, a.h, open ? PN_PINK : 0xFFFFFFu);
+    C->draw_rect(d, a.x, a.y, a.w, a.h, 2, PN_PINK);
+    pn_text_c(d, a.x + a.w / 2, a.y + (a.h - 18) / 2, "LIGHTS", 12, open ? 0xFFFFFFu : 0x000000u);
+}
+
+static const uint32_t PN_SWATCH[6][2] = {
+    { 0, 0 }, { 0xFF2418u, 0x00B2A8u }, { 0xE600C8u, 0x00C8FFu }, { 0xFF6E00u, 0x7800FFu },
+    { 0x0046FFu, 0x96E6FFu }, { 0xFFFFFFu, 0xFFAA5Au },
+};
+
+static void pn_paint(az_draw *d, az_rect a, void *user)
+{
+    (void)user;
+    const pn_view *v = &pn_vw[__atomic_load_n(&pn_vw_cur, __ATOMIC_ACQUIRE)];
+    int X = a.x, Y = a.y;
+    C->fill_rect(d, X, Y, a.w, a.h, PN_BG);
+    C->draw_rect(d, X, Y, a.w, a.h, 2, PN_PINK);
+    C->draw_text(d, X + 14, Y + 8, "FLOW LIGHTS", 18, PN_TXT);
+    char st[80];
+    if (v->fv_live) snprintf(st, sizeof st, "FlowVJ: %s", v->look[0] ? v->look : "seen");
+    else snprintf(st, sizeof st, "Looks and hits go to FlowVJ");
+    C->fill_rect(d, X + 180, Y + 8, 400, 24, v->fv_live ? 0x142D1Eu : 0x1C1A24u);
+    C->fill_rect(d, X + 190, Y + 15, 10, 10, v->fv_live ? PN_GREEN : PN_DIM);
+    C->draw_text(d, X + 208, Y + 10, st, 12, PN_TXT);
+    C->draw_text(d, X + 14, Y + 44, "LOOKS", 10, PN_DIM);
+    C->draw_text(d, X + 478, Y + 44, "HITS", 10, PN_DIM);
+    C->draw_line(d, X + 10, Y + 276, X + a.w - 10, Y + 276, 1, PN_EDGE);
+    C->draw_text(d, X + 14, Y + 284, "DECK SHOW COLOUR", 10, PN_DIM);
+    C->draw_text(d, X + 14, Y + 390, "DECK SHOW FOLLOWS THE MUSIC", 10, PN_DIM);
+    if (v->show == 0)
+        C->draw_text(d, X + 14, Y + 476, "The deck's own show is off: tap DECK SHOW to run it (Art-Net node needed).", 11, PN_DIM);
+    else if (v->show == 2)
+        C->draw_text(d, X + 14, Y + 476, "FlowVJ or a console has the Art-Net lights: the deck show waits.", 11, PN_DIM);
+
+    for (int i = 0; i < PN_NBTNS; i++) {
+        const pn_btn *b = &PN_BTNS[i];
+        int x = X + b->x, y = Y + b->y, lit = (v->lit >> b->id) & 1;
+        if (b->id == PN_LEVEL) {
+            C->draw_text(d, x, y - 20, "INTENSITY", 10, PN_DIM);
+            C->fill_rect(d, x, y, b->w, b->h, PN_BTN);
+            C->draw_rect(d, x, y, b->w, b->h, 1, PN_EDGE);
+            int top = Y + PN_LEVEL_TOP, bot = Y + PN_LEVEL_BOT, lv = v->level;
+            int fy = bot - (bot - top) * lv / 100;
+            C->fill_rect(d, x + 70, top, 40, bot - top, 0x19191Eu);
+            C->fill_rect(d, x + 70, fy, 40, bot - fy, PN_AMBER);
+            C->fill_rect(d, x + 60, fy - 6, 60, 12, PN_TXT);
+            char pct[8];
+            snprintf(pct, sizeof pct, "%d%%", lv);
+            pn_text_c(d, x + 150, y + b->h / 2 - 14, pct, 18, PN_TXT);
+            continue;
+        }
+        uint32_t accent = PN_BLUE, fill = lit ? 0x14283Cu : PN_BTN;
+        if (b->id == PN_BLACK) { accent = PN_RED; if (lit) fill = 0x460A0Au; }
+        if (b->id >= PN_FOLLOW && b->id <= PN_FADER) { accent = PN_GREEN; if (lit) fill = 0x142D1Eu; }
+        if (b->id == PN_SHOW) { accent = PN_TEAL; }
+        if (b->id >= PN_COL0 && b->id <= PN_COL5) { accent = PN_PINK; fill = PN_BTN; }
+        C->fill_rect(d, x, y, b->w, b->h, fill);
+        C->draw_rect(d, x, y, b->w, b->h, lit ? 3 : 1, lit ? accent : PN_EDGE);
+        if (b->id >= PN_COL0 && b->id <= PN_COL5) {
+            int k = b->id - PN_COL0;
+            if (k == 0) {
+                static const uint32_t cyc[4] = { 0xFF2418u, 0xE600C8u, 0xFF6E00u, 0x0046FFu };
+                for (int j = 0; j < 4; j++) C->fill_rect(d, x + 6 + j * 20, y + 6, 20, 40, cyc[j]);
+            } else {
+                C->fill_rect(d, x + 6, y + 6, 40, 40, PN_SWATCH[k][0]);
+                C->fill_rect(d, x + 46, y + 6, 40, 40, PN_SWATCH[k][1]);
+            }
+            pn_text_c(d, x + b->w / 2, y + 50, b->label, 11, PN_TXT);
+            continue;
+        }
+        const char *label = b->label;
+        if (b->id == PN_SHOW) label = v->show == 0 ? "DECK SHOW: OFF" : v->show == 2 ? "DECK SHOW: WAITS" : "DECK SHOW: ON";
+        int big = b->h >= 60 ? 20 : 13;
+        uint32_t tc = lit ? accent : PN_TXT;
+        if (b->sub) {
+            pn_text_c(d, x + b->w / 2, y + b->h / 2 - big * 3 / 4 - 6, label, big, tc);
+            pn_text_c(d, x + b->w / 2, y + b->h / 2 + big * 3 / 4 - 8, b->sub, 10, PN_DIM);
+        } else {
+            pn_text_c(d, x + b->w / 2, y + (b->h - big * 3 / 2) / 2, label, big, tc);
+        }
+    }
+}
+
+static int pn_input(const az_event *ev, void *user)
+{
+    (void)ev; (void)user;
+    return 1;   /* the touch filter already took every touch inside: nothing reaches the deck below */
+}
+
+/* Worker thread: send what was tapped, keep a held STROBE alive, read FlowVJ's FVS1 on 9104. */
+static int pn_rx = -1;                    /* -2: port taken */
+static void pn_send_fvc(const char *act)
+{
+    static unsigned seq = PN_SEQ_BASE;
+    char b[48];
+    int n = pn_fvc(b, (int)sizeof b, seq++, act);
+    if (n <= 0) return;
+    net_on();
+    if (sock < 0) {
+        sock = socket(AF_INET, SOCK_DGRAM, 0);
+        int on = 1;
+        if (sock >= 0) setsockopt(sock, SOL_SOCKET, SO_BROADCAST, &on, sizeof on);
+    }
+    for (int i = 0; i < ndests && sock >= 0; i++) {
+        struct sockaddr_in to = dests[i];
+        to.sin_port = htons(PN_TAP_PORT);
+        sendto(sock, b, (size_t)n, MSG_DONTWAIT, (const struct sockaddr *)&to, sizeof to);
+    }
+    net_off();
+}
+
+static void pn_worker_step(unsigned step)
+{
+    static unsigned n = PN_N_BASE, strobe_at;
+    unsigned long long out = __atomic_exchange_n(&pn_out, 0ull, __ATOMIC_ACQ_REL);
+    for (int id = 1; out && id < PN_IDS; id++) {
+        if (!(out & (1ull << id))) continue;
+        int pad, shift;
+        if (pn_vjpad(id, &pad, &shift)) {
+            char b[160];
+            n++;
+            for (int down = 1; down >= 0; down--) {
+                int len = pn_vjpad_json(b, (int)sizeof b, pad, down, shift, n);
+                if (len > 0) { send_pkt(b, len); send_pkt(b, len); }   /* twice, like Pad Lights */
+            }
+        }
+        const char *act = pn_act(id);
+        if (act) {
+            if (id == PN_STROBE) strobe_at = step;
+            pn_send_fvc(act);
+        }
+    }
+    if (__atomic_load_n(&pn_strobe_held, __ATOMIC_ACQUIRE) && step - strobe_at >= 1000 / POLL_MS) {
+        strobe_at = step;
+        pn_send_fvc("strobe");                       /* FlowVJ lets a strobe go after 2.5 s */
+    }
+    if (__atomic_exchange_n(&pn_strobe_off, 0, __ATOMIC_ACQ_REL)) pn_send_fvc("strobe_off");
+
+    if (step % 20 != 7 || pn_rx == -2) return;      /* FVS1: every 100 ms */
+    if (pn_rx < 0) {
+        pn_rx = socket(AF_INET, SOCK_DGRAM | SOCK_NONBLOCK | SOCK_CLOEXEC, 0);
+        if (pn_rx < 0) { pn_rx = -2; return; }
+        struct sockaddr_in a;
+        memset(&a, 0, sizeof a);
+        a.sin_family = AF_INET;
+        a.sin_port = htons(PN_FV_PORT);
+        a.sin_addr.s_addr = htonl(INADDR_ANY);
+        if (bind(pn_rx, (struct sockaddr *)&a, sizeof a) != 0) {
+            C->log(MOD_ID, "lights panel: UDP %d is taken: no FlowVJ state on the panel", PN_FV_PORT);
+            close(pn_rx);
+            pn_rx = -2;
+            return;
+        }
+    }
+    char b[1024];
+    ssize_t len;
+    pn_fv fv;
+    int got = 0;
+    while ((len = recv(pn_rx, b, sizeof b, MSG_DONTWAIT)) > 0)
+        if (pn_fv_parse(b, (int)len, &fv)) got = 1;
+    if (got) {
+        while (atomic_flag_test_and_set_explicit(&pn_fv_lock, memory_order_acquire)) { struct timespec t = { 0, 50000 }; nanosleep(&t, NULL); }
+        pn_fv_shared = fv;
+        atomic_flag_clear_explicit(&pn_fv_lock, memory_order_release);
+        __atomic_add_fetch(&pn_fv_serial, 1, __ATOMIC_ACQ_REL);
+    }
 }
 
 /* ---- the worker -------------------------------------------------------------------------- */
@@ -1060,6 +1445,8 @@ static void *worker(void *arg)
                 fx_last_sent = step;
             }
         }
+
+        pn_worker_step(step);   /* 0.6.2: the FLOW Lights panel's taps */
 
         /* mixer sniffer: the changed frame as hex, at most every 50 ms */
         if (on && row_sniff >= 0 && C->row_value(row_sniff) == 1 && step % 10 == 0 && mlen > 0 && g != mix_sent) {
@@ -1413,6 +1800,16 @@ static int init(const az_core_v1 *core)
                 "(beat chases, bass pump, breakdown fade, white hit on the drop, fader dims). Steps back "
                 "while FLOW VJ or a console sends Art-Net. Rig: flow-beat:artnet_patch. Off by default.",
     };
+    static const az_row_v1 panel_row = {
+        .size = sizeof panel_row,
+        .key = "lights-panel",
+        .label = "FLOW Lights button",
+        .kind = AZ_ROW_TOGGLE,
+        .flags = AZ_ROW_DEFAULT_ON,
+        .help = "A LIGHTS button in the deck screen's top bar opens a big panel: FlowVJ Looks 1-8, hits "
+                "(white, strobe, drop, colour, fog, blackout) and the deck show's colours, intensity and "
+                "beat follow. Off hides the button.",
+    };
     static const char *const look_choices[] = LT_CHOICES;
     static const az_row_v1 look_row = {
         .size = sizeof look_row,
@@ -1434,6 +1831,29 @@ static int init(const az_core_v1 *core)
         row_audio = C->register_row(MOD_ID, &audio_row);
         row_lights = C->register_row(MOD_ID, &lights_row);
         row_look = C->register_row(MOD_ID, &look_row);
+        row_panel = C->register_row(MOD_ID, &panel_row);
+    }
+    /* 0.6.2: the FLOW Lights panel: a LIGHTS button in the top bar and the panel, deck screen only */
+    pn_level = C->cfg_get(MOD_ID, "panel_level", 100);
+    if (pn_level < 0 || pn_level > 100) pn_level = 100;
+    pn_follow = C->cfg_get(MOD_ID, "panel_follow", 1) != 0;
+    pn_dflash = C->cfg_get(MOD_ID, "panel_dropflash", 1) != 0;
+    pn_fader = C->cfg_get(MOD_ID, "panel_fader", 1) != 0;
+    if (AZ_HAS(C, surface_create) && AZ_HAS(C, surface_show) && AZ_HAS(C, surface_place) &&
+        AZ_HAS(C, surface_redraw) && AZ_HAS(C, view) && AZ_HAS(C, touch_filter) && AZ_HAS(C, draw_line)) {
+        az_surface_v1 sb = { .size = sizeof sb, .layer = AZ_LAYER_OVER_EP147, .views = AZ_VIEW_BIT(AZ_VIEW_DECK),
+                             .on_paint = pn_paint_btn, .on_input = pn_input, .user = NULL };
+        az_surface_v1 sp = { .size = sizeof sp, .layer = AZ_LAYER_OVER_EP147, .views = AZ_VIEW_BIT(AZ_VIEW_DECK),
+                             .on_paint = pn_paint, .on_input = pn_input, .user = NULL };
+        az_surface *b = C->surface_create(MOD_ID, &sb);
+        az_surface *p = b ? C->surface_create(MOD_ID, &sp) : NULL;
+        if (b && p) {
+            pn_vw[0].level = pn_level;
+            if (C->touch_filter(MOD_ID, pn_touch, NULL) == 0) { pn_btn_surf = b; pn_surf = p; }
+            else C->log(MOD_ID, "lights panel: touch_filter refused: no panel");
+        } else {
+            C->log(MOD_ID, "lights panel: no screen surface left (16 in all): no panel. The rest runs as before.");
+        }
     }
     /* each deck's own audio, before the hardware mixer (0.3.0) */
     if (AZ_HAS(C, audio_tap))
@@ -1467,7 +1887,7 @@ static const az_mod_v1 MOD = {
     .id = MOD_ID,
     .fw_tags = FW_TAGS,
     .init = init,
-    .tick = NULL,
+    .tick = pn_tick,
     .on_frame = NULL,
 };
 

@@ -122,7 +122,7 @@ static void unit(void)
         double ph = fmod(t, beat_ms) / beat_ms;
         int bar_beat = b % 4;
         int music = b < 64 || b >= 80;            /* bars 1-16, breakdown bars 17-20, drop on beat 80 */
-        lt_in in = { 1, 128, ph, b != last_beat, bar_beat, music && ph < 0.25 ? 0.8 : 0.03, -1, 1, 25 };
+        lt_in in = { 1, 128, ph, b != last_beat, bar_beat, music && ph < 0.25 ? 0.8 : 0.03, -1, 1, 25, 0, 0, 0, 0, 0 };
         last_beat = b;
         lt_track(&s, &in);
         lt_render(&s, &in, f, nf, dmx);
@@ -149,7 +149,7 @@ static void unit(void)
     CHECK(max_brk < max_music * 0.6, "breakdown dims the rig (brightest %d vs %d in the groove)", max_brk, max_music);
 
     /* the fader: down = 25 % of the level */
-    lt_in in = { 1, 128, 0.1, 0, 0, 0.8, 1.0, 1, 25 };
+    lt_in in = { 1, 128, 0.1, 0, 0, 0.8, 1.0, 1, 25, 0, 0, 0, 0, 0 };
     lt_render(&s, &in, f, nf, dmx);
     s.drop_beats = 0; s.hit_ms = 0;
     lt_render(&s, &in, f, nf, dmx);
@@ -167,7 +167,7 @@ static void unit(void)
     int r4 = ch(dmx, A_PAR1, 2), b4 = ch(dmx, A_PAR1, 4);
     CHECK(r1 > b1 && b4 > r4, "colours: Riso par is red (%d/%d), Ice par is blue (%d/%d)", r1, b1, r4, b4);
     /* nothing playing */
-    lt_in idle = { 0, 0, -1, 0, -1, 0, -1, 0, 25 };
+    lt_in idle = { 0, 0, -1, 0, -1, 0, -1, 0, 25, 0, 0, 0, 0, 0 };
     int idle_max = 0;
     for (int k = 0; k < 400; k++) { lt_track(&s, &idle); lt_render(&s, &idle, f, nf, dmx); int m = max_rgb(dmx); if (m > idle_max) idle_max = m; if (forbidden(dmx)) bad_ch = 1; }
     CHECK(idle_max > 0 && idle_max <= 52 && !bad_ch, "idle: a slow breath, never over 20 %% (brightest %d)", idle_max);

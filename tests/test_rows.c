@@ -108,8 +108,8 @@ int main(void)
 
     const az_mod_v1 *mod = az_mod_v1_entry();
     (void)mod->init(&core);
-    if (nrows != 8) {
-        printf("FAIL expected 8 rows, got %d\n", nrows);
+    if (nrows != 9) {
+        printf("FAIL expected 9 rows, got %d\n", nrows);
         fails++;
     }
     int has_audio = 0;
