@@ -1,7 +1,7 @@
 # Custom Screen layout, made in Deck Screen Designer
 # Coordinates are deck pixels (1280 x 800). Widget x/y are inside their panel.
 version 1
-name My picks + next mix and USB buttons, 4-deck waveforms, phase strip, dead air
+name My picks + 4-deck waveforms, phase strip, dead air
 
 panel 1 x=0 y=80 w=140 h=478 views=4 bg=180d25 border=none bw=0 edge=all
 widget 1 title deck=3 x=8 y=2 w=130 h=28 size=18 color=auto align=l
@@ -37,25 +37,21 @@ widget 1 drop_in deck=4 x=72 y=442 w=66 h=20 size=12 color=auto align=r
 widget 1 phrase deck=4 x=8 y=463 w=38 h=13 size=11 color=auto align=l
 widget 1 phrase_bar deck=4 x=48 y=464 w=88 h=11 size=11 color=auto align=l
 
-panel 2 x=0 y=0 w=212 h=80 views=4 bg=0b0b0d border=none bw=0 edge=all
-widget 2 pitch_to deck=L x=6 y=2 w=112 h=22 size=14 color=auto align=l text=L 
-widget 2 drop_in deck=L x=120 y=5 w=88 h=18 size=11 color=auto align=l
-widget 2 pitch_to deck=R x=6 y=26 w=112 h=22 size=14 color=auto align=l text=R 
-widget 2 drop_in deck=R x=120 y=29 w=88 h=18 size=11 color=auto align=l
-widget 2 usb deck=1 x=6 y=52 w=98 h=25 size=13 color=auto align=c
-widget 2 usb deck=2 x=108 y=52 w=98 h=25 size=13 color=auto align=c
+panel 2 x=0 y=0 w=180 h=52 views=4 bg=0b0b0d border=none bw=0 edge=all
+widget 2 pitch_to deck=L x=4 y=2 w=104 h=22 size=13 color=auto align=l text=L 
+widget 2 drop_in deck=L x=110 y=5 w=68 h=18 size=11 color=auto align=l
+widget 2 pitch_to deck=R x=4 y=28 w=104 h=22 size=13 color=auto align=l text=R 
+widget 2 drop_in deck=R x=110 y=31 w=68 h=18 size=11 color=auto align=l
 
 panel 3 x=1090 y=322 w=180 h=100 views=4 bg=auto border=none bw=0 edge=all
-widget 3 vj_tap x=0 y=2 w=42 h=47 size=14 color=auto align=c act=next
-widget 3 vj_tap x=46 y=2 w=42 h=47 size=14 color=auto align=c act=prev
-widget 3 vj_tap x=92 y=2 w=42 h=47 size=14 color=auto align=c act=auto
-widget 3 vj_tap x=138 y=2 w=42 h=47 size=14 color=auto align=c act=black
-widget 3 vj_tap x=0 y=52 w=57 h=47 size=15 color=auto align=c act=drop
-widget 3 vj_tap x=61 y=52 w=57 h=47 size=15 color=auto align=c act=strobe
-widget 3 vj_tap x=122 y=52 w=58 h=47 size=15 color=auto align=c act=fog
+widget 3 vj_tap x=0 y=2 w=42 h=47 size=10 color=auto align=c act=next
+widget 3 vj_tap x=46 y=2 w=42 h=47 size=10 color=auto align=c act=prev
+widget 3 vj_tap x=92 y=2 w=42 h=47 size=10 color=auto align=c act=auto
+widget 3 vj_tap x=138 y=2 w=42 h=47 size=10 color=auto align=c act=black
+widget 3 vj_tap x=0 y=52 w=57 h=47 size=11 color=auto align=c act=drop
+widget 3 vj_tap x=61 y=52 w=57 h=47 size=11 color=auto align=c act=strobe
+widget 3 vj_tap x=122 y=52 w=58 h=47 size=11 color=auto align=c act=fog
 
-# Top left (0.6.1): next mix = the pitch move onto the other deck and the drop countdown for
-# each side; USB 1 / USB 2 open that USB in the browser (SOURCE, USB, Local Library).
 # 4-Deck Waveforms: zoomed rekordbox waveform (16 beats, grid, playhead in the middle) and the
 # whole track under it, for each deck, over the 4 DECK waveform area (rows 3-1-2-4).
 # On top (y46-80): the 4-deck phase strip, with the dead-air warning drawn over it.

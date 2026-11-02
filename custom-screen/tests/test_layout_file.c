@@ -54,17 +54,13 @@ static void folded_mods(void)
     CHECK(p->wd[1].type == CS_WAVE && p->wd[1].deck == 2 && p->wd[1].y == 38 && p->wd[1].zoom == 16);
     CHECK(p->wd[8].type == CS_OVERVIEW && p->wd[8].deck == 3 && p->wd[8].y + p->wd[8].h == 512);
     CHECK(p->wd[9].type == CS_DEAD_AIR && p->wd[9].align == CS_ALIGN_C && p->wd[9].h == 34);
-    /* 0.6.1: top left = next mix (pitch move + drop countdown per side) and the USB buttons,
-     * inside x<212, y<80 so it never meets the left strips or the phase strip */
-    const cs_panel *q = &L.p[1];
-    CHECK(q->id == 2 && q->x == 0 && q->y == 0 && q->w == 212 && q->h == 80 && q->n == 6);
-    CHECK(q->wd[0].type == CS_PITCH_TO && q->wd[0].deck == CS_DECK_L && !strcmp(q->wd[0].text, "L "));
-    CHECK(q->wd[1].type == CS_DROP_IN && q->wd[1].deck == CS_DECK_L);
-    CHECK(q->wd[2].type == CS_PITCH_TO && q->wd[2].deck == CS_DECK_R);
-    CHECK(q->wd[3].type == CS_DROP_IN && q->wd[3].deck == CS_DECK_R);
-    CHECK(q->wd[4].type == CS_USB && q->wd[4].deck == 0 && q->wd[5].type == CS_USB && q->wd[5].deck == 1);
-    for (int k = 0; k < q->n; k++) CHECK(q->wd[k].x + q->wd[k].w <= q->w && q->wd[k].y + q->wd[k].h <= q->h);
-    CHECK(L.p[0].y >= q->y + q->h && L.p[3].x >= q->x + q->w);
+    /* 0.6.1: no shipped panel may cover the 2 DECK / 2-4 / 4 DECK tab labels (x182-374, y16-45);
+     * the phase strip from y46 has always sat on the tabs' bottom edge, like the old Phase Strip */
+    for (int i = 0; i < L.n; i++) {
+        const cs_panel *q = &L.p[i];
+        CHECK(!(q->x <= 374 && q->x + q->w > 182 && q->y <= 45 && q->y + q->h > 16));
+    }
+    CHECK(L.p[1].id == 2 && L.p[1].w == 180 && L.p[1].wd[0].type == CS_PITCH_TO);
     const char *g = "panel 1 x=0 y=0 w=10 h=10\nwidget 1 phase w=5\nwidget 1 dead_air\nwidget 1 dead_airx\n";
     CHECK(cs_parse(g, strlen(g), &L) == 1 && L.p[0].n == 2 && L.errors == 1);
 }

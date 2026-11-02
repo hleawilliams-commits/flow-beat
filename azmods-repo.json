@@ -369,8 +369,8 @@
       "summary": "Your own deck-screen panels from a text file: readouts, 4-deck rekordbox waveforms and FlowVJ's status.",
       "icon": "https://github.com/hleawilliams-commits/flow-beat/releases/download/custom-screen-0.6.1/custom-screen-0.6.1-icon.png",
       "package": "https://github.com/hleawilliams-commits/flow-beat/releases/download/custom-screen-0.6.1/custom-screen-0.6.1.azmod",
-      "sha256": "f7a63098f0ce98c91b4f45a2c937aa614c86a1d3686b568646fb10ad4f57fc07",
-      "size": 133778,
+      "sha256": "cf594a9381d90aa13809d7efe5836bd0928c4f04d7ee15ec15e52aa28ef3c64d",
+      "size": 130166,
       "firmware": [
         "any"
       ],
@@ -380,7 +380,7 @@
       "category": "visual",
       "license": "GPL-3.0-only",
       "min_core": "1.2.3",
-      "description": "Up to four click-through panels on the deck screen with the readouts you pick: title, artist, key, BPM, BPMs that fit, pitch move, phrase meter from rekordbox's grid, time left, stems, clock, key wheels, zoomed 4-deck rekordbox waveforms (Mod Menu switch), FlowVJ tap buttons, USB 1/2 buttons that open a stick's library, the 4-deck phase strip and dead-air warnings (LOAD NEXT, ENDING, QUIET, DEAD AIR), so 4-Deck Phase Strip and Dead-Air Guard can be switched off to free screen space. Layout from layout.txt on the USB. No audio, tempo, key or library changes.",
+      "description": "Up to four click-through panels on the deck screen with the readouts you pick: title, artist, key, BPM, BPMs that fit, pitch move, phrase meter from rekordbox's grid, time left, stems, clock, key wheels, zoomed 4-deck rekordbox waveforms (Mod Menu switch), FlowVJ status with tap buttons, the 4-deck phase strip and dead-air warnings (LOAD NEXT, ENDING, QUIET, DEAD AIR), so 4-Deck Phase Strip and Dead-Air Guard can be switched off to free screen space. Layout from layout.txt on the USB. No audio, tempo, key or library changes.",
       "assets_kb": 5
     }
   ]

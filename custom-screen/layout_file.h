@@ -5,7 +5,7 @@
  *   version 1
  *   name <text>
  *   panel <id> x= y= w= h= views=4,24,2 bg=auto|<hex> border=none|accent|<hex> bw= edge=top|all
- *   widget <panel id> <type> deck=1..4|L|R (usb: deck=1 = USB 1, deck=2 = USB 2) x= y= w= h= size= color=auto|dim|accent|cell|<hex>
+ *   widget <panel id> <type> deck=1..4|L|R x= y= w= h= size= color=auto|dim|accent|cell|<hex>
  *          align=l|c|r act=<tap action, vj_tap only> zoom=2..128 grid=0|1
  *          text=<rest of the line, spaces kept>
  *   (zoom and grid are read by wave only: beats across the widget, beat grid on or off)
@@ -35,11 +35,10 @@ enum { CS_DECK_NUM = 1, CS_TITLE, CS_ARTIST, CS_KEY, CS_BPM, CS_BPM_GAP, CS_PHRA
        CS_KEY_WHEEL,                         /* a small Camelot wheel: this deck's key and the playing decks' */
        CS_PHASE,                             /* 4-Deck Phase Strip: a lane per deck, beat ticks under a playhead */
        CS_DEAD_AIR,                          /* Dead-Air Guard: LOAD NEXT / ENDING / QUIET / DEAD AIR (guard.h) */
-       CS_USB,                               /* a tap button: the browser on USB 1 (deck=1) or USB 2 (deck=2) */
        CS_TYPES };
 static const char *const CS_TYPE_NAME[CS_TYPES] = { "", "deck_num", "title", "artist", "key", "bpm",
     "bpm_gap", "phrase", "phrase_bar", "beat", "time_left", "stems", "state", "side", "clock",
-    "label", "box", "flowvj", "vj_lights", "vj_tap", "wave", "overview", "phrase_name", "drop_in", "mix_with", "bpm_fit", "pitch_to", "key_wheel", "phase", "dead_air", "usb" };
+    "label", "box", "flowvj", "vj_lights", "vj_tap", "wave", "overview", "phrase_name", "drop_in", "mix_with", "bpm_fit", "pitch_to", "key_wheel", "phase", "dead_air" };
 
 /* Colours: 0xRRGGBB, or one of these named ones the painter resolves against the theme. */
 #define CS_COL_AUTO   0x01000000u

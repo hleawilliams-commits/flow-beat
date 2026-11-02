@@ -32,7 +32,6 @@
 #include "jobs.h"
 #include "waves.h"
 #include "guard.h"
-#include "nav.h"
 #define MOD_ID "custom-screen"
 
 static const az_core_v1 *C;
@@ -169,11 +168,6 @@ static unsigned fv_serial, fv_seen;                  /* atomics */
 static long fv_rx_ms;                                /* UI: when the tick last saw a new FVS1 */
 static unsigned fv_pending;                          /* atomic: bit per FV_ACT_* tapped, the worker sends */
 static int fv_live;                                  /* atomic: FlowVJ seen lately (the touch filter reads it) */
-/* usb buttons share the tap list with an act past FlowVJ's: CS_TAP_USB + stick (0 = USB 1). */
-#define CS_TAP_USB 64
-static int cs_usb_req;          /* atomic: touch filter -> UI, stick + 1, 0 = none */
-static int cs_usb_busy = -1;    /* UI: the stick the navigator is switching to, -1 = none */
-static int cs_nav_ok;           /* the mixer filter that plays the presses is registered */
 /* The vj_tap buttons on screen, double-buffered: the UI writes the idle copy and flips. */
 static fv_tap fv_taps[2][FV_TAPS];
 static int fv_tap_n[2], fv_tap_cur;                  /* fv_tap_cur atomic */
@@ -303,16 +297,10 @@ static int cs_touch(const az_touch *t, void *user)
     if (C->view() != AZ_VIEW_DECK) return AZ_TOUCH_PASS;
     int tab = gp_layout_tab(t->x, t->y);
     if (tab) __atomic_store_n(&cs_tab_seen, tab, __ATOMIC_RELAXED);
-    int cur = __atomic_load_n(&fv_tap_cur, __ATOMIC_ACQUIRE);
-    int act = fv_tap_hit(fv_taps[cur], fv_tap_n[cur], t->x, t->y);
-    /* A usb button always takes its touch (the UI arms the navigator on its next tick). */
-    if (act >= CS_TAP_USB) {
-        if (!__atomic_load_n(&cs_nav_ok, __ATOMIC_ACQUIRE)) return AZ_TOUCH_PASS;
-        __atomic_store_n(&cs_usb_req, act - CS_TAP_USB + 1, __ATOMIC_RELEASE);
-        return AZ_TOUCH_TAKE;
-    }
     /* A vj_tap button takes its touch only while FlowVJ is answering; otherwise the deck gets it. */
     if (__atomic_load_n(&fv_live, __ATOMIC_ACQUIRE)) {
+        int cur = __atomic_load_n(&fv_tap_cur, __ATOMIC_ACQUIRE);
+        int act = fv_tap_hit(fv_taps[cur], fv_tap_n[cur], t->x, t->y);
         if (act) {
             if (act == FV_ACT_STROBE) {
                 if (__atomic_exchange_n(&fv_strobe_held, 1, __ATOMIC_ACQ_REL)) return AZ_TOUCH_TAKE;   /* still held */
@@ -325,24 +313,6 @@ static int cs_touch(const az_touch *t, void *user)
         }
     }
     return AZ_TOUCH_PASS;
-}
-
-/* Mixer input filter for the usb buttons: plays the navigator's presses, the way Crate
- * Remote and Harmonic Picks do; untouched frames when nothing is running. */
-static int cs_nav_busy(int deck)
-{
-    az_deck_info di; memset(&di, 0, sizeof di); di.size = sizeof di; di.playing = -1;
-    if (!AZ_HAS(C, deck_info) || C->deck_info(deck, &di) != 0) return 1;
-    return di.loaded == 1 && di.playing != 0;
-}
-static int cs_nav_frame(int bus, unsigned char *f, int len, void *user)
-{
-    (void)user;
-    if (bus != AZ_BUS_MIXER_IN || !f || len < 98) return AZ_FRAME_OK;
-    int st = __atomic_load_n(&nav_state, __ATOMIC_ACQUIRE);
-    if (st != NAV_ARMED && st != NAV_RUNNING && !nav_off) { nav_real_last = f[34]; return AZ_FRAME_OK; }
-    nav_frame(f, len, cs_now_ms(), C->view(), cs_nav_busy);
-    return AZ_FRAME_OK;
 }
 
 static int cs_led_frame(int bus, unsigned char *f, int len)
@@ -698,14 +668,6 @@ static void cs_widget_paint(az_draw *d, az_rect a, const cs_widget *w, const cs_
         }
         cs_fill(d, a, mid - 1, y, 2, w->h, cs_resolve(w->color, t->text, t));
         break; }
-    case CS_USB: {
-        if (w->deck != 0 && w->deck != 1) break;
-        int busy = cs_usb_busy == w->deck;
-        cs_fill(d, a, x, y, w->w, w->h, busy ? cs_resolve(w->color, t->accent, t) : t->cell);
-        cs_widget c = *w; c.align = CS_ALIGN_C;
-        snprintf(s, sizeof s, "%s", w->text[0] ? w->text : w->deck ? "USB 2" : "USB 1");
-        cs_text(d, a, &c, x, y, w->w, s, busy ? 0x07131A : cs_nav_ok ? t->text : t->muted);
-        break; }
     case CS_DEAD_AIR: {
         /* Dead-Air Guard's label; nothing at all while the room is fine */
         int left = cs_dg.left >= 0 ? (int)(cs_dg.left + 0.999) : 0;
@@ -744,10 +706,6 @@ static void fv_publish_taps(void)
         const cs_panel *p = &cs_ui.p[slot];
         for (int k = 0; k < p->n && n < FV_TAPS; k++) {
             const cs_widget *w = &p->wd[k];
-            if (w->type == CS_USB && (w->deck == 0 || w->deck == 1)) {
-                fv_taps[nxt][n++] = (fv_tap){ p->x + w->x, p->y + w->y, w->w, w->h, CS_TAP_USB + w->deck };
-                continue;
-            }
             if (w->type != CS_VJ_TAP || !w->act) continue;
             fv_taps[nxt][n++] = (fv_tap){ p->x + w->x, p->y + w->y, w->w, w->h, w->act };
         }
@@ -950,16 +908,6 @@ static void cs_tick(void)
             fv_flash_until[act] = now + 300;
         } else if (flash & (1u << act)) { fv_flash_until[act] = now + 300; dirty = 1; }
         else if (fv_flash_until[act] && fv_flash_until[act] <= now) { fv_flash_until[act] = 0; dirty = 1; }
-    }
-    /* usb buttons: arm the navigator for a tapped one, light it while the presses play */
-    int usb = __atomic_exchange_n(&cs_usb_req, 0, __ATOMIC_ACQ_REL);
-    if (usb) {
-        nav_script sc;
-        if (nav_build_source(&sc, usb - 1) && nav_arm(&sc)) { cs_usb_busy = usb - 1; dirty = 1; }
-    }
-    if (cs_usb_busy >= 0) {
-        int st = __atomic_load_n(&nav_state, __ATOMIC_ACQUIRE);
-        if (st != NAV_ARMED && st != NAV_RUNNING) { cs_usb_busy = -1; dirty = 1; }
     }
     for (int i = 0; i < 4; i++) {
         int s = fresh && gp_selected_deck(bits, i & 1) == i;
@@ -1175,10 +1123,6 @@ static int cs_init(const az_core_v1 *core)
     static int dg_started;
     if (!dg_started) {
         if (AZ_HAS(C, frame_filter)) C->frame_filter(MOD_ID, (1u << AZ_BUS_MIXER_IN) | AZ_FILTER_RAW, dg_frame, NULL);
-        /* usb buttons: a second, editing filter on the mixer input plays SOURCE / knob presses */
-        if (AZ_HAS(C, frame_filter) && AZ_HAS(C, view) &&
-            C->frame_filter(MOD_ID, 1u << AZ_BUS_MIXER_IN, cs_nav_frame, NULL) == 0)
-            __atomic_store_n(&cs_nav_ok, 1, __ATOMIC_RELEASE);
         if (AZ_HAS(C, audio_tap))
             for (int d = 0; d < 4; d++) C->audio_tap(MOD_ID, AZ_TAP_DECK(d), 1024, dg_tap, (void *)(intptr_t)d);
         dg_started = 1;

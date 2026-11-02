@@ -21,7 +21,7 @@
 #define FV_TAP_PORT 9103
 #define FV_TEXT 48
 #define FV_STALE_MS 3000   /* no FVS1 for this long = FlowVJ not seen: taps go back to the deck */
-#define FV_TAPS 12         /* vj_tap and usb buttons the touch filter checks, across all panels */
+#define FV_TAPS 8          /* vj_tap buttons the touch filter checks, across all panels */
 
 /* Tap actions. FlowVJ's deck-status.js runs each one (see its ACTS table). */
 /* strobe is held: sent when the finger comes down, strobe_off when it lifts (FlowVJ also stops
