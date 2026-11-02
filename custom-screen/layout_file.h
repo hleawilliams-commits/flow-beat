@@ -33,10 +33,12 @@ enum { CS_DECK_NUM = 1, CS_TITLE, CS_ARTIST, CS_KEY, CS_BPM, CS_BPM_GAP, CS_PHRA
        CS_MIX_WITH,
        CS_BPM_FIT, CS_PITCH_TO,              /* tempos that fit this deck / the move onto the other deck */
        CS_KEY_WHEEL,                         /* a small Camelot wheel: this deck's key and the playing decks' */
+       CS_PHASE,                             /* 4-Deck Phase Strip: a lane per deck, beat ticks under a playhead */
+       CS_DEAD_AIR,                          /* Dead-Air Guard: LOAD NEXT / ENDING / QUIET / DEAD AIR (guard.h) */
        CS_TYPES };
 static const char *const CS_TYPE_NAME[CS_TYPES] = { "", "deck_num", "title", "artist", "key", "bpm",
     "bpm_gap", "phrase", "phrase_bar", "beat", "time_left", "stems", "state", "side", "clock",
-    "label", "box", "flowvj", "vj_lights", "vj_tap", "wave", "overview", "phrase_name", "drop_in", "mix_with", "bpm_fit", "pitch_to", "key_wheel" };
+    "label", "box", "flowvj", "vj_lights", "vj_tap", "wave", "overview", "phrase_name", "drop_in", "mix_with", "bpm_fit", "pitch_to", "key_wheel", "phase", "dead_air" };
 
 /* Colours: 0xRRGGBB, or one of these named ones the painter resolves against the theme. */
 #define CS_COL_AUTO   0x01000000u

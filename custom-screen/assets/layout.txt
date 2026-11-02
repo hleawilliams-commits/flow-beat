@@ -1,7 +1,7 @@
 # Custom Screen layout, made in Deck Screen Designer
 # Coordinates are deck pixels (1280 x 800). Widget x/y are inside their panel.
 version 1
-name My picks + phrase and drop per deck
+name My picks + phrase, drop, phase strip, dead air
 
 panel 1 x=0 y=80 w=140 h=478 views=4 bg=180d25 border=none bw=0 edge=all
 widget 1 title deck=3 x=8 y=2 w=130 h=28 size=18 color=auto align=l
@@ -51,3 +51,7 @@ widget 3 vj_tap x=134 y=22 w=40 h=21 size=11 color=auto align=l act=black
 widget 3 vj_tap x=8 y=45 w=54 h=21 size=11 color=auto align=l act=drop
 widget 3 vj_tap x=64 y=45 w=54 h=21 size=11 color=auto align=l act=strobe
 widget 3 vj_tap x=120 y=45 w=54 h=21 size=11 color=auto align=l act=fog
+
+panel 4 x=212 y=46 w=838 h=47 views=4 bg=auto border=none bw=0 edge=all
+widget 4 phase x=0 y=0 w=838 h=47 size=10 color=auto align=l zoom=13
+widget 4 dead_air x=0 y=0 w=838 h=47 size=22 color=auto align=c

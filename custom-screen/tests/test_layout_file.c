@@ -36,6 +36,26 @@ static void shipped(void)
     CHECK(L.p[0].views == (CS_VIEW_4 | CS_VIEW_24) && !strcmp(L.p[0].wd[0].text, "KEY "));   /* trailing space kept */
 }
 
+/* 0.6.0: the shipped assets layout holds the folded Phase Strip and Dead-Air Guard */
+static char assets_buf[CS_FILE_MAX];
+static void folded_mods(void)
+{
+    FILE *f = fopen("assets/layout.txt", "rb");
+    if (!f) f = fopen("../assets/layout.txt", "rb");
+    CHECK(f != NULL);
+    if (!f) return;
+    size_t n = fread(assets_buf, 1, sizeof assets_buf, f);
+    fclose(f);
+    CHECK(cs_parse(assets_buf, n, &L) == 4);
+    CHECK(L.errors == 0);
+    const cs_panel *p = &L.p[3];
+    CHECK(p->id == 4 && p->x == 212 && p->y == 46 && p->w == 838 && p->h == 47 && p->n == 2);
+    CHECK(p->wd[0].type == CS_PHASE && p->wd[0].zoom == 13 && p->wd[0].deck == CS_DECK_NONE);
+    CHECK(p->wd[1].type == CS_DEAD_AIR && p->wd[1].align == CS_ALIGN_C);
+    const char *g = "panel 1 x=0 y=0 w=10 h=10\nwidget 1 phase w=5\nwidget 1 dead_air\nwidget 1 dead_airx\n";
+    CHECK(cs_parse(g, strlen(g), &L) == 1 && L.p[0].n == 2 && L.errors == 1);
+}
+
 static void every_field(void)
 {
     const char *t =
@@ -141,6 +161,7 @@ static void bpm_fit(void)
 int main(void)
 {
     shipped();
+    folded_mods();
     every_field();
     errors();
     waveforms();

@@ -7,6 +7,10 @@
  * slow-work thread (jobs.h, waves.h).
  * FLOW Status Panel (0.2.0): FlowVJ's look, lights, LOCK / SAFE / HOLD from UDP 9102 and tap
  * buttons that send back to it (flowvj.h). The file worker owns the socket, so no extra thread.
+ * 0.6.0 folds in two small screen mods so their surfaces go back to the shared pool of 16:
+ * 4-Deck Phase Strip (the phase widget) and Dead-Air Guard (the dead_air widget, guard.h; a
+ * read-only mixer filter for faders and mics, four audio taps for near-silence, the track
+ * lengths come from data.h's reader). No new thread: all four are in use.
  */
 #include <arpa/inet.h>
 #include <netinet/in.h>
@@ -27,6 +31,7 @@
 #include "default_layout.h"
 #include "jobs.h"
 #include "waves.h"
+#include "guard.h"
 #define MOD_ID "custom-screen"
 
 static const az_core_v1 *C;
@@ -57,6 +62,40 @@ typedef struct {
 static cs_view cs_v[4];
 static int cs_phrases;   /* a shown panel has a phrase widget: read phrases in the poll */
 static int cs_bars = 4;  /* bars in a phrase for phrase, phrase_bar and beat */
+
+/* ---- dead air (from Dead-Air Guard): bus and tap threads write, the UI thread judges ------ */
+static uint32_t dg_faders = 0xffffffffu;   /* atomic: faders 1-4 packed, a byte each; all 0xff = unknown */
+static int dg_mic = -1;                     /* atomic: MIC1 0x80, MIC2 0x40, TALK OVER 0x20 */
+static int dg_quiet[4];                     /* atomic: ms of near-silence per deck */
+static int cs_dg_row = -1, cs_dg_warn_row = -1;
+static dg_out cs_dg = { DG_OK, -1, -1, 0 };
+static int cs_dg_blink, cs_dg_key = -1;
+static long cs_dg_audible_ms = -100000, cs_dg_since[4];
+static double cs_dg_remain[4] = { -1, -1, -1, -1 };   /* UI: from the 125 ms poll */
+static unsigned cs_dg_id[4];
+static const int CS_DG_WARN[] = { 20, 30, 45, 60 };
+
+static int dg_frame(int bus, unsigned char *f, int len, void *user)
+{
+    (void)user;
+    if (bus != AZ_BUS_MIXER_IN || !f || len < 0x19) return AZ_FRAME_OK;
+    uint32_t v = (uint32_t)f[0x0a] | (uint32_t)f[0x0b] << 8 | (uint32_t)f[0x0c] << 16 | (uint32_t)f[0x0d] << 24;
+    __atomic_store_n(&dg_faders, v, __ATOMIC_RELAXED);
+    __atomic_store_n(&dg_mic, f[0x18] & 0xe0, __ATOMIC_RELAXED);
+    return AZ_FRAME_OK;
+}
+
+static void dg_tap(const float *lr, int frames, void *user)
+{
+    int deck = (int)(intptr_t)user;
+    double acc = 0;
+    for (int i = 0; i < frames * 2; i++) acc += (double)lr[i] * lr[i];
+    double rms = frames > 0 ? sqrt(acc / (frames * 2)) : 0;
+    int ms = frames * 1000 / 44100;
+    int q = __atomic_load_n(&dg_quiet[deck], __ATOMIC_RELAXED);
+    q = rms < 0.0032 ? (q < 600000 ? q + ms : q) : 0;               /* below about -50 dBFS */
+    __atomic_store_n(&dg_quiet[deck], q, __ATOMIC_RELAXED);
+}
 
 /* Tick: the phrase and drop countdown at pos for deck i. 0 = the loader holds the track right
  * now (keep what was shown); never waits. */
@@ -584,6 +623,48 @@ static void cs_widget_paint(az_draw *d, az_rect a, const cs_widget *w, const cs_
             ap <= w->range * 20 ? 0xD49A21 : 0xE5484D;
         cs_text(d, a, w, x, y, w->w, s, w->color == CS_COL_AUTO ? c : cs_resolve(w->color, c, t));
         break; }
+    case CS_PHASE: {
+        /* Phase Strip: lanes 3-1-2-4 like the 4 DECK screen, the beat ticks of each playing deck
+         * scroll under a fixed playhead; ticks in line = decks in phase */
+        static const uint32_t deck_rgb[4] = { 0x2F8CFF, 0xFF4A3D, 0x3CCB5A, 0xF2C230 };
+        static const int lane_deck[4] = { 2, 0, 1, 3 };
+        int lh = (w->h - 3) / 4 - 1, mid = x + w->w / 2, beat_px = (w->w - 16) / w->zoom;
+        if (lh < 3 || beat_px < 4) break;
+        for (int lane = 0; lane < 4; lane++) {
+            int dk = lane_deck[lane], ly = y + 2 + lane * (lh + 1);
+            if (!cs_v[dk].loaded) continue;
+            snprintf(s, sizeof s, "%d", dk + 1);
+            C->draw_text(d, x + 2, ly - 2, s, lh < 8 ? 8 : lh > 12 ? 12 : lh, cs_v[dk].playing ? deck_rgb[dk] : t->muted);
+            cs_fill(d, a, x + 14, ly + lh / 2, w->w - 16, 1, t->muted);
+            double beat = -1.0, bar = -1.0;
+            if (!cs_v[dk].playing || C->deck_grid(dk, &beat, &bar) != 0 || beat < 0.0 || beat > 1.0) continue;
+            for (int k = -64; k <= 64; k++) {
+                int tx = mid + (int)(((double)k - beat) * beat_px);
+                if (tx < x + 14 || tx >= x + w->w - 2) continue;
+                cs_fill(d, a, tx - 1, ly, 3, lh, deck_rgb[dk]);
+            }
+        }
+        cs_fill(d, a, mid - 1, y, 2, w->h, cs_resolve(w->color, t->text, t));
+        break; }
+    case CS_DEAD_AIR: {
+        /* Dead-Air Guard's label; nothing at all while the room is fine */
+        int left = cs_dg.left >= 0 ? (int)(cs_dg.left + 0.999) : 0;
+        switch (cs_dg.state) {
+        case DG_LOAD_NEXT: snprintf(s, sizeof s, "%sLOAD NEXT  %d:%02d", w->text, left / 60, left % 60); break;
+        case DG_ENDING: snprintf(s, sizeof s, "%sENDING  0:%02d - nothing cued", w->text, left); break;
+        case DG_QUIET: snprintf(s, sizeof s, "%sQUIET  %ds", w->text, cs_dg.quiet_s); break;
+        case DG_DEAD: snprintf(s, sizeof s, "%sDEAD AIR", w->text); break;
+        default: s[0] = 0;
+        }
+        if (!s[0]) break;
+        int red = cs_dg.state == DG_ENDING || cs_dg.state == DG_DEAD;
+        uint32_t col = red ? (cs_dg_blink ? 0x5A1416 : 0xE5484D) : 0xD49A21;
+        cs_fill(d, a, x, y, w->w, w->h, 0x0B0912);
+        cs_fill(d, a, x, y, w->w, 4, col);
+        cs_fill(d, a, x, y + w->h - 4, w->w, 4, col);
+        cs_widget c = *w; c.align = CS_ALIGN_C;
+        cs_text(d, a, &c, x, y, w->w, s, red ? 0xFFFFFF : col);
+        break; }
     case CS_WAVE:
     case CS_OVERVIEW: {
         cw_style st = { t->text, t->muted, t->day ? 0xC4C8CF : 0x2A2633, t->bg, t->day };
@@ -708,6 +789,47 @@ static void cs_take_layout(int *relayout)
            cs_from == 2 ? "data/layout.txt" : cs_from == 1 ? "assets/layout.txt" : "built-in", cs_ui.n, cs_ui.errors, cs_ui.first_error_line);
 }
 
+/* UI thread: judge dead air (Dead-Air Guard's rules) once a tick, only while some panel has a
+ * dead_air widget. 1 = what the widget shows has changed. */
+static int cs_dead_air(long now, int enabled, int view)
+{
+    int want = enabled && (cs_dg_row < 0 || C->row_value(cs_dg_row) == 1);
+    for (int slot = 0, any = 0; want && !any; slot++) {
+        if (slot >= cs_ui.n || slot >= CS_PANELS) { want = 0; break; }
+        for (int k = 0; k < cs_ui.p[slot].n; k++) if (cs_ui.p[slot].wd[k].type == CS_DEAD_AIR) any = 1;
+    }
+    dg_out o = { DG_OK, -1, -1, 0 };
+    if (want) {
+        int w = cs_dg_warn_row >= 0 ? C->row_value(cs_dg_warn_row) : 1;
+        dg_cfg cfg = { CS_DG_WARN[w >= 0 && w < 4 ? w : 1], 10, 4000, 1, 1 };
+        uint32_t fv = __atomic_load_n(&dg_faders, __ATOMIC_RELAXED);
+        int mic = __atomic_load_n(&dg_mic, __ATOMIC_RELAXED), any_aud = 0;
+        dg_deck dk[4];
+        for (int i = 0; i < 4; i++) {
+            dg_deck *x = &dk[i];
+            memset(x, 0, sizeof *x);
+            x->remaining = -1; x->fader = -1;
+            x->loaded = cs_v[i].loaded; x->playing = cs_v[i].loaded && cs_v[i].playing; x->id = cs_dg_id[i];
+            if (x->loaded && cs_dg_remain[i] >= 0) x->remaining = cs_dg_remain[i];
+            if (fv != 0xffffffffu) x->fader = (int)((fv >> (8 * i)) & 0xff);
+            if (!x->playing) cs_dg_since[i] = 0;
+            else if (!cs_dg_since[i]) cs_dg_since[i] = now > 0 ? now : 1;
+            /* just started: the silence counted while it was paused doesn't count */
+            x->quiet_ms = x->playing && now - cs_dg_since[i] > 2500 ? __atomic_load_n(&dg_quiet[i], __ATOMIC_RELAXED) : 0;
+            if (dg_audible(x, &cfg)) any_aud = 1;
+        }
+        if (any_aud) cs_dg_audible_ms = now;
+        o = dg_judge(dk, &cfg, mic > 0, now - cs_dg_audible_ms);
+        if (view == AZ_VIEW_MENU) o.state = DG_OK;
+    }
+    int blink = (int)((now / 500) & 1);
+    int key = o.state == DG_OK ? 0 : o.state * 100000 + (o.left >= 0 ? (int)(o.left + 0.999) : 0) * 10 + o.quiet_s + blink * 7777777;
+    cs_dg = o; cs_dg_blink = blink;
+    if (key == cs_dg_key) return 0;
+    cs_dg_key = key;
+    return 1;
+}
+
 static void cs_tick(void)
 {
     long now = cs_now_ms();
@@ -783,12 +905,14 @@ static void cs_tick(void)
                 nv.bpm10 = r[i].bpm > 0 && r[i].bpm < 1000 ? (int)(r[i].bpm * 10 + 0.5) : 0;
                 nv.phrase_known = r[i].phrase_known; nv.bar = r[i].bar; nv.beat = r[i].beat;
                 if (r[i].remaining_s >= 0) nv.remain = (int)(r[i].remaining_s + 0.5);
+                cs_dg_remain[i] = r[i].remaining_s;
                 nv.alert = gp_time_alert(r[i].playing, r[i].remaining_s);
                 memcpy(nv.key, r[i].key, sizeof nv.key);
                 memcpy(nv.title, r[i].title, sizeof nv.title);
                 az_deck_info di; memset(&di, 0, sizeof di); di.size = sizeof di;
                 int di_ok = C->deck_info(i, &di) == 0 && di.loaded == 1;
                 if (di_ok) snprintf(nv.artist, sizeof nv.artist, "%s", di.artist);
+                cs_dg_id[i] = di_ok ? di.content_id : 0;
                 if (nv.phrase_known) nv.bar = (nv.bar - 1) % cs_bars + 1;   /* the counter gives 1..16 */
                 if (cs_phrases && !cs_phrase_read(i, di_ok ? di.pos_s : -1, &nv)) {
                     nv.ph_kind = cs_v[i].ph_kind; nv.ph_mood = cs_v[i].ph_mood; nv.drop_bars = cs_v[i].drop_bars;
@@ -811,6 +935,7 @@ static void cs_tick(void)
                     nv.pt_deck = to; nv.pt10 = (int)(pct * 10 + (pct < 0 ? -0.5 : 0.5));
                 }
             }
+            if (!nv.loaded) { cs_dg_remain[i] = -1; cs_dg_id[i] = 0; }
             if (memcmp(&nv, &cs_v[i], sizeof nv)) { cs_v[i] = nv; dirty = 1; }
         }
         time_t wall = time(NULL);
@@ -819,8 +944,15 @@ static void cs_tick(void)
     }
 
     unsigned bit = cs_view_bit(layout);
-    int dirty_here[CS_PANELS];
-    for (int slot = 0; slot < CS_PANELS; slot++) dirty_here[slot] = dirty;
+    int view = AZ_HAS(C, view) ? C->view() : AZ_VIEW_DECK;
+    int dg_changed = cs_dead_air(now, enabled, view);
+    int dirty_here[CS_PANELS], has_dg[CS_PANELS] = { 0 };
+    for (int slot = 0; slot < CS_PANELS; slot++) {
+        dirty_here[slot] = dirty;
+        const cs_panel *p = slot < cs_ui.n ? &cs_ui.p[slot] : NULL;
+        for (int k = 0; p && k < p->n; k++) if (p->wd[k].type == CS_DEAD_AIR) has_dg[slot] = 1;
+        if (has_dg[slot] && dg_changed) dirty_here[slot] = 1;
+    }
     /* Waveforms: load analysis only while a shown panel has a wave or overview, and repaint
      * those panels while their deck plays (or when new analysis arrives). */
     unsigned wserial = __atomic_load_n(&cw_serial, __ATOMIC_ACQUIRE);
@@ -835,6 +967,9 @@ static void cs_tick(void)
             else if (p->wd[k].type == CS_WAVE || p->wd[k].type == CS_OVERVIEW) {
                 wanted = 1;
                 if (!moving[slot] && cw_moving(cs_deck_of(p->wd[k].deck))) { moving[slot] = 1; nmoving++; }
+            } else if (p->wd[k].type == CS_PHASE && !moving[slot] && view == AZ_VIEW_DECK) {
+                for (int i = 0; i < 4; i++)
+                    if (cs_v[i].loaded && cs_v[i].playing) { moving[slot] = 1; nmoving++; break; }
             }
     }
     /* Scrolling panels share one frame budget, CS_WAVE_FPS repaints a second in all, and skip
@@ -847,7 +982,10 @@ static void cs_tick(void)
         const cs_panel *p = slot < cs_ui.n ? &cs_ui.p[slot] : NULL;
         int show = enabled && p && (p->views & bit);
         int changed = 0, waves = moving[slot] ? frame : wave_new && cs_has_wave(p);
-        if (moving[slot] && !wave_new) dirty_here[slot] = 0;
+        if (moving[slot] && !wave_new && !(has_dg[slot] && dg_changed)) dirty_here[slot] = 0;
+        /* Off the deck screen (browse, source, search) only a dead-air warning shows, and only
+         * while it is up; in a menu nothing does. */
+        if (show && view != AZ_VIEW_DECK) show = has_dg[slot] && cs_dg.state != DG_OK && view != AZ_VIEW_MENU;
         if (show) {
             az_rect r = { p->x, p->y, p->w, p->h };
             if (memcmp(&r, &cs_at[slot], sizeof r)) { cs_at[slot] = r; C->surface_place(cs_surface[slot], r); changed = 1; }
@@ -880,8 +1018,10 @@ static int cs_init(const az_core_v1 *core)
         return 2;
     }
     for (int i = 0; i < CS_PANELS; i++) {
+        /* browse, source and search too, for a dead-air warning only (cs_tick decides) */
         az_surface_v1 s = { .size = sizeof s, .layer = AZ_LAYER_OVER_EP147,
-            .views = AZ_VIEW_BIT(AZ_VIEW_DECK), .on_paint = cs_paint, .user = (void *)(intptr_t)i };
+            .views = AZ_VIEW_BIT(AZ_VIEW_DECK) | AZ_VIEW_BIT(AZ_VIEW_BROWSE) | AZ_VIEW_BIT(AZ_VIEW_SOURCE) | AZ_VIEW_BIT(AZ_VIEW_SEARCH),
+            .on_paint = cs_paint, .user = (void *)(intptr_t)i };
         cs_surface[i] = C->surface_create(MOD_ID, &s);
         cs_at[i] = (az_rect){ -1, -1, 0, 0 };
         if (!cs_surface[i]) {   /* keep the panels we got: panel 1 (the first in the file) matters most */
@@ -927,6 +1067,15 @@ static int cs_init(const az_core_v1 *core)
             .parent = "show", .flags = AZ_ROW_DEFAULT_ON,
             .help = "On: the layout that comes with the mod. Off: your own data/layout.txt (kept, never changed)" };
         cs_shipped_row = C->register_row(MOD_ID, &ship);
+        az_row_v1 dg = { .size = sizeof dg, .key = "dead-air", .label = "Dead-air warning", .kind = AZ_ROW_TOGGLE,
+            .parent = "show", .flags = AZ_ROW_DEFAULT_ON,
+            .help = "LOAD NEXT, ENDING, QUIET, DEAD AIR" };
+        cs_dg_row = C->register_row(MOD_ID, &dg);
+        static const char *const warns[] = { "20", "30", "45", "60" };
+        az_row_v1 warn = { .size = sizeof warn, .key = "dead-air-warn", .label = "Warn (seconds left)", .kind = AZ_ROW_CHOICE,
+            .parent = "show", .choices = warns, .n_choices = 4, .default_choice = 1,
+            .help = "LOAD NEXT this long before the end" };
+        cs_dg_warn_row = C->register_row(MOD_ID, &warn);
         static const char *const keys[] = { "reset1", "reset2", "reset3", "reset4" };
         static const char *const labels[] = { "Deck 1 phrase starts now", "Deck 2 phrase starts now", "Deck 3 phrase starts now", "Deck 4 phrase starts now" };
         for (int i = 0; i < 4; i++) {
@@ -935,6 +1084,14 @@ static int cs_init(const az_core_v1 *core)
                 .help = "Only for tracks without rekordbox analysis: press it on a downbeat." };
             C->register_row(MOD_ID, &action);
         }
+    }
+    /* dead air: faders and mics (read-only copy), near-silence per deck. Once per process. */
+    static int dg_started;
+    if (!dg_started) {
+        if (AZ_HAS(C, frame_filter)) C->frame_filter(MOD_ID, (1u << AZ_BUS_MIXER_IN) | AZ_FILTER_RAW, dg_frame, NULL);
+        if (AZ_HAS(C, audio_tap))
+            for (int d = 0; d < 4; d++) C->audio_tap(MOD_ID, AZ_TAP_DECK(d), 1024, dg_tap, (void *)(intptr_t)d);
+        dg_started = 1;
     }
     int rc = gp_data_init(C, MOD_ID);
     if (rc) return 10 + rc;
