@@ -1,4 +1,4 @@
-# Crate Remote 0.3.0
+# Crate Remote 0.3.1
 
 Browse both USBs on an iPad or phone while the deck's screen stays on mixing. See what fits the deck you're mixing from, search, open your playlists, and queue picks. Each pick flashes on the deck as **iPad pick: Title · key · BPM · USB n**. You still load with LOAD.
 

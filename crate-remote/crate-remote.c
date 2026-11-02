@@ -21,6 +21,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/socket.h>
+#include <sys/stat.h>
 #include <time.h>
 #include <sys/time.h>
 #include <unistd.h>
@@ -51,7 +52,7 @@ static char cr_addr_wifi[64], cr_addr_wired[64];
 static int cr_mdns_on;             /* the crate-remote.local helper is running */
 static char cr_banner_text[112];
 static unsigned cr_banner_seq;     /* __atomic */
-static int cr_tracks_seen[2] = {-1, -1};
+static int cr_tracks_seen[2] = {-1, -1};   /* -1 not read yet, -2 can't read, else tracks */
 static long cr_requests;           /* __atomic */
 static int cr_port_state;          /* __atomic: 0 closed, 1 serving, -1 port busy; logged by tick */
 
@@ -70,7 +71,7 @@ static int cr_nqueue;
 /* ---- library cache (HTTP thread only) ---- */
 typedef struct { uint32_t id; char *title, *artist, *key; double bpm, len; } cr_track;
 typedef struct { int id, parent, folder; char *name; } cr_pl;
-typedef struct { int state; cr_track *t; int nt, ct; cr_pl *p; int np, cp; long at;
+typedef struct { int state, res; cr_track *t; int nt, ct; cr_pl *p; int np, cp; long at;
                  uint32_t **mem; int *nmem; int members; } cr_stick;  /* mem[i]: playlist i's ids */
 static cr_stick cr_lib[2];
 
@@ -114,23 +115,45 @@ static int cr_collect_pl(int pl_id, int parent, const char *name, int folder, vo
     s->p[s->np++] = (cr_pl){pl_id, parent, folder, cr_dup(name)};
     return 0;
 }
-/* Load (or reload when stale/forced) one stick's tracks and playlists. */
+/* Load (or reload when stale/forced) one stick's tracks and playlists. A library is kept
+ * 5 minutes; a failed read only 10 s, so a USB that was still mounting is read again soon. */
 static cr_stick *cr_stick_get(int stick, int force)
 {
     if (stick < 0 || stick > 1) return NULL;
     cr_stick *s = &cr_lib[stick];
-    if (!force && s->state && cr_now_s() - s->at < 300) return s;
+    if (!force && s->state && cr_now_s() - s->at < (s->state == 1 ? 300 : 10)) return s;
     cr_stick_free(s);
     int r = C->lib_tracks(MOD_ID, stick, 0, cr_collect_track, s);
+    s->res = r;
     if (r < 0) { s->state = -1; s->at = cr_now_s(); }
     else {
         C->lib_playlists(MOD_ID, stick, cr_collect_pl, s);
         s->state = 1; s->at = cr_now_s();
     }
+    if (AZ_HAS(C, log)) C->log(MOD_ID, "USB %d library: lib_tracks %d, %d tracks, %d playlists", stick + 1, r, s->nt, s->np);
     pthread_mutex_lock(&cr_mu);
-    cr_tracks_seen[stick] = s->state == 1 ? s->nt : 0;
+    cr_tracks_seen[stick] = s->state == 1 ? s->nt : -2;
     pthread_mutex_unlock(&cr_mu);
     return s;
+}
+/* Which rekordbox library files the USB holding MODS has: the core reads exportLibrary.db
+ * (Device Library Plus), so a USB with only export.pdb has no library for mods. */
+static void cr_lib_files(cr_sb *b)
+{
+    const char *d = AZ_HAS(C, data_dir) ? C->data_dir(MOD_ID) : NULL;
+    const char *m = d ? strstr(d, "/MODS/") : NULL;
+    if (!m) { cr_sb_str(b, "\"\""); return; }
+    char root[320], f[400];
+    snprintf(root, sizeof root, "%.*s", (int)(m - d), d);
+    struct stat st;
+    snprintf(f, sizeof f, "%s/PIONEER/rekordbox/exportLibrary.db", root);
+    int plus = stat(f, &st) == 0;
+    snprintf(f, sizeof f, "%s/PIONEER/rekordbox/export.pdb", root);
+    int pdb = stat(f, &st) == 0;
+    char msg[200];
+    snprintf(msg, sizeof msg, "The USB with MODS has %s and %s.",
+             plus ? "exportLibrary.db" : "no exportLibrary.db", pdb ? "export.pdb" : "no export.pdb");
+    cr_json_str(b, msg);
 }
 static const cr_track *cr_find(cr_stick *s, uint32_t id)
 {
@@ -285,7 +308,9 @@ static void cr_api_state(cr_sb *b)
 static void cr_api_tracks(cr_sb *b, int stick, int force)
 {
     cr_stick *s = cr_stick_get(stick, force);
-    cr_sb_fmt(b, "{\"stick\":%d,\"ok\":%d,\"tracks\":[", stick, s && s->state == 1);
+    cr_sb_fmt(b, "{\"stick\":%d,\"ok\":%d,", stick, s && s->state == 1);
+    if (s && s->state != 1) { cr_sb_str(b, "\"files\":"); cr_lib_files(b); cr_sb_str(b, ","); }
+    cr_sb_str(b, "\"tracks\":[");
     for (int i = 0; s && s->state == 1 && i < s->nt; i++) {
         const cr_track *t = &s->t[i];
         cr_sb_fmt(b, "%s[%u,", i ? "," : "", t->id);
@@ -421,12 +446,17 @@ static void cr_update_addr(void)
     pthread_mutex_unlock(&cr_mu);
     if (__atomic_load_n(&cr_enabled, __ATOMIC_RELAXED)) cr_mdns_sync(wifi, wired);
 }
+/* Sends everything unless the phone stops taking data for about 30 s (each send waits up
+ * to 3 s): a big track list over a busy Wi-Fi stalls for a few seconds at a time. */
 static void cr_send_all(int fd, const char *p, size_t n)
 {
+    int stalls = 0;
     while (n) {
         ssize_t w = send(fd, p, n, MSG_NOSIGNAL);
-        if (w <= 0) { if (w < 0 && errno == EINTR) continue; return; }
-        p += w; n -= (size_t)w;
+        if (w < 0 && errno == EINTR) continue;
+        if (w < 0 && (errno == EAGAIN || errno == EWOULDBLOCK) && ++stalls < 10) continue;
+        if (w <= 0) return;
+        p += w; n -= (size_t)w; stalls = 0;
     }
 }
 static void cr_serve_one(int fd)
@@ -670,8 +700,8 @@ static void cr_draw(az_draw *d, az_rect a, void *user)
     snprintf(line, sizeof line, "PIN  %04d", cr_pin);
     y = cr_line(d, a, y, line, 48, text);
     char a0[24], a1[24];
-    if (t0 > 0) snprintf(a0, sizeof a0, "%d tracks", t0); else snprintf(a0, sizeof a0, "%s", t0 == 0 ? "none" : "not read yet");
-    if (t1 > 0) snprintf(a1, sizeof a1, "%d tracks", t1); else snprintf(a1, sizeof a1, "%s", t1 == 0 ? "none" : "not read yet");
+    if (t0 >= 0) snprintf(a0, sizeof a0, "%d tracks", t0); else snprintf(a0, sizeof a0, "%s", t0 == -2 ? "can't read" : "not read yet");
+    if (t1 >= 0) snprintf(a1, sizeof a1, "%d tracks", t1); else snprintf(a1, sizeof a1, "%s", t1 == -2 ? "can't read" : "not read yet");
     snprintf(line, sizeof line, "USB 1: %s    USB 2: %s    Requests: %ld", a0, a1,
              __atomic_load_n(&cr_requests, __ATOMIC_RELAXED));
     y = cr_line(d, a, y, line, 18, dim);

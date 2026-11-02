@@ -73,7 +73,7 @@ main{padding:0 16px 120px}
 </div>
 <header>
   <h1>Crate Remote</h1>
-  <div class="seg" id="sticks"><button data-s="0" class="on">USB 1</button><button data-s="1">USB 2</button></div>
+  <div class="seg" id="sticks"><button data-s="0" class="on">USB 1</button><button data-s="1">USB 2</button><button id="reload" title="Read the USB again">⟳</button></div>
 </header>
 <section id="decks"></section>
 <nav id="tabs">
@@ -91,8 +91,9 @@ main{padding:0 16px 120px}
 <script>
 "use strict";
 const $=s=>document.querySelector(s);
-let PIN=localStorage.getItem("cr_pin")||"", stick=0, tab="fits", ref=-1, refPinned=false;
-let lib=[null,null], lists=[null,null], state={decks:[],queue:[]}, query="", path=[], bpmWin=6, plIds=null;
+const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+let PIN=store.get("cr_pin")||"", stick=0, tab="fits", ref=-1, refPinned=false;
+let lib=[null,null], libErr=["",""], libTry=[null,null], lists=[null,null], state={decks:[],queue:[]}, query="", path=[], bpmWin=6, plIds=null;
 const played=new Set(JSON.parse(sessionStorage.getItem("cr_played")||"[]"));
 // ---- keys -> Camelot ----
 const MAJ={C:8,G:9,D:10,A:11,E:12,B:1,"F#":2,Gb:2,Db:3,"C#":3,Ab:4,"G#":4,Eb:5,"D#":5,Bb:6,"A#":6,F:7};
@@ -118,16 +119,29 @@ function bpmGap(bpm,refBpm){ // closest of 1x, 2x, 1/2x; percent
   return best;
 }
 // ---- api ----
-async function api(p){
-  const r=await fetch(p+(p.includes("?")?"&":"?")+"pin="+encodeURIComponent(PIN),{cache:"no-store"});
-  if(r.status===403){askPin();throw new Error("pin")}
-  if(!r.ok)throw new Error(r.status); return r.json();
+// A deck that doesn't answer in `ms` counts as failed, so nothing waits forever.
+async function api(p,ms=15000){
+  const ac=new AbortController(), to=setTimeout(()=>ac.abort(),ms);
+  try{
+    const r=await fetch(p+(p.includes("?")?"&":"?")+"pin="+encodeURIComponent(PIN),{cache:"no-store",signal:ac.signal});
+    if(r.status===403){askPin();throw new Error("pin")}
+    if(!r.ok)throw new Error("the deck answered "+r.status); return await r.json();
+  }catch(e){ throw e.name==="AbortError"?new Error("the deck didn't answer in time"):e }
+  finally{ clearTimeout(to) }
 }
 function askPin(){ $("#pin").style.display="flex"; $("#pinIn").value=""; $("#pinIn").focus(); }
-$("#pinIn").addEventListener("input",e=>{ if(e.target.value.length===4){PIN=e.target.value;localStorage.setItem("cr_pin",PIN);$("#pin").style.display="none";boot()} });
+$("#pinIn").addEventListener("input",e=>{ if(e.target.value.length===4){PIN=e.target.value;store.set("cr_pin",PIN);$("#pin").style.display="none";boot()} });
 function toast(t){const el=$("#toast");el.textContent=t;el.style.display="block";clearTimeout(toast.t);toast.t=setTimeout(()=>el.style.display="none",1800)}
+// Reads a USB's list; on failure says why and tries again by itself (sooner when the
+// deck didn't answer, every 15 s when it has no library on that USB).
 async function loadLib(s,force){
-  const j=await api(`/api/tracks?stick=${s}${force?"&refresh=1":""}`);
+  clearTimeout(libTry[s]); libTry[s]=null;
+  let j;
+  try{ j=await api(`/api/tracks?stick=${s}${force?"&refresh=1":""}`,120000) }
+  catch(e){ if(e.message==="pin")return; if(!lib[s]||!lib[s].length){lib[s]=null;libErr[s]=e.message||"no answer"}
+    libTry[s]=setTimeout(()=>loadLib(s,true).then(render),5000); render(); return }
+  libErr[s]=j.ok?"":(j.files||"");
+  if(!j.ok)libTry[s]=setTimeout(()=>loadLib(s,true).then(render),15000);
   lib[s]=j.ok?j.tracks.map(t=>({id:t[0],title:t[1],artist:t[2],key:t[3],bpm:t[4],len:t[5],c:cam(t[3]),s})):[];
 }
 async function loadLists(s){ const j=await api(`/api/playlists?stick=${s}`); lists[s]=j.ok?j.playlists.map(p=>({id:p[0],parent:p[1],folder:!!p[2],name:p[3]})):[]; }
@@ -182,8 +196,9 @@ function bar(){
 function render(){
   const L=lib[stick]; const el=$("#list");
   if(tab==="queue"){el.innerHTML=state.queue.length?state.queue.map((q,i)=>`<div class="row"><div class="k ${(()=>{const r=refDeck();return r?match(cam(q.key),cam(r.key)):""})()}">${camStr(cam(q.key))}</div><div class="tt"><b>${esc(q.title)}</b><span>${esc(q.artist)} · USB ${q.stick+1}</span></div><div class="bpm">${q.bpm?q.bpm.toFixed(1):""}</div><button class="add" data-rm="${i}">✕</button></div>`).join(""):`<p class="hint">Nothing queued. Tap + on a track; it shows on the deck.</p>`;return}
-  if(!L){el.innerHTML=`<p class="hint">Reading USB ${stick+1}…</p>`;return}
-  if(!L.length){el.innerHTML=`<p class="hint">No library on USB ${stick+1}.</p>`;return}
+  const again=`<p class="hint"><button class="add" id="again">Try again now</button></p>`;
+  if(!L){el.innerHTML=libErr[stick]?`<p class="hint">Couldn't get USB ${stick+1}'s songs: ${esc(libErr[stick])}. Trying again…</p>`+again:`<p class="hint">Reading USB ${stick+1}… (a big library takes a while)</p>`;return}
+  if(!L.length){el.innerHTML=`<p class="hint">No library on USB ${stick+1}. ${esc(libErr[stick])} Checking again every 15 s.</p>`+again;return}
   if(tab==="search"){const q=query.trim().toLowerCase(); el.innerHTML=q.length<2?`<p class="hint">Type at least 2 letters.</p>`:rowsHtml(L.filter(t=>(t.title+" "+t.artist).toLowerCase().includes(q)));return}
   if(tab==="fits"){
     const r=refDeck(); if(!r){el.innerHTML=`<p class="hint">Load a track on a deck to see what fits.</p>`;return}
@@ -202,6 +217,8 @@ function render(){
 }
 $("#tabs").addEventListener("click",e=>{const b=e.target.closest("button[data-t]");if(!b)return;tab=b.dataset.t;
   document.querySelectorAll("#tabs button").forEach(x=>x.classList.toggle("on",x===b));bar();render();if(tab==="search")$("#q").focus()});
+$("#reload").addEventListener("click",async()=>{lib[stick]=null;libErr[stick]="";lists[stick]=null;render();await loadLib(stick,true);render()});
+$("#list").addEventListener("click",async e=>{if(e.target.id!=="again")return;lib[stick]=null;libErr[stick]="";render();await loadLib(stick,true);render()});
 $("#sticks").addEventListener("click",async e=>{const b=e.target.closest("button[data-s]");if(!b)return;stick=+b.dataset.s;path=[];plIds=null;
   document.querySelectorAll("#sticks button").forEach(x=>x.classList.toggle("on",x===b));bar();render();if(!lib[stick]){await loadLib(stick);render()}});
 $("#bar").addEventListener("click",async e=>{const w=e.target.closest("[data-w]");if(w){bpmWin=+w.dataset.w;bar();render();return}
@@ -240,8 +257,12 @@ let lastSig="";
 function listSig(){const r=refDeck();return tab+"|"+(r?[r.id,r.key,Math.round((r.bpm||0)*10)].join(","):"-")+"|"+state.queue.map(q=>q.stick+":"+q.id).join(",")+"|"+played.size}
 async function poll(){try{state=await api("/api/state");drawDecks();drawNav();
   if(tab==="fits"||tab==="queue"){const sig=listSig();if(sig!==lastSig){lastSig=sig;render()}}}catch(e){} setTimeout(poll,2000)}
-async function boot(){ try{ state=await api("/api/state"); }catch(e){return}
-  drawDecks();bar();render(); await loadLib(stick); render(); poll(); loadLib(1-stick).catch(()=>{}); }
+async function boot(){
+  try{ state=await api("/api/state"); }
+  catch(e){ if(e.message==="pin")return;
+    $("#list").innerHTML=`<p class="hint">Can't reach the deck at ${esc(location.host)}: ${esc(e.message)}. Is this phone on the deck's Wi-Fi? Trying again…</p>`;
+    setTimeout(boot,3000); return }
+  drawDecks();bar();render(); poll(); await loadLib(stick); render(); loadLib(1-stick).catch(()=>{}); }
 if(!PIN)askPin(); else boot();
 </script>
 </body>
