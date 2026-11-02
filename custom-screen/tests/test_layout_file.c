@@ -49,9 +49,11 @@ static void folded_mods(void)
     CHECK(cs_parse(assets_buf, n, &L) == 4);
     CHECK(L.errors == 0);
     const cs_panel *p = &L.p[3];
-    CHECK(p->id == 4 && p->x == 212 && p->y == 46 && p->w == 838 && p->h == 47 && p->n == 2);
-    CHECK(p->wd[0].type == CS_PHASE && p->wd[0].zoom == 13 && p->wd[0].deck == CS_DECK_NONE);
-    CHECK(p->wd[1].type == CS_DEAD_AIR && p->wd[1].align == CS_ALIGN_C);
+    CHECK(p->id == 4 && p->x == 212 && p->y == 46 && p->w == 876 && p->h == 512 && p->n == 10);
+    CHECK(p->wd[0].type == CS_PHASE && p->wd[0].zoom == 13 && p->wd[0].deck == CS_DECK_NONE && p->wd[0].h == 34);
+    CHECK(p->wd[1].type == CS_WAVE && p->wd[1].deck == 2 && p->wd[1].y == 38 && p->wd[1].zoom == 16);
+    CHECK(p->wd[8].type == CS_OVERVIEW && p->wd[8].deck == 3 && p->wd[8].y + p->wd[8].h == 512);
+    CHECK(p->wd[9].type == CS_DEAD_AIR && p->wd[9].align == CS_ALIGN_C && p->wd[9].h == 34);
     const char *g = "panel 1 x=0 y=0 w=10 h=10\nwidget 1 phase w=5\nwidget 1 dead_air\nwidget 1 dead_airx\n";
     CHECK(cs_parse(g, strlen(g), &L) == 1 && L.p[0].n == 2 && L.errors == 1);
 }

@@ -55,6 +55,8 @@ The shipped layout puts each deck's song name, a big key, BPM and time left in i
 
 `examples/four-deck-waveforms.txt` puts all four decks in one panel over the 4 DECK waveform area (rows 3-1-2-4 at y 80 / 202 / 324 / 446, x 212 to 1088), each with its title, time left, a 16-beat wave and the overview, which leaves three panels free. Scrolling panels repaint at most 25 times a second in all, and the mod logs its longest paint every 10 seconds (`paint: N panels in 10 s, longest N us`) so a run shows whether it fits.
 
+From 0.5.3 the shipped layout adds this panel (all four decks, a 16-beat wave and the overview under it; titles stay in the left strips), and Mod Menu > Custom Screen > **4-deck waveforms** turns it off: any panel holding a `wave` or `overview` hides and the deck's own waveforms show again. `examples/my-picks-waves.txt` is the same layout.
+
 A track with no analysis on the stick shows "No rekordbox waveform for this track" and is looked up again every 30 seconds. Reading `PIONEER/USBANLZ` is outside the mod's own folders: the SDK allows it but doesn't promise it.
 
 ## Mod Menu

@@ -36,7 +36,8 @@ static int f_deck_info(int deck, az_deck_info *o) { int sz = o->size; memset(o, 
 static int f_deck_grid(int deck, double *b, double *bar) { if (!f_deck[deck].playing) return -1; *b = 0.25; *bar = -1; return 0; }
 static unsigned f_views;
 static az_surface *f_surface_create(const char *id, const az_surface_v1 *s) { (void)id; f_views = s->views; static char slots[4]; static int n; f_slot0 = slots; return n < 4 ? (az_surface *)&slots[n++] : NULL; }
-static void f_place(az_surface *s, az_rect r) { (void)s; (void)r; }
+static az_rect f_at[4];
+static void f_place(az_surface *s, az_rect r) { if (f_slot0) f_at[(char *)s - f_slot0] = r; }
 static void f_show(az_surface *s, int on) { if (f_slot0) f_shown[(char *)s - f_slot0] = on; }
 static void f_redraw(az_surface *s) { (void)s; }
 static int f_thread(const char *id, const char *name, void *(*fn)(void *), void *arg) { (void)id; (void)name;
@@ -48,7 +49,8 @@ static int f_touch_filter(const char *id, az_touch_fn fn, void *u) { (void)id; (
 static int f_get_view(void) { return f_view; }
 static int f_register_row(const char *id, const az_row_v1 *r) { (void)id; (void)r; return f_rows++; }
 static int f_dg_on = 1;
-static int f_row_value(int h) { return h == 0 || (h == cs_dg_row && f_dg_on); }   /* on: Custom Screen, Dead-air warning; Warn = 20 s */
+static int f_waves_on = 1;
+static int f_row_value(int h) { return h == 0 || (h == cs_dg_row && f_dg_on) || (h == cs_waves_row && f_waves_on); }   /* on: Custom Screen, Dead-air warning; Warn = 20 s */
 static void f_banner(const char *id, const char *t, int ms) { (void)id; (void)ms; fprintf(stderr, "  banner: %s\n", t); }
 
 static az_core_v1 F;
@@ -78,8 +80,10 @@ int main(void)
     fputs("version 1\nname folded\n"
           "panel 1 x=0 y=80 w=140 h=60 views=4\n"
           "widget 1 title deck=1 x=8 y=2 w=130 h=28 size=18\n"
-          "panel 4 x=212 y=46 w=838 h=47 views=4 bg=auto\n"
+          "panel 4 x=212 y=46 w=838 h=200 views=4 bg=auto\n"
           "widget 4 phase x=0 y=0 w=838 h=47 size=10 zoom=13\n"
+          "widget 4 wave deck=1 x=0 y=50 w=838 h=86 zoom=16\n"
+          "widget 4 overview deck=1 x=0 y=140 w=838 h=60\n"
           "widget 4 dead_air x=0 y=0 w=838 h=47 size=22 align=c\n", f);
     fclose(f);
     f_init();
@@ -108,7 +112,7 @@ int main(void)
 
     /* the warning shows on the browse screen too; the other panel doesn't */
     f_view = AZ_VIEW_BROWSE; run(200);
-    CHECK(f_shown[1] == 1 && f_shown[0] == 0);
+    CHECK(f_shown[1] == 1 && f_shown[0] == 0 && f_at[1].h == 47);
     f_view = AZ_VIEW_MENU; run(200);
     CHECK(f_shown[1] == 0);
     f_view = AZ_VIEW_DECK; run(200);
@@ -126,6 +130,13 @@ int main(void)
     f_view = AZ_VIEW_BROWSE; run(200);
     CHECK(f_shown[1] == 0);
     f_view = AZ_VIEW_DECK; run(200);
+
+    /* 4-deck waveforms off: the panel shrinks to the strip, waves aren't painted or loaded */
+    CHECK(f_at[1].h == 200);
+    f_waves_on = 0; run(200);
+    CHECK(f_at[1].h == 47 && f_shown[1] == 1 && cw_wanted == 0);
+    f_waves_on = 1; run(200);
+    CHECK(f_at[1].h == 200);
 
     /* the music stops with the mic off: DEAD AIR after 1.5 s */
     f_deck[0].playing = 0; run(2000);

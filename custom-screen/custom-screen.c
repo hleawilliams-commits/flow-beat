@@ -36,7 +36,7 @@
 
 static const az_core_v1 *C;
 static az_surface *cs_surface[CS_PANELS];
-static int cs_show_row = -1, cs_view_row = -1, cs_bars_row = -1, cs_shipped_row = -1, cs_colours_row = -1;
+static int cs_show_row = -1, cs_view_row = -1, cs_bars_row = -1, cs_shipped_row = -1, cs_colours_row = -1, cs_waves_row = -1;
 static int cs_colours;   /* atomic: 0 Mod Menu theme, 1 riso, 2 FlowVJ, 3 classic */
 static const int CS_BARS[] = { 4, 8, 16 };   /* the Phrase length row's choices */
 
@@ -135,6 +135,28 @@ static int cs_has_wave(const cs_panel *p)
     return 0;
 }
 static az_rect cs_at[CS_PANELS];
+
+/* What a panel shows right now. The tick sets these two for the painter (atomics). */
+static int cs_paint_waves = 1, cs_paint_deck = 1;
+static int cs_widget_on(const cs_widget *w, int waves_on, int deck_view)
+{
+    if (!deck_view) return w->type == CS_DEAD_AIR;   /* off the deck screen: only a dead-air warning */
+    return waves_on || (w->type != CS_WAVE && w->type != CS_OVERVIEW);
+}
+/* The panel's height with some widgets hidden: all shown = the whole panel; otherwise down to the
+ * lowest shown widget (the panel stays top-anchored, so the 4-deck waveforms switch keeps a phase
+ * strip above the waves and gives the deck's own waveforms back); 0 = nothing to show. */
+static int cs_panel_h(const cs_panel *p, int waves_on, int deck_view)
+{
+    int all = 1, bottom = 0;
+    for (int k = 0; k < p->n; k++) {
+        const cs_widget *w = &p->wd[k];
+        if (!cs_widget_on(w, waves_on, deck_view)) { all = 0; continue; }
+        if (w->y + w->h > bottom) bottom = w->y + w->h;
+    }
+    if (all) return p->h;
+    return bottom < p->h ? bottom : p->h;
+}
 
 #define CS_ACCENT 0x32D5FFu
 
@@ -734,7 +756,8 @@ static void cs_paint_timed(az_draw *d, az_rect a, void *user)
     } else themed = 0;                   /* classic, or the Mod Menu's themes are off / Day */
     /* a theme colours every panel that has a background; classic keeps the layout's own */
     if (p->bg != CS_COL_AUTO) cs_fill(d, a, a.x, a.y, a.w, a.h, themed && p->bg != CS_COL_NONE ? t.bg : cs_resolve(p->bg, t.bg, &t));
-    for (int k = 0; k < p->n; k++) cs_widget_paint(d, a, &p->wd[k], &t);
+    int waves_on = __atomic_load_n(&cs_paint_waves, __ATOMIC_ACQUIRE), deck_view = __atomic_load_n(&cs_paint_deck, __ATOMIC_ACQUIRE);
+    for (int k = 0; k < p->n; k++) if (cs_widget_on(&p->wd[k], waves_on, deck_view)) cs_widget_paint(d, a, &p->wd[k], &t);
     if (p->border != CS_COL_NONE && p->bw > 0) {
         uint32_t c = cs_resolve(p->border, t.accent, &t);
         cs_fill(d, a, a.x, a.y, a.w, p->bw, c);
@@ -836,6 +859,8 @@ static void cs_tick(void)
     int relayout = 0;
     cs_take_layout(&relayout);
     int enabled = cs_show_row < 0 || C->row_value(cs_show_row) == 1;
+    /* Mod Menu '4-deck waveforms' off: panels holding a wave or overview hide, the deck's own show */
+    int waves_on = cs_waves_row < 0 || C->row_value(cs_waves_row) == 1;
     if (cs_colours_row >= 0) {
         int pick = C->row_value(cs_colours_row);
         pick = pick >= 0 && pick < 4 ? pick : 0;
@@ -962,7 +987,8 @@ static void cs_tick(void)
         const cs_panel *p = slot < cs_ui.n ? &cs_ui.p[slot] : NULL;
         if (!cs_surface[slot] || !enabled || !p || !(p->views & bit)) continue;
         for (int k = 0; k < p->n; k++)
-            if (p->wd[k].type == CS_PHRASE_NAME || p->wd[k].type == CS_DROP_IN || p->wd[k].type == CS_PHRASE ||
+            if (!waves_on && (p->wd[k].type == CS_WAVE || p->wd[k].type == CS_OVERVIEW)) continue;   /* switched off: no loading, no scrolling */
+            else if (p->wd[k].type == CS_PHRASE_NAME || p->wd[k].type == CS_DROP_IN || p->wd[k].type == CS_PHRASE ||
                 p->wd[k].type == CS_PHRASE_BAR || p->wd[k].type == CS_BEAT) { wanted = 1; phrases = 1; }
             else if (p->wd[k].type == CS_WAVE || p->wd[k].type == CS_OVERVIEW) {
                 wanted = 1;
@@ -977,17 +1003,21 @@ static void cs_tick(void)
     int frame = nmoving && now - cs_wave_frame >= 1000L * nmoving / CS_WAVE_FPS;
     if (frame) cs_wave_frame = now;
     int taps_moved = relayout;
+    if (waves_on != __atomic_load_n(&cs_paint_waves, __ATOMIC_RELAXED)) __atomic_store_n(&cs_paint_waves, waves_on, __ATOMIC_RELEASE);
+    if ((view == AZ_VIEW_DECK) != __atomic_load_n(&cs_paint_deck, __ATOMIC_RELAXED)) __atomic_store_n(&cs_paint_deck, view == AZ_VIEW_DECK, __ATOMIC_RELEASE);
     for (int slot = 0; slot < CS_PANELS; slot++) {
         if (!cs_surface[slot]) continue;
         const cs_panel *p = slot < cs_ui.n ? &cs_ui.p[slot] : NULL;
-        int show = enabled && p && (p->views & bit);
-        int changed = 0, waves = moving[slot] ? frame : wave_new && cs_has_wave(p);
-        if (moving[slot] && !wave_new && !(has_dg[slot] && dg_changed)) dirty_here[slot] = 0;
+        int deck_view = view == AZ_VIEW_DECK;
+        int show = enabled && p && (p->views & bit) && view != AZ_VIEW_MENU;
+        int h = show ? cs_panel_h(p, waves_on, deck_view) : 0;
         /* Off the deck screen (browse, source, search) only a dead-air warning shows, and only
          * while it is up; in a menu nothing does. */
-        if (show && view != AZ_VIEW_DECK) show = has_dg[slot] && cs_dg.state != DG_OK && view != AZ_VIEW_MENU;
+        if (h <= 0 || (!deck_view && cs_dg.state == DG_OK)) show = 0;
+        int changed = 0, waves = moving[slot] ? frame : wave_new && waves_on && cs_has_wave(p);
+        if (moving[slot] && !wave_new && !(has_dg[slot] && dg_changed)) dirty_here[slot] = 0;
         if (show) {
-            az_rect r = { p->x, p->y, p->w, p->h };
+            az_rect r = { p->x, p->y, p->w, h };
             if (memcmp(&r, &cs_at[slot], sizeof r)) { cs_at[slot] = r; C->surface_place(cs_surface[slot], r); changed = 1; }
         }
         if (show != cs_visible[slot]) { cs_visible[slot] = show; C->surface_show(cs_surface[slot], show); changed = 1; taps_moved = 1; }
@@ -1076,6 +1106,10 @@ static int cs_init(const az_core_v1 *core)
             .parent = "show", .choices = warns, .n_choices = 4, .default_choice = 1,
             .help = "LOAD NEXT this long before the end" };
         cs_dg_warn_row = C->register_row(MOD_ID, &warn);
+        az_row_v1 waves = { .size = sizeof waves, .key = "waves", .label = "4-deck waveforms", .kind = AZ_ROW_TOGGLE,
+            .parent = "show", .flags = AZ_ROW_DEFAULT_ON,
+            .help = "Off hides the waveform panel and shows the deck's own waveforms" };
+        cs_waves_row = C->register_row(MOD_ID, &waves);
         static const char *const keys[] = { "reset1", "reset2", "reset3", "reset4" };
         static const char *const labels[] = { "Deck 1 phrase starts now", "Deck 2 phrase starts now", "Deck 3 phrase starts now", "Deck 4 phrase starts now" };
         for (int i = 0; i < 4; i++) {
