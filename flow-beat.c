@@ -74,6 +74,17 @@
  *   flow-beat:link_audio_rate = 0       0: send at each tap's own rate, measured and snapped to the
  *                                       standard rate it is (the emulator's taps run at 44100);
  *                                       else force this rate in Hz
+ *
+ * Lights from this deck (0.6.0, row "Lights from this deck", off by default; lights.h): the deck
+ * runs a light show itself and sends it as Art-Net (ArtDmx, UDP 6454, 40 frames a second) to an
+ * Art-Net node on its network, so the lights play with no computer. It follows the playing deck
+ * whose fader is up most: beat chases, bass pump, a fade in breakdowns, a white hit on the drop.
+ * While another computer sends ArtDmx to the same universe (FLOW VJ's lightbridge with Art-Net on,
+ * a house console), the deck stays quiet, and takes over again 3 s after that sender stops.
+ *   flow-beat:artnet_host = ""          one node's IPv4 address (default: broadcast on every network)
+ *   flow-beat:artnet_universe = 0       the Art-Net Port-Address (0 = Net 0, Sub-Net 0, Universe 0)
+ *   flow-beat:artnet_patch = "4bar_tri_15@59,slimpar_h6_8@74,..."   the rig, type@address[:flip];
+ *                                       default: MLT's rig as in FLOW VJ's dmx_patch.json
  */
 #define _GNU_SOURCE             /* RTLD_DEFAULT (0.5.3: azstem_stem_fx_on) */
 #include <arpa/inet.h>
@@ -99,6 +110,7 @@
 #include "mixer.h"
 #include "link.h"
 #include "fx.h"
+#include "lights.h"
 
 #define MOD_ID "flow-beat"
 #define NDECKS 4
@@ -279,6 +291,7 @@ static void send_pkt_locked(const char *buf, int len)
 /* ---- each deck's own audio (0.3.0) ------------------------------------------------------- */
 /* Tap threads write, the worker reads and resets: the peak since the last state packet. */
 static _Atomic float lvl[NDECKS], low[NDECKS];
+static _Atomic float lt_low[NDECKS];       /* 0.6.0: the same bass peak, read and reset by the lights */
 static float lp_l[NDECKS], lp_r[NDECKS];   /* one-pole low-pass state, touched only by that deck's tap */
 #define TAP_FRAMES 480                     /* ~10 ms at 48 kHz */
 static void meter(const float *lr, int frames, void *user)
@@ -300,6 +313,7 @@ static void meter(const float *lr, int frames, void *user)
     if (b > 1.f) b = 1.f;
     if (v > atomic_load_explicit(&lvl[d], memory_order_relaxed)) atomic_store_explicit(&lvl[d], v, memory_order_relaxed);
     if (b > atomic_load_explicit(&low[d], memory_order_relaxed)) atomic_store_explicit(&low[d], b, memory_order_relaxed);
+    if (b > atomic_load_explicit(&lt_low[d], memory_order_relaxed)) atomic_store_explicit(&lt_low[d], b, memory_order_relaxed);
 }
 
 /* Each deck's tap: the level meter, then Link Audio (it returns at once while that is off). */
@@ -649,6 +663,223 @@ static void link_step(const az_deck_info *di, const double *ph, const unsigned *
     }
 }
 
+/* ---- 0.6.0: Lights from this deck (lights.h): the deck's own show, as Art-Net -------------- */
+static int row_lights = -1;            /* "Lights from this deck", off by default */
+static int row_look = -1;              /* "Deck lights colours" */
+#define LT_STEPS 5                     /* a frame every 25 ms: 40 a second, like FLOW's lightbridge */
+#define LT_YIELD_MS 3000               /* another Art-Net source on our universe: stay quiet this long */
+static int lt_sock = -1;               /* sends (broadcast allowed) */
+static int lt_rx = -1;                 /* listens on 6454 for another sender; -2 = port taken */
+static struct sockaddr_in lt_dests[MAX_DESTS];
+static int lt_ndests;
+static uint32_t lt_own[MAX_DESTS];     /* our own addresses: our broadcasts come back to us */
+static int lt_nown;
+
+#ifndef FLOW_LIGHTS_DEFAULT
+#define FLOW_LIGHTS_DEFAULT 0          /* make test TEST_CC="clang -DFLOW_LIGHTS_DEFAULT=1": the harness with the lights on */
+#endif
+static int lights_on(void)
+{
+    return row_lights >= 0 ? C->row_value(row_lights) == 1 : C->cfg_get(MOD_ID, "artnet", FLOW_LIGHTS_DEFAULT) != 0;
+}
+
+/* Where frames go: flow-beat:artnet_host (one node), else every network's broadcast. Also learns
+ * our own addresses. Returns the universe (Port-Address 0..32767). */
+static int lights_cfg(lt_fix *fix, int *nfix, int quiet)
+{
+    char host[64], patch[600];
+    C->cfg_get_str(MOD_ID, "artnet_host", host, (int)sizeof host, "");
+    C->cfg_get_str(MOD_ID, "artnet_patch", patch, (int)sizeof patch, LT_DEFAULT_PATCH);
+    int uni = C->cfg_get(MOD_ID, "artnet_universe", 0);
+    if (uni < 0 || uni > 32767) uni = 0;
+    int bad = -1;
+    int n = lt_parse_patch(patch, fix, LT_MAX_FIX, &bad);
+    if (n == 0) n = lt_parse_patch(LT_DEFAULT_PATCH, fix, LT_MAX_FIX, NULL);
+    if (!quiet && bad >= 0) C->log(MOD_ID, "lights: artnet_patch entry %d not understood, skipped", bad + 1);
+    *nfix = n;
+
+    struct in_addr a;
+    int one = host[0] && inet_pton(AF_INET, host, &a) == 1;
+    if (host[0] && !one && !quiet) C->log(MOD_ID, "lights: artnet_host \"%s\" is not an IPv4 address: broadcasting", host);
+    lt_ndests = 0;
+    lt_nown = 0;
+    struct ifaddrs *ifs = NULL;
+    if (getifaddrs(&ifs) == 0) {
+        for (struct ifaddrs *i = ifs; i; i = i->ifa_next) {
+            if (!i->ifa_addr || i->ifa_addr->sa_family != AF_INET) continue;
+            if (!(i->ifa_flags & IFF_UP)) continue;
+            if (lt_nown < MAX_DESTS) lt_own[lt_nown++] = ((struct sockaddr_in *)i->ifa_addr)->sin_addr.s_addr;
+            if (one || (i->ifa_flags & IFF_LOOPBACK)) continue;
+            if (!(i->ifa_flags & IFF_BROADCAST) || !i->ifa_broadaddr) continue;
+            if (lt_ndests >= MAX_DESTS) continue;
+            memset(&lt_dests[lt_ndests], 0, sizeof lt_dests[0]);
+            lt_dests[lt_ndests].sin_family = AF_INET;
+            lt_dests[lt_ndests].sin_port = htons(LT_PORT);
+            lt_dests[lt_ndests].sin_addr = ((struct sockaddr_in *)i->ifa_broadaddr)->sin_addr;
+            lt_ndests++;
+        }
+        freeifaddrs(ifs);
+    }
+    if (one || lt_ndests == 0) {
+        if (!one) inet_pton(AF_INET, "255.255.255.255", &a);
+        memset(&lt_dests[0], 0, sizeof lt_dests[0]);
+        lt_dests[0].sin_family = AF_INET;
+        lt_dests[0].sin_port = htons(LT_PORT);
+        lt_dests[0].sin_addr = a;
+        lt_ndests = 1;
+    }
+    if (!quiet) {
+        for (int i = 0; i < lt_ndests; i++) {
+            char ip[INET_ADDRSTRLEN];
+            inet_ntop(AF_INET, &lt_dests[i].sin_addr, ip, sizeof ip);
+            C->log(MOD_ID, "lights: Art-Net universe %d to %s:%d, %d fixtures", uni, ip, LT_PORT, n);
+        }
+    }
+    return uni;
+}
+
+static void lights_send(const uint8_t *pkt, int len)
+{
+    if (lt_sock < 0) {
+        lt_sock = socket(AF_INET, SOCK_DGRAM | SOCK_CLOEXEC, 0);
+        if (lt_sock < 0) return;
+        int on = 1;
+        setsockopt(lt_sock, SOL_SOCKET, SO_BROADCAST, &on, sizeof on);
+    }
+    int sent = 0;
+    for (int i = 0; i < lt_ndests; i++) {
+        if (sendto(lt_sock, pkt, (size_t)len, MSG_DONTWAIT, (const struct sockaddr *)&lt_dests[i], sizeof lt_dests[i]) >= 0 ||
+            errno == EAGAIN || errno == EWOULDBLOCK)
+            sent = 1;
+    }
+    if (!sent && lt_ndests > 0) { close(lt_sock); lt_sock = -1; }   /* no network yet: a fresh socket next time */
+}
+
+/* 1 if another computer sent ArtDmx to our universe since the last call (FLOW VJ's lightbridge
+ * with Art-Net on, a console): then the deck stays quiet and the computer has the lights. */
+static int lights_other(int uni)
+{
+    if (lt_rx == -2) return 0;
+    if (lt_rx < 0) {
+        lt_rx = socket(AF_INET, SOCK_DGRAM | SOCK_NONBLOCK | SOCK_CLOEXEC, 0);
+        if (lt_rx < 0) { lt_rx = -2; return 0; }
+        int on = 1;
+        setsockopt(lt_rx, SOL_SOCKET, SO_REUSEADDR, &on, sizeof on);
+        struct sockaddr_in a;
+        memset(&a, 0, sizeof a);
+        a.sin_family = AF_INET;
+        a.sin_port = htons(LT_PORT);
+        a.sin_addr.s_addr = htonl(INADDR_ANY);
+        if (bind(lt_rx, (struct sockaddr *)&a, sizeof a) != 0) {
+            C->log(MOD_ID, "lights: UDP %d is taken: the deck can't hear another Art-Net sender", LT_PORT);
+            close(lt_rx);
+            lt_rx = -2;
+            return 0;
+        }
+    }
+    uint8_t m[64];
+    struct sockaddr_in from;
+    socklen_t fl = sizeof from;
+    int other = 0;
+    ssize_t n;
+    while ((n = recvfrom(lt_rx, m, sizeof m, MSG_DONTWAIT | MSG_TRUNC, (struct sockaddr *)&from, &fl)) > 0) {
+        fl = sizeof from;
+        if (lt_artdmx_universe(m, n < (ssize_t)sizeof m ? (int)n : (int)sizeof m) != uni) continue;
+        int own = 0;
+        for (int i = 0; i < lt_nown; i++) own |= from.sin_addr.s_addr == lt_own[i];
+        if (!own) other = 1;
+    }
+    return other;
+}
+
+static void lights_close(void)
+{
+    if (lt_rx >= 0) close(lt_rx);
+    lt_rx = -1;
+}
+
+/* One worker step. lead = the deck the lights follow (-1 none); beat = it started a new beat. */
+static void lights_step(unsigned step, const az_deck_info *di, const double *ph, int lead, int beat,
+                        const mixer_state *ms, int ms_have)
+{
+    static int was_on, uni, nfix, yielding;
+    static unsigned other_at, last_drops;
+    static lt_fix fix[LT_MAX_FIX];
+    static lt_state st;
+    static uint8_t seq, dmx[512], pkt[LT_PKT];
+    static int beat_pending;
+    static double bass_peak;
+
+    int on = lights_on();
+    if (on != was_on) {
+        if (on) {
+            uni = lights_cfg(fix, &nfix, 0);
+            lt_init(&st);
+            yielding = 0;
+            other_at = 0;
+            C->log(MOD_ID, "lights on: the deck runs the lights over Art-Net");
+        } else {
+            memset(dmx, 0, sizeof dmx);              /* lights off: a few dark frames, then nothing */
+            for (int i = 0; i < 3 && !yielding; i++) {
+                if (++seq == 0) seq = 1;
+                lights_send(pkt, lt_artdmx(pkt, seq, uni, dmx));
+            }
+            lights_close();
+            C->log(MOD_ID, "lights off");
+        }
+        was_on = on;
+    }
+    if (!on) return;
+    if (step % CFG_STEPS == 3) uni = lights_cfg(fix, &nfix, 1);
+
+    /* gather between frames: a beat edge or bass peak must not fall between two frames */
+    if (beat) beat_pending = 1;
+    for (int d = 0; d < NDECKS; d++) {
+        float b = atomic_exchange_explicit(&lt_low[d], 0.f, memory_order_relaxed);
+        if (d == lead && b > bass_peak) bass_peak = b;
+    }
+    if (step % LT_STEPS != 0) return;
+
+    if (lights_other(uni)) {
+        if (!yielding) C->log(MOD_ID, "lights: another Art-Net sender on universe %d: the deck steps back", uni);
+        yielding = 1;
+        other_at = step;
+    } else if (yielding && (step - other_at) * POLL_MS > LT_YIELD_MS) {
+        yielding = 0;
+        C->log(MOD_ID, "lights: the other sender stopped: the deck runs the lights again");
+    }
+
+    lt_in in;
+    memset(&in, 0, sizeof in);
+    in.playing = lead >= 0;
+    in.ph = -1;
+    in.bar_beat = -1;
+    in.dim = -1;
+    in.dt_ms = LT_STEPS * POLL_MS;
+    in.look = row_look >= 0 ? C->row_value(row_look) : C->cfg_get(MOD_ID, "artnet_look", 0);
+    if (in.look < 0 || in.look >= LT_NCHOICES) in.look = 0;
+    if (lead >= 0) {
+        in.bpm = di[lead].bpm;
+        in.ph = ph[lead];
+        in.beat = beat_pending;
+        in.bass = bass_peak;
+        in.bar_beat = bars_at(lead, (uint32_t)(fnv(di[lead].title, di[lead].artist) ^ di[lead].content_id),
+                              di[lead].pos_s, ph[lead]);
+        if (ms_have) in.dim = ms->fader[lead] / 1023.0;
+    }
+    beat_pending = 0;
+    bass_peak = 0;
+    lt_track(&st, &in);
+    if ((unsigned)st.drops != last_drops) {
+        C->log(MOD_ID, "lights: drop on deck %d", lead + 1);
+        last_drops = (unsigned)st.drops;
+    }
+    if (yielding) return;
+    lt_render(&st, &in, fix, nfix, dmx);
+    if (++seq == 0) seq = 1;
+    lights_send(pkt, lt_artdmx(pkt, seq, uni, dmx));
+}
+
 /* ---- the worker -------------------------------------------------------------------------- */
 
 static void *worker(void *arg)
@@ -656,6 +887,7 @@ static void *worker(void *arg)
     (void)arg;
     double last[NDECKS];
     unsigned beats[NDECKS] = { 0 };
+    unsigned lt_beats_seen[NDECKS] = { 0 };   /* 0.6.0: beats the lights already took */
     unsigned since[NDECKS] = { 0 };   /* 0 = not playing, else the play-start order */
     unsigned starts = 0;
     uint32_t track_sig[NDECKS] = { 0 };
@@ -761,6 +993,20 @@ static void *worker(void *arg)
                 ms_have = 1;
             }
         }
+        /* 0.6.0: the lights follow the playing deck whose channel fader is up most (else the last started) */
+        {
+            int lead = -1;
+            for (int d = 0; d < NDECKS; d++) {
+                if (!since[d]) continue;
+                if (lead < 0) { lead = d; continue; }
+                if (ms_have ? ms.fader[d] > ms.fader[lead] + 20 || (ms.fader[d] + 20 >= ms.fader[lead] && ms.fader[lead] + 20 >= ms.fader[d] && since[d] > since[lead])
+                            : since[d] > since[lead])
+                    lead = d;
+            }
+            lights_step(step, di, ph, lead, lead >= 0 && beats[lead] != lt_beats_seen[lead], &ms, ms_have);
+            for (int d = 0; d < NDECKS; d++) lt_beats_seen[d] = beats[d];
+        }
+
         if (on && ms_have && step % MIXER_STEPS == 0 &&
             (row_mixer < 0 || C->row_value(row_mixer) == 1) &&
             (mix_last_sent == 0 || step - mix_last_sent >= MIXER_KEEP || mixer_changed(&ms, &ms_sent))) {
@@ -1036,7 +1282,7 @@ static void *wave_worker(void *arg)
         int on = row_send >= 0 ? C->row_value(row_send) == 1 : 1;
         int wave_on = row_wave >= 0 ? C->row_value(row_wave) == 1 : C->cfg_get(MOD_ID, "wave", 1) != 0;
         int send = on && wave_on;
-        if (!send && !link_on()) continue;    /* Link reads the grids for the bar even when nothing is sent */
+        if (!send && !link_on() && !lights_on()) continue;   /* Link and the lights read the grids for the bar even when nothing is sent */
         unsigned now = ++tick;
         for (int d = 0; d < NDECKS; d++) {
             az_deck_info di;
@@ -1136,6 +1382,27 @@ static int init(const az_core_v1 *core)
                 "Link apps follow the playing deck's tempo, beat and bar (the 1 from rekordbox's grid or "
                 "FLOW VJ's phrase-sync button). No computer bridge needed. Off by default.",
     };
+    static const az_row_v1 lights_row = {
+        .size = sizeof lights_row,
+        .key = "artnet",
+        .label = "Lights from this deck",
+        .kind = AZ_ROW_TOGGLE,
+        .help = "The deck runs the lights itself, no computer: sends Art-Net to a node on its network "
+                "(beat chases, bass pump, breakdown fade, white hit on the drop, fader dims). Steps back "
+                "while FLOW VJ or a console sends Art-Net. Rig: flow-beat:artnet_patch. Off by default.",
+    };
+    static const char *const look_choices[] = LT_CHOICES;
+    static const az_row_v1 look_row = {
+        .size = sizeof look_row,
+        .key = "artnet-look",
+        .label = "Deck lights colours",
+        .kind = AZ_ROW_CHOICE,
+        .parent = "artnet",
+        .help = "The colours for Lights from this deck. Cycle moves to the next pair every 16 bars.",
+        .choices = look_choices,
+        .n_choices = LT_NCHOICES,
+        .default_choice = 0,
+    };
     if (AZ_HAS(C, register_row) && AZ_HAS(C, row_value)) {
         row_send = C->register_row(MOD_ID, &send_row);
         row_mixer = C->register_row(MOD_ID, &mixer_row);
@@ -1143,6 +1410,8 @@ static int init(const az_core_v1 *core)
         row_wave = C->register_row(MOD_ID, &wave_row);
         row_link = C->register_row(MOD_ID, &link_row);
         row_audio = C->register_row(MOD_ID, &audio_row);
+        row_lights = C->register_row(MOD_ID, &lights_row);
+        row_look = C->register_row(MOD_ID, &look_row);
     }
     /* each deck's own audio, before the hardware mixer (0.3.0) */
     if (AZ_HAS(C, audio_tap))

@@ -9,6 +9,9 @@
 #                          standing in for Ableton 12.4: channels, samples, format, beat time, sample rate
 #                          (taps at 48000, at 44100, and 44100 with the rate forced to 48000; ~45 s)
 #   make -C tests audio-tsan   the same, with ThreadSanitizer
+#   make -C tests lights   0.6.0: Lights from this deck: Art-Net bytes, patch, the show (beats, breakdown,
+#                          drop hit, fader, idle, no strobe/laser/haze) and end to end over UDP 6454 (~20 s);
+#                          lights-tsan the same under TSan
 #   make -C tests fx       0.5.3: Stem FX / Drum Roll HOLD / loop state from LED frames and azstem's
 #                          export to "fx" packets, with ASan + UBSan (~12 s); fx-tsan the same under TSan
 AZ_SDK_INCLUDE ?= ../../include
@@ -20,8 +23,8 @@ CC     := clang
 CXX    := clang++
 B      := build
 
-.PHONY: all link bars rows audio audio-tsan fx fx-tsan clean
-all: rows bars fx link audio
+.PHONY: all link bars rows audio audio-tsan fx fx-tsan lights lights-tsan clean
+all: rows bars fx lights link audio
 
 $(B):
 	mkdir -p $(B)
@@ -70,6 +73,14 @@ fx: test_fx.c ../flow-beat.c ../fx.h ../mixer.h | $(B)
 fx-tsan: test_fx.c ../flow-beat.c ../fx.h ../mixer.h | $(B)
 	$(CC) -g -O1 -fsanitize=thread -Wall -Wextra -Werror $(INC) -rdynamic -o $(B)/test_fx_tsan test_fx.c -lm -lpthread -ldl
 	$(B)/test_fx_tsan
+
+lights: test_lights.c ../flow-beat.c ../lights.h ../fx.h ../mixer.h | $(B)
+	$(CC) -g -O1 -fsanitize=address,undefined -fno-sanitize-recover=all -Wall -Wextra -Werror $(INC) -rdynamic -o $(B)/test_lights test_lights.c -lm -lpthread -ldl
+	$(B)/test_lights
+
+lights-tsan: test_lights.c ../flow-beat.c ../lights.h ../fx.h ../mixer.h | $(B)
+	$(CC) -g -O1 -fsanitize=thread -Wall -Wextra -Werror $(INC) -rdynamic -o $(B)/test_lights_tsan test_lights.c -lm -lpthread -ldl
+	$(B)/test_lights_tsan
 
 clean:
 	rm -rf $(B)

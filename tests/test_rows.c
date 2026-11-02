@@ -56,6 +56,12 @@ static int t_register_row(const char *id, const az_row_v1 *r)
         for (int i = 0; i < nrows; i++) found |= !strcmp(keys[i], r->parent);
         if (!found) bad(r->key, "parent is not an earlier row");
     }
+    if (r->kind == AZ_ROW_CHOICE) {
+        if (!r->choices || r->n_choices < 2 || r->n_choices > 8) bad(r->key, "a choice needs 2 to 8 labels");
+        for (int i = 0; r->choices && i < r->n_choices; i++)
+            if (!r->choices[i] || !r->choices[i][0] || strlen(r->choices[i]) > 31) bad(r->key, "choice label empty or over 31 bytes");
+        if (r->default_choice < 0 || r->default_choice >= r->n_choices) bad(r->key, "default_choice out of range");
+    }
     if (nrows >= 16) bad(r->key, "more than 16 rows");
     if (nrows < 32 && r->key) snprintf(keys[nrows], sizeof keys[nrows], "%s", r->key);
     printf("     row %-12s %2zu bytes  \"%s\"\n", r->key ? r->key : "?", ll, r->label ? r->label : "");
@@ -102,8 +108,8 @@ int main(void)
 
     const az_mod_v1 *mod = az_mod_v1_entry();
     (void)mod->init(&core);
-    if (nrows != 6) {
-        printf("FAIL expected 6 rows, got %d\n", nrows);
+    if (nrows != 8) {
+        printf("FAIL expected 8 rows, got %d\n", nrows);
         fails++;
     }
     int has_audio = 0;

@@ -87,7 +87,7 @@ $(OUT)/$(MOD_ID).so: $(SRCS) mixer.h $(AZ_SDK_INCLUDE)/azmod-mod.h | $(OUT)
 	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $(SRCS) $(LDLIBS)
 else
 OBJS := $(patsubst %,$(OUT)/obj/%.o,$(SRCS))
-$(OUT)/obj/%.c.o: %.c mixer.h link.h $(AZ_SDK_INCLUDE)/azmod-mod.h
+$(OUT)/obj/%.c.o: %.c mixer.h link.h fx.h lights.h $(AZ_SDK_INCLUDE)/azmod-mod.h
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c -o $@ $<
 $(OUT)/obj/%.cpp.o: %.cpp link.h $(AZ_SDK_INCLUDE)/azmod-mod.h
