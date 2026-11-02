@@ -1894,9 +1894,13 @@ static int init(const az_core_v1 *core)
     pn_fader = C->cfg_get(MOD_ID, "panel_fader", 1) != 0;
     if (AZ_HAS(C, surface_create) && AZ_HAS(C, surface_show) && AZ_HAS(C, surface_place) &&
         AZ_HAS(C, surface_redraw) && AZ_HAS(C, view) && AZ_HAS(C, touch_filter) && AZ_HAS(C, draw_line)) {
-        az_surface_v1 sb = { .size = sizeof sb, .layer = AZ_LAYER_OVER_EP147, .views = AZ_VIEW_BIT(AZ_VIEW_DECK),
+        /* AZ_LAYER_TOP: inside one layer the core restacks surfaces in creation order whenever one
+         * maps, so an OVER_EP147 panel can end up under Custom Screen's waveform panel. TOP is above
+         * every OVER_EP147 surface (Touch FX's panel is TOP too). It is above the Mod Menu as well,
+         * so both surfaces are deck-screen only and the tick shuts the panel off the deck screen. */
+        az_surface_v1 sb = { .size = sizeof sb, .layer = AZ_LAYER_TOP, .views = AZ_VIEW_BIT(AZ_VIEW_DECK),
                              .on_paint = pn_paint_btn, .on_input = pn_input, .user = NULL };
-        az_surface_v1 sp = { .size = sizeof sp, .layer = AZ_LAYER_OVER_EP147, .views = AZ_VIEW_BIT(AZ_VIEW_DECK),
+        az_surface_v1 sp = { .size = sizeof sp, .layer = AZ_LAYER_TOP, .views = AZ_VIEW_BIT(AZ_VIEW_DECK),
                              .on_paint = pn_paint, .on_input = pn_input, .user = NULL };
         az_surface *b = C->surface_create(MOD_ID, &sb);
         az_surface *p = b ? C->surface_create(MOD_ID, &sp) : NULL;

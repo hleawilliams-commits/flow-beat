@@ -322,6 +322,7 @@ int main(void)
     CHECK(mod->init(&core) == 0, "init");
     CHECK(nsurf == 2 && touch_fn && mod->tick, "two surfaces (button + panel), a touch filter, a tick");
     CHECK(surf[0].views == AZ_VIEW_BIT(AZ_VIEW_DECK) && surf[1].views == AZ_VIEW_BIT(AZ_VIEW_DECK), "both on the deck screen only");
+    CHECK(surf[0].layer == AZ_LAYER_TOP && surf[1].layer == AZ_LAYER_TOP, "both on the top layer: above Custom Screen's panels whatever the load order");
     int r_panel = row_of("lights-panel"), r_look = row_of("artnet-look"), r_lights = row_of("artnet");
     CHECK(r_panel >= 0 && rows[r_panel] == 1, "row \"FLOW Lights button\", on by default");
 
