@@ -141,11 +141,93 @@ static inline int fx_blinking(fx_blink *b, unsigned blinks, double now_ms)
     return b->last_ms > 0 && now_ms - b->last_ms < win;
 }
 
+/* ---- 0.6.1: Touch FX (mrdjjag) finger and effect -------------------------------------------
+ * MLT's Touch FX build posts each deck's touch into azstem.so (mrdjjag_touchfx_vj_get, one 64-bit
+ * word, layout in that build's sdk_export.c): x/y 0..1000, effect, STEMS or Drum Roll, sending,
+ * LATCH, the beat column and the stem targets, plus a count that moves on every post. The panel
+ * posts every tick while it is open, so a count that stops moving means the panel went away. */
+typedef struct {
+    int rep;     /* 1 = this deck has a Touch FX report (0 = none: no "tfx" in the packet) */
+    int on;      /* 0 = not sending, 1 = the touch FX is audible */
+    int kind;    /* 1 STEMS, 2 Drum Roll */
+    int fx;      /* the panel's effect index (fx_touch_name) */
+    int x, y;    /* 0..1000, left..right / top..bottom of the touch field (y top = most effect) */
+    int col;     /* beat column 0..7 */
+    int tg;      /* STEMS targets: bit 0 vocals, 1 instrument, 2 bass, 3 drums (PER STEM only); 0 = whole mix */
+    int latch;
+} fx_touch;
+
+static inline void fx_touch_decode(unsigned long long w, fx_touch *t)
+{
+    t->rep = 1;
+    t->x = (int)(w & 1023u);
+    t->y = (int)((w >> 10) & 1023u);
+    t->fx = (int)((w >> 20) & 15u);
+    t->kind = (int)((w >> 24) & 3u);
+    t->on = (int)((w >> 26) & 1u);
+    t->latch = (int)((w >> 27) & 1u);
+    t->col = (int)((w >> 28) & 15u);
+    t->tg = (int)((w >> 32) & 15u);
+    if (t->x > 1000) t->x = 1000;
+    if (t->y > 1000) t->y = 1000;
+    if (t->col > 7) t->col = 7;
+}
+static inline unsigned fx_touch_count(unsigned long long w) { return (unsigned)(w >> 36); }
+
+/* The effect names the panel shows (panel-test.c effects[] / sampler_effects[]). */
+static inline const char *fx_touch_name(int kind, int fx)
+{
+    static const char *const stems[8] = {"echo", "lfo", "lfo_echo", "gate", "roll", "echo_roll", "per_stem", "mix"};
+    static const char *const drum[5] = {"on", "echo", "lfo_echo", "pitch", "pitch_echo"};
+    if (kind == 1 && fx >= 0 && fx < 8) return stems[fx];   /* 6 PER STEM, 7 MIX faders (touch-tricks build) */
+    if (kind == 2 && fx >= 0 && fx < 5) return drum[fx];
+    return "?";
+}
+/* Beats per repeat of the column under the finger: STEMS columns are rates {9,5,4,7,3,2,1,0}
+ * (stem_fx_beats: 4, 2, 1, 3/4, 1/2, 1/4, 1/8, 1/16); Drum Roll columns 0..5 are 1/16..2. */
+static inline double fx_touch_beats(int kind, int col)
+{
+    static const double stems[8] = {4.0, 2.0, 1.0, 0.75, 0.5, 0.25, 0.125, 0.0625};
+    if (col < 0) col = 0;
+    if (col > 7) col = 7;
+    if (kind == 2) return col > 5 ? 2.0 : (double)(1 << col) / 16.0;
+    return stems[col];
+}
+static inline int fx_touch_same(const fx_touch *a, const fx_touch *b)
+{
+    return a->rep == b->rep && a->on == b->on && a->kind == b->kind && a->fx == b->fx && a->x == b->x && a->y == b->y &&
+           a->col == b->col && a->tg == b->tg && a->latch == b->latch;
+}
+
+/* Worker side: a report counts as live while its count moved within FX_TOUCH_STALE polls. */
+typedef struct {
+    unsigned count;
+    unsigned seen_step;
+    int have;
+} fx_touch_age;
+#define FX_TOUCH_STALE 200u   /* worker steps (5 ms): 1 s */
+static inline void fx_touch_read(fx_touch_age *a, unsigned long long w, unsigned step, fx_touch *out)
+{
+    if (!w) {
+        memset(out, 0, sizeof *out);   /* rep 0: none */
+        return;
+    }
+    unsigned c = fx_touch_count(w);
+    if (!a->have || c != a->count) {
+        a->count = c;
+        a->seen_step = step;
+        a->have = 1;
+    }
+    fx_touch_decode(w, out);
+    if (step - a->seen_step > FX_TOUCH_STALE) out->on = 0;   /* panel closed / gone: never stuck on */
+}
+
 /* One deck as sent: -1 = unknown. */
 typedef struct {
     int sfx;    /* bit f = Stem FX pad 5+f held on; -1 = this AZ-MODS has no Stem FX export */
     int drum, hold, smp;
     int loop;   /* 0 none, 1 a loop is held (RELOOP lit, not looping), 2 looping, 3 a loop being set */
+    fx_touch t; /* 0.6.1: Touch FX; t.rep 0 = none (no "tfx" in the packet) */
 } fx_deck;
 
 /* Which deck (0..3) a side shows. */
@@ -179,17 +261,28 @@ static inline void fx_decks(const fx_side sides[2], const int blinking[2], fx_de
 
 static inline int fx_deck_same(const fx_deck *a, const fx_deck *b)
 {
-    return a->sfx == b->sfx && a->drum == b->drum && a->hold == b->hold && a->smp == b->smp && a->loop == b->loop;
+    return a->sfx == b->sfx && a->drum == b->drum && a->hold == b->hold && a->smp == b->smp && a->loop == b->loop &&
+           fx_touch_same(&a->t, &b->t);
 }
 
-/* {"flowbeat":1,"type":"fx","seq":N,"decks":[{"d":1,"sfx":0,"drum":0,"hold":0,"smp":-1,"loop":0},..4]} */
+/* {"flowbeat":1,"type":"fx","seq":N,"decks":[{"d":1,"sfx":0,"drum":0,"hold":0,"smp":-1,"loop":0},..4]}
+ * 0.6.1: a deck with a Touch FX report adds
+ *   "tfx":{"on":1,"k":"stems","fx":"gate","x":420,"y":180,"beats":0.25,"tg":3,"latch":0} */
 #include <stdio.h>
 static inline int fx_json(char *buf, int cap, unsigned seq, const fx_deck d[4])
 {
     int n = snprintf(buf, (size_t)cap, "{\"flowbeat\":1,\"type\":\"fx\",\"seq\":%u,\"decks\":[", seq);
-    for (int i = 0; i < 4 && n < cap; i++)
-        n += snprintf(buf + n, (size_t)(cap - n), "%s{\"d\":%d,\"sfx\":%d,\"drum\":%d,\"hold\":%d,\"smp\":%d,\"loop\":%d}",
+    for (int i = 0; i < 4 && n < cap; i++) {
+        n += snprintf(buf + n, (size_t)(cap - n), "%s{\"d\":%d,\"sfx\":%d,\"drum\":%d,\"hold\":%d,\"smp\":%d,\"loop\":%d",
                       i ? "," : "", i + 1, d[i].sfx, d[i].drum, d[i].hold, d[i].smp, d[i].loop);
+        const fx_touch *t = &d[i].t;
+        if (n < cap && t->rep)
+            n += snprintf(buf + n, (size_t)(cap - n),
+                          ",\"tfx\":{\"on\":%d,\"k\":\"%s\",\"fx\":\"%s\",\"x\":%d,\"y\":%d,\"beats\":%g,\"tg\":%d,\"latch\":%d}",
+                          t->on, t->kind == 2 ? "drum" : "stems", fx_touch_name(t->kind, t->fx), t->x, t->y,
+                          fx_touch_beats(t->kind, t->col), t->tg, t->latch);
+        if (n < cap) n += snprintf(buf + n, (size_t)(cap - n), "}");
+    }
     if (n < cap) n += snprintf(buf + n, (size_t)(cap - n), "]}");
     return n < cap ? n : cap - 1;
 }

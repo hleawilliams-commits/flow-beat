@@ -43,6 +43,12 @@
  *        3 DRUMS ECHO), drum = Drum Roll on, hold = Drum Roll HOLD, smp = selected sample pad 0-3,
  *        loop = 0 none / 1 held / 2 looping / 3 being set. -1 = unknown (a deck not on a side, or an
  *        AZ-MODS without Stem FX). See fx.h.
+ *   0.6.1 (Touch FX): with MLT's Touch FX build (mrdjjag's panel + azstem.so posting the touch),
+ *        each deck in the fx packet adds "tfx":{"on":1,"k":"stems","fx":"gate","x":420,"y":180,
+ *        "beats":0.25,"tg":3,"latch":0}: on = the touch FX is audible, k = STEMS or Drum Roll panel,
+ *        fx = the panel's effect, x/y = finger 0..1000 (y 0 = top = full effect), beats = the beat
+ *        column under the finger, tg = stem targets (1 vocals, 2 instrument, 4 bass, 0 whole mix).
+ *        Sent on change (at most every 20 ms) like the rest of the packet. No "tfx" without it.
  *
  * seq counts every packet, so the receiver can spot lost or reordered ones. The receiver
  * times beats by its own clock when packets arrive: the deck's clock is not sent.
@@ -380,8 +386,19 @@ static int led_filter(int bus, unsigned char *frame, int len, void *user)
 /* azstem.so's Stem FX state (AZ-MODS 1.2.6+, not in the SDK). azstem may load after us, so the
  * worker looks it up every 2 s until it is there; none = an older AZ-MODS (sfx -1). */
 static unsigned (*stem_fx_on)(int deck);
+/* 0.6.1: MLT's Touch FX build (azstem.so with mrdjjag_touchfx_vj_get, ABI 1). */
+static unsigned long long (*touch_vj_get)(int deck);
 static void fx_resolve(void)
 {
+    if (!touch_vj_get) {
+        int (*abi)(void) = NULL;
+        *(void **)&abi = dlsym(RTLD_DEFAULT, "mrdjjag_touchfx_vj_abi");
+        void *g = abi && abi() == 1 ? dlsym(RTLD_DEFAULT, "mrdjjag_touchfx_vj_get") : NULL;
+        if (g) {
+            *(void **)&touch_vj_get = g;
+            C->log(MOD_ID, "Touch FX report found: finger and effect go to FLOW");
+        }
+    }
     if (stem_fx_on) return;
     void *f = dlsym(RTLD_DEFAULT, "azstem_stem_fx_on");
     if (!f) return;
@@ -903,7 +920,9 @@ static void *worker(void *arg)
     mixer_latch_init(&latch);
     fx_blink blink[2];
     fx_deck fx_sent[4];
+    fx_touch_age touch_age[4];
     unsigned fx_last_sent = 0;
+    memset(touch_age, 0, sizeof touch_age);
     memset(blink, 0, sizeof blink);
     memset(fx_sent, 0, sizeof fx_sent);
     char buf[1400];
@@ -1028,7 +1047,10 @@ static void *worker(void *arg)
             }
             fx_deck fd[4];
             fx_decks(sides, blinking, fd);
-            for (int d = 0; d < 4; d++) fd[d].sfx = stem_fx_on ? (int)(stem_fx_on(d) & 15u) : -1;
+            for (int d = 0; d < 4; d++) {
+                fd[d].sfx = stem_fx_on ? (int)(stem_fx_on(d) & 15u) : -1;
+                fx_touch_read(&touch_age[d], touch_vj_get ? touch_vj_get(d) : 0ull, step, &fd[d].t);
+            }
             int changed = fx_last_sent == 0;
             for (int d = 0; d < 4; d++) if (!fx_deck_same(&fd[d], &fx_sent[d])) changed = 1;
             if (changed || step - fx_last_sent >= FX_KEEP) {
