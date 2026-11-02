@@ -89,7 +89,7 @@ static void cw_publish(int deck, cw_track *t, int status)
 }
 
 /* ---- the stick's ANLZ index: hash of the PPTH path -> folder Pxxx/xxxxxxxx --------------- */
-typedef struct { uint32_t h, leaf; uint16_t top; } cw_ent;
+typedef struct { uint32_t h, leaf; uint16_t top, num; } cw_ent;   /* num: the NNNN of ANLZnnnn.DAT */
 typedef struct { char root[256]; long mtime; long built_ms; cw_ent *e; int n; } cw_index;
 static cw_index cw_idx[2];
 
@@ -131,15 +131,31 @@ static void cw_index_build(cw_index *x, const char *root, long now)
         while ((b = readdir(d2)) && x->n < CW_IDX_MAX) {
             uint32_t leaf;
             if (!cw_hex(b->d_name, 8, &leaf)) continue;
-            snprintf(f, sizeof f, "%.340s/%08X/ANLZ0000.DAT", p1, (unsigned)leaf);
-            FILE *fp = fopen(f, "rbe");
-            if (!fp) continue;
-            size_t got = fread(hdr, 1, sizeof hdr, fp);
-            fclose(fp);
-            if (!cw_ppth(hdr, got, path8, (int)sizeof path8)) continue;
-            x->e[x->n].h = cw_fnv(path8, "");
-            x->e[x->n].top = (uint16_t)top; x->e[x->n].leaf = leaf;
-            x->n++;
+            /* every ANLZnnnn.DAT in the leaf: rekordbox exports some tracks as ANLZ0001..0005
+             * (about 7 % of one real stick), sometimes beside another track's ANLZ0000 */
+            char p2[360];
+            snprintf(p2, sizeof p2, "%.340s/%08X", p1, (unsigned)leaf);
+            DIR *d3 = opendir(p2);
+            if (!d3) continue;
+            struct dirent *c;
+            while ((c = readdir(d3)) && x->n < CW_IDX_MAX) {
+                const char *nm = c->d_name;
+                if (strncmp(nm, "ANLZ", 4) || strlen(nm) != 12 || strcmp(nm + 8, ".DAT")) continue;
+                uint32_t num = 0;
+                int digits = 1;
+                for (int i = 4; i < 8; i++) { if (nm[i] < '0' || nm[i] > '9') digits = 0; else num = num * 10 + (uint32_t)(nm[i] - '0'); }
+                if (!digits) continue;
+                snprintf(f, sizeof f, "%.360s/%.12s", p2, c->d_name);
+                FILE *fp = fopen(f, "rbe");
+                if (!fp) continue;
+                size_t got = fread(hdr, 1, sizeof hdr, fp);
+                fclose(fp);
+                if (!cw_ppth(hdr, got, path8, (int)sizeof path8)) continue;
+                x->e[x->n].h = cw_fnv(path8, "");
+                x->e[x->n].top = (uint16_t)top; x->e[x->n].leaf = leaf; x->e[x->n].num = (uint16_t)num;
+                x->n++;
+            }
+            closedir(d3);
         }
         closedir(d2);
     }
@@ -176,9 +192,9 @@ static uint8_t *cw_slurp(const char *file, size_t *n)
     return d;
 }
 
-static int cw_lookup(cw_index *x, uint32_t h, uint16_t *top, uint32_t *leaf)
+static int cw_lookup(cw_index *x, uint32_t h, uint16_t *top, uint32_t *leaf, uint16_t *num)
 {
-    for (int i = 0; i < x->n; i++) if (x->e[i].h == h) { *top = x->e[i].top; *leaf = x->e[i].leaf; return 1; }
+    for (int i = 0; i < x->n; i++) if (x->e[i].h == h) { *top = x->e[i].top; *leaf = x->e[i].leaf; *num = x->e[i].num; return 1; }
     return 0;
 }
 
@@ -210,20 +226,20 @@ static cw_track *cw_load(const az_deck_info *di, long now)
     int stale = !x->e || strcmp(x->root, root) || (stat(probe, &st) == 0 && (long)st.st_mtime != x->mtime);
     if (stale) cw_index_build(x, root, now);
     uint32_t h = cw_fnv(rel, ""), leaf = 0;
-    uint16_t top = 0;
-    int hit = cw_lookup(x, h, &top, &leaf);
+    uint16_t top = 0, num = 0;
+    int hit = cw_lookup(x, h, &top, &leaf, &num);
     if (!hit && !stale && now - x->built_ms >= CW_REINDEX_MS) {   /* analysed since the last index */
         cw_index_build(x, root, now);
-        hit = cw_lookup(x, h, &top, &leaf);
+        hit = cw_lookup(x, h, &top, &leaf, &num);
     }
     if (!hit) return NULL;
     char file[400], path8[1024];
     size_t dn = 0, en = 0;
-    snprintf(file, sizeof file, "%s/PIONEER/USBANLZ/P%03X/%08X/ANLZ0000.DAT", root, top, leaf);
+    snprintf(file, sizeof file, "%s/PIONEER/USBANLZ/P%03X/%08X/ANLZ%04u.DAT", root, top, leaf, (unsigned)num);
     uint8_t *dat = cw_slurp(file, &dn);
     /* a hash can collide: the DAT's own PPTH must name this track */
     if (!dat || !cw_ppth(dat, dn, path8, (int)sizeof path8) || strcmp(path8, rel)) { free(dat); return NULL; }
-    snprintf(file, sizeof file, "%s/PIONEER/USBANLZ/P%03X/%08X/ANLZ0000.EXT", root, top, leaf);
+    snprintf(file, sizeof file, "%s/PIONEER/USBANLZ/P%03X/%08X/ANLZ%04u.EXT", root, top, leaf, (unsigned)num);
     uint8_t *ext = cw_slurp(file, &en);
     cw_track *t = cw_parse(dat, dn, ext, en);
     free(dat); free(ext);

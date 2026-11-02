@@ -109,8 +109,11 @@ static void make_usb(void)
                            "/PIONEER/USBANLZ/P04B", "/PIONEER/USBANLZ/P04B/000191A5", "/PIONEER/USBANLZ/P04B/junk" };
     for (size_t i = 0; i < sizeof dirs / sizeof dirs[0]; i++) { snprintf(p, sizeof p, "%s%s", usb, dirs[i]); mkdir(p, 0755); }
     const char *f[][2] = { { "P018_00000792.DAT", "P018/00000792/ANLZ0000.DAT" }, { "P018_00000792.EXT", "P018/00000792/ANLZ0000.EXT" },
-                           { "P04B_000191A5.DAT", "P04B/000191A5/ANLZ0000.DAT" }, { "P04B_000191A5.EXT", "P04B/000191A5/ANLZ0000.EXT" } };
-    for (int i = 0; i < 4; i++) {
+                           /* rekordbox exports some tracks as ANLZ0001 (0.6.0): read those too, and a
+                            * leaf can hold another track's ANLZ0000 beside it */
+                           { "P04B_000191A5.DAT", "P04B/000191A5/ANLZ0001.DAT" }, { "P04B_000191A5.EXT", "P04B/000191A5/ANLZ0001.EXT" },
+                           { "P018_00000792.DAT", "P04B/000191A5/ANLZ0000.DAT" } };
+    for (int i = 0; i < 5; i++) {
         char from[256];
         snprintf(from, sizeof from, "tests/fixtures/%s", f[i][0]);
         snprintf(p, sizeof p, "%s/PIONEER/USBANLZ/%s", usb, f[i][1]);
@@ -178,10 +181,10 @@ int main(int argc, char **argv)
     set_deck(3, 0, NULL, 0, 0, 0);
     run_job(1);
     CHECK(cw_deck[0].status == CW_READY && cw_deck[0].t && cw_deck[0].t->nbeats == 486);
-    CHECK(cw_deck[1].status == CW_READY && cw_deck[1].t && cw_deck[1].t->nbeats == 0);
+    CHECK(cw_deck[1].status == CW_READY && cw_deck[1].t && cw_deck[1].t->nbeats == 0);   /* from ANLZ0001.DAT/.EXT */
     CHECK(cw_deck[2].status == CW_MISSING && !cw_deck[2].t);
     CHECK(cw_deck[3].status == CW_EMPTY);
-    CHECK(cw_idx[0].n == 2);                    /* the junk folder is skipped */
+    CHECK(cw_idx[0].n == 3);                    /* the junk folder is skipped; ANLZ0001 and its neighbour ANLZ0000 both count */
     CHECK(cw_moving(0) && !cw_moving(1) && !cw_moving(2) && !cw_moving(3));   /* only a playing, ready deck scrolls */
     int calls = lib_calls;
     run_job(5);                                 /* no change: no more library reads */
