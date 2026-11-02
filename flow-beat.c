@@ -1071,6 +1071,7 @@ static void pn_tick(void)
     int open = __atomic_load_n(&pn_open, __ATOMIC_ACQUIRE);
     if (__atomic_exchange_n(&pn_toggle, 0, __ATOMIC_ACQ_REL)) open = !open;
     if (!want_btn) open = 0;
+    if (C->view() != AZ_VIEW_DECK) open = 0;            /* BACK / browse / menu: the panel shuts; LIGHTS brings it back */
 
     unsigned long long tap = __atomic_exchange_n(&pn_tapped, 0ull, __ATOMIC_ACQ_REL);
     if (!open) tap = 0;

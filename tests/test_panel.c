@@ -467,6 +467,11 @@ int main(void)
     CHECK(surf[1].on_input(&back, NULL) == 1 && (pn_tick(), shown[1] == 0), "BACK closes the panel");
     CHECK(surf[1].on_input(&back, NULL) == 0, "BACK with the panel shut is EP147's");
 
+    sleep_ms(450);
+    tap(PN_BTN_X + 40, PN_BTN_Y + 12);
+    view_now = AZ_VIEW_BROWSE; pn_tick(); view_now = AZ_VIEW_DECK; pn_tick();
+    CHECK(shown[1] == 0, "leaving the deck screen (BACK to browse) shuts the panel");
+
     __atomic_store_n(&rows[r_panel], 0, __ATOMIC_RELEASE);
     pn_tick();
     CHECK(shown[0] == 0 && tap(PN_BTN_X + 40, PN_BTN_Y + 12) == AZ_TOUCH_PASS, "row off: no button, its spot is the deck's");
