@@ -1,0 +1,74 @@
+# Custom Screen layout, made in Deck Screen Designer
+# Coordinates are deck pixels (1280 x 800). Widget x/y are inside their panel.
+version 1
+name My picks + next mix and USB buttons, 4-deck waveforms, phase strip, dead air
+
+panel 1 x=0 y=80 w=140 h=478 views=4 bg=180d25 border=none bw=0 edge=all
+widget 1 title deck=3 x=8 y=2 w=130 h=28 size=18 color=auto align=l
+widget 1 key deck=3 x=8 y=34 w=62 h=40 size=28 color=auto align=l
+widget 1 bpm deck=3 x=72 y=34 w=66 h=20 size=14 color=dim align=r
+widget 1 time_left deck=3 x=72 y=54 w=66 h=20 size=14 color=auto align=r
+widget 1 phrase_name deck=3 x=8 y=76 w=62 h=20 size=13 color=auto align=l
+widget 1 drop_in deck=3 x=72 y=76 w=66 h=20 size=12 color=auto align=r
+widget 1 phrase deck=3 x=8 y=97 w=38 h=13 size=11 color=auto align=l
+widget 1 phrase_bar deck=3 x=48 y=98 w=88 h=11 size=11 color=auto align=l
+widget 1 title deck=1 x=8 y=124 w=130 h=28 size=18 color=auto align=l
+widget 1 key deck=1 x=8 y=156 w=62 h=40 size=28 color=auto align=l
+widget 1 bpm deck=1 x=72 y=156 w=66 h=20 size=14 color=dim align=r
+widget 1 time_left deck=1 x=72 y=176 w=66 h=20 size=14 color=auto align=r
+widget 1 phrase_name deck=1 x=8 y=198 w=62 h=20 size=13 color=auto align=l
+widget 1 drop_in deck=1 x=72 y=198 w=66 h=20 size=12 color=auto align=r
+widget 1 phrase deck=1 x=8 y=219 w=38 h=13 size=11 color=auto align=l
+widget 1 phrase_bar deck=1 x=48 y=220 w=88 h=11 size=11 color=auto align=l
+widget 1 title deck=2 x=8 y=246 w=130 h=28 size=18 color=auto align=l
+widget 1 key deck=2 x=8 y=278 w=62 h=40 size=28 color=auto align=l
+widget 1 bpm deck=2 x=72 y=278 w=66 h=20 size=14 color=dim align=r
+widget 1 time_left deck=2 x=72 y=298 w=66 h=20 size=14 color=auto align=r
+widget 1 phrase_name deck=2 x=8 y=320 w=62 h=20 size=13 color=auto align=l
+widget 1 drop_in deck=2 x=72 y=320 w=66 h=20 size=12 color=auto align=r
+widget 1 phrase deck=2 x=8 y=341 w=38 h=13 size=11 color=auto align=l
+widget 1 phrase_bar deck=2 x=48 y=342 w=88 h=11 size=11 color=auto align=l
+widget 1 title deck=4 x=8 y=368 w=130 h=28 size=18 color=auto align=l
+widget 1 key deck=4 x=8 y=400 w=62 h=40 size=28 color=auto align=l
+widget 1 bpm deck=4 x=72 y=400 w=66 h=20 size=14 color=dim align=r
+widget 1 time_left deck=4 x=72 y=420 w=66 h=20 size=14 color=auto align=r
+widget 1 phrase_name deck=4 x=8 y=442 w=62 h=20 size=13 color=auto align=l
+widget 1 drop_in deck=4 x=72 y=442 w=66 h=20 size=12 color=auto align=r
+widget 1 phrase deck=4 x=8 y=463 w=38 h=13 size=11 color=auto align=l
+widget 1 phrase_bar deck=4 x=48 y=464 w=88 h=11 size=11 color=auto align=l
+
+panel 2 x=0 y=0 w=212 h=80 views=4 bg=0b0b0d border=none bw=0 edge=all
+widget 2 pitch_to deck=L x=6 y=2 w=112 h=22 size=14 color=auto align=l text=L 
+widget 2 drop_in deck=L x=120 y=5 w=88 h=18 size=11 color=auto align=l
+widget 2 pitch_to deck=R x=6 y=26 w=112 h=22 size=14 color=auto align=l text=R 
+widget 2 drop_in deck=R x=120 y=29 w=88 h=18 size=11 color=auto align=l
+widget 2 usb deck=1 x=6 y=52 w=98 h=25 size=13 color=auto align=c
+widget 2 usb deck=2 x=108 y=52 w=98 h=25 size=13 color=auto align=c
+
+panel 3 x=1090 y=490 w=180 h=66 views=4 bg=auto border=none bw=0 edge=all
+widget 3 flowvj x=8 y=2 w=166 h=18 size=12 color=auto align=l text=VJ 
+widget 3 vj_tap x=8 y=22 w=40 h=21 size=11 color=auto align=l act=next
+widget 3 vj_tap x=50 y=22 w=40 h=21 size=11 color=auto align=l act=prev
+widget 3 vj_tap x=92 y=22 w=40 h=21 size=11 color=auto align=l act=auto
+widget 3 vj_tap x=134 y=22 w=40 h=21 size=11 color=auto align=l act=black
+widget 3 vj_tap x=8 y=45 w=54 h=21 size=11 color=auto align=l act=drop
+widget 3 vj_tap x=64 y=45 w=54 h=21 size=11 color=auto align=l act=strobe
+widget 3 vj_tap x=120 y=45 w=54 h=21 size=11 color=auto align=l act=fog
+
+# Top left (0.6.1): next mix = the pitch move onto the other deck and the drop countdown for
+# each side; USB 1 / USB 2 open that USB in the browser (SOURCE, USB, Local Library).
+# 4-Deck Waveforms: zoomed rekordbox waveform (16 beats, grid, playhead in the middle) and the
+# whole track under it, for each deck, over the 4 DECK waveform area (rows 3-1-2-4).
+# On top (y46-80): the 4-deck phase strip, with the dead-air warning drawn over it.
+# Mod Menu > Custom Screen > 4-deck waveforms off hides the waveforms and keeps the strip.
+panel 4 x=212 y=46 w=876 h=512 views=4 bg=0c0812 border=none bw=0 edge=all
+widget 4 phase x=0 y=0 w=876 h=34 size=10 color=auto align=l zoom=13
+widget 4 wave deck=3 x=0 y=38 w=876 h=86 zoom=16 grid=1 color=auto
+widget 4 overview deck=3 x=0 y=128 w=876 h=18 color=auto
+widget 4 wave deck=1 x=0 y=160 w=876 h=86 zoom=16 grid=1 color=auto
+widget 4 overview deck=1 x=0 y=250 w=876 h=18 color=auto
+widget 4 wave deck=2 x=0 y=282 w=876 h=86 zoom=16 grid=1 color=auto
+widget 4 overview deck=2 x=0 y=372 w=876 h=18 color=auto
+widget 4 wave deck=4 x=0 y=404 w=876 h=86 zoom=16 grid=1 color=auto
+widget 4 overview deck=4 x=0 y=494 w=876 h=18 color=auto
+widget 4 dead_air x=0 y=0 w=876 h=34 size=20 color=auto align=c
