@@ -364,13 +364,13 @@
     {
       "id": "custom-screen",
       "name": "Custom Screen",
-      "version": "0.6.1",
+      "version": "0.6.2",
       "author": "hleawilliams-commits",
       "summary": "Your own deck-screen panels from a text file: readouts, 4-deck rekordbox waveforms and FlowVJ's status.",
-      "icon": "https://github.com/hleawilliams-commits/flow-beat/releases/download/custom-screen-0.6.1/custom-screen-0.6.1-icon.png",
-      "package": "https://github.com/hleawilliams-commits/flow-beat/releases/download/custom-screen-0.6.1/custom-screen-0.6.1.azmod",
-      "sha256": "cf594a9381d90aa13809d7efe5836bd0928c4f04d7ee15ec15e52aa28ef3c64d",
-      "size": 130166,
+      "icon": "https://github.com/hleawilliams-commits/flow-beat/releases/download/custom-screen-0.6.2/custom-screen-0.6.2-icon.png",
+      "package": "https://github.com/hleawilliams-commits/flow-beat/releases/download/custom-screen-0.6.2/custom-screen-0.6.2.azmod",
+      "sha256": "9f3326be38cc8f61ebf16945e38420794b03456e81cfadfc286a62821f4deabc",
+      "size": 130300,
       "firmware": [
         "any"
       ],

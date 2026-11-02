@@ -37,11 +37,13 @@ widget 1 drop_in deck=4 x=72 y=442 w=66 h=20 size=12 color=auto align=r
 widget 1 phrase deck=4 x=8 y=463 w=38 h=13 size=11 color=auto align=l
 widget 1 phrase_bar deck=4 x=48 y=464 w=88 h=11 size=11 color=auto align=l
 
-panel 2 x=0 y=0 w=180 h=52 views=4 bg=0b0b0d border=none bw=0 edge=all
-widget 2 pitch_to deck=L x=4 y=2 w=104 h=22 size=13 color=auto align=l text=L 
-widget 2 drop_in deck=L x=110 y=5 w=68 h=18 size=11 color=auto align=l
-widget 2 pitch_to deck=R x=4 y=28 w=104 h=22 size=13 color=auto align=l text=R 
-widget 2 drop_in deck=R x=110 y=31 w=68 h=18 size=11 color=auto align=l
+panel 2 x=0 y=0 w=180 h=78 views=4 bg=0b0b0d border=none bw=0 edge=all
+widget 2 label x=6 y=2 w=82 h=14 size=10 color=dim align=l text=LEFT
+widget 2 key deck=L x=6 y=16 w=82 h=42 size=32 color=auto align=l
+widget 2 mix_with deck=L x=6 y=58 w=82 h=18 size=11 color=auto align=l text=mix 
+widget 2 label x=94 y=2 w=82 h=14 size=10 color=dim align=l text=RIGHT
+widget 2 key deck=R x=94 y=16 w=82 h=42 size=32 color=auto align=l
+widget 2 mix_with deck=R x=94 y=58 w=82 h=18 size=11 color=auto align=l text=mix 
 
 panel 3 x=1090 y=322 w=180 h=100 views=4 bg=auto border=none bw=0 edge=all
 widget 3 vj_tap x=0 y=2 w=42 h=47 size=10 color=auto align=c act=next

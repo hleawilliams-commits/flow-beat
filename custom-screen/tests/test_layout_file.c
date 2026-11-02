@@ -60,7 +60,7 @@ static void folded_mods(void)
         const cs_panel *q = &L.p[i];
         CHECK(!(q->x <= 374 && q->x + q->w > 182 && q->y <= 45 && q->y + q->h > 16));
     }
-    CHECK(L.p[1].id == 2 && L.p[1].w == 180 && L.p[1].wd[0].type == CS_PITCH_TO);
+    CHECK(L.p[1].id == 2 && L.p[1].w == 180 && L.p[1].h <= 80 && L.p[1].wd[1].type == CS_KEY && L.p[1].wd[2].type == CS_MIX_WITH);
     const char *g = "panel 1 x=0 y=0 w=10 h=10\nwidget 1 phase w=5\nwidget 1 dead_air\nwidget 1 dead_airx\n";
     CHECK(cs_parse(g, strlen(g), &L) == 1 && L.p[0].n == 2 && L.errors == 1);
 }
