@@ -2,15 +2,17 @@
   "azmod": 1,
   "id": "pad-lights",
   "name": "Pad Lights",
-  "version": "0.1.0",
+  "version": "0.5.0",
   "author": "hleawilliams-commits",
-  "summary": "The pads as a light show when idle; optional key-coloured beat pulse or 32-beat phrase countdown.",
-  "description": "Idle show (default): the pads glow in a slow colour wave on a side whose deck is stopped or empty, so the deck you're playing keeps its own hot-cue colours. Beat pulse: the playing side's pads pulse on every beat in a colour from the track's key. Phrase countdown: the pads fill over 32 beats from when the track started, and the last bar flashes red. Off returns every pad to normal. Changes pad colours only: no controls, audio or library writes.",
+  "summary": "Pad colour shows; VJ, LIGHTS and SAMPLES pad pages fire FLOW VJ, the lights desk and your own sounds.",
+  "description": "SAMPLES page (Sample pads row, off by default): HOT CUE + SLIP LOOP, pads 1-4 play the 4 sounds of a Drum Roll bank on the USB (DRUM ROLLS/Bank N: kick, snare, clap, hihat files), pads 5-8 pick Bank 1-4; hits land on the next beat and play through that deck's channel. VJ + lights pads row: HOT CUE + BEAT JUMP = FLOW VJ Looks, HOT CUE + BEAT LOOP = lights desk. Any pad-mode button alone gives the pads back. Idle show, Beat pulse, Phrase countdown, FLOW lights: pad colour modes.",
   "category": "visual",
   "license": "GPL-3.0-only",
   "source": "https://github.com/hleawilliams-commits/flow-beat/tree/codex/az-mods-handoff-2026-10-16/pad-lights",
   "api": 1,
-  "firmware": ["any"],
+  "firmware": [
+    "any"
+  ],
   "hooks": false,
   "min_core": "1.2.3"
 }

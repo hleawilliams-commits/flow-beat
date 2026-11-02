@@ -50,7 +50,7 @@ CFLAGS  := -O2 -Wall -Wextra -Werror=implicit-function-declaration \
            -fexceptions -fasynchronous-unwind-tables \
            -I$(AZ_SDK_INCLUDE)
 LDFLAGS := -shared -static-libgcc -Wl,--no-undefined -Wl,--hash-style=gnu
-LDLIBS  := -lpthread -lm
+LDLIBS  := -lpthread -lm -ldl
 
 # GCC 10+ on aarch64 defaults to outline atomics (a libgcc helper). The SDK's GCC 7
 # does not know the flag; probe for it so the same Makefile works on both.

@@ -9,9 +9,34 @@
  * Threads: the UI thread computes colours (gamma-corrected) into words; the ERP LED filter
  * (bus thread) copies them into the frame and records which deck each side shows; a worker
  * reads keys from the library (the deck reports none) for the beat colour.
+ * 0.2.0: FLOW lights mode — a listener thread takes FLOW VJ's rig colours (UDP 9101, "FLP1" + 8 RGB) and the
+ * pads mirror the Shocker's 8 segments; no packet for 1.5 s = the idle wave.
+ * 0.3.0: VJ Pads — with "VJ pads" on, HOT CUE + BEAT JUMP together turns that side's pads into a page that plays
+ * FLOW VJ (pads 1-8 = Looks 1-8, SHIFT + pad = light hits); any pad-mode button alone goes back. An ERP input filter
+ * keeps those pads from the deck and records them; a sender thread turns the changes into UDP JSON for FLOW
+ * (port 9100, broadcast like flow-beat; pad-lights:host / pad-lights:port in azmods.cfg):
+ *   {"flowbeat":1,"type":"vjpad","side":1,"pad":3,"down":1,"shift":0,"n":17}   n numbers presses (sent twice; FLOW drops repeats)
+ *   {"flowbeat":1,"type":"vjpage","side":1,"on":1}                            the page opened / closed
+ * 0.4.0: LIGHTS pads — HOT CUE + BEAT LOOP opens the LIGHTS page instead: the same presses go out as "lightpad" /
+ * "lightpage" (same fields), and FLOW's lights desk plays them as the Maschine MK3 bank pads set in deck-lights.json.
+ * 0.5.0: SAMPLES pads — with "Sample pads" on, HOT CUE + SLIP LOOP opens the SAMPLES page: pads 1-4 play the four
+ * sounds of a Drum Roll bank (USB: DRUM ROLLS/Bank N/kick, snare, clap, hihat), pads 5-8 pick Bank 1-4. Mods can't
+ * play audio, so a sampler thread drives AZ-MODS's own Drum Roll engine through azstem.so's exported azstem_drum_*
+ * calls (not part of the SDK: looked up with dlsym, and a missing one leaves the page silent). Each press is a
+ * one-hit roll: gate on, then off half a subdivision after the hit, which lands on the next beat (or 1/2, 1/4).
+ * The sound mixes into that side's deck, so its channel fader, EQ and Beat FX apply; one sound at a time per deck.
  */
+#define _GNU_SOURCE                 /* RTLD_DEFAULT */
+#include <arpa/inet.h>
+#include <dlfcn.h>
+#include <errno.h>
+#include <ifaddrs.h>
+#include <net/if.h>
 #include <math.h>
+#include <netinet/in.h>
 #include <pthread.h>
+#include <sys/socket.h>
+#include <unistd.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -23,26 +48,233 @@
 #define MOD_ID "pad-lights"
 static const az_core_v1 *C;
 
+/* FLOW lights (0.2.0): the listener thread writes, the UI thread reads */
+#define FLOW_PORT 9101
+static uint32_t pl_flowc[8];        /* __atomic, 0xRRGGBB */
+static int64_t pl_flow_ms;          /* __atomic, monotonic ms of the last packet */
+static int64_t pl_ms(void) { struct timespec ts; clock_gettime(CLOCK_MONOTONIC, &ts); return (int64_t)ts.tv_sec * 1000 + ts.tv_nsec / 1000000; }
+static void *pl_flow_worker(void *arg)
+{
+    (void)arg;
+    int s = socket(AF_INET, SOCK_DGRAM, 0);
+    if (s < 0) return NULL;
+    int on = 1; setsockopt(s, SOL_SOCKET, SO_REUSEADDR, &on, sizeof on);
+    struct timeval tv = {0, 500000}; setsockopt(s, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof tv);
+    struct sockaddr_in a; memset(&a, 0, sizeof a); a.sin_family = AF_INET; a.sin_port = htons(FLOW_PORT); a.sin_addr.s_addr = htonl(INADDR_ANY);
+    if (bind(s, (struct sockaddr *)&a, sizeof a) != 0) { close(s); if (AZ_HAS(C, log)) C->log(MOD_ID, "UDP %d busy: FLOW lights off", FLOW_PORT); return NULL; }
+    unsigned char b[64];
+    for (;;) {
+        ssize_t n = recv(s, b, sizeof b, 0);
+        if (n < 28 || memcmp(b, "FLP1", 4) != 0) continue;
+        for (int k = 0; k < 8; k++) __atomic_store_n(&pl_flowc[k], (uint32_t)b[4 + 3 * k] << 16 | (uint32_t)b[5 + 3 * k] << 8 | b[6 + 3 * k], __ATOMIC_RELAXED);
+        __atomic_store_n(&pl_flow_ms, pl_ms(), __ATOMIC_RELEASE);
+    }
+    return NULL;
+}
+
+/* ---- VJ Pads (0.3.0) ---- */
+#define VJ_PORT 9100
+static int pl_vj_enabled;           /* __atomic, UI -> bus: the "VJ pads" row */
+static uint32_t pl_vj_state[2];     /* __atomic, bus -> UI + sender: page << 17 (2 bits) | on << 16 | shift << 8 | held pads */
+static int pl_vj_look[2] = {-1, -1}; /* __atomic, sender -> UI: per page, the pad last fired (0-7) */
+static struct sockaddr_in pl_dst[8];
+static int pl_ndst;
+static void pl_vj_cfg(void)          /* sender thread: where FLOW is (every 2 s) */
+{
+    char host[64] = "255.255.255.255";
+    if (AZ_HAS(C, cfg_get_str)) C->cfg_get_str(MOD_ID, "host", host, (int)sizeof host, "255.255.255.255");
+    int port = AZ_HAS(C, cfg_get) ? C->cfg_get(MOD_ID, "port", VJ_PORT) : VJ_PORT;
+    if (port < 1 || port > 65535) port = VJ_PORT;
+    struct in_addr a;
+    if (inet_pton(AF_INET, host, &a) != 1) inet_pton(AF_INET, "255.255.255.255", &a);
+    int n = 0;
+    if (a.s_addr == htonl(INADDR_BROADCAST)) {    /* each network's own broadcast, as flow-beat does */
+        struct ifaddrs *ifs = NULL;
+        if (getifaddrs(&ifs) == 0) {
+            for (struct ifaddrs *i = ifs; i && n < 8; i = i->ifa_next) {
+                if (!i->ifa_addr || i->ifa_addr->sa_family != AF_INET || !(i->ifa_flags & IFF_UP)) continue;
+                if ((i->ifa_flags & IFF_LOOPBACK) || !(i->ifa_flags & IFF_BROADCAST) || !i->ifa_broadaddr) continue;
+                memset(&pl_dst[n], 0, sizeof pl_dst[n]); pl_dst[n].sin_family = AF_INET; pl_dst[n].sin_port = htons((uint16_t)port);
+                pl_dst[n].sin_addr = ((struct sockaddr_in *)i->ifa_broadaddr)->sin_addr; n++;
+            }
+            freeifaddrs(ifs);
+        }
+    }
+    if (!n) { memset(&pl_dst[0], 0, sizeof pl_dst[0]); pl_dst[0].sin_family = AF_INET; pl_dst[0].sin_port = htons((uint16_t)port); pl_dst[0].sin_addr = a; n = 1; }
+    pl_ndst = n;
+}
+static void pl_vj_send(int s, const char *b, int len)
+{
+    for (int i = 0; i < pl_ndst; i++) sendto(s, b, (size_t)len, MSG_DONTWAIT, (const struct sockaddr *)&pl_dst[i], sizeof pl_dst[i]);
+}
+static void *pl_vj_worker(void *arg)
+{
+    (void)arg;
+    int s = socket(AF_INET, SOCK_DGRAM, 0);
+    if (s < 0) return NULL;
+    int on = 1; setsockopt(s, SOL_SOCKET, SO_BROADCAST, &on, sizeof on);
+    uint32_t prev[2] = {0, 0};
+    unsigned shift_at[2] = {0, 0};                 /* per pad: SHIFT at its press, so its release matches */
+    unsigned page_at[2] = {0, 0};                  /* per pad: the page it went down on (bit set = LIGHTS; bits 8-15 = SAMPLES) */
+    unsigned n = 0, step = 0;
+    char b[160];
+    for (;;) {
+        if (step++ % 600 == 0) pl_vj_cfg();
+        for (int side = 0; side < 2; side++) {
+            uint32_t v = __atomic_load_n(&pl_vj_state[side], __ATOMIC_ACQUIRE), was = prev[side];
+            if (v == was) continue;
+            prev[side] = v;
+            int vjon = v >> 16 & 1, shift = v >> 8 & 1, page = v >> 17 & 3, was_page = was >> 17 & 3;
+            if (page == PL_PAGE_SAMPLES) vjon = 0;    /* SAMPLES never talks to FLOW: the sampler thread plays it */
+            int was_on = (was >> 16 & 1) && was_page != PL_PAGE_SAMPLES;
+            if (vjon != was_on || (vjon && page != was_page)) {
+                if (was_on) {                         /* the page that was open says it closed */
+                    int len = snprintf(b, sizeof b, "{\"flowbeat\":1,\"type\":\"%s\",\"side\":%d,\"on\":0}", was_page ? "lightpage" : "vjpage", side + 1);
+                    pl_vj_send(s, b, len);
+                }
+                if (vjon) {
+                    int len = snprintf(b, sizeof b, "{\"flowbeat\":1,\"type\":\"%s\",\"side\":%d,\"on\":1}", page ? "lightpage" : "vjpage", side + 1);
+                    pl_vj_send(s, b, len);
+                }
+            }
+            unsigned held = v & 0xffu, old = was & 0xffu;
+            for (int k = 0; k < 8; k++) {
+                unsigned bit = 1u << k;
+                if ((held ^ old) & bit) {
+                    int down = (held & bit) != 0;
+                    if (down && page == PL_PAGE_SAMPLES) { page_at[side] |= bit << 8; continue; }   /* the sampler's */
+                    if (!down && (page_at[side] >> 8 & bit)) { page_at[side] &= ~(bit << 8); continue; }
+                    if (down) { shift_at[side] = (shift_at[side] & ~bit) | (shift ? bit : 0); page_at[side] = (page_at[side] & ~bit) | (page == PL_PAGE_LIGHTS ? bit : 0); n++; }
+                    int sh = (shift_at[side] & bit) != 0, pg = (page_at[side] & bit) != 0;
+                    if (down && !sh) __atomic_store_n(&pl_vj_look[pg], k, __ATOMIC_RELAXED);
+                    int len = snprintf(b, sizeof b, "{\"flowbeat\":1,\"type\":\"%s\",\"side\":%d,\"pad\":%d,\"down\":%d,\"shift\":%d,\"n\":%u}",
+                                       pg ? "lightpad" : "vjpad", side + 1, k + 1, down, sh, n);
+                    pl_vj_send(s, b, len); pl_vj_send(s, b, len);   /* twice: Wi-Fi drops the odd packet */
+                }
+            }
+        }
+        struct timespec ts = {0, 3000000}; nanosleep(&ts, NULL);
+    }
+    return NULL;
+}
+
+/* ---- SAMPLES pads (0.5.0): the sampler thread drives azstem's Drum Roll engine ---- */
+static void (*pl_dr_gate)(int, int), (*pl_dr_select)(int, int), (*pl_dr_rate)(int, int), (*pl_dr_touch)(int, int);
+static void (*pl_dr_bank)(int);
+static int (*pl_dr_avail)(void);
+static int pl_sm_mode;              /* __atomic, UI -> sampler: the "Sample pads" row, 0 off, 1-3 = next 1, 1/2, 1/4 beat */
+static int pl_sm_ok;                /* __atomic, sampler -> UI: azstem found and a DRUM ROLLS folder is on a USB */
+static int pl_sm_banks;             /* __atomic, sampler -> UI: azstem_drum_available() */
+static int pl_sm_cur_bank;          /* __atomic, sampler -> UI: the bank we asked for, 1-4, 0 = none yet */
+static int pl_sm_last[2] = {-1, -1}; /* __atomic, sampler -> UI: per side, the pad played last (0-3) */
+/* bus -> UI: selection bytes (left 0x0c, right 0x44) decoded: 1 = deck 1/2, 2 = deck 3/4. */
+static int pl_sel[2];               /* __atomic */
+static int pl_sm_resolve(void)       /* azstem.so may load after us; resolve until it is there */
+{
+    if (__atomic_load_n(&pl_dr_touch, __ATOMIC_ACQUIRE)) return 1;
+    void *g = dlsym(RTLD_DEFAULT, "azstem_drum_gate"), *se = dlsym(RTLD_DEFAULT, "azstem_drum_select");
+    void *ra = dlsym(RTLD_DEFAULT, "azstem_drum_rate"), *to = dlsym(RTLD_DEFAULT, "azstem_drum_touch");
+    void *bk = dlsym(RTLD_DEFAULT, "azstem_drum_bank"), *av = dlsym(RTLD_DEFAULT, "azstem_drum_available");
+    if (!g || !se || !ra || !to || !bk || !av) return 0;
+    *(void **)&pl_dr_gate = g; *(void **)&pl_dr_select = se; *(void **)&pl_dr_rate = ra;
+    *(void **)&pl_dr_bank = bk; *(void **)&pl_dr_avail = av;
+    __atomic_store_n((void **)&pl_dr_touch, to, __ATOMIC_RELEASE);
+    if (AZ_HAS(C, log)) C->log(MOD_ID, "sample pads: AZ-MODS Drum Roll engine found");
+    return 1;
+}
+static void *pl_sm_worker(void *arg)
+{
+    (void)arg;
+    uint32_t prev[2] = {0, 0};
+    int64_t release_at[4] = {0, 0, 0, 0};          /* per deck: when to let go of the roll, 0 = not holding */
+    unsigned step = 0;
+    int warned = 0;
+    for (;;) {
+        int mode = __atomic_load_n(&pl_sm_mode, __ATOMIC_RELAXED);
+        if (step++ % 250 == 0) {                   /* ~1 s: look for azstem and the USB's banks */
+            int ok = mode && pl_sm_resolve();
+            int banks = ok ? pl_dr_avail() : 0;
+            if (mode && !ok && !warned++ && AZ_HAS(C, log)) C->log(MOD_ID, "sample pads: no azstem_drum_* (AZ-MODS without azstem.so?): pads stay silent");
+            __atomic_store_n(&pl_sm_banks, banks, __ATOMIC_RELAXED);
+            __atomic_store_n(&pl_sm_ok, ok && banks != 0, __ATOMIC_RELAXED);
+        }
+        int ok = __atomic_load_n(&pl_sm_ok, __ATOMIC_RELAXED);
+        int64_t now = 0;                           /* read the clock only while a roll is held or a pad goes down */
+        for (int d = 0; d < 4; d++)
+            if (release_at[d] && (now ? now : (now = pl_ms())) >= release_at[d]) { pl_dr_gate(d, 0); release_at[d] = 0; }
+        for (int side = 0; side < 2; side++) {
+            uint32_t v = __atomic_load_n(&pl_vj_state[side], __ATOMIC_ACQUIRE), was = prev[side];
+            prev[side] = v;
+            if (!(v >> 16 & 1) || (v >> 17 & 3) != PL_PAGE_SAMPLES) continue;
+            if (!((was >> 16 & 1) && (was >> 17 & 3) == PL_PAGE_SAMPLES)) was &= ~0xffu;   /* just opened: all presses new */
+            unsigned down = (v & ~was) & 0xffu;
+            if (!down || !ok || !mode) continue;
+            int sel = __atomic_load_n(&pl_sel[side], __ATOMIC_RELAXED);
+            int deck = side + (sel == 2 ? 2 : 0);
+            for (int k = 4; k < 8; k++)                /* pads 5-8: Bank 1-4 */
+                if (down >> k & 1u) { pl_dr_bank(k - 3); __atomic_store_n(&pl_sm_cur_bank, k - 3, __ATOMIC_RELAXED); }
+            for (int k = 0; k < 4; k++) {
+                if (!(down >> k & 1u)) continue;
+                if (!__atomic_load_n(&pl_sm_cur_bank, __ATOMIC_RELAXED)) {   /* first use: the Mod Menu's bank may be off */
+                    int b = AZ_HAS(C, cfg_get) ? C->cfg_get(MOD_ID, "bank", 1) : 1;
+                    if (b < 1 || b > 4) b = 1;
+                    pl_dr_bank(b); __atomic_store_n(&pl_sm_cur_bank, b, __ATOMIC_RELAXED);
+                }
+                az_deck_info di; memset(&di, 0, sizeof di); di.size = sizeof di;
+                double bp = -1, bar = -1;
+                int playing = C->deck_info(deck, &di) == 0 && di.loaded == 1 && di.playing == 1;
+                if (!playing || !AZ_HAS(C, deck_grid) || C->deck_grid(deck, &bp, &bar) != 0) bp = -1;
+                pl_dr_select(deck, k);
+                pl_dr_rate(deck, mode - 1);
+                if (!release_at[deck]) { pl_dr_gate(deck, 1); pl_dr_touch(deck, 1); }   /* still holding: the new sound takes the next hit */
+                if (!now) now = pl_ms();
+                release_at[deck] = now + pl_sm_release_ms(bp, playing, di.bpm, pl_sm_subs[mode - 1]);
+                __atomic_store_n(&pl_sm_last[side], k, __ATOMIC_RELAXED);
+            }
+        }
+        struct timespec ts = {0, 4000000}; nanosleep(&ts, NULL);
+    }
+    return NULL;
+}
+
 /* UI -> bus: per side, whether to override, and 8 packed colours (already gamma'd). */
 static int pl_on_side[2];                 /* __atomic */
 static uint32_t pl_cell[2][8];            /* __atomic */
-/* bus -> UI: selection bytes (left 0x0c, right 0x44) decoded: 1 = deck 1/2, 2 = deck 3/4. */
-static int pl_sel[2];                     /* __atomic */
 /* worker -> UI: Camelot number per deck, and the content id it belongs to. */
 static int pl_cam[4];                     /* __atomic */
 static unsigned pl_cam_id[4];             /* __atomic */
 static unsigned char pl_gam[256];
 static int pl_row_mode = -1;
+static int pl_row_vj = -1;
+static int pl_row_sm = -1;
 
 static int pl_selection(unsigned char v)
 {
     unsigned p = v & 3u, s = (v >> 2) & 3u;
     return p == 2 && s == 1 ? 1 : p == 1 && s == 2 ? 2 : 0;
 }
+static unsigned char pl_vj_mode_led[3][3]; /* the pad-mode buttons on a page: VJ violet, LIGHTS amber, SAMPLES green; gamma'd at init */
+/* ---- ERP input filter (VJ Pads): only the input bus thread runs this ---- */
+static pl_vjs pl_vjside[2];
+static int pl_input(unsigned char *f, int len)
+{
+    if (len < 0x17) return AZ_FRAME_OK;
+    int enabled = __atomic_load_n(&pl_vj_enabled, __ATOMIC_RELAXED);     /* PL_EN_* bits */
+    for (int side = 0; side < 2; side++) {
+        int mo = side ? 0x15 : 0x0d, po = side ? 0x16 : 0x0e, so = side ? 0x11 : 0x09;
+        unsigned eat = pl_vj_in(&pl_vjside[side], enabled, f[mo], f[po]);
+        uint32_t st = (uint32_t)(pl_vjside[side].page & 3) << 17 | (uint32_t)(pl_vjside[side].on ? 1 : 0) << 16 | (uint32_t)(f[so] >> 7 & 1) << 8 | (pl_vjside[side].held & 0xffu);
+        f[po] &= (unsigned char)~(eat & 0xffu);
+        f[mo] &= (unsigned char)~(eat >> 8 & 0xfu);
+        __atomic_store_n(&pl_vj_state[side], st, __ATOMIC_RELEASE);
+    }
+    return AZ_FRAME_OK;
+}
 /* ---- ERP LED filter: copy, never compute ---- */
 static int pl_frame(int bus, unsigned char *f, int len, void *user)
 {
     (void)user;
+    if (bus == AZ_BUS_ERP_IN && f) return pl_input(f, len);
     if (bus != AZ_BUS_ERP_LED || !f || len < 0x78) return AZ_FRAME_OK;
     __atomic_store_n(&pl_sel[0], pl_selection(f[0x0c]), __ATOMIC_RELAXED);
     __atomic_store_n(&pl_sel[1], pl_selection(f[0x44]), __ATOMIC_RELAXED);
@@ -54,6 +286,9 @@ static int pl_frame(int bus, unsigned char *f, int len, void *user)
             unsigned char *p = f + base + 0x1e + 4 * k;
             p[0] = (unsigned char)(c >> 16); p[1] = (unsigned char)(c >> 8); p[2] = (unsigned char)c;
         }
+        uint32_t vs = __atomic_load_n(&pl_vj_state[side], __ATOMIC_ACQUIRE);
+        if (vs >> 16 & 1)                                                       /* a page: the mode buttons say which */
+            for (int j = 0; j < 4; j++) memcpy(f + base + 0x0e + 4 * j, pl_vj_mode_led[(vs >> 17 & 3) % 3], 3);
     }
     return AZ_FRAME_OK;
 }
@@ -190,6 +425,10 @@ static double pl_now(void)
 static void pl_tick(void)
 {
     int mode = pl_row_mode >= 0 ? C->row_value(pl_row_mode) : PL_IDLE;
+    int sm = pl_row_sm >= 0 ? C->row_value(pl_row_sm) : 0;
+    if (sm < 0 || sm > 3) sm = 0;
+    __atomic_store_n(&pl_sm_mode, sm, __ATOMIC_RELAXED);
+    __atomic_store_n(&pl_vj_enabled, (pl_row_vj >= 0 && C->row_value(pl_row_vj) == 1 ? PL_EN_VJ : 0) | (sm ? PL_EN_SAMPLES : 0), __ATOMIC_RELAXED);
     double t = pl_now();
     int playing[4] = {0}; double phase[4] = {-1, -1, -1, -1};
     for (int d = 0; d < 4; d++) {
@@ -205,7 +444,22 @@ static void pl_tick(void)
         int deck = side + (sel == 2 ? 2 : 0);                     /* unknown selection: decks 1/2 */
         pl_rgb pads[8];
         int cam = __atomic_load_n(&pl_cam[deck], __ATOMIC_ACQUIRE);
-        int on = pl_side(mode, playing[deck], t + side * 1.7, phase[deck], pl_beats[deck], cam, pads);
+        int on;
+        uint32_t vj = __atomic_load_n(&pl_vj_state[side], __ATOMIC_ACQUIRE);
+        if (vj >> 16 & 1) {                                        /* a page: pulse on this side's deck, else any playing one */
+            double ph = phase[deck];
+            for (int d = 0; d < 4 && ph < 0; d++) ph = phase[d];
+            int page = vj >> 17 & 3;
+            if (page == PL_PAGE_SAMPLES)
+                pl_sm_page(vj & 0xffu, __atomic_load_n(&pl_sm_ok, __ATOMIC_RELAXED), __atomic_load_n(&pl_sm_cur_bank, __ATOMIC_RELAXED),
+                           __atomic_load_n(&pl_sm_banks, __ATOMIC_RELAXED), __atomic_load_n(&pl_sm_last[side], __ATOMIC_RELAXED), ph, pads);
+            else pl_page(page, vj & 0xffu, vj >> 8 & 1, __atomic_load_n(&pl_vj_look[page], __ATOMIC_RELAXED), ph, pads);
+            on = 1;
+        } else if (mode == PL_FLOW) {
+            pl_rgb flow[8];
+            for (int k = 0; k < 8; k++) { uint32_t c = __atomic_load_n(&pl_flowc[k], __ATOMIC_RELAXED); flow[k].r = c >> 16; flow[k].g = c >> 8; flow[k].b = c; }
+            on = pl_flow(pl_ms() - __atomic_load_n(&pl_flow_ms, __ATOMIC_ACQUIRE) < 1500, flow, t + side * 1.7, pads);
+        } else on = pl_side(mode, playing[deck], t + side * 1.7, phase[deck], pl_beats[deck], cam, pads);
         if (on) for (int k = 0; k < 8; k++) {
             __atomic_store_n(&pl_cell[side][k], (uint32_t)pl_gam[pads[k].r] << 16 | (uint32_t)pl_gam[pads[k].g] << 8 | pl_gam[pads[k].b], __ATOMIC_RELAXED);
             pl_preview[side][k] = (uint32_t)pads[k].r << 16 | (uint32_t)pads[k].g << 8 | pads[k].b;
@@ -230,8 +484,10 @@ static void pl_draw_page(az_draw *d, az_rect a, void *user)
         if (y + 30 + cell > a.y + a.h) break;     /* label + one row of squares must fit */
         int sel = __atomic_load_n(&pl_sel[side], __ATOMIC_RELAXED);
         char lab[48];
+        uint32_t vs = __atomic_load_n(&pl_vj_state[side], __ATOMIC_ACQUIRE);
+        int vjp = vs >> 16 & 1;
         snprintf(lab, sizeof lab, "%s: Deck %d%s", side ? "Right" : "Left", side + (sel == 2 ? 3 : 1),
-                 pl_preview_on[side] ? "" : "  (deck colours)");
+                 vjp ? ((vs >> 17 & 3) == PL_PAGE_SAMPLES ? "  (SAMPLES pads)" : (vs >> 17 & 3) == PL_PAGE_LIGHTS ? "  (LIGHTS pads)" : "  (VJ pads)") : pl_preview_on[side] ? "" : "  (deck colours)");
         if (y + 27 <= a.y + a.h && C->text_width(lab, 18) <= a.w - 40) C->draw_text(d, a.x + 20, y, lab, 18, pl_preview_on[side] ? text : dim);
         for (int k = 0; k < 8; k++) {
             int x = a.x + 20 + k * (cell + 8);
@@ -250,12 +506,25 @@ static int pl_init(const az_core_v1 *core)
     if (__atomic_load_n(&C, __ATOMIC_ACQUIRE) != core) __atomic_store_n(&C, core, __ATOMIC_RELEASE);
     if (!AZ_HAS(C, deck_info) || !AZ_HAS(C, thread_start)) return 2;
     for (int i = 0; i < 256; i++) pl_gam[i] = (unsigned char)(pow(i / 255.0, 2.2) * 255.0 + 0.5);
+    pl_vj_mode_led[0][0] = pl_gam[150]; pl_vj_mode_led[0][1] = 0; pl_vj_mode_led[0][2] = pl_gam[255];
+    pl_vj_mode_led[1][0] = pl_gam[255]; pl_vj_mode_led[1][1] = pl_gam[140]; pl_vj_mode_led[1][2] = 0;
+    pl_vj_mode_led[2][0] = 0; pl_vj_mode_led[2][1] = pl_gam[255]; pl_vj_mode_led[2][2] = pl_gam[90];
     if (AZ_HAS(C, register_row) && AZ_HAS(C, row_value)) {
-        static const char *const modes[] = {"Off", "Idle show", "Beat pulse", "Phrase countdown"};
+        static const char *const modes[] = {"Off", "Idle show", "Beat pulse", "Phrase countdown", "FLOW lights"};
         const az_row_v1 row = {.size = sizeof row, .key = "mode", .label = "Pad lights", .kind = AZ_ROW_CHOICE,
-            .choices = modes, .n_choices = 4, .default_choice = PL_IDLE,
-            .help = "Idle show: pads animate only on a side whose deck is stopped or empty; the side you play keeps its hot-cue colours. Beat pulse: the playing side pulses on the beat in the track's key colour. Phrase countdown: pads fill over 32 beats, last bar flashes red."};
+            .choices = modes, .n_choices = 5, .default_choice = PL_IDLE,
+            .help = "Idle show: pads animate only on a side whose deck is stopped or empty; the side you play keeps its hot-cue colours. Beat pulse: the playing side pulses on the beat in the track's key colour. Phrase countdown: pads fill over 32 beats, last bar flashes red. FLOW lights: the pads mirror FLOW VJ's light rig (the Shocker's 8 segments) from the Mac."};
         pl_row_mode = C->register_row(MOD_ID, &row);
+        static const char *const onoff[] = {"Off", "On"};
+        const az_row_v1 vjrow = {.size = sizeof vjrow, .key = "vj", .label = "VJ + lights pads", .kind = AZ_ROW_CHOICE,
+            .choices = onoff, .n_choices = 2, .default_choice = 0,
+            .help = "On: HOT CUE + BEAT JUMP together = VJ page (pads 1-8 = FLOW Looks 1-8, SHIFT = light hits; mode buttons violet). HOT CUE + BEAT LOOP = LIGHTS page (pads 1-8 = the lights desk's looks, SHIFT = blinder, strobe, blackout, drop; mode buttons amber; set them in FlowVJ's deck-lights.json). Any pad-mode button on its own gives the pads back. The deck never sees page presses, so hot cues are safe."};
+        pl_row_vj = C->register_row(MOD_ID, &vjrow);
+        static const char *const smodes[] = {"No", "1", "2", "4"};   /* 4 choices: ~36 px boxes, keep labels to 2 chars */
+        const az_row_v1 smrow = {.size = sizeof smrow, .key = "samples", .label = "Sample pads", .kind = AZ_ROW_CHOICE,
+            .choices = smodes, .n_choices = 4, .default_choice = 0,
+            .help = "No = off. 1 / 2 / 4 = each hit lands on the next beat / 1/2 beat / 1/4 beat. HOT CUE + SLIP LOOP = SAMPLES page (mode buttons green). Pads 1-4 play the 4 sounds of a Drum Roll bank on the USB (DRUM ROLLS/Bank N: kick, snare, clap, hihat files), pads 5-8 pick Bank 1-4. Each hit lands on the next beat (or 1/2, 1/4) and plays through that deck's channel: fader up. MIC 2 HI = volume. One sound at a time per deck."};
+        pl_row_sm = C->register_row(MOD_ID, &smrow);
     }
     if (AZ_HAS(C, register_screen)) {
         static const az_screen_v1 scr = {.size = sizeof scr, .on_draw = pl_draw_page, .on_input = pl_page_input, .on_enter = pl_page_enter};
@@ -264,10 +533,13 @@ static int pl_init(const az_core_v1 *core)
     static int started;
     if (!started) {
         /* Without the LED filter the mod stays loaded and inert (nothing to draw on). */
-        if (!AZ_HAS(C, frame_filter) || C->frame_filter(MOD_ID, 1u << AZ_BUS_ERP_LED, pl_frame, NULL) != 0) {
+        if (!AZ_HAS(C, frame_filter) || C->frame_filter(MOD_ID, 1u << AZ_BUS_ERP_LED | 1u << AZ_BUS_ERP_IN, pl_frame, NULL) != 0) {
             if (AZ_HAS(C, log)) C->log(MOD_ID, "no pad LED access on this core: pads unchanged");
         }
         if (AZ_HAS(C, lib_tracks) && C->thread_start(MOD_ID, "pad-keys", pl_worker, NULL) != 0) return 4;
+        if (C->thread_start(MOD_ID, "pad-flow", pl_flow_worker, NULL) != 0 && AZ_HAS(C, log)) C->log(MOD_ID, "no FLOW lights thread");
+        if (C->thread_start(MOD_ID, "pad-vj", pl_vj_worker, NULL) != 0 && AZ_HAS(C, log)) C->log(MOD_ID, "no VJ pads thread");
+        if (C->thread_start(MOD_ID, "pad-samples", pl_sm_worker, NULL) != 0 && AZ_HAS(C, log)) C->log(MOD_ID, "no sample pads thread");
         started = 1;
     }
     return 0;
