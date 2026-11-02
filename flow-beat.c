@@ -942,43 +942,100 @@ static void lights_step(unsigned step, const az_deck_info *di, const double *ph,
 static int row_panel = -1;                /* "FLOW Lights button" */
 static az_surface *pn_btn_surf, *pn_surf;
 
-/* bus thread: rectangle tests and atomics only. The deck screen only; the panel's own area only. */
+static long pn_now_ms(void);
+static long pn_press_ms;                  /* atomic: when the touch filter last handled a press */
+static int pn_logs;                       /* atomic: input lines logged so far (the first few, for tests) */
+
+/* One press at screen x, y, from the touch filter (bus thread) or a surface's on_input (UI thread):
+ * atomics only. Returns 1 if it was the panel's (LIGHTS or inside the open panel). */
+static int pn_press(int x, int y, int *cur, const char *from)
+{
+    *cur = PN_NONE;
+    if (row_panel >= 0 && C->row_value(row_panel) != 1) return 0;
+    if (C->view() != AZ_VIEW_DECK) return 0;
+    if (pn_in_button(x, y)) {
+        __atomic_store_n(&pn_toggle, 1, __ATOMIC_RELEASE);
+        if (__atomic_add_fetch(&pn_logs, 1, __ATOMIC_ACQ_REL) <= 20) C->log(MOD_ID, "lights panel: LIGHTS tapped (%s)", from);
+        return 1;
+    }
+    if (!__atomic_load_n(&pn_open, __ATOMIC_ACQUIRE) || !pn_in_panel(x, y)) return 0;
+    *cur = pn_hit(x, y);
+    if (*cur == PN_LEVEL) __atomic_store_n(&pn_level, pn_level_at(y), __ATOMIC_RELEASE);
+    else if (*cur != PN_NONE) {
+        if (*cur == PN_STROBE) __atomic_store_n(&pn_strobe_held, 1, __ATOMIC_RELEASE);
+        __atomic_or_fetch(&pn_tapped, 1ull << *cur, __ATOMIC_ACQ_REL);
+        if (__atomic_add_fetch(&pn_logs, 1, __ATOMIC_ACQ_REL) <= 20) C->log(MOD_ID, "lights panel: %s tapped (%s)", pn_btn_of(*cur)->label, from);
+    }
+    return 1;
+}
+static void pn_release(int cur)
+{
+    if (cur == PN_STROBE && __atomic_exchange_n(&pn_strobe_held, 0, __ATOMIC_ACQ_REL))
+        __atomic_store_n(&pn_strobe_off, 1, __ATOMIC_RELEASE);
+}
+
+/* bus thread: rectangle tests and atomics only. The deck screen only; LIGHTS and the open panel only.
+ * A passed touch may never show us its lift (EP147 has it), and a tap-only screen may send no lift
+ * at all: so a contact after a gap of more than 120 ms is a new press, lift or not. */
 static int pn_touch(const az_touch *t, void *user)
 {
     (void)user;
     static int touching, taken, cur;
+    static long last;
     if (!t) return AZ_TOUCH_PASS;
+    long now = pn_now_ms();
+    if (__atomic_load_n(&pn_logs, __ATOMIC_RELAXED) < 3 && t->down && !touching) {
+        __atomic_add_fetch(&pn_logs, 1, __ATOMIC_ACQ_REL);
+        C->log(MOD_ID, "lights panel: touch filter sees %d,%d", t->x, t->y);
+    }
     if (!t->down) {
-        if (touching && taken && cur == PN_STROBE && __atomic_exchange_n(&pn_strobe_held, 0, __ATOMIC_ACQ_REL))
-            __atomic_store_n(&pn_strobe_off, 1, __ATOMIC_RELEASE);
-        int was = taken;
+        if (touching && taken) pn_release(cur);
+        int was = touching && taken;
         touching = taken = 0;
         cur = PN_NONE;
         return was ? AZ_TOUCH_TAKE : AZ_TOUCH_PASS;
     }
-    if (touching) {                                     /* the same finger moving */
+    if (touching && now - last <= 120) {                /* the same finger moving */
+        last = now;
         if (taken && cur == PN_LEVEL) __atomic_store_n(&pn_level, pn_level_at(t->y), __ATOMIC_RELEASE);
         return taken ? AZ_TOUCH_TAKE : AZ_TOUCH_PASS;
     }
+    if (touching && taken) pn_release(cur);             /* the last one never lifted */
     touching = 1;
-    taken = 0;
-    cur = PN_NONE;
-    if (row_panel >= 0 && C->row_value(row_panel) != 1) return AZ_TOUCH_PASS;
-    if (C->view() != AZ_VIEW_DECK) return AZ_TOUCH_PASS;
-    if (pn_in_button(t->x, t->y)) {
-        __atomic_store_n(&pn_toggle, 1, __ATOMIC_RELEASE);
-        taken = 1;
-        return AZ_TOUCH_TAKE;
+    last = now;
+    taken = pn_press(t->x, t->y, &cur, "touch");
+    if (taken) __atomic_store_n(&pn_press_ms, now, __ATOMIC_RELEASE);
+    return taken ? AZ_TOUCH_TAKE : AZ_TOUCH_PASS;
+}
+
+/* UI thread: a tap the core hands the surface itself (on cores or screens where the touch filter
+ * doesn't see it). A press the touch filter already handled is not counted twice. */
+static int pn_input(const az_event *ev, void *user)
+{
+    (void)user;
+    static int cur;
+    static long down_ms;
+    if (!ev) return 0;
+    if (ev->kind == AZ_EV_BACK) {                        /* BACK closes the panel, else it is EP147's */
+        if (!__atomic_load_n(&pn_open, __ATOMIC_ACQUIRE)) return 0;
+        __atomic_or_fetch(&pn_tapped, 1ull << PN_CLOSE, __ATOMIC_ACQ_REL);
+        return 1;
     }
-    if (!__atomic_load_n(&pn_open, __ATOMIC_ACQUIRE) || !pn_in_panel(t->x, t->y)) return AZ_TOUCH_PASS;
-    taken = 1;                                          /* the whole panel is ours while it is up */
-    cur = pn_hit(t->x, t->y);
-    if (cur == PN_LEVEL) __atomic_store_n(&pn_level, pn_level_at(t->y), __ATOMIC_RELEASE);
-    else if (cur != PN_NONE) {
-        if (cur == PN_STROBE) __atomic_store_n(&pn_strobe_held, 1, __ATOMIC_RELEASE);
-        __atomic_or_fetch(&pn_tapped, 1ull << cur, __ATOMIC_ACQ_REL);
+    long now = pn_now_ms();
+    if (ev->kind == AZ_EV_UP) { pn_release(cur); cur = PN_NONE; return 1; }
+    if (ev->kind != AZ_EV_DOWN && ev->kind != AZ_EV_TAP) return 1;
+    if (__atomic_load_n(&pn_logs, __ATOMIC_RELAXED) < 6) {
+        __atomic_add_fetch(&pn_logs, 1, __ATOMIC_ACQ_REL);
+        C->log(MOD_ID, "lights panel: surface %s at %d,%d", ev->kind == AZ_EV_TAP ? "tap" : "down", ev->x, ev->y);
     }
-    return AZ_TOUCH_TAKE;
+    if (ev->kind == AZ_EV_TAP && now - down_ms < 1500) return 1;     /* its DOWN came already */
+    if (ev->kind == AZ_EV_DOWN) down_ms = now;
+    if (now - __atomic_load_n(&pn_press_ms, __ATOMIC_ACQUIRE) < 400) return 1;   /* the touch filter had it */
+    int c;
+    pn_press(ev->x, ev->y, &c, ev->kind == AZ_EV_TAP ? "surface tap" : "surface down");
+    if (ev->kind == AZ_EV_DOWN) cur = c;
+    else pn_release(c);                                  /* a tap with no DOWN/UP: STROBE flashes once */
+    return 1;
 }
 
 /* What the painter shows: the tick fills the idle copy and flips (the painter runs on the overlay thread). */
@@ -1197,11 +1254,6 @@ static void pn_paint(az_draw *d, az_rect a, void *user)
     }
 }
 
-static int pn_input(const az_event *ev, void *user)
-{
-    (void)ev; (void)user;
-    return 1;   /* the touch filter already took every touch inside: nothing reaches the deck below */
-}
 
 /* Worker thread: send what was tapped, keep a held STROBE alive, read FlowVJ's FVS1 on 9104. */
 static int pn_rx = -1;                    /* -2: port taken */

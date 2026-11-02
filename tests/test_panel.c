@@ -428,6 +428,45 @@ int main(void)
     center(PN_LOOK1, &x, &y);
     CHECK(tap(x, y) == AZ_TOUCH_PASS, "closed again: the waveforms are the deck's");
 
+    /* the deck's touch panel: a passed touch's lift goes to EP147, never to us */
+    touch(100, 700, 1);
+    sleep_ms(150);
+    CHECK(tap(PN_BTN_X + 40, PN_BTN_Y + 12) == AZ_TOUCH_TAKE && shown[1] == 1, "a passed touch that never lifted for us: LIGHTS still opens");
+    sleep_ms(150);
+    CHECK(tap(PN_BTN_X + 40, PN_BTN_Y + 12) == AZ_TOUCH_TAKE && shown[1] == 0, "and closes");
+
+    /* the emulator: no touch panel, so no touch filter calls; the core hands the surface X clicks */
+    sleep_ms(450);
+    az_event dn = { AZ_EV_DOWN, 0, PN_BTN_X + 40, PN_BTN_Y + 12 }, tp = dn, upe = dn;
+    tp.kind = AZ_EV_TAP; upe.kind = AZ_EV_UP;
+    surf[0].on_input(&dn, NULL); surf[0].on_input(&tp, NULL); surf[0].on_input(&upe, NULL); pn_tick();
+    CHECK(shown[1] == 1, "surface DOWN + TAP + UP on LIGHTS (the emulator's route): opens, once");
+    drain(rx_beat);
+    center(PN_LOOK5, &x, &y);
+    az_event l5 = { AZ_EV_DOWN, 0, x, y }, l5t = l5, l5u = l5;
+    l5t.kind = AZ_EV_TAP; l5u.kind = AZ_EV_UP;
+    surf[1].on_input(&l5, NULL); surf[1].on_input(&l5t, NULL); surf[1].on_input(&l5u, NULL); pn_tick();
+    n = recv_all(rx_beat, pk, 64, 300);
+    CHECK(count_has(pk, n, "\"pad\":5,\"down\":1,\"shift\":0") == 2, "surface tap on LOOK 5: vjpad pad 5, once (sent twice)");
+    center(PN_STROBE, &x, &y);
+    drain(rx_tap);
+    az_event sd = { AZ_EV_DOWN, 0, x, y }, st2 = sd, su = sd;
+    st2.kind = AZ_EV_TAP; su.kind = AZ_EV_UP;
+    surf[1].on_input(&sd, NULL); surf[1].on_input(&st2, NULL); pn_tick(); sleep_ms(50);
+    surf[1].on_input(&su, NULL); pn_tick();
+    n = recv_all(rx_tap, pk, 64, 300);
+    CHECK(count_has(pk, n, " strobe_off") == 1 && count_has(pk, n, " strobe") == 2, "surface STROBE: strobe on DOWN, strobe_off on UP");
+    /* the deck: the touch filter took it, and if the core also hands the surface the click, it counts once */
+    sleep_ms(450);
+    tap(PN_BTN_X + 40, PN_BTN_Y + 12);
+    surf[0].on_input(&dn, NULL); surf[0].on_input(&tp, NULL); surf[0].on_input(&upe, NULL); pn_tick();
+    CHECK(shown[1] == 0, "touch filter + surface click for the same tap: one toggle (closed)");
+    sleep_ms(450);
+    tap(PN_BTN_X + 40, PN_BTN_Y + 12);
+    az_event back = { AZ_EV_BACK, 0, 0, 0 };
+    CHECK(surf[1].on_input(&back, NULL) == 1 && (pn_tick(), shown[1] == 0), "BACK closes the panel");
+    CHECK(surf[1].on_input(&back, NULL) == 0, "BACK with the panel shut is EP147's");
+
     __atomic_store_n(&rows[r_panel], 0, __ATOMIC_RELEASE);
     pn_tick();
     CHECK(shown[0] == 0 && tap(PN_BTN_X + 40, PN_BTN_Y + 12) == AZ_TOUCH_PASS, "row off: no button, its spot is the deck's");
