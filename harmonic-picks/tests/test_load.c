@@ -29,7 +29,8 @@ static const struct ft S1[] = {
 /* playlists on stick 0: 10 "House" (top, row 0), 20 "Folder" (top, row 1, folder),
  * 21 "Deep" (inside 20, row 0), 22 "Peak" (inside 20, row 1) */
 struct fp { int id, parent; const char *name; int folder; };
-static const struct fp P0[] = { { 10, 0, "House", 0 }, { 20, 0, "Folder", 1 }, { 21, 20, "Deep", 0 }, { 22, 20, "Peak", 0 } };
+static const struct fp P0[] = { { 10, 0, "House", 0 }, { 20, 0, "Folder", 1 }, { 21, 20, "Deep", 0 }, { 22, 20, "Peak", 0 },
+                                { 23, 0, "Long", 0 } };   /* 300 rows: too long to steer (id 7 only here) */
 static const struct fp P1[] = { { 50, 0, "Stick2", 0 } };
 static const uint32_t M10[] = { 1, 4 }, M21[] = { 3, 2 }, M22[] = { 9, 9, 2 }, M50[] = { 100 };
 
@@ -39,6 +40,13 @@ static int f_lib_tracks(const char *id, int stick, int pl, int (*fn)(const az_tr
     const struct ft *L = stick == 0 ? S0 : S1;
     int n = stick == 0 ? (int)(sizeof S0 / sizeof S0[0]) : 1;
     const uint32_t *m = NULL; int nm = 0;
+    if (pl == 23) {
+        for (int k = 0; k < 300; k++) {
+            az_track t = { sizeof t, k == 5 ? 7u : (k == 0 ? 3u : 9000u + (uint32_t)k), "x", "y", "", "8A", "", 120, 300 };
+            if (fn(&t, user)) break;
+        }
+        return 0;
+    }
     if (pl == 10) { m = M10; nm = 2; } else if (pl == 21) { m = M21; nm = 2; }
     else if (pl == 22) { m = M22; nm = 3; } else if (pl == 50) { m = M50; nm = 1; }
     if (pl == 0) {
@@ -58,7 +66,7 @@ static int f_lib_playlists(const char *id, int stick, int (*fn)(int, int, const 
 {
     (void)id;
     const struct fp *P = stick == 0 ? P0 : P1;
-    int n = stick == 0 ? 4 : 1;
+    int n = stick == 0 ? 5 : 1;
     for (int i = 0; i < n; i++) if (fn(P[i].id, P[i].parent, P[i].name, P[i].folder, user)) break;
     return 0;
 }
@@ -124,6 +132,10 @@ int main(void)
     CHECK(find_pick(5) < 0 && find_pick(6) < 0 && find_pick(1) < 0);
     CHECK(find_pick(8) >= 0 && find_pick(100) >= 0 && g_show[find_pick(100)].stick == 1);
     CHECK(g_show[0].step == 0);                            /* a same-key pick ranks first */
+    /* loadable = in a playlist of 256 rows or fewer: 7 is only in the 300-row list, 8 in none */
+    CHECK(g_show[find_pick(2)].reach && g_show[find_pick(3)].reach && g_show[find_pick(100)].reach);
+    CHECK(!g_show[find_pick(7)].reach && !g_show[find_pick(8)].reach);
+    CHECK(find_pick(7) > find_pick(2));                    /* same key, but loadable picks rank first */
 
     /* 3% range drops the 1.6% neighbour? no: 1.6 < 3 stays; 10% adds nothing new here */
     row_vals[2] = 0; last_poll_ms = -POLL_MS; m->tick();
@@ -139,10 +151,16 @@ int main(void)
     CHECK(target_deck() == -1);
     deck_playing[1] = 0; deck_loaded[1] = 0;
 
-    /* a pick in no playlist: a clear message, nothing armed */
+    /* picks it can't steer to: a clear message, nothing armed or looked up */
     request_load(&g_show[find_pick(8)]);
-    for (int i = 0; i < 100 && g_waiting_path; i++) { m->tick(); wait_ms(10); }
-    CHECK(!g_waiting_path && strstr(g_status, "no playlist") && nav_state == NAV_IDLE);
+    CHECK(!g_waiting_path && strstr(g_status, "search for it") && nav_state == NAV_IDLE);
+    request_load(&g_show[find_pick(7)]);
+    CHECK(!g_waiting_path && strstr(g_status, "search for it") && nav_state == NAV_IDLE);
+    /* id 3 is in the 300-row list at row 1 and in Folder/Deep at row 1: Deep is used */
+    {
+        struct loadres r; memset(&r, 0, sizeof r);
+        CHECK(find_path(0, 3, &r) == 1 && strstr(r.where, "Deep") && !strstr(r.where, "Long"));
+    }
 
     /* "Same Key Close" (id 2) is in Folder/Deep row 1 and Folder/Peak row 2: Deep wins */
     request_load(&g_show[find_pick(2)]);
@@ -154,12 +172,17 @@ int main(void)
     /* run the script through the mixer filter: it must press LOAD 2 (0x04) */
     unsigned char f[152];
     int saw_load = 0;
-    long frames = 0;
+    long frames = 0, closed_at = 1L << 30;
     for (; frames < 12000; frames++) {      /* 5 ms frames: up to 60 s of script */
-        memset(f, 0, sizeof f); f[6] = 0x08; f[34] = 100;
+        memset(f, 0, sizeof f); f[6] = 0x08;
+        /* The Mod Menu holds the knob while it is open and releases it as it closes (emulator,
+         * 2026-11-03): the 19 turns made in the menu arrive at once, and the push that picked
+         * the track is still held for a moment. */
+        if (g_view == AZ_VIEW_MENU) { f[34] = 100; f[31] |= 1; }
+        else { f[34] = 119; if (frames < closed_at + 40) f[31] |= 1; }
         g_filter(AZ_BUS_MIXER_IN, f, sizeof f, NULL);
         if (f[33] & 0x0f) saw_load = f[33] & 0x0f;
-        if (f[32] & 0x10) g_view = AZ_VIEW_BROWSE;          /* PLAYLIST opened the tree */
+        if ((f[32] & 0x10) && g_view == AZ_VIEW_MENU) { g_view = AZ_VIEW_BROWSE; closed_at = frames; }  /* PLAYLIST */
         int st = __atomic_load_n(&nav_state, __ATOMIC_ACQUIRE);
         if (st == NAV_DONE || st == NAV_CANCELLED || st == NAV_REFUSED) break;
         wait_ms(5);
@@ -167,6 +190,7 @@ int main(void)
     }
     printf("script ran %ld frames, state %d, load 0x%02x\n", frames, nav_state, saw_load);
     CHECK(nav_state == NAV_DONE && saw_load == 0x04);
+    CHECK(nav_s.grace_ms > 0);
     m->tick();
     CHECK(g_verify_left > 0 && strstr(g_status, "Loading on Deck 2"));
     deck_loaded[1] = 1; deck_id[1] = 2;

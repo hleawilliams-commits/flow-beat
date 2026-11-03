@@ -108,7 +108,7 @@ static int parse_key(const char *s, int *idx, int *minor)
 
 
 /* ---- the library table (reader thread writes it once, then only the reader reads it) ---- */
-struct tr { uint32_t id; signed char idx, minor, vox, stick; float bpm; char title[56]; char artist[36]; };
+struct tr { uint32_t id; signed char idx, minor, vox, stick, reach; float bpm; char title[56]; char artist[36]; };
 static struct tr g_lib[MAX_TRACKS];
 static int g_nlib;
 
@@ -142,7 +142,7 @@ static int on_track(const az_track *t, void *user)
 }
 
 /* ---- seed and result: UI thread <-> reader thread, under g_mu ---------------------------- */
-struct pick { uint32_t id; signed char idx, minor, vox, step, stick; float bpm, gap; char title[56]; char artist[36]; };
+struct pick { uint32_t id; signed char idx, minor, vox, step, stick, reach; float bpm, gap; char title[56]; char artist[36]; };
 static pthread_mutex_t g_mu = PTHREAD_MUTEX_INITIALIZER;
 static uint32_t g_seed_id;          /* the playing track; 0 = none */
 static int g_seed_idx = -1, g_seed_minor, g_seed_vox_only, g_seed_gen;
@@ -192,19 +192,20 @@ static void rank(uint32_t seed_id, int sidx, int smin, float sbpm, float range, 
         if (step < 0) continue;
         float g = gap_pct(sbpm, t->bpm);
         if (g > range) continue;
-        float score = g + step * 2.0f;
+        float score = g + step * 2.0f + (t->reach ? 0.0f : 1.5f);   /* loadable picks first */
         /* insertion into the sorted top NPICKS; the same title and artist only once */
         int dup = 0;
         for (int j = 0; j < n; j++)
             if (strcmp(out[j].title, t->title) == 0 && strcmp(out[j].artist, t->artist) == 0) { dup = 1; break; }
         if (dup) continue;
         int pos = n;
-        while (pos > 0 && out[pos - 1].gap + out[pos - 1].step * 2.0f > score) pos--;
+        while (pos > 0 && out[pos - 1].gap + out[pos - 1].step * 2.0f + (out[pos - 1].reach ? 0.0f : 1.5f) > score) pos--;
         if (pos >= NPICKS) continue;
         if (n < NPICKS) n++;
         memmove(&out[pos + 1], &out[pos], sizeof out[0] * (size_t)(n - 1 - pos));
         struct pick *p = &out[pos];
         p->id = t->id; p->idx = t->idx; p->minor = t->minor; p->vox = t->vox; p->stick = t->stick;
+        p->reach = t->reach;
         p->step = (signed char)step; p->bpm = t->bpm; p->gap = g;
         memcpy(p->title, t->title, sizeof p->title);
         memcpy(p->artist, t->artist, sizeof p->artist);
@@ -214,9 +215,12 @@ static void rank(uint32_t seed_id, int sidx, int smin, float sbpm, float range, 
 
 /* ---- playlists, for finding a pick in the deck's browser (reader thread only) ------------
  * The deck's browser can only be steered through the PLAYLIST tree, so a pick is reached
- * through a playlist it is in (the first 250 rows, at most 7 folders deep). Read on the
- * first load request per stick, then kept. */
-struct pl { int id, parent, folder; char name[48]; uint32_t *mem; int nmem; };
+ * through a playlist it is in, at most 7 folders deep. Only playlists of MAX_PL_ROWS rows or
+ * fewer: the knob is one byte, so one up-turn is at most 255 rows, and in a longer list the
+ * navigator can't be sure it reached the top (the deck reopens a list on its old row).
+ * Emulator 2026-11-03: a 280-row playlist landed 24 rows low. Read once after the library. */
+#define MAX_PL_ROWS 256
+struct pl { int id, parent, folder, ntotal, path_ok; char name[48]; uint32_t *mem; int nmem; };
 struct plset { int state; struct pl *p; int np, cap; };   /* state 0 unread, 1 ok, -1 none */
 static struct plset g_pls[2];
 
@@ -235,11 +239,12 @@ static int on_pl(int pl_id, int parent, const char *name, int folder, void *user
     snprintf(x->name, sizeof x->name, "%s", name ? name : "");
     return 0;
 }
-struct ids { uint32_t *v; int n, cap; };
+struct ids { uint32_t *v; int n, cap, total; };
 static int on_member(const az_track *t, void *user)
 {
     struct ids *a = user;
-    if (a->n >= 250) return 1;                 /* the navigator reaches the first 250 rows */
+    a->total++;
+    if (a->n >= MAX_PL_ROWS) return 0;          /* keep counting: longer lists are skipped */
     if (a->n == a->cap) {
         int c = a->cap ? a->cap * 2 : 64;
         uint32_t *n = realloc(a->v, sizeof *n * (size_t)c);
@@ -258,7 +263,7 @@ static struct plset *pls_get(int stick)
         if (s->p[i].folder) continue;
         struct ids a = { 0 };
         C->lib_tracks(MOD_ID, stick, s->p[i].id, on_member, &a);
-        s->p[i].mem = a.v; s->p[i].nmem = a.n;
+        s->p[i].mem = a.v; s->p[i].nmem = a.n; s->p[i].ntotal = a.total;
     }
     s->state = 1;
     return s;
@@ -300,6 +305,7 @@ static int find_path(int stick, uint32_t id, struct loadres *r)
     if (s->state != 1) return -1;
     int best = -1, bestrow = 0, bestdepth = 99;
     for (int i = 0; i < s->np; i++) {
+        if (s->p[i].ntotal > MAX_PL_ROWS) continue;
         for (int row = 0; row < s->p[i].nmem; row++) {
             if (s->p[i].mem[row] != id) continue;
             int path[8], depth; char where[160];
@@ -316,6 +322,38 @@ static int find_path(int stick, uint32_t id, struct loadres *r)
     return best >= 0;
 }
 
+/* Mark every library track the press can load: in a playlist of MAX_PL_ROWS rows or fewer
+ * whose tree path the navigator can walk. Reader thread, once, before g_lib_ready. */
+static int cmp_u32(const void *a, const void *b)
+{
+    uint32_t x = *(const uint32_t *)a, y = *(const uint32_t *)b;
+    return x < y ? -1 : x > y;
+}
+static void mark_reach(void)
+{
+    for (int stick = 0; stick < 2; stick++) {
+        struct plset *s = pls_get(stick);
+        if (s->state != 1) continue;
+        int n = 0;
+        for (int i = 0; i < s->np; i++) {
+            int path[8], depth; char where[160];
+            s->p[i].path_ok = !s->p[i].folder && s->p[i].ntotal <= MAX_PL_ROWS &&
+                              tree_path(s, i, path, &depth, where, sizeof where) && depth <= 7;
+            if (s->p[i].path_ok) n += s->p[i].nmem;
+        }
+        uint32_t *ids = n ? malloc(sizeof *ids * (size_t)n) : NULL;
+        if (!ids) continue;
+        int k = 0;
+        for (int i = 0; i < s->np; i++)
+            if (s->p[i].path_ok) { memcpy(ids + k, s->p[i].mem, sizeof *ids * (size_t)s->p[i].nmem); k += s->p[i].nmem; }
+        qsort(ids, (size_t)k, sizeof *ids, cmp_u32);
+        for (int t = 0; t < g_nlib; t++)
+            if (g_lib[t].stick == stick && bsearch(&g_lib[t].id, ids, (size_t)k, sizeof *ids, cmp_u32))
+                g_lib[t].reach = 1;
+        free(ids);
+    }
+}
+
 static struct pick g_scratch[NPICKS];
 
 static void *reader(void *arg)
@@ -325,6 +363,7 @@ static void *reader(void *arg)
         int s = stick;
         C->lib_tracks(MOD_ID, stick, 0, on_track, &s);      /* 0 = every track on the stick */
     }
+    mark_reach();
     pthread_mutex_lock(&g_mu);
     g_lib_ready = g_nlib;
     pthread_mutex_unlock(&g_mu);
@@ -416,6 +455,12 @@ static void status(const char *s)
     snprintf(g_status, sizeof g_status, "%s", s);
     if (AZ_HAS(C, request_redraw)) C->request_redraw();
 }
+/* An outcome the DJ must see: the page is closed while a pick loads, so also a banner. */
+static void outcome(const char *s)
+{
+    status(s);
+    if (AZ_HAS(C, banner)) C->banner(MOD_ID, s, 3000);
+}
 
 static void set_seed(void)
 {
@@ -494,6 +539,12 @@ static int target_deck(void)
 static void request_load(const struct pick *p)
 {
     if (!g_filter_ok) { status("This AZ-MODS can't steer the browser: find it by hand"); return; }
+    if (!p->reach) {
+        char m[160];
+        snprintf(m, sizeof m, "%.60s isn't in a playlist of %d rows or fewer: search for it", p->title, MAX_PL_ROWS);
+        status(m);
+        return;
+    }
     int st = __atomic_load_n(&nav_state, __ATOMIC_ACQUIRE);
     if (st == NAV_ARMED || st == NAV_RUNNING || g_waiting_path) { status("Still finding the last pick..."); return; }
     int loads = g_row_load < 0 || C->row_value(g_row_load) == 1;
@@ -524,6 +575,8 @@ static void nav_tick(long now)
         g_waiting_path = 0;
         nav_script sc;
         int sel = r.stick != g_last_stick || __atomic_load_n(&g_source_touched, __ATOMIC_RELAXED);
+        int built = r.ok > 0 && nav_build(&sc, sel, r.stick, r.path, r.depth, r.deck);
+        if (built) sc.grace_ms = 1500;    /* started from the Mod Menu: see nav.h grace_ms */
         if (r.ok < 0) status("Can't read that USB's playlists");
         else if (r.ok == 0) {
             snprintf(m, sizeof m, "%.60s is in no playlist the deck can reach: search for it", r.title);
@@ -531,7 +584,7 @@ static void nav_tick(long now)
         } else if (r.deck >= 0 && deck_busy(r.deck)) {
             snprintf(m, sizeof m, "Deck %d is playing: not loaded", r.deck + 1);
             status(m);
-        } else if (!nav_build(&sc, sel, r.stick, r.path, r.depth, r.deck) || !nav_arm(&sc)) {
+        } else if (!built || !nav_arm(&sc)) {
             status("The browser is busy; try again");
         } else {
             g_active = r; g_armed_at = now; g_verify_left = 0;
@@ -555,16 +608,15 @@ static void nav_tick(long now)
                 snprintf(m, sizeof m, "Loading on Deck %d...", g_active.deck + 1);
                 status(m);
             } else if (C->view() != AZ_VIEW_BROWSE) {
-                status("The screen changed before it landed: press again");
+                outcome("Harmonic pick: the screen changed before it landed, press again");
             } else {
-                status("Highlighted in the browser: press LOAD");
-                if (AZ_HAS(C, banner)) C->banner(MOD_ID, "Harmonic pick highlighted: press LOAD", 2500);
+                outcome("Harmonic pick highlighted: press LOAD");
             }
         } else if (st == NAV_CANCELLED) {
-            status("Stopped: you used the controls");
+            outcome("Harmonic pick stopped: you used the controls");
         } else if (st == NAV_REFUSED) {
-            snprintf(m, sizeof m, "Deck %d started playing: not loaded", __atomic_load_n(&nav_refused_deck, __ATOMIC_RELAXED));
-            status(m);
+            snprintf(m, sizeof m, "Harmonic pick: Deck %d started playing, not loaded", __atomic_load_n(&nav_refused_deck, __ATOMIC_RELAXED));
+            outcome(m);
         }
     }
     /* After a load, confirm the deck reports the track we meant (about 8 s of ticks). */
@@ -573,13 +625,12 @@ static void nav_tick(long now)
         if (C->deck_info(g_active.deck, &di) == 0 && di.loaded == 1 && di.content_id == g_active.id) {
             g_verify_left = 0; g_settle_until = now + 3500;
             snprintf(m, sizeof m, "Loaded on Deck %d: %.60s", g_active.deck + 1, g_active.title);
-            status(m);
-            if (AZ_HAS(C, banner)) C->banner(MOD_ID, m, 2000);
+            outcome(m);
         } else if (--g_verify_left == 0) {
             g_settle_until = now + 3500;
-            snprintf(m, sizeof m, "Check Deck %d: it didn't report %.60s (playlist sorted differently?)",
+            snprintf(m, sizeof m, "Check Deck %d: it may not be %.60s (was the playlist re-sorted?)",
                      g_active.deck + 1, g_active.title);
-            status(m);
+            outcome(m);
         }
     }
 }
@@ -683,11 +734,12 @@ static void draw(az_draw *d, az_rect a, void *user)
             snprintf(b, sizeof b, "%.1f", p->bpm);
             snprintf(g, sizeof g, "%.1f%%", p->gap);   /* ASCII only: the deck font has no +/- sign */
             snprintf(title, sizeof title, "%s%s", p->vox ? "[VOX] " : "", p->title);
+            if (!p->reach && !sel) fg = dim;      /* can't be loaded by a press */
             cell(d, a, xT, wT, y, line, title, 20, fg, 0);
             cell(d, a, xA, wA, y, line, p->artist, 20, fd, 0);
             cell(d, a, xB, wB, y, line, b, 20, fg, 1);
-            cell(d, a, xK, wK, y, line, k, 20, sel ? hitext : p->step == 0 ? 0x3CCB5A : text, 1);
-            cell(d, a, xM, wM, y, line, g, 18, fd, 1);
+            cell(d, a, xK, wK, y, line, k, 20, sel ? hitext : p->step == 0 ? 0x3CCB5A : fg, 1);
+            cell(d, a, xM, wM, y, line, p->reach ? g : "search", 18, fd, 1);
         }
         y += line;
         if (!sel) hline(d, a, y - 1, sep);

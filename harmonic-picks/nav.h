@@ -44,6 +44,12 @@ typedef struct {
     nav_op ops[NAV_MAX_OPS];
     int nops;
     int deck;                 /* LOAD target 0..3, or -1 */
+    int grace_ms;             /* 0 = Crate Remote's rules. >0 (Harmonic Picks): the script starts
+                               * from a menu that holds the knob. For grace_ms after the start, and
+                               * until 1 s after the deck leaves that menu, the DJ's knob turns and
+                               * push are absorbed (the push is hidden from the deck) instead of
+                               * cancelling: the menu releases the turns made in it, and the press
+                               * that started the script, when it closes (emulator, 2026-11-03). */
 } nav_script;
 
 /* Shared state. */
@@ -58,6 +64,7 @@ static int nav_virt = -1;             /* counter value the deck last saw from us
 static int nav_off;                   /* knob remap after a script: out = real + off */
 static int nav_real_last = -1;        /* last real counter seen */
 static int nav_drop_after_load;       /* drop the remap once the DJ presses LOAD */
+static long nav_grace_until;          /* bus thread: absorb real input until then (grace_ms) */
 
 /* ---- script building (UI thread) ---- */
 static void nav_add(nav_script *s, uint8_t op, uint8_t off, uint8_t mask, uint16_t ms, uint16_t n)
@@ -159,14 +166,22 @@ static int nav_frame(unsigned char *f, int len, long now, int view, nav_playing_
         return 1;
     }
     if (st == NAV_ARMED) {
-        if (nav_real_input(f, knob_moved)) return 0;          /* wait for idle hands */
+        if (!nav_s.grace_ms && nav_real_input(f, knob_moved)) return 0;   /* wait for idle hands */
         nav_pc = 0; nav_phase = 0; nav_t0 = now; nav_drop_after_load = 0;
+        nav_grace_until = nav_s.grace_ms ? now + nav_s.grace_ms : 0;
         nav_virt = (real + nav_off) & 0xff;                   /* continue from what the deck saw */
         __atomic_store_n(&nav_state, NAV_RUNNING, __ATOMIC_RELEASE);
+    } else if (nav_s.grace_ms && now < nav_grace_until) {
+        /* still inside the grace: absorb (the deck only ever sees nav_virt) */
     } else if (nav_real_input(f, knob_moved)) {
         nav_finish(NAV_CANCELLED, real);                      /* the DJ's input passes untouched */
         f[34] = (unsigned char)((real + nav_off) & 0xff);
         return 1;
+    }
+    if (nav_s.grace_ms) {
+        int out = view == AZ_VIEW_SOURCE || view == AZ_VIEW_BROWSE || view == AZ_VIEW_SEARCH || view == AZ_VIEW_DECK;
+        if (!out && now + 1000 > nav_grace_until) nav_grace_until = now + 1000;
+        if (now < nav_grace_until) f[31] &= (unsigned char)~1;   /* the DJ's held push: not a click */
     }
     for (int guard = 0; guard < 4 && nav_pc < nav_s.nops; guard++) {
         const nav_op *o = &nav_s.ops[nav_pc];
