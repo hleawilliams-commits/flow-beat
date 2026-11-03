@@ -1,6 +1,6 @@
 # Harmonic Picks
 
-Test build 0.2.0: harness-tested and host-tested, not yet run on a deck.
+Test build 0.2.1: harness-tested and host-tested, not yet run on a deck. 0.2.1 takes Crate Remote 0.4.0's navigator fix: a second load in a row used to land on the wrong row.
 
 A Mod Menu page (Mod Menu > Harmonic picks, its own row in the main list) that lists tracks
 from your **whole USB library** (every track on both sticks, not just one playlist) that mix
@@ -31,5 +31,6 @@ Build and test like the other mods in this repository:
     make AZ_SDK_INCLUDE=<sdk>/include
     make test AZ_SDK=<sdk>
     cc -I<sdk>/include -o t tests/test_load.c -lpthread && ./t   # fake-core load test
+    cc -I<sdk>/include -o n tests/test_nav.c && ./n                  # navigator, repeat loads
 
-`nav.h` is a copy of `crate-remote/nav.h` (the navigator Crate Remote's emulator runs proved).
+`nav.h` is a copy of `crate-remote/nav.h` as of Crate Remote 0.4.0 (dedf4a0); keep the two in step. `tests/test_nav.c` is its test.

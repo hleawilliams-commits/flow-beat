@@ -1,5 +1,5 @@
 /* SPDX-License-Identifier: GPL-3.0-only
- * Deck navigator (shared with Crate Remote, copied from crate-remote/nav.h): plays a short script of panel presses and browse-knob
+ * Deck navigator (copied from crate-remote/nav.h at dedf4a0, Crate Remote 0.4.0): plays a short script of panel presses and browse-knob
  * turns through the mixer input filter, the same inputs a DJ makes, to put the native
  * browser on one playlist row and optionally press LOAD for a stopped deck.
  *
@@ -7,8 +7,12 @@
  *  - PLAYLIST opens the playlist tree; a knob click opens the highlighted folder/playlist.
  *  - The deck reads byte 34 as an absolute counter and turns the cursor by the plain
  *    difference between frames (no wrap handling). One frame may jump many rows.
- *  - A big up-turn right after a list opens is clamped at the top, so "go to 2, then to
- *    2 + n" lands on row n of any list up to ~250 rows.
+ *  - A big up-turn is clamped at the top of the list, so "a full up-turn, then n down"
+ *    lands on row n of any list up to ~250 rows. The up-turn must be big whatever the
+ *    counter was: the deck reopens a list on the row it was left on, so after a load the
+ *    cursor sits on that row. 0.4.0 fix: go to 255 first (a down-turn, clamped at the
+ *    bottom), then to 0 (an up-turn of 255 rows). Before, "go to 2" was only a big up-turn
+ *    when the counter happened to be high, and repeat loads landed on old row + n.
  *  - SOURCE opens with focus on the left list or on the source's right pane; BACK moves
  *    focus left, or leaves SOURCE when focus already was left.
  *
@@ -69,7 +73,7 @@ static void nav_press(nav_script *s, uint8_t off, uint8_t mask, uint16_t hold, u
 }
 static void nav_rows(nav_script *s, uint16_t n, int click_after)
 {
-    nav_add(s, NAV_TOP, 0, 0, 300, 0);
+    nav_add(s, NAV_TOP, 0, 0, 450, 0);
     nav_add(s, NAV_ROWS, 0, 0, 600, n);
     if (click_after) { nav_add(s, NAV_CLICK, 0, 0, 350, 0); nav_add(s, NAV_WAIT, 0, 0, 1800, 0); }
 }
@@ -198,11 +202,12 @@ static int nav_frame(unsigned char *f, int len, long now, int view, nav_playing_
             if (el < o->ms) { f[o->off] |= o->mask; f[6] &= (unsigned char)~0x08; } else next = 1;
             break;
         case NAV_TOP:
-            nav_virt = 2;                                     /* clamped at the list's top */
+            /* 150 ms at the bottom, then a full up-turn: clamped at the list's top */
+            nav_virt = el < 150 ? 255 : 0;
             next = el >= o->ms;
             break;
         case NAV_ROWS:
-            nav_virt = 2 + o->n;
+            nav_virt = o->n;
             next = el >= o->ms;
             break;
         case NAV_END:
