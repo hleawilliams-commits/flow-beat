@@ -41,3 +41,15 @@ must arrange SIGPIPE handling if expecting an EPIPE return; these wrappers do
 not change signal policy. Process death and nonlocal exits can prevent return
 evidence or destroy custody. No native authority, recovery, runtime activation,
 installation or release permission follows.
+
+## Subsequent target build and service review
+
+The [November 4 ARM64 build](ARM64-BUILD.md) closes the earlier compile/link gap:
+ten production units, two shared links, fifteen additive graph/stream exports,
+and a passing first-invocation byte audit. No target code was loaded or executed;
+the earlier host evidence above keeps its original scope. The separately scoped
+[host process fixture](../emulator-stream-process/) exercised actual host sockets.
+The [guest-service review](GUEST-SERVICE-REVIEW.md) identifies the incompatible
+legacy stream/restart policy and concrete supervisor EOF/error handling that
+must be addressed before real binding. Production sources and runtime gates
+remain unchanged.

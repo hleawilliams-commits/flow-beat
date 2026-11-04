@@ -1,0 +1,19 @@
+{
+  global:
+    mbog_create;
+    mbog_take;
+    mbog_start;
+    mbog_exchange;
+    mbog_inspect;
+    mbog_dispose;
+    mbog_finalize;
+    mbgs_create;
+    mbgs_take;
+    mbgs_step;
+    mbgs_next;
+    mbgs_inspect;
+    mbgs_dispose;
+    mbgs_finalize_graph;
+    mbgs_finalize;
+  local: *;
+};

@@ -833,3 +833,16 @@ unrelated deck-lights/ remain preserved. Main and all observer, stems staging,
 USB completion/cancellation, lifetime/race, recovery, audio-quality, physical-
 timing and community-release gates stay CLOSED. Do not replay this passing
 matrix unchanged or call it native observation evidence.
+
+
+## November 4: target stream build and production binding review
+
+The [ARM64 stream evidence](../../../emulator-guest-stream/ARM64-BUILD.md)
+now covers the complete ten-unit stream/graph link, with one build and one
+passing byte audit. Neither target library was loaded/executed; no host suite
+was repeated. The [service review](../../../emulator-guest-stream/GUEST-SERVICE-REVIEW.md)
+finds that legacy ctrl.sock framing and forwarder reconnect/restart policies
+cannot host retained broker RPC unchanged. The actual supervisor EOF/error
+branches remain the next inactive source slice, reusing existing custody and
+keeping polling errors distinct from child exit. Native stop, external writer
+exclusion, restoration, guarded restart and all runtime gates stay CLOSED.

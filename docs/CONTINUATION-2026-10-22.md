@@ -1373,3 +1373,28 @@ unrelated deck-lights/ remain preserved. Main and all observer, stems staging,
 USB completion/cancellation, lifetime/race, recovery, audio-quality, physical-
 timing and community-release gates stay CLOSED. Do not replay this passing
 matrix unchanged or call it native observation evidence.
+
+
+## November 4: ARM64 stream closure and actual service boundary
+
+The [retained stream ARM64 build](../experiments/emulator-guest-stream/ARM64-BUILD.md)
+compiled ten production units once and linked two shared libraries. All twelve
+compile/link logs were empty; the first independent byte-only audit passed.
+Twenty-five prepared inputs and 24 frozen repository inputs are bound, all eight
+inherited graph objects match the prior build, and all 39 actual system-header
+dependencies match the retained rootfs. The additive map exports graph7 plus
+stream8; six syscall wrappers stay local. The 20 strong imports resolve against
+the pinned musl provider. No ARM64 artifact was loaded/executed and no host suite
+was repeated. Historical failures and frozen source remain intact.
+
+The [source-only guest-service review](../experiments/emulator-guest-stream/GUEST-SERVICE-REVIEW.md)
+shows why the existing ctrl.sock/forwarder cannot host this protocol unchanged:
+legacy record sizes, detached threads, automatic reopen and Restart=always have
+incompatible lifetime behavior. The supervisor also converts controller loss to
+termination and treats polling errors as completed waits. Next implement a
+separate inactive successor of that actual observation/event branch, retaining
+the borrowed child and exact error/exit distinctions; reuse existing custody.
+No stop/restart authority follows from a transport error, join or matching state.
+No emulator/physical contact, installation, settings/core/package/catalog change
+or runtime gate reopening occurred. All product and native-lifetime gates remain
+CLOSED; the new evidence is compile/link and source review only.
