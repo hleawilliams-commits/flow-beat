@@ -1345,3 +1345,44 @@ No stop/restart authority follows from a transport error, join or matching state
 No emulator/physical contact, installation, settings/core/package/catalog change
 or runtime gate reopening occurred. All product and native-lifetime gates remain
 CLOSED; the new evidence is compile/link and source review only.
+
+
+## November 4: retained actual supervisor observations, inactive
+
+The [separate supervisor observation source](../experiments/emulator-supervisor-observation/)
+now borrows the caller-owned actual Child and journal for one exclusive scope.
+A permanently bound journal uses PID only as a diagnostic. It retains first
+controller loss, the complete first polling error and latest exact poll result
+before classification. A poll that unwinds stays armed/Hold and refuses replay;
+an actual exit refuses later polls. Returned running status cannot erase prior
+loss/error Hold. The one-shot reader preserves actual io::copy results without
+inventing a partial byte count on error.
+
+Two fresh first-invocation matrices each passed eight selectors and four strict
+controls. Actual private child liveness/exit, anonymous socket EOF and mpsc
+disconnection are covered; reader/poll failures and panics are scripted.
+Every semantic oracle follows explicit fixture exit and actual wait, including
+the four expected failures. One locked/offline production check compiled the
+inactive declaration in the pinned actual az-preview crate; the independent
+repeat omitted that already-passed integration check and replayed no old suites.
+The first byte-only audit verifies 13 upstream and 16 prepared files per run,
+identical captured inputs, all 51 logs and exact control assertion locations.
+Seven common raw logs differ only in private paths, process/thread identifiers
+and durations; functional agreement is not raw hash equality.
+[Detailed evidence](../experiments/emulator-supervisor-observation/HOST-TESTS.md)
+and [sanitized receipt](../experiments/emulator-supervisor-observation/result.json)
+preserve the limits.
+
+This module is inactive: the legacy supervisor still collapses reader EOF/error
+to stop, stops on reporter disconnect, returns 1 on direct poll error, and counts
+a wait_exit poll error as completion. None of those executable branches changed.
+Local Hold is not real route admission closure. Composition with existing
+startup/exit custody, controller dispatch, guest framing, stop authorization,
+external writer exclusion and recovery remain open. Counter exhaustion is
+source-reviewed only; no whole-runtime lifetime or race claim follows.
+
+No running emulator or physical deck was contacted, and no settings, core,
+package, catalog, install, release, cleanup or old snapshot changed. Frozen
+parents and unrelated deck-lights/ remain preserved. Observer, stems staging,
+USB completion/cancellation, native lifetime/race, audio-quality, recovery and
+physical-timing gates stay CLOSED. Do not replay these unchanged passing checks.

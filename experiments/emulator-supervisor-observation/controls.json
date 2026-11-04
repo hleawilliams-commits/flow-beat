@@ -1,0 +1,34 @@
+{
+  "controls": [
+    {
+      "assertion_message": "oracle actual reader EOF holds live child",
+      "name": "loss-hold-omitted",
+      "new": "        if event != ControllerEvent::None {\n            self.journal.hold_latched = false;",
+      "old": "        if event != ControllerEvent::None {\n            self.journal.hold_latched = true;",
+      "test": "tests::controller_eof_retains_exact_copy_and_holds_live_child"
+    },
+    {
+      "assertion_message": "oracle scripted poll error is retained and never an exit receipt",
+      "name": "poll-error-treated-as-exit",
+      "new": "            Err(_) => {\n                self.journal.exited = true;\n                self.journal.hold_latched = true;",
+      "old": "            Err(_) => {\n                self.journal.hold_latched = true;",
+      "test": "tests::scripted_poll_error_is_not_an_exit_receipt"
+    },
+    {
+      "assertion_message": "oracle unreturned poll stays armed and cannot replay",
+      "name": "unreturned-poll-replay-allowed",
+      "new": "",
+      "old": "        if self.journal.last_poll.as_ref().is_some_and(|call| call.returned.is_none()) {\n            return Err(ObserveError::UnreturnedPoll);\n        }\n",
+      "test": "tests::scripted_poll_panic_retains_armed_attempt_without_replay"
+    },
+    {
+      "assertion_message": "oracle journal identity cannot be rebound to any child",
+      "name": "journal-rebind-allowed",
+      "new": "",
+      "old": "        if journal.bound { return Err(BindError::AlreadyBound); }\n",
+      "test": "tests::journal_cannot_rebind_to_another_actual_child"
+    }
+  ],
+  "observation_sha256": "0d194a6cf81f491ec4a082b4e6344304ef6097d7517eb9a390ab8432a97747f2",
+  "tests_sha256": "f8908668d7ae401ef1153238054c470caef64639787e250c70188f175824d9c7"
+}

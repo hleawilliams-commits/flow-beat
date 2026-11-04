@@ -846,3 +846,22 @@ cannot host retained broker RPC unchanged. The actual supervisor EOF/error
 branches remain the next inactive source slice, reusing existing custody and
 keeping polling errors distinct from child exit. Native stop, external writer
 exclusion, restoration, guarded restart and all runtime gates stay CLOSED.
+
+
+## November 4: inactive actual-child observation slice
+
+The [new supervisor observation module](../../../emulator-supervisor-observation/)
+now retains typed controller loss and exact polling results while exclusively
+borrowing the caller-owned actual Child. Armed/unreturned calls cannot replay,
+PID is diagnostic only, and known loss/error Hold cannot reopen on a later
+Running result. Two fresh matrices each passed eight selectors and four compiled
+strict controls; actual host child exit, anonymous-socket EOF and channel
+disconnection stay distinct from scripted failures and panics. One actual-crate
+production check and the first independent byte audit passed. No old suite ran.
+
+The module declaration is inactive. Existing supervisor executable branches
+remain unchanged; diagnostic Hold closes no real route. Next review composition
+with retained startup/exit custody and admission/event dispatch before selecting
+a production branch. Native stop authority, guest framing, external exclusion,
+uncertain teardown, restoration, guarded restart and all runtime gates remain
+CLOSED. No emulator/device access, install, package or release change occurred.
