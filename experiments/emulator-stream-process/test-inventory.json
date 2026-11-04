@@ -1,0 +1,8 @@
+{
+  "cases": {
+    "lost-reply": 1,
+    "normal": 1,
+    "partial-request": 1,
+    "unknown": 1
+  }
+}

@@ -1,0 +1,32 @@
+[
+  {
+    "case": "normal",
+    "expected_failures": [
+      "process-normal"
+    ],
+    "file": "stream.c",
+    "name": "dispatch-written-evidence",
+    "new": "record->dispatch.written = 0;",
+    "old": "record->dispatch.written = written;"
+  },
+  {
+    "case": "normal",
+    "expected_failures": [
+      "process-normal"
+    ],
+    "file": "stream.c",
+    "name": "held-graph-evidence",
+    "new": "out->graph_present = 0;",
+    "old": "out->graph_present = owner->graph != NULL;"
+  },
+  {
+    "case": "lost-reply",
+    "expected_failures": [
+      "process-lost-reply"
+    ],
+    "file": "stream.c",
+    "name": "native-write-error-evidence",
+    "new": "record->last_write.raw = result;\n    record->last_write.raw.error = 0;\n    record->last_write.returned = 1;",
+    "old": "record->last_write.raw = result;\n    record->last_write.returned = 1;"
+  }
+]

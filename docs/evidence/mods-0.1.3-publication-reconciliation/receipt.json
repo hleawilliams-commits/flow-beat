@@ -1,0 +1,78 @@
+{
+  "archived_members": {
+    "LICENSE": {
+      "sha256": "e57f1c320b8cf8798a7d2ff83a6f9e06a33a03585f6e065fea97f1d86db84052",
+      "size": 35150
+    },
+    "azmod.json": {
+      "sha256": "f0fda3ebe0a14f0ac0233d5310906760e382f8090c0874e6b3e867b95555d7e7",
+      "size": 981
+    },
+    "icon.png": {
+      "sha256": "66e82b07080a11d47d97a16449167b8dcd0e87534d7ab8719e049b4ccaabd5bc",
+      "size": 1651
+    },
+    "mods-shortcut.so": {
+      "sha256": "05608255b03123dd787b9b9eebd22f5a1d0b24536c524ab75a9c299faa972a6b",
+      "size": 19144
+    }
+  },
+  "archived_package_sha256": "368dd4c6ed2a08b2865dfc18342ac7b3ec6e93ee541e680c0c7bef179bc23786",
+  "archived_package_size": 57334,
+  "catalog_entry": {
+    "author": "hleawilliams-commits",
+    "category": "visual",
+    "description": "SDK-only community mod. MODS opens SOURCE; select MOD MENU to open the official menu. 0.1.3 registers spare input lanes and moves to the next when the core switches one off, dims the button with a SOURCE > MOD MENU message when none remain, and logs each tap's outcome. Physical navigation and LOAD cancel the shortcut. Hide WAVEFORM heading blanks only its title area; touches pass through. Official core timing protections are unchanged. No track loading, audio or library writes.",
+    "firmware": [
+      "any"
+    ],
+    "hooks": false,
+    "icon": "https://github.com/hleawilliams-commits/flow-beat/releases/download/mods-shortcut-0.1.3/mods-shortcut-0.1.3-icon.png",
+    "id": "mods-shortcut",
+    "license": "GPL-3.0-only",
+    "min_core": "1.2.3",
+    "name": "MODS Shortcut",
+    "package": "https://github.com/hleawilliams-commits/flow-beat/releases/download/mods-shortcut-0.1.3/mods-shortcut-0.1.3.azmod",
+    "sha256": "368dd4c6ed2a08b2865dfc18342ac7b3ec6e93ee541e680c0c7bef179bc23786",
+    "size": 57334,
+    "source": "https://github.com/hleawilliams-commits/flow-beat/tree/codex/az-mods-handoff-2026-10-16/mods-shortcut",
+    "summary": "Hide the WAVEFORM heading and use MODS to open SOURCE for the official Mod Menu.",
+    "updated": "2026-10-17",
+    "version": "0.1.3"
+  },
+  "catalog_sha256": "ac96a1a5a0f4e3320a854cdfbbf7a0119cfeda7002cb77c7c7ec9755be97d8e2",
+  "catalog_url": "https://raw.githubusercontent.com/hleawilliams-commits/flow-beat/main/azmods-repo.json",
+  "differing_members": [],
+  "download_sha256": "368dd4c6ed2a08b2865dfc18342ac7b3ec6e93ee541e680c0c7bef179bc23786",
+  "download_size": 57334,
+  "observed_utc": "2026-11-04",
+  "package_bytes_equal": true,
+  "payload_bytes_equal": true,
+  "published_members": {
+    "LICENSE": {
+      "sha256": "e57f1c320b8cf8798a7d2ff83a6f9e06a33a03585f6e065fea97f1d86db84052",
+      "size": 35150
+    },
+    "azmod.json": {
+      "sha256": "f0fda3ebe0a14f0ac0233d5310906760e382f8090c0874e6b3e867b95555d7e7",
+      "size": 981
+    },
+    "icon.png": {
+      "sha256": "66e82b07080a11d47d97a16449167b8dcd0e87534d7ab8719e049b4ccaabd5bc",
+      "size": 1651
+    },
+    "mods-shortcut.so": {
+      "sha256": "05608255b03123dd787b9b9eebd22f5a1d0b24536c524ab75a9c299faa972a6b",
+      "size": 19144
+    }
+  },
+  "release_asset_digest": "sha256:368dd4c6ed2a08b2865dfc18342ac7b3ec6e93ee541e680c0c7bef179bc23786",
+  "release_draft": false,
+  "release_prerelease": false,
+  "release_published_at": "2026-10-18T00:41:55Z",
+  "release_tag": "mods-shortcut-0.1.3",
+  "release_url": "https://github.com/hleawilliams-commits/flow-beat/releases/tag/mods-shortcut-0.1.3",
+  "remote_main": "b48f28d4cdd3c774076f4ed0154eabbabd4ee15f",
+  "scope": "Read-only public GitHub metadata/catalog/download reconciliation. No release, catalog, package, core, settings or device modification. Physical installation and native timing remain unverified.",
+  "tag_commit": "1c3b1c79f9fb7a85d684b450e58f95c7d8f1b95b"
+}

@@ -1,5 +1,7 @@
 # MODS 0.1.3 lane observations do not identify quarantine
 
+**Publication correction, November 4:** [verified GitHub/catalog/download evidence](../../docs/evidence/mods-0.1.3-publication-reconciliation/README.md) shows 0.1.3 was published on October 18. The historical instruction below to keep it unpublished was based on stale catalog evidence and cannot describe the current release. The unchanged source counterexample remains valid; do not republish this diagnostic claim or infer physical installation from publication.
+
 The unchanged 0.1.3 candidate can log **“lane … switched off by the core”** and replace its active lane while every SDK registration remains loaded, has zero strikes and has `off=0`. This is a deterministic host counterexample to the diagnostic inference. It is not a physical or emulator reproduction, a callback-overrun measurement, or an explanation of the earlier accepted-then-cancelled tap.
 
 The earlier four-lane fault-injection experiment proved response to deliberately stopped delivery. It did not prove the converse: missing increments do not establish that the core quarantined a lane. The SDK exposes no quarantine query. No inevitable-overrun or multiplied-lifetime guarantee follows from either experiment.

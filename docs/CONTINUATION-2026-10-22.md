@@ -1,5 +1,7 @@
 # October 22 continuation
 
+**November 4 publication correction:** [live metadata, catalog and download verification](evidence/mods-0.1.3-publication-reconciliation/README.md) establishes that MODS Shortcut 0.1.3 was already published on October 18, and the downloaded package exactly matches the preserved archive. Earlier statements here that it remained unpublished were incorrect inferences from the development checkout's stale catalog. This supersedes publication status only: the later false-quarantine counterexample, unresolved delivery/ownership and physical-timing limits remain. No installation, new release or catalog change was performed.
+
 The recurring handoff still described `e79d4b6` and an entirely restored October 17 emulator. Repository history and a new localhost-only inspection show later work. Continue from the existing development branch; do not reset to the heartbeat's old commit or overwrite current emulator files with its old backup.
 
 ## Reconciled source and emulator state
@@ -1323,3 +1325,51 @@ sanitized evidence are the development checkpoint. All earlier observer, staging
 USB completion/cancellation, lifetime/race, audio-quality, physical-timing and
 release gates remain CLOSED. Continue at supervisor/transport ownership rather
 than replaying these passing selectors unchanged.
+
+
+## November 4: actual host process and retained stream composition
+
+The [separate process fixture](../experiments/emulator-stream-process/) connects
+the unchanged Rust WireBackend to the retained C stream/graph through two
+unnamed socketpairs and an actual child process. The actual POSIX stream
+wrappers execute; controller descriptors/ioctls and driver surroundings remain
+modeled. The parent retains child/control before GO, and the child retains the
+graph/stream before READY. EOF and write errors keep that owner until explicit
+fixture disposal, a returned cleanup report and actual process wait.
+
+Four new compound selectors and three strict controls pass per plain,
+ASan/UBSan and TSan C mode in two fresh first-invocation matrices. Each has
+37 clean compile invocations, 12 C links and 21 executions. The standalone Rust
+host is unsanitized; no unchanged parent suite ran. Both sanitized results have
+SHA256 204da7920697f64cd58f29c6ac81bbc2abb8935d3ec78efe550438eb23304685.
+Raw reports preserve nondeterministic positive fragmentation and remain separate
+from result equality. The byte-only retained-file audit passed on its first
+invocation, verifying all source/log inventories, canonical bytes and actual
+cleanup/wait records. Of 63 raw reports per matrix, 36 differ with fragmentation;
+those values are checked independently. No failed matrix or audit attempt occurred.
+
+Normal ADOPT plus two FRAMEs preserves all canonical bytes and advances the
+host/model together. Modeled commit followed by synthetic EIO remains Unknown,
+with no resend. Real response-write shutdown yields actual EPIPE under fixture
+SIGPIPE ignore; the positive pending response stays retained after host EOF.
+A scripted host error after 61 actual bytes produces C body EOF without
+dispatch. All paths collect evidence and explicitly dispose known modeled
+effects before the final oracle. That cleanup supplies no native authority.
+
+The runner's private child-group timeout cleanup and output retention were
+corrected during source review before either matrix. It is a fixture abort,
+never a disposal receipt. No historical parent failure or policy was changed.
+Source review and exact boundaries are in the experiment's REVIEW and HOST-TESTS.
+
+Next bind the retained transport/graph to a separately reviewed real guest
+service and production supervisor, preserving failed construction and returned
+cleanup evidence; the old stdin-EOF kill policy cannot supply that contract.
+This host fixture adds no production launcher, native acquisition, authentication,
+alias exclusion, authoritative originals/stop, deadline or durable recovery.
+
+No running emulator or physical deck was contacted; no settings, core, package,
+catalog, installation, prior cleanup or snapshot changed. Frozen parents and
+unrelated deck-lights/ remain preserved. Main and all observer, stems staging,
+USB completion/cancellation, lifetime/race, recovery, audio-quality, physical-
+timing and community-release gates stay CLOSED. Do not replay this passing
+matrix unchanged or call it native observation evidence.

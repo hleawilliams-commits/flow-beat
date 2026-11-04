@@ -1,0 +1,30 @@
+{
+  "audit_attempts": 1,
+  "audit_script_sha256": "2e5408fe92295ca2658c8d6fb445ca91a9faea325ee6da4a9a7abbc1a6478d1c",
+  "captured_inputs": 7,
+  "case_count": 4,
+  "compile_records_per_run": 37,
+  "control_count": 3,
+  "differing_raw_report_count": 36,
+  "execution_records_per_run": 21,
+  "failed_matrix_attempt_receipt_sha256": [],
+  "failed_matrix_attempts": 0,
+  "frozen_inputs": 76,
+  "generated_c_sources": 29,
+  "generated_rust_modules": 3,
+  "link_records_per_run": 12,
+  "matrix_attempts": 2,
+  "modes": [
+    "plain",
+    "asan-ubsan",
+    "tsan"
+  ],
+  "prior_audit_failures": 0,
+  "prior_audit_incomplete": 0,
+  "raw_report_count_per_run": 63,
+  "result_sha256": "204da7920697f64cd58f29c6ac81bbc2abb8935d3ec78efe550438eb23304685",
+  "retained_file_audit_sha256": "9372e4daa796f5ce2be7111de43a1f7c012ea00830f12c6f34dd89f469778ab5",
+  "scope": "Byte-only audit of retained successful and failed matrix attempts, exact generated sources, strict controls, process reports/transcripts and both public results. No helper, compiler, test, peer or endpoint execution. Raw process evidence may differ with fragmentation and is audited separately; no native custody, runtime or death-recovery proof.",
+  "successful_matrix_attempts": 2,
+  "whole_result_bytes_equal": true
+}
