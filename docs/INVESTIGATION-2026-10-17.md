@@ -1453,3 +1453,36 @@ cleanup or old snapshot was touched. Frozen sources and deck-lights/ remain
 preserved. Observer, stems staging, USB final completion/cancellation, native
 lifetime/race, audio-quality, recovery and physical-timing gates remain CLOSED.
 Do not rerun unchanged passing checks.
+
+
+## November 4: USB full-extent ABI and concrete timer teardown review
+
+The [new static successor](../experiments/usb-browser-switch/activation-abi/)
+resolves the timer entry's concrete deleting destructor. It removes an entry
+from JUCE's schedule under the global mutex, then deletes it; the timer-message
+path invokes the callback outside that same mutex. This supplies no callback
+quiescence or cancellation of the separately queued raw StateRefresh timer
+capture. Native serialization, task-box ownership and safe listener reentry
+remain unresolved; no native use-after-free or activation permission is claimed.
+
+The guarded action's complete 761 instructions and named source service's
+1,033 instructions were reviewed with their known caller continuations. Both
+have real cleanup/unwind paths. The final source dispatch has no local landing
+pad in the action, so an exception can bypass its ordinary epilogue. Caller
+non-consumption of return registers does not establish a success status or void
+return type. Direct register-use findings do not prove opaque transitive ABI
+contracts, wrapper/trampoline unwind correctness or live receiver provenance.
+
+A new static verifier passed once: 14 complete FDE/code extents, 79 selected
+anchors, 13 pointer relations, four RTTI strings, eight imported symbols and
+three explicitly decoded cleanup LSDAs. Independent source/receipt review and
+preparation-only bookkeeping failures are retained in its evidence. No native
+code, wrapper, old test suite or successful runtime branch was executed.
+
+No adapter, USB button, cancellation, post-return native read, emulator/device
+action, core/package/catalog update or release was added. The previous USB
+proofs and all frozen experiments remain unchanged. Full wrapper, retention,
+final source readiness, missing-media/lifecycle/alternate-database/scroll-sort,
+stems and all existing runtime gates remain CLOSED. Do not repeat the
+unchanged static check. Next resolve actual task-box retention/cancellation and
+permitted destruction/serialization, or review another owned activation route.

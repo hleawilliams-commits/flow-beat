@@ -1,0 +1,64 @@
+{
+  "baseline_commit": "5a2d5ca86826e36b87e83b1e29346fe52f51a6d7",
+  "date": "2026-11-04",
+  "device_or_emulator_access": false,
+  "independent_result_audit": {
+    "method": "Read-only byte and structure comparison; no verifier import/rerun or ELF reanalysis.",
+    "native_or_wrapper_correctness_claimed": false,
+    "passed": true,
+    "verified": [
+      "Exact result/verifier/pins and retained stdout/stderr hashes and sizes.",
+      "Exit zero and exact 59-byte stdout payload; empty stderr.",
+      "All 14 function extent/code hash/selected fact records against reviewer pins.",
+      "79 unique anchors, 13 pointer relations, four RTTI strings and eight PLT identities.",
+      "Exactly three decoded LSDAs with complete table sizes and row counts.",
+      "Service FDE/CIE/CFI and LSDA facts match the separate retained service review."
+    ]
+  },
+  "independent_source_reviews": {
+    "count": 2,
+    "execution": false,
+    "hardening_before_first_run": [
+      "Require the complete four-byte call to fit inside a no-landing interval.",
+      "Record lsda_decoded explicitly; unparsed metadata is not absent metadata."
+    ],
+    "material_defects_found": false
+  },
+  "installation_or_release": false,
+  "native_execution": false,
+  "old_suite_replay": false,
+  "preparation_failures": [
+    {
+      "failure": "Filename glob was too narrow; failed before writing intended output.",
+      "native_or_verifier_failure": false,
+      "operation": "private timer anchor aggregation",
+      "resolution": "Corrected filename selection using the existing retained inputs."
+    },
+    {
+      "failure": "KeyError: 'extra'; failed before writing intended output.",
+      "native_or_verifier_failure": false,
+      "operation": "public pin assembly",
+      "resolution": "Used the inspected 'action' key in the private action review schema."
+    }
+  ],
+  "python_version": "3.11.16",
+  "review_document_sha256": {
+    "ACTION-REVIEW.md": "174d08e815bcf089e68f57660741fc71161cb7e7e92cbef7f102348783f02c07",
+    "SERVICE-REVIEW.md": "a3843713629d4f8a25756cf146f79e75b9a0858c077f3da40d0bde5471e5632d",
+    "TIMER-REVIEW.md": "1b21b0911743de0f9db67eee5e15a341aadcc5594d9ece5682cd63dd6b557af4"
+  },
+  "run": {
+    "result_sha256": "3ec0d934b971b3f2b4733df8416309102c98c8a3edf3e98e9db067c676cbd6fe",
+    "returncode": 0,
+    "review_pins_sha256": "37ae1052fb9170dc2621566e6e474d2f6ccd9861af5a3319eebeabf08c547007",
+    "stderr_bytes": 0,
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout_bytes": 59,
+    "stdout_sha256": "b5b165900889af3a89883d99b2e108c3e4da65c96a1ad22e71015bab036dcc49",
+    "verifier_sha256": "ca56c68421e3f37dbec9be90ade1a414ab5c68ce4af0ddf1333801ae7e75caa8"
+  },
+  "run_count": 1,
+  "runtime_gate": "CLOSED",
+  "schema": 1,
+  "scope": "New static exact-ELF verification only; native firmware was not executed."
+}
