@@ -1386,3 +1386,37 @@ package, catalog, install, release, cleanup or old snapshot changed. Frozen
 parents and unrelated deck-lights/ remain preserved. Observer, stems staging,
 USB completion/cancellation, native lifetime/race, audio-quality, recovery and
 physical-timing gates stay CLOSED. Do not replay these unchanged passing checks.
+
+
+## November 4: retained supervisor observation now closes local admission
+
+The [separate inactive admission composition](../experiments/emulator-supervisor-admission/)
+now borrows the actual Child through the existing StartupHandle/lifecycle
+owner and terminal-latches its exact port. Known controller loss latches before
+polling; returned error/exit, inner poll unwind and every scope exit also latch.
+Missing/busy/poisoned child access after resolving the owner records a separate
+refused-scope latch while retaining the original error. The actual child,
+stdin, backend and joined worker/session remain in their existing owners.
+
+Two fresh offline matrices each passed seven new selectors and four compiled
+strict controls. One locked/offline production check compiled the inactive
+32-file composition; the focused repeat skipped it and neither run executed
+the 260 inherited suite tests. Real sentinel Child custody, explicit fixture
+wait, queued/reserved/in-flight distinctions, late ACK/settings completion,
+caught unwind, pre-entry poison refusal and blocked settings are covered with
+a modeled backend. Four expected failures reached their exact final assertions
+after cleanup. [Evidence](../experiments/emulator-supervisor-admission/HOST-TESTS.md)
+and the [sanitized receipt](../experiments/emulator-supervisor-admission/result.json)
+record this bounded scope. The corrected independent byte audit verifies all
+47 logs and ten retained executables; its initial metadata-inventory failure
+is preserved separately, with no build or test rerun.
+
+This closes terminal local port admission, not synchronous producer closure or
+native cancellation. Work already past the terminal check may still dispatch
+and commit settings. Explicit local finish/join remains separate from guest
+stop authority. Main's legacy executable supervisor branches remain unchanged;
+a continuous observation/event owner, production dispatch, guest framing,
+external writer exclusion, teardown/restoration and recovery remain open.
+No emulator/device access, install, package/catalog change, native observation,
+stems activation or USB completion proof follows. All existing runtime/product
+gates remain CLOSED; do not rerun the unchanged passing matrix.

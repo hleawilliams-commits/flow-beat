@@ -1,0 +1,259 @@
+{
+  "branch": "codex/az-mods-handoff-2026-10-16",
+  "captured_input_count": 11,
+  "compiled_test_inventory": 267,
+  "composed_candidate_file_count": 32,
+  "date": "2026-11-04",
+  "emulator_base": "06fc981707e69982c0554bb508e0c646c005a979",
+  "frozen_parent_input_count": 40,
+  "independent_byte_audit": {
+    "audit_source_sha256": "d14b139e2d6e75318829f5522ebd348a3bdd91b20142561f9398b747a9f3bdfb",
+    "common_logs": 23,
+    "different_raw_log_count": 11,
+    "inputs_candidate_versions_and_semantic_results_equal": true,
+    "normalized_log_equality_claim": false,
+    "prior_failed_audit": {
+      "correction": "Account separately for exactly .git/HEAD and .git/config from the frozen template-free Git apply context; all 32 candidate source bytes remain exact. No broad path exclusion; no test/build rerun.",
+      "failure": "RuntimeError: retained main candidate differs",
+      "receipt_sha256": "9cfbce531ab8e40228eac47cd175f1d07ee2244c5b4628f23b014d33d18820a1",
+      "source_sha256": "8ca3eb8a088394f2ceb8356ba4c49baa72619be26130f3415fa74594d2ec8a8a"
+    },
+    "raw_log_equality_claim": false,
+    "receipt_sha256": "20f053be8dddff8d01db10cc3902f3c5b5d5611cba7ffa43dd6ec93a525033fd",
+    "regular_build_metadata_files_separately_verified": [
+      ".git/HEAD",
+      ".git/config"
+    ],
+    "status": "passed",
+    "successful_matrices": 2,
+    "test_or_build_rerun_for_audit_correction": false,
+    "total_retained_executables_checked": 10,
+    "total_selected_executions": 22,
+    "total_verified_logs": 47
+  },
+  "inherited_suite_tests_not_executed": 260,
+  "inputs_sha256": {
+    "admission.rs": "d1a0999be083cb8c01960bfc13df584186db5763b7127e7f9379391522f602c4",
+    "candidate-pins.json": "b5ca9618331b5aed47f10d4aa7c171278b759eefbba6eb40b7d5250d41f9ade8",
+    "controls.json": "c21d4d66f63a16d59a1a205eb0b2fbcf3cb87a4374aafc88622088cc20c7ed57",
+    "parent-inputs.json": "5f8abf464637c44fa61f12ea55a3512c9e60865aceda39bc2a50bee81240e811",
+    "prepare-candidate.py": "bd26bd58cb88002305264e932ffee1c31b52a898ded679d2b791e6f018dbff26",
+    "run-tests.py": "7f7240ae4649965b7866b42a0fdfcbb44269e1b201fe470b876b2ee18b888729",
+    "startup-scope.inc.rs": "7b883365d5cff12054c12ba7eb51ee2c9a04803ce6e9984d1348e6bc085b288a",
+    "test-inventory.json": "5f7bd179ebb487fdc6f1c03aee6d7c2711e761ee55a2c955445565b6ec3afb5a",
+    "tests.rs": "1cb31754b358c948f466aa6e50ad79683e8669c9539c17336ae5d8740f618f3e",
+    "transport-latch.inc.rs": "a4af9587bb1bf56d77fa03696615167ea6f42bad9ac2a156250d4ad979f9bd65",
+    "transport-test-edits.json": "e73be2f04523460bde6f5e3e4aa083c55e66bda6266eb699764b4ebd0096d684"
+  },
+  "matrices": [
+    {
+      "executables_sha256": {
+        "blocking-stop-substitutes-for-atomic-latch": "ea036dcfa24bb71452e33b339f059ae3a2a6454e9e187bdade07535263d6f873",
+        "candidate": "51674bd0858bc5a1043d15da010f637a9eb8755907bea7495c8fa6b1282dbe13",
+        "known-loss-latched-after-poll": "702cc2e2351818034aabda1ee68c15242687f69dbc697a3c28fcf85139572f0d",
+        "poll-unwind-latch-inverted": "0e558da463fc3d831e0b1ed6a8c14294e5d685535a509e1c82f5cb84ffb2a027",
+        "returned-hold-latch-omitted": "5962c44fc7856f4fa3300f8fe50163870e47bc9a33d5cd862fc90baeaeec2520"
+      },
+      "label": "initial",
+      "preparation_receipt_sha256": "4825be830190a3c7f3ae13b1f2ec457403e768afd170d42175c2a46e2a2a5df0",
+      "private_receipt_sha256": "b6425920a723c0208212432a16ec9c8db496cac73cd87b091adc3a25a5b3ebdc",
+      "production_check_exit": 0,
+      "retained_log_count": 24,
+      "selected_executions": 11,
+      "selected_outcomes": [
+        {
+          "exit": 0,
+          "log_sha256": "46297bdb3bc3fd7870cebf6642a305dc3b1fa19f06232063c8a8b45c729096a3",
+          "test": "supervisor_admission::tests::in_flight_and_queued_work_remain_accounted_after_loss",
+          "variant": "candidate"
+        },
+        {
+          "exit": 0,
+          "log_sha256": "38a398b3b8e2c11e93dc09cd4c0b7bd4fbb7f6da32d06be099e157080225ae48",
+          "test": "supervisor_admission::tests::known_loss_closes_real_admission_before_poll",
+          "variant": "candidate"
+        },
+        {
+          "exit": 0,
+          "log_sha256": "7426710074f0ce9d089e9a78664b4f0c866c9184f477825c1cdb1fb111b5a1e4",
+          "test": "supervisor_admission::tests::poll_unwind_closes_real_port_before_escape",
+          "variant": "candidate"
+        },
+        {
+          "exit": 0,
+          "log_sha256": "7985949ef77fbddc50bdff7c8679286610eb144769aada1ee394dbdf159b3afe",
+          "test": "supervisor_admission::tests::reserved_request_is_not_forwarded_after_observed_exit",
+          "variant": "candidate"
+        },
+        {
+          "exit": 0,
+          "log_sha256": "cb19c30e84c2523509539168116a1edb16de453e59fa27c653812d31c19a72c4",
+          "test": "supervisor_admission::tests::returned_poll_error_closes_real_port_without_child_stop",
+          "variant": "candidate"
+        },
+        {
+          "exit": 0,
+          "log_sha256": "b606c25abdd0ef045aacaed7ebf83d2d1c6bdd3e0c765bf7a8f0c5097dd1d621",
+          "test": "supervisor_admission::tests::scope_return_and_unwind_keep_startup_child_and_exit_owner",
+          "variant": "candidate"
+        },
+        {
+          "exit": 0,
+          "log_sha256": "402fce81ff16510d0dea7df35c7939265c8400dd89ea56c7ad587b3ac958a317",
+          "test": "supervisor_admission::tests::settings_callback_does_not_block_terminal_admission_latch",
+          "variant": "candidate"
+        },
+        {
+          "exit": 101,
+          "expected_assertion_location": "supervisor_admission_tests.rs:236:5:",
+          "log_sha256": "7da0291a1e0bf71f256407b9150ca96ffe3f2c1ec89968635d233a99974c15c8",
+          "test": "supervisor_admission::tests::known_loss_closes_real_admission_before_poll",
+          "variant": "known-loss-latched-after-poll"
+        },
+        {
+          "exit": 101,
+          "expected_assertion_location": "supervisor_admission_tests.rs:263:5:",
+          "log_sha256": "8395ca67680e84998903c0e24f6077ca439711d8346b29eff5a8e486fd5421cf",
+          "test": "supervisor_admission::tests::returned_poll_error_closes_real_port_without_child_stop",
+          "variant": "returned-hold-latch-omitted"
+        },
+        {
+          "exit": 101,
+          "expected_assertion_location": "supervisor_admission_tests.rs:287:5:",
+          "log_sha256": "3db4257aa134ce812ea05a4a9bf2ee806bced86c01837f4da5f8ee7a29adaedd",
+          "test": "supervisor_admission::tests::poll_unwind_closes_real_port_before_escape",
+          "variant": "poll-unwind-latch-inverted"
+        },
+        {
+          "exit": 101,
+          "expected_assertion_location": "supervisor_admission_tests.rs:413:5:",
+          "log_sha256": "f2d80ac170a2a83238bce9e0c482196aee669280bbea8e61f9ca6af68280a7f1",
+          "test": "supervisor_admission::tests::settings_callback_does_not_block_terminal_admission_latch",
+          "variant": "blocking-stop-substitutes-for-atomic-latch"
+        }
+      ],
+      "source_manifests_sha256": {
+        "blocking-stop-substitutes-for-atomic-latch": "d3ba8bfaf53dfd126b1566c951e345603130061915b2b9fd5e373aef4c2712b8",
+        "candidate": "0d0c3b5fbd28cbdca314f08cbbbf966d9031323c81d5946edd881e9bd63a1a85",
+        "known-loss-latched-after-poll": "7b73b1dc0953f8f0ee719890b6a5d82ee70cb0b08e95416fe5e4077dffe5e9e6",
+        "poll-unwind-latch-inverted": "767ad25e50374670578be066dfb9f2d042107c7ff02aa9047dbd20da63429698",
+        "returned-hold-latch-omitted": "0cf647c1d1577bff084177d75262417020e63c04f93068fbd27319610dd69b36"
+      },
+      "status": "passed",
+      "variant_compilations": 5
+    },
+    {
+      "executables_sha256": {
+        "blocking-stop-substitutes-for-atomic-latch": "64ee60ca91100d8b993f09b476d93796043c412669ad204ed79e2ff04e1c4ab7",
+        "candidate": "5cf1cd7f2cdec82c4ec50dbefadf86d4b17e40ec2dd916eab99a96a57a28fd0a",
+        "known-loss-latched-after-poll": "9fefaedb20a7d958c7e8ed09a6d62429230b57ac881d69711ec974b14e166803",
+        "poll-unwind-latch-inverted": "d6404d9f8bf4d16d25d339a455f07e56697939b7f06b2da35d49a9c683fd5738",
+        "returned-hold-latch-omitted": "4841bfdd67679304938846becf3cccebaaff5fb904549d34875d173d0b499afa"
+      },
+      "label": "independent-focused-repeat",
+      "preparation_receipt_sha256": "4825be830190a3c7f3ae13b1f2ec457403e768afd170d42175c2a46e2a2a5df0",
+      "private_receipt_sha256": "6bfbfd526617dfbfa6ff250f302026995e921ac1a06244c7f417889972e3d88f",
+      "production_check_exit": null,
+      "retained_log_count": 23,
+      "selected_executions": 11,
+      "selected_outcomes": [
+        {
+          "exit": 0,
+          "log_sha256": "46297bdb3bc3fd7870cebf6642a305dc3b1fa19f06232063c8a8b45c729096a3",
+          "test": "supervisor_admission::tests::in_flight_and_queued_work_remain_accounted_after_loss",
+          "variant": "candidate"
+        },
+        {
+          "exit": 0,
+          "log_sha256": "38a398b3b8e2c11e93dc09cd4c0b7bd4fbb7f6da32d06be099e157080225ae48",
+          "test": "supervisor_admission::tests::known_loss_closes_real_admission_before_poll",
+          "variant": "candidate"
+        },
+        {
+          "exit": 0,
+          "log_sha256": "8d6e3396738367c213558186b21def2aa566a60e037fc7a11d226226b8087821",
+          "test": "supervisor_admission::tests::poll_unwind_closes_real_port_before_escape",
+          "variant": "candidate"
+        },
+        {
+          "exit": 0,
+          "log_sha256": "7985949ef77fbddc50bdff7c8679286610eb144769aada1ee394dbdf159b3afe",
+          "test": "supervisor_admission::tests::reserved_request_is_not_forwarded_after_observed_exit",
+          "variant": "candidate"
+        },
+        {
+          "exit": 0,
+          "log_sha256": "cb19c30e84c2523509539168116a1edb16de453e59fa27c653812d31c19a72c4",
+          "test": "supervisor_admission::tests::returned_poll_error_closes_real_port_without_child_stop",
+          "variant": "candidate"
+        },
+        {
+          "exit": 0,
+          "log_sha256": "46b49eb6cd0043b3bd63f9b58cc2d49a04ae11b433f4765e96f8454499e868f1",
+          "test": "supervisor_admission::tests::scope_return_and_unwind_keep_startup_child_and_exit_owner",
+          "variant": "candidate"
+        },
+        {
+          "exit": 0,
+          "log_sha256": "402fce81ff16510d0dea7df35c7939265c8400dd89ea56c7ad587b3ac958a317",
+          "test": "supervisor_admission::tests::settings_callback_does_not_block_terminal_admission_latch",
+          "variant": "candidate"
+        },
+        {
+          "exit": 101,
+          "expected_assertion_location": "supervisor_admission_tests.rs:236:5:",
+          "log_sha256": "2e3425d0895e4c245b7c4b31107c3225af12c238e33df7c39b6b1d3118968e96",
+          "test": "supervisor_admission::tests::known_loss_closes_real_admission_before_poll",
+          "variant": "known-loss-latched-after-poll"
+        },
+        {
+          "exit": 101,
+          "expected_assertion_location": "supervisor_admission_tests.rs:263:5:",
+          "log_sha256": "b099d26e51b3aa15f263ea5cce49bb9dcce7523f40228e4c024e853bec1e02ba",
+          "test": "supervisor_admission::tests::returned_poll_error_closes_real_port_without_child_stop",
+          "variant": "returned-hold-latch-omitted"
+        },
+        {
+          "exit": 101,
+          "expected_assertion_location": "supervisor_admission_tests.rs:287:5:",
+          "log_sha256": "6341e55b440f9e9c6427693b37a18da3f33cf161a19db56eac65b2ba9f14a167",
+          "test": "supervisor_admission::tests::poll_unwind_closes_real_port_before_escape",
+          "variant": "poll-unwind-latch-inverted"
+        },
+        {
+          "exit": 101,
+          "expected_assertion_location": "supervisor_admission_tests.rs:413:5:",
+          "log_sha256": "1bfdece17027b50bf25231f84c895f7bb42626f303c1ab9f0fb977bba575daba",
+          "test": "supervisor_admission::tests::settings_callback_does_not_block_terminal_admission_latch",
+          "variant": "blocking-stop-substitutes-for-atomic-latch"
+        }
+      ],
+      "source_manifests_sha256": {
+        "blocking-stop-substitutes-for-atomic-latch": "d3ba8bfaf53dfd126b1566c951e345603130061915b2b9fd5e373aef4c2712b8",
+        "candidate": "0d0c3b5fbd28cbdca314f08cbbbf966d9031323c81d5946edd881e9bd63a1a85",
+        "known-loss-latched-after-poll": "7b73b1dc0953f8f0ee719890b6a5d82ee70cb0b08e95416fe5e4077dffe5e9e6",
+        "poll-unwind-latch-inverted": "767ad25e50374670578be066dfb9f2d042107c7ff02aa9047dbd20da63429698",
+        "returned-hold-latch-omitted": "0cf647c1d1577bff084177d75262417020e63c04f93068fbd27319610dd69b36"
+      },
+      "status": "passed",
+      "variant_compilations": 5
+    }
+  ],
+  "new_selectors_per_matrix": 7,
+  "not_proven": [
+    "Production supervisor/controller dispatch selection or authenticated loss events.",
+    "Native cancellation, child stop authority, guest service framing or external writer exclusion.",
+    "Immediate queue disposal, producer closure, worker exit or suppression of an already-dispatched ACK/settings write.",
+    "Whole-runtime lifetime/race, recovery, audio quality, physical timing or stems/USB activation.",
+    "Runtime coverage of every typed entry-refusal or impossible latch-return branch."
+  ],
+  "other_selectors_filtered_per_execution": 266,
+  "parent_candidate_file_count": 28,
+  "scope": "Actual retained host Child and existing startup/lifecycle/worker source with a modeled backend. Terminal local port admission; no production main selection or native/guest stop.",
+  "status": "passed-offline-inactive-composition",
+  "strict_controls_per_matrix": 4,
+  "toolchain": {
+    "cargo": "cargo 1.98.1 (797e8a9bc 2026-08-05) (Homebrew)",
+    "rustc": "rustc 1.98.1 (48a229cea 2026-09-01) (Homebrew)\nbinary: rustc\ncommit-hash: 48a229ceaefd4985c50990b14116b6d856af0985\ncommit-date: 2026-09-01\nhost: aarch64-apple-darwin\nrelease: 1.98.1\nLLVM version: 22.1.8"
+  }
+}

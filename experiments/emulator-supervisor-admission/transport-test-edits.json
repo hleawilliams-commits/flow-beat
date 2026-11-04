@@ -1,0 +1,22 @@
+[
+  {
+    "label": "cfg-test-reservation-storage",
+    "old": "    #[cfg(test)] after_dispatch: Mutex<Option<(mpsc::Sender<()>,Receiver<()>)>>,\n",
+    "new": "    #[cfg(test)] after_dispatch: Mutex<Option<(mpsc::Sender<()>,Receiver<()>)>>,\n    #[cfg(test)] before_dispatch: Mutex<Option<(mpsc::Sender<()>,Receiver<()>)>>,\n"
+  },
+  {
+    "label": "cfg-test-reservation-initialization",
+    "old": "        #[cfg(test)] after_dispatch: Mutex::new(None),\n",
+    "new": "        #[cfg(test)] after_dispatch: Mutex::new(None),\n        #[cfg(test)] before_dispatch: Mutex::new(None),\n"
+  },
+  {
+    "label": "cfg-test-reservation-accessor",
+    "old": "    pub fn current_key(&self)->Option<Key> {\n",
+    "new": "    #[cfg(test)]\n    pub(crate) fn pause_before_dispatch_for_test(&self, entered:mpsc::Sender<()>, proceed:Receiver<()>) {\n        *self.shared().before_dispatch.lock().unwrap()=Some((entered,proceed));\n    }\n    pub fn current_key(&self)->Option<Key> {\n"
+  },
+  {
+    "label": "cfg-test-only-after-reservation-before-terminal-check",
+    "old": "        // A terminal signal after reservation can prevent forwarding. If it\n",
+    "new": "        #[cfg(test)] {\n            // A private fixture barrier, absent from production, observes the\n            // actual reserved envelope before the existing terminal check.\n            let barrier=p.before_dispatch.lock().unwrap().take();\n            if let Some((entered,proceed))=barrier {\n                let _=entered.send(());\n                proceed.recv_timeout(std::time::Duration::from_secs(15))\n                    .expect(\"fixture pre-dispatch release deadline\");\n            }\n        }\n        // A terminal signal after reservation can prevent forwarding. If it\n"
+  }
+]

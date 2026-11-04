@@ -865,3 +865,23 @@ with retained startup/exit custody and admission/event dispatch before selecting
 a production branch. Native stop authority, guest framing, external exclusion,
 uncertain teardown, restoration, guarded restart and all runtime gates remain
 CLOSED. No emulator/device access, install, package or release change occurred.
+
+
+## November 4: inactive retained-child/local-admission composition
+
+The [separate admission successor](../../../emulator-supervisor-admission/)
+now scopes observations through the existing startup/lifecycle Child owner
+and terminal-latches that owner's exact port on loss, error/exit, unwind and
+scope end. After-owner child-access refusal records a separate latch receipt.
+Two fresh offline matrices each pass seven new selectors and four compiled
+strict controls; one production check compiles the inactive composition.
+The 260 inherited tests are not rerun. Actual host Child custody and worker
+accounting are tested with private fixture settings and a modeled backend.
+
+Atomic terminal admission is not producer closure or cancellation: a dispatched
+request's late ACK/settings may complete before explicit close/finish. Main
+continues to select its legacy executable supervisor. Continuous event ownership,
+production dispatch, guest framing, native stop authority, external exclusion,
+restoration, guarded restart and recovery stay open. No running emulator or
+device is contacted and all runtime gates remain CLOSED. No unchanged passing
+test needs repetition; see the successor's focused evidence before further work.

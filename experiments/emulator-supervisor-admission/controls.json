@@ -1,0 +1,44 @@
+{
+  "candidate_sha256": {
+    "az-preview/src/mixer_transport.rs": "0a9e93190364ccc75aeb6ce3f7ba1ab2256a9188779e3afd804facf613049b6b",
+    "az-preview/src/supervisor_admission.rs": "d1a0999be083cb8c01960bfc13df584186db5763b7127e7f9379391522f602c4"
+  },
+  "controls": [
+    {
+      "name": "known-loss-latched-after-poll",
+      "file": "az-preview/src/supervisor_admission.rs",
+      "old": "            latch_once(self.port, self.admission, CloseCause::ControllerLoss(event))?;\n",
+      "new": "            // Negative control: omit the pre-poll loss latch.\n",
+      "test": "supervisor_admission::tests::known_loss_closes_real_admission_before_poll",
+      "assertion_anchor": "assert_eq!((observed, finish),",
+      "assertion_message": "oracle known loss closes real admission before actual poll"
+    },
+    {
+      "name": "returned-hold-latch-omitted",
+      "file": "az-preview/src/supervisor_admission.rs",
+      "old": "            latch_once(guard.port, guard.journal, CloseCause::ObservedHold)?;\n",
+      "new": "            // Negative control: leave closure until scope exit.\n",
+      "test": "supervisor_admission::tests::returned_poll_error_closes_real_port_without_child_stop",
+      "assertion_anchor": "assert_eq!((observed, finish),",
+      "assertion_message": "oracle retained poll error closes real port without stopping child"
+    },
+    {
+      "name": "poll-unwind-latch-inverted",
+      "file": "az-preview/src/supervisor_admission.rs",
+      "old": "        if self.armed { let _ = latch_once(self.port, self.journal, CloseCause::PollUnwind); }\n",
+      "new": "        if !self.armed { let _ = latch_once(self.port, self.journal, CloseCause::PollUnwind); }\n",
+      "test": "supervisor_admission::tests::poll_unwind_closes_real_port_before_escape",
+      "assertion_anchor": "assert_eq!((observed, finish),",
+      "assertion_message": "oracle poll unwind latches real admission before caught escape"
+    },
+    {
+      "name": "blocking-stop-substitutes-for-atomic-latch",
+      "file": "az-preview/src/mixer_transport.rs",
+      "old": "        shared.stop(StopReason::Requested);\n        shared.reason()\n",
+      "new": "        let _ = self.request_stop();\n        shared.reason()\n",
+      "test": "supervisor_admission::tests::settings_callback_does_not_block_terminal_admission_latch",
+      "assertion_anchor": "assert_eq!((early.is_ok(),",
+      "assertion_message": "oracle admission latch completes before blocked settings are released"
+    }
+  ]
+}
