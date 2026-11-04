@@ -1,0 +1,95 @@
+{
+  "baseline_commit": "92bcf04427822c69fecae55aaa7f90f5a7821768",
+  "checked_counts": {
+    "complete_function_extents": 27,
+    "names": 7,
+    "new_lsdas_decoded": 0,
+    "plt_symbol_relations": 11,
+    "pointer_relations": 30,
+    "selected_instructions": 296
+  },
+  "date": "2026-11-04",
+  "device_or_emulator_access": false,
+  "independent_result_audit": {
+    "live_lifetime_or_wrapper_proof": false,
+    "method": "Read-only byte/structure comparison, no verifier import/rerun or ELF reanalysis",
+    "passed": true,
+    "verified": [
+      "Aggregate is the exact prefixed union of 14 manager and 13 shutdown functions and deduplicated relations.",
+      "All 243 supplied fact fields match the result; zero range overlaps with the 42 frozen parent extents.",
+      "Pins, result, unchanged verifier and retained receipt hashes agree.",
+      "Exactly one retained verification attempt, exact 60-byte stdout, empty stderr and exit zero.",
+      "All 27 functions retain lsda_decoded=false and null decoded LSDA; 11 metadata LSDA pointers do not establish decoding.",
+      "CFI row/count metadata and public bounded conclusions agree."
+    ]
+  },
+  "independent_source_reviews": {
+    "execution": false,
+    "material_defects_remaining": false,
+    "verified": [
+      "Private assembly excludes byte-identical parent function extents and refuses conflicting facts and optimized Python.",
+      "Ordinary reset chain is grounded in the concrete static application slots and supplemental full body.",
+      "Normal outer callback return ordering is distinct from live/reentrant retention; a nested loop alone does not advance its outer runner.",
+      "Immediate SubDisplay cleanup does not establish transitive absence of a drain or positive service quiescence."
+    ],
+    "wording_corrections": [
+      "Opening now says application shutdown/destruction because ordinary shutdown clears the member before application deletion.",
+      "Use shared GUI initialization count and static vtable targets rather than implying live provenance.",
+      "Stored native owners do not supply live operation-scoped retention by themselves."
+    ]
+  },
+  "inherited_result_scope_label": "static exact-ELF ABI and concrete timer teardown only",
+  "installation_or_release": false,
+  "native_execution": false,
+  "new_full_function_overlap_with_parent": 0,
+  "old_suite_replay": false,
+  "post_return_native_reads_added": false,
+  "preparation_failures": [
+    {
+      "failure": "The exact-text assertion failed before writing because the malformed Markdown substring differed.",
+      "native_or_verifier_failure": false,
+      "operation": "documentation typo replacement",
+      "resolution": "Read the actual substring, then made the bounded documentation correction."
+    },
+    {
+      "failure": "An unescaped Markdown backtick in the JavaScript template caused a parser error before any nested tool ran.",
+      "native_or_verifier_failure": false,
+      "operation": "documentation tool-call preparation",
+      "resolution": "Removed the conflicting backticks and resubmitted safely quoted Python. No files changed in the failed invocation."
+    }
+  ],
+  "preserved_intermediate_capture_sha256": {
+    "shutdown-pins-pre-reset-edge.json": "3a13dbfd9e1f64709b38eca7d4c1da9c5ff4d35932f5752e1b7c3c727653f335",
+    "shutdown-reset-dispatch-body.txt": "5106d2a4123615b749a357d1438447aa10a4082d6fe51d2a673e6487bf74b006"
+  },
+  "prior_full_function_pin_replay": false,
+  "private_assembly_sha256": "c4e094f9ab58c01a4f22fcb749b8ddd1c5b8c54cb458cca686f8f3fa7d3527bf",
+  "python_version": "3.11.16",
+  "reference_counts_changed": false,
+  "relation_anchors_in_previously_pinned_manager_bodies": true,
+  "review_document_sha256": {
+    "MANAGER-ORDER.md": "6378991ec25c78f562533c317a23f58bb746fed3dd4dbff5d036e2130645c017",
+    "SHUTDOWN-REGISTRY.md": "87dcb5a9c4931635f6d81a19d390a25fc0c3179f591e1add2c5d030f00f50e7c"
+  },
+  "review_input_sha256": {
+    "manager-pins.json": "b24a3228b5db08346b16881cbc8a9e40520fc9b4aeb08045489d716320cf0691",
+    "shutdown-pins.json": "7ead235dfbcf83be7267a74fbb51c10a36f4cb6e6a1eb71174faa5b95835a438"
+  },
+  "run": {
+    "result_sha256": "dddfd32e76356da29a701559db7be9ed35d9cba4b8ace49787a1307e2d646373",
+    "returncode": 0,
+    "review_pins_sha256": "3e4d96cbd33ce4873dfda87280a52c38d4405b2e6d9e90ae4b929b9f1c54d718",
+    "stderr_bytes": 0,
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout_bytes": 60,
+    "stdout_sha256": "82fd75626de0bc0865d0910f71bc80f9880ada7c8279fd561aaf52db036d6e2a",
+    "verifier_sha256": "ca56c68421e3f37dbec9be90ade1a414ab5c68ce4af0ddf1333801ae7e75caa8"
+  },
+  "run_count": 1,
+  "runtime_gate": "CLOSED",
+  "schema": 1,
+  "scope": "New static SubDisplay participant and ordinary application/registry shutdown ordering; no live activation or general quiescence proof",
+  "subject": "This directory review-pins.json, not preceding ownership or ABI pins",
+  "verifier": "../activation-abi/verify-static.py",
+  "verifier_changed": false
+}

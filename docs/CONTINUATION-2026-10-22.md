@@ -1577,3 +1577,39 @@ observer and physical gates remain CLOSED. Next connect a permitted invocation
 to an owner that actually spans it, including the source manager's earlier
 shutdown participants and the shared queue's real execution ordering; do not
 rerun this passing static check unchanged.
+
+
+## November 4: ordinary USB shutdown chain and earlier manager participants
+
+The [new bounded shutdown review](../experiments/usb-browser-switch/activation-shutdown/)
+identifies GuiObjectManager's earlier +0x1a0/+0x198 members as two SubDisplay
+instances. Their actual deleting slots perform local cleanup. Mutex destruction
+and paired provider calls do not establish service-task cancellation or drain;
+provider/mapping/member descendants remain explicit transitive boundaries.
+
+A concrete DeletedAtShutdown dispatcher uses a reverse pointer snapshot,
+rechecks membership under its lock, then unlocks before deleting each object.
+The selected application runner returns from its outer message loop before
+shutdown and application deletion. EP147's actual ordinary shutdown calls the
+member reset that releases UiLayerObjects and GuiObjectManager. A later registry
+pass occurs when the shared GUI initialization count reaches zero. If the shared
+TimerTaskBox::Impl remains registered until that pass, its cleanup follows.
+
+This supplies positive normal return ordering: nesting a loop does not let the
+outer runner advance past its still-active callback. It does not demonstrate
+reentrant destruction, live operation-scoped retention, other producer shutdown,
+or general queued callback quiescence. Actual replacement/destruction entry
+points and live receiver/context provenance remain unresolved.
+
+The first and only check of these new pins passes 27 complete code/FDE extents,
+296 selected instructions, 30 pointer relations, seven names and 11 imports.
+No new LSDA table is decoded. Independent source and retained-result review,
+diagnostic hashes and preparation-only bookkeeping failures are recorded.
+The preceding 42 full extents and runtime suites were not replayed.
+
+No native adapter, USB button, cancellation, reference-count change, post-return
+native read, emulator/device action, package/catalog change or release was added.
+Final Local Library/readiness, complete wrapper ABI/unwind, actual live owner
+scope, alternate/reentrant paths and queued execution remain open. All stems,
+observer and physical gates remain CLOSED. Next connect a permitted invocation
+to actual owner scope and execution context; do not repeat the passing pins.
