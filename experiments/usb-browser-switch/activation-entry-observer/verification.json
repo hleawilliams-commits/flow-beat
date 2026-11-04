@@ -1,0 +1,117 @@
+{
+  "baseline_commit": "7ca997c69cedad4d477619babeef1adb689ebfb2",
+  "date": "2026-11-04",
+  "executed_helper_configuration": "Symbol rename plus fixture-only sink-hold functions, with an external state/backtrace interceptor",
+  "independent_retained_result_audit": {
+    "all_stderr_empty": true,
+    "artifacts": 44,
+    "cfi_pc_states_total": 176,
+    "command_categories": {
+      "compiles": 27,
+      "fixture_executions": 13,
+      "identity_and_version_commands": 3,
+      "links": 6,
+      "metadata_commands": 11
+    },
+    "command_receipts": 60,
+    "entry_bytes_each": 348,
+    "exceptions_or_cleanup_events": false,
+    "full_entry_extents": 2,
+    "instructions_each": 87,
+    "metadata_control_machine_instructions_unchanged": true,
+    "metadata_control_rejection_offsets": [
+      "0x4",
+      "0x44"
+    ],
+    "method": "Independent byte/structure/text comparison of retained inputs, exact commands, receipts, stdout/stderr and object metadata; no test/build replay, runner import or new ELF decoding",
+    "passed": true,
+    "retained_files": 330,
+    "saved_lr_cfa_offset": -560,
+    "skipped_or_extra_commands": false,
+    "source_inputs": 6,
+    "unexpected_diagnostics": false,
+    "unproved": [
+      "installed hook/island unwind",
+      "live native owner or event scope",
+      "firmware timing",
+      "general concurrent recording or race-sanitizer coverage"
+    ],
+    "verified": [
+      "All source, variant, receipt, log and artifact bytes match the retained reports.",
+      "Eight positive selectors pass their source-reviewed 31 checks.",
+      "Five semantic controls compile and each finishes with exit 1 and only its exact named oracle failure.",
+      "Two malformed-CFI variants compile but are not executed; metadata fails at the exact expected PCs.",
+      "Both complete entry extents contain one helper BL and one final BR with no return callback.",
+      "Production metadata binds two eight-byte aligned original slots and contains no fixture API."
+    ],
+    "x16_undefined_from_entry_offset": "0x150"
+  },
+  "independent_source_review": {
+    "execution": false,
+    "material_issues_remaining": false,
+    "passed": true,
+    "pre_build_corrections": [
+      {
+        "compiled_or_executed_before_correction": false,
+        "correction": "Use separate STR instructions for NZCV/FPCR/FPSR.",
+        "finding": "Synthetic SAVE_ALL used STP at byte offset 768, outside its immediate encoding range."
+      },
+      {
+        "correction": "Assert target atomic object size is eight bytes and alignment is at least eight, with compiler/platform scope.",
+        "finding": "Assembly reads original atomic slot bytes directly."
+      },
+      {
+        "correction": "Compare against an independent exact twelve-byte literal.",
+        "finding": "Initial service-byte oracle repeated the production shift construction."
+      },
+      {
+        "correction": "State this explicitly and distinguish it from the production helper ABI contract and target exception propagation.",
+        "finding": "FP/control clobber and live stack walk are supplied by a synthetic interceptor."
+      }
+    ],
+    "reviewed": [
+      "800-byte layout, full fixed-width saves/restores and x16 exception",
+      "try-only sink exclusion, immutable records and no native pointee reads",
+      "external interceptor errno handling and frame/backtrace limits",
+      "typed return aliases, real caller/target cleanup and joined-thread fixture data ownership",
+      "exact runner oracles, complete per-PC CFI and retained command/output provenance"
+    ]
+  },
+  "input_sha256": {
+    "entry.S": "95c4936e1e2530f9e0d60ea6642b7ce8ca1203480986050d96a130c581da22d1",
+    "fixture.S": "ab170eff1a7a3860430a2b9407149bb41778183a99580732a06919cca9669d20",
+    "observer.cpp": "bd2f05ffd1e048652510c974eb890416cb39d974f05ad09696671e31a6595f2e",
+    "observer.h": "0d8cefb8a41f7af1a74c8e1897369eebb0d8c1ec0d44a7dbe57574d8434ca089",
+    "run-tests.py": "8673d7d4ef0e8ace449bc4a3b36b0a25d8354c29a6eb42018c19b3bf63ee39c1",
+    "test_entry.cpp": "afa289e545bf8b6baaf3ece7ea9df551b5c13fcd923aa748b0a6384872103ce2"
+  },
+  "installation_or_release": false,
+  "metadata_only_controls": 2,
+  "native_or_emulator_or_device_access": false,
+  "native_pointee_reads_added": false,
+  "old_suite_replay": false,
+  "positive_checks": 31,
+  "positive_selectors": 8,
+  "post_return_native_reads_added": false,
+  "private_result_sha256": "50aa5ed6d33a81c39cff650a4e6085f9da875c7732081cffd94fb0dcfd1b2278",
+  "production_helper_configuration": "Compiled separately without fixture definitions; not executed unchanged",
+  "publication_hygiene": {
+    "disposition": "Two trailing blank lines retained to preserve the exact executed and audited source inputs; no runtime assertion or source changed. All other Git whitespace checks pass.",
+    "findings": [
+      "experiments/usb-browser-switch/activation-entry-observer/fixture.S:448: new blank line at EOF.",
+      "experiments/usb-browser-switch/activation-entry-observer/test_entry.cpp:551: new blank line at EOF."
+    ],
+    "new_relative_links_resolve": 9,
+    "sanitized_public_file_review_passed": true,
+    "source_bytes_preserved": true,
+    "standard_git_diff_check_exit": 2
+  },
+  "result_sha256": "7d519552f88e95d04dd0d6af1435ae7570d62385005d516673fad6111be98769",
+  "run_count": 1,
+  "runtime_failures": [],
+  "runtime_gate": "CLOSED",
+  "sanitizers_used": false,
+  "schema": 1,
+  "scope": "First offline ARM64 USB entry snapshot matrix; no installed or native wrapper proof",
+  "semantic_controls": 5
+}

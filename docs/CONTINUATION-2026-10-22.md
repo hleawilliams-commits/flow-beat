@@ -1688,3 +1688,41 @@ or replacement paths, queued/reentrant work, callback quiescence, final readines
 and cancellation remain open. No emulator/device action, adapter installation,
 USB button, core/package/catalog change or release occurred. Every existing
 runtime gate remains CLOSED; do not replay these passing static pins unchanged.
+
+## November 4: offline USB register-entry fixture
+
+[activation-entry-observer](../experiments/usb-browser-switch/activation-entry-observer/)
+implements the separate passive plan with two 800-byte entry frames, fixed-width
+register/control restoration and a final original-slot tail branch. A sixteen-
+record append-only sink uses try-only exclusion and a separate capture-ready
+gate. It stores only entry register values: action x2 stays opaque, service Source
+uses twelve register bytes, and no native pointee or post-return read is added.
+No return interceptor, pending TLS action or cross-entry pairing is introduced.
+
+The first new ARM64 matrix passes 31 checks in eight selectors, plus five
+compiled exact-oracle controls and two compiled-only malformed-CFI controls.
+Each entry has 87 instructions, one helper call, one terminal BR and 88 checked
+CFI states. Both entries have full synthetic state coverage; typed scalar/pair/
+HFA/vector/x8 aggregate returns, stack arguments and target/caller exception
+cleanup exercise the action entry. Two later normal invocations succeed after
+the nested throw. Disabled, full and forced-contended capture still forward.
+
+The production helper configuration is compiled separately; the executed helper
+is symbol-renamed with fixture-only sink-hold functions, while an external
+interceptor supplies state stress and a live stack walk through the entry frame.
+That backtrace is distinct from target exception unwinding after the tail branch.
+Contention uses two actual threads under a fixture-held flag and is not a general
+recording-race proof. No sanitizer or old suite was run. The initial synthetic
+STP offset error was repaired during source review before any compilation; the
+first completed matrix passed without changing its assertions. Independent source
+review and a retained-byte audit pass; the latter checks all 60 commands, 44
+artifacts and 330 retained files without test replay or new ELF analysis.
+
+Original slots require stable initialized storage before reachability. Closing
+ready supplies neither quiescence nor reclamation permission. x16 tail scratch,
+installer x17/island behavior, live row/provider/argument provenance, event
+ownership, alternate destruction/replacement, queued work and readiness remain
+separate gates. Next review exact SDK eligibility and publication/lifetime for a
+separately scoped passive binding; do not repeat this passing matrix unchanged.
+No hook installation, emulator/physical action, USB button, core/package/catalog
+change or release occurred. All existing runtime and product gates remain CLOSED.
