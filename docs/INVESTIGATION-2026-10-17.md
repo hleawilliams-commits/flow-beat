@@ -1420,3 +1420,36 @@ external writer exclusion, teardown/restoration and recovery remain open.
 No emulator/device access, install, package/catalog change, native observation,
 stems activation or USB completion proof follows. All existing runtime/product
 gates remain CLOSED; do not rerun the unchanged passing matrix.
+
+## November 4: inactive retained reader and notification ownership
+
+The [separate reader-reporter successor](../experiments/emulator-reader-reporter/)
+retains the supplied reader before thread spawn, stores the actual JoinHandle
+before gate release, and publishes the full frozen ReaderJournal before private
+unit notification. Copy result, notification attempt/return, receiver observation
+and explicit join remain independent. Exact custom errors and panic payloads are
+retained; blocked Read does not block diagnostics, and uncertain attempts do not
+replay. Final Drop and process death still limit custody.
+
+Two fresh offline matrices each passed eight new selectors and four strict
+compiling controls. One production check compiled the inactive actual crate;
+267 inherited selectors were compiled/listed and filtered, not repeated.
+The [required independent audit](../experiments/emulator-reader-reporter/HOST-TESTS.md)
+verifies 49 logs, ten retained executables, 48 frozen parent inputs and exact
+source/semantic agreement. It also closes a runner-only acceptance gap by
+rejecting extra earlier fixture panics; four offline parser controls verify
+that policy without a test/build rerun. Both matrices and the first audit passed.
+This is host read/thread evidence, not sanitizer or whole-runtime proof.
+
+Source review confirms two distinct Child owners: the application launches the
+supervisor, and that separate process launches the child that execs QEMU. The
+active supervisor still discards the stdin-copy result and treats EOF/channel
+loss as termination. This inactive module adds no Child or port owner, main
+selection, status return channel or continuous observer adapter. An owned launch
+contract must resolve that actual topology before production composition.
+
+No running emulator/physical device, settings, core, package, catalog, install,
+cleanup or old snapshot was touched. Frozen sources and deck-lights/ remain
+preserved. Observer, stems staging, USB final completion/cancellation, native
+lifetime/race, audio-quality, recovery and physical-timing gates remain CLOSED.
+Do not rerun unchanged passing checks.

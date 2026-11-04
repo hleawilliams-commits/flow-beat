@@ -1,0 +1,379 @@
+{
+  "audit": {
+    "all_top_level_prepare_attempts": 2,
+    "audit_source_sha256": "c9e134bcb530068411cad5521b289f4c5704e6079cfb4bc679acdb658b2c3fb3",
+    "checked_logs": 49,
+    "common_logs": 24,
+    "different_raw_logs": [
+      "actual-send-failure-reported-as-sent/case-0.log",
+      "actual-send-failure-reported-as-sent/compile.log",
+      "candidate/case-5.log",
+      "candidate/compile.log",
+      "gate-released-before-handle-publication/case-0.log",
+      "gate-released-before-handle-publication/compile.log",
+      "journal-published-after-actual-notification/case-0.log",
+      "journal-published-after-actual-notification/compile.log",
+      "snapshot-waits-behind-actual-reader/case-0.log",
+      "snapshot-waits-behind-actual-reader/compile.log"
+    ],
+    "exact_exclusions": {
+      "matrix_1": [
+        "/host_only",
+        "/production_check_exit",
+        "/logs_sha256/actual-send-failure-reported-as-sent/case-0.log",
+        "/logs_sha256/actual-send-failure-reported-as-sent/compile.log",
+        "/logs_sha256/actual-send-failure-reported-as-sent/inventory.log",
+        "/logs_sha256/candidate/case-0.log",
+        "/logs_sha256/candidate/case-1.log",
+        "/logs_sha256/candidate/case-2.log",
+        "/logs_sha256/candidate/case-3.log",
+        "/logs_sha256/candidate/case-4.log",
+        "/logs_sha256/candidate/case-5.log",
+        "/logs_sha256/candidate/case-6.log",
+        "/logs_sha256/candidate/case-7.log",
+        "/logs_sha256/candidate/compile.log",
+        "/logs_sha256/candidate/inventory.log",
+        "/logs_sha256/cargo.log",
+        "/logs_sha256/gate-released-before-handle-publication/case-0.log",
+        "/logs_sha256/gate-released-before-handle-publication/compile.log",
+        "/logs_sha256/gate-released-before-handle-publication/inventory.log",
+        "/logs_sha256/journal-published-after-actual-notification/case-0.log",
+        "/logs_sha256/journal-published-after-actual-notification/compile.log",
+        "/logs_sha256/journal-published-after-actual-notification/inventory.log",
+        "/logs_sha256/production-check.log",
+        "/logs_sha256/rustc.log",
+        "/logs_sha256/snapshot-waits-behind-actual-reader/case-0.log",
+        "/logs_sha256/snapshot-waits-behind-actual-reader/compile.log",
+        "/logs_sha256/snapshot-waits-behind-actual-reader/inventory.log",
+        "/runs/0/executable_sha256",
+        "/runs/0/tests/0/log_sha256",
+        "/runs/0/tests/1/log_sha256",
+        "/runs/0/tests/2/log_sha256",
+        "/runs/0/tests/3/log_sha256",
+        "/runs/0/tests/4/log_sha256",
+        "/runs/0/tests/5/log_sha256",
+        "/runs/0/tests/6/log_sha256",
+        "/runs/0/tests/7/log_sha256",
+        "/runs/1/executable_sha256",
+        "/runs/1/tests/0/log_sha256",
+        "/runs/2/executable_sha256",
+        "/runs/2/tests/0/log_sha256",
+        "/runs/3/executable_sha256",
+        "/runs/3/tests/0/log_sha256",
+        "/runs/4/executable_sha256",
+        "/runs/4/tests/0/log_sha256"
+      ],
+      "matrix_2": [
+        "/host_only",
+        "/production_check_exit",
+        "/logs_sha256/actual-send-failure-reported-as-sent/case-0.log",
+        "/logs_sha256/actual-send-failure-reported-as-sent/compile.log",
+        "/logs_sha256/actual-send-failure-reported-as-sent/inventory.log",
+        "/logs_sha256/candidate/case-0.log",
+        "/logs_sha256/candidate/case-1.log",
+        "/logs_sha256/candidate/case-2.log",
+        "/logs_sha256/candidate/case-3.log",
+        "/logs_sha256/candidate/case-4.log",
+        "/logs_sha256/candidate/case-5.log",
+        "/logs_sha256/candidate/case-6.log",
+        "/logs_sha256/candidate/case-7.log",
+        "/logs_sha256/candidate/compile.log",
+        "/logs_sha256/candidate/inventory.log",
+        "/logs_sha256/cargo.log",
+        "/logs_sha256/gate-released-before-handle-publication/case-0.log",
+        "/logs_sha256/gate-released-before-handle-publication/compile.log",
+        "/logs_sha256/gate-released-before-handle-publication/inventory.log",
+        "/logs_sha256/journal-published-after-actual-notification/case-0.log",
+        "/logs_sha256/journal-published-after-actual-notification/compile.log",
+        "/logs_sha256/journal-published-after-actual-notification/inventory.log",
+        "/logs_sha256/rustc.log",
+        "/logs_sha256/snapshot-waits-behind-actual-reader/case-0.log",
+        "/logs_sha256/snapshot-waits-behind-actual-reader/compile.log",
+        "/logs_sha256/snapshot-waits-behind-actual-reader/inventory.log",
+        "/runs/0/executable_sha256",
+        "/runs/0/tests/0/log_sha256",
+        "/runs/0/tests/1/log_sha256",
+        "/runs/0/tests/2/log_sha256",
+        "/runs/0/tests/3/log_sha256",
+        "/runs/0/tests/4/log_sha256",
+        "/runs/0/tests/5/log_sha256",
+        "/runs/0/tests/6/log_sha256",
+        "/runs/0/tests/7/log_sha256",
+        "/runs/1/executable_sha256",
+        "/runs/1/tests/0/log_sha256",
+        "/runs/2/executable_sha256",
+        "/runs/2/tests/0/log_sha256",
+        "/runs/3/executable_sha256",
+        "/runs/3/tests/0/log_sha256",
+        "/runs/4/executable_sha256",
+        "/runs/4/tests/0/log_sha256"
+      ]
+    },
+    "exact_panic_inventory_verified": true,
+    "failed_extra_attempts": [],
+    "inherited_selectors_filtered": 267,
+    "panic_policy_negative_controls": 4,
+    "production_checks": 1,
+    "raw_or_normalized_log_equality_claim": false,
+    "retained_executables": 10,
+    "runs": [
+      {
+        "captured_inputs": 8,
+        "checked_logs": 25,
+        "composed_files": 34,
+        "frozen_parent_files": 48,
+        "label": "matrix_1",
+        "metadata_sha256": {
+          ".git/HEAD": "f6f2b945f6c411b02ba3da9c7ace88dcf71b6af65ba2e0d89aa82900042b5a10",
+          ".git/config": "cae33efdb02cf774435c1ff9cb16bcc1014606908530c6e1dc727615fe3e8cda"
+        },
+        "original_files": 32,
+        "outcomes": [
+          {
+            "exit": 0,
+            "oracle": null,
+            "test": "reader_reporter::tests::blocked_socket_allows_nonblocking_snapshot",
+            "variant": "candidate"
+          },
+          {
+            "exit": 0,
+            "oracle": null,
+            "test": "reader_reporter::tests::completed_journal_precedes_unit_notification",
+            "variant": "candidate"
+          },
+          {
+            "exit": 0,
+            "oracle": null,
+            "test": "reader_reporter::tests::gate_publication_precedes_first_read",
+            "variant": "candidate"
+          },
+          {
+            "exit": 0,
+            "oracle": null,
+            "test": "reader_reporter::tests::joined_owner_retains_reader_until_final_drop",
+            "variant": "candidate"
+          },
+          {
+            "exit": 0,
+            "oracle": null,
+            "test": "reader_reporter::tests::reader_error_preserves_exact_payload",
+            "variant": "candidate"
+          },
+          {
+            "exit": 0,
+            "oracle": null,
+            "test": "reader_reporter::tests::reader_panic_is_joined_without_replay",
+            "variant": "candidate"
+          },
+          {
+            "exit": 0,
+            "oracle": null,
+            "test": "reader_reporter::tests::receiver_loss_preserves_completed_read",
+            "variant": "candidate"
+          },
+          {
+            "exit": 0,
+            "oracle": null,
+            "test": "reader_reporter::tests::retained_and_spawn_refusal_preserve_reader",
+            "variant": "candidate"
+          },
+          {
+            "exit": 101,
+            "oracle": "reader_reporter_tests.rs:228:5:",
+            "test": "reader_reporter::tests::gate_publication_precedes_first_read",
+            "variant": "gate-released-before-handle-publication"
+          },
+          {
+            "exit": 101,
+            "oracle": "reader_reporter_tests.rs:262:5:",
+            "test": "reader_reporter::tests::completed_journal_precedes_unit_notification",
+            "variant": "journal-published-after-actual-notification"
+          },
+          {
+            "exit": 101,
+            "oracle": "reader_reporter_tests.rs:294:5:",
+            "test": "reader_reporter::tests::receiver_loss_preserves_completed_read",
+            "variant": "actual-send-failure-reported-as-sent"
+          },
+          {
+            "exit": 101,
+            "oracle": "reader_reporter_tests.rs:332:5:",
+            "test": "reader_reporter::tests::blocked_socket_allows_nonblocking_snapshot",
+            "variant": "snapshot-waits-behind-actual-reader"
+          }
+        ],
+        "preparation_sha256": "11313988ef5d156e28be5dc0a0e4a0a0e824baa978e1154a5915d56250efd8b0",
+        "result_sha256": "d9ff9eacdecf7886612cd55fcbfce1b5548946304f945a7246c0319018aa0672",
+        "retained_executables": 5
+      },
+      {
+        "captured_inputs": 8,
+        "checked_logs": 24,
+        "composed_files": 34,
+        "frozen_parent_files": 48,
+        "label": "matrix_2",
+        "metadata_sha256": {
+          ".git/HEAD": "f6f2b945f6c411b02ba3da9c7ace88dcf71b6af65ba2e0d89aa82900042b5a10",
+          ".git/config": "cae33efdb02cf774435c1ff9cb16bcc1014606908530c6e1dc727615fe3e8cda"
+        },
+        "original_files": 32,
+        "outcomes": [
+          {
+            "exit": 0,
+            "oracle": null,
+            "test": "reader_reporter::tests::blocked_socket_allows_nonblocking_snapshot",
+            "variant": "candidate"
+          },
+          {
+            "exit": 0,
+            "oracle": null,
+            "test": "reader_reporter::tests::completed_journal_precedes_unit_notification",
+            "variant": "candidate"
+          },
+          {
+            "exit": 0,
+            "oracle": null,
+            "test": "reader_reporter::tests::gate_publication_precedes_first_read",
+            "variant": "candidate"
+          },
+          {
+            "exit": 0,
+            "oracle": null,
+            "test": "reader_reporter::tests::joined_owner_retains_reader_until_final_drop",
+            "variant": "candidate"
+          },
+          {
+            "exit": 0,
+            "oracle": null,
+            "test": "reader_reporter::tests::reader_error_preserves_exact_payload",
+            "variant": "candidate"
+          },
+          {
+            "exit": 0,
+            "oracle": null,
+            "test": "reader_reporter::tests::reader_panic_is_joined_without_replay",
+            "variant": "candidate"
+          },
+          {
+            "exit": 0,
+            "oracle": null,
+            "test": "reader_reporter::tests::receiver_loss_preserves_completed_read",
+            "variant": "candidate"
+          },
+          {
+            "exit": 0,
+            "oracle": null,
+            "test": "reader_reporter::tests::retained_and_spawn_refusal_preserve_reader",
+            "variant": "candidate"
+          },
+          {
+            "exit": 101,
+            "oracle": "reader_reporter_tests.rs:228:5:",
+            "test": "reader_reporter::tests::gate_publication_precedes_first_read",
+            "variant": "gate-released-before-handle-publication"
+          },
+          {
+            "exit": 101,
+            "oracle": "reader_reporter_tests.rs:262:5:",
+            "test": "reader_reporter::tests::completed_journal_precedes_unit_notification",
+            "variant": "journal-published-after-actual-notification"
+          },
+          {
+            "exit": 101,
+            "oracle": "reader_reporter_tests.rs:294:5:",
+            "test": "reader_reporter::tests::receiver_loss_preserves_completed_read",
+            "variant": "actual-send-failure-reported-as-sent"
+          },
+          {
+            "exit": 101,
+            "oracle": "reader_reporter_tests.rs:332:5:",
+            "test": "reader_reporter::tests::blocked_socket_allows_nonblocking_snapshot",
+            "variant": "snapshot-waits-behind-actual-reader"
+          }
+        ],
+        "preparation_sha256": "11313988ef5d156e28be5dc0a0e4a0a0e824baa978e1154a5915d56250efd8b0",
+        "result_sha256": "71a2274d57f52f6ae52071e5532a4e19d42f623a9ee7772ef68ef959d69672fd",
+        "retained_executables": 5
+      }
+    ],
+    "scope": "Independent retained-byte/source/oracle corroboration; no runner import, execution or durable/adversarial attestation.",
+    "selected_executions": 24,
+    "semantic_projection_equal": true,
+    "status": "passed",
+    "successful_matrices": 2
+  },
+  "candidate_files_sha256": {
+    "az-preview/Cargo.lock": "bf999ec77e487b2c3cae1bc0adfb9dffc314500cb6e072571d38e5cd7b27a588",
+    "az-preview/Cargo.toml": "02dd8dbd78f214a522106ca1a22a15d1e2de4faa64d77b83263f7d5a9435f9d6",
+    "az-preview/build.rs": "b12428b3ee8306f79126270c2875f8b4219f35fbe195d38ed9c2c2370340eb61",
+    "az-preview/layout/xdj-az.tsv": "651df7e29a679bdfa4712ed7fe4a3ffdd13c7c92f275542b79173253a1333590",
+    "az-preview/src/app.rs": "9e7d7dfe21857b72dde8ab9bae7585192328fb9152a1e0f593b04d2a2c94ccac",
+    "az-preview/src/boot.rs": "f907da478aa758d4cb2a9f740f529fbe256376230d77635a061a746ce75ec1eb",
+    "az-preview/src/config.rs": "0a1986611ec2642379a42f1f517d8d1decf1764e0cee8ab2f37c3e6c04782992",
+    "az-preview/src/controls.rs": "2d0fd49fe30879d9cfb73b28cf2bfbcc38cd5bde24066ae960a48728b111bf97",
+    "az-preview/src/fixed_session.rs": "c6a325d9f8ccf748bfd14eeccc267da807d7144a6393e2aa23139d16587db418",
+    "az-preview/src/fixed_session_tests.rs": "ac159e7b519fc7b18ba5442d2b8ce0b97b6ce79a9014cf75f74851f7ae6aa35d",
+    "az-preview/src/layout.rs": "7fb4577a6ccdc35414c7e24a311bd0353e3af36d67de8eb4fe7dda78a446e14f",
+    "az-preview/src/main.rs": "343092e1d9e51e9d664510c71929df2ad450b9e6b7648e19eacd9a8c41a0e0ad",
+    "az-preview/src/meter.rs": "a2511e52e24047352bf9bcdf17981769b917aa24719202aad1c524f00e399081",
+    "az-preview/src/mixer_producer.rs": "ac4d1c2e0c03a3e3a50719c3fccd0ac08a056cfe77ac858bfc1e772accda1680",
+    "az-preview/src/mixer_route.rs": "6e2aad717deaed4407ced1648859f121c867810a973297f700de48791653d60e",
+    "az-preview/src/mixer_transport.rs": "0a9e93190364ccc75aeb6ce3f7ba1ab2256a9188779e3afd804facf613049b6b",
+    "az-preview/src/owned_lifecycle.rs": "26e82ec371ee48ca265f1fb3e18dd613eca5f4a76354db93e1d2c87b31f23f51",
+    "az-preview/src/owned_startup.rs": "93a278fdf96a78e3dbdf836d694270b77ba964ab99b8bae06561ef7cfb428637",
+    "az-preview/src/owned_startup_tests.rs": "94bb8bb225a2ab6525784658c123d20a74952a277d7fe108d898144d2457cbed",
+    "az-preview/src/panel.rs": "f54107111e4544aac34f110daa73febd5203ddc2d82731df9ebff4a761b71c5e",
+    "az-preview/src/parts.rs": "7bbe162b092fa5f0dadcea609762a2b38ff681a7e50bda5d0f3d89ce7c7f748c",
+    "az-preview/src/reader_reporter.rs": "0c95a28460802f5f0738e198591ecec5b8856922c3a7a93608dd870594b0a253",
+    "az-preview/src/reader_reporter_tests.rs": "d40cf91d668d4d53140a5af16573dcf7e5387466ab1f70b108c164f5bba1301a",
+    "az-preview/src/screen.rs": "2f867d991fe5d19ed9a19a08b19483f0e6d6affcd9749b7e8b587bb11d8e27be",
+    "az-preview/src/settings_mapper.rs": "7b4634a60f8e07f5d114d6ad0e58331f4d80723a5a59956deafdd541637ec6e0",
+    "az-preview/src/settings_mapper_tests.rs": "1d76ba459dd0b9ca2a759a41252089f97d04b3b6ddb8558e3ef7b811fe5a924b",
+    "az-preview/src/settings_pair.rs": "8246b4782c1108d8fc2821abe6f2ad01a57350b41b85d741859b60f9c10a9d2d",
+    "az-preview/src/settings_pair_tests.rs": "a7de908b8b654dc6821cc8d9bf6de028ceacbdba352e42ef78d58a99034a361f",
+    "az-preview/src/settings_sink.rs": "9aac3208f2439cac6d81a107c358989d16b268655a2982194d0d9d9b0f6f0fef",
+    "az-preview/src/settings_sink_tests.rs": "914584d6368026fda0913c0e0bffc88ed8685dc13a7dea1e397f7575eadb7231",
+    "az-preview/src/supervisor_admission.rs": "d1a0999be083cb8c01960bfc13df584186db5763b7127e7f9379391522f602c4",
+    "az-preview/src/supervisor_admission_tests.rs": "1cb31754b358c948f466aa6e50ad79683e8669c9539c17336ae5d8740f618f3e",
+    "az-preview/src/supervisor_observation/observation.rs": "0d194a6cf81f491ec4a082b4e6344304ef6097d7517eb9a390ab8432a97747f2",
+    "az-preview/src/supervisor_observation/tests.rs": "f8908668d7ae401ef1153238054c470caef64639787e250c70188f175824d9c7"
+  },
+  "compiled_inventory": 275,
+  "date": "2026-11-04",
+  "development_parent_commit": "a6739d48b9817d8f41b798f421974415601e7164",
+  "emulator_upstream_commit": "06fc981707e69982c0554bb508e0c646c005a979",
+  "independent_matrices": 2,
+  "inherited_selectors_not_executed": 267,
+  "limits": [
+    "The focused runner alone does not reject extra earlier fixture panics; the independent audit is required.",
+    "Scripted spawn/read error and panic cases are explicit fixtures, not observed operating-system failure rates.",
+    "Host socket/thread checks are not sanitizer, whole-runtime race, cancellation or physical timing proof.",
+    "Explicit join may block indefinitely; there is no automatic close, cancel, join or respawn.",
+    "Final owner destruction and process death can release resources; evidence is not durable.",
+    "App-side supervisor Child and inner QEMU Child remain distinct; no status return channel or continuous observation adapter is selected.",
+    "Frozen parents, active supervisor, community packages, official cores and existing runtime/product gates are not changed by this experiment."
+  ],
+  "production_checks": 1,
+  "required_audit_receipt_sha256": "07e02952491b00906c24c19bbd710bc1fe7f8f1d75d8e931dae08f3189929755",
+  "scope": "Inactive one-shot retained reader/thread and local notification. No Child/port integration, process bridge, main selection, emulator execution, device action or release.",
+  "selected_executions": 24,
+  "selected_new_tests_per_matrix": 8,
+  "source_sha256": {
+    "audit-results.py": "c9e134bcb530068411cad5521b289f4c5704e6079cfb4bc679acdb658b2c3fb3",
+    "candidate-pins.json": "fd6885b3c9c1c6db699f6ff71446c7c12d16c036f707443a11d4da97ba1e39f6",
+    "controls.json": "c77bf2102f9d51e106d61baebf25fc42c0da31a413f2cb9f02eeeb00ec0b8004",
+    "parent-inputs.json": "9191393ad1e68f2cf4e74359e2dae6e8daf2283ec95741e63c21321d41889523",
+    "prepare-candidate.py": "a9991e0b7ad9cf0ed063a7d6b3e7402842e57bc7b451f185b3c414e768509977",
+    "reporter.rs": "0c95a28460802f5f0738e198591ecec5b8856922c3a7a93608dd870594b0a253",
+    "run-tests.py": "2f56de0048f25f8fc3cbc79d32a608f5b9972bb01018c4f14062e959cfa40793",
+    "test-inventory.json": "00e5010168361f904ee18f28fbf55900a2ef8601d7c57c23fced5cf010c6128a",
+    "tests.rs": "d40cf91d668d4d53140a5af16573dcf7e5387466ab1f70b108c164f5bba1301a"
+  },
+  "status": "passed_with_required_independent_audit",
+  "strict_compiling_controls_per_matrix": 4,
+  "variant_compiles": 10,
+  "versions": {
+    "cargo": "cargo 1.98.1 (797e8a9bc 2026-08-05) (Homebrew)",
+    "rustc": "rustc 1.98.1 (48a229cea 2026-09-01) (Homebrew)\nbinary: rustc\ncommit-hash: 48a229ceaefd4985c50990b14116b6d856af0985\ncommit-date: 2026-09-01\nhost: aarch64-apple-darwin\nrelease: 1.98.1\nLLVM version: 22.1.8"
+  }
+}

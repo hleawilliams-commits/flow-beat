@@ -1,0 +1,69 @@
+{
+  "candidate_sha256": {
+    "az-preview/src/reader_reporter.rs": "0c95a28460802f5f0738e198591ecec5b8856922c3a7a93608dd870594b0a253"
+  },
+  "controls": [
+    {
+      "name": "gate-released-before-handle-publication",
+      "test": "reader_reporter::tests::gate_publication_precedes_first_read",
+      "assertion_anchor": "assert_eq!(observed,",
+      "assertion_message": "reader-gate-before-read",
+      "edits": [
+        {
+          "file": "az-preview/src/reader_reporter.rs",
+          "old": "        self.gate_release_armed = true;\n        let returned = self.gate_tx.as_ref().expect(\"retained gate sender\").try_send(());\n        self.gate_return = Some(returned);\n",
+          "new": ""
+        },
+        {
+          "file": "az-preview/src/reader_reporter.rs",
+          "old": "                // Store the unique returned handle before permitting any Read.\n                self.handle = Some(handle);\n",
+          "new": "                self.gate_release_armed = true;\n                let returned = self.gate_tx.as_ref().expect(\"retained gate sender\").try_send(());\n                self.gate_return = Some(returned);\n                // Store the unique returned handle before permitting any Read.\n                self.handle = Some(handle);\n"
+        }
+      ]
+    },
+    {
+      "name": "journal-published-after-actual-notification",
+      "test": "reader_reporter::tests::completed_journal_precedes_unit_notification",
+      "assertion_anchor": "assert_eq!(observed,",
+      "assertion_message": "reader-publish-before-notify",
+      "edits": [
+        {
+          "file": "az-preview/src/reader_reporter.rs",
+          "old": "    shared.completed.set(CompletedRead { journal, copy_return })\n        .unwrap_or_else(|_| panic!(\"single immutable read publication\"));\n",
+          "new": ""
+        },
+        {
+          "file": "az-preview/src/reader_reporter.rs",
+          "old": "    let returned = notify.send(());\n",
+          "new": "    let returned = notify.send(());\n    shared.completed.set(CompletedRead { journal, copy_return })\n        .unwrap_or_else(|_| panic!(\"single immutable read publication\"));\n"
+        }
+      ]
+    },
+    {
+      "name": "actual-send-failure-reported-as-sent",
+      "test": "reader_reporter::tests::receiver_loss_preserves_completed_read",
+      "assertion_anchor": "assert_eq!(observed,",
+      "assertion_message": "reader-notice-loss-distinct",
+      "edits": [
+        {
+          "file": "az-preview/src/reader_reporter.rs",
+          "old": "    if sent { WorkerExit::NotificationSent } else { WorkerExit::NotificationFailed }\n",
+          "new": "    if sent { WorkerExit::NotificationSent } else { WorkerExit::NotificationSent }\n"
+        }
+      ]
+    },
+    {
+      "name": "snapshot-waits-behind-actual-reader",
+      "test": "reader_reporter::tests::blocked_socket_allows_nonblocking_snapshot",
+      "assertion_anchor": "assert_eq!(observed,",
+      "assertion_message": "reader-snapshot-does-not-wait",
+      "edits": [
+        {
+          "file": "az-preview/src/reader_reporter.rs",
+          "old": "        let cell = match self.shared.cell.try_lock() {\n",
+          "new": "        let cell = match self.shared.cell.lock().map_err(TryLockError::Poisoned) {\n"
+        }
+      ]
+    }
+  ]
+}
