@@ -1,0 +1,99 @@
+{
+  "actual_sdk_claim_or_hook": false,
+  "baseline_commit": "c95d8f3d0db3ce8155395a09918f09dc58a8b00a",
+  "community_release": false,
+  "compiler_or_test_execution": false,
+  "date": "2026-11-04",
+  "emulator_or_physical_device_contact": false,
+  "firmware_read": false,
+  "generated_range_registry_or_repair": false,
+  "independent_retained_byte_audit": {
+    "audit_attempt": 1,
+    "audit_result_sha256": "9d68066925d780a91eb601f7fd45604b4d4ef9d8cc61199b1765bd325783f884",
+    "audit_source_sha256": "5fae6645e464941410191b2190b3f76fad25eb738612f98c494273c051b62be8",
+    "collector_current_equals_retained": true,
+    "collector_sha256": "ae0b0890a8210b7ebd42f0f3d9801972e6a1afd68153ee1741fb0fcb209e80dc",
+    "completed_checks": 236,
+    "counts": {
+      "command_receipts": 5,
+      "command_specs": 5,
+      "commands": 5,
+      "inputs": 15,
+      "new_sdk_sources": 5,
+      "raw_streams": 10,
+      "retained_files": 36,
+      "reused_sdk_sources": 8
+    },
+    "limitations": [
+      "No collector import/replay, Git command, compiler/test or native execution occurred in this audit.",
+      "New source origin is bound by retained commit-qualified Git receipts and output identities; Git was not rerun.",
+      "The eight older SDK inputs and receipt were compared as frozen bytes; their capture commands were not replayed.",
+      "The proposed registry remains a source-only contract, not implemented publication/lifetime or signal-safety proof.",
+      "The exact public projection was checked; this is not a general secret-discovery claim."
+    ],
+    "new_specs_receipts_outputs_bound": true,
+    "prior_inputs_exactly_reused": true,
+    "prior_receipt_sha256": "e22d851e0c72f080e05b8f7e0a5db5994f8f68b3fc6ae8eeb864aee248616bfd",
+    "private_result_sha256": "498d32fdc3f39dd6142df577e2d86942b2535d5884c092f7c92431df4fccaa6e",
+    "public_exact_projection": true,
+    "public_private_paths_and_raw_payloads_excluded": true,
+    "public_result_sha256": "87547c327f10f5f7fcc049bd468697a91b32c6a7a821bd22ddbaad45c6e94f4f",
+    "retained_inventory_sha256": "1e6755bffb9efed93fa89511cb43b2ef7ad84060f2f86f84ea202adef5a93e5c",
+    "scope": "Independent byte-only audit of one bounded source-capture packet.",
+    "status": "passed"
+  },
+  "limits": [
+    "Contract only: no registry implementation, repair patch, compiler output, new test result or live attachment.",
+    "Current one-start call graph supports owner retention; community_init has no internal one-shot guard.",
+    "Existing claim admission has no thread identity check and init flags are outside claim locking.",
+    "Legacy module-envelope visibility, volatile-written synchronization, handler reentrancy, signal safety and persistence remain unproved.",
+    "Later module envelopes may mask generated owners; generated lookup intentionally refines a generated-PC versus module-LR winner.",
+    "Actual target atomic code generation, code/cache publication ordering, native provenance/admission, writer/topology/recovery and activation ownership remain gates.",
+    "Ownership association does not establish fault causation, successful redirection, persisted blame or recovery."
+  ],
+  "new_executable_fixture": false,
+  "new_sdk_inputs": 5,
+  "new_source_sha256": {
+    ".gitignore": "d56537a93a9565b3322aa9bc821c9cc30a16303467032cade13b069e394cfddc",
+    "capture-source.py": "ae0b0890a8210b7ebd42f0f3d9801972e6a1afd68153ee1741fb0fcb209e80dc"
+  },
+  "old_captures_or_passing_matrices_replayed": false,
+  "parent_implementations_changed": false,
+  "private_result_sha256": "498d32fdc3f39dd6142df577e2d86942b2535d5884c092f7c92431df4fccaa6e",
+  "proposed_contract": {
+    "capacity": "Reserve generated and inline target-ownership capacity before publication; no silent lost ownership",
+    "core_result": "Not a community blame ID; continues legacy LR/frame fallback",
+    "implemented": false,
+    "later_module_policy": "Module-first masking; no reverse loader admission or permanent non-overlap guarantee",
+    "owner_custody": "Explicit trusted owner kind and copied bounded identity; retained through failed init and restart requests",
+    "ownership_extent": "Exact generated instruction bytes; excludes literals, pool neighbors and allocation slack",
+    "precedence": "PC then LR then eligible frames; legacy module winner first at each address, generated community owner second",
+    "publication": "Invisible during fallible work; one irreversible publication after target unlock and before original/redirect",
+    "reader": "Bounded acquire of committed slots; no waiting, allocation, locks, callbacks or mutable-owner dereferences",
+    "retention": "Visible records, identity and code retained for process lifetime; close is not quiescence",
+    "signal_safety_proven": false,
+    "trampoline_words": "r = ncopy + 3 * expanded_adrp_count; instruction interval [T,T+4*(r+2))"
+  },
+  "public_result_sha256": "87547c327f10f5f7fcc049bd468697a91b32c6a7a821bd22ddbaad45c6e94f4f",
+  "retained_commands": 5,
+  "retained_files": 36,
+  "retained_inputs": 15,
+  "retained_output_streams": 10,
+  "reused_sdk_inputs": 8,
+  "review_readme_sha256": "dac814afceb53820b0b7a86dc5339fd2a9ca3234b6e15d8ea64f59ba48f789f4",
+  "runtime_gate": "CLOSED",
+  "schema": 1,
+  "scope": "Source-only core generated-range ownership contract before implementation",
+  "sdk_commit": "3e0c5cb010454228f4ee63226b60d060494eeaae",
+  "source_only": true,
+  "source_review": {
+    "code_or_capture_changed_for_corrections": false,
+    "corrections_before_finalization": [
+      "Reload daemon-reload wait failure can normalize status to zero and permit restart; do not claim successful daemon-reload.",
+      "Community claim path holds claim and protection locks; direct core path currently has protection locking at publication, not the community lock."
+    ],
+    "independent_installer_and_extent_review": true,
+    "independent_owner_lifecycle_and_precedence_review": true,
+    "independent_signal_reader_contract_review": true
+  }
+}

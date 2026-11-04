@@ -1,0 +1,158 @@
+{
+  "commands": [
+    {
+      "directory": "01-sdk_proc.c",
+      "failure": null,
+      "receipt_sha256": "579f6477fdc8900efb9e7485d6eda3b1e63a84ec53687b41db76a311a2766982",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 23791,
+      "stdout_sha256": "7528a5e8ba6b714b261447437bb576157a6a7d554f41b938a54d5c21efabaa85"
+    },
+    {
+      "directory": "02-mod_menu_overlay.c",
+      "failure": null,
+      "receipt_sha256": "84b5485970f98a39965d113b7d099f645cca67cacc7e71384b14f1779c2e5910",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 119710,
+      "stdout_sha256": "d5cb265c3a2d3186b9dafa2163f84df5fffd5835060a12643d728588b86569ce"
+    },
+    {
+      "directory": "03-screen_community.c",
+      "failure": null,
+      "receipt_sha256": "9892673d0ec73eaf766afad7253544111f35a0c0a85ec63c8ad26879f63ef43a",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 99253,
+      "stdout_sha256": "a6b504505a387be28a29e9b86324f1a661940723ed99f1f16031c7757d2c473f"
+    },
+    {
+      "directory": "04-az-community",
+      "failure": null,
+      "receipt_sha256": "453e5fe83670a1acff56514c83f2605aee2a3bdb939235761f44c2c262425a5c",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 59614,
+      "stdout_sha256": "a834dc428e7887fce2340a14ced693c37a4e132a72844b2f59bc49375196bbd8"
+    },
+    {
+      "directory": "05-az-usbload",
+      "failure": null,
+      "receipt_sha256": "b025c63ca1722774eb875b9c8635ceb14df9634343de37ae44a326d2e039b38e",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 77150,
+      "stdout_sha256": "10333c358d5534acf83c602bb38462724bd35ea2ead0b45a68982da6d4696c92"
+    }
+  ],
+  "compiler_or_test_execution": false,
+  "firmware_or_device_access": false,
+  "inputs": {
+    "capture-source.py": {
+      "bytes": 4711,
+      "lines": 98,
+      "origin": "new-review",
+      "sha256": "ae0b0890a8210b7ebd42f0f3d9801972e6a1afd68153ee1741fb0fcb209e80dc"
+    },
+    "prior-result.json": {
+      "bytes": 18097,
+      "lines": 459,
+      "origin": "reused-private-receipt",
+      "sha256": "e22d851e0c72f080e05b8f7e0a5db5994f8f68b3fc6ae8eeb864aee248616bfd"
+    },
+    "sdk/deck/payload/usr/sbin/az-usbload": {
+      "bytes": 77150,
+      "lines": 1258,
+      "origin": "new:3e0c5cb010454228f4ee63226b60d060494eeaae",
+      "sha256": "10333c358d5534acf83c602bb38462724bd35ea2ead0b45a68982da6d4696c92"
+    },
+    "sdk/deck/stick/deck/lib/az-community": {
+      "bytes": 59614,
+      "lines": 896,
+      "origin": "new:3e0c5cb010454228f4ee63226b60d060494eeaae",
+      "sha256": "a834dc428e7887fce2340a14ced693c37a4e132a72844b2f59bc49375196bbd8"
+    },
+    "sdk/src/azmod/azmod-mod.h": {
+      "bytes": 32149,
+      "lines": 484,
+      "origin": "reused:3e0c5cb010454228f4ee63226b60d060494eeaae",
+      "sha256": "b94e2ba6656c2b852f18691d32225486f29265953c8bf09dcac9a18ce561a630"
+    },
+    "sdk/src/azmod/azmod.c": {
+      "bytes": 138282,
+      "lines": 2887,
+      "origin": "reused:3e0c5cb010454228f4ee63226b60d060494eeaae",
+      "sha256": "d4fc94472f507694720cb122064f4f571ed41c3a531f67cc64f81795c4a9cf78"
+    },
+    "sdk/src/azmod/community.c": {
+      "bytes": 102070,
+      "lines": 2277,
+      "origin": "reused:3e0c5cb010454228f4ee63226b60d060494eeaae",
+      "sha256": "4b2b72e2b623dcb1ecb0ef108a473815adab45a516a6aa13adb6cce512b80866"
+    },
+    "sdk/src/azmod/crash_guards.c": {
+      "bytes": 23133,
+      "lines": 547,
+      "origin": "reused:3e0c5cb010454228f4ee63226b60d060494eeaae",
+      "sha256": "358499ca5bccf3f71944ce408c02fa76b598ba5c81e81d4a2151b6d5e38727ab"
+    },
+    "sdk/src/azmod/ep_mem.h": {
+      "bytes": 10147,
+      "lines": 219,
+      "origin": "reused:3e0c5cb010454228f4ee63226b60d060494eeaae",
+      "sha256": "aa1e4a60ea05ff2b00f53c37634f3614fc51ecfd6dac500b2b59ee86dcbb6e5d"
+    },
+    "sdk/src/azmod/inline_hooks.c": {
+      "bytes": 19402,
+      "lines": 380,
+      "origin": "reused:3e0c5cb010454228f4ee63226b60d060494eeaae",
+      "sha256": "f141b383c25e66c8acb1839280832a612a6ee0e25e9ada59f374ccbef8f81908"
+    },
+    "sdk/src/azmod/mod_menu_overlay.c": {
+      "bytes": 119710,
+      "lines": 2537,
+      "origin": "new:3e0c5cb010454228f4ee63226b60d060494eeaae",
+      "sha256": "d5cb265c3a2d3186b9dafa2163f84df5fffd5835060a12643d728588b86569ce"
+    },
+    "sdk/src/azmod/screen_community.c": {
+      "bytes": 99253,
+      "lines": 2141,
+      "origin": "new:3e0c5cb010454228f4ee63226b60d060494eeaae",
+      "sha256": "a6b504505a387be28a29e9b86324f1a661940723ed99f1f16031c7757d2c473f"
+    },
+    "sdk/src/azmod/sdk_proc.c": {
+      "bytes": 23791,
+      "lines": 612,
+      "origin": "new:3e0c5cb010454228f4ee63226b60d060494eeaae",
+      "sha256": "7528a5e8ba6b714b261447437bb576157a6a7d554f41b938a54d5c21efabaa85"
+    },
+    "sdk/src/common/azaltstack.h": {
+      "bytes": 4275,
+      "lines": 109,
+      "origin": "reused:3e0c5cb010454228f4ee63226b60d060494eeaae",
+      "sha256": "f929777434f77e31a91055588e897158d6bfd8c6adc993dde0eeeca04eccbd4c"
+    },
+    "sdk/src/common/azprot.h": {
+      "bytes": 5296,
+      "lines": 147,
+      "origin": "reused:3e0c5cb010454228f4ee63226b60d060494eeaae",
+      "sha256": "0f1cc9c5d4ca212f798bf2e9d74a69507a82ce5cc59bd328bacc46816a119b33"
+    }
+  },
+  "old_capture_replayed": false,
+  "private_result_sha256": "498d32fdc3f39dd6142df577e2d86942b2535d5884c092f7c92431df4fccaa6e",
+  "retained_commands": 5,
+  "retained_files": 36,
+  "retained_inputs": 15,
+  "retained_output_streams": 10,
+  "schema": 1,
+  "scope": "Source-only generated-range contract; eight reused SDK inputs and five newly captured SDK files.",
+  "sdk_commit": "3e0c5cb010454228f4ee63226b60d060494eeaae",
+  "status": "captured"
+}

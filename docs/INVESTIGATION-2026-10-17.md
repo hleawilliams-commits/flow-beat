@@ -1903,3 +1903,68 @@ change or release occurred. Real admission/current hook ownership, native
 provenance/control-flow scope, writer/topology/recovery and Local Library
 activation/lifetime gates remain unresolved. Main/live dispatch, stems staging,
 USB activation and every unresolved runtime/product gate stay CLOSED.
+
+## November 4 — generated-range contract review after attribution fixture
+
+This source-only successor to c95d8f3d0db3ce8155395a09918f09dc58a8b00a is
+[activation-generated-range-contract](../experiments/usb-browser-switch/activation-generated-range-contract/README.md).
+No registry, repair patch or executable fixture is implemented here.
+
+Exact emitted instructions exclude literals: island [I,I+8), trampoline
+[T,T+4(r+2)), where r=n+3m, n is one/four copied instructions and m counts
+four-instruction ADRP expansions. Shared 64-KiB pools and 4096-byte trampoline
+mappings are allocation extents, not ownership extents. Every inline-installer
+refusal, cleanup attempt and warning-success branch is distinguished.
+Existing unchecked munmap calls do not prove successful release.
+
+The loader retains handles and installed hooks after failed init, while
+g_cm_live counts only successes. Its static IDs have a current one-start call
+graph, but community_init lacks an internal once guard. Claim admission checks
+an init window without checking thread identity; those checks precede the
+claim lock. Ambient g_hook_owner and existing postpublication bookkeeping do
+not provide a stable authority/publication protocol. The latter silently stops
+at 512 targets; the separate diagnostic table has 256 entries.
+
+Selected remove/disable paths change disk state, and Reload/Apply request
+process restart rather than in-process reclamation. A failed request does not
+end lifetime. Independent review caught a precise Reload limitation:
+non-EINTR waitpid failure is normalized to status zero and may permit the
+restart request; this does not prove daemon-reload succeeded. No such path was
+executed. Direct core callers and community callers have different existing
+lock contexts; a successor needs one explicit compatible writer protocol.
+
+Proposed records copy validated owner kind/ID/length, reserve capacity and
+checked nonoverlapping instruction extents, remain invisible during fallible
+preparation, and publish after successful target unlock but before either
+original-slot or redirect publication. Publication must be bounded and
+infallible, with no new callback/lock/allocation in the protected interval.
+After visibility, code/identity/record remain permanently retained. Readers
+skip unpublished payload and never wait for an interrupted writer. Exact
+lock-free atomic code generation and cross-thread/signal ordering still need
+proof; legacy signal guards, module reads, handlers and persistence are not
+certified by this design.
+
+Lookup remains PC then LR then eligible frames, module-envelope first at
+each address. A registered generated community PC can now beat a module LR;
+that is the intended extension, not preservation of every historical winner.
+Core ownership continues community fallback and never becomes a fabricated
+community ID. New generated intervals refuse overlap with known module
+envelopes, but later envelopes may mask them. No reverse loader admission,
+DSO unloading or permanent global non-overlap is claimed.
+
+The packet reuses eight exact SDK inputs and captures five additional sources
+at 3e0c5cb010454228f4ee63226b60d060494eeaae: fifteen total retained inputs,
+five Git reads, ten streams and 36 private files. Source review and independent
+byte audit pass without replaying old capture/test matrices. Public material
+is source and sanitized receipts; raw source copies/commands remain private.
+
+Next implement a separate offline bounded metadata/lookup fixture with modeled
+installer transitions, copied-owner and failed-init retention, exact interval
+bounds, capacity/overlap refusal, invisible/visible reader schedules,
+metadata-before-original-before-redirect ordering, Core fallback and later
+module masking. Use strict safe negative controls on new behavior only.
+No live adapter follows from that fixture. Native provenance/admission/current
+ownership, control-flow scope, writer/topology/recovery, Local Library
+row/provider/readiness/owner lifetime and stems staging gates remain CLOSED.
+No firmware, emulator/deck action, core installation, package/catalog change
+or community release occurred. Ownership remains distinct from causation.
