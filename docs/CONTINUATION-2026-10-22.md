@@ -1539,3 +1539,41 @@ final source readiness, missing-media/lifecycle/alternate-database/scroll-sort,
 stems and all existing runtime gates remain CLOSED. Do not repeat the
 unchanged static check. Next resolve actual task-box retention/cancellation and
 permitted destruction/serialization, or review another owned activation route.
+
+
+## November 4: native USB owner graph and shared queue lifetime
+
+The [new ownership review](../experiments/usb-browser-switch/activation-lifetime/)
+finds paired native reference ownership for SourceSelectView in ViewObjectManager
+and the dispatcher's registered array. Ordinary goToView uses a separate selected
+pointer; its concrete notification stops/starts timer IDs 0/3, not a demonstrated
+ID-1 schedule. View destruction removes its listener before the embedded timer.
+
+The timer and source service each own a reference-counted DefaultMemPool; those
+controls do not retain their enclosing objects or own the shared execution queue.
+GuiObjectManager owns BrowseSourceSelect at +0x178. The separate TimerTaskBox::Impl
+registers a DeletedAtShutdown base and its own destruction reaches pending-task
+cleanup. Its originating pools do not perform that queue drain.
+
+A concrete MessageManagerLock handshake was also identified. The selected
+null-thread constructor retries acquisition, so the caller's false-status branch
+does not establish ordinary fail-open behavior. The dispatcher releases that
+guard before registered-view cleanup. Same-message-thread reentry, queued raw
+captures, exceptions and actual manager/shutdown scope remain unproved; no
+native lifetime defect is asserted.
+
+One check of the new pins with the unchanged static verifier passes 42 complete
+code/FDE extents, 328 selected instructions, 71 pointer relations, 19 names and
+six imported symbols. No new LSDA table is decoded. Independent source and
+receipt review, exact diagnostic hashes and preparation-only failures are
+retained with the evidence. The preceding verifier pins and runtime suites were
+not replayed.
+
+No post-return native read, reference-count change, adapter, USB button,
+emulator/device action, installation or release was added. Full wrapper,
+live owner scope, reentrant/callback quiescence, final Local Library/readiness,
+missing-media/lifecycle/alternate-database/scroll-sort and all existing stems,
+observer and physical gates remain CLOSED. Next connect a permitted invocation
+to an owner that actually spans it, including the source manager's earlier
+shutdown participants and the shared queue's real execution ordering; do not
+rerun this passing static check unchanged.

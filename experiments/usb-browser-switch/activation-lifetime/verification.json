@@ -1,0 +1,111 @@
+{
+  "baseline_commit": "76ff130dedb44518e71f08b1ff8d4527a0a943ac",
+  "checked_counts": {
+    "complete_function_extents": 42,
+    "names": 19,
+    "new_lsdas_decoded": 0,
+    "plt_symbol_relations": 6,
+    "pointer_relations": 71,
+    "selected_instructions": 328
+  },
+  "date": "2026-11-04",
+  "device_or_emulator_access": false,
+  "independent_result_audit": {
+    "live_lifetime_or_wrapper_proof": false,
+    "method": "Read-only byte/structure comparison, no verifier import/rerun or ELF reanalysis",
+    "passed": true,
+    "verified": [
+      "Result, pins, unchanged verifier, exact 60-byte stdout and empty stderr hashes/lengths; exit zero.",
+      "All 42 code extents/hashes and 197 supplied fact fields agree.",
+      "328 anchors, 71 pointer relations, 19 names and six imports are unique by address.",
+      "All 42 functions explicitly retain lsda_decoded=false and null decoded LSDA.",
+      "Independent twelve-function service/pool code/FDE/CIE metadata and 84 anchors match.",
+      "Public fingerprints and bounded owner/reentry/closed-gate documentation agree."
+    ]
+  },
+  "independent_source_reviews": {
+    "count": 2,
+    "execution": false,
+    "hardening_before_first_run": [
+      "Reject conflicting duplicate function facts.",
+      "Refuse optimized Python in private pin assembly.",
+      "Use the exact reviewed timer input file rather than first matching glob."
+    ],
+    "material_defects_remaining": false,
+    "wording_corrections": [
+      "Each originating box constructs its own reference-counted pool; this does not imply one shared pool instance.",
+      "Singleton startup flag applies only during initial construction.",
+      "Null-thread MessageManagerLock constructor retries until success; caller false-status logging is not an established normal fail-open path.",
+      "Inherited verifier scope label is identified explicitly; these are new ownership pins."
+    ]
+  },
+  "inherited_result_scope_label": "static exact-ELF ABI and concrete timer teardown only",
+  "installation_or_release": false,
+  "native_execution": false,
+  "old_suite_replay": false,
+  "post_return_native_reads_added": false,
+  "pre_verification_correction": {
+    "reason": "Corrected draft arithmetic from 0x4043000 + 0x9f0 + 0xe0/e8 before public pins or verification.",
+    "shared_impl_guard": "0x4043ad0",
+    "shared_impl_pointer": "0x4043ad8"
+  },
+  "preparation_failures": [
+    {
+      "failure": "Automatic review initially inherited a previous read-only subtask restriction.",
+      "native_or_verifier_failure": false,
+      "operation": "private static evidence write",
+      "resolution": "Fresh bounded current-task write scope was clarified and approved; no outstanding denial."
+    },
+    {
+      "failure": "Shell heredoc required a sandbox-denied temporary file before Python launch.",
+      "native_or_verifier_failure": false,
+      "operation": "read-only shell helper",
+      "resolution": "Used safely quoted Python -c for read-only inspection."
+    },
+    {
+      "failure": "runpy name inspect shadowed the standard-library module and prevented import.",
+      "native_or_verifier_failure": false,
+      "operation": "read-only ELF helper import",
+      "resolution": "Used a unique module name. No firmware execution occurred."
+    },
+    {
+      "failure": "A display script sliced an anchor dictionary as if it were a list.",
+      "native_or_verifier_failure": false,
+      "operation": "private pin schema display",
+      "resolution": "Inspected each actual schema before assembly; no public pins were written by the failed display."
+    }
+  ],
+  "prior_pin_replay": false,
+  "private_assembly_sha256": "7bb36e0d89b4985cf32383e5f27fcaa3825e44655640f3b57d696b87e0782141",
+  "python_version": "3.11.16",
+  "reference_counts_changed": false,
+  "review_document_sha256": {
+    "SERVICE-OWNER.md": "1c70f235758a8c74f453fa2469e23785cd6fee1869e32873c921810e7fbb3c5d",
+    "SHARED-QUEUE.md": "bf303c079ef3a5e89b20d1d45561ebd3869383717fce2f2d3cb2a1766bfb5c5f",
+    "TIMER-OWNER.md": "0955c8c4b04d78bec2ce4c292e2a31eb0c09aff50debc6767032d5f7c851f1ba",
+    "VIEW-OWNER.md": "4d4bedebc8eecaa86c1224c0312648ff003d12b7ea0a20a8d39e0bf17edba82b"
+  },
+  "review_input_sha256": {
+    "guard-pins.json": "ecd671df8dd97bf5ff950ff3dd01b1c438f8b6359166213e8b02a58ea29bf3d4",
+    "service-20261104-owner/service-pins.json": "1b955ee10f90d7800d813130e5f5299eef321806e3a5204fdc509a01c9e042d1",
+    "timer-67a8ccf1d1624748a468f9c013c68330-anchors.json": "23d3dd2b9c8b9a331ccca61856f34c4770943b84528ae08b8589b395e18d3d46",
+    "view-anchors.json": "922d9c3941684023f04a2ee454203c0eb0faee5b00f647a4dd81bd33aef8e510"
+  },
+  "run": {
+    "result_sha256": "6e2346d0e152cf7963bd1a42347cb23cc3ff56e5578f708a937d362f6a7b6266",
+    "returncode": 0,
+    "review_pins_sha256": "276e185387f02a8dd19c2298be97acfc48ea63c9cb37b37920bfaf38498abaad",
+    "stderr_bytes": 0,
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout_bytes": 60,
+    "stdout_sha256": "ebe5c932c3a04dafc1bd6be874fca055e4f4e3a2ed0c5fa07d6f44d0e5f07c0d",
+    "verifier_sha256": "ca56c68421e3f37dbec9be90ade1a414ab5c68ce4af0ddf1333801ae7e75caa8"
+  },
+  "run_count": 1,
+  "runtime_gate": "CLOSED",
+  "schema": 1,
+  "scope": "New static native owner, pool, shared queue and selection lifecycle evidence; no live lifetime/activation proof",
+  "subject": "This directory review-pins.json, not preceding ABI pins",
+  "verifier": "../activation-abi/verify-static.py",
+  "verifier_changed": false
+}
