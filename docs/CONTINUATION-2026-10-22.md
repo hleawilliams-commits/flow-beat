@@ -1763,3 +1763,44 @@ close schedules. No source of the passing observer, SDK/core, community package,
 catalog or device is changed. No installable observer or USB button is supplied.
 Live native provenance/owner scope, writer exclusion, stopped recovery and all
 existing runtime, activation, stems and release gates remain CLOSED.
+
+## November 4: offline permanent-slot and terminal capture-state composition
+
+The separate [binding composition](../experiments/usb-browser-switch/activation-binding-composition/)
+implements the next scoped correction without changing the frozen observer.
+Permanent aligned plain `void *` slots pass directly to the exact SDK `void **`
+interface; one authoritative atomic enum governs installation and helper
+admission. A final Installing-to-Ready CAS cannot overwrite close, failure
+preserves an earlier Closed state, and no temporary copy, retry, reset, unpatch
+or reclamation path exists. Partial successful claims retain their forwarding
+storage even if another claim is refused.
+
+The first complete ARM64 matrix passes 39 checks across 14 fresh selectors per
+plain and ASan/UBSan mode, with five exact safe semantic controls in each mode.
+Checks cover exact slot/entry identity, callback before claim return, authentic
+prepublication first/second refusal, malformed missing-original success,
+reentrant/repeated init, close during installation/refusal and after admission.
+A real worker deterministically publishes its admitted record after close, then
+joins before assertions; later closed calls still forward without recording.
+This is selected ordering evidence, not callback drain or general race proof.
+
+Production helper/binder configurations are compile-only and contain no fixture
+hooks. Execution uses two explicit compile-time scheduling seams and the newly
+compiled entry object; the latter is byte-identical to the retained parent.
+The parent object is comparison-only and no old test matrix is replayed. The
+new run retains 17 inputs, 106 commands, 56 artifacts and 550 files privately;
+source and sanitized result metadata are shared. Independent source review and
+a retained-byte audit pass, verifying all inputs, command receipts, 212 output
+streams, artifact bytes, mutations and public projection without execution. ASan/UBSan covers selected
+instrumented helper/binder/fixture paths, not assembly instrumentation or the
+whole engine. No TSan or installed-hook unwind result is claimed.
+
+Next review the exact installer's scratch-register and anonymous-island/trampoline
+unwind contract, plus actual native row/provider/argument/owner execution context,
+for a separately scoped passive adapter. Nonnull-before-reachability remains an
+SDK obligation; detecting null on return cannot protect an earlier malformed
+callback. Closing capture does not establish quiescence or reclamation. Native
+pointee/post-return reads, return interception and cross-entry pairing remain
+absent. No emulator/device, official core, community package, catalog or release
+was changed. Writer exclusion, stopped recovery, USB activation, stems staging
+and every unresolved runtime/product gate remain CLOSED.

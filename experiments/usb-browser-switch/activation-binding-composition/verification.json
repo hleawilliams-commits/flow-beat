@@ -1,0 +1,98 @@
+{
+  "actual_sdk_claim_called": false,
+  "baseline_commit": "f0dc732c9e27618f284bf340bfc0bab96fd8de04",
+  "community_release": false,
+  "date": "2026-11-04",
+  "emulator_or_physical_device_contact": false,
+  "first_complete_matrix_passed": true,
+  "fixture_scheduling_hooks": [
+    "before final Ready CAS",
+    "after capture Ready admission"
+  ],
+  "independent_retained_byte_audit": {
+    "all_positive_and_compile_outputs_exact": true,
+    "all_stderr_empty": true,
+    "all_variants_reconstructed": true,
+    "audit_result_sha256": "3d83ffc978baeacadf1e05cd179cb04c4d2284d4abac541ae4aaf04cec4dbfca",
+    "audit_source_sha256": "f1b394fc3762c0643b5602960e7009230950403e07b728bf500bf5a96c8da741",
+    "counts": {
+      "artifacts": 56,
+      "commands": 106,
+      "control_executions": 10,
+      "controls_per_mode": 5,
+      "inputs": 17,
+      "modes": 2,
+      "positive_checks_per_mode": 39,
+      "positive_executions": 28,
+      "positive_selectors_per_mode": 14,
+      "raw_output_streams": 212,
+      "retained_run_files": 550,
+      "sanitizer_probe_executions": 1
+    },
+    "exact_control_failure_counts_per_mode": [
+      4,
+      3,
+      3,
+      2,
+      2
+    ],
+    "new_entry_whole_object_identical": true,
+    "private_result_sha256": "f46484290ed161cd1642caebb0cac510b372ea2bc36c989ed617a85a7fe5cc00",
+    "production_helper_binding_fixture_symbols_absent": true,
+    "public_projection_exact": true,
+    "public_result_sha256": "7bdf61efd46fdcc53434a0de009d56441feda68eecb359c771acb5c99e666b1f",
+    "retained_parent_object_comparison_only": true,
+    "scope": "Retained bytes and object metadata only; no runner import, compiler, runtime, Git, native firmware decode, emulator or device action.",
+    "status": "passed"
+  },
+  "installed": false,
+  "limits": [
+    "Synthetic mock-SDK schedules only; no actual claim, hook installation or native firmware execution.",
+    "Production helper/binder configurations are compile-only; runtime uses two compile-time scheduling seams and the new byte-identical assembly object.",
+    "ASan/UBSan covers the selected new fixture schedules; assembly is not sanitizer-instrumented and no TSan, whole-engine race/lifetime or installed-hook unwind proof follows.",
+    "Close does not drain admitted calls or authorize slot/code/sink reclamation; SDK nonnull-before-reachability and target publication remain external obligations.",
+    "Frozen suites, parent fixture and retained parent entry object were not executed; no unresolved runtime gate is reopened.",
+    "Live native invocation/row/provider/argument/owner scope, current hook ownership, alternate destruction/replacement and queued work remain unproven.",
+    "Writer exclusion, stopped recovery, final Local Library readiness and all prior activation/staging gates remain closed."
+  ],
+  "modes": [
+    "plain",
+    "asan-ubsan"
+  ],
+  "new_assembly_object_executed_in_fixture": true,
+  "new_checks_per_mode": 39,
+  "new_native_pointee_or_post_return_reads": false,
+  "new_selectors_per_mode": 14,
+  "new_source_sha256": {
+    ".gitignore": "7fec0c903f3d7b39dc2ccbbb3e3724d758e6cfce527360063547e528c956b07d",
+    "binding.cpp": "de9e83210510523cca7be6096eac3b53e32af73442167546b7469a72a5287163",
+    "binding.h": "b3c2b1304b8cd0d0a83a69e9508aa32edfcabdcf67dd329a15c2f76d245f1ce1",
+    "entry.S": "95c4936e1e2530f9e0d60ea6642b7ce8ca1203480986050d96a130c581da22d1",
+    "observer.cpp": "0969955fb87f47f2fc909a1a4419bf0ec9ad2ac1b91244c60df8908f5c4ebd03",
+    "observer.h": "999b8bebd58d37912f41e37330ecee60175a8f6a4d93d137d96892e13d7d14f6",
+    "run-tests.py": "75ff094bd69c92668e0f8f8b61e9d26d7ebc14fb222f8c96c1065153644cbbba",
+    "test_binding.cpp": "4b25f91e8093281c737f2caf40a598071c1ab0adf42570defcda8cd825d6960e"
+  },
+  "old_suites_replayed": false,
+  "parent_sources_or_tests_changed": false,
+  "private_result_sha256": "f46484290ed161cd1642caebb0cac510b372ea2bc36c989ed617a85a7fe5cc00",
+  "production_helper_binding_configuration_compile_only": true,
+  "public_result_sha256": "7bdf61efd46fdcc53434a0de009d56441feda68eecb359c771acb5c99e666b1f",
+  "retained_parent_object_executed": false,
+  "runtime_gate": "CLOSED",
+  "schema": 1,
+  "scope": "New offline SDK-compatible permanent-slot and authoritative terminal capture-state composition",
+  "source_review": {
+    "corrections_before_first_build": [
+      "Model exact SDK refusal before refused-slot publication; preserve only earlier successful slots.",
+      "Add both close-during-refusal schedules to discriminate failure overwriting Closed.",
+      "Use independent literal native-address oracles.",
+      "Distinguish compile-only production helper/binder objects from the new assembly object reused by the fixture."
+    ],
+    "independent_fixture_runner_review": true,
+    "independent_production_review": true,
+    "passed": true
+  },
+  "strict_controls_per_mode": 5,
+  "tsan_executed": false
+}
