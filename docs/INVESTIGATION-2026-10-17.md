@@ -1560,3 +1560,42 @@ Final Local Library/readiness, complete wrapper ABI/unwind, actual live owner
 scope, alternate/reentrant paths and queued execution remain open. All stems,
 observer and physical gates remain CLOSED. Next connect a permitted invocation
 to actual owner scope and execution context; do not repeat the passing pins.
+
+
+## November 4: USB source normalization and carrier provenance
+
+The [new source-value review](../experiments/usb-browser-switch/activation-source-value/)
+resolves a structural constructor predicate, exact normalization and per-helper
+identity contracts. Requested Source discriminator 1 becomes zero on predicate
+failure while the invalid carrier remains copied. The kind mapper's ordinary
+unsupported-category fallback returns zero, colliding with supported category 2;
+that return is not availability or acceptance.
+
+DeviceLibrary rows keep a parent Source plus a distinct row kind. They later
+resolve a new action carrier through a Source-keyed RootSourceDataSet provider.
+Lookup miss returns a real fallback object with initially cleared meaningful
+carrier bytes; nonnull is not a found/available result and permanent immutability
+is unproved. The temporary provider-factory control is released before the raw
+provider getters, supplying no custom operation-scoped lifetime lease.
+
+Provider ordering compares Source discriminator, carrier word and full byte 4;
+the native row-matching predicate also compares byte 5. The row-update return
+reports whether a flag changed, not a found, unique or accepted source. Both
+comparisons preserve the distinction between historical USB1/USB2 descriptors
+0102/0122 even though their category bits are both 2. Those old named-port
+observations remain bounded to their existing export fixture; they are not a
+fresh provider identity or universal port enum.
+
+One first-time check passes 12 new complete code/FDE extents, 238 instruction
+relations, 13 pointers, four RTTI names and five imports, with independent source
+and retained-result audits. All 83 earlier full extents are excluded and no
+runtime suite is replayed. No new LSDA table is decoded. Private captures and
+diagnostic logs remain private.
+
+No native call, emulator/device action, adapter, USB button, post-return read,
+reference-count mutation, package/catalog change or release was introduced.
+Next connect actual permitted Local Library arguments to a live row/provider
+and owner scope; label-to-DeviceLibrary-kind correlation, media freshness and
+ambiguity, full wrapper ABI/unwind, queued/reentrant lifetime, readiness and
+cancellation remain open. All existing runtime gates remain CLOSED. Do not
+repeat the new passing pin set unchanged.

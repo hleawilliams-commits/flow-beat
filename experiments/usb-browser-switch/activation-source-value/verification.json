@@ -1,0 +1,101 @@
+{
+  "baseline_commit": "1fa3b6fe64166baf65484b9a3519232f7e51242f",
+  "checked_counts": {
+    "complete_function_extents": 12,
+    "names": 4,
+    "new_lsdas_decoded": 0,
+    "plt_symbol_relations": 5,
+    "pointer_relations": 13,
+    "selected_instructions": 238
+  },
+  "date": "2026-11-04",
+  "device_or_emulator_access": false,
+  "frozen_parent_full_extents_excluded": 83,
+  "independent_result_audit": {
+    "additional_relation_anchors_matched_to_input_union": 21,
+    "in_body_instruction_anchors_matched_to_captures": 217,
+    "live_lifetime_or_wrapper_proof": false,
+    "method": "Read-only exact aggregate reconstruction and byte/structure comparison against retained captures; no verifier import/rerun or fresh ELF analysis",
+    "passed": true,
+    "private_receipt_sha256": "4873caa23f77d0e38c1f10dbb0298f55bdd910d9d031ed639f5009ccdb402a0d",
+    "retained_capture_files": 9,
+    "supplied_fact_fields_matched": 108,
+    "verified": [
+      "Exact aggregate bytes equal the prefixed union of four source and eight carrier function pins plus deduplicated relations.",
+      "All pinned facts and retained instruction inventories agree with result.",
+      "No new extent overlaps another new extent or any of 83 frozen parent extents.",
+      "Pins, result, unchanged verifier and retained invocation/receipt hashes agree.",
+      "Exactly one retained verification attempt; stdout 60 bytes, empty stderr, exit zero.",
+      "No new LSDA table decoding, live invocation, wrapper or cancellation proof."
+    ]
+  },
+  "independent_source_reviews": {
+    "execution": false,
+    "material_defects_remaining": false,
+    "verified": [
+      "Source predicate and all four normalization cases match the retained complete constructor.",
+      "Mapper default collides with supported category 2 only on ordinary diagnostic return.",
+      "Source ordering and row matching compare different identity subsets; both preserve full byte 4.",
+      "Row rebuild copies parent Source plus a separate candidate-derived DeviceLibrary kind; later action re-resolves carrier.",
+      "Lookup returns a real initially constructed fallback, without proving immutability or availability.",
+      "Resolver releases temporary factory control before raw-provider getter use; no new lifetime lease follows.",
+      "Assembler enforces one exact image, exclusive output and no new/parent extent overlap."
+    ],
+    "wording_corrections": [
+      "Row-match/update return copies accumulator w23 into w0 and reports changed row flags, not found/unique/accepted.",
+      "RootSourceData construction clears six meaningful carrier bytes but does not clear the trailing two bytes.",
+      "Historical USB1/USB2 evidence remains bounded to the retained export fixture and distinct namespaces."
+    ]
+  },
+  "inherited_result_scope_label": "static exact-ELF ABI and concrete timer teardown only",
+  "installation_or_release": false,
+  "native_execution": false,
+  "new_full_function_overlap_with_parent": 0,
+  "old_runtime_branch_replay": false,
+  "old_suite_replay": false,
+  "post_return_native_reads_added": false,
+  "preparation_failures": [
+    {
+      "failure": "An initial search named a nonexistent observer-v3 directory.",
+      "native_or_verifier_failure": false,
+      "operation": "read-only evidence lookup",
+      "resolution": "Located the preserved V3 evidence under completion-contract."
+    },
+    {
+      "failure": "The first path comparison resolved the venv interpreter symlink and incorrectly rejected the recorded invocation path.",
+      "native_or_verifier_failure": false,
+      "operation": "independent retained receipt audit",
+      "resolution": "Compared the actual recorded venv executable path; the audit then passed without experiment changes or verifier replay."
+    }
+  ],
+  "prior_full_function_pin_replay": false,
+  "private_assembly_sha256": "5a4b870335808ad3af39ee3b6690377f058860278e124378a279b936cd149540",
+  "python_version": "3.11.16",
+  "reference_counts_changed": false,
+  "review_document_sha256": {
+    "CARRIER-PROVENANCE.md": "2f6a1ca76385917a108866054d8d4d7d6e4f6d7a468923bcb5b2e64ba1f46d8d",
+    "SOURCE-VALIDATION.md": "54a7204db9df2eafecf667ac676c91c108331ef5703d1c85441b87fa557df0d8"
+  },
+  "review_input_sha256": {
+    "carrier-pins.json": "1dd680f80e597539373e2f5dbeb49bc5a2194612e1b3575663f933ca5234877f",
+    "source-validation-pins.json": "ea90f198344ca1789a07e4668437b5c2631c3be51225e135e34689b706ff5637"
+  },
+  "run": {
+    "result_sha256": "435c7d9666283db96a923d72bc97e1ae86b400c45a44806dec76b6d7afc37e51",
+    "returncode": 0,
+    "review_pins_sha256": "147d57a859cf3d37021df59cf4297bc188378a0ee50807b88388120a48c36078",
+    "stderr_bytes": 0,
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout_bytes": 60,
+    "stdout_sha256": "a1b6f57afb561fd1dd0619316792b79ebc409326ea02b33931017fe2193437db",
+    "verifier_sha256": "ca56c68421e3f37dbec9be90ade1a414ab5c68ce4af0ddf1333801ae7e75caa8"
+  },
+  "run_count": 1,
+  "runtime_gate": "CLOSED",
+  "schema": 1,
+  "scope": "New static Source normalization, helper-specific identity and provider carrier provenance; no live acceptance or readiness proof",
+  "some_relation_anchors_connect_frozen_bodies": true,
+  "subject": "This directory review-pins.json, not preceding ABI, ownership or shutdown pin sets",
+  "verifier": "../activation-abi/verify-static.py",
+  "verifier_changed": false
+}
