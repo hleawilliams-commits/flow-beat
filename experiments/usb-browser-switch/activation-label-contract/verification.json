@@ -1,0 +1,104 @@
+{
+  "baseline_commit": "77d9ba51273aaf3d2028e5716906fd9bee0edc80",
+  "checked_counts": {
+    "complete_function_extents": 6,
+    "new_lsdas_decoded": 0,
+    "plt_symbol_relations": 4,
+    "pointer_relations": 6,
+    "selected_instructions": 394,
+    "short_strings_including_names": 11
+  },
+  "date": "2026-11-04",
+  "device_or_emulator_access": false,
+  "frozen_parent_full_extents_excluded": 95,
+  "independent_result_audit": {
+    "additional_anchor_addresses": [
+      "0x1c029e8",
+      "0x1c029ec",
+      "0x1c029f0",
+      "0x1c029f4"
+    ],
+    "additional_anchor_limit": "These four constructor anchors match the exact input union and were checked by the recorded verifier; the independent audit did not re-decode them.",
+    "additional_anchors_matched_to_input_only": 4,
+    "in_body_instruction_anchors_matched_to_captures": 356,
+    "live_lifetime_or_wrapper_proof": false,
+    "method": "Read-only exact aggregate reconstruction and comparison against retained captures and receipt; no verifier import/rerun or fresh ELF read/analysis",
+    "passed": true,
+    "private_receipt_sha256": "38fcdba73b6f688f9bbe1407f2e7df68a287b80516ec505e1f88606d93d3fb80",
+    "selected_relation_anchors_matched_to_capture": 34,
+    "verified": [
+      "Exact aggregate bytes equal the normalized label input with prefixed function names.",
+      "Four parent pin hashes and 14+42+27+12 prior full extents agree; six new ranges overlap neither prior nor new ranges.",
+      "All pinned result facts and CFI metadata agree; instruction-derived facts agree with six retained complete body texts.",
+      "All six pointers, 11 strings and four import relations match normalized input.",
+      "One retained invocation, exact command, input/result/verifier hashes and receipt/log bytes agree: stdout 59 bytes, empty stderr, exit zero."
+    ]
+  },
+  "independent_source_reviews": {
+    "execution": false,
+    "material_defects_remaining": false,
+    "verified": [
+      "Actual indexed DeviceLibrary rows reach the component updater and separate image/text virtual consumers.",
+      "Kind 0/1 image map entries use local-library USB/SD resource names while the separate text getter returns empty.",
+      "Asset names establish no rendered-pixel, USB1/USB2, live action-kind or accepted-intent proof.",
+      "Assembler binds the exact image and excludes all 95 prior full extents plus mutual overlap.",
+      "NEXT-OBSERVER remains an unimplemented 800-byte register snapshot and tail-forward plan; precise state, CFI, no-pointee, no-correlation limits and safe controls are specified."
+    ],
+    "wording_corrections": [
+      "Selected image-helper anchors prove comparison and forwarding to another helper; its unreviewed assignment semantics are not independently established.",
+      "README specifies the planned x16 tail-transfer scratch exception and excludes pre-installer x17 restoration."
+    ]
+  },
+  "inherited_result_scope_label": "static exact-ELF ABI and concrete timer teardown only",
+  "installation_or_release": false,
+  "native_execution": false,
+  "new_full_function_overlap_with_parent": 0,
+  "new_wrapper_build_or_test": false,
+  "new_wrapper_implementation": false,
+  "old_runtime_branch_replay": false,
+  "old_suite_replay": false,
+  "post_return_native_reads_added": false,
+  "preparation_failures": [
+    {
+      "failure": "An initial JavaScript tool input had a quoting syntax error before shell execution or a file write.",
+      "native_or_verifier_failure": false,
+      "operation": "observer plan file preparation",
+      "resolution": "Corrected the tool input and wrote the plan; no experiment or verifier replay."
+    },
+    {
+      "failure": "A shell heredoc could not allocate a temporary file under the read-only sandbox; Python did not run.",
+      "native_or_verifier_failure": false,
+      "operation": "read-only automation configuration lookup",
+      "resolution": "Read the same configuration using Python -c without a heredoc."
+    }
+  ],
+  "prior_full_function_pin_replay": false,
+  "private_assembly_sha256": "7b9b8f544df6338db669dfd1108cfcb4622d17c53930c76d6e6ff412798105e4",
+  "python_version": "3.11.16",
+  "reference_counts_changed": false,
+  "review_document_sha256": {
+    "NEXT-OBSERVER.md": "46aaaaad24c7d32bcd9873012a2fd2a09a04198ab2cb531e96d14ec8425b403d",
+    "ROW-LABEL.md": "eeb704f1f7e27323bc6b379ed33fffa5c09522ce549d48a906259eb3495610d9"
+  },
+  "review_input_sha256": {
+    "label-pins.json": "f0896cf04fc188c67de645d4e2b7c9a3e6c3c2797e26d58bcb26de80ed92ed8c"
+  },
+  "run": {
+    "result_sha256": "2e1ba9e3e656c12436767e12d737c6a0940b1f70e784df5093cd6f588c1f2708",
+    "returncode": 0,
+    "review_pins_sha256": "94060365bf7ec1fb15dc6aa906223bafaf80c18d31d9204ef5be59f073267d78",
+    "stderr_bytes": 0,
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout_bytes": 59,
+    "stdout_sha256": "2412578950d10544afa405ab848b06c49f44bee5d83655cdc54b1fe8d25a98ad",
+    "verifier_sha256": "ca56c68421e3f37dbec9be90ade1a414ab5c68ce4af0ddf1333801ae7e75caa8"
+  },
+  "run_count": 1,
+  "runtime_gate": "CLOSED",
+  "schema": 1,
+  "scope": "New static DeviceLibrary row display relations plus an unimplemented offline observer plan; no live source invocation or readiness proof",
+  "some_relation_anchors_connect_frozen_bodies": true,
+  "subject": "This directory review-pins.json, not preceding ABI, lifetime, shutdown or source-value pin sets",
+  "verifier": "../activation-abi/verify-static.py",
+  "verifier_changed": false
+}

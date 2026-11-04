@@ -1652,3 +1652,39 @@ and owner scope; label-to-DeviceLibrary-kind correlation, media freshness and
 ambiguity, full wrapper ABI/unwind, queued/reentrant lifetime, readiness and
 cancellation remain open. All existing runtime gates remain CLOSED. Do not
 repeat the new passing pin set unchanged.
+
+## November 4: native row image/text contract and bounded observer plan
+
+The new [activation-label-contract review](../experiments/usb-browser-switch/activation-label-contract/)
+connects the actual indexed DeviceLibrary row to its component updater and
+separate provider slots for image and text. Image keys 0/1 select named
+local-library USB/SD resources; the corresponding text getter returns empty.
+This is a resource association, not proof of rendered pixels, a universal
+English label-to-kind mapping, a USB1/USB2 enum, or a current live action.
+The reviewed helper anchors establish comparison and forwarding to another
+helper, without claiming that unreviewed helper's internal assignment semantics.
+No asset image was unpacked or rendered.
+
+One first-time static check passes six new complete function/FDE extents,
+394 instruction relations, six pointers, 11 short strings and four imports.
+Independent source and retained-result reviews pass; all 95 earlier complete
+extents and old runtime suites remain unreplayed. No new LSDA is decoded.
+The large initializer fingerprint binds its complete extent while semantic
+claims remain scoped to the first two image keys and their direct consumer.
+
+[NEXT-OBSERVER.md](../experiments/usb-browser-switch/activation-label-contract/NEXT-OBSERVER.md)
+is a concrete plan for two passive register-entry snapshots with an 800-byte
+frame and tail forwarding. It remains unimplemented and untested. Action x2
+is opaque pointer bits, service Source is captured from registers, no pointee
+or post-return native read is proposed, and separate records do not prove
+cross-entry event ownership. Next implement a separate offline fixture with
+full fixed-width state, caller stack/result, nesting/exception and helper
+backtrace checks and safe negative controls; the old executor tests do not
+validate this new wrapper. Installer/island unwind remains a separate gate.
+
+Historical named-port evidence and structural Source/provider limits remain
+intact. Live row/action arguments, operation-scoped owners, alternate destructive
+or replacement paths, queued/reentrant work, callback quiescence, final readiness
+and cancellation remain open. No emulator/device action, adapter installation,
+USB button, core/package/catalog change or release occurred. Every existing
+runtime gate remains CLOSED; do not replay these passing static pins unchanged.
