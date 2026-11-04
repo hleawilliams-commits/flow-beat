@@ -1,0 +1,142 @@
+{
+  "actual_functions": [
+    "cm_range_cb",
+    "cm_owner_of",
+    "cm_blame_fault"
+  ],
+  "actual_sdk_claim_or_hook": false,
+  "asan_ubsan_executed": true,
+  "baseline_commit": "0aecf22d00258d66bdfcccf7fe450452c1f3a725",
+  "checks_per_mode": 111,
+  "community_release": false,
+  "date": "2026-11-04",
+  "emulator_or_physical_device_contact": false,
+  "exact_control_failures": {
+    "ignore-once-guard": [
+      "second-owner",
+      "second-no-side-effects"
+    ],
+    "ignore-second-read-failure": [
+      "owner",
+      "peek-trace",
+      "unblamed-count",
+      "no-file-io"
+    ],
+    "inclusive-upper-bound": [
+      "excluded-boundaries"
+    ],
+    "lr-before-pc": [
+      "owner",
+      "write-payload"
+    ],
+    "seventeenth-frame": [
+      "owner",
+      "peek-trace",
+      "unblamed-count",
+      "no-file-io"
+    ]
+  },
+  "first_complete_matrix_passed": true,
+  "fresh_process_per_selector": true,
+  "generated_range_registry_or_repair": false,
+  "independent_retained_byte_audit": {
+    "audit_attempt": 1,
+    "audit_result_sha256": "b664560b345636249cacf6dc50962d8b67db86c2c5a710fbd2030c4fa4d441d1",
+    "audit_source_sha256": "17e8db490505ac46d050b6bfcda288b1ef1ab80edfb7bd0565f7524a70df4378",
+    "binary_review_sha256": "aa840e4e7c6a96f18e92d7e745151be268443b99aeae5471c83a9ab1e960b1a1",
+    "completed_checks": 17651,
+    "counts": {
+      "artifacts": 70,
+      "candidate_checks_per_mode": 111,
+      "candidate_reports": 34,
+      "command_receipts": 57,
+      "command_specs": 57,
+      "commands": 57,
+      "control_reports": 10,
+      "exact_function_extents": 3,
+      "executables": 12,
+      "expected_control_failures_per_mode": 13,
+      "inputs": 4,
+      "matched_dsym_binaries": 12,
+      "modes": 2,
+      "raw_streams": 114,
+      "retained_files": 303,
+      "unique_controls": 5
+    },
+    "exact_command_flags_and_reports_verified": true,
+    "exact_control_variants_verified": true,
+    "limitations": [
+      "No runner import, Git/collector/compiler/test replay or binary execution.",
+      "Mach-O parsing checks architecture, type, symbols, sanitizer imports and UUID linkage; it is not a fresh execution or proof of machine-code semantic equivalence.",
+      "Compiler identity is the retained path/version receipt; this audit does not reproduce the compiler toolchain.",
+      "Synthetic record/read/file models do not establish loader ABI, native signal safety, durable persistence, causation, concurrency or recovery.",
+      "The selected retained capture is audited; no claim of discovering every possible external attempt."
+    ],
+    "private_result_sha256": "5a324ebd0441bd852eba13595ccd427f5788328049198a5dad066909b9c5e136",
+    "public_exact_projection": true,
+    "public_private_paths_and_raw_payloads_excluded": true,
+    "public_result_sha256": "ec84e12020d01250fd40bb09f4f94c369578284329f8064ab049d4e75164713d",
+    "retained_inventory_sha256": "60efe0e03cbee5dfebe71b1cde9e2d41afcf9c407e52e66892588a6abe83f529",
+    "scope": "Independent audit of retained bytes and command receipts only.",
+    "source_and_fixture_copies_unchanged": true,
+    "status": "passed"
+  },
+  "leak_detection": false,
+  "limits": [
+    "The anonymous-miss selector models lookup inputs; it does not execute a successful hook claim or generated transfer.",
+    "An owner id is not proof of persisted blame or fault causation; unblamed notification is modeled, not startup quarantine/recovery.",
+    "Serial source/model execution does not establish real frame reads, signal safety, volatile-written synchronization or general race/lifetime safety.",
+    "Host program-header and mod fields are synthetic values, not native loader ABI/layout validation; no Linux SDK build.",
+    "No generated-range publication, instruction ownership, cleanup/reclamation, actual handler or asynchronous-unwind proof is supplied.",
+    "Passive provenance/admission/current ownership and writer/topology/recovery remain closed; native Local Library activation/lifetime and stems staging remain closed."
+  ],
+  "linux_sdk_build": false,
+  "modes": [
+    "plain",
+    "asan-ubsan"
+  ],
+  "native_pointee_access": false,
+  "new_source_sha256": {
+    ".gitignore": "d56537a93a9565b3322aa9bc821c9cc30a16303467032cade13b069e394cfddc",
+    "run-tests.py": "ef56ec0caae7d1a3004f5254eaa33a952f352c874b7ecf9ce966dd518ce9a31c",
+    "test_attribution.c": "02022c3396eb2cc70e110d89cce255dc23fac99d337b5b0f09ba1eadb6d68ed7"
+  },
+  "old_suites_or_capture_replayed": false,
+  "parent_sources_changed": false,
+  "private_result_sha256": "5a324ebd0441bd852eba13595ccd427f5788328049198a5dad066909b9c5e136",
+  "public_result_sha256": "ec84e12020d01250fd40bb09f4f94c369578284329f8064ab049d4e75164713d",
+  "real_blame_persistence": false,
+  "real_loader_or_signal": false,
+  "retained_artifacts": 70,
+  "retained_commands": 57,
+  "retained_files": 303,
+  "retained_inputs": 4,
+  "retained_output_streams": 114,
+  "review_readme_sha256": "1d41ad6907c442ecc5b65e63ba51431904ec3ea2d2bcb0dce0fdb8979f8b7690",
+  "runtime_gate": "CLOSED",
+  "safe_controls_per_mode": 5,
+  "schema": 1,
+  "scope": "Offline exact-source core attribution decisions against synthetic owned records",
+  "sdk_commit": "3e0c5cb010454228f4ee63226b60d060494eeaae",
+  "selectors_per_mode": 17,
+  "source_review": {
+    "independent_claim_review": true,
+    "independent_source_and_control_review": true,
+    "post_execution_claim_correction": "Qualify modeled ownership miss with PC/LR/frame addresses outside every module envelope; fixture and outcomes unchanged.",
+    "pre_execution_corrections": [
+      "Require unoptimized Python and exact selector check counts/report types.",
+      "Retain owned command-group interruption outcomes and linker/debug companion artifacts.",
+      "Permit explicit selector/control subsets for changed or failed follow-ups without unchanged replay."
+    ]
+  },
+  "static_written_reset_or_replaced": false,
+  "substitutions": [
+    "Synthetic cm_mod and phdr field models (not native layouts)",
+    "Owned integer-keyed frame read model",
+    "Count-only unblamed callback",
+    "Modeled open/write/fsync/close results and ledgers"
+  ],
+  "toolchain": "Apple Clang 16.0.0, arm64-apple-darwin25.2.0 host",
+  "tsan_executed": false,
+  "unmodified_function_bodies": true
+}

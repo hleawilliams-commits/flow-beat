@@ -1853,3 +1853,53 @@ ownership, alternate destructive/queued paths and post-callback timer lifetime
 remain activation gates. No firmware/emulator/deck access, code installation,
 package/catalog change or release occurred. Main/live dispatch, stems staging,
 USB activation and every unresolved runtime/product gate remain CLOSED.
+
+## November 4: exact attribution functions with synthetic owned records
+
+The [new offline contract fixture](../experiments/usb-browser-switch/activation-attribution-contract/)
+executes exact pinned cm_range_cb, cm_owner_of and cm_blame_fault bodies. It
+reuses the retained source without rerunning its collector. Explicit synthetic
+program-header/mod fields, integer-keyed frame cells and file-operation ledgers
+replace native loader/layout, memory and persistence dependencies. Each selector
+runs in a fresh process; the original function-local static written is retained
+without any reset seam.
+
+The first complete serial host matrix passes 111 checks across seventeen
+selectors per plain and ASan/UBSan mode. Five safe source controls compile and
+fail exactly their reviewed functional oracles in each mode. They distinguish
+upper-bound inclusion, PC/LR ordering, failed second-read truncation, a
+seventeenth frame and once-guard bypass. No assertion changes, crashes or
+sanitizer diagnostics are accepted as a control result.
+
+The source counterexample is now exercised as a lookup model: an anonymous PC
+and native-only LR/frame chain miss every mod envelope. No successful claim,
+generated transfer or actual fault occurs in this fixture. Positive cases
+retain PC/LR/first-frame precedence and exact read order. The range callback
+includes non-executable PT_LOAD segments and gaps in its half-open envelope;
+overlaps choose the first index. The sixteenth frame may match; the seventeenth
+is not read. Selected unreadable/invalid/nonincreasing-frame behavior is checked.
+Ownership can still return an id despite modeled open/write/sync/close failure,
+and later calls are suppressed; that id does not establish persisted blame.
+
+Independent source/control review and a retained-byte audit verify four inputs,
+57 commands, 114 streams, 70 artifacts and all 303 files. No old matrix or
+capture is replayed. Apple Clang targets ARM64 macOS: this is not a Linux SDK
+build or actual loader ABI test. ASan/UBSan covers the compiled fixture/extracted
+functions with leak detection disabled; no TSan, real signal, volatile-guard
+synchronization, durable logging, general race or lifetime proof follows.
+Raw source copies, generated includes, executables/debug files and logs remain
+private. Source and sanitized hashes/outcomes are shared.
+
+Next review the separate core generated-range contract: exact per-island-slot
+instruction coverage and trampoline extents, validated owner custody, bounded
+capacity/overlap refusal, signal-reader visibility before redirection, and
+every success/refusal/cleanup path. Failed prepublication cleanup must leave
+no stale attributable range; published records/code need permanent retention.
+Keep existing native PC/LR/frame precedence and quarantine protections. No
+registry or repair is implemented yet, and ownership is not fault causation.
+
+No hook, firmware, emulator/deck action, core installation, package/catalog
+change or release occurred. Real admission/current hook ownership, native
+provenance/control-flow scope, writer/topology/recovery and Local Library
+activation/lifetime gates remain unresolved. Main/live dispatch, stems staging,
+USB activation and every unresolved runtime/product gate stay CLOSED.
