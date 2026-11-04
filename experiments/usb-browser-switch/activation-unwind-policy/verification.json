@@ -1,0 +1,92 @@
+{
+  "actual_sdk_claim_or_installation": false,
+  "anonymous_cfi_requirement": "Conditional on interrupted-PC unwind scope; not inferred from ordinary body throws or normal signal return.",
+  "baseline_commit": "11703ad30f00d28beeae3f1849fe2b2514d88272",
+  "bounded_lexical_search": {
+    "comments_and_declarations_possible": true,
+    "line_local": true,
+    "sdk_files": 8,
+    "whole_program_absence_claim": false
+  },
+  "community_release": false,
+  "compiler_or_test_execution": false,
+  "counterexample_observed_at_runtime": false,
+  "date": "2026-11-04",
+  "fault_attribution_uses_dwarf": false,
+  "firmware_or_device_access": false,
+  "independent_retained_byte_audit": {
+    "audit_attempt": 1,
+    "audit_result_sha256": "29fbd2fa6fe620376e28b07d4b0f738c0dbbe566579c69e67e0f7079f1f973a0",
+    "audit_source_sha256": "c779e8e498d0541e7ce52f7ed5063e85fe2d7f5c09dcc3938fd4899f545bd5cc",
+    "collector_sha256": "c571d70bc4960b3410885148d77d8348a3c3526755b7127225f27be3c65126f4",
+    "completed_checks": 314,
+    "counts": {
+      "command_receipts": 11,
+      "command_specs": 11,
+      "commands": 11,
+      "pinned_sources": 11,
+      "raw_streams": 22,
+      "retained_files": 57,
+      "sdk_sources_searched": 8,
+      "signal_attribution_install_lexical_matches": 29,
+      "source_inputs": 12,
+      "unwind_nonlocal_exit_lexical_matches": 0
+    },
+    "current_sources_equal_snapshots": true,
+    "limitations": [
+      "No collector import/replay or Git subprocess was performed.",
+      "No compiler, test, firmware, device, signal or native hook execution.",
+      "Commit identity is bound by the retained git-show receipts and exact known source hashes; this audit does not rerun Git.",
+      "Lexical matches are line-local spellings, including possible declarations/comments; absence is not whole-program or runtime proof.",
+      "Privacy finding covers the exact schema/projection and retained content; it is not a general secret-discovery claim."
+    ],
+    "private_result_sha256": "e22d851e0c72f080e05b8f7e0a5db5994f8f68b3fc6ae8eeb864aee248616bfd",
+    "public_exact_projection": true,
+    "public_paths_and_raw_content_excluded": true,
+    "public_result_sha256": "4433aa4f824c9166c8f703e24e85a64690fa69c538b2fc734eaf7ab44b13374f",
+    "retained_inventory_sha256": "346d57330759f679c6b3affa145a771083703e7dc2d2fffbdbb110c669ba1b30",
+    "scope": "Independent byte-only audit of one retained bounded source capture.",
+    "status": "passed"
+  },
+  "limits": [
+    "No compiler, test matrix, signal-handler execution, live fault or native firmware observation in this review.",
+    "Existing manual frame/envelope attribution does not consume DWARF; generated FDEs alone would not fix the source-derived ownership gap.",
+    "Actual chained handlers, forced-unwind/nonlocal-exit policy and selected unwinder visibility remain unproved.",
+    "Exact SDK admission/live hook ownership, code/slot lifetime, writer/topology/recovery remain unresolved for passive attachment.",
+    "Local Library row/provider/readiness, actual arguments/owner scope, queued/destructive paths and post-callback timer lifetime remain activation gates.",
+    "Close is no quiescence, unpatch or reclamation; quarantine/watchdogs and every unresolved runtime/product gate remain intact."
+  ],
+  "new_core_patch_or_attribution_fixture": false,
+  "new_metadata_registration": false,
+  "new_source_sha256": {
+    ".gitignore": "d56537a93a9565b3322aa9bc821c9cc30a16303467032cade13b069e394cfddc",
+    "capture-source.py": "c571d70bc4960b3410885148d77d8348a3c3526755b7127225f27be3c65126f4"
+  },
+  "old_suites_replayed": false,
+  "parent_sources_changed": false,
+  "passive_capture_and_activation_gates_distinguished": true,
+  "private_result_sha256": "e22d851e0c72f080e05b8f7e0a5db5994f8f68b3fc6ae8eeb864aee248616bfd",
+  "public_result_sha256": "4433aa4f824c9166c8f703e24e85a64690fa69c538b2fc734eaf7ab44b13374f",
+  "retained_commands": 11,
+  "retained_files": 57,
+  "retained_inputs": 12,
+  "retained_output_streams": 22,
+  "review_readme_sha256": "6f9458b8eedb0c5ad628dd8aa5b23a5c4b57f5e5b26f59b9800c4de4ed7e9e90",
+  "runtime_gate": "CLOSED",
+  "schema": 1,
+  "scope": "Source-only anonymous-transfer unwind and generated-code fault-attribution policy review",
+  "sdk_commit": "3e0c5cb010454228f4ee63226b60d060494eeaae",
+  "source_capture_status": "captured",
+  "source_derived_counterexample": "On a first attribution attempt, an anonymous island/trampoline PC, native LR and native-only frame RAs all outside mod PT_LOAD envelopes miss existing cm_owner_of attribution despite a prior hook claim.",
+  "source_review": {
+    "collector_review": "passed",
+    "corrections": [
+      "Retain timeout and spawn-failure command receipts before first capture.",
+      "Describe cr_chain saved disposition and its conditional re-raise exactly.",
+      "Qualify normal signal return as restoring possibly handler-modified signal-frame state.",
+      "Constrain registration lock/writable-page claim to the target-unlock-to-publication insertion point.",
+      "State first-attribution and outside-all-envelopes assumptions explicitly."
+    ],
+    "source_claim_review": "passed"
+  }
+}

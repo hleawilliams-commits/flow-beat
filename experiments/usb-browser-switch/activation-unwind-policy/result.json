@@ -1,0 +1,383 @@
+{
+  "commands": [
+    {
+      "directory": "01-sdk-inline_hooks.c",
+      "name": "sdk-inline_hooks.c",
+      "receipt_sha256": "5259f4c005367506a165ea1c8240b0830a39c466ad9daee9c223a28611980bdd",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 19402,
+      "stdout_sha256": "f141b383c25e66c8acb1839280832a612a6ee0e25e9ada59f374ccbef8f81908"
+    },
+    {
+      "directory": "02-sdk-azprot.h",
+      "name": "sdk-azprot.h",
+      "receipt_sha256": "ede0a2437b35b1711ff737fbf8e5a51f799c1d1b9eec43989740b1affe10ae14",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 5296,
+      "stdout_sha256": "0f1cc9c5d4ca212f798bf2e9d74a69507a82ce5cc59bd328bacc46816a119b33"
+    },
+    {
+      "directory": "03-sdk-azmod-mod.h",
+      "name": "sdk-azmod-mod.h",
+      "receipt_sha256": "8f71974021142b4b972f7f0426d7d37dc7575cb268082fa8e7c69aaa0fdcc93f",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 32149,
+      "stdout_sha256": "b94e2ba6656c2b852f18691d32225486f29265953c8bf09dcac9a18ce561a630"
+    },
+    {
+      "directory": "04-sdk-community.c",
+      "name": "sdk-community.c",
+      "receipt_sha256": "8d55fd562ab0f0a8b8fb9088d6ad0ac031c7b4f41f113b22927461a6f7989b96",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 102070,
+      "stdout_sha256": "4b2b72e2b623dcb1ecb0ef108a473815adab45a516a6aa13adb6cce512b80866"
+    },
+    {
+      "directory": "05-sdk-crash_guards.c",
+      "name": "sdk-crash_guards.c",
+      "receipt_sha256": "1dfea636e5203fb515f0b2ab1d4885a41865d76e0e2bddd4b7e4b70dc9af7e6c",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 23133,
+      "stdout_sha256": "358499ca5bccf3f71944ce408c02fa76b598ba5c81e81d4a2151b6d5e38727ab"
+    },
+    {
+      "directory": "06-sdk-azmod.c",
+      "name": "sdk-azmod.c",
+      "receipt_sha256": "9c0f8b288ea9417665ef351e11af7a2c389a86c38cd9e0bb59be9be3bf1c255b",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 138282,
+      "stdout_sha256": "d4fc94472f507694720cb122064f4f571ed41c3a531f67cc64f81795c4a9cf78"
+    },
+    {
+      "directory": "07-sdk-azaltstack.h",
+      "name": "sdk-azaltstack.h",
+      "receipt_sha256": "20f4f83837d4fdb21c66c64d5d24369f00ac8e1960b2854cd1ff5d22798f91b1",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 4275,
+      "stdout_sha256": "f929777434f77e31a91055588e897158d6bfd8c6adc993dde0eeeca04eccbd4c"
+    },
+    {
+      "directory": "08-sdk-ep_mem.h",
+      "name": "sdk-ep_mem.h",
+      "receipt_sha256": "683e43cf5466987f2009a98c4127ac224e9f644255bdb3c2c51fcff4a2c2d908",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 10147,
+      "stdout_sha256": "aa1e4a60ea05ff2b00f53c37634f3614fc51ecfd6dac500b2b59ee86dcbb6e5d"
+    },
+    {
+      "directory": "09-local-entry.S",
+      "name": "local-entry.S",
+      "receipt_sha256": "4f4d11e91da5f712eb1aa0deb4d55aaebf8073563ba8e986e897319eb2050217",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 5843,
+      "stdout_sha256": "95c4936e1e2530f9e0d60ea6642b7ce8ca1203480986050d96a130c581da22d1"
+    },
+    {
+      "directory": "10-local-observer.cpp",
+      "name": "local-observer.cpp",
+      "receipt_sha256": "3ac5ab4f40fc8c56df78c5a1f95008f270eec028005f6c39cbdd7332ae8c4ed4",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 4241,
+      "stdout_sha256": "0969955fb87f47f2fc909a1a4419bf0ec9ad2ac1b91244c60df8908f5c4ebd03"
+    },
+    {
+      "directory": "11-local-binding.cpp",
+      "name": "local-binding.cpp",
+      "receipt_sha256": "055007524bcb9a93e54d85a2db88b7273d0f311a046e8f326c5c6f608827e014",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 3546,
+      "stdout_sha256": "de9e83210510523cca7be6096eac3b53e32af73442167546b7469a72a5287163"
+    }
+  ],
+  "compiler_or_test_execution": false,
+  "firmware_or_device_access": false,
+  "inputs": {
+    "capture-source.py": {
+      "bytes": 5639,
+      "lines": 120,
+      "origin": "new-review-capture",
+      "sha256": "c571d70bc4960b3410885148d77d8348a3c3526755b7127225f27be3c65126f4"
+    },
+    "local/experiments/usb-browser-switch/activation-binding-composition/binding.cpp": {
+      "bytes": 3546,
+      "lines": 100,
+      "origin": "11703ad30f00d28beeae3f1849fe2b2514d88272",
+      "sha256": "de9e83210510523cca7be6096eac3b53e32af73442167546b7469a72a5287163"
+    },
+    "local/experiments/usb-browser-switch/activation-binding-composition/entry.S": {
+      "bytes": 5843,
+      "lines": 249,
+      "origin": "11703ad30f00d28beeae3f1849fe2b2514d88272",
+      "sha256": "95c4936e1e2530f9e0d60ea6642b7ce8ca1203480986050d96a130c581da22d1"
+    },
+    "local/experiments/usb-browser-switch/activation-binding-composition/observer.cpp": {
+      "bytes": 4241,
+      "lines": 118,
+      "origin": "11703ad30f00d28beeae3f1849fe2b2514d88272",
+      "sha256": "0969955fb87f47f2fc909a1a4419bf0ec9ad2ac1b91244c60df8908f5c4ebd03"
+    },
+    "sdk/src/azmod/azmod-mod.h": {
+      "bytes": 32149,
+      "lines": 484,
+      "origin": "3e0c5cb010454228f4ee63226b60d060494eeaae",
+      "sha256": "b94e2ba6656c2b852f18691d32225486f29265953c8bf09dcac9a18ce561a630"
+    },
+    "sdk/src/azmod/azmod.c": {
+      "bytes": 138282,
+      "lines": 2887,
+      "origin": "3e0c5cb010454228f4ee63226b60d060494eeaae",
+      "sha256": "d4fc94472f507694720cb122064f4f571ed41c3a531f67cc64f81795c4a9cf78"
+    },
+    "sdk/src/azmod/community.c": {
+      "bytes": 102070,
+      "lines": 2277,
+      "origin": "3e0c5cb010454228f4ee63226b60d060494eeaae",
+      "sha256": "4b2b72e2b623dcb1ecb0ef108a473815adab45a516a6aa13adb6cce512b80866"
+    },
+    "sdk/src/azmod/crash_guards.c": {
+      "bytes": 23133,
+      "lines": 547,
+      "origin": "3e0c5cb010454228f4ee63226b60d060494eeaae",
+      "sha256": "358499ca5bccf3f71944ce408c02fa76b598ba5c81e81d4a2151b6d5e38727ab"
+    },
+    "sdk/src/azmod/ep_mem.h": {
+      "bytes": 10147,
+      "lines": 219,
+      "origin": "3e0c5cb010454228f4ee63226b60d060494eeaae",
+      "sha256": "aa1e4a60ea05ff2b00f53c37634f3614fc51ecfd6dac500b2b59ee86dcbb6e5d"
+    },
+    "sdk/src/azmod/inline_hooks.c": {
+      "bytes": 19402,
+      "lines": 380,
+      "origin": "3e0c5cb010454228f4ee63226b60d060494eeaae",
+      "sha256": "f141b383c25e66c8acb1839280832a612a6ee0e25e9ada59f374ccbef8f81908"
+    },
+    "sdk/src/common/azaltstack.h": {
+      "bytes": 4275,
+      "lines": 109,
+      "origin": "3e0c5cb010454228f4ee63226b60d060494eeaae",
+      "sha256": "f929777434f77e31a91055588e897158d6bfd8c6adc993dde0eeeca04eccbd4c"
+    },
+    "sdk/src/common/azprot.h": {
+      "bytes": 5296,
+      "lines": 147,
+      "origin": "3e0c5cb010454228f4ee63226b60d060494eeaae",
+      "sha256": "0f1cc9c5d4ca212f798bf2e9d74a69507a82ce5cc59bd328bacc46816a119b33"
+    }
+  },
+  "limitations": [
+    "Source capture and lexical matching only; no compiler, test, firmware, emulator, device, handler or hook execution.",
+    "Line-local lexical spellings may be declarations/comments and omit multiline, indirect or aliased calls; no whole-program absence claim.",
+    "Raw command arguments/outcomes and source snapshots remain private.",
+    "Source-derived attribution counterexample is conditional reasoning, not an observed fault or recovery proof.",
+    "All existing runtime and product gates remain closed."
+  ],
+  "local_commit": "11703ad30f00d28beeae3f1849fe2b2514d88272",
+  "private_result_sha256": "e22d851e0c72f080e05b8f7e0a5db5994f8f68b3fc6ae8eeb864aee248616bfd",
+  "retained_capture_files": 57,
+  "retained_commands": 11,
+  "retained_output_streams": 22,
+  "retained_source_files": 12,
+  "schema": 1,
+  "scope": "Eight exact SDK source files plus three frozen observer sources; lexical calls are not whole-program/runtime evidence.",
+  "sdk_commit": "3e0c5cb010454228f4ee63226b60d060494eeaae",
+  "searches": {
+    "named_unwind_nonlocal_exit_calls": {
+      "matches": [],
+      "pattern": "\\b(?:_Unwind_\\w+|__register_frame\\w*|__deregister_frame\\w*|backtrace|sigsetjmp|siglongjmp|setjmp|longjmp|pthread_cancel|pthread_setcancel\\w*)\\s*\\(",
+      "scope_files": [
+        "src/azmod/inline_hooks.c",
+        "src/common/azprot.h",
+        "src/azmod/azmod-mod.h",
+        "src/azmod/community.c",
+        "src/azmod/crash_guards.c",
+        "src/azmod/azmod.c",
+        "src/common/azaltstack.h",
+        "src/azmod/ep_mem.h"
+      ]
+    },
+    "signal_attribution_and_install_sites": {
+      "matches": [
+        {
+          "file": "src/azmod/inline_hooks.c",
+          "line": 150,
+          "line_sha256": "7f5377dcd13562251509dd1b72de2e9ac2011611dc9dbe7cfca98b06a3d88590"
+        },
+        {
+          "file": "src/azmod/inline_hooks.c",
+          "line": 272,
+          "line_sha256": "04aefa715e98b0fcb34110088c1bcbe27c34d84658a5edcbbd3ae29f499082f9"
+        },
+        {
+          "file": "src/azmod/inline_hooks.c",
+          "line": 274,
+          "line_sha256": "07a43dd5cdb193ff89805ac05a8d12bdd7e40b905f3c3b5e496fcbe5508e3bc0"
+        },
+        {
+          "file": "src/azmod/inline_hooks.c",
+          "line": 340,
+          "line_sha256": "05ec6e1a10d56377ebc59f4e977fdd9efcae6f3efd414cb91a06ba0ae2f8cd47"
+        },
+        {
+          "file": "src/azmod/inline_hooks.c",
+          "line": 358,
+          "line_sha256": "4a5412bc2537a4579ee60a75b45d7c777c51994c573830ac993f3be8670d663a"
+        },
+        {
+          "file": "src/azmod/community.c",
+          "line": 1226,
+          "line_sha256": "2e69fb3ed32a2e30d1c6cdac0a52dfa1f2f4be72dc9304e274e4863544627e60"
+        },
+        {
+          "file": "src/azmod/community.c",
+          "line": 1533,
+          "line_sha256": "b1898e78caa4a1ae54b2118bc92ae8aad1efc74713814b6d93f451fb9288f188"
+        },
+        {
+          "file": "src/azmod/community.c",
+          "line": 1557,
+          "line_sha256": "838ec7efa570a9615f08d2fd99fc15029dd7c7e5b51360d5641ef4148c53bae5"
+        },
+        {
+          "file": "src/azmod/community.c",
+          "line": 1561,
+          "line_sha256": "c335ba0a08f2f4e44278ba67ca9c585ee296df12b74cc7483c0ac74c2e95374e"
+        },
+        {
+          "file": "src/azmod/community.c",
+          "line": 1565,
+          "line_sha256": "a950989187f4f1e017d1cd1344c73afe63070594efd9d2117c3eb92ee0e3fd36"
+        },
+        {
+          "file": "src/azmod/community.c",
+          "line": 1566,
+          "line_sha256": "adaf44b7923934a684b6e31d1377774d12db8fbccc337adeeebc0f8dc0ae4bca"
+        },
+        {
+          "file": "src/azmod/community.c",
+          "line": 1569,
+          "line_sha256": "b8c4208f42678531dc824773e0388f745d5fbf78259db650695808813ea1a49d"
+        },
+        {
+          "file": "src/azmod/community.c",
+          "line": 1570,
+          "line_sha256": "e5d313ae3276cf764ab0a8b06ef314da003d3024474c58677358db9d611f7c4c"
+        },
+        {
+          "file": "src/azmod/community.c",
+          "line": 1588,
+          "line_sha256": "32725701cd5eba3c4412af08c347d41ee860debbf5ba0d15a16f813750a66a1b"
+        },
+        {
+          "file": "src/azmod/community.c",
+          "line": 1600,
+          "line_sha256": "c2217e56db07cea1a2d70fd208a65eb0fe59993667ac1ac21e2131bf0d987afa"
+        },
+        {
+          "file": "src/azmod/crash_guards.c",
+          "line": 167,
+          "line_sha256": "edae7eb9a0716281f9ff3917e7d410ba69f494bffd6b10c67547c1a0041a1f5a"
+        },
+        {
+          "file": "src/azmod/crash_guards.c",
+          "line": 303,
+          "line_sha256": "ea8f008808f9186dc5920a458d3b154e1f45d246193bed9951584f3884b7947e"
+        },
+        {
+          "file": "src/azmod/crash_guards.c",
+          "line": 305,
+          "line_sha256": "ddd19b45a137c1fdc11592ba7c06a392e32a7e12bb6e43271484a36671509f62"
+        },
+        {
+          "file": "src/azmod/crash_guards.c",
+          "line": 309,
+          "line_sha256": "bd9ae35a6314168577a03209117b3481b355b58668d1e1e65c549af210699e78"
+        },
+        {
+          "file": "src/azmod/crash_guards.c",
+          "line": 331,
+          "line_sha256": "e9d3f82e2c1ad0a70f395900a672599209c739843e50720f7673057a63af6402"
+        },
+        {
+          "file": "src/azmod/crash_guards.c",
+          "line": 363,
+          "line_sha256": "675175b921d7cedbbe06a0c09ff4272c86cb4cf0083a58828d02ece49bf0ea53"
+        },
+        {
+          "file": "src/azmod/crash_guards.c",
+          "line": 373,
+          "line_sha256": "2ca1f56bff8207e8bdef08307d963d4ba45b28500159acbf2400199255971310"
+        },
+        {
+          "file": "src/azmod/crash_guards.c",
+          "line": 447,
+          "line_sha256": "499fde02f92c3117f28fe0f3da78069d187388416bd330388995fdfd9d270aef"
+        },
+        {
+          "file": "src/azmod/crash_guards.c",
+          "line": 481,
+          "line_sha256": "4e9c59bcfcc6100341a88b8ff77e5eb92f4ce3f0150543054b925805c1ea5d26"
+        },
+        {
+          "file": "src/azmod/crash_guards.c",
+          "line": 484,
+          "line_sha256": "eb2fb0413f558dd7dbc3fbc265be1e1e703f58d0e5be0670f880754acdbdb2ae"
+        },
+        {
+          "file": "src/azmod/crash_guards.c",
+          "line": 502,
+          "line_sha256": "88327d747103e22e184570d528d6d421abb447d6ae8f2fd4231e81d208ad74d4"
+        },
+        {
+          "file": "src/azmod/crash_guards.c",
+          "line": 525,
+          "line_sha256": "71680a47cd403b262a2fa03bb1971df79614821ab4848da5083b5b80389c7d9a"
+        },
+        {
+          "file": "src/azmod/azmod.c",
+          "line": 2621,
+          "line_sha256": "f79bc75e796ead7351c29b4d0a9954e3bb648f1e1875ff44e6358837d69eebe7"
+        },
+        {
+          "file": "src/azmod/ep_mem.h",
+          "line": 105,
+          "line_sha256": "1d228d08081ab8816cf6d49d0d8cd04a0a2b2b64c45d21cc135fae63b2f74f49"
+        }
+      ],
+      "pattern": "\\b(?:cm_owner_of|cm_blame_fault|cm_crash|cr_handler|cr_chain|cr_rearm|cm_claim_hook|azm_install_hook_at|azm_note_hooked|cr_read8|crash_peek8|az_altstack_install|az_install_segv)\\s*\\(",
+      "scope_files": [
+        "src/azmod/inline_hooks.c",
+        "src/common/azprot.h",
+        "src/azmod/azmod-mod.h",
+        "src/azmod/community.c",
+        "src/azmod/crash_guards.c",
+        "src/azmod/azmod.c",
+        "src/common/azaltstack.h",
+        "src/azmod/ep_mem.h"
+      ]
+    }
+  },
+  "status": "captured"
+}

@@ -1804,3 +1804,52 @@ adapter. No native pointee/post-return read, return interception, cross-entry
 pairing, application/emulator/device action, package or release is added.
 All writer/recovery, USB activation, stems staging and runtime gates remain
 CLOSED. Do not replay this passing matrix or its predecessors unchanged.
+
+## November 4: anonymous transfer policy and generated-code attribution
+
+The [new source-only review](../experiments/usb-browser-switch/activation-unwind-policy/)
+resolves a distinction left open by the authored transfer fixture. Ordinary
+body exceptions after tail transfer and normal signal return do not require
+unwinding anonymous transfer PCs. Interrupted-PC stack walking remains
+unsupported, while nonlocal exits/forced unwind through the noexcept helper
+are separate unresolved contracts. No new handler, unwinder, core patch,
+fixture, adapter or native observation is implemented.
+
+The exact SDK crash reporter and blame path walk PC/LR and x29-linked frame
+records, then look up module PT_LOAD envelopes. They do not use DWARF. The
+installer records claimed native functions but no generated-range ownership.
+A first-attribution attempt with an island/trampoline PC, native LR and native
+frame chain all outside mod envelopes therefore misses attribution even after
+a successful claim. This is a conditional source counterexample, not a
+witnessed crash, fault-causation result or quarantine reset.
+
+The SDK has no generated-range preparation receipt. If precise anonymous-PC
+unwind is required later, registration must precede reachability and account
+for cleanup that frees a trampoline before publication, and for the concrete
+target-unlock-to-publication interval holding protection/claim locks. Closing
+capture does not remove the transfer route or establish quiescence.
+
+The bounded capture retains twelve inputs, eleven pinned Git source reads,
+twenty-two output streams and fifty-seven files privately. Independent source
+review and a retained-byte audit verify the evidence without re-executing the
+collector or any prior matrix. The lexical search covers only the eight
+captured SDK files and establishes no whole-program absence. Source and
+sanitized receipts are shared; raw sources/commands remain private.
+
+Next add a separate offline attribution-contract fixture around the exact
+existing ownership/frame-selection logic and synthetic owned records. Preserve
+PC/LR/frame precedence, unreadable-frame truncation and envelope-gap limits.
+Only then review a core-owned per-island-slot/trampoline-range registry with
+publication-before-reachability, failure retention, signal-reader lifetime and
+explicit capacity/overlap refusal. Attribution is ownership, not causation.
+This proposal does not fix or replace the unwind contract.
+
+Register-only passive capture and activation have different prerequisites:
+opaque pointer/register copies need no native pointee dereference, but live
+image/entry provenance, actual SDK admission/hook ownership, stable code/originals,
+accepted control-flow scope and writer/topology/recovery safeguards are still
+missing. Final Local Library row/provider/readiness, arguments and operation
+ownership, alternate destructive/queued paths and post-callback timer lifetime
+remain activation gates. No firmware/emulator/deck access, code installation,
+package/catalog change or release occurred. Main/live dispatch, stems staging,
+USB activation and every unresolved runtime/product gate remain CLOSED.
