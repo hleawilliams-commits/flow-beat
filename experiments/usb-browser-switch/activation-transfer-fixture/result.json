@@ -1,0 +1,2318 @@
+{
+  "actual_community_claim_or_native_firmware_hook": false,
+  "actual_sdk_installer_on_authored_targets": true,
+  "artifacts": [
+    {
+      "bytes": 162,
+      "path": "build/sanitizer-probe/probe.cpp",
+      "sha256": "7b4df98a2ba3d4807ff1512a00d9fbb7150fcf7bea07738ccc70a3c495a060bd"
+    },
+    {
+      "bytes": 25480,
+      "path": "build/sanitizer-probe/probe",
+      "sha256": "134e6a376b4a66034072a0c52a5bd13d06bcb3368107ae7bf89f7e7125958d71"
+    },
+    {
+      "bytes": 4144,
+      "path": "build/candidate/plain/entry.o",
+      "sha256": "08a590bc165d5d29bf85467e5236be840b9e3f9b6b23b16fa55af02adf01e0d9"
+    },
+    {
+      "bytes": 3248,
+      "path": "build/candidate/plain/fixture.o",
+      "sha256": "0950e67092ea3bb35531fcffc156e459dd29a710aedeee2b6fad04536fe3daf1"
+    },
+    {
+      "bytes": 63304,
+      "path": "build/candidate/plain/bridge.o",
+      "sha256": "26ebc001fd8692224456cc297908ed4b8d6b114f32766fc59a96cc757aa3db75"
+    },
+    {
+      "bytes": 147152,
+      "path": "build/candidate/plain/observer.o",
+      "sha256": "a13c124849c186585fad96b74dcb72bc3fa44e474404099edcf69578f80a051c"
+    },
+    {
+      "bytes": 152088,
+      "path": "build/candidate/plain/binding.o",
+      "sha256": "7a3703e900f884b71ce7d9d260decfe01415d38c883d87514317c34f14fd0fa9"
+    },
+    {
+      "bytes": 416040,
+      "path": "build/candidate/plain/test_transfer.o",
+      "sha256": "f218f7d7c2fedef0f642f4a0b6279ba9fab8190a00ef81fcc9a061c2fcef7c50"
+    },
+    {
+      "bytes": 387632,
+      "path": "build/candidate/plain/test-transfer",
+      "sha256": "41c65822c6ecdfc3754b6dc9f7887371aff0cc3ffa6364291dc1287f79719937"
+    },
+    {
+      "bytes": 2526,
+      "path": "build/candidate/plain/fixture-disassembly.txt",
+      "sha256": "91ccee5a633b566771922ab3c3bd284f346e1fcd020942f40601af963d123ba1"
+    },
+    {
+      "bytes": 1141,
+      "path": "build/candidate/plain/fixture-frames.txt",
+      "sha256": "fbc78e872f3b7b56f051e9f48d0c7af4f1cb171edf89674151b4453a9c963a0e"
+    },
+    {
+      "bytes": 25476,
+      "path": "build/candidate/plain/linked-metadata.txt",
+      "sha256": "be14853db7b94ab935a316d615512573fe4c15221b9542905614c3c006e01233"
+    },
+    {
+      "bytes": 1906,
+      "path": "build/candidate/plain/bridge-symbols.txt",
+      "sha256": "9141081574c556c02916f7f0916651691906f936f976b20ee3448766a932cab9"
+    },
+    {
+      "bytes": 902,
+      "path": "build/candidate/plain/native-metadata.json",
+      "sha256": "37bbadea213e8e3e0d824fc872d706ac573c9ec03b7e40c97ed8cff074b19e15"
+    },
+    {
+      "bytes": 1940,
+      "path": "evidence/candidate/plain/action-return/report.json",
+      "sha256": "218f8eec9eaf68844321bf96824056456476ac9a275fadb9ae29eeb2c2475540"
+    },
+    {
+      "bytes": 1940,
+      "path": "evidence/candidate/plain/service-return/report.json",
+      "sha256": "9363acc3750e60127b1fa5dc89f680777c41452150732892bd49a33a4d7858ee"
+    },
+    {
+      "bytes": 1918,
+      "path": "evidence/candidate/plain/action-throw/report.json",
+      "sha256": "d3dc42b1823df1dbc8c9f215e5ff9fc167ddd4b366eeeb99a589d354616f258f"
+    },
+    {
+      "bytes": 1919,
+      "path": "evidence/candidate/plain/service-throw/report.json",
+      "sha256": "4de5ea1163a6710042b2be3f550a9deaa2d90f85a829abb8c10fc002690328aa"
+    },
+    {
+      "bytes": 4144,
+      "path": "build/candidate/asan-ubsan/entry.o",
+      "sha256": "08a590bc165d5d29bf85467e5236be840b9e3f9b6b23b16fa55af02adf01e0d9"
+    },
+    {
+      "bytes": 3248,
+      "path": "build/candidate/asan-ubsan/fixture.o",
+      "sha256": "0950e67092ea3bb35531fcffc156e459dd29a710aedeee2b6fad04536fe3daf1"
+    },
+    {
+      "bytes": 156304,
+      "path": "build/candidate/asan-ubsan/bridge.o",
+      "sha256": "eb1c74edb3ff10131e633b5391f2c62ab073fa63e0d7acd11f62eb09fcf50e5a"
+    },
+    {
+      "bytes": 164232,
+      "path": "build/candidate/asan-ubsan/observer.o",
+      "sha256": "5e3e4404fdc1868882429a723907205437e7ac61c0bfffd0c58ad5794fe4f5d4"
+    },
+    {
+      "bytes": 168152,
+      "path": "build/candidate/asan-ubsan/binding.o",
+      "sha256": "c7447cd1593519d364c0cb0e32ea243b853cace3ba9bed2cc676db4ae6f3a9d1"
+    },
+    {
+      "bytes": 510880,
+      "path": "build/candidate/asan-ubsan/test_transfer.o",
+      "sha256": "562e7eb01684f9c92a6bad96855754ed47a62f7bddf6e093f86c956075d40e1b"
+    },
+    {
+      "bytes": 516544,
+      "path": "build/candidate/asan-ubsan/test-transfer",
+      "sha256": "b7b3375e5059154618786874dcfe6a8e6f74467f86f54aa11418b71877700aed"
+    },
+    {
+      "bytes": 2531,
+      "path": "build/candidate/asan-ubsan/fixture-disassembly.txt",
+      "sha256": "f314827504c2e0c819394e5fd6301c8b8bb2668ea2457dcde7b3d95813df9ce5"
+    },
+    {
+      "bytes": 1141,
+      "path": "build/candidate/asan-ubsan/fixture-frames.txt",
+      "sha256": "fbc78e872f3b7b56f051e9f48d0c7af4f1cb171edf89674151b4453a9c963a0e"
+    },
+    {
+      "bytes": 35764,
+      "path": "build/candidate/asan-ubsan/linked-metadata.txt",
+      "sha256": "e972b7cf52427f3749c767bc57cd1f5f8f0a3ad7ebe41a3a927fec6b89646200"
+    },
+    {
+      "bytes": 3377,
+      "path": "build/candidate/asan-ubsan/bridge-symbols.txt",
+      "sha256": "2a389eff0565870fd7fad51fb2256b1621e0f4ce60b92d31604231671148d545"
+    },
+    {
+      "bytes": 902,
+      "path": "build/candidate/asan-ubsan/native-metadata.json",
+      "sha256": "37bbadea213e8e3e0d824fc872d706ac573c9ec03b7e40c97ed8cff074b19e15"
+    },
+    {
+      "bytes": 1940,
+      "path": "evidence/candidate/asan-ubsan/action-return/report.json",
+      "sha256": "5031ed5835e355a85b0667d7948cbb50f43680fdc9043540c131d3bb3afaca26"
+    },
+    {
+      "bytes": 1940,
+      "path": "evidence/candidate/asan-ubsan/service-return/report.json",
+      "sha256": "1ca83adec735e1a45e2e7532b44dc06db98ab402d951755e233c969a1c9bc80e"
+    },
+    {
+      "bytes": 1918,
+      "path": "evidence/candidate/asan-ubsan/action-throw/report.json",
+      "sha256": "dffdebf44cadd178291392e98cf1c350588e0b7e46cdad310287ebade9ed90f0"
+    },
+    {
+      "bytes": 1919,
+      "path": "evidence/candidate/asan-ubsan/service-throw/report.json",
+      "sha256": "facdfdee591d8faf79160c43d0848d3cc045bfe96da2effb4481e8f4c993cc90"
+    },
+    {
+      "bytes": 4208,
+      "path": "build/installer-x16-scratch/plain/entry.o",
+      "sha256": "1ee12a63b8ad94f91f22133e3d9dcf2e30bb17728deaf9d340569b5c0d6c2c85"
+    },
+    {
+      "bytes": 3312,
+      "path": "build/installer-x16-scratch/plain/fixture.o",
+      "sha256": "ac66a92028252f4fac7087cde23b4f1ee983635ddc018f077f24f66504bb488c"
+    },
+    {
+      "bytes": 63432,
+      "path": "build/installer-x16-scratch/plain/bridge.o",
+      "sha256": "be807dfc81ff522d21054fb7061e0644cd484f76d08398d20c543e567f5c8feb"
+    },
+    {
+      "bytes": 147216,
+      "path": "build/installer-x16-scratch/plain/observer.o",
+      "sha256": "76aa1ade9db96964433c62c4b80a7eab1e9e348f1f7fe6721d50c9e5c4e89242"
+    },
+    {
+      "bytes": 152144,
+      "path": "build/installer-x16-scratch/plain/binding.o",
+      "sha256": "7b588b1dcf3745c19fbf05357be6124b5c112a125555b00e452d6347ccb20c87"
+    },
+    {
+      "bytes": 416104,
+      "path": "build/installer-x16-scratch/plain/test_transfer.o",
+      "sha256": "17a6f3a2a02cc3c2662056d87ee8a768454b047675fb916a4f80e1fec5156666"
+    },
+    {
+      "bytes": 388088,
+      "path": "build/installer-x16-scratch/plain/test-transfer",
+      "sha256": "6be7bd6e94e2471dc9fe7d50c46253e808a71cb6f1657877b8687bba6a5f085f"
+    },
+    {
+      "bytes": 2538,
+      "path": "build/installer-x16-scratch/plain/fixture-disassembly.txt",
+      "sha256": "8e741339b74be0b562138b4c96a40880e6a09bcdda42ce483108aeec579dd273"
+    },
+    {
+      "bytes": 1141,
+      "path": "build/installer-x16-scratch/plain/fixture-frames.txt",
+      "sha256": "fbc78e872f3b7b56f051e9f48d0c7af4f1cb171edf89674151b4453a9c963a0e"
+    },
+    {
+      "bytes": 25500,
+      "path": "build/installer-x16-scratch/plain/linked-metadata.txt",
+      "sha256": "60600d90c436b9cbdd344b62a5d6047b62ab20ff58a385ea34004026bfcac7f3"
+    },
+    {
+      "bytes": 1906,
+      "path": "build/installer-x16-scratch/plain/bridge-symbols.txt",
+      "sha256": "9141081574c556c02916f7f0916651691906f936f976b20ee3448766a932cab9"
+    },
+    {
+      "bytes": 902,
+      "path": "build/installer-x16-scratch/plain/native-metadata.json",
+      "sha256": "37bbadea213e8e3e0d824fc872d706ac573c9ec03b7e40c97ed8cff074b19e15"
+    },
+    {
+      "bytes": 1929,
+      "path": "evidence/installer-x16-scratch/plain/action-return/report.json",
+      "sha256": "7ca744e71f6ad9f96a2f775ff3019c2df9bd04e141b969d56d7b8f94d356be53"
+    },
+    {
+      "bytes": 1929,
+      "path": "evidence/installer-x16-scratch/plain/service-return/report.json",
+      "sha256": "d80e219554918f3e7e4213c857e41063c8c25c8a2ad8172fd748a95e45d1ba73"
+    },
+    {
+      "bytes": 1907,
+      "path": "evidence/installer-x16-scratch/plain/action-throw/report.json",
+      "sha256": "46b4d725d4bbd46a9e8a8e7ff30a7c6b43e161db6d77d5c7afdd8d9759d815ea"
+    },
+    {
+      "bytes": 1908,
+      "path": "evidence/installer-x16-scratch/plain/service-throw/report.json",
+      "sha256": "e0bca6b21f7d19b2c2adab81e9bfd1f8c01396c46862fb8bc34f1c08a5447f49"
+    },
+    {
+      "bytes": 4208,
+      "path": "build/installer-x16-scratch/asan-ubsan/entry.o",
+      "sha256": "1ee12a63b8ad94f91f22133e3d9dcf2e30bb17728deaf9d340569b5c0d6c2c85"
+    },
+    {
+      "bytes": 3312,
+      "path": "build/installer-x16-scratch/asan-ubsan/fixture.o",
+      "sha256": "ac66a92028252f4fac7087cde23b4f1ee983635ddc018f077f24f66504bb488c"
+    },
+    {
+      "bytes": 156528,
+      "path": "build/installer-x16-scratch/asan-ubsan/bridge.o",
+      "sha256": "613dc46a8d648f201f2614c1a78977675925efc528e4981fe4b90598f42ce011"
+    },
+    {
+      "bytes": 164328,
+      "path": "build/installer-x16-scratch/asan-ubsan/observer.o",
+      "sha256": "ad09005396e6b8932cafd53f81a427dda05f7abe3429000a2e3429a986dd1604"
+    },
+    {
+      "bytes": 168240,
+      "path": "build/installer-x16-scratch/asan-ubsan/binding.o",
+      "sha256": "edf7f1fb8907d5f514dae8f29af63c899fcaa2e6876649de021d5c87ddff4d57"
+    },
+    {
+      "bytes": 510976,
+      "path": "build/installer-x16-scratch/asan-ubsan/test_transfer.o",
+      "sha256": "a7ca298d87f9de49c737488af3975354bfdbebdeece9211a3bbb2c660c4935ae"
+    },
+    {
+      "bytes": 517008,
+      "path": "build/installer-x16-scratch/asan-ubsan/test-transfer",
+      "sha256": "7f182f614eeff89c6e4a1c94c0672d8db9e92e0edc254679764034e0845abb9c"
+    },
+    {
+      "bytes": 2543,
+      "path": "build/installer-x16-scratch/asan-ubsan/fixture-disassembly.txt",
+      "sha256": "97e486ef88ea79b1777327269a030b4c6f94d301b58ccd6179abf1f0d3659d7b"
+    },
+    {
+      "bytes": 1141,
+      "path": "build/installer-x16-scratch/asan-ubsan/fixture-frames.txt",
+      "sha256": "fbc78e872f3b7b56f051e9f48d0c7af4f1cb171edf89674151b4453a9c963a0e"
+    },
+    {
+      "bytes": 35788,
+      "path": "build/installer-x16-scratch/asan-ubsan/linked-metadata.txt",
+      "sha256": "39af114192d2f92017adbc4b03223a5439427b29ccfd1944739d8efaa0447ced"
+    },
+    {
+      "bytes": 3377,
+      "path": "build/installer-x16-scratch/asan-ubsan/bridge-symbols.txt",
+      "sha256": "2a389eff0565870fd7fad51fb2256b1621e0f4ce60b92d31604231671148d545"
+    },
+    {
+      "bytes": 902,
+      "path": "build/installer-x16-scratch/asan-ubsan/native-metadata.json",
+      "sha256": "37bbadea213e8e3e0d824fc872d706ac573c9ec03b7e40c97ed8cff074b19e15"
+    },
+    {
+      "bytes": 1929,
+      "path": "evidence/installer-x16-scratch/asan-ubsan/action-return/report.json",
+      "sha256": "5cec6dcc236ab5b2609cfd83d26b233394a6fef8fe1c65df3ad8fcb4357ed12c"
+    },
+    {
+      "bytes": 1929,
+      "path": "evidence/installer-x16-scratch/asan-ubsan/service-return/report.json",
+      "sha256": "5b369b773f049907adc14d5d1dd16deda74af9288365c458faff36f2c3d125fa"
+    },
+    {
+      "bytes": 1907,
+      "path": "evidence/installer-x16-scratch/asan-ubsan/action-throw/report.json",
+      "sha256": "2dda272a8d4e60d79d910ad4e970d5a5c155cf80f4be74e529d05b7f42914f09"
+    },
+    {
+      "bytes": 1908,
+      "path": "evidence/installer-x16-scratch/asan-ubsan/service-throw/report.json",
+      "sha256": "bdd65d83dec915c7e79f97863f3752b7a08aa0465e56b08f1dadf4e21231160a"
+    },
+    {
+      "bytes": 3304,
+      "path": "build/wrong-action-cfa/fixture.o",
+      "sha256": "f3b1b9bbad88d1734640f6c961da34fe5bf929f31184e0dc42faf0a50d5adc05"
+    },
+    {
+      "bytes": 1141,
+      "path": "build/wrong-action-cfa/fixture-frames.txt",
+      "sha256": "9d658ac0c282ede682a7ad89f99154e318dbc5cad1db2eb0164eb94abd63e3d1"
+    },
+    {
+      "bytes": 946,
+      "path": "build/wrong-action-cfa/metadata-rejection.json",
+      "sha256": "341bba7b4126f47d895078e1d2f5d50f5eea3034c8e80777252fc3df1a1d122b"
+    },
+    {
+      "bytes": 3304,
+      "path": "build/wrong-service-cfa/fixture.o",
+      "sha256": "0bec53de2349d717f5395663770e76aed86edcac8aff80dfaa46292cf954cb79"
+    },
+    {
+      "bytes": 1141,
+      "path": "build/wrong-service-cfa/fixture-frames.txt",
+      "sha256": "308c86a487804c852a81022eb6102807ae599292951cdcda4d3a6e40c2ce5ffe"
+    },
+    {
+      "bytes": 947,
+      "path": "build/wrong-service-cfa/metadata-rejection.json",
+      "sha256": "81a51f6e45a8f42a7da7604179fc2a2a8b1e23e196985622840577240dbc10a7"
+    }
+  ],
+  "authored_target_fixture_only": true,
+  "candidate": [
+    {
+      "checks": 8,
+      "evidence": {
+        "bytes": 1940,
+        "path": "evidence/candidate/plain/action-return/report.json",
+        "sha256": "218f8eec9eaf68844321bf96824056456476ac9a275fadb9ae29eeb2c2475540"
+      },
+      "expected_failures": [],
+      "mode": "plain",
+      "observed_failures": [],
+      "returncode": 0,
+      "selector": "action-return",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "a56488e69be3caef6b606a712060e5ef307ab8a5227041e960347e4b834ced71"
+    },
+    {
+      "checks": 8,
+      "evidence": {
+        "bytes": 1940,
+        "path": "evidence/candidate/plain/service-return/report.json",
+        "sha256": "9363acc3750e60127b1fa5dc89f680777c41452150732892bd49a33a4d7858ee"
+      },
+      "expected_failures": [],
+      "mode": "plain",
+      "observed_failures": [],
+      "returncode": 0,
+      "selector": "service-return",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "e5e2f65b46cc7e8dc36f9398d439f4507b6fc658262e9f68dffb3e33ef9ece90"
+    },
+    {
+      "checks": 8,
+      "evidence": {
+        "bytes": 1918,
+        "path": "evidence/candidate/plain/action-throw/report.json",
+        "sha256": "d3dc42b1823df1dbc8c9f215e5ff9fc167ddd4b366eeeb99a589d354616f258f"
+      },
+      "expected_failures": [],
+      "mode": "plain",
+      "observed_failures": [],
+      "returncode": 0,
+      "selector": "action-throw",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "b7b77f9d9cce78d41bdce7795a729dc43cc9eb7f68045dd515b75a44d211e21f"
+    },
+    {
+      "checks": 8,
+      "evidence": {
+        "bytes": 1919,
+        "path": "evidence/candidate/plain/service-throw/report.json",
+        "sha256": "4de5ea1163a6710042b2be3f550a9deaa2d90f85a829abb8c10fc002690328aa"
+      },
+      "expected_failures": [],
+      "mode": "plain",
+      "observed_failures": [],
+      "returncode": 0,
+      "selector": "service-throw",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "6f73aff561eda9d0a63b83a80c08bce031e135851ffe12dfe2fc7c3659237d4f"
+    },
+    {
+      "checks": 8,
+      "evidence": {
+        "bytes": 1940,
+        "path": "evidence/candidate/asan-ubsan/action-return/report.json",
+        "sha256": "5031ed5835e355a85b0667d7948cbb50f43680fdc9043540c131d3bb3afaca26"
+      },
+      "expected_failures": [],
+      "mode": "asan-ubsan",
+      "observed_failures": [],
+      "returncode": 0,
+      "selector": "action-return",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "a56488e69be3caef6b606a712060e5ef307ab8a5227041e960347e4b834ced71"
+    },
+    {
+      "checks": 8,
+      "evidence": {
+        "bytes": 1940,
+        "path": "evidence/candidate/asan-ubsan/service-return/report.json",
+        "sha256": "1ca83adec735e1a45e2e7532b44dc06db98ab402d951755e233c969a1c9bc80e"
+      },
+      "expected_failures": [],
+      "mode": "asan-ubsan",
+      "observed_failures": [],
+      "returncode": 0,
+      "selector": "service-return",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "e5e2f65b46cc7e8dc36f9398d439f4507b6fc658262e9f68dffb3e33ef9ece90"
+    },
+    {
+      "checks": 8,
+      "evidence": {
+        "bytes": 1918,
+        "path": "evidence/candidate/asan-ubsan/action-throw/report.json",
+        "sha256": "dffdebf44cadd178291392e98cf1c350588e0b7e46cdad310287ebade9ed90f0"
+      },
+      "expected_failures": [],
+      "mode": "asan-ubsan",
+      "observed_failures": [],
+      "returncode": 0,
+      "selector": "action-throw",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "b7b77f9d9cce78d41bdce7795a729dc43cc9eb7f68045dd515b75a44d211e21f"
+    },
+    {
+      "checks": 8,
+      "evidence": {
+        "bytes": 1919,
+        "path": "evidence/candidate/asan-ubsan/service-throw/report.json",
+        "sha256": "facdfdee591d8faf79160c43d0848d3cc045bfe96da2effb4481e8f4c993cc90"
+      },
+      "expected_failures": [],
+      "mode": "asan-ubsan",
+      "observed_failures": [],
+      "returncode": 0,
+      "selector": "service-throw",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "6f73aff561eda9d0a63b83a80c08bce031e135851ffe12dfe2fc7c3659237d4f"
+    }
+  ],
+  "candidate_checks_executed": 64,
+  "candidate_executions": 8,
+  "commands": [
+    {
+      "cleanup": null,
+      "directory": "001-parent-entry-S",
+      "exception": null,
+      "name": "parent-entry-S",
+      "receipt_sha256": "5328d7bfb3608026d05cdf191e6bf5a7940a26c888ac438740dd140f61b5392a",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 5843,
+      "stdout_sha256": "95c4936e1e2530f9e0d60ea6642b7ce8ca1203480986050d96a130c581da22d1"
+    },
+    {
+      "cleanup": null,
+      "directory": "002-parent-observer-h",
+      "exception": null,
+      "name": "parent-observer-h",
+      "receipt_sha256": "6c1ce5ffa7d118bd04f49527f619c972adc31a364542a6b38a1793ee9bd87f6a",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 4299,
+      "stdout_sha256": "999b8bebd58d37912f41e37330ecee60175a8f6a4d93d137d96892e13d7d14f6"
+    },
+    {
+      "cleanup": null,
+      "directory": "003-parent-observer-cpp",
+      "exception": null,
+      "name": "parent-observer-cpp",
+      "receipt_sha256": "962b3868fa0e37f193992367a613a03bc6e04fdca204f6e53f8e44345b05bc65",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 4241,
+      "stdout_sha256": "0969955fb87f47f2fc909a1a4419bf0ec9ad2ac1b91244c60df8908f5c4ebd03"
+    },
+    {
+      "cleanup": null,
+      "directory": "004-parent-binding-h",
+      "exception": null,
+      "name": "parent-binding-h",
+      "receipt_sha256": "7be71b78fb54f83eea16a6127bcf0b4c7aa88fc9a1fe65b6e8754423b149010e",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 2535,
+      "stdout_sha256": "b3c2b1304b8cd0d0a83a69e9508aa32edfcabdcf67dd329a15c2f76d245f1ce1"
+    },
+    {
+      "cleanup": null,
+      "directory": "005-parent-binding-cpp",
+      "exception": null,
+      "name": "parent-binding-cpp",
+      "receipt_sha256": "79ce0221036144c87850d896b131a7fe31a0e91d6d1ce5ea6008316370c2ac60",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 3546,
+      "stdout_sha256": "de9e83210510523cca7be6096eac3b53e32af73442167546b7469a72a5287163"
+    },
+    {
+      "cleanup": null,
+      "directory": "006-sdk-azmod-mod-h",
+      "exception": null,
+      "name": "sdk-azmod-mod-h",
+      "receipt_sha256": "374d07b184a418706de456e63deb7e0ab1ca1893064ed155faa5adac9979c008",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 32149,
+      "stdout_sha256": "b94e2ba6656c2b852f18691d32225486f29265953c8bf09dcac9a18ce561a630"
+    },
+    {
+      "cleanup": null,
+      "directory": "007-sdk-inline_hooks-c",
+      "exception": null,
+      "name": "sdk-inline_hooks-c",
+      "receipt_sha256": "c1ff2dc18bc134b499ccd5a97757a869c6b872489f0783bb8d60d00a899779b4",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 19402,
+      "stdout_sha256": "f141b383c25e66c8acb1839280832a612a6ee0e25e9ada59f374ccbef8f81908"
+    },
+    {
+      "cleanup": null,
+      "directory": "008-sdk-azprot-h",
+      "exception": null,
+      "name": "sdk-azprot-h",
+      "receipt_sha256": "c54276f70c55e49c5e948c21004ded4af77e3d355563d2f06c1d50cb30da62f8",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 5296,
+      "stdout_sha256": "0f1cc9c5d4ca212f798bf2e9d74a69507a82ce5cc59bd328bacc46816a119b33"
+    },
+    {
+      "cleanup": null,
+      "directory": "009-image",
+      "exception": null,
+      "name": "image",
+      "receipt_sha256": "5caf0cd8360f67977ccd494c5334fee8ba54dc594443ee48b2542713ce4c0a45",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 78,
+      "stdout_sha256": "2401028a6e5c9b14dabbb5452029907cea4f8d14f38c69774a956266957b965c"
+    },
+    {
+      "cleanup": null,
+      "directory": "010-platform",
+      "exception": null,
+      "name": "platform",
+      "receipt_sha256": "09155608db82ddf94d85fcc135007d4e98adcc722169cd3b33f99bd052c5ee43",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 8,
+      "stdout_sha256": "5121ae59314a84da7b4d9587374398f1afa2000b243b3e54f491adefaac54f92"
+    },
+    {
+      "cleanup": null,
+      "directory": "011-gcc-version",
+      "exception": null,
+      "name": "gcc-version",
+      "receipt_sha256": "d17fa0321cc01fe9b7aaff05392a475a9356b697a338c0433ed5a3c6b2ccde9c",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 249,
+      "stdout_sha256": "839d24fe4997381909209a1cbf9a3d59e68a6637f6e7c02ebf39b4fcacf612c2"
+    },
+    {
+      "cleanup": null,
+      "directory": "012-g++-version",
+      "exception": null,
+      "name": "g++-version",
+      "receipt_sha256": "0718f80748531ad0ef7004baece7f5b8f4b33dbf5e9daad9ed5252694d4ee9c9",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 249,
+      "stdout_sha256": "3f5e78bba81561e27fd9114487706d19fa630aea6473afe48d9a7bb8ae3e5287"
+    },
+    {
+      "cleanup": null,
+      "directory": "013-locate-libasan.so",
+      "exception": null,
+      "name": "locate-libasan.so",
+      "receipt_sha256": "69eb5f842b45101376bca2c4d45916ef239c0069fe091ab2141f33ae3ec3ba97",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 44,
+      "stdout_sha256": "9569d0345b0140ce71ae324f8c3b8d61f1750b834ae153ab89b5cbfcdca449d7"
+    },
+    {
+      "cleanup": null,
+      "directory": "014-readable-libasan.so",
+      "exception": null,
+      "name": "readable-libasan.so",
+      "receipt_sha256": "571b223c10e1daef7e8d52109e3bc5601e79428ed065375978f4c3b02edcb9f2",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "cleanup": null,
+      "directory": "015-locate-libubsan.so",
+      "exception": null,
+      "name": "locate-libubsan.so",
+      "receipt_sha256": "194ec548ee71f0decaa542aa61847e8d5fe6418c9955b078dfab6b57e677a570",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 45,
+      "stdout_sha256": "73251b133876c3254a01d90857a72a881cc2c06f4bc7d9423a652cca3235614a"
+    },
+    {
+      "cleanup": null,
+      "directory": "016-readable-libubsan.so",
+      "exception": null,
+      "name": "readable-libubsan.so",
+      "receipt_sha256": "1b5638eb3cef5e8adf29b6ed82b730592732b20a236435b985f3619aa36d6d1b",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "cleanup": null,
+      "directory": "017-sanitizer-probe-compile-link",
+      "exception": null,
+      "name": "sanitizer-probe-compile-link",
+      "receipt_sha256": "e0e6ca4aa93cf13134e1aecd7452dfd16b6a1dbf7270389d077fc5ff9a6432b3",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "cleanup": null,
+      "directory": "018-sanitizer-probe-execute",
+      "exception": null,
+      "name": "sanitizer-probe-execute",
+      "receipt_sha256": "4e573d50df5dd0d5e45f3d6d233cc255de6b550061cdbbb8b1cc004bc5080d48",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "cleanup": null,
+      "directory": "019-candidate-plain-entry-compile",
+      "exception": null,
+      "name": "candidate-plain-entry-compile",
+      "receipt_sha256": "90ebe5936886e9c94463cfb449a72fe034fdbb5ba87b80937c7c8bc947de556a",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "cleanup": null,
+      "directory": "020-candidate-plain-fixture-compile",
+      "exception": null,
+      "name": "candidate-plain-fixture-compile",
+      "receipt_sha256": "ae3ec651ca8e239933fc4f177c493c640d7a1a8a79bef4423b6daedce922e7e1",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "cleanup": null,
+      "directory": "021-candidate-plain-bridge-compile",
+      "exception": null,
+      "name": "candidate-plain-bridge-compile",
+      "receipt_sha256": "d3916448b2325f2b7640ef98fe4bf29c392ee9c0629893ab8c2e1a89046d4627",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "cleanup": null,
+      "directory": "022-candidate-plain-observer-compile",
+      "exception": null,
+      "name": "candidate-plain-observer-compile",
+      "receipt_sha256": "d1d86fe5fee3495d1e3fd05b71a0951dcc8bc547b2b5df4796ee024feb8251c2",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "cleanup": null,
+      "directory": "023-candidate-plain-binding-compile",
+      "exception": null,
+      "name": "candidate-plain-binding-compile",
+      "receipt_sha256": "891edf4fc69c6f02823c13397bb165ba21ab2ec847033cf16d41064616fc8119",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "cleanup": null,
+      "directory": "024-candidate-plain-test_transfer-compile",
+      "exception": null,
+      "name": "candidate-plain-test_transfer-compile",
+      "receipt_sha256": "663ef83d5d85426b2972d143e00450c8bb0f494e57acd75741a6d1d4bf8303d7",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "cleanup": null,
+      "directory": "025-candidate-plain-link",
+      "exception": null,
+      "name": "candidate-plain-link",
+      "receipt_sha256": "57fb20ccb7cd977101f97df1278d177b320b37302ba1b762198ddfa2ff98d368",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "cleanup": null,
+      "directory": "026-candidate-plain-fixture-disassembly",
+      "exception": null,
+      "name": "candidate-plain-fixture-disassembly",
+      "receipt_sha256": "8407600ce7ca9ebff05de4f30b34a79bd8449fb14b66a22dc2b9befd34ef026e",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 2526,
+      "stdout_sha256": "91ccee5a633b566771922ab3c3bd284f346e1fcd020942f40601af963d123ba1"
+    },
+    {
+      "cleanup": null,
+      "directory": "027-candidate-plain-fixture-frames",
+      "exception": null,
+      "name": "candidate-plain-fixture-frames",
+      "receipt_sha256": "a328276478684ebef3158521bd6b868345d26645f2185c6fb69cc7c685464bb7",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 1141,
+      "stdout_sha256": "fbc78e872f3b7b56f051e9f48d0c7af4f1cb171edf89674151b4453a9c963a0e"
+    },
+    {
+      "cleanup": null,
+      "directory": "028-candidate-plain-linked-metadata",
+      "exception": null,
+      "name": "candidate-plain-linked-metadata",
+      "receipt_sha256": "54fe729f95f3e55f53b8afea6118ce748a49d5a2a39f27c0201c9955ab3a9020",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 25476,
+      "stdout_sha256": "be14853db7b94ab935a316d615512573fe4c15221b9542905614c3c006e01233"
+    },
+    {
+      "cleanup": null,
+      "directory": "029-candidate-plain-bridge-symbols",
+      "exception": null,
+      "name": "candidate-plain-bridge-symbols",
+      "receipt_sha256": "fd7e3b73e2899d45c7cdc5fa37c9c729601cd5dd7ecee35835c9a7d74850914f",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 1906,
+      "stdout_sha256": "9141081574c556c02916f7f0916651691906f936f976b20ee3448766a932cab9"
+    },
+    {
+      "cleanup": null,
+      "directory": "030-candidate-plain-action-return",
+      "exception": null,
+      "name": "candidate-plain-action-return",
+      "receipt_sha256": "72a0202119c8f9d954eddaaf863795da0933a5d43cf4d9b30dbcac91a42d5813",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 41,
+      "stdout_sha256": "a56488e69be3caef6b606a712060e5ef307ab8a5227041e960347e4b834ced71"
+    },
+    {
+      "cleanup": null,
+      "directory": "031-candidate-plain-service-return",
+      "exception": null,
+      "name": "candidate-plain-service-return",
+      "receipt_sha256": "6debf101165ffd2c285252a0a3fb446efaff925119e61fcb2297cfd85613992e",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 42,
+      "stdout_sha256": "e5e2f65b46cc7e8dc36f9398d439f4507b6fc658262e9f68dffb3e33ef9ece90"
+    },
+    {
+      "cleanup": null,
+      "directory": "032-candidate-plain-action-throw",
+      "exception": null,
+      "name": "candidate-plain-action-throw",
+      "receipt_sha256": "be198b152569e17a5c71835a5be84bd100c77be991fd7d45b27d93671304a2c3",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 40,
+      "stdout_sha256": "b7b77f9d9cce78d41bdce7795a729dc43cc9eb7f68045dd515b75a44d211e21f"
+    },
+    {
+      "cleanup": null,
+      "directory": "033-candidate-plain-service-throw",
+      "exception": null,
+      "name": "candidate-plain-service-throw",
+      "receipt_sha256": "e31f5a659f173d754ec3e6674d64f601f7527df4cfb86f9c111473029ee2974e",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 41,
+      "stdout_sha256": "6f73aff561eda9d0a63b83a80c08bce031e135851ffe12dfe2fc7c3659237d4f"
+    },
+    {
+      "cleanup": null,
+      "directory": "034-candidate-asan-ubsan-entry-compile",
+      "exception": null,
+      "name": "candidate-asan-ubsan-entry-compile",
+      "receipt_sha256": "f972ef77317de4202cd1041830e66483d7741d4801ac759a9e8c76059b09d5f1",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "cleanup": null,
+      "directory": "035-candidate-asan-ubsan-fixture-compile",
+      "exception": null,
+      "name": "candidate-asan-ubsan-fixture-compile",
+      "receipt_sha256": "5c605248b2e9f16c5d8099ab1dc2f099eb9efb1a97ae26fcce94fcb5020ba2be",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "cleanup": null,
+      "directory": "036-candidate-asan-ubsan-bridge-compile",
+      "exception": null,
+      "name": "candidate-asan-ubsan-bridge-compile",
+      "receipt_sha256": "ef56637f8a965ac260e395244b79ce65895e8d9ad619986b12783cced8370997",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "cleanup": null,
+      "directory": "037-candidate-asan-ubsan-observer-compile",
+      "exception": null,
+      "name": "candidate-asan-ubsan-observer-compile",
+      "receipt_sha256": "29eff88376d6b0613733a40f86f5886d192610daf519a1c77454b8bbec066d68",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "cleanup": null,
+      "directory": "038-candidate-asan-ubsan-binding-compile",
+      "exception": null,
+      "name": "candidate-asan-ubsan-binding-compile",
+      "receipt_sha256": "ccff6e45c54a8297a311712664b4364a78c86dfd47da8814cdde20332ba4a272",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "cleanup": null,
+      "directory": "039-candidate-asan-ubsan-test_transfer-compile",
+      "exception": null,
+      "name": "candidate-asan-ubsan-test_transfer-compile",
+      "receipt_sha256": "bd77a89412791f4243a583b52f6c18645b213889001e3b17e039a3a3e5923bc7",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "cleanup": null,
+      "directory": "040-candidate-asan-ubsan-link",
+      "exception": null,
+      "name": "candidate-asan-ubsan-link",
+      "receipt_sha256": "e45ee7ea5fda95d0ad11d8dde303ccdfb0b7be4d5deb9e18268e5588abcaa7bc",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "cleanup": null,
+      "directory": "041-candidate-asan-ubsan-fixture-disassembly",
+      "exception": null,
+      "name": "candidate-asan-ubsan-fixture-disassembly",
+      "receipt_sha256": "e0a5d0285c3e0cb9f7152501d1ab37f58d992afcdc462cf01655146987344781",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 2531,
+      "stdout_sha256": "f314827504c2e0c819394e5fd6301c8b8bb2668ea2457dcde7b3d95813df9ce5"
+    },
+    {
+      "cleanup": null,
+      "directory": "042-candidate-asan-ubsan-fixture-frames",
+      "exception": null,
+      "name": "candidate-asan-ubsan-fixture-frames",
+      "receipt_sha256": "c4a0cf017d7a05400b3866852f5f2f0e14ed66aee5ff9d72d9169656d7cc6ecd",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 1141,
+      "stdout_sha256": "fbc78e872f3b7b56f051e9f48d0c7af4f1cb171edf89674151b4453a9c963a0e"
+    },
+    {
+      "cleanup": null,
+      "directory": "043-candidate-asan-ubsan-linked-metadata",
+      "exception": null,
+      "name": "candidate-asan-ubsan-linked-metadata",
+      "receipt_sha256": "84ce0de2ea7ac401982c8d9f62d7c1ccfc59ca3725e5db415b5dfbaabe3157fb",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 35764,
+      "stdout_sha256": "e972b7cf52427f3749c767bc57cd1f5f8f0a3ad7ebe41a3a927fec6b89646200"
+    },
+    {
+      "cleanup": null,
+      "directory": "044-candidate-asan-ubsan-bridge-symbols",
+      "exception": null,
+      "name": "candidate-asan-ubsan-bridge-symbols",
+      "receipt_sha256": "8a101e60e8143e388a6ee9652fbee1170c2f6ef1ddac749c2186546e35624897",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 3377,
+      "stdout_sha256": "2a389eff0565870fd7fad51fb2256b1621e0f4ce60b92d31604231671148d545"
+    },
+    {
+      "cleanup": null,
+      "directory": "045-candidate-asan-ubsan-action-return",
+      "exception": null,
+      "name": "candidate-asan-ubsan-action-return",
+      "receipt_sha256": "1e8d67f00cb658f46df0ce6404f959310e5cb05a3b50a287db8773e1e2b9cdda",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 41,
+      "stdout_sha256": "a56488e69be3caef6b606a712060e5ef307ab8a5227041e960347e4b834ced71"
+    },
+    {
+      "cleanup": null,
+      "directory": "046-candidate-asan-ubsan-service-return",
+      "exception": null,
+      "name": "candidate-asan-ubsan-service-return",
+      "receipt_sha256": "44d961e604c7daf9d38e2074de0d3f43d530cc9eba5441d165692ca56f9f46d3",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 42,
+      "stdout_sha256": "e5e2f65b46cc7e8dc36f9398d439f4507b6fc658262e9f68dffb3e33ef9ece90"
+    },
+    {
+      "cleanup": null,
+      "directory": "047-candidate-asan-ubsan-action-throw",
+      "exception": null,
+      "name": "candidate-asan-ubsan-action-throw",
+      "receipt_sha256": "39539f3527cafdec683263c588974b94f867855b52dde974d60e0fbd6c002053",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 40,
+      "stdout_sha256": "b7b77f9d9cce78d41bdce7795a729dc43cc9eb7f68045dd515b75a44d211e21f"
+    },
+    {
+      "cleanup": null,
+      "directory": "048-candidate-asan-ubsan-service-throw",
+      "exception": null,
+      "name": "candidate-asan-ubsan-service-throw",
+      "receipt_sha256": "89c2841f264805a5ee90903bc9bd2bf648aa307df6a63d2ffb74e227ca5daf05",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 41,
+      "stdout_sha256": "6f73aff561eda9d0a63b83a80c08bce031e135851ffe12dfe2fc7c3659237d4f"
+    },
+    {
+      "cleanup": null,
+      "directory": "049-installer-x16-scratch-plain-entry-compile",
+      "exception": null,
+      "name": "installer-x16-scratch-plain-entry-compile",
+      "receipt_sha256": "d1012e6e490d45c05fe1bdc1e141ddeacc93270f05dc913e64bc7273daed771b",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "cleanup": null,
+      "directory": "050-installer-x16-scratch-plain-fixture-compile",
+      "exception": null,
+      "name": "installer-x16-scratch-plain-fixture-compile",
+      "receipt_sha256": "1352851fe99c8388d0757dfca54d5176c369fcfed1192651c9217c2c27dab745",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "cleanup": null,
+      "directory": "051-installer-x16-scratch-plain-bridge-compile",
+      "exception": null,
+      "name": "installer-x16-scratch-plain-bridge-compile",
+      "receipt_sha256": "f9c945196a5dd91461c7fd91a318932ab6827eee2e3440b12fe56a2824d0c6b6",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "cleanup": null,
+      "directory": "052-installer-x16-scratch-plain-observer-compile",
+      "exception": null,
+      "name": "installer-x16-scratch-plain-observer-compile",
+      "receipt_sha256": "37b8755d1353d204bd480c26b1de9a8a2da09fa38e796c25d814e538649c21f5",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "cleanup": null,
+      "directory": "053-installer-x16-scratch-plain-binding-compile",
+      "exception": null,
+      "name": "installer-x16-scratch-plain-binding-compile",
+      "receipt_sha256": "2c5653d631bcc2b2fbae9ec5b6c006184cc9320b0a35806045c25765b1f4e1e7",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "cleanup": null,
+      "directory": "054-installer-x16-scratch-plain-test_transfer-compile",
+      "exception": null,
+      "name": "installer-x16-scratch-plain-test_transfer-compile",
+      "receipt_sha256": "a0a36643cbd9ebde49bda5635548d58045aff4d95ea51ac699b86892f5509b81",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "cleanup": null,
+      "directory": "055-installer-x16-scratch-plain-link",
+      "exception": null,
+      "name": "installer-x16-scratch-plain-link",
+      "receipt_sha256": "236b65918ca23cd8618a8003aae2185c7860b0b82589f8960d147e774adf0a78",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "cleanup": null,
+      "directory": "056-installer-x16-scratch-plain-fixture-disassembly",
+      "exception": null,
+      "name": "installer-x16-scratch-plain-fixture-disassembly",
+      "receipt_sha256": "57289d01b3e36fda4b93a00c3a57a005797518e47740ae30ec87604a755eca23",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 2538,
+      "stdout_sha256": "8e741339b74be0b562138b4c96a40880e6a09bcdda42ce483108aeec579dd273"
+    },
+    {
+      "cleanup": null,
+      "directory": "057-installer-x16-scratch-plain-fixture-frames",
+      "exception": null,
+      "name": "installer-x16-scratch-plain-fixture-frames",
+      "receipt_sha256": "1ff4c37b170f8c3e2d2ceb2e6b548b0a0a123cd725418bc55064fb0cb8387856",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 1141,
+      "stdout_sha256": "fbc78e872f3b7b56f051e9f48d0c7af4f1cb171edf89674151b4453a9c963a0e"
+    },
+    {
+      "cleanup": null,
+      "directory": "058-installer-x16-scratch-plain-linked-metadata",
+      "exception": null,
+      "name": "installer-x16-scratch-plain-linked-metadata",
+      "receipt_sha256": "89ba41e0c562aecb5852799803d973897d648238facd1e0fb41d082f337d00b3",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 25500,
+      "stdout_sha256": "60600d90c436b9cbdd344b62a5d6047b62ab20ff58a385ea34004026bfcac7f3"
+    },
+    {
+      "cleanup": null,
+      "directory": "059-installer-x16-scratch-plain-bridge-symbols",
+      "exception": null,
+      "name": "installer-x16-scratch-plain-bridge-symbols",
+      "receipt_sha256": "90b9636a146b9009c2868812b90523e304bc6065cc243ba2675dcc73e5f8a660",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 1906,
+      "stdout_sha256": "9141081574c556c02916f7f0916651691906f936f976b20ee3448766a932cab9"
+    },
+    {
+      "cleanup": null,
+      "directory": "060-installer-x16-scratch-plain-action-return",
+      "exception": null,
+      "name": "installer-x16-scratch-plain-action-return",
+      "receipt_sha256": "7d4d3bf0ea680a3a70e70890f2a6f2e3e245d944be6a2a2d22f4440f71082a3c",
+      "returncode": 1,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 78,
+      "stdout_sha256": "142bd8e090b942daa7748b246278c146a03e106b0e0548bda8b91055e6240a91"
+    },
+    {
+      "cleanup": null,
+      "directory": "061-installer-x16-scratch-plain-service-return",
+      "exception": null,
+      "name": "installer-x16-scratch-plain-service-return",
+      "receipt_sha256": "1a7981cce22b24e19b1bb00633f1ad474f86a2f09ed9a1d127b55032e40ab222",
+      "returncode": 1,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 79,
+      "stdout_sha256": "8579b3de2f7e808ea6f5b67c290c70505a4b820fca444036c7664f3f9572553a"
+    },
+    {
+      "cleanup": null,
+      "directory": "062-installer-x16-scratch-plain-action-throw",
+      "exception": null,
+      "name": "installer-x16-scratch-plain-action-throw",
+      "receipt_sha256": "c726f67a483b7a3dc084aa250b9f0b3248a6828e66215435c1772c8337017ca1",
+      "returncode": 1,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 77,
+      "stdout_sha256": "9ffa3d57aa531b4f5c4a232dce949999db7d4ff11013e860e72eb4b22b40c4ba"
+    },
+    {
+      "cleanup": null,
+      "directory": "063-installer-x16-scratch-plain-service-throw",
+      "exception": null,
+      "name": "installer-x16-scratch-plain-service-throw",
+      "receipt_sha256": "579a9aa31a83c1778d9e4ce487850c871455cdbbc578f14deb5cd54dc5ab35c6",
+      "returncode": 1,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 78,
+      "stdout_sha256": "6381276767f327269f69477cfe48f0fce6c4f0e619ed256669ec2954baf2b2bc"
+    },
+    {
+      "cleanup": null,
+      "directory": "064-installer-x16-scratch-asan-ubsan-entry-compile",
+      "exception": null,
+      "name": "installer-x16-scratch-asan-ubsan-entry-compile",
+      "receipt_sha256": "cdceb4f9b18226bb6b6e5dcbccf3fbebe361824d18a4c1e9c664e0e02bc8575b",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "cleanup": null,
+      "directory": "065-installer-x16-scratch-asan-ubsan-fixture-compile",
+      "exception": null,
+      "name": "installer-x16-scratch-asan-ubsan-fixture-compile",
+      "receipt_sha256": "8c6f053697cb4e3fdb0d93e44107d43b0047ab38aadca120766a03e568e7ab5a",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "cleanup": null,
+      "directory": "066-installer-x16-scratch-asan-ubsan-bridge-compile",
+      "exception": null,
+      "name": "installer-x16-scratch-asan-ubsan-bridge-compile",
+      "receipt_sha256": "a7e49d51fa128fedb7afd2f728b3073c6ec4783f2a7e839a3002fe7c540a3beb",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "cleanup": null,
+      "directory": "067-installer-x16-scratch-asan-ubsan-observer-compile",
+      "exception": null,
+      "name": "installer-x16-scratch-asan-ubsan-observer-compile",
+      "receipt_sha256": "47a41dbac837f7112f96996aca8d374628fe486f75679cdd78dea309f17e2740",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "cleanup": null,
+      "directory": "068-installer-x16-scratch-asan-ubsan-binding-compile",
+      "exception": null,
+      "name": "installer-x16-scratch-asan-ubsan-binding-compile",
+      "receipt_sha256": "1378f45d7e7b3bc9c5487c1092406150dfdae9bfef0e0fc0675460c187010200",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "cleanup": null,
+      "directory": "069-installer-x16-scratch-asan-ubsan-test_transfer-compile",
+      "exception": null,
+      "name": "installer-x16-scratch-asan-ubsan-test_transfer-compile",
+      "receipt_sha256": "b2845f8cd4243c0cd00d075f3ec31f83ec9f44b0751a4c2c7f14d22b5138bb68",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "cleanup": null,
+      "directory": "070-installer-x16-scratch-asan-ubsan-link",
+      "exception": null,
+      "name": "installer-x16-scratch-asan-ubsan-link",
+      "receipt_sha256": "ea4ed5e22bff9e4b33d71876223b100e05c4a3d432cd6cccdd9a0e205d0de4f4",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "cleanup": null,
+      "directory": "071-installer-x16-scratch-asan-ubsan-fixture-disassembly",
+      "exception": null,
+      "name": "installer-x16-scratch-asan-ubsan-fixture-disassembly",
+      "receipt_sha256": "3f8ee4f475871a63bfee8b6fab5eb5cabeffca2c73f79b0a10388fedc82c33de",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 2543,
+      "stdout_sha256": "97e486ef88ea79b1777327269a030b4c6f94d301b58ccd6179abf1f0d3659d7b"
+    },
+    {
+      "cleanup": null,
+      "directory": "072-installer-x16-scratch-asan-ubsan-fixture-frames",
+      "exception": null,
+      "name": "installer-x16-scratch-asan-ubsan-fixture-frames",
+      "receipt_sha256": "faae9d630df8c224191899720e7df66d5626d30b57829bb61402fb424501e837",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 1141,
+      "stdout_sha256": "fbc78e872f3b7b56f051e9f48d0c7af4f1cb171edf89674151b4453a9c963a0e"
+    },
+    {
+      "cleanup": null,
+      "directory": "073-installer-x16-scratch-asan-ubsan-linked-metadata",
+      "exception": null,
+      "name": "installer-x16-scratch-asan-ubsan-linked-metadata",
+      "receipt_sha256": "e1cbbe4b30fb7d3f34f114e8a4411d6b4240952cc6faaab42a40cbd5fb98ddf3",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 35788,
+      "stdout_sha256": "39af114192d2f92017adbc4b03223a5439427b29ccfd1944739d8efaa0447ced"
+    },
+    {
+      "cleanup": null,
+      "directory": "074-installer-x16-scratch-asan-ubsan-bridge-symbols",
+      "exception": null,
+      "name": "installer-x16-scratch-asan-ubsan-bridge-symbols",
+      "receipt_sha256": "f73c92d586e0ca2ab3350d7c8d13cf5e299b3ceb446f7e01fe13c715f64963ab",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 3377,
+      "stdout_sha256": "2a389eff0565870fd7fad51fb2256b1621e0f4ce60b92d31604231671148d545"
+    },
+    {
+      "cleanup": null,
+      "directory": "075-installer-x16-scratch-asan-ubsan-action-return",
+      "exception": null,
+      "name": "installer-x16-scratch-asan-ubsan-action-return",
+      "receipt_sha256": "aa0987c531bf2e2fb6cffd885932e40953b8eb5444b49d79b956aaa3c25f4b85",
+      "returncode": 1,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 78,
+      "stdout_sha256": "142bd8e090b942daa7748b246278c146a03e106b0e0548bda8b91055e6240a91"
+    },
+    {
+      "cleanup": null,
+      "directory": "076-installer-x16-scratch-asan-ubsan-service-return",
+      "exception": null,
+      "name": "installer-x16-scratch-asan-ubsan-service-return",
+      "receipt_sha256": "6ba87db3983925072ffbc34e67b7947adf03f888a013673590ffcae296ab0307",
+      "returncode": 1,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 79,
+      "stdout_sha256": "8579b3de2f7e808ea6f5b67c290c70505a4b820fca444036c7664f3f9572553a"
+    },
+    {
+      "cleanup": null,
+      "directory": "077-installer-x16-scratch-asan-ubsan-action-throw",
+      "exception": null,
+      "name": "installer-x16-scratch-asan-ubsan-action-throw",
+      "receipt_sha256": "f751a418dfa2790304d700fcb46d1ff4dad78e2c020dd2bfa3a240b1f9f32c70",
+      "returncode": 1,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 77,
+      "stdout_sha256": "9ffa3d57aa531b4f5c4a232dce949999db7d4ff11013e860e72eb4b22b40c4ba"
+    },
+    {
+      "cleanup": null,
+      "directory": "078-installer-x16-scratch-asan-ubsan-service-throw",
+      "exception": null,
+      "name": "installer-x16-scratch-asan-ubsan-service-throw",
+      "receipt_sha256": "f7d9c16fd2236393d546fdaef075219e6304d148a1105f48eae2b5d258f5f8b3",
+      "returncode": 1,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 78,
+      "stdout_sha256": "6381276767f327269f69477cfe48f0fce6c4f0e619ed256669ec2954baf2b2bc"
+    },
+    {
+      "cleanup": null,
+      "directory": "079-wrong-action-cfa-compile",
+      "exception": null,
+      "name": "wrong-action-cfa-compile",
+      "receipt_sha256": "bba0c4e56475a426ddec68f6ffcb98f2debe6ab051c6a936ec981370d31aa71c",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "cleanup": null,
+      "directory": "080-wrong-action-cfa-frames",
+      "exception": null,
+      "name": "wrong-action-cfa-frames",
+      "receipt_sha256": "a2f10f78c061c3d35b3ce165ed80b79585255a6526527356aa04bf1a91fe0343",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 1141,
+      "stdout_sha256": "9d658ac0c282ede682a7ad89f99154e318dbc5cad1db2eb0164eb94abd63e3d1"
+    },
+    {
+      "cleanup": null,
+      "directory": "081-wrong-service-cfa-compile",
+      "exception": null,
+      "name": "wrong-service-cfa-compile",
+      "receipt_sha256": "98fdc1eb2a97459fdf19c3d05d8cd909914f64b205fb9e3fc6d9b3b39b0b5a01",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "cleanup": null,
+      "directory": "082-wrong-service-cfa-frames",
+      "exception": null,
+      "name": "wrong-service-cfa-frames",
+      "receipt_sha256": "5ff8117917dd24a62d84562f29abcf4e128340c28780e889bef9448803e1309e",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 1141,
+      "stdout_sha256": "308c86a487804c852a81022eb6102807ae599292951cdcda4d3a6e40c2ce5ffe"
+    }
+  ],
+  "control_executions": 8,
+  "controls": [
+    {
+      "file": "sdk/src/azmod/inline_hooks.c",
+      "name": "installer-x16-scratch",
+      "new": "    dst[0] = 0x58000050u;\n    dst[1] = 0xD61F0200u;",
+      "old": "    dst[0] = 0x58000051u;\n    dst[1] = 0xD61F0220u;",
+      "outcomes": [
+        {
+          "checks": 8,
+          "evidence": {
+            "bytes": 1929,
+            "path": "evidence/installer-x16-scratch/plain/action-return/report.json",
+            "sha256": "7ca744e71f6ad9f96a2f775ff3019c2df9bd04e141b969d56d7b8f94d356be53"
+          },
+          "expected_failures": [
+            "emitted-route",
+            "body-scratch"
+          ],
+          "mode": "plain",
+          "observed_failures": [
+            "emitted-route",
+            "body-scratch"
+          ],
+          "returncode": 1,
+          "selector": "action-return",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "142bd8e090b942daa7748b246278c146a03e106b0e0548bda8b91055e6240a91"
+        },
+        {
+          "checks": 8,
+          "evidence": {
+            "bytes": 1929,
+            "path": "evidence/installer-x16-scratch/plain/service-return/report.json",
+            "sha256": "d80e219554918f3e7e4213c857e41063c8c25c8a2ad8172fd748a95e45d1ba73"
+          },
+          "expected_failures": [
+            "emitted-route",
+            "body-scratch"
+          ],
+          "mode": "plain",
+          "observed_failures": [
+            "emitted-route",
+            "body-scratch"
+          ],
+          "returncode": 1,
+          "selector": "service-return",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "8579b3de2f7e808ea6f5b67c290c70505a4b820fca444036c7664f3f9572553a"
+        },
+        {
+          "checks": 8,
+          "evidence": {
+            "bytes": 1907,
+            "path": "evidence/installer-x16-scratch/plain/action-throw/report.json",
+            "sha256": "46b4d725d4bbd46a9e8a8e7ff30a7c6b43e161db6d77d5c7afdd8d9759d815ea"
+          },
+          "expected_failures": [
+            "emitted-route",
+            "body-scratch"
+          ],
+          "mode": "plain",
+          "observed_failures": [
+            "emitted-route",
+            "body-scratch"
+          ],
+          "returncode": 1,
+          "selector": "action-throw",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "9ffa3d57aa531b4f5c4a232dce949999db7d4ff11013e860e72eb4b22b40c4ba"
+        },
+        {
+          "checks": 8,
+          "evidence": {
+            "bytes": 1908,
+            "path": "evidence/installer-x16-scratch/plain/service-throw/report.json",
+            "sha256": "e0bca6b21f7d19b2c2adab81e9bfd1f8c01396c46862fb8bc34f1c08a5447f49"
+          },
+          "expected_failures": [
+            "emitted-route",
+            "body-scratch"
+          ],
+          "mode": "plain",
+          "observed_failures": [
+            "emitted-route",
+            "body-scratch"
+          ],
+          "returncode": 1,
+          "selector": "service-throw",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "6381276767f327269f69477cfe48f0fce6c4f0e619ed256669ec2954baf2b2bc"
+        },
+        {
+          "checks": 8,
+          "evidence": {
+            "bytes": 1929,
+            "path": "evidence/installer-x16-scratch/asan-ubsan/action-return/report.json",
+            "sha256": "5cec6dcc236ab5b2609cfd83d26b233394a6fef8fe1c65df3ad8fcb4357ed12c"
+          },
+          "expected_failures": [
+            "emitted-route",
+            "body-scratch"
+          ],
+          "mode": "asan-ubsan",
+          "observed_failures": [
+            "emitted-route",
+            "body-scratch"
+          ],
+          "returncode": 1,
+          "selector": "action-return",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "142bd8e090b942daa7748b246278c146a03e106b0e0548bda8b91055e6240a91"
+        },
+        {
+          "checks": 8,
+          "evidence": {
+            "bytes": 1929,
+            "path": "evidence/installer-x16-scratch/asan-ubsan/service-return/report.json",
+            "sha256": "5b369b773f049907adc14d5d1dd16deda74af9288365c458faff36f2c3d125fa"
+          },
+          "expected_failures": [
+            "emitted-route",
+            "body-scratch"
+          ],
+          "mode": "asan-ubsan",
+          "observed_failures": [
+            "emitted-route",
+            "body-scratch"
+          ],
+          "returncode": 1,
+          "selector": "service-return",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "8579b3de2f7e808ea6f5b67c290c70505a4b820fca444036c7664f3f9572553a"
+        },
+        {
+          "checks": 8,
+          "evidence": {
+            "bytes": 1907,
+            "path": "evidence/installer-x16-scratch/asan-ubsan/action-throw/report.json",
+            "sha256": "2dda272a8d4e60d79d910ad4e970d5a5c155cf80f4be74e529d05b7f42914f09"
+          },
+          "expected_failures": [
+            "emitted-route",
+            "body-scratch"
+          ],
+          "mode": "asan-ubsan",
+          "observed_failures": [
+            "emitted-route",
+            "body-scratch"
+          ],
+          "returncode": 1,
+          "selector": "action-throw",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "9ffa3d57aa531b4f5c4a232dce949999db7d4ff11013e860e72eb4b22b40c4ba"
+        },
+        {
+          "checks": 8,
+          "evidence": {
+            "bytes": 1908,
+            "path": "evidence/installer-x16-scratch/asan-ubsan/service-throw/report.json",
+            "sha256": "bdd65d83dec915c7e79f97863f3752b7a08aa0465e56b08f1dadf4e21231160a"
+          },
+          "expected_failures": [
+            "emitted-route",
+            "body-scratch"
+          ],
+          "mode": "asan-ubsan",
+          "observed_failures": [
+            "emitted-route",
+            "body-scratch"
+          ],
+          "returncode": 1,
+          "selector": "service-throw",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_sha256": "6381276767f327269f69477cfe48f0fce6c4f0e619ed256669ec2954baf2b2bc"
+        }
+      ],
+      "source_manifest": {
+        ".gitignore": {
+          "bytes": 22,
+          "sha256": "d56537a93a9565b3322aa9bc821c9cc30a16303467032cade13b069e394cfddc"
+        },
+        "azmod-mod.h": {
+          "bytes": 32149,
+          "sha256": "b94e2ba6656c2b852f18691d32225486f29265953c8bf09dcac9a18ce561a630"
+        },
+        "binding.cpp": {
+          "bytes": 3546,
+          "sha256": "de9e83210510523cca7be6096eac3b53e32af73442167546b7469a72a5287163"
+        },
+        "binding.h": {
+          "bytes": 2535,
+          "sha256": "b3c2b1304b8cd0d0a83a69e9508aa32edfcabdcf67dd329a15c2f76d245f1ce1"
+        },
+        "bridge.c": {
+          "bytes": 4995,
+          "sha256": "ab3dd8d2ec16880ac65b78e1fd9e1cdffabe09319a7df89a50beef604e9c3554"
+        },
+        "bridge.h": {
+          "bytes": 1611,
+          "sha256": "cedd8581b62acd21bdf5495a8827563569ae9b9dc66ccdc3866228ad10eaab2d"
+        },
+        "entry.S": {
+          "bytes": 5843,
+          "sha256": "95c4936e1e2530f9e0d60ea6642b7ce8ca1203480986050d96a130c581da22d1"
+        },
+        "fixture.S": {
+          "bytes": 2290,
+          "sha256": "75a9f05832006851a91de6126df10da93778298489fb7c94876207bde7dc4d35"
+        },
+        "observer.cpp": {
+          "bytes": 4241,
+          "sha256": "0969955fb87f47f2fc909a1a4419bf0ec9ad2ac1b91244c60df8908f5c4ebd03"
+        },
+        "observer.h": {
+          "bytes": 4299,
+          "sha256": "999b8bebd58d37912f41e37330ecee60175a8f6a4d93d137d96892e13d7d14f6"
+        },
+        "run-tests.py": {
+          "bytes": 47895,
+          "sha256": "8b0e9a23a344b1244c0ec65ec4c8fb15b10824a7a87b792412c1bdcbc0f3ce05"
+        },
+        "sdk/src/azmod/inline_hooks.c": {
+          "bytes": 19402,
+          "sha256": "613ae4fec988c5c391dd7e14ee3bd2f36cde15d98849b440959424168be26e2c"
+        },
+        "sdk/src/common/azprot.h": {
+          "bytes": 5296,
+          "sha256": "0f1cc9c5d4ca212f798bf2e9d74a69507a82ce5cc59bd328bacc46816a119b33"
+        },
+        "test_transfer.cpp": {
+          "bytes": 14628,
+          "sha256": "c3fc5e05ae4b53dfdf2e483a14cb62fcc4a2a0fb0db3b99c7db9fc1616ee602c"
+        }
+      }
+    }
+  ],
+  "date": "2026-11-04",
+  "emulator_or_device_access": false,
+  "firmware_execution": false,
+  "first_complete_matrix_passed": true,
+  "fixture_execution_attempts": [
+    {
+      "accepted": true,
+      "mode": "plain",
+      "requested": true,
+      "returncode": 0,
+      "returned": true,
+      "selector": "action-return",
+      "variant": "candidate"
+    },
+    {
+      "accepted": true,
+      "mode": "plain",
+      "requested": true,
+      "returncode": 0,
+      "returned": true,
+      "selector": "service-return",
+      "variant": "candidate"
+    },
+    {
+      "accepted": true,
+      "mode": "plain",
+      "requested": true,
+      "returncode": 0,
+      "returned": true,
+      "selector": "action-throw",
+      "variant": "candidate"
+    },
+    {
+      "accepted": true,
+      "mode": "plain",
+      "requested": true,
+      "returncode": 0,
+      "returned": true,
+      "selector": "service-throw",
+      "variant": "candidate"
+    },
+    {
+      "accepted": true,
+      "mode": "asan-ubsan",
+      "requested": true,
+      "returncode": 0,
+      "returned": true,
+      "selector": "action-return",
+      "variant": "candidate"
+    },
+    {
+      "accepted": true,
+      "mode": "asan-ubsan",
+      "requested": true,
+      "returncode": 0,
+      "returned": true,
+      "selector": "service-return",
+      "variant": "candidate"
+    },
+    {
+      "accepted": true,
+      "mode": "asan-ubsan",
+      "requested": true,
+      "returncode": 0,
+      "returned": true,
+      "selector": "action-throw",
+      "variant": "candidate"
+    },
+    {
+      "accepted": true,
+      "mode": "asan-ubsan",
+      "requested": true,
+      "returncode": 0,
+      "returned": true,
+      "selector": "service-throw",
+      "variant": "candidate"
+    },
+    {
+      "accepted": true,
+      "mode": "plain",
+      "requested": true,
+      "returncode": 1,
+      "returned": true,
+      "selector": "action-return",
+      "variant": "installer-x16-scratch"
+    },
+    {
+      "accepted": true,
+      "mode": "plain",
+      "requested": true,
+      "returncode": 1,
+      "returned": true,
+      "selector": "service-return",
+      "variant": "installer-x16-scratch"
+    },
+    {
+      "accepted": true,
+      "mode": "plain",
+      "requested": true,
+      "returncode": 1,
+      "returned": true,
+      "selector": "action-throw",
+      "variant": "installer-x16-scratch"
+    },
+    {
+      "accepted": true,
+      "mode": "plain",
+      "requested": true,
+      "returncode": 1,
+      "returned": true,
+      "selector": "service-throw",
+      "variant": "installer-x16-scratch"
+    },
+    {
+      "accepted": true,
+      "mode": "asan-ubsan",
+      "requested": true,
+      "returncode": 1,
+      "returned": true,
+      "selector": "action-return",
+      "variant": "installer-x16-scratch"
+    },
+    {
+      "accepted": true,
+      "mode": "asan-ubsan",
+      "requested": true,
+      "returncode": 1,
+      "returned": true,
+      "selector": "service-return",
+      "variant": "installer-x16-scratch"
+    },
+    {
+      "accepted": true,
+      "mode": "asan-ubsan",
+      "requested": true,
+      "returncode": 1,
+      "returned": true,
+      "selector": "action-throw",
+      "variant": "installer-x16-scratch"
+    },
+    {
+      "accepted": true,
+      "mode": "asan-ubsan",
+      "requested": true,
+      "returncode": 1,
+      "returned": true,
+      "selector": "service-throw",
+      "variant": "installer-x16-scratch"
+    }
+  ],
+  "fixture_macros": [],
+  "full_matrix_requested": true,
+  "g++_version": "g++ (Ubuntu/Linaro 7.5.0-3ubuntu1~18.04) 7.5.0\nCopyright (C) 2017 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+  "gcc_version": "gcc (Ubuntu/Linaro 7.5.0-3ubuntu1~18.04) 7.5.0\nCopyright (C) 2017 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+  "image": "azmod-build:18.04",
+  "image_id": "sha256:c7e3893c4f03e0ff30555c2120b3d9ec53834eaa2c8ce376a2da09b70fd23a90",
+  "inputs": {
+    ".gitignore": {
+      "bytes": 22,
+      "role": "new-fixture",
+      "sha256": "d56537a93a9565b3322aa9bc821c9cc30a16303467032cade13b069e394cfddc"
+    },
+    "azmod-mod.h": {
+      "bytes": 32149,
+      "role": "unchanged-sdk",
+      "sha256": "b94e2ba6656c2b852f18691d32225486f29265953c8bf09dcac9a18ce561a630"
+    },
+    "binding.cpp": {
+      "bytes": 3546,
+      "role": "unchanged-production",
+      "sha256": "de9e83210510523cca7be6096eac3b53e32af73442167546b7469a72a5287163"
+    },
+    "binding.h": {
+      "bytes": 2535,
+      "role": "unchanged-production",
+      "sha256": "b3c2b1304b8cd0d0a83a69e9508aa32edfcabdcf67dd329a15c2f76d245f1ce1"
+    },
+    "bridge.c": {
+      "bytes": 4995,
+      "role": "new-fixture",
+      "sha256": "ab3dd8d2ec16880ac65b78e1fd9e1cdffabe09319a7df89a50beef604e9c3554"
+    },
+    "bridge.h": {
+      "bytes": 1611,
+      "role": "new-fixture",
+      "sha256": "cedd8581b62acd21bdf5495a8827563569ae9b9dc66ccdc3866228ad10eaab2d"
+    },
+    "entry.S": {
+      "bytes": 5843,
+      "role": "unchanged-production",
+      "sha256": "95c4936e1e2530f9e0d60ea6642b7ce8ca1203480986050d96a130c581da22d1"
+    },
+    "fixture.S": {
+      "bytes": 2290,
+      "role": "new-fixture",
+      "sha256": "75a9f05832006851a91de6126df10da93778298489fb7c94876207bde7dc4d35"
+    },
+    "observer.cpp": {
+      "bytes": 4241,
+      "role": "unchanged-production",
+      "sha256": "0969955fb87f47f2fc909a1a4419bf0ec9ad2ac1b91244c60df8908f5c4ebd03"
+    },
+    "observer.h": {
+      "bytes": 4299,
+      "role": "unchanged-production",
+      "sha256": "999b8bebd58d37912f41e37330ecee60175a8f6a4d93d137d96892e13d7d14f6"
+    },
+    "run-tests.py": {
+      "bytes": 47895,
+      "role": "new-fixture",
+      "sha256": "8b0e9a23a344b1244c0ec65ec4c8fb15b10824a7a87b792412c1bdcbc0f3ce05"
+    },
+    "sdk/src/azmod/inline_hooks.c": {
+      "bytes": 19402,
+      "role": "unchanged-sdk",
+      "sha256": "f141b383c25e66c8acb1839280832a612a6ee0e25e9ada59f374ccbef8f81908"
+    },
+    "sdk/src/common/azprot.h": {
+      "bytes": 5296,
+      "role": "unchanged-sdk",
+      "sha256": "0f1cc9c5d4ca212f798bf2e9d74a69507a82ce5cc59bd328bacc46816a119b33"
+    },
+    "test_transfer.cpp": {
+      "bytes": 14628,
+      "role": "new-fixture",
+      "sha256": "c3fc5e05ae4b53dfdf2e483a14cb62fcc4a2a0fb0db3b99c7db9fc1616ee602c"
+    }
+  },
+  "installed_on_emulator_or_device": false,
+  "metadata_controls": [
+    {
+      "executed": false,
+      "failures": [
+        "fixture_action_target:post-stp-cfa"
+      ],
+      "file": "fixture.S",
+      "linked": false,
+      "machine_code_unchanged": true,
+      "metadata": {
+        "failures": [
+          "fixture_action_target:post-stp-cfa"
+        ],
+        "scope": "Two authored native-shaped prologues and their entry/+4 CFI only; no parent wrapper CFI replay.",
+        "targets": {
+          "fixture_action_target": {
+            "bytes": 64,
+            "entry_row": {
+              "CFA": "sp+0",
+              "LOC": 0,
+              "ra": "u",
+              "x29": "u"
+            },
+            "first_word": "0xa9b77bfd",
+            "frame_bytes": 144,
+            "post_stp_row": {
+              "CFA": "sp+160",
+              "LOC": 4,
+              "ra": "c-136",
+              "x29": "c-144"
+            },
+            "section_offset": 0
+          },
+          "fixture_service_target": {
+            "bytes": 64,
+            "entry_row": {
+              "CFA": "sp+0",
+              "LOC": 64,
+              "ra": "u",
+              "x29": "u"
+            },
+            "first_word": "0xa9af7bfd",
+            "frame_bytes": 272,
+            "post_stp_row": {
+              "CFA": "sp+272",
+              "LOC": 68,
+              "ra": "c-264",
+              "x29": "c-272"
+            },
+            "section_offset": 64
+          }
+        }
+      },
+      "name": "wrong-action-cfa",
+      "new": ".cfi_def_cfa_offset 160",
+      "old": ".cfi_def_cfa_offset 144",
+      "source_manifest": {
+        ".gitignore": {
+          "bytes": 22,
+          "sha256": "d56537a93a9565b3322aa9bc821c9cc30a16303467032cade13b069e394cfddc"
+        },
+        "azmod-mod.h": {
+          "bytes": 32149,
+          "sha256": "b94e2ba6656c2b852f18691d32225486f29265953c8bf09dcac9a18ce561a630"
+        },
+        "binding.cpp": {
+          "bytes": 3546,
+          "sha256": "de9e83210510523cca7be6096eac3b53e32af73442167546b7469a72a5287163"
+        },
+        "binding.h": {
+          "bytes": 2535,
+          "sha256": "b3c2b1304b8cd0d0a83a69e9508aa32edfcabdcf67dd329a15c2f76d245f1ce1"
+        },
+        "bridge.c": {
+          "bytes": 4995,
+          "sha256": "ab3dd8d2ec16880ac65b78e1fd9e1cdffabe09319a7df89a50beef604e9c3554"
+        },
+        "bridge.h": {
+          "bytes": 1611,
+          "sha256": "cedd8581b62acd21bdf5495a8827563569ae9b9dc66ccdc3866228ad10eaab2d"
+        },
+        "entry.S": {
+          "bytes": 5843,
+          "sha256": "95c4936e1e2530f9e0d60ea6642b7ce8ca1203480986050d96a130c581da22d1"
+        },
+        "fixture.S": {
+          "bytes": 2290,
+          "sha256": "05a69dc10a677b170dc966f28e6a478cb1ed5013952943301ed499b1f102888c"
+        },
+        "observer.cpp": {
+          "bytes": 4241,
+          "sha256": "0969955fb87f47f2fc909a1a4419bf0ec9ad2ac1b91244c60df8908f5c4ebd03"
+        },
+        "observer.h": {
+          "bytes": 4299,
+          "sha256": "999b8bebd58d37912f41e37330ecee60175a8f6a4d93d137d96892e13d7d14f6"
+        },
+        "run-tests.py": {
+          "bytes": 47895,
+          "sha256": "8b0e9a23a344b1244c0ec65ec4c8fb15b10824a7a87b792412c1bdcbc0f3ce05"
+        },
+        "sdk/src/azmod/inline_hooks.c": {
+          "bytes": 19402,
+          "sha256": "f141b383c25e66c8acb1839280832a612a6ee0e25e9ada59f374ccbef8f81908"
+        },
+        "sdk/src/common/azprot.h": {
+          "bytes": 5296,
+          "sha256": "0f1cc9c5d4ca212f798bf2e9d74a69507a82ce5cc59bd328bacc46816a119b33"
+        },
+        "test_transfer.cpp": {
+          "bytes": 14628,
+          "sha256": "c3fc5e05ae4b53dfdf2e483a14cb62fcc4a2a0fb0db3b99c7db9fc1616ee602c"
+        }
+      },
+      "target": "fixture_action_target"
+    },
+    {
+      "executed": false,
+      "failures": [
+        "fixture_service_target:post-stp-cfa"
+      ],
+      "file": "fixture.S",
+      "linked": false,
+      "machine_code_unchanged": true,
+      "metadata": {
+        "failures": [
+          "fixture_service_target:post-stp-cfa"
+        ],
+        "scope": "Two authored native-shaped prologues and their entry/+4 CFI only; no parent wrapper CFI replay.",
+        "targets": {
+          "fixture_action_target": {
+            "bytes": 64,
+            "entry_row": {
+              "CFA": "sp+0",
+              "LOC": 0,
+              "ra": "u",
+              "x29": "u"
+            },
+            "first_word": "0xa9b77bfd",
+            "frame_bytes": 144,
+            "post_stp_row": {
+              "CFA": "sp+144",
+              "LOC": 4,
+              "ra": "c-136",
+              "x29": "c-144"
+            },
+            "section_offset": 0
+          },
+          "fixture_service_target": {
+            "bytes": 64,
+            "entry_row": {
+              "CFA": "sp+0",
+              "LOC": 64,
+              "ra": "u",
+              "x29": "u"
+            },
+            "first_word": "0xa9af7bfd",
+            "frame_bytes": 272,
+            "post_stp_row": {
+              "CFA": "sp+288",
+              "LOC": 68,
+              "ra": "c-264",
+              "x29": "c-272"
+            },
+            "section_offset": 64
+          }
+        }
+      },
+      "name": "wrong-service-cfa",
+      "new": ".cfi_def_cfa_offset 288",
+      "old": ".cfi_def_cfa_offset 272",
+      "source_manifest": {
+        ".gitignore": {
+          "bytes": 22,
+          "sha256": "d56537a93a9565b3322aa9bc821c9cc30a16303467032cade13b069e394cfddc"
+        },
+        "azmod-mod.h": {
+          "bytes": 32149,
+          "sha256": "b94e2ba6656c2b852f18691d32225486f29265953c8bf09dcac9a18ce561a630"
+        },
+        "binding.cpp": {
+          "bytes": 3546,
+          "sha256": "de9e83210510523cca7be6096eac3b53e32af73442167546b7469a72a5287163"
+        },
+        "binding.h": {
+          "bytes": 2535,
+          "sha256": "b3c2b1304b8cd0d0a83a69e9508aa32edfcabdcf67dd329a15c2f76d245f1ce1"
+        },
+        "bridge.c": {
+          "bytes": 4995,
+          "sha256": "ab3dd8d2ec16880ac65b78e1fd9e1cdffabe09319a7df89a50beef604e9c3554"
+        },
+        "bridge.h": {
+          "bytes": 1611,
+          "sha256": "cedd8581b62acd21bdf5495a8827563569ae9b9dc66ccdc3866228ad10eaab2d"
+        },
+        "entry.S": {
+          "bytes": 5843,
+          "sha256": "95c4936e1e2530f9e0d60ea6642b7ce8ca1203480986050d96a130c581da22d1"
+        },
+        "fixture.S": {
+          "bytes": 2290,
+          "sha256": "dbdfee6ca79e99f0b7914dd60b525dc19468ba2b251cbdf4f362f21835a2d30c"
+        },
+        "observer.cpp": {
+          "bytes": 4241,
+          "sha256": "0969955fb87f47f2fc909a1a4419bf0ec9ad2ac1b91244c60df8908f5c4ebd03"
+        },
+        "observer.h": {
+          "bytes": 4299,
+          "sha256": "999b8bebd58d37912f41e37330ecee60175a8f6a4d93d137d96892e13d7d14f6"
+        },
+        "run-tests.py": {
+          "bytes": 47895,
+          "sha256": "8b0e9a23a344b1244c0ec65ec4c8fb15b10824a7a87b792412c1bdcbc0f3ce05"
+        },
+        "sdk/src/azmod/inline_hooks.c": {
+          "bytes": 19402,
+          "sha256": "f141b383c25e66c8acb1839280832a612a6ee0e25e9ada59f374ccbef8f81908"
+        },
+        "sdk/src/common/azprot.h": {
+          "bytes": 5296,
+          "sha256": "0f1cc9c5d4ca212f798bf2e9d74a69507a82ce5cc59bd328bacc46816a119b33"
+        },
+        "test_transfer.cpp": {
+          "bytes": 14628,
+          "sha256": "c3fc5e05ae4b53dfdf2e483a14cb62fcc4a2a0fb0db3b99c7db9fc1616ee602c"
+        }
+      },
+      "target": "fixture_service_target"
+    }
+  ],
+  "metadata_rejections": 2,
+  "modes_requested_for_runtime": [
+    "plain",
+    "asan-ubsan"
+  ],
+  "native_metadata": {
+    "asan-ubsan": {
+      "failures": [],
+      "scope": "Two authored native-shaped prologues and their entry/+4 CFI only; no parent wrapper CFI replay.",
+      "targets": {
+        "fixture_action_target": {
+          "bytes": 64,
+          "entry_row": {
+            "CFA": "sp+0",
+            "LOC": 0,
+            "ra": "u",
+            "x29": "u"
+          },
+          "first_word": "0xa9b77bfd",
+          "frame_bytes": 144,
+          "post_stp_row": {
+            "CFA": "sp+144",
+            "LOC": 4,
+            "ra": "c-136",
+            "x29": "c-144"
+          },
+          "section_offset": 0
+        },
+        "fixture_service_target": {
+          "bytes": 64,
+          "entry_row": {
+            "CFA": "sp+0",
+            "LOC": 64,
+            "ra": "u",
+            "x29": "u"
+          },
+          "first_word": "0xa9af7bfd",
+          "frame_bytes": 272,
+          "post_stp_row": {
+            "CFA": "sp+272",
+            "LOC": 68,
+            "ra": "c-264",
+            "x29": "c-272"
+          },
+          "section_offset": 64
+        }
+      }
+    },
+    "plain": {
+      "failures": [],
+      "scope": "Two authored native-shaped prologues and their entry/+4 CFI only; no parent wrapper CFI replay.",
+      "targets": {
+        "fixture_action_target": {
+          "bytes": 64,
+          "entry_row": {
+            "CFA": "sp+0",
+            "LOC": 0,
+            "ra": "u",
+            "x29": "u"
+          },
+          "first_word": "0xa9b77bfd",
+          "frame_bytes": 144,
+          "post_stp_row": {
+            "CFA": "sp+144",
+            "LOC": 4,
+            "ra": "c-136",
+            "x29": "c-144"
+          },
+          "section_offset": 0
+        },
+        "fixture_service_target": {
+          "bytes": 64,
+          "entry_row": {
+            "CFA": "sp+0",
+            "LOC": 64,
+            "ra": "u",
+            "x29": "u"
+          },
+          "first_word": "0xa9af7bfd",
+          "frame_bytes": 272,
+          "post_stp_row": {
+            "CFA": "sp+272",
+            "LOC": 68,
+            "ra": "c-264",
+            "x29": "c-272"
+          },
+          "section_offset": 64
+        }
+      }
+    }
+  },
+  "parent_commit": "f6033a026737169c8476f988c9701a8625d4f702",
+  "parent_suites_replayed": false,
+  "phase": "metadata-control:wrong-service-cfa",
+  "private_result_sha256": "d98981adf5a4c05c387db9c6fda5d805251ddf165e69f78872514b5e401e00d4",
+  "production_configuration_executed": true,
+  "production_configuration_execution_requested": true,
+  "retained_file_count": 462,
+  "runtime_gate": "CLOSED",
+  "sanitation": "Command arguments, absolute host paths, raw output, generated objects/executables and synthetic address/byte reports remain private. Relative artifact identities and hashes are retained here.",
+  "sanitizer": {
+    "available": true,
+    "environment": [
+      "ASAN_OPTIONS=detect_leaks=1:halt_on_error=1:abort_on_error=0",
+      "UBSAN_OPTIONS=halt_on_error=1:print_stacktrace=1"
+    ],
+    "flags": [
+      "-fsanitize=address,undefined",
+      "-fno-sanitize-recover=all"
+    ],
+    "libraries": {
+      "libasan.so": {
+        "readable": true,
+        "reported_path": "/usr/lib/gcc/aarch64-linux-gnu/7/libasan.so"
+      },
+      "libubsan.so": {
+        "readable": true,
+        "reported_path": "/usr/lib/gcc/aarch64-linux-gnu/7/libubsan.so"
+      }
+    },
+    "probe_passed": true
+  },
+  "scenario_inventory": {
+    "action-return": 8,
+    "action-throw": 8,
+    "service-return": 8,
+    "service-throw": 8
+  },
+  "schema": 1,
+  "sdk_commit": "3e0c5cb010454228f4ee63226b60d060494eeaae",
+  "selection": {
+    "modes": [
+      "plain",
+      "asan-ubsan"
+    ],
+    "sections": [
+      "candidate",
+      "scratch-control",
+      "metadata-controls"
+    ]
+  },
+  "status": "passed",
+  "tsan_executed": false
+}

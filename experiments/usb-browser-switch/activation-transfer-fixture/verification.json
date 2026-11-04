@@ -1,0 +1,115 @@
+{
+  "actual_community_claim_or_native_firmware_hook": false,
+  "actual_sdk_installer_on_authored_targets": true,
+  "anonymous_unwind_metadata_registered": false,
+  "baseline_commit": "f6033a026737169c8476f988c9701a8625d4f702",
+  "community_release": false,
+  "compiled_only_cfa_controls": 2,
+  "date": "2026-11-04",
+  "emulator_or_physical_device_contact": false,
+  "exact_control_failures": [
+    "emitted-route",
+    "body-scratch"
+  ],
+  "first_complete_matrix_passed": true,
+  "fixture_scheduling_hooks": [],
+  "helper_renamed_or_intercepted": false,
+  "independent_retained_byte_audit": {
+    "all_stderr_empty": true,
+    "anonymous_pc_unwind_proven": false,
+    "artifacts": 72,
+    "audit_result_sha256": "4db1d4f7cdeb78524e0bbd101a9b50d9978cbc84fd963bb57637898fa4886af8",
+    "audit_source_sha256": "2c87678896fbc20d8d600b1027ca846f34c9d75502e9f16b8db922ecf89de9a5",
+    "candidate_executions": 8,
+    "checks_per_candidate": 8,
+    "commands": 82,
+    "compiled_only_cfi_controls": 2,
+    "control_executions": 8,
+    "entry_variant_equality": {
+      "all_code_unwind_and_other_sections_identical": true,
+      "cause": "Same source compiled from /src versus /out/variants/installer-x16-scratch; exact compiler argv retained.",
+      "only_differing_sections": [
+        ".debug_line",
+        ".rela.debug_line",
+        ".rela.debug_info",
+        ".debug_str"
+      ],
+      "whole_object_identity_claimed": false
+    },
+    "failures_per_control": 2,
+    "inherited_pinned_inputs": 8,
+    "inputs": 14,
+    "native_runtime_gate": "CLOSED",
+    "prior_audit_failure": {
+      "correction": "Allow only duplicate .group sections of type17; preserve all indexed sections and unique .text/.eh_frame lookup.",
+      "failure_sha256": "2b0d1636213b882274a1ed5de8739de2ab5177dc3c44e4dd33aacbf50f668652",
+      "reason": "Auditor required globally unique ELF section names; exact GCC objects contain valid duplicate .group SHT_GROUP entries.",
+      "result_sha256": "9458f08c287d0b478481d63f5296bb3708049899f9fa6bb7ba3416d00560e8f9",
+      "source_sha256": "9ec7e7aaacd3f315df7867c978b2aa018a640efea1f1037d1ff87a648c5e57fd"
+    },
+    "public_projection_exact": true,
+    "public_result_sha256": "fe04a07a8d19d3fa3add3b9cccf4debbdad69bf21b5a79ab26c388e940abd1fa",
+    "raw_cfi_decoded_independently": true,
+    "raw_streams": 164,
+    "result_sha256": "d98981adf5a4c05c387db9c6fda5d805251ddf165e69f78872514b5e401e00d4",
+    "retained_files": 462,
+    "sanitizers": "selected new C/C++ code only; assembly not instrumented; no TSan",
+    "scope": "Independent retained bytes only; no runner import, compiler, runtime, endpoint or firmware access",
+    "second_prior_audit_failure": {
+      "correction": "Require exact identical sections except the four observed debug-only sections; independently require code/CFI relocations identical.",
+      "failure_sha256": "66a892c4dd26ad355303488b093248a091b82774047dbd2833d3d71b88b3c702",
+      "reason": "Auditor required whole-object identity across distinct source path compiles.",
+      "result_sha256": "de634256183a3107b60a613a5bdfe22d68360958812a43e93f8fe9536c8f8703",
+      "source_sha256": "de2d7493ce41f2bef0962e377bfff3042ca808aef43b6fd483451eda5f70ef09"
+    },
+    "status": "passed"
+  },
+  "installed_on_emulator_or_device": false,
+  "limits": [
+    "Only authored serial targets in an isolated process; provider substitution does not implement community loader admission or establish native hook ownership.",
+    "Ordinary body-origin exceptions traverse authored native/caller FDEs after tail transfer; interrupted PCs in anonymous island/trampoline code remain unproved.",
+    "Wrapper entry x17 is inferred from emitted island instructions, not directly observed; body scratch, SP/LR and argument observations are direct authored-fixture values.",
+    "ASan/UBSan instruments selected C/C++ code but not assembly or generated instructions; no TSan, general race/publication/lifetime or installed-native-hook unwind proof follows.",
+    "Close retains forwarding slots without draining, unpatching or authorizing reclamation; actual row/provider/arguments/owner scope and queued/destructive paths remain open.",
+    "Writer exclusion, stopped recovery, USB activation, stems staging and every unresolved runtime/product gate remain closed."
+  ],
+  "modes": [
+    "plain",
+    "asan-ubsan"
+  ],
+  "native_pointee_or_post_return_reads": false,
+  "new_named_checks_per_mode": 32,
+  "new_selectors_per_mode": 4,
+  "new_source_sha256": {
+    ".gitignore": "d56537a93a9565b3322aa9bc821c9cc30a16303467032cade13b069e394cfddc",
+    "bridge.c": "ab3dd8d2ec16880ac65b78e1fd9e1cdffabe09319a7df89a50beef604e9c3554",
+    "bridge.h": "cedd8581b62acd21bdf5495a8827563569ae9b9dc66ccdc3866228ad10eaab2d",
+    "fixture.S": "75a9f05832006851a91de6126df10da93778298489fb7c94876207bde7dc4d35",
+    "run-tests.py": "8b0e9a23a344b1244c0ec65ec4c8fb15b10824a7a87b792412c1bdcbc0f3ce05",
+    "test_transfer.cpp": "c3fc5e05ae4b53dfdf2e483a14cb62fcc4a2a0fb0db3b99c7db9fc1616ee602c"
+  },
+  "old_suites_replayed": false,
+  "parent_sources_or_tests_changed": false,
+  "private_result_sha256": "d98981adf5a4c05c387db9c6fda5d805251ddf165e69f78872514b5e401e00d4",
+  "production_helper_binding_configuration_executed": true,
+  "public_result_sha256": "fe04a07a8d19d3fa3add3b9cccf4debbdad69bf21b5a79ab26c388e940abd1fa",
+  "retained_parent_object_executed": false,
+  "runtime_gate": "CLOSED",
+  "safe_scratch_controls_per_mode": 1,
+  "schema": 1,
+  "scope": "Offline exact SDK late transfer through authored ARM64 targets and frozen production entry/helper/binder",
+  "scratch_control_executions_per_mode": 4,
+  "sdk_commit": "3e0c5cb010454228f4ee63226b60d060494eeaae",
+  "source_review": {
+    "corrections_before_first_build": [
+      "Correct interpreted-CFI regex escape.",
+      "Require no candidate CFI failures before runtime.",
+      "Pass a new report.json filename rather than its directory.",
+      "Require structural route/identity/RX checks before generated-code invocation, separately from the strict x17 oracle."
+    ],
+    "independent_claim_review": true,
+    "independent_fixture_runner_review": true,
+    "passed": true
+  },
+  "tsan_executed": false
+}

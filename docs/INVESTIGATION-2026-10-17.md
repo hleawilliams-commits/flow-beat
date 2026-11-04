@@ -1751,3 +1751,56 @@ pointee/post-return reads, return interception and cross-entry pairing remain
 absent. No emulator/device, official core, community package, catalog or release
 was changed. Writer exclusion, stopped recovery, USB activation, stems staging
 and every unresolved runtime/product gate remain CLOSED.
+
+## November 4: exact SDK transfer through authored ARM64 targets
+
+The separate [transfer fixture](../experiments/usb-browser-switch/activation-transfer-fixture/)
+advances the installer contract review without touching a live target. It
+privately snapshots the unchanged five production binding/observer files from
+`f6033a0` and the exact SDK installer/protection/interface sources at
+`3e0c5cb`. One claim-provider substitution validates the binder's identities
+and maps its requested constants to two authored assembly functions. The actual
+late installer performs allocation, mapping/protection queries, cache flushes,
+original-slot publication and one-word patching. No allocation/protection mock,
+preseeded island or fallback-policy change is used.
+
+The first complete new matrix passes 32 named checks across four fresh selectors
+per plain and ASan/UBSan mode: action/service return and action/service ordinary
+body throw. The production helper/binder is now linked and executed without
+scheduling macros, renaming or an external interceptor. Prior compile-only and
+fixture-seam evidence stays separate. Actual code bytes identify a sixteen-byte
+island and twenty-byte one-instruction trampoline; all recorded mappings are
+restored RX before invocation. A structural safety preflight precedes execution.
+
+The SDK island writes x17 with the wrapper address. The frozen wrapper tail
+uses x16 for its original trampoline, and that trampoline sets x17 to native +4.
+The authored body directly observes the latter two values before BL, together
+with SP/LR and arguments; wrapper-entry x17 is inferred from the emitted
+instructions, not directly recorded. A paired x16 LDR/BR control keeps both
+destinations valid and fails exactly emitted-route/body-scratch in all eight
+control executions. Two CFA-only controls preserve target instructions/code
+relocations and are rejected for exactly the changed post-STP row; neither is
+linked or executed.
+
+Authored target FDEs describe the SP+144 and SP+272 continuation states.
+Ordinary body exceptions reach the original caller and execute both body/caller
+cleanup once. No FDE is registered for anonymous islands/trampolines, including
+the interval after the copied STP changes SP. Successful body exceptions do not
+prove interrupted-PC, signal, fault or asynchronous unwind through those gaps,
+arbitrary relocation or native firmware semantics.
+
+Independent source/claim reviews and a retained-byte audit pass. The audit
+checks 14 inputs, 82 commands, 164 raw output streams, 72 artifacts and all 462
+retained run files without importing/executing the runner or repeating a test.
+Raw commands, addresses, generated code, upstream copies and output remain
+private; source and sanitized metadata are shared. Assembly/generated
+instructions are not sanitizer-instrumented; no TSan or general publication,
+concurrency, lifetime or installed-native-hook unwind proof is supplied.
+
+Next resolve the anonymous transfer unwind policy and actual permitted native
+row/provider/argument/owner execution context, current hook ownership and
+alternate destructive/queued paths before considering a separate passive
+adapter. No native pointee/post-return read, return interception, cross-entry
+pairing, application/emulator/device action, package or release is added.
+All writer/recovery, USB activation, stems staging and runtime gates remain
+CLOSED. Do not replay this passing matrix or its predecessors unchanged.

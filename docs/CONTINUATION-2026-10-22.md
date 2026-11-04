@@ -1804,3 +1804,41 @@ pointee/post-return reads, return interception and cross-entry pairing remain
 absent. No emulator/device, official core, community package, catalog or release
 was changed. Writer exclusion, stopped recovery, USB activation, stems staging
 and every unresolved runtime/product gate remain CLOSED.
+
+## November 4: offline actual installer transfer and ordinary exceptions
+
+The [new authored-target transfer fixture](../experiments/usb-browser-switch/activation-transfer-fixture/)
+executes the pinned SDK's real late island/trampoline path through the frozen
+production binder/helper/entry in an isolated ARM64 process. A validated
+claim-provider substitution maps the requested identities only to authored
+assembly targets. Real allocation, protection queries, cache flushes and
+one-word patching are exercised; actual community-loader admission, firmware
+and live application ownership are not.
+
+The first complete new matrix passes 32 named checks across four fresh selectors
+per plain and ASan/UBSan mode. Both authored entries have return and ordinary
+body-throw coverage, with exact SP/LR/argument/capture and body/caller cleanup
+checks. Structural route/RX validation precedes invocation. Body x16 equals the
+original trampoline, and x17 equals target +4; the island's wrapper-entry x17
+value is inferred from emitted instructions rather than directly captured.
+One paired x16 control preserves valid destinations and fails only two exact
+oracles per selector. Two malformed CFA controls retain identical code but are
+compiled/rejected without linking or execution.
+
+This is the first execution of the unchanged production helper/binder
+configuration in this scoped route; no prior suite is replayed. Independent
+source/claim reviews and a retained-byte audit pass over 14 inputs, 82 commands,
+164 output streams, 72 artifacts and 462 files. Raw evidence stays private.
+Assembly/generated code is not sanitizer-instrumented, and no TSan or general
+concurrency/lifetime proof follows.
+
+Ordinary body exceptions use authored native/caller FDEs after the tail transfer.
+The installer supplies no anonymous island/trampoline FDE, particularly after
+the copied STP changes SP. Interrupted-PC unwind and actual native execution
+scope therefore remain open. Resolve that unwind policy together with permitted
+native invocation/row/provider/owner scope and alternate destructive/queued
+paths before a passive adapter; do not install this fixture or rerun its passing
+matrix unchanged. Closing capture still grants no drain, unpatch or reclamation.
+No emulator/deck action, official-core/package change or release occurred.
+Writer exclusion, stopped recovery, USB activation, stems staging and all
+unresolved runtime/product gates remain CLOSED.
