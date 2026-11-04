@@ -1,0 +1,164 @@
+{
+  "candidate_executed": false,
+  "candidate_linked": false,
+  "cases": [
+    {
+      "name": "plain-slot",
+      "object": {
+        "bytes": 1504,
+        "class": 64,
+        "elf_type": "ET_REL",
+        "endianness": "little",
+        "executed": false,
+        "machine": "AArch64",
+        "sha256": "52001e2c4adaa8bd5371d1413ee6d7efbf4f20bc8d46a2d958d4a89e4845b8fd"
+      },
+      "oracle": "plain-slot-compiles",
+      "returncode": 0
+    },
+    {
+      "diagnostic_sha256": "01fe5699ed1b9ffecb90b35c1bea2d2e2e899a7f8c414fb54704678518037400",
+      "error_count": 1,
+      "line": 44,
+      "name": "direct-atomic-slot",
+      "oracle": "atomic-slot-not-void-double-pointer",
+      "returncode": 1
+    },
+    {
+      "diagnostic_sha256": "bdb0b5bffe3d2f1964ca3e4c248cfa51caceced934ddc3271eccaa5c3e210b16",
+      "error_count": 1,
+      "line": 32,
+      "name": "wrong-expected-signature",
+      "oracle": "SDK_CLAIM_HOOK_EXACT_VOID_DOUBLE_POINTER",
+      "returncode": 1
+    }
+  ],
+  "commands": [
+    {
+      "cleanup": null,
+      "exception": null,
+      "name": "sdk-header",
+      "receipt_sha256": "a76bcd60b3bdb05b109ff9625fbd9b6acdcf5ed8cc3f0acb92b05a9091ee2302",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 32149,
+      "stdout_sha256": "b94e2ba6656c2b852f18691d32225486f29265953c8bf09dcac9a18ce561a630"
+    },
+    {
+      "cleanup": null,
+      "exception": null,
+      "name": "observer-header",
+      "receipt_sha256": "3f2ac0782dc26498540345d7b860e184eb3caf8cb3d6a999859312a68a011d30",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 3754,
+      "stdout_sha256": "0d8cefb8a41f7af1a74c8e1897369eebb0d8c1ec0d44a7dbe57574d8434ca089"
+    },
+    {
+      "cleanup": null,
+      "exception": null,
+      "name": "image",
+      "receipt_sha256": "5caf0cd8360f67977ccd494c5334fee8ba54dc594443ee48b2542713ce4c0a45",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 78,
+      "stdout_sha256": "2401028a6e5c9b14dabbb5452029907cea4f8d14f38c69774a956266957b965c"
+    },
+    {
+      "cleanup": null,
+      "exception": null,
+      "name": "target",
+      "receipt_sha256": "d7956c6357c2597e42872a3c0bdb6e3db037adc1fe7d8ba6cb5932fe344d41ed",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 18,
+      "stdout_sha256": "811b17aa02eb472140fbd7c338e99ac8770181c999ed2ea78797163dfd0fbd5b"
+    },
+    {
+      "cleanup": null,
+      "exception": null,
+      "name": "compiler",
+      "receipt_sha256": "584812617a5a6bf5e30cd25a4e9146bdc0bdaaf6dd69a381d794690efee6332b",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 249,
+      "stdout_sha256": "3f5e78bba81561e27fd9114487706d19fa630aea6473afe48d9a7bb8ae3e5287"
+    },
+    {
+      "cleanup": null,
+      "exception": null,
+      "name": "plain-slot",
+      "receipt_sha256": "3a571dc520afb492b37456c94b04ad68b3f7d3c44df7467bdf4dc6e47e6df8eb",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "cleanup": null,
+      "exception": null,
+      "name": "direct-atomic-slot",
+      "receipt_sha256": "4001f998c603a92fa0d4d7fa8641a96df1769414ba0a68cac9e35f7a1cd89ef5",
+      "returncode": 1,
+      "stderr_bytes": 220,
+      "stderr_sha256": "01fe5699ed1b9ffecb90b35c1bea2d2e2e899a7f8c414fb54704678518037400",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "cleanup": null,
+      "exception": null,
+      "name": "wrong-expected-signature",
+      "receipt_sha256": "173ba0115297ea7ee7f191cf98f83c99a5f0a9b268587b5a0c11fba4405bebd8",
+      "returncode": 1,
+      "stderr_bytes": 99,
+      "stderr_sha256": "bdb0b5bffe3d2f1964ca3e4c248cfa51caceced934ddc3271eccaa5c3e210b16",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "compile_only": true,
+  "compiler": "g++ (Ubuntu/Linaro 7.5.0-3ubuntu1~18.04) 7.5.0",
+  "firmware_or_device_access": false,
+  "flags": [
+    "-std=c++17",
+    "-O2",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-pedantic-errors",
+    "-fno-permissive",
+    "-fdiagnostics-color=never",
+    "-fno-diagnostics-show-caret",
+    "-fPIC"
+  ],
+  "hook_called": false,
+  "image_id": "sha256:c7e3893c4f03e0ff30555c2120b3d9ec53834eaa2c8ce376a2da09b70fd23a90",
+  "input_sha256": {
+    ".gitignore": "7fec0c903f3d7b39dc2ccbbb3e3724d758e6cfce527360063547e528c956b07d",
+    "azmod-mod.h": "b94e2ba6656c2b852f18691d32225486f29265953c8bf09dcac9a18ce561a630",
+    "observer.h": "0d8cefb8a41f7af1a74c8e1897369eebb0d8c1ec0d44a7dbe57574d8434ca089",
+    "run-compile.py": "00470be2627e0f73ee41b8b2f8d3d64997cc371a51f111da661fc8d1e07b20ce",
+    "type-probe.cpp": "0583b1ee4fd5c3a1e48e2ae8d7bbbb4163a24c83f7434d4a90c932e2475eb5a6"
+  },
+  "limits": [
+    "Compile-only type compatibility, not actual claim or publication correctness.",
+    "No link, probe execution, source composition or new runtime state machine.",
+    "Direct atomic argument is refused; casts to void** are not validated.",
+    "No prior successful test suite was replayed."
+  ],
+  "observer_commit": "c44f127a4e1137a834d321828379f2d4a4ae1878",
+  "observer_path": "experiments/usb-browser-switch/activation-entry-observer/observer.h",
+  "old_tests_replayed": false,
+  "private_result_sha256": "3868bea75ac4285e05bd70a895211652a956ab6d31071acdcdb043702869ad8e",
+  "schema": 1,
+  "sdk_commit": "3e0c5cb010454228f4ee63226b60d060494eeaae",
+  "sdk_path": "src/azmod/azmod-mod.h",
+  "status": "passed"
+}

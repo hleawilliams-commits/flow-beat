@@ -1,0 +1,94 @@
+{
+  "continuation": {
+    "firmware_sha256": "6577f42532375936c7e3fa830efa35b7daa9cde8e0a265c1fc7143f824321925",
+    "records": [
+      {
+        "action_prior_reference": {
+          "cfa_offset": 144,
+          "cfa_register": 31,
+          "continuation_pc": "0x1be7e3c",
+          "entry": "0x1be7e38",
+          "file": "activation-abi/private/action-meta.json",
+          "freshly_decoded": false,
+          "saved_registers": {
+            "29": -144,
+            "30": -136
+          },
+          "sha256": "cd1d6f782dbaf435f0f01102a09ceb7a2e545b7a0aa50c005a5cf9c3852c1ef2",
+          "source_row_index": 1
+        },
+        "cfa": {
+          "expression": null,
+          "offset": 272,
+          "register": 31
+        },
+        "continuation_pc": "0x20a1554",
+        "entry": "0x20a1550",
+        "fde_bytes": 164,
+        "fde_sha256": "0ca15b0e1ebd17d41819e52c57682e52571df71c12697bf683bf6f364c064a72",
+        "saved_registers": {
+          "29": {
+            "argument": -272,
+            "type": "OFFSET"
+          },
+          "30": {
+            "argument": -264,
+            "type": "OFFSET"
+          }
+        },
+        "selected_row_pc": "0x20a1554"
+      }
+    ],
+    "schema": 1,
+    "scope": "One newly decoded saved-file service continuation row; no full function revalidation, policy/test replay or runtime contact.",
+    "service_pins_sha256": "ce99296f85f5bea315434c542d5baa02af6f717e3eced27c352fa4c4146012d8"
+  },
+  "device_or_emulator_contact": false,
+  "launcher_failure": {
+    "correction": "Use the existing venv launcher without resolving its symlink",
+    "failed_receipt_sha256": "488b1c6bee55ee11351796808f1998450ce6fa7a840d3af9fa08b5775f840972",
+    "failed_stderr_sha256": "eeaeb4ca30e9ad2e5ed0925c4f942dbebbe9a1a71b0ada787569cba71deebcb4",
+    "returncode": 1,
+    "script_unchanged": true,
+    "stage": "Before ELF read, importing pyelftools with symlink-resolved base Python",
+    "successful_receipt_sha256": "ef67183a8e9e6f48308e46016d9beca867bce05ffec5fb7ee816a4c38beba1fb"
+  },
+  "native_execution": false,
+  "pinned_source_sha256": {
+    "src/azmod/azmod-mod.h": "b94e2ba6656c2b852f18691d32225486f29265953c8bf09dcac9a18ce561a630",
+    "src/azmod/community.c": "4b2b72e2b623dcb1ecb0ef108a473815adab45a516a6aa13adb6cce512b80866",
+    "src/azmod/inline_hooks.c": "f141b383c25e66c8acb1839280832a612a6ee0e25e9ada59f374ccbef8f81908",
+    "src/azmod/sdk_vslot.c": "8e162244e63cd3fcec1f17db1a7a526bdbb1b86ca7dd56383e50cdda625c08e3"
+  },
+  "policy_replayed": false,
+  "private_cfi_result_sha256": "f024cbc61e2b876dc7064dcaada383622f0160ee3bf1533ea7ffed0728ad31ef",
+  "private_search_result_sha256": "dafddcc8f9f42565803890bcd627b53310ef96bf97c6eb99b99db4f68c982a27",
+  "retained_eligibility_result_sha256": "9690dcbff48a12552d21e713b46898f3c7213ee1811f6fbdbd4c46dd43f8f473",
+  "runtime_gate": "CLOSED",
+  "schema": 1,
+  "scope": "Saved-file SDK and one native continuation-row review only; no live ownership or installation proof",
+  "source_literal_search": {
+    "excluded_path_components": [
+      "test",
+      "tests"
+    ],
+    "hits": [],
+    "live_ownership_available": false,
+    "scope": "Lexical source-object search for 0x/EP_ address literals within the strict 16-byte SDK overlap relation; no runtime ownership inventory or computed/pattern-resolved target proof.",
+    "source_bytes": 3359025,
+    "source_count": 110,
+    "source_root": "src",
+    "suffixes": [
+      ".c",
+      ".h",
+      ".cpp",
+      ".inc",
+      ".S"
+    ],
+    "targets": [
+      "0x1be7e38",
+      "0x20a1550"
+    ]
+  },
+  "upstream_commit": "3e0c5cb010454228f4ee63226b60d060494eeaae"
+}

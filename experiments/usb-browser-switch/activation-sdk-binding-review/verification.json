@@ -1,0 +1,68 @@
+{
+  "baseline_commit": "c44f127a4e1137a834d321828379f2d4a4ae1878",
+  "community_release": false,
+  "compile_only": {
+    "compile_attempts": 3,
+    "compiler_oracle_lines": [
+      44,
+      32
+    ],
+    "executed": false,
+    "expected_compiler_refusals": 2,
+    "first_matrix_passed": true,
+    "input_sha256": {
+      ".gitignore": "7fec0c903f3d7b39dc2ccbbb3e3724d758e6cfce527360063547e528c956b07d",
+      "azmod-mod.h": "b94e2ba6656c2b852f18691d32225486f29265953c8bf09dcac9a18ce561a630",
+      "observer.h": "0d8cefb8a41f7af1a74c8e1897369eebb0d8c1ec0d44a7dbe57574d8434ca089",
+      "run-compile.py": "00470be2627e0f73ee41b8b2f8d3d64997cc371a51f111da661fc8d1e07b20ce",
+      "type-probe.cpp": "0583b1ee4fd5c3a1e48e2ae8d7bbbb4163a24c83f7434d4a90c932e2475eb5a6"
+    },
+    "installed": false,
+    "linked": false,
+    "object_bytes": 1504,
+    "positive_objects": 1,
+    "private_result_sha256": "3868bea75ac4285e05bd70a895211652a956ab6d31071acdcdb043702869ad8e",
+    "public_result_sha256": "0d2277d1a4019c21b30dc4609f41dea4286e4d5523239e60998d3571a1a43ebe"
+  },
+  "date": "2026-11-04",
+  "device_or_emulator_contact": false,
+  "frozen_observer_source_changed": false,
+  "independent_retained_byte_audit": {
+    "compile_commands": 8,
+    "compile_inputs": 5,
+    "compile_inventory_files": 41,
+    "method": "Independent source, bytes, receipt, output and blob-structure review; no runner import, compiler invocation, test replay or ELF decoding",
+    "passed": true,
+    "preserved_import_failure_files": 4,
+    "prior_policy_source_hashes_matched": 4,
+    "public_projections_match": true,
+    "raw_compile_output_streams": 16,
+    "source_blobs": 110,
+    "source_bytes": 3359025,
+    "source_literal_hits": 0,
+    "successful_static_attempt_files": 14,
+    "unexpected_compiler_diagnostics": false
+  },
+  "limits": [
+    "Type compatibility does not validate a hook claim, pointer publication or native instruction/cache synchronization.",
+    "Historical eligibility and source literal search do not establish current exclusive ownership.",
+    "Native +4 continuation rows do not provide anonymous island/trampoline unwind metadata.",
+    "A separate SDK-compatible permanent-slot and authoritative terminal capture-state composition remains to be implemented and tested."
+  ],
+  "new_binding_or_terminal_state_implemented": false,
+  "new_native_pointee_or_post_return_reads": false,
+  "runtime_gate": "CLOSED",
+  "schema": 1,
+  "scope": "Offline SDK output-slot type, source publication/lifetime and one service continuation-row review",
+  "source_review": {
+    "corrections_before_publication": [
+      "Distinguish pre-lock claim validation from mutex-protected overlap/installation.",
+      "Attribute exact firmware matching to earlier loader checks.",
+      "Describe set_ready(bool) as reusable offline-helper interface, also present in production configuration.",
+      "Scope pointer atomic accesses to the selected compiler/target contract."
+    ],
+    "passed": true
+  },
+  "static_evidence_sha256": "ea8db68a2e018761cc06e3c2ca99bb6a69e314407bbc20e7db9a4301f24907d4",
+  "unchanged_previous_suites": true
+}

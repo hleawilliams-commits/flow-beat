@@ -1726,3 +1726,40 @@ separate gates. Next review exact SDK eligibility and publication/lifetime for a
 separately scoped passive binding; do not repeat this passing matrix unchanged.
 No hook installation, emulator/physical action, USB button, core/package/catalog
 change or release occurred. All existing runtime and product gates remain CLOSED.
+
+## November 4: SDK slot contract and passive binding lifetime
+
+The separate [binding review](../experiments/usb-browser-switch/activation-sdk-binding-review/)
+finds a concrete interface mismatch before installation: frozen USB originals are
+`std::atomic<uintptr_t>` objects, while the exact SDK `claim_hook` requires
+`void **`. Existing target size/alignment checks do not justify a cast. One new
+ARM64 compile-only matrix confirms a permanent aligned plain-pointer argument
+compiles, direct atomic passage is refused at its call, and a wrong expected
+SDK signature fails the named assertion. Both refusal cases emit no object.
+The one positive object is never linked/executed; no old matrix is replayed.
+Independent source and retained-byte audits pass, including all five compile
+inputs, eight command receipts, both extractor attempts and 110 source blobs.
+
+The intended separate binding must pass each permanent original slot directly,
+because native entry can occur before claim return. A failed second claim keeps
+the first forwarding path and storage reachable; capture close is not unpatch,
+quiescence or reclaim permission. The frozen reusable bool capture gate is not
+a terminal installer protocol. A separate state CAS followed by setting that
+bool has a possible close/reopen window; the successor should check one
+authoritative terminal state directly in capture. This is a source-level
+schedule and an unimplemented correction, not a new runtime observation.
+
+Prior prologue eligibility remains accepted within its exact static scope.
+A 110-blob pinned-source search finds no overlapping 0x/EP_ address literal;
+computed targets and current loaded hook ownership remain unproved. Only the
+service +4 CFI row is newly decoded: CFA SP+272, saved x29−272/x30−264. The
+action +4 row is reused from retained evidence. Neither supplies anonymous
+island/trampoline unwind metadata. The initial extractor import failure is
+retained; preserving the venv launcher fixed it before the first ELF read.
+
+Next implement and check the separately versioned slot/capture-state composition
+for first/second refusal, entry before claim return, repeated init and terminal
+close schedules. No source of the passing observer, SDK/core, community package,
+catalog or device is changed. No installable observer or USB button is supplied.
+Live native provenance/owner scope, writer exclusion, stopped recovery and all
+existing runtime, activation, stems and release gates remain CLOSED.
