@@ -148,6 +148,39 @@ static int row_mixer = -1;   /* "Send mixer to FLOW" (0.5.0), on by default */
 static int row_wave = -1;    /* "Send track analysis to FLOW" (0.4.0), on by default */
 static unsigned wave_seq_base = 0x40000000u;   /* the wave thread's own seq range, so the two threads never collide */
 static int track_dirty;      /* set by deck events (UI thread), read by the worker: atomics */
+/* 0.6.5 (Key Sync): each deck's key from the stick's rekordbox library, found by the wave thread
+ * with the analysis and read by the worker. The 7-character key packs into one 64-bit word; its
+ * content id is cleared first and set last, so a reader never pairs a key with the wrong track. */
+static uint64_t lib_key_word[4];
+static uint32_t lib_key_id[4];
+static void lib_key_set(int d, uint32_t id, const char *key)
+{
+    char k[8] = { 0 };
+    for (int i = 0, o = 0; key && key[i] && o < 7; i++)
+        if (key[i] > 0x20 && key[i] < 0x7f && key[i] != '"' && key[i] != '\\') k[o++] = key[i];
+    uint64_t w; memcpy(&w, k, 8);
+    __atomic_store_n(&lib_key_id[d], 0u, __ATOMIC_RELEASE);
+    __atomic_store_n(&lib_key_word[d], w, __ATOMIC_RELEASE);
+    __atomic_store_n(&lib_key_id[d], id, __ATOMIC_RELEASE);
+}
+/* The key for deck d: the core's own if it gives one, else the library's for this track, else "". */
+static void deck_key(int d, const az_deck_info *di, char out[8])
+{
+    out[0] = 0;
+    if (di->loaded != 1) return;
+    if (di->key[0]) {
+        int o = 0;
+        for (int i = 0; di->key[i] && i < (int)sizeof di->key && o < 7; i++)
+            if (di->key[i] > 0x20 && di->key[i] < 0x7f && di->key[i] != '"' && di->key[i] != '\\') out[o++] = di->key[i];
+        out[o] = 0;
+        if (o) return;
+    }
+    uint32_t id = __atomic_load_n(&lib_key_id[d], __ATOMIC_ACQUIRE);
+    uint64_t w = __atomic_load_n(&lib_key_word[d], __ATOMIC_ACQUIRE);
+    if (!id || id != di->content_id || __atomic_load_n(&lib_key_id[d], __ATOMIC_ACQUIRE) != id) return;
+    memcpy(out, &w, 8);
+    out[7] = 0;
+}
 #ifndef FLOW_LINK_DEFAULT
 #define FLOW_LINK_DEFAULT 0  /* make test TEST_CC="clang -DFLOW_LINK_DEFAULT=1" runs the harness with Link on */
 #endif
@@ -1432,7 +1465,8 @@ static void *worker(void *arg)
                 n = put_str(buf, n, 700, di[d].title);
                 n += snprintf(buf + n, sizeof buf - (size_t)n, ",\"artist\":");
                 n = put_str(buf, n, 1300, di[d].artist);
-                n += snprintf(buf + n, sizeof buf - (size_t)n, "}");
+                char k[8]; deck_key(d, &di[d], k);
+                n += snprintf(buf + n, sizeof buf - (size_t)n, ",\"key\":\"%s\"}", k);   /* 0.6.5 */
                 send_pkt(buf, n);
             }
             track_sig[d] = sig;
@@ -1446,13 +1480,15 @@ static void *worker(void *arg)
             for (int d = 0; d < NDECKS; d++) {
                 float lv = atomic_exchange_explicit(&lvl[d], 0.f, memory_order_relaxed);
                 float lo = atomic_exchange_explicit(&low[d], 0.f, memory_order_relaxed);
+                char k[8]; deck_key(d, &di[d], k);   /* 0.6.5: the key, for Key Sync */
                 n += snprintf(buf + n, sizeof buf - (size_t)n,
-                              "%s{\"d\":%d,\"loaded\":%d,\"play\":%d,\"bpm\":%.2f,\"ph\":%.4f,\"pos\":%.3f,\"id\":%u,\"start\":%u,\"lv\":%.3f,\"lo\":%.3f}",
+                              "%s{\"d\":%d,\"loaded\":%d,\"play\":%d,\"bpm\":%.2f,\"ph\":%.4f,\"pos\":%.3f,\"id\":%u,\"start\":%u,\"lv\":%.3f,\"lo\":%.3f,\"key\":\"%s\"}",
                               d ? "," : "", d + 1, di[d].loaded == 1, di[d].loaded == 1 && di[d].playing == 1,
                               di[d].loaded == 1 ? di[d].bpm : 0.0, ph[d],
-                              di[d].loaded == 1 ? di[d].pos_s : -1.0, (unsigned)di[d].content_id, since[d], lv, lo);
+                              di[d].loaded == 1 ? di[d].pos_s : -1.0, (unsigned)di[d].content_id, since[d], lv, lo, k);
             }
-            n += snprintf(buf + n, sizeof buf - (size_t)n, "]}");
+            /* 0.6.5: the deck on air (same rule as Link and the lights), 0 = none */
+            n += snprintf(buf + n, sizeof buf - (size_t)n, "],\"air\":%d}", on_air_deck(since, &ms, ms_have) + 1);
             send_pkt(buf, n);
         }
 
@@ -1635,13 +1671,14 @@ static void index_build(anlz_index *x, const char *root)
 }
 
 /* lib_tracks callback: find the loaded track on a stick by id (and title, ids repeat across sticks) */
-typedef struct { uint32_t id; const char *title; char path[1024]; int found; } find_ctx;
+typedef struct { uint32_t id; const char *title; char path[1024]; char key[8]; int found; } find_ctx;
 static int find_track(const az_track *t, void *user)
 {
     find_ctx *f = (find_ctx *)user;
     if (t->id != f->id || !t->path) return 0;
     if (f->title && f->title[0] && t->title && strcmp(t->title, f->title) != 0) return 0;
     snprintf(f->path, sizeof f->path, "%s", t->path);
+    snprintf(f->key, sizeof f->key, "%s", t->key ? t->key : "");   /* 0.6.5 */
     f->found = 1;
     return 1;
 }
@@ -1675,7 +1712,7 @@ static size_t take_tags(const char *file, const char *const *want, unsigned char
 }
 
 /* The analysis blob for deck d, or 0 bytes. */
-static size_t load_analysis(const az_deck_info *di, unsigned char *blob)
+static size_t load_analysis(int deck, const az_deck_info *di, unsigned char *blob)
 {
     find_ctx f;
     memset(&f, 0, sizeof f);
@@ -1685,6 +1722,7 @@ static size_t load_analysis(const az_deck_info *di, unsigned char *blob)
     for (int s = 0; s < 2 && !f.found; s++)
         if (C->lib_tracks(MOD_ID, s, 0, find_track, &f) >= 0 && f.found) stick = s;
     if (stick < 0) return 0;
+    lib_key_set(deck, di->content_id, f.key);   /* 0.6.5: the key, found with the path */
     /* the mount point: the longest prefix of the audio path that holds PIONEER/USBANLZ */
     char root[256] = "", probe[320];
     for (size_t i = strlen(f.path); i > 1; i--) {
@@ -1765,7 +1803,7 @@ static void *wave_worker(void *arg)
             if (sig != sent_sig[d]) {                       /* a new track: find and read its analysis once */
                 sent_sig[d] = sig; repeats[d] = 0; next_at[d] = 0; blen[d] = 0;
                 if (!blob[d]) blob[d] = (unsigned char *)malloc(WAVE_MAX);
-                if (blob[d]) blen[d] = load_analysis(&di, blob[d]);
+                if (blob[d]) blen[d] = load_analysis(d, &di, blob[d]);
                 if (blob[d]) bars_set(d, sig, blob[d], blen[d]);
             }
             if (!send || !blen[d] || now < next_at[d]) continue;

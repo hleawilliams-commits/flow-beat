@@ -154,8 +154,11 @@ Every packet: `{"flowbeat":1,"type":...,"seq":N,...}`; `seq` counts all packets.
   `ph` = position in the current beat 0..1 (-1 = no grid); `pos` = playhead in seconds
   (-1 unknown); `id` = rekordbox track id (0 unknown), so the receiver can find the bar (the
   "1") in the track's rekordbox beat grid; `start` orders play starts (higher = started later,
-  0 = not playing).
-- `track`, on load and every ~2 s: `{"d":1,"title":"...","artist":"..."}`.
+  0 = not playing). Since 0.6.5 each deck also has `"key":"8A"` (the key as the stick's rekordbox
+  library spells it, "" until found) and the packet ends with `"air":2`: the deck on air (the
+  rule Link and the lights use), 0 = none. FLOW Key Sync on the Mac uses both to keep Ableton
+  Live's Scale in the on-air deck's key.
+- `track`, on load and every ~2 s: `{"d":1,"title":"...","artist":"...","key":"8A"}` (`key` since 0.6.5).
 
 No deck clock is sent: the receiver times beats by arrival.
 

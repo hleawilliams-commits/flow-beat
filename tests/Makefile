@@ -14,6 +14,7 @@
 #                          lights-tsan the same under TSan
 #   make -C tests panel    0.6.2: the FLOW Lights panel: touch, tick, paint, vjpad / FVC1 / FVS1 over UDP, and the
 #                          deck show's panel switches (~5 s); panel-tsan the same under TSan
+#   make -C tests key      0.6.5: the deck key in track/state packets (Key Sync), with ASan + UBSan
 #   make -C tests fx       0.5.3: Stem FX / Drum Roll HOLD / loop state from LED frames and azstem's
 #                          export to "fx" packets, with ASan + UBSan (~12 s); fx-tsan the same under TSan
 AZ_SDK_INCLUDE ?= ../../include
@@ -25,8 +26,8 @@ CC     := clang
 CXX    := clang++
 B      := build
 
-.PHONY: all link bars rows audio audio-tsan fx fx-tsan lights lights-tsan panel panel-tsan clean
-all: rows bars fx lights panel link audio
+.PHONY: all key link bars rows audio audio-tsan fx fx-tsan lights lights-tsan panel panel-tsan clean
+all: rows bars key fx lights panel link audio
 
 $(B):
 	mkdir -p $(B)
@@ -67,6 +68,10 @@ rows: test_rows.c ../flow-beat.c ../mixer.h | $(B)
 bars: test_bars.c ../flow-beat.c ../mixer.h | $(B)
 	$(CC) -g -O1 -fsanitize=address,undefined -fno-sanitize-recover=all -Wall -Wextra -Werror $(INC) -o $(B)/test_bars test_bars.c -lm -lpthread
 	$(B)/test_bars
+
+key: test_key.c ../flow-beat.c ../mixer.h | $(B)
+	$(CC) -g -O1 -fsanitize=address,undefined -fno-sanitize-recover=all -Wall -Wextra -Werror $(INC) -o $(B)/test_key test_key.c -lm -lpthread
+	$(B)/test_key
 
 fx: test_fx.c ../flow-beat.c ../fx.h ../mixer.h | $(B)
 	$(CC) -g -O1 -fsanitize=address,undefined -fno-sanitize-recover=all -Wall -Wextra -Werror $(INC) -rdynamic -o $(B)/test_fx test_fx.c -lm -lpthread -ldl
