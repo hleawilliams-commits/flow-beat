@@ -28,22 +28,22 @@
     {
       "id": "flow-beat",
       "name": "FLOW Beat Link",
-      "version": "0.6.2",
+      "version": "0.6.5",
       "author": "hleawilliams-commits",
       "summary": "Beat, BPM, track, mixer and FX to FLOW VJ; leads Ableton Link; runs lights over Art-Net; LIGHTS panel.",
-      "icon": "https://github.com/hleawilliams-commits/flow-beat/releases/download/flow-beat-0.6.2/flow-beat-0.6.2-icon.png",
-      "package": "https://github.com/hleawilliams-commits/flow-beat/releases/download/flow-beat-0.6.2/flow-beat-0.6.2.azmod",
-      "sha256": "d64fbf85e81aa443cadf14583170969a1ca83d93f231c06a624027360c57ab5d",
-      "size": 892820,
+      "icon": "https://github.com/hleawilliams-commits/flow-beat/releases/download/flow-beat-0.6.5/flow-beat-0.6.5-icon.png",
+      "package": "https://github.com/hleawilliams-commits/flow-beat/releases/download/flow-beat-0.6.5/flow-beat-0.6.5.azmod",
+      "sha256": "e00261f743b1672223431a39ad5a389aac3bcb9d8971e827e7fd35c487571725",
+      "size": 893102,
       "firmware": [
         "any"
       ],
       "hooks": false,
       "source": "https://github.com/hleawilliams-commits/flow-beat",
-      "updated": "2026-11-02",
+      "updated": "2026-11-06",
       "license": "GPL-3.0-only",
       "min_core": "1.2.3",
-      "description": "Rows: Send beat to FLOW (on), Send mixer to FLOW (on), Send track analysis to FLOW (on), Ableton Link from this deck (off, test), Send decks to Ableton (off, test), Lights from this deck (off, test), FLOW Lights button (on), Send mixer data (test) (off).\n\nLIGHTS (top bar): a big panel for FLOW VJ Looks 1-8, hits (white, strobe, drop, colour, fog, blackout) and the deck show's colours, intensity and beat follow.\n\nLights: the deck runs the lights over Art-Net to a node, no computer; it steps back while FLOW VJ sends Art-Net.\n\nUDP 9100. Link: GPL-2.0-or-later. Never patches the deck."
+      "description": "Rows: Send beat to FLOW (on), Send mixer to FLOW (on), Send track analysis to FLOW (on), Ableton Link from this deck (off, test), Send decks to Ableton (off, test), Lights from this deck (off, test), FLOW Lights button (on), Send mixer data (test) (off).\n\nLIGHTS (top bar): FLOW VJ Looks 1-8, hits (white, strobe, drop, colour, fog, blackout) and the deck show's colours, intensity and beat follow.\n\nLights: the deck runs the lights over Art-Net to a node, no computer; it steps back while FLOW VJ sends Art-Net.\n\nUDP 9100, with deck keys for FLOW Key Sync. Link: GPL-2.0-or-later. Never patches the deck."
     },
     {
       "id": "grouped-panels",
