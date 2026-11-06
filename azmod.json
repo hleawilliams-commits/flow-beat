@@ -2,7 +2,7 @@
   "azmod": 1,
   "id": "flow-beat",
   "name": "FLOW Beat Link",
-  "version": "0.6.2",
+  "version": "0.6.4",
   "author": "hleawilliams-commits",
   "summary": "Beat, BPM, track, mixer and FX to FLOW VJ; leads Ableton Link; runs lights over Art-Net; LIGHTS panel.",
   "description": "Rows: Send beat to FLOW (on), Send mixer to FLOW (on), Send track analysis to FLOW (on), Ableton Link from this deck (off, test), Send decks to Ableton (off, test), Lights from this deck (off, test), FLOW Lights button (on), Send mixer data (test) (off).\n\nLIGHTS (top bar): a big panel for FLOW VJ Looks 1-8, hits (white, strobe, drop, colour, fog, blackout) and the deck show's colours, intensity and beat follow.\n\nLights: the deck runs the lights over Art-Net to a node, no computer; it steps back while FLOW VJ sends Art-Net.\n\nUDP 9100. Link: GPL-2.0-or-later. Never patches the deck.",

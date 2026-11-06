@@ -27,8 +27,30 @@ static void expect(int got, int want, const char *what, double pos, double ph)
 
 static void put32(unsigned char *p, uint32_t v) { p[0] = v >> 24; p[1] = v >> 16; p[2] = v >> 8; p[3] = v; }
 
+/* 0.6.4: Link (and the lights) follow the deck on air, not just the last one started */
+static void on_air_checks(void)
+{
+    mixer_state ms;
+    memset(&ms, 0, sizeof ms);
+    unsigned since[NDECKS] = { 0 };
+    if (on_air_deck(since, &ms, 1) != -1) { printf("FAIL on air: nothing plays -> -1\n"); fails++; }
+    since[0] = 1; since[1] = 2;                       /* deck 1 on air, deck 2 started later to cue */
+    ms.fader[0] = 1023; ms.fader[1] = 0;
+    if (on_air_deck(since, &ms, 1) != 0) { printf("FAIL on air: cueing deck 2 (fader down) took the lead\n"); fails++; }
+    ms.fader[1] = 1023;                               /* both up in the blend: the newer one */
+    if (on_air_deck(since, &ms, 1) != 1) { printf("FAIL on air: both up -> the deck started last\n"); fails++; }
+    ms.fader[0] = 300;                                /* deck 1 faded out */
+    if (on_air_deck(since, &ms, 1) != 1) { printf("FAIL on air: deck 1 faded out -> deck 2\n"); fails++; }
+    ms.fader[0] = 1023; ms.fader[1] = 0;              /* no mixer frames yet: last started, as before */
+    if (on_air_deck(since, &ms, 0) != 1) { printf("FAIL on air: no mixer -> last started\n"); fails++; }
+    since[1] = 0;                                     /* deck 2 stopped, fader up: a stopped deck never leads */
+    ms.fader[1] = 1023; ms.fader[0] = 0;
+    if (on_air_deck(since, &ms, 1) != 0) { printf("FAIL on air: a stopped deck led\n"); fails++; }
+}
+
 int main(void)
 {
+    on_air_checks();
     /* a PWAV-like tag first (skipped), then PQTZ: 400 beats at 120 BPM from 100 ms, the first
      * beat being beat 3 of its bar (so the first "1" is the third beat) */
     enum { N = 400 };

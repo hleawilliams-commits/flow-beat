@@ -61,7 +61,8 @@ flow-beat:port = 9100
 ## Ableton Link from the deck
 
 With **Ableton Link from this deck** on, the deck joins the Ableton Link session on its network
-(Wi-Fi or LINK) and the lead deck, the playing deck that started last, leads it:
+(Wi-Fi or LINK) and the lead deck leads it. Since 0.6.4 that is the deck on air: the playing deck whose channel fader is up most
+(with faders level, the one started last), so cueing the next track with its fader down no longer moves Ableton:
 
 - **Tempo**: Link's tempo is the lead deck's BPM, pitch fader included. A tempo change made in
   Ableton is overruled while a deck plays; with nothing playing the last tempo holds.

@@ -2,7 +2,8 @@
  *
  * Link on Deck: Ableton Link from the deck itself (replaces the Mac's FLOW Link bridge).
  *
- * The lead deck (the playing deck that started last) leads the session:
+ * The lead deck (flow-beat.c on_air_deck: the playing deck whose fader is up most, else the one
+ * started last) leads the session:
  *   tempo  Link's tempo is the lead deck's BPM, pitch included, set whenever it moves.
  *   beat   Link's beat phase follows the deck's own grid phase (deck_grid), read every 5 ms on
  *          the deck instead of guessed from packet arrival times on a computer.

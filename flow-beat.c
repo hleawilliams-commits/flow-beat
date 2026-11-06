@@ -62,7 +62,8 @@
  *   flow-beat:port = 9100
  *
  * Ableton Link from the deck (row "Ableton Link from this deck", off by default; link.cpp):
- * the lead deck leads a Link session on the deck's network, tempo, beat and bar, so Ableton or
+ * the lead deck (0.6.4: the playing deck whose channel fader is up most; with faders level, the one
+ * started last) leads a Link session on the deck's network, tempo, beat and bar, so Ableton or
  * AUTO/PILOT follow it with no bridge on a computer. The bar's "1" comes from a "this is 1"
  * press ({"flowbeat":1,"type":"one","late":true|false} to UDP port 9101 on the deck, from FLOW
  * VJ's phrase-sync button) and otherwise from the track's rekordbox beat grid (PQTZ).
@@ -539,9 +540,27 @@ static void one_close(void)
     one_port_open = 0;
 }
 
+/* 0.6.4: the deck on air leads, for Link and the lights alike: the playing deck whose channel
+ * fader is up most (within 20/1023 of each other, the one started last). Without mixer frames
+ * yet, the playing deck started last. -1: nothing plays. */
+static int on_air_deck(const unsigned *since, const mixer_state *ms, int ms_have)
+{
+    int lead = -1;
+    for (int d = 0; d < NDECKS; d++) {
+        if (!since[d]) continue;
+        if (lead < 0) { lead = d; continue; }
+        if (ms_have ? ms->fader[d] > ms->fader[lead] + 20 ||
+                      (ms->fader[d] + 20 >= ms->fader[lead] && ms->fader[lead] + 20 >= ms->fader[d] && since[d] > since[lead])
+                    : since[d] > since[lead])
+            lead = d;
+    }
+    return lead;
+}
+
 /* One worker step for Link: picks the lead deck, works out its bar, and hands it to link.cpp. */
 static void link_step(const az_deck_info *di, const double *ph, const unsigned *since,
-                      const unsigned *beats, const uint32_t *track_sig, unsigned step)
+                      const unsigned *beats, const uint32_t *track_sig, unsigned step,
+                      const mixer_state *ms, int ms_have)
 {
     static int was_on, lead = -1, peers = -2;
     static uint32_t lead_sig;
@@ -639,9 +658,7 @@ static void link_step(const az_deck_info *di, const double *ph, const unsigned *
         peers = p;
     }
 
-    int l = -1;
-    for (int d = 0; d < NDECKS; d++)
-        if (since[d] && (l < 0 || since[d] > since[l])) l = d;
+    int l = on_air_deck(since, ms, ms_have);  /* 0.6.4: the deck on air, not just the last started */
     flowlink_in in;
     memset(&in, 0, sizeof in);
     in.bar_beat = -1;
@@ -1421,7 +1438,7 @@ static void *worker(void *arg)
             track_sig[d] = sig;
         }
 
-        link_step(di, ph, since, beats, track_sig, step);
+        link_step(di, ph, since, beats, track_sig, step, &ms, ms_have);
 
         if (on && step % STATE_STEPS == 0) {
             int n = snprintf(buf, sizeof buf, "{\"flowbeat\":1,\"type\":\"state\",\"seq\":%u,\"decks\":[",
@@ -1452,14 +1469,7 @@ static void *worker(void *arg)
         }
         /* 0.6.0: the lights follow the playing deck whose channel fader is up most (else the last started) */
         {
-            int lead = -1;
-            for (int d = 0; d < NDECKS; d++) {
-                if (!since[d]) continue;
-                if (lead < 0) { lead = d; continue; }
-                if (ms_have ? ms.fader[d] > ms.fader[lead] + 20 || (ms.fader[d] + 20 >= ms.fader[lead] && ms.fader[lead] + 20 >= ms.fader[d] && since[d] > since[lead])
-                            : since[d] > since[lead])
-                    lead = d;
-            }
+            int lead = on_air_deck(since, &ms, ms_have);
             lights_step(step, di, ph, lead, lead >= 0 && beats[lead] != lt_beats_seen[lead], &ms, ms_have);
             for (int d = 0; d < NDECKS; d++) lt_beats_seen[d] = beats[d];
         }
