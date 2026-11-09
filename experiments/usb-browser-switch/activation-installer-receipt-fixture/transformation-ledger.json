@@ -1,0 +1,129 @@
+{
+  "function_edits": [
+    {
+      "after_sha256": "7188460e0ca7a104a1c7c6a5ab8d8eaf42d6543c184b62a9d8ab97cb3e6e2021",
+      "before_sha256": "b845adc8571e0d90ee779e8fc031c1f895823c175c427cfe50c7a122340dcf13",
+      "function": "azprot_query",
+      "source": "azprot.h"
+    },
+    {
+      "after_sha256": "ac492d00fa19cbc79a71872f5d93a9e997a33f96c8be529f65ae5ec2047178ee",
+      "before_sha256": "4cb9e78c9eb36e4c39b21fdfe1417de2925d4daa0fa287533f0b63be92a96f7d",
+      "function": "azprot_unlock",
+      "source": "azprot.h"
+    },
+    {
+      "after_sha256": "4b8ae97c583cd1dc4abd2a5b4c358bd2c9734ba8ba548265b0e5ea625229ddfc",
+      "before_sha256": "655008696a02ad89f26f7261e4031bfbfd02b3205cfaa7630119e09659ae5480",
+      "function": "azprot_relock",
+      "source": "azprot.h"
+    },
+    {
+      "after_sha256": "6c92aa54d4979b29b9830fee4993c48ec09f47ac87908fff1a051c6c865b3991",
+      "before_sha256": "c877e76d12f658a51447383cf59dedb5a8ac31e8fd6c8352fe1ef2a8fe6fb88c",
+      "function": "azm_island_slot",
+      "source": "inline_hooks.c"
+    },
+    {
+      "after_sha256": "03c9cda416281842cbc5c9405f65f94e9a7f69662a1f4b23dee96c1a63d425c8",
+      "before_sha256": "52f0b4695f1cf46a4b5d5d07209409512e810087087716058197faf0308cbf50",
+      "function": "azm_tramp_seal",
+      "source": "inline_hooks.c"
+    },
+    {
+      "after_sha256": "6f35848ae7696babdbae223e584bfabb7adb9376e8732e5be44cb148f9c9884f",
+      "before_sha256": "30cd7f7fe660b06ba5014d0681dbdda2416fdb1ed02006b2c1010a7b2a5a0b18",
+      "function": "azm_install_hook_at",
+      "source": "inline_hooks.c"
+    }
+  ],
+  "other_edits": [
+    "azprot_query_fd read boundary",
+    "receipt header include",
+    "seal cleanup comment",
+    "fallback removed from selected installer"
+  ],
+  "outputs": {
+    "azprot-receipt.h": {
+      "bytes": 6872,
+      "sha256": "28644f70e972dfa28ecd3b940e9f4d132492ecd22f73e48d561c8684ddb9506a"
+    },
+    "azprot-receipt.patch": {
+      "bytes": 4042,
+      "sha256": "2037409d02530d61bae136fac274ea810a8c356aaa09d496320fe13b5645474b"
+    },
+    "inline-receipt.inc": {
+      "bytes": 21968,
+      "sha256": "03f927df4da1d9c3ed56bdf00b20893a68195e65042abcc113258e723f1398cc"
+    },
+    "inline-receipt.patch": {
+      "bytes": 11023,
+      "sha256": "2cb3c453e546e7b0eb264a247ee154cf232526ca531005608b6d8bebe3672c40"
+    }
+  },
+  "preserved_functions": [
+    {
+      "bytes": 659,
+      "name": "azm_pcrel_kind",
+      "sha256": "ddca386b48c4b0a5e1a235ea772676a20a038dd78884cdef082e23bbde08f5d3"
+    },
+    {
+      "bytes": 313,
+      "name": "azm_adrp_target",
+      "sha256": "db73975d8199205619909dfe2362a5c5a7d243a33c9f6b2cc7d4f20d5a7bd711"
+    },
+    {
+      "bytes": 458,
+      "name": "azm_emit_abs_addr",
+      "sha256": "1223510cfd83673d2f87ac1f49bb48e41768205672edb2b6791d1338c6f91147"
+    },
+    {
+      "bytes": 515,
+      "name": "azm_adrp_reloc_ok",
+      "sha256": "493c97ac0d9ada74448e88ed1cbc003c3b5df77adcbbbbdaa20f1ba9651f3532"
+    },
+    {
+      "bytes": 593,
+      "name": "azm_reloc_adrp",
+      "sha256": "2c4f5cbc8e1ca667413f89a9a62a15b61007fce4cc4805ffe1f4690c56d83e95"
+    },
+    {
+      "bytes": 171,
+      "name": "azm_abs_jump",
+      "sha256": "55870c08087ebc03929d0d8cfe10a1cf586d805af95f9d018b83ae40ffb3d427"
+    },
+    {
+      "bytes": 154,
+      "name": "azm_reaches",
+      "sha256": "fa2f6976c25fcbeae5289cf9ec72186156312967b4b510c2a9e39774313c62ec"
+    },
+    {
+      "bytes": 306,
+      "name": "azm_ends_fn",
+      "sha256": "7b6b555c6237c22ab11981adf842381b3584c0f74d93f813349c082bd1a8c33a"
+    },
+    {
+      "bytes": 259,
+      "name": "azm_patch_ok",
+      "sha256": "32bc6639961a6e4328ff4ab5df261be709ffb150e6fe0fc4e453cd44d8aa246f"
+    },
+    {
+      "bytes": 926,
+      "name": "azprot_parse_line",
+      "sha256": "3a08a0da5d467861b07103e2135b3b80937ff471ef56d6645317592df3a0ca82"
+    }
+  ],
+  "schema": 1,
+  "scope": "Transformed orchestration, bounded syscall receipts, late-island-only; no execution",
+  "sources": {
+    "azprot.h": {
+      "bytes": 5296,
+      "sha256": "0f1cc9c5d4ca212f798bf2e9d74a69507a82ce5cc59bd328bacc46816a119b33"
+    },
+    "inline_hooks.c": {
+      "bytes": 19402,
+      "sha256": "f141b383c25e66c8acb1839280832a612a6ee0e25e9ada59f374ccbef8f81908"
+    }
+  },
+  "version": "offline-receipts-0.1"
+}

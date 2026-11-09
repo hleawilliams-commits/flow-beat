@@ -1,0 +1,136 @@
+{
+  "current_result_sha256": "a5719f4674eccd9a2be4812ba40d21a3eea5fe7c9bd53e8f86b949c3d52d7742",
+  "independent_retained_byte_audit": {
+    "assertion_count_scope": "Repeated low-level byte, key, integer and inventory checks; not distinct semantic tests. The invocation stdout adds one final audit-source-file read after this result count snapshot.",
+    "first_invocation": true,
+    "originals_object_classes": {
+      "first": "SHN_COMMON alignment8 size32",
+      "repaired": "GLOBAL OBJECT strong NOBITS BSS alignment>=8 size32"
+    },
+    "packets": [
+      {
+        "commands": 5,
+        "directories": 18,
+        "executables": 0,
+        "executions": 0,
+        "files_including_both_results": 42,
+        "inputs": 12,
+        "object_files": 1,
+        "packet_inventory_sha256": "98fdf6417438478d2f8faebeb3082cffd79ddb69ea24b54a0315b013685e4b73",
+        "private_result_sha256": "9b3af5cd0c35252c116dcb892d8861321c6e3e1e80f864df73736275a6bddb15",
+        "retained_output_streams": 10,
+        "run": "run-db8ebdebff234f40878d5819524261df",
+        "sanitized_sha256": "c08e768ef451bd4c6365f49ddcb7e6ec30eb0a23370c136597f8af5517c89488",
+        "status": "failed",
+        "work_files": 1
+      },
+      {
+        "commands": 143,
+        "directories": 235,
+        "executables": 12,
+        "executions": 42,
+        "files_including_both_results": 769,
+        "inputs": 12,
+        "object_files": 37,
+        "packet_inventory_sha256": "36f06f6215ad7a5954a764cce92ed2cf92280a6652f60ddd246cce6bdbce32e1",
+        "private_result_sha256": "9b2bfb7a91a567c4f3f911d9267c1d9598148653220c412c40f1ecd64cdcf57c",
+        "retained_output_streams": 286,
+        "run": "run-f91e46dae1ea4667b15c309aa941b7ef",
+        "sanitized_sha256": "a5719f4674eccd9a2be4812ba40d21a3eea5fe7c9bd53e8f86b949c3d52d7742",
+        "status": "passed",
+        "work_files": 176
+      }
+    ],
+    "replayed_captured_code": false,
+    "result_sha256": "4f1dd82ee6e08d41cff8d4d8cd13ff7b7785b5e20498b268669c1377ce3f75a1",
+    "runner_delta_sha256": "407b4c2983a4fa901b2ce321d6451c21770f30a22d41e76cf58e9cdf0c46de6b",
+    "scope": "Retained bytes, receipts, independently reconstructed structure and recorded outcomes only; no replay, live authority, signal/cancellation or universal machine-code proof.",
+    "source_sha256": "543d9b3d25edc512dd89f382e333d9178eff31ba13f9e72a504663c6e9a377c2",
+    "status": "passed",
+    "structural_assertions": 189277,
+    "transformation_unchanged_after_storage_repair": true
+  },
+  "initial_private_result_sha256": "9b3af5cd0c35252c116dcb892d8861321c6e3e1e80f864df73736275a6bddb15",
+  "initial_result_sha256": "c08e768ef451bd4c6365f49ddcb7e6ec30eb0a23370c136597f8af5517c89488",
+  "limits": [
+    "No actual community.c ingress, caller-RA authority, loader/init or arbitrary module admission.",
+    "Community identity/envelope and capability assumptions remain authored fixture inputs.",
+    "Generated-only lookup is not integrated module-first blame attribution.",
+    "The transformed orchestration is not byte-identical execution of the whole pinned installer or protection helper.",
+    "Maps query journal cap applies only to receipt-bearing queries; diagnostic queries are unjournaled.",
+    "No discarded-candidate cleanup selector, ADRP re-encode execution or constructor fallback execution.",
+    "No concurrent native invocation/publication, signal/nonlocal-exit, anonymous-PC unwind, general lifetime/race or hardware timing proof.",
+    "Assembly/generated code is not sanitizer instrumented; no TSan.",
+    "No emulator/deck action, production registry integration, live observer composition, package/catalog release or recovery permission.",
+    "Ownership is not fault causation; quarantine and all unresolved runtime gates are preserved.",
+    "Retained-byte audit rederives captured raw facts and binds named outcomes; scalar return values are not separately serialized, so it does not independently reconstruct every runtime predicate."
+  ],
+  "matrix": {
+    "candidate_selectors_per_mode": 16,
+    "controls_per_mode": 5,
+    "distinct_check_names_per_mode": 48,
+    "executed_configuration": "RC_FIXTURE scheduling and fault seams",
+    "modes": [
+      "plain",
+      "asan-ubsan"
+    ],
+    "runtime_processes": 42,
+    "sanitizer_leak_detection_enabled": true,
+    "standalone_configuration": "compiled-only without RC_FIXTURE",
+    "summed_assertions_per_mode": 60,
+    "toolchain": "GCC 7.5.0 Ubuntu/Linaro Linux AArch64 C11"
+  },
+  "native_firmware_or_device_access": false,
+  "new_sdk_git_reads": 0,
+  "next_scope": "Source-only exact community claim/init-close/accounting composition plan, preserving fixed slots and irreversible partial-publication receipts.",
+  "observations": {
+    "adrp_reencoding_observed": false,
+    "community_emission_ncopy": 1,
+    "community_emission_out": 4,
+    "core_emission_ncopy": 1,
+    "core_emission_out": 1,
+    "fixture_schedules_use_actual_pthread_contention": true,
+    "no_island_injected_precall_mmap_refusals_per_mode": 5,
+    "no_island_installer_result": -3,
+    "no_island_underlying_mmap_calls": 0,
+    "non_rx_warning_routes_invoked": false,
+    "positive_scalar_invocations_after_installer_joins": true
+  },
+  "old_matrix_or_capture_replay": false,
+  "preserved_first_failure": {
+    "compiler_returncode": 0,
+    "object": "rc_originals",
+    "observed_definition": "SHN_COMMON, alignment8, size32",
+    "phase": "standalone ELF original object validation",
+    "raw_result_schema_correction": "Review found authentic -3 omitted; exact {-3,-1,0,1} domain repaired before runtime.",
+    "repair": "Explicit null initializer supplies a strong section-defined object; strict ELF oracle unchanged.",
+    "runtime_executions": 0
+  },
+  "private_runtime_result_sha256": "9b2bfb7a91a567c4f3f911d9267c1d9598148653220c412c40f1ecd64cdcf57c",
+  "production_integration": false,
+  "runtime_gate": "CLOSED",
+  "schema": 1,
+  "scope": "Offline authored-target late-island installer receipt successor",
+  "sdk_commit": "3e0c5cb010454228f4ee63226b60d060494eeaae",
+  "setup": {
+    "compiler_or_runtime_started_during_setup": false,
+    "record_bytes": 912,
+    "record_sha256": "0aa27b27cc8923da3dee4ba81468ebcda22cf1cd5ae370c054a801ae84a3bc5f",
+    "sandbox_docker_socket_denial_before_approved_image_inspection": true
+  },
+  "source_review": {
+    "exact_safe_control_failure_counts": [
+      1,
+      1,
+      1,
+      2,
+      1
+    ],
+    "independent_implementation_and_harness_reviews": true,
+    "review_only_no_reexecution": true,
+    "root_review": true,
+    "runner_and_control_review": true
+  },
+  "status": "passed",
+  "transformation_ledger_sha256": "6c56510b74070999b6c41f6f2e04827a75a5ec5bb3663f54a48af0aa2f2dd225"
+}

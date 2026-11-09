@@ -1,0 +1,157 @@
+{
+  "all_executed_configurations_use_RC_FIXTURE": true,
+  "candidate": {},
+  "commands": [
+    {
+      "exception_present": false,
+      "name": "image-inspect",
+      "receipt_sha256": "35353eecc3f247a888da0c59383a5441cee1d49da3e8c9d69011e61c13dac27c",
+      "returncode": 0,
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout": {
+        "bytes": 1695,
+        "sha256": "c5eb71f1ab42f4044d07d7c0a8a581c6d37f775f7e420e9184d8360d3b788c93"
+      }
+    },
+    {
+      "exception_present": false,
+      "name": "transform-installer",
+      "receipt_sha256": "1978787c0c2a6d1540a7b8b608b3d3abac42d649862dd5bd8a7cca8f73852a5f",
+      "returncode": 0,
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout": {
+        "bytes": 123,
+        "sha256": "ab1134f8b5ae58b2fc90d5b143b219e2e2f43c380e5a31d4595edf3bf02bd787"
+      }
+    },
+    {
+      "exception_present": false,
+      "name": "compiler-version",
+      "receipt_sha256": "0032735d0fa912aedd9ffcbd4f130fe59a39008a209d085793906045c5ec206f",
+      "returncode": 0,
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout": {
+        "bytes": 249,
+        "sha256": "839d24fe4997381909209a1cbf9a3d59e68a6637f6e7c02ebf39b4fcacf612c2"
+      }
+    },
+    {
+      "exception_present": false,
+      "name": "compiler-target",
+      "receipt_sha256": "d5686f1a9f88eeeea020077869ac4f214fdad921862384f491c9e158fda7d232",
+      "returncode": 0,
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout": {
+        "bytes": 18,
+        "sha256": "811b17aa02eb472140fbd7c338e99ac8770181c999ed2ea78797163dfd0fbd5b"
+      }
+    },
+    {
+      "exception_present": false,
+      "name": "compile-standalone-plain-receipt",
+      "receipt_sha256": "21f9f5ee88a24fe8e288c82e9a7c204d9233e840fc541e2890c89d05a91e6123",
+      "returncode": 0,
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    }
+  ],
+  "control_names": [],
+  "controls": {},
+  "execution_attempts": [],
+  "inputs": {
+    ".gitignore": {
+      "bytes": 24,
+      "role": "new-receipt-fixture",
+      "sha256": "7fec0c903f3d7b39dc2ccbbb3e3724d758e6cfce527360063547e528c956b07d"
+    },
+    "fixture.S": {
+      "bytes": 1803,
+      "role": "new-receipt-fixture",
+      "sha256": "6cc196de4e7ef941411142ba335576b571c1beec7a2ef881f78fbd29f64a40f9"
+    },
+    "plan/README.md": {
+      "bytes": 15595,
+      "role": "frozen-source-plan",
+      "sha256": "ac3f45ff7dfe7f7f3b6f27e90f38ac5e85c635bee30fb32b423f86ea3f7e9654"
+    },
+    "plan/adapter-plan.json": {
+      "bytes": 14834,
+      "role": "frozen-source-plan",
+      "sha256": "4a9adf88a8e278beccf63dc90920c262116287d5995c764b456faa98deb8d2be"
+    },
+    "receipt.c": {
+      "bytes": 22010,
+      "role": "new-receipt-fixture",
+      "sha256": "1f011bc10d88ae3f58ecf7cda8c3895ecb62e1a24c321fcc417d76471fff7a94"
+    },
+    "receipt.h": {
+      "bytes": 6397,
+      "role": "new-receipt-fixture",
+      "sha256": "abde4ac8f1d35fea71541f26103d5ea1b03dd44e1e475ba5b2fb65fd330dcb4d"
+    },
+    "run-tests.py": {
+      "bytes": 44997,
+      "role": "new-receipt-fixture",
+      "sha256": "906677fcdfed3f925abecc274ac6563bc205f58fb65bbce523d4fa47b1551f58"
+    },
+    "sdk/src/azmod/inline_hooks.c": {
+      "bytes": 19402,
+      "role": "reused-sdk-3e0c5cb010454228f4ee63226b60d060494eeaae",
+      "sha256": "f141b383c25e66c8acb1839280832a612a6ee0e25e9ada59f374ccbef8f81908"
+    },
+    "sdk/src/common/azprot.h": {
+      "bytes": 5296,
+      "role": "reused-sdk-3e0c5cb010454228f4ee63226b60d060494eeaae",
+      "sha256": "0f1cc9c5d4ca212f798bf2e9d74a69507a82ce5cc59bd328bacc46816a119b33"
+    },
+    "test-contract.json": {
+      "bytes": 4541,
+      "role": "new-receipt-fixture",
+      "sha256": "227473b6fe3f36987b0d405c324c4d42c05d8695b25bc626487f81f88cf1931d"
+    },
+    "test_receipt.c": {
+      "bytes": 37783,
+      "role": "new-receipt-fixture",
+      "sha256": "768dcd7f52844584f3fea5803f567089a5f46ca446688d52cb95c6eb09da1434"
+    },
+    "transform-installer.py": {
+      "bytes": 18646,
+      "role": "new-receipt-fixture",
+      "sha256": "38cece95d46b82041578efd6c95420d42db95ff5f0b16084aaf7dbb40f75aeda"
+    }
+  },
+  "modes": [],
+  "native_firmware_or_device_access": false,
+  "old_sanitizer_probe_replayed": false,
+  "old_suites_replayed": false,
+  "output_streams": 10,
+  "private_result_sha256": "9b3af5cd0c35252c116dcb892d8861321c6e3e1e80f864df73736275a6bddb15",
+  "retained_files_including_private_result": 41,
+  "runtime_gate": "CLOSED",
+  "schema": 1,
+  "scope": "new offline authored-target installer receipt fixture",
+  "sdk_git_capture": false,
+  "sections": [],
+  "selectors": [],
+  "signal_or_atomic_codegen_proof": false,
+  "standalone_configuration_executed": false,
+  "status": "failed"
+}

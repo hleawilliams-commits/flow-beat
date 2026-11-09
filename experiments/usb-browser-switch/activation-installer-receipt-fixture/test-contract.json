@@ -1,0 +1,134 @@
+{
+  "selectors": {
+    "owned-binding": [
+      "wrong-replacement-before-installer",
+      "untrusted-slot-never-dereferenced",
+      "temporary-slot-never-adopted",
+      "occupied-genuine-slot-is-retained",
+      "invalid-binding-has-no-native-side-effects"
+    ],
+    "community-emission": [
+      "actual-mapping-and-emission-return",
+      "community-owner-and-accounting",
+      "actual-adrp-relocation-and-route",
+      "exact-instruction-and-storage-boundaries",
+      "metadata-precedes-original-and-redirect",
+      "scalar-forwarding-once-after-safe-gate"
+    ],
+    "core-emission": [
+      "core-actual-emission-return",
+      "core-is-not-community-identity",
+      "core-exact-owned-route",
+      "core-scalar-forwarding-once"
+    ],
+    "trampoline-map-refusal": [
+      "selected-precall-refusal-is-explicit",
+      "refusal-retains-unchanged-unreachable-route",
+      "refusal-keeps-bounded-resource-history"
+    ],
+    "seal-refusal": [
+      "selected-precall-refusal-is-explicit",
+      "refusal-retains-unchanged-unreachable-route",
+      "refusal-keeps-bounded-resource-history"
+    ],
+    "island-unlock-refusal": [
+      "selected-precall-refusal-is-explicit",
+      "refusal-retains-unchanged-unreachable-route",
+      "refusal-keeps-bounded-resource-history"
+    ],
+    "target-unlock-refusal": [
+      "selected-precall-refusal-is-explicit",
+      "refusal-retains-unchanged-unreachable-route",
+      "refusal-keeps-bounded-resource-history"
+    ],
+    "no-island-refusal": [
+      "selected-precall-refusal-is-explicit",
+      "refusal-retains-unchanged-unreachable-route",
+      "refusal-keeps-bounded-resource-history"
+    ],
+    "cleanup-uncertainty": [
+      "seal-refusal-precedes-cleanup",
+      "cleanup-failure-is-distinct-return",
+      "failed-cleanup-retains-actual-mapping",
+      "uncertain-cleanup-never-publishes-or-retries"
+    ],
+    "partial-install": [
+      "second-refusal-does-not-rewrite-first",
+      "first-original-and-journal-remain-retained",
+      "first-route-still-forwards-once",
+      "partial-claim-accounting-is-not-two"
+    ],
+    "protection-warnings": [
+      "warnings-remain-published-success",
+      "island-and-target-token-evidence-is-distinct",
+      "injected-relock-refusals-match-real-maps",
+      "successful-relock-can-restore-prior-writable-page",
+      "non-rx-routes-are-never-invoked"
+    ],
+    "queued-close": [
+      "queued-close-schedule-completes",
+      "closed-epoch-never-enters-real-installer",
+      "queued-close-has-no-native-side-effects"
+    ],
+    "admitted-close": [
+      "real-admission-mutex-contention",
+      "publication-accounted-before-epoch-close",
+      "later-claim-refuses-before-native-entry",
+      "admitted-route-forwards-after-joins"
+    ],
+    "common-target": [
+      "fixed-authored-alias-reaches-common-ledger",
+      "core-target-excludes-community-before-installer",
+      "core-publication-survives-alias-refusal"
+    ],
+    "diagnostic-capacity": [
+      "authoritative-publication-ignores-diagnostic-capacity",
+      "diagnostic-saturation-is-explicit",
+      "diagnostic-loss-keeps-valid-original-forwarding"
+    ],
+    "rounding-input": [
+      "invalid-rounding-values-refuse",
+      "endpoint-and-roundup-overflow-refuse",
+      "selected-page-size-binds-rounded-interval",
+      "rounding-controls-never-enter-native-installer"
+    ]
+  },
+  "controls": {
+    "original-before-metadata": {
+      "macro": "RC_CONTROL_ORIGINAL_BEFORE_METADATA",
+      "selector": "community-emission",
+      "expected_failures": [
+        "metadata-precedes-original-and-redirect"
+      ]
+    },
+    "literal-as-instruction": {
+      "macro": "RC_CONTROL_LITERAL_AS_INSTRUCTION",
+      "selector": "community-emission",
+      "expected_failures": [
+        "exact-instruction-and-storage-boundaries"
+      ]
+    },
+    "erased-cleanup-custody": {
+      "macro": "RC_CONTROL_ERASE_CLEANUP_FAILURE",
+      "selector": "cleanup-uncertainty",
+      "expected_failures": [
+        "failed-cleanup-retains-actual-mapping"
+      ]
+    },
+    "aliased-protection-evidence": {
+      "macro": "RC_CONTROL_TOKEN_EVIDENCE_ALIAS",
+      "selector": "protection-warnings",
+      "expected_failures": [
+        "island-and-target-token-evidence-is-distinct",
+        "successful-relock-can-restore-prior-writable-page"
+      ]
+    },
+    "warning-as-refusal": {
+      "macro": "RC_CONTROL_WARNING_AS_REFUSAL",
+      "selector": "protection-warnings",
+      "expected_failures": [
+        "warnings-remain-published-success"
+      ]
+    }
+  }
+}
