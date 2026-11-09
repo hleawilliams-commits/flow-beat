@@ -2172,3 +2172,57 @@ Nonparticipating writers, loader/interposition, actual topology/stopped recovery
 Local Library readiness/operation lifetime and stems staging remain unresolved.
 No device, official core, community package/catalog or release changed. Every
 live gate remains CLOSED; ownership is not fault causation.
+
+## November 9 — permanent installer custody and actual receipt plan
+
+The new [activation-installer-receipt-plan](../experiments/usb-browser-switch/activation-installer-receipt-plan/)
+is a source-only successor to the C admission/transaction fixture. Existing
+implementations and tested source bytes remain frozen. The next implementation
+must bind exact authored target/replacement symbols and permanent aligned plain
+`void *` original objects through fixed process-lifetime descriptors. Synthetic
+atomic integer slots and test-system destruction cannot own reachable real code.
+
+Calling the completed model before or after the unchanged installer cannot
+establish metadata-before-original-before-redirect. The installer owns the
+actual island, `ncopy`, relocation `out`, trampoline and protection stages,
+and publishes internally. A separately named copied-source successor needs an
+explicit reviewed diff and private lexical publication cut. First reserve
+target, binding, metadata and journal capacity; then retain actual mappings and
+derive exact spans before final validation/target unlock. Immutable lookup
+metadata is separate from later mutable warning/custody receipts. No callback,
+new lock, allocation, provider or refusal is allowed between successful target
+unlock and metadata → actual plain original → target branch stores.
+
+Under the serial private allocator invariant, one call makes at most six
+candidate island mmap attempts and one trampoline mmap. Out-of-reach successful
+mappings also need exact cleanup receipts; failed munmap cannot imply release.
+Retain syscall results/valid failure errno before cleanup or logging, and
+distinct initialized island/target tokens valid only after successful unlock.
+Relock restores saved bits, which may be writable. A checked round-up guard
+must use the same page size as the future copied helper.
+
+Two bounded source counterexamples remain explicitly unobserved: helper
+rounding does not check its second addition, and saturated optional diagnostics
+can make the old transfer bridge return refusal after an installer success.
+The historical fresh two-claim transfer result remains valid. New success and
+custody decisions must come from internal receipts, not the diagnostic table.
+A published route with warnings is never cleanup-eligible refusal; unsupported
+interruption requires retained incomplete/unknown state, not rollback.
+
+The packet reuses twelve inputs and adds only the plan/retention script:
+fourteen inputs, eighteen line-byte anchors and sixteen retained files.
+Independent source/future-control review and a byte-only audit are linked.
+No new SDK Git reads, compiler, installer, matrix replay, firmware or device
+action occurred. Ten future case groups and five safe controls are specified,
+not executed; metadata ordering needs actual store/load observations rather
+than ordinal labels. Deterministic discarded-candidate cleanup needs a declared
+owned placement seam, otherwise first coverage uses trampoline cleanup.
+
+Next implement a separate offline late-island-only receipt successor for both
+typed Core and Community authored bindings, preserving the pinned emitter and
+eligibility policies with a reviewed transformation ledger. Defer fallback and
+old ABI/exception replays. No production integration, new executable installer,
+repair patch or live observer exists in this checkpoint. Arbitrary DSO/slot
+custody, other writers, loader/interposition, signals/nonlocal exits, native
+publication/recovery, Local Library activation and stems staging remain gates.
+Quarantine and every live gate stay CLOSED; ownership is not fault causation.

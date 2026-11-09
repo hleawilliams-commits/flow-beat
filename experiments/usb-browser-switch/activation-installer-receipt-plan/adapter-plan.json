@@ -1,0 +1,343 @@
+{
+  "schema": 1,
+  "version": "0.1.0-source-plan",
+  "status": "specified-not-implemented",
+  "sdk_commit": "3e0c5cb010454228f4ee63226b60d060494eeaae",
+  "baseline_commit": "bcce66d8557a063b27f5ae26d8db18bfc0fcf75c",
+  "scope": "Offline owned installer receipt successor; first execution scope restricted to late island path on authored targets",
+  "runtime_gate": "CLOSED",
+  "new_installer_or_registry_implemented": false,
+  "sources": [
+    {
+      "name": "sdk/src/azmod/inline_hooks.c",
+      "root": "sdk",
+      "path": "src/azmod/inline_hooks.c",
+      "sha256": "f141b383c25e66c8acb1839280832a612a6ee0e25e9ada59f374ccbef8f81908"
+    },
+    {
+      "name": "sdk/src/common/azprot.h",
+      "root": "sdk",
+      "path": "src/common/azprot.h",
+      "sha256": "0f1cc9c5d4ca212f798bf2e9d74a69507a82ce5cc59bd328bacc46816a119b33"
+    },
+    {
+      "name": "sdk/src/azmod/community.c",
+      "root": "sdk",
+      "path": "src/azmod/community.c",
+      "sha256": "4b2b72e2b623dcb1ecb0ef108a473815adab45a516a6aa13adb6cce512b80866"
+    },
+    {
+      "name": "transfer/bridge.c",
+      "root": "repository",
+      "path": "activation-transfer-fixture/bridge.c",
+      "sha256": "ab3dd8d2ec16880ac65b78e1fd9e1cdffabe09319a7df89a50beef604e9c3554"
+    },
+    {
+      "name": "transfer/README.md",
+      "root": "repository",
+      "path": "activation-transfer-fixture/README.md",
+      "sha256": "cf6058a830d009f2d3090e9e8449b410ef675afd563e7052ebafaa89428e2fd9"
+    },
+    {
+      "name": "transaction/transaction.c",
+      "root": "repository",
+      "path": "activation-admission-transaction-fixture/transaction.c",
+      "sha256": "703cd620957895d3b00fe816ee701fd324c639193adac66862ef1b6a506e7237"
+    },
+    {
+      "name": "transaction/transaction.h",
+      "root": "repository",
+      "path": "activation-admission-transaction-fixture/transaction.h",
+      "sha256": "5209577a618920923c97b32a27b738e8c493f9976934e217eedd28f6203be1eb"
+    },
+    {
+      "name": "transaction/README.md",
+      "root": "repository",
+      "path": "activation-admission-transaction-fixture/README.md",
+      "sha256": "1132d2848dacc8552700c74334882527446e2b3e86861aa00f6faeba20e5a7c4"
+    },
+    {
+      "name": "integration/README.md",
+      "root": "repository",
+      "path": "activation-generated-range-integration-review/README.md",
+      "sha256": "ac0b902286ddb119674e311f53c80d035a6d3b361029081ec67e84843b5d6a8b"
+    },
+    {
+      "name": "binding/observer.cpp",
+      "root": "repository",
+      "path": "activation-binding-composition/observer.cpp",
+      "sha256": "0969955fb87f47f2fc909a1a4419bf0ec9ad2ac1b91244c60df8908f5c4ebd03"
+    },
+    {
+      "name": "binding/observer.h",
+      "root": "repository",
+      "path": "activation-binding-composition/observer.h",
+      "sha256": "999b8bebd58d37912f41e37330ecee60175a8f6a4d93d137d96892e13d7d14f6"
+    },
+    {
+      "name": "entry/entry.S",
+      "root": "repository",
+      "path": "activation-entry-observer/entry.S",
+      "sha256": "95c4936e1e2530f9e0d60ea6642b7ce8ca1203480986050d96a130c581da22d1"
+    }
+  ],
+  "anchors": [
+    {
+      "id": "address-and-jump-emitters",
+      "source": "sdk/src/azmod/inline_hooks.c",
+      "first_line": 63,
+      "last_line": 97
+    },
+    {
+      "id": "island-allocator-and-burn",
+      "source": "sdk/src/azmod/inline_hooks.c",
+      "first_line": 112,
+      "last_line": 148
+    },
+    {
+      "id": "trampoline-seal-and-cleanup",
+      "source": "sdk/src/azmod/inline_hooks.c",
+      "first_line": 177,
+      "last_line": 186
+    },
+    {
+      "id": "diagnostic-capacity",
+      "source": "sdk/src/azmod/inline_hooks.c",
+      "first_line": 195,
+      "last_line": 227
+    },
+    {
+      "id": "actual-relocation",
+      "source": "sdk/src/azmod/inline_hooks.c",
+      "first_line": 273,
+      "last_line": 317
+    },
+    {
+      "id": "island-cut-and-warnings",
+      "source": "sdk/src/azmod/inline_hooks.c",
+      "first_line": 318,
+      "last_line": 342
+    },
+    {
+      "id": "deferred-fallback",
+      "source": "sdk/src/azmod/inline_hooks.c",
+      "first_line": 344,
+      "last_line": 361
+    },
+    {
+      "id": "query-close",
+      "source": "sdk/src/common/azprot.h",
+      "first_line": 104,
+      "last_line": 111
+    },
+    {
+      "id": "token-and-rounding",
+      "source": "sdk/src/common/azprot.h",
+      "first_line": 113,
+      "last_line": 138
+    },
+    {
+      "id": "restore-saved-bits",
+      "source": "sdk/src/common/azprot.h",
+      "first_line": 141,
+      "last_line": 146
+    },
+    {
+      "id": "community-result-accounting",
+      "source": "sdk/src/azmod/community.c",
+      "first_line": 1226,
+      "last_line": 1275
+    },
+    {
+      "id": "post-return-bridge",
+      "source": "transfer/bridge.c",
+      "first_line": 71,
+      "last_line": 101
+    },
+    {
+      "id": "fixed-copy-bound",
+      "source": "transfer/bridge.c",
+      "first_line": 52,
+      "last_line": 69
+    },
+    {
+      "id": "synthetic-before-allocation",
+      "source": "transaction/transaction.c",
+      "first_line": 440,
+      "last_line": 481
+    },
+    {
+      "id": "synthetic-permit-and-cut",
+      "source": "transaction/transaction.c",
+      "first_line": 492,
+      "last_line": 550
+    },
+    {
+      "id": "permanent-original-objects",
+      "source": "binding/observer.cpp",
+      "first_line": 6,
+      "last_line": 17
+    },
+    {
+      "id": "slot-lifetime-contract",
+      "source": "binding/observer.h",
+      "first_line": 80,
+      "last_line": 95
+    },
+    {
+      "id": "tail-slot-load",
+      "source": "entry/entry.S",
+      "first_line": 230,
+      "last_line": 245
+    }
+  ],
+  "decisions": {
+    "custody": {
+      "binding": "Fixed process-lifetime authored target/replacement/plain aligned void* original descriptors",
+      "ingress": "Opaque binding ID; optional exact SDK signature compares trusted pointer identities before dereference",
+      "attempts": "One attempted installation per binding; reserve before side effects; no reset/retry/unpatch/destroy",
+      "typed_owner": "Copied validated Community identity or typed Core; ambient string is never admission"
+    },
+    "locking": "Community cm -> common writer -> azmod protection; Core writer -> protection; no reverse writer -> cm; phase transition under same writer; actual protection stage added only in future successor",
+    "reservation": "Reserve binding, target16, immutable metadata and resource-journal capacity first; returned mappings are retained immediately; derive actual ncopy/out and validate storage conflicts before island writes and final target unlock",
+    "journal": {
+      "island_candidate_mapping_attempts_max": 6,
+      "trampoline_mapping_attempts_max": 1,
+      "total_mapping_attempt_records_per_install": 7,
+      "bound_premise": "Serial private uncorrupted four-pool allocator; first empty pool either exhausts hints and returns or supplies a fresh slot",
+      "candidate_cleanup": "Every successful out-of-reach mapping gets a cleanup receipt; failed cleanup retains uncertain custody",
+      "pool": "64KiB mapping/page ownership distinct from 16-byte consumed slot; do not release a shared pool because one attempt fails"
+    },
+    "layout": {
+      "island_instructions": "[I,I+8)",
+      "island_storage": "[I,I+16)",
+      "trampoline_instructions": "[T,T+4*(out+2))",
+      "trampoline_storage": "[T,T+4*(out+4))",
+      "trampoline_mapping": "4096 bytes in exact source, separately checked against actual platform constraints",
+      "relocation_authority": "Actual installer out and ncopy; out = ncopy + 3*expanded_ADRP_count as consistency check",
+      "target_reservation": "16 bytes",
+      "first_scope_target_redirect": "4 bytes; ncopy=1; actual out=1 or4"
+    },
+    "receipts": {
+      "syscalls": "attempted, underlying_called, injected, raw result, errno_valid only on failure, immediate errno, address/length/protection, custody outcome",
+      "query": "Open/read/parse/close categories distinct; parser refusal has no invented syscall errno",
+      "protection": "Separate initialized island and target tokens; token_valid only on actual successful unlock; retain saved bits, rounded extent and relock separately",
+      "cleanup": "Successful munmap releases only that mapping; failure/unknown result retains uncertain custody",
+      "cache": "Record request and observed normal return only; builtin supplies no success status"
+    },
+    "rounding_guard": "Inside the future copied helper, bind its one actual page-size value: require positive representable power-of-two size, checked addr+len and +pg-1, and nonempty rounded span before mapping operations. Value-only malformed tests precede native dereference; a separate unbound preflight sysconf is insufficient.",
+    "cut": [
+      "finish all fallible allocation/validation/provider/capacity work",
+      "successful target unlock",
+      "infallible release publication of prefilled immutable metadata",
+      "actual relaxed store to owned plain original slot",
+      "actual release store of aligned target B",
+      "postcut cache/relock/accounting and diagnostic outcomes"
+    ],
+    "cut_exclusions": [
+      "no callback",
+      "no allocation",
+      "no new lock",
+      "no fallible metadata commit",
+      "no provider",
+      "no validation or refusal branch",
+      "no attempt to roll back an interrupted stage"
+    ],
+    "outcomes": [
+      "DeclinedBeforePublication with explicit retained or released resources",
+      "Published",
+      "PublishedWithWarnings",
+      "IncompleteOrUnknown retained stage after unsupported interruption, not a recovery claim"
+    ],
+    "diagnostics": "Optional saturated diagnostic table must not determine transaction success or cleanup eligibility",
+    "source_transformation": "Separately named copied-source successor with exact reviewed diff; retained original installer/reference bodies remain frozen. Cannot claim byte-identical unchanged installer after adding internal receipt/publication seam.",
+    "first_runtime_scope": "Late-island only for both Core and Community; real allocator/protection/cache on isolated authored targets, no firmware or live observer. Unsupported no-island path remains refused; fallback deferred.",
+    "record_visibility": "Prefill immutable owner/instruction/target/storage metadata, then release-commit once; subsequent mutable stage/warning journal is separate and is never read by immutable lookup."
+  },
+  "future_cases": [
+    {
+      "id": "owned-binding",
+      "oracle": "wrong/aliased/temporary/occupied exact slots and replacement identities refuse before installer or allocation; no untrusted orig dereference"
+    },
+    {
+      "id": "community-actual-emission",
+      "oracle": "actual returned mappings, ncopy/out, emitted instruction/literal/storage boundaries, metadata and permanent original agree before one scalar authored-route invocation; structural/RX guard first"
+    },
+    {
+      "id": "core-actual-emission",
+      "oracle": "typed Core uses same late island writer/owned binding and is never a community blame ID; no fallback claim"
+    },
+    {
+      "id": "prepublication-refusals",
+      "oracle": "selected pre-call trampoline-map/seal/island-unlock/target-unlock injected refusals retain exact provenance; original and target remain unchanged; side effects and burned slots retained"
+    },
+    {
+      "id": "cleanup-uncertainty",
+      "oracle": "retained candidate or trampoline mapping with injected pre-call munmap refusal remains explicitly uncertain; no hidden successful unmap or retry Deterministic out-of-reach candidate coverage needs a declared owned mapping/placement-input seam; otherwise first matrix uses trampoline cleanup. Never invent a mapping address."
+    },
+    {
+      "id": "partial-install",
+      "oracle": "first published route survives second binding's prepublication refusal; both journals and first original retained"
+    },
+    {
+      "id": "separate-protection-and-warnings",
+      "oracle": "actual saved island/target tokens and outcomes stay separate; warnings retain publication; saved writable bits are not labeled RX; invoke only after passing structural/RX gate"
+    },
+    {
+      "id": "admission-handoff",
+      "oracle": "queued-close/common Core-community conflict never enters installer; admitted actual publication accounts before close under same discipline"
+    },
+    {
+      "id": "diagnostic-independent-result",
+      "oracle": "bounded diagnostic-capacity setup cannot turn actual published receipt into refusal; no old success-suite replay"
+    },
+    {
+      "id": "checked-rounding-input",
+      "oracle": "invalid page/endpoint arithmetic refused as values before helper/native dereference; guard uses actual selected page size"
+    }
+  ],
+  "safe_controls": [
+    {
+      "id": "original-before-metadata",
+      "mutation": "Swap two valid stores only, keep actual original and redirect valid",
+      "oracle": "An actual metadata load immediately after the actual original store stays attached to that store; swapping valid metadata/original stores must change its result. Ordinal labels alone do not discriminate. No callback inside cut."
+    },
+    {
+      "id": "literal-as-instruction",
+      "mutation": "Metadata instruction end includes literal tail",
+      "oracle": "literal endpoint lookup fails while actual emitted code stays intact"
+    },
+    {
+      "id": "erase-cleanup-failure",
+      "mutation": "Receipt claims released despite retained injected failed cleanup",
+      "oracle": "receipt versus operation/custody evidence mismatch; no extra unmap"
+    },
+    {
+      "id": "token-evidence-alias",
+      "mutation": "Copy target token into retained island evidence only",
+      "oracle": "separate token oracle; tokens passed to real relock unchanged"
+    },
+    {
+      "id": "warning-as-refusal",
+      "mutation": "Translate published receipt with relock warning to refused",
+      "oracle": "published original/redirect/metadata contradict refusal; never reclaim"
+    }
+  ],
+  "deferred": [
+    "fallback/constructor path",
+    "general C/Linux ABI or exact atomic codegen",
+    "native loader/caller eligibility",
+    "arbitrary DSO original/replacement lifetime",
+    "nonparticipating vtable/raw/azstem writers",
+    "signal/asynchronous unwind/nonlocal exits",
+    "uninterrupted publication or recovery",
+    "live observer/native attachment",
+    "all Local Library activation gates"
+  ],
+  "evidence_limits": [
+    "This plan and its byte packet execute no installer, compiler, make, firmware or test matrix.",
+    "Source anchor hashes establish byte identity, not semantic correctness or runtime coverage.",
+    "Future injected refusals are authored path evidence, not real kernel failures.",
+    "Ownership is not fault causation; quarantine and all live gates remain closed."
+  ]
+}

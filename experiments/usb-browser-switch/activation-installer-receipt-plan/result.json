@@ -1,0 +1,83 @@
+{
+  "anchors": 18,
+  "artifacts": {
+    "anchor-index.json": {
+      "bytes": 4522,
+      "sha256": "5b22e868bfc51207381716131946b8f8d842a149a73ca47e44f17fd061f451e8"
+    }
+  },
+  "baseline_commit": "bcce66d8557a063b27f5ae26d8db18bfc0fcf75c",
+  "child_commands": [],
+  "compiler_make_installer_or_matrix_execution": false,
+  "firmware_or_device_access": false,
+  "inputs": {
+    "adapter-plan.json": {
+      "bytes": 14834,
+      "sha256": "4a9adf88a8e278beccf63dc90920c262116287d5995c764b456faa98deb8d2be"
+    },
+    "binding/observer.cpp": {
+      "bytes": 4241,
+      "sha256": "0969955fb87f47f2fc909a1a4419bf0ec9ad2ac1b91244c60df8908f5c4ebd03"
+    },
+    "binding/observer.h": {
+      "bytes": 4299,
+      "sha256": "999b8bebd58d37912f41e37330ecee60175a8f6a4d93d137d96892e13d7d14f6"
+    },
+    "entry/entry.S": {
+      "bytes": 5843,
+      "sha256": "95c4936e1e2530f9e0d60ea6642b7ce8ca1203480986050d96a130c581da22d1"
+    },
+    "integration/README.md": {
+      "bytes": 17647,
+      "sha256": "ac0b902286ddb119674e311f53c80d035a6d3b361029081ec67e84843b5d6a8b"
+    },
+    "retain-source.py": {
+      "bytes": 5107,
+      "sha256": "3a3a8b0d36a16b75fac183ac105c2c8a10dcdee3e66c06e4977020e48fcd39f1"
+    },
+    "sdk/src/azmod/community.c": {
+      "bytes": 102070,
+      "sha256": "4b2b72e2b623dcb1ecb0ef108a473815adab45a516a6aa13adb6cce512b80866"
+    },
+    "sdk/src/azmod/inline_hooks.c": {
+      "bytes": 19402,
+      "sha256": "f141b383c25e66c8acb1839280832a612a6ee0e25e9ada59f374ccbef8f81908"
+    },
+    "sdk/src/common/azprot.h": {
+      "bytes": 5296,
+      "sha256": "0f1cc9c5d4ca212f798bf2e9d74a69507a82ce5cc59bd328bacc46816a119b33"
+    },
+    "transaction/README.md": {
+      "bytes": 10741,
+      "sha256": "1132d2848dacc8552700c74334882527446e2b3e86861aa00f6faeba20e5a7c4"
+    },
+    "transaction/transaction.c": {
+      "bytes": 26504,
+      "sha256": "703cd620957895d3b00fe816ee701fd324c639193adac66862ef1b6a506e7237"
+    },
+    "transaction/transaction.h": {
+      "bytes": 9801,
+      "sha256": "5209577a618920923c97b32a27b738e8c493f9976934e217eedd28f6203be1eb"
+    },
+    "transfer/README.md": {
+      "bytes": 8126,
+      "sha256": "cf6058a830d009f2d3090e9e8449b410ef675afd563e7052ebafaa89428e2fd9"
+    },
+    "transfer/bridge.c": {
+      "bytes": 4995,
+      "sha256": "ab3dd8d2ec16880ac65b78e1fd9e1cdffabe09319a7df89a50beef604e9c3554"
+    }
+  },
+  "new_plan_inputs": 2,
+  "new_sdk_inputs": 0,
+  "old_capture_or_matrix_replay": false,
+  "private_result_sha256": "47750f1a48a1ecccaedcf7869535f51cfe5ab76a07e27ad64a19b41354516faa",
+  "retained_files": 16,
+  "reused_inputs": 12,
+  "runtime_gate": "CLOSED",
+  "schema": 1,
+  "scope": "Source-only owned installer receipt and custody plan",
+  "sdk_commit": "3e0c5cb010454228f4ee63226b60d060494eeaae",
+  "source_git_reads": 0,
+  "status": "retained"
+}
