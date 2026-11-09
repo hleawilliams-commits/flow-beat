@@ -1,0 +1,82 @@
+{
+  "composition_ledger_sha256": "17e3684a32f5b1ff5ad72cdb272588c6c8b995aea9488a5f0bfa81f9f75062e4",
+  "independent_retained_byte_audit": {
+    "assertion_count_scope": "Repeated byte/key/integer/inventory checks, not semantic test count. Final stdout adds one audit-source regular-file read after the result count.",
+    "first_invocation": true,
+    "packet_inventory_sha256": "29affa5b47941b0a3e576bcdc2e975c18b62bbc37e65b08bab06148cc6a5abcf",
+    "preinvocation_review": "Source-oracles inventory omission corrected before first audit; no audit failure.",
+    "replayed_captured_code": false,
+    "result_sha256": "8780317b559fbf2f4e02210d1def2bc30c332c7b72214362b5bcb71c8b43f20c",
+    "scope": "All retained input/command/source/generated/work bytes, exact ledger/diffs, independent ELF/linked-identity/route decoding, raw claim/session/accounting and six control facts, exact public projection.",
+    "source_sha256": "3e80e7bfbfac9f26cbe59aec995e7b120db6ee95cc5785fbbbae789a173fae50",
+    "status": "passed",
+    "structural_assertions": 341003
+  },
+  "limits": [
+    "Only three selected SDK helper bodies are byte-identical; claim/lifecycle context and orchestration are explicitly transformed/authored.",
+    "Caller RA, loader provenance, PT_LOAD facts and manifest capability values are authored. Actual builtin-RA entry is compile-only; no dlopen, constructor or approval-parser execution.",
+    "Fixed four bindings have three distinct target addresses, four replacement symbols and four strong aligned plain original slots; this is not arbitrary DSO/slot custody.",
+    "Loader holes/base-zero acceptance exercises lifecycle only, with no claim-across-hole proof. Core-first/community target conflict is sequential.",
+    "Actual CM EBUSY and joined ordinary-thread outcomes do not prove concurrent native invocation/publication, signals, native quiescence or general races/lifetime.",
+    "Closing session/capture readiness is not cancellation, quiescence, unpatch or reclamation. Interrupted/incomplete and pthread error paths remain unexecuted.",
+    "Generated-only lookup is not integrated module-first fault attribution; no new signal reader or atomic codegen proof.",
+    "Retained installer/protection bodies include earlier seams; new runtime uses explicit authored ingress/scheduling seams. Non-RX warning routes and all patched targets remain uninvoked.",
+    "Assembly/generated instructions are not sanitizer-instrumented; no TSan, anonymous-PC unwind, nonlocal-exit or production recovery proof.",
+    "No live observer, core repair patch, emulator/deck action, community release or stems fix. Quarantine and every unresolved runtime gate stay CLOSED; ownership is not fault causation."
+  ],
+  "matrix": {
+    "candidate_selectors_per_mode": 11,
+    "control_failure_counts": [
+      3,
+      1,
+      1,
+      1,
+      3,
+      1
+    ],
+    "controls_per_mode": 6,
+    "distinct_names_per_mode": 54,
+    "executed": "RC_FIXTURE and CC_FIXTURE; authored caller RA, loader and capability inputs",
+    "leak_detection_enabled": true,
+    "modes": [
+      "plain",
+      "asan-ubsan"
+    ],
+    "patched_target_invocations": 0,
+    "runtime_processes": 34,
+    "standalone": "compile-only, actual builtin RA, no RC_FIXTURE/CC_FIXTURE",
+    "summed_assertions_per_mode": 64,
+    "toolchain": "GCC 7.5.0 Ubuntu/Linaro Linux AArch64 C11"
+  },
+  "native_firmware_or_device_access": false,
+  "new_sdk_git_reads": 0,
+  "next_scope": "Next make a separately scoped source-only plan for an offline Linux authored-DSO provenance/custody successor: actual builtin caller-RA and handle/link-map/PT_LOAD/entry/init observations, fixed permanently retained authored modules and exact original-slot bindings, constructor-before-admission behavior, and reviewed transformations before implementation. Retain successful handles after later provenance/descriptor/init refusal. Arbitrary DSO/slot lifetime, nonparticipating writers, loader/interposition, native visibility, signals/nonlocal exits and recovery remain gates. Do not repeat this passing matrix or old scalar/ABI/exception suites.",
+  "old_matrix_or_transformer_replay": false,
+  "packet": {
+    "commands": 151,
+    "directories": 238,
+    "executables": 14,
+    "generated_artifacts": 9,
+    "inputs": 15,
+    "objects": 43,
+    "primary_output_streams": 302,
+    "retained_files_including_private_and_public_results": 823,
+    "work_artifacts": 190
+  },
+  "private_result_sha256": "df41cf531709cab5073111553463c123d7844ce2785bc9a207d888ee3ba47d00",
+  "production_integration": false,
+  "public_result_sha256": "34c82466982bfe5f942601346e16a0a15128487e807caa931fd50783ecb50ad1",
+  "runtime_gate": "CLOSED",
+  "schema": 1,
+  "scope": "Offline authored-input community claim and owned installer receipt composition",
+  "sdk_commit": "3e0c5cb010454228f4ee63226b60d060494eeaae",
+  "source_review": {
+    "independent_implementation_and_control_review": true,
+    "independent_runner_and_projection_review": true,
+    "prepublication_incomplete_close_and_bounded_ID_copy_corrected_before_first_build": true,
+    "retained_runtime_and_six_control_cause_review": true,
+    "root": true
+  },
+  "status": "passed",
+  "unexpected_compiler_or_runtime_failures": 0
+}

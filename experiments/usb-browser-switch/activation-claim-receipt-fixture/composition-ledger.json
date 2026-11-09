@@ -1,0 +1,244 @@
+{
+  "authored_transformations": [
+    {
+      "bytes": 2277,
+      "description": "Explicitly transformed claim: outer noinline RA/session capture, predicates under recursive cm->writer, combined preopen/stale veto, exact owned binding and bounded capacity.",
+      "destination": "composition.c",
+      "first_line": 1226,
+      "functions": [
+        "cc_claim_hook",
+        "cc_claim_worker"
+      ],
+      "id": "A1",
+      "kind": "explicit-authored-replacement",
+      "last_line": 1273,
+      "sha256": "9b6aac2831d0cdf87746852764eef310081434c04bbae3d6acaddf77555027f8",
+      "source": "community.c"
+    },
+    {
+      "bytes": 780,
+      "description": "Selected recursive SDK cm and common writer; no writer->cm edge or lock across authored entry/init.",
+      "destination": "composition.c",
+      "first_line": 1092,
+      "functions": [
+        "cc_lock",
+        "cc_both",
+        "cc_release_both"
+      ],
+      "id": "A2",
+      "kind": "explicit-authored-replacement",
+      "last_line": 1102,
+      "sha256": "9b441d32fbd81dc4e9b06860ae22003362f320ebbf018da82b07b0680ac90426",
+      "source": "community.c"
+    },
+    {
+      "bytes": 1921,
+      "description": "Authored explicit loader provenance/capability values replace real loader/parser/descriptor work; immutable per-index range facts precede descriptor callback.",
+      "destination": "composition.c",
+      "first_line": 1804,
+      "functions": [
+        "cc_loader_begin",
+        "cc_build_range",
+        "cc_run_module"
+      ],
+      "id": "A3",
+      "kind": "explicit-authored-replacement",
+      "last_line": 1845,
+      "sha256": "7844a17ab708c11bf62ecd8d7cf0d1e7ed967ebe09efa7287b0948c5bfdfb7bb",
+      "source": "community.c"
+    },
+    {
+      "bytes": 480,
+      "description": "One-use immutable sessions release-publish index+1/open and0/close, one entry acquire; close/count under shared locks, callback outside; failed init preserves receipts/count.",
+      "destination": "composition.c",
+      "first_line": 1846,
+      "functions": [
+        "cc_run_module",
+        "cc_close_locked",
+        "cc_capture_session"
+      ],
+      "id": "A4",
+      "kind": "explicit-authored-replacement",
+      "last_line": 1859,
+      "sha256": "07ea0ec31132da62c48cdb89b9b1efca103a5d00c71d6b54be0b0a790a2b0c9b",
+      "source": "community.c"
+    },
+    {
+      "bytes": 605,
+      "description": "Normally returned actual redirect accounts exactly once under locks; warnings map SDK0; raw installer/receipt values stay distinct; inconsistent publication is terminal/incomplete.",
+      "destination": "composition.c",
+      "first_line": 1259,
+      "functions": [
+        "cc_claim_worker"
+      ],
+      "id": "A5",
+      "kind": "explicit-authored-replacement",
+      "last_line": 1273,
+      "sha256": "203986a670f2c49d456d1adab36947c7f63920932e1e6b6e52a198b86e86573b",
+      "source": "community.c"
+    },
+    {
+      "bytes": 884,
+      "description": "Added explicit one-start controller and nonblocking repeated/in-progress refusal; sequential distinct fixed module sessions allowed.",
+      "destination": "composition.c",
+      "first_line": 1876,
+      "functions": [
+        "cc_loader_begin",
+        "cc_run_module"
+      ],
+      "id": "A6",
+      "kind": "explicit-authored-replacement",
+      "last_line": 1894,
+      "sha256": "cf75f0c07b3b153cbc55952743bd571c495f701254616fd4fb93e147e5f77f79",
+      "source": "community.c"
+    },
+    {
+      "bytes": 4045,
+      "description": "Explicit replacement of public fixture admission: remove duplicate cm/epoch/count and replacement-in-claimant proxy; retain private writer-held actual receipt installer/cut.",
+      "destination": "composition.c",
+      "first_line": 386,
+      "functions": [
+        "cc_install_locked",
+        "cc_install_core"
+      ],
+      "id": "A7",
+      "kind": "explicit-authored-replacement",
+      "last_line": 461,
+      "sha256": "bcc3871add2abdceb36f3f684c6e0c8fe29708ceb9eff792f6d58213e97af71a",
+      "source": "receipt.c"
+    }
+  ],
+  "changes": [
+    {
+      "description": "Widen owned ID to33; remove independent module/epoch and obsolete admission declarations; retain receipt value layouts and fixed symbols.",
+      "id": "C1",
+      "input": "receipt.h",
+      "output": "receipt-types.h"
+    },
+    {
+      "description": "Remove second cm/epoch/count and public installer/lifecycle; retain common writer, syscall custody, fixed bindings, publication and diagnostics.",
+      "id": "C2",
+      "input": "receipt.c",
+      "output": "receipt-body.inc"
+    },
+    {
+      "description": "Use all committed authored module envelopes for prewrite/final storage exclusion, private immutable permit checks, and one safe fixture-only ID-copy control.",
+      "id": "C3",
+      "input": "receipt.c",
+      "output": "receipt-body.inc"
+    },
+    {
+      "description": "Exact three helper bodies only; claim/lifecycle orchestration is authored explicitly in composition.c.",
+      "id": "C4",
+      "input": "community.c",
+      "output": "pinned-community.inc"
+    },
+    {
+      "description": "Exact retained complete generated installer copy, including unchanged no-refusal publication cut.",
+      "id": "C5",
+      "input": "inline-receipt.inc",
+      "output": "inline-receipt.inc"
+    },
+    {
+      "description": "Exact retained complete generated protection copy.",
+      "id": "C6",
+      "input": "azprot-receipt.h",
+      "output": "azprot-receipt.h"
+    }
+  ],
+  "child_commands": [],
+  "inputs": {
+    "azprot-receipt.h": {
+      "bytes": 6872,
+      "sha256": "28644f70e972dfa28ecd3b940e9f4d132492ecd22f73e48d561c8684ddb9506a"
+    },
+    "community.c": {
+      "bytes": 102070,
+      "sha256": "4b2b72e2b623dcb1ecb0ef108a473815adab45a516a6aa13adb6cce512b80866"
+    },
+    "composition.c": {
+      "bytes": 22971,
+      "sha256": "e8a7228d1e9afa492f16e07f681daa82bf56da4ddd3f2119f17e578824be0ea8"
+    },
+    "composition.h": {
+      "bytes": 6103,
+      "sha256": "a445905a2628c8b42ce6911b0bd27ef9e684cb1151c8b538a15123765f552c80"
+    },
+    "inline-receipt.inc": {
+      "bytes": 21968,
+      "sha256": "03f927df4da1d9c3ed56bdf00b20893a68195e65042abcc113258e723f1398cc"
+    },
+    "receipt.c": {
+      "bytes": 22019,
+      "sha256": "19d46afc34c05bbfaf19f6b2fc091fddb3af2b671b3fdd1373b524e07709d57a"
+    },
+    "receipt.h": {
+      "bytes": 6397,
+      "sha256": "abde4ac8f1d35fea71541f26103d5ea1b03dd44e1e475ba5b2fb65fd330dcb4d"
+    }
+  },
+  "old_generator_replayed": false,
+  "outputs": {
+    "azprot-receipt.h": {
+      "bytes": 6872,
+      "sha256": "28644f70e972dfa28ecd3b940e9f4d132492ecd22f73e48d561c8684ddb9506a"
+    },
+    "inline-receipt.inc": {
+      "bytes": 21968,
+      "sha256": "03f927df4da1d9c3ed56bdf00b20893a68195e65042abcc113258e723f1398cc"
+    },
+    "pinned-community.diff": {
+      "bytes": 104298,
+      "sha256": "6d878399d29f610626a3b09d2d3528110e8bc26580036a8681477e89fec753dd"
+    },
+    "pinned-community.inc": {
+      "bytes": 800,
+      "sha256": "b51c85bbf81885a3ee58a2bb1e9b7e803509cfde2f9d073d04621549eccaac69"
+    },
+    "receipt-body.diff": {
+      "bytes": 9802,
+      "sha256": "35938f5b0f59d96a20f2ff5982b939d71d14a51a01ed91949de32a9ffee33b8c"
+    },
+    "receipt-body.inc": {
+      "bytes": 15570,
+      "sha256": "60233581d6a882d9e57e6b6fc9602ce440783060446872148f94e9e7205bc02e"
+    },
+    "receipt-types.diff": {
+      "bytes": 2444,
+      "sha256": "31871a72152ec4066bb2cc74537b03aab45e3fa5ba20951d3e7c7abd6781c40d"
+    },
+    "receipt-types.h": {
+      "bytes": 5369,
+      "sha256": "c97454db2aba6e942eb05241bbf80d67ffd8eecb5108927da69600a6a1d15f40"
+    }
+  },
+  "preserved": [
+    {
+      "bytes": 442,
+      "first_line": 461,
+      "last_line": 470,
+      "name": "cm_id_ok",
+      "sha256": "bf65deac2f0f4527ea3f129656b1b2d04b22029c780f3307f054610d16faf58b",
+      "source": "community.c"
+    },
+    {
+      "bytes": 177,
+      "first_line": 471,
+      "last_line": 476,
+      "name": "cm_find",
+      "sha256": "81979a4c05f2c4bb1dd566c6c9c1e511ce44b9feb513615f9980f0d7cb8ee900",
+      "source": "community.c"
+    },
+    {
+      "bytes": 105,
+      "first_line": 1100,
+      "last_line": 1102,
+      "name": "cm_called_by",
+      "sha256": "43082b53343fff2b838f1be8032181e3e423ba270dacb171f3559dfa5168e7fc",
+      "source": "community.c"
+    }
+  ],
+  "runtime_gate": "CLOSED",
+  "schema": 1,
+  "scope": "Offline claim/receipt source composition; not SDK integration or live authorization"
+}

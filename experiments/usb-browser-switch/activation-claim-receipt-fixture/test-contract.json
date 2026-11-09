@@ -1,0 +1,138 @@
+{
+  "selectors": {
+    "policy": [
+      "unknown-id-refused",
+      "caller-target-and-session-boundaries",
+      "closed-and-wrong-loading-refused",
+      "hooks-refused",
+      "hooks-no-installer",
+      "hooks-zero-count",
+      "caller-half-open-endpoints-admitted",
+      "fixed-replacement-outside-caller-envelope",
+      "any-hooks-loader-refused",
+      "no-patched-target-invocation"
+    ],
+    "id32": [
+      "source-id32-distinct",
+      "owner-id32-exact",
+      "id32-separate-accounting",
+      "id32-failed-init-retains-publication",
+      "no-patched-target-invocation"
+    ],
+    "queued-close": [
+      "preopen-session-refused",
+      "preopen-session-no-installer",
+      "preopen-session-zero-count",
+      "closed-session-not-adopted",
+      "queued-workers-released-and-joined",
+      "no-patched-target-invocation"
+    ],
+    "admitted-close": [
+      "close-observed-real-cm-contention",
+      "close-counts-published-claim",
+      "admitted-receipt-retained",
+      "actual-run-close-completes-after-join",
+      "no-patched-target-invocation"
+    ],
+    "partial-failed-init": [
+      "first-claim-published",
+      "second-prepublication-refusal-retained",
+      "partial-code-and-receipts-retained",
+      "failed-init-retains-hook-count",
+      "failed-init-callback-state-cleared-only",
+      "no-patched-target-invocation"
+    ],
+    "published-warning": [
+      "warning-sdk-success",
+      "warning-actual-publication-retained",
+      "warning-counted-once",
+      "warning-writable-route-never-entered",
+      "no-patched-target-invocation"
+    ],
+    "fixed-custody": [
+      "wrong-original-identities-refuse-before-installer",
+      "wrong-replacement-refuses-before-installer",
+      "refused-originals-and-targets-unchanged",
+      "known-fixed-custody-admitted",
+      "no-patched-target-invocation"
+    ],
+    "core-conflict": [
+      "core-publication-typed-and-retained",
+      "community-alias-refuses-before-installer",
+      "refused-alias-not-counted",
+      "common-ledger-preserves-first-owner",
+      "no-patched-target-invocation"
+    ],
+    "loader-inputs": [
+      "missing-handle-is-not-zero-base",
+      "failed-query-is-not-zero-base",
+      "missing-link-map-is-not-zero-base",
+      "explicit-valid-zero-base-accepted",
+      "entry-and-init-release-locks-before-callback",
+      "no-patched-target-invocation"
+    ],
+    "loader-ranges": [
+      "unmatched-object-refuses-range",
+      "invalid-base-provenance-refuses",
+      "load-endpoint-overflow-refuses",
+      "descriptor-failure-retains-committed-range",
+      "no-patched-target-invocation"
+    ],
+    "lifecycle": [
+      "in-progress-lifecycle-refuses-without-callback",
+      "module-session-never-reopened",
+      "sequential-identities-and-counts-retained",
+      "recursive-cm-without-writer-recursion",
+      "closed-session-does-not-restart-installer",
+      "no-patched-target-invocation"
+    ]
+  },
+  "controls": {
+    "adopt-preopen-session": {
+      "macro": "CC_CONTROL_ADOPT_PREOPEN_SESSION",
+      "selector": "queued-close",
+      "expected_failures": [
+        "preopen-session-refused",
+        "preopen-session-no-installer",
+        "preopen-session-zero-count"
+      ]
+    },
+    "omit-account": {
+      "macro": "CC_CONTROL_OMIT_ACCOUNT",
+      "selector": "admitted-close",
+      "expected_failures": [
+        "close-counts-published-claim"
+      ]
+    },
+    "warning-sdk-refusal": {
+      "macro": "CC_CONTROL_WARNING_SDK_REFUSAL",
+      "selector": "published-warning",
+      "expected_failures": [
+        "warning-sdk-success"
+      ]
+    },
+    "failed-init-zero-count": {
+      "macro": "CC_CONTROL_FAILED_INIT_ZERO_COUNT",
+      "selector": "partial-failed-init",
+      "expected_failures": [
+        "failed-init-retains-hook-count"
+      ]
+    },
+    "ignore-hooks": {
+      "macro": "CC_CONTROL_IGNORE_HOOKS",
+      "selector": "policy",
+      "expected_failures": [
+        "hooks-refused",
+        "hooks-no-installer",
+        "hooks-zero-count"
+      ]
+    },
+    "truncate-id32": {
+      "macro": "CC_CONTROL_TRUNCATE_ID32",
+      "selector": "id32",
+      "expected_failures": [
+        "owner-id32-exact"
+      ]
+    }
+  }
+}
