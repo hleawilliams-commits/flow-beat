@@ -1,0 +1,45 @@
+# Generated-range metadata fixture — offline v1
+
+This separately versioned successor to the [source contract](../activation-generated-range-contract/README.md) at 53e0b13abab00828439939a5ef131d871faf988b implements a bounded synthetic metadata library and a modeled installer. It is not connected to the SDK, a fault handler, an observer or native firmware. Every live, activation and staging gate remains CLOSED.
+
+## Representation and admission
+
+The library has eight fixed slots. One slot owns a copied synthetic process/owner identity, a sixteen-byte native target reservation, and up to two exact generated instruction intervals. Community IDs are copied from accessible caller-owned bytes after bounded shape validation; this is not SDK authentication or trusted loader admission. Core is a distinct type with no community ID.
+
+Tickets bind the registry address, externally unique instance identity, slot and generation. Cancellation may reuse only a never-published slot with a new generation. Generation wrap is refused in source; exhaustion of the 64-bit counter is not driven by the fixture. Publication permits are move-only. Dropping a permit retains an invisible reservation; it does not perform cleanup.
+
+Only one externally serialized writer may mutate a registry. Registry lifetime and instance uniqueness are caller obligations. Module snapshots copy at most sixteen synthetic envelopes and identities. A snapshot must remain immutable and alive while operations read it. No arbitrary native pointers, module loader, instruction decoder or memory map is inspected.
+
+For n copied instructions and m expanded ADRPs, the relocated count is r=n+3m. Island instruction ownership is [I,I+8); trampoline ownership is [T,T+4(r+2)). The following eight-byte literals, allocation slack and neighboring slots are excluded from generated lookup. The fixture rejects full emitted-blob overlap (including literals) with other emitted blobs, known module envelopes, or retained sixteen-byte target reservations. Target reservations also exclude each other. This storage validation is deliberately stronger than instruction-only ownership. Later module snapshots may still mask a published generated record, including claiming a literal under their own envelope. No reverse loader admission or permanent global non-overlap is proved.
+
+## Publication and retention
+
+The modeled phases are Reserved, Prepared, Authorized and Published. Capacity and target exclusion are reserved together. Preparation validates checked endpoints and conflicts while invisible. A final fallible validation creates the permit before the modeled target unlock. A valid permit under the uninterrupted writer/admission premises commits with a bounded irreversible release store; defensive misuse errors are not post-unlock installer branches.
+
+The harness models metadata publication before original-slot publication before redirection. It distinguishes prepublication cleanup attempts and warning-success installs. In the reviewed SDK source, island relock precedes target unlock and target relock follows publication; this harness selects those warning outcomes and checks published-record retention. No actual memory protection, cache operation, original pointer, redirect or cleanup syscall is performed. The harness checks copied identity after modeled init failure and rejects generic cancellation after publication. Disable/remove and failed Reload retention remain requirements from the source contract; this fixture does not execute those SDK lifecycle paths. A registry destructor is not a live reclamation protocol.
+
+Lookup checks module envelopes first at each address, then performs at most eight acquire loads before reading committed immutable payload. It does not inspect writer phase/generation, wait, retry, allocate or call a provider. The separate harness composes PC, LR and up to sixteen integer-keyed frames, continuing on Core and ending at the first Community result. A generated community PC intentionally precedes a module LR; a module winner at the same address always wins. Ownership does not prove causation or persisted blame.
+
+## New checks and evidence
+
+The first completed runtime matrix passes **73 named checks across sixteen fresh-process selectors per plain and ASan/UBSan mode**. Eight safe semantic controls per mode compile and fail only their exact named oracles; two memory-order controls are compiled to assembly and never executed. [Sanitized results](result.json), [preserved configuration history](preflight-history.json) and [verification](verification.json) bind the evidence.
+
+The matrix covers all seven copied-instruction/ADRP expansion combinations; instruction, literal, neighbor and page bounds; integer overflow and bounded reserved/published capacity; storage/target conflicts; copied identity and stale tickets; both modeled target-unlock routes and cleanup outcomes; irreversible metadata/original/redirect ordering; ordinary held-writer and nested-call schedules; module/PC/LR/frame precedence, typed Core fallback and later masking. The constructor and island cleanup outcomes are authored decisions, not injected SDK or operating-system failures.
+
+Apple Clang 16.0.0 targets arm64-apple-darwin25.2.0 with explicit **-mcpu=generic -march=armv8-a**. The plain library assembly contains one LDAR in lookup and one STLR in commit, with no calls matching the reviewed out-of-line atomic/lock-helper set. Relaxing either source operation removes its corresponding method instruction while preserving the other. This is scoped method/codegen evidence; it does not prove general machine-code equivalence or certify every library call.
+
+Two earlier pre-runtime attempts stopped at the unchanged strict LDAR oracle: both the default CPU configuration and -march=armv8-a alone emitted LDAPR in lookup and STLR in commit. Their compilation succeeded; no executable or semantic control ran. A retained clang -### diagnostic then confirmed that explicitly selecting the generic CPU proposed +neon/+v8a. The strict instruction oracle was not broadened, and the library/test sources stayed unchanged. LDAPR is recorded as an alternative compiler lowering, not an incorrect acquire operation.
+
+The completed matrix retains six inputs, seventy commands, 140 output streams, 130 artifacts and 417 files privately. The two refused configurations add nineteen files each; the non-compiling driver diagnostic adds four. No prior successful matrix or source capture was repeated. Independent source/control review and retained-byte audit details are in verification.json.
+
+The held-writer schedule uses ordinary host threads and an external fixture barrier. Its positive read follows writer join, so it does not isolate acquire/release publication from thread-join synchronization. Nested harness lookups are sequential nested calls, not a signal interrupting the middle of a registry scan. Neither proves signal delivery, asynchronous reentrancy, a general race/lifetime property or instruction-cache publication. The synthetic frame walk is newly authored composition, not execution of the earlier exact SDK attribution bodies.
+
+Only the new fixture is compiled and executed. Earlier sources, captures and passing matrices remain frozen. The runner retains each command, input, output and artifact privately, including failures, and requires exact named failures for semantic controls. Compile-only relaxed-order variants must remove the expected LDAR or STLR from the actual lookup/commit method; they are never executed as weak-memory tests.
+
+## Limits and next work
+
+There is no core registry integration, SDK preparation receipt, live admission/current-hook check, native signal/persistence path or generated-code allocation. Apple ARM64 macOS host evidence is not a Linux SDK/loader ABI test. ASan/UBSan instrumentation and inspected plain assembly do not establish signal safety, TSan coverage, volatile-guard synchronization, whole-engine lifetime, native timing or recovery. Leak detection is disabled.
+
+A next source-only integration review must identify an enforceable common core/community writer and admission protocol, exact owned emission receipts, original/redirect ordering, and immutable module-input lifetime before a separate core patch can be considered. It must account for failed/partial initialization and every retained or abandoned resource, without changing claim policy, quarantine, old packages or the frozen observer.
+
+Live passive attachment still requires exact provenance, accepted control-flow scope, stable originals/code and writer/topology/stopped-recovery safeguards. Local Library row/provider/readiness, actual arguments, operation ownership, alternate destructive paths, queued work and callback quiescence remain separate activation gates. Preserve action x2 as opaque bits, service Source in registers, x16 tail scratch and installer x17/island-unwind limits. No native pointee/post-return reads, return interception, TLS pairing, device action or community release is added.

@@ -1,0 +1,133 @@
+{
+  "attempts": [
+    {
+      "assembly_sha256": "4b0967277890a85fdee715a5aeaa2a0ea9a3baec02fe5964208c5fb621e69a0b",
+      "commands": [
+        {
+          "failure": null,
+          "name": "compiler-version",
+          "receipt_sha256": "728dcfe5844b73bd1af9748b91a4518a40ba0e6a080a381a40157c9bc9982777",
+          "returncode": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 158,
+          "stdout_sha256": "532ed371de5818d7a523b5ebb0b7d4dcca20065441aa3313777683f1fc48db70"
+        },
+        {
+          "failure": null,
+          "name": "compile-atomic-codegen",
+          "receipt_sha256": "a488c553c7a332d604f884b17f263067628603b822294e4082485b9737eedcf0",
+          "returncode": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "commit_instruction_observed": "stlr w9, [x8]",
+      "compile_commands_succeeded": true,
+      "controls_executed": 0,
+      "error": "RuntimeError: method-bound atomic codegen evidence missing or helper call",
+      "interpretation": "Strict LDAR oracle refused the observed default CPU lowering; no incorrect-acquire or C++ atomic-semantics failure is claimed.",
+      "lookup_instruction_observed": "ldapr w12, [x11]",
+      "private_result_sha256": "db095eb5d2c3ec4b835426375e69b3d6afa42a3d9fab72c9c7d6e0c9d709399b",
+      "registry_sha256": "418ceba1881fdb7cbd79bd0d8c96791a674ea37455e6870a5ab7094f38d78df8",
+      "retained_files": 19,
+      "run_id": "run-139ca3bf6244450c93cde6c3dc825884",
+      "runner_sha256": "8a8d98c10ca3d5868e6834ee9ab1d52d07283441b0934503065ee321ea3c7da1",
+      "runtime_executions": 0,
+      "selected_architecture_flags": [],
+      "status": "failed"
+    },
+    {
+      "assembly_sha256": "578382503f7f6edffab0e6cd6d9853c426af2a3ed8e0e084ca8b233a16b0f48d",
+      "commands": [
+        {
+          "failure": null,
+          "name": "compiler-version",
+          "receipt_sha256": "b488d8b00c7858a11c1903cd1a5d5617f6ae47c7c1ff530b975b4385e04a3281",
+          "returncode": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 158,
+          "stdout_sha256": "532ed371de5818d7a523b5ebb0b7d4dcca20065441aa3313777683f1fc48db70"
+        },
+        {
+          "failure": null,
+          "name": "compile-atomic-codegen",
+          "receipt_sha256": "b43b2e3bc8cd605e39c128ce9493feced0d2f86ba8dfebc125777a753c3055ea",
+          "returncode": 0,
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "commit_instruction_observed": "stlr w9, [x8]",
+      "compile_commands_succeeded": true,
+      "controls_executed": 0,
+      "error": "RuntimeError: method-bound atomic codegen evidence missing or helper call",
+      "interpretation": "Strict LDAR oracle refused the observed default CPU lowering; no incorrect-acquire or C++ atomic-semantics failure is claimed.",
+      "lookup_instruction_observed": "ldapr w12, [x11]",
+      "private_result_sha256": "bfebebb145f384128360d54d4d747ffd9e77ab6a15f514640dfce3b18fe2e294",
+      "registry_sha256": "418ceba1881fdb7cbd79bd0d8c96791a674ea37455e6870a5ab7094f38d78df8",
+      "retained_files": 19,
+      "run_id": "run-4aabd6e62eeb45d6b4411b95f2eef3b7",
+      "runner_sha256": "76f55b8e9bfda2864be19945c53b065cf46e91bed6cb5a630acff0493c087d26",
+      "runtime_executions": 0,
+      "selected_architecture_flags": [
+        "-march=armv8-a"
+      ],
+      "status": "failed"
+    }
+  ],
+  "driver_diagnostic": {
+    "assembly_emitted": false,
+    "capture_id": "config-dcbfd666585b487b9244843ea7e8756f",
+    "cc1_target_cpu": "generic",
+    "cc1_target_features": [
+      "+neon",
+      "+v8a"
+    ],
+    "cc1_triple": "arm64-apple-macosx15.2.0",
+    "files": {
+      "command.json": {
+        "bytes": 1221,
+        "sha256": "076d0e93a2d0e9da4fb18a61b80b417f2c7d385eb09e6d46debfdecd02deae69"
+      },
+      "result.json": {
+        "bytes": 225,
+        "sha256": "2b45dcc3f78ecd8d67df2db3d1c9aa606eb56d61a144b4fce5fc10297f9930b7"
+      },
+      "stderr.bin": {
+        "bytes": 3674,
+        "sha256": "b472dfa389926b0f2206a154f296ba9f1cbc1daa798206f5357abd660bc2eb20"
+      },
+      "stdout.bin": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "returncode": 0,
+    "runtime_executions": 0,
+    "scope": "clang -### reports a proposed command only; it does not compile registry.cpp.",
+    "selected_flags": [
+      "-mcpu=generic",
+      "-march=armv8-a"
+    ]
+  },
+  "runtime_gate": "CLOSED",
+  "schema": 1,
+  "scope": "Pre-runtime code-generation configuration refusals and a non-compiling driver diagnostic. No fixture source or semantic oracle changed.",
+  "successful_followup": {
+    "first_runtime_matrix_completed": true,
+    "library_and_test_sources_unchanged": true,
+    "private_result_sha256": "ff975927c921f3a4aa3bff33a4284cf19dc24b31926ce8bccba2cb156e2f895b",
+    "public_result_sha256": "c43f9654c06a3a9b36b0afff475dc9b6ba0a1526ba09d838a4e48bbeb608029b",
+    "run_id": "run-4d7bc73e729147a5a1892df3f5143a83",
+    "selected_flags": [
+      "-mcpu=generic",
+      "-march=armv8-a"
+    ]
+  }
+}

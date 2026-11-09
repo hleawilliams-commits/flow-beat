@@ -1,0 +1,181 @@
+{
+  "actual_sdk_claim_or_installer": false,
+  "baseline_commit": "53e0b13abab00828439939a5ef131d871faf988b",
+  "checks_per_mode": 73,
+  "common_compile_flags": [
+    "-std=c++17",
+    "-mcpu=generic",
+    "-march=armv8-a",
+    "-O1",
+    "-g",
+    "-fno-omit-frame-pointer",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-Wpedantic",
+    "-pthread"
+  ],
+  "community_release": false,
+  "compile_only_order_controls": 2,
+  "date": "2026-11-09",
+  "driver_diagnostic_compilations": 0,
+  "driver_diagnostic_files": 4,
+  "emulator_or_physical_device_contact": false,
+  "exact_control_failures": {
+    "core-as-community": [
+      "core-pc-continues-to-community-lr",
+      "core-pc-and-lr-continue-to-frame",
+      "core-never-becomes-community-blame"
+    ],
+    "inclusive-range-end": [
+      "island-instruction-literal-boundaries",
+      "neighbor-and-pool-slack",
+      "trampoline-literal-and-page-slack"
+    ],
+    "island-literal-storage-omitted": [
+      "prepared-overlap-is-invisible",
+      "cross-kind-range-conflict",
+      "one-emission-internal-overlap"
+    ],
+    "module-first-bypassed": [
+      "first-module-envelope-beats-generated",
+      "module-envelope-hole-policy-unchanged"
+    ],
+    "original-before-metadata": [
+      "metadata-visible-before-original"
+    ],
+    "owner-byte-not-preserved": [
+      "owner-copied-before-source-mutation",
+      "modeled-init-failure-retains-published-owner",
+      "returned-identity-is-independent-copy",
+      "module-snapshot-copies-owner"
+    ],
+    "publication-before-target-unlock": [
+      "all-invisible-stages-before-unlock"
+    ],
+    "stale-generation-cancel": [
+      "cancel-reuses-capacity-with-new-generation",
+      "replacement-capacity-stays-bounded"
+    ]
+  },
+  "first_completed_runtime_matrix_passed": true,
+  "fresh_process_per_selector": true,
+  "independent_retained_byte_audit": {
+    "all_selected_capture_file_count": 459,
+    "artifact_count": 130,
+    "audit_attempt": 1,
+    "audit_result_sha256": "78c64f3cdd662193d7cade10fbfdf2c0ba3a3db061b9c91660985066d8bd1ac1",
+    "audit_source_sha256": "21fb7b12e6ed7c4ea29c8bb8143f66b419b91ca3b7610f24ad48f9e2e8c930cb",
+    "candidate_checks_per_mode": 73,
+    "candidate_selectors_per_mode": 16,
+    "command_count": 70,
+    "compiled_only_order_controls": 2,
+    "compiler_or_binary_executed": false,
+    "kind": "retained-byte-audit",
+    "modes": [
+      "plain",
+      "asan-ubsan"
+    ],
+    "old_suites_replayed": false,
+    "output_stream_count": 140,
+    "preflight_command_count": 5,
+    "preflight_history_sha256": "6bf5884567f6f036f528d5531253174ad898c394c4e402abfc05671a1af7622f",
+    "preflight_output_stream_count": 10,
+    "preflight_retained_file_count": 42,
+    "preflight_runtime_executions": 0,
+    "preflight_semantics": "LDAPR is not classified as an invalid acquire; refusals reflect the stricter selected LDAR code-generation oracle.",
+    "preserved_codegen_oracle_refusals": 2,
+    "preserved_driver_diagnostics": 1,
+    "private_result_sha256": "ff975927c921f3a4aa3bff33a4284cf19dc24b31926ce8bccba2cb156e2f895b",
+    "public_result_sha256": "c43f9654c06a3a9b36b0afff475dc9b6ba0a1526ba09d838a4e48bbeb608029b",
+    "retained_file_count": 417,
+    "runner_imported_or_executed": false,
+    "schema": 1,
+    "scope": "Bytes, exact receipts, source mutations, text assembly and public projection only; not semantic binary, weak-memory, signal or native proof.",
+    "semantic_controls_per_mode": 8,
+    "source_hashes": {
+      "registry.cpp": "418ceba1881fdb7cbd79bd0d8c96791a674ea37455e6870a5ab7094f38d78df8",
+      "registry.h": "078290d7bb21d2c702c0c31edb5f5fe6318ebca47fd6a71ed60c9baed6188498",
+      "run-tests.py": "a68ff1fee6c29af8817125283a0ee4d98a92862c81077ffc57f2dec84394cfb0",
+      "test_registry.cpp": "0e69e72d087ba9353eb898f8b2ad628ab2f080c4ffa650d497009d352bbd57e8"
+    },
+    "source_input_count": 6,
+    "status": "passed"
+  },
+  "leak_detection": false,
+  "limits": [
+    "Authored synthetic library/models only: no SDK integration, trusted native owner admission, allocation/mapping, actual original/redirect or cleanup syscall.",
+    "Single-writer serialization, registry lifetime, unique instance identity and immutable module snapshots are external premises.",
+    "Full-blob admission is stronger than instruction-only attribution; later module envelopes may mask published records or own literal addresses.",
+    "Generation wrap refusal is source-reviewed only; no artificial exhaustion seam.",
+    "Nested harness calls are not signal interruption inside lookup; positive cross-thread visibility also has join synchronization.",
+    "Apple macOS host evidence is not Linux SDK/loader ABI, asynchronous signal safety, actual weak-memory/cache publication or binary/debug semantic equivalence.",
+    "No TSan, general race/lifetime, legacy volatile/module synchronization, native timing, persisted blame, quarantine recovery or fault-causation proof.",
+    "All native provenance/admission/current-ownership, writer/topology/stopped-recovery, Local Library activation/lifetime and stems staging gates remain CLOSED."
+  ],
+  "modes": [
+    "plain",
+    "asan-ubsan"
+  ],
+  "native_pointee_access": false,
+  "new_source_sha256": {
+    ".gitignore": "d56537a93a9565b3322aa9bc821c9cc30a16303467032cade13b069e394cfddc",
+    "registry.cpp": "418ceba1881fdb7cbd79bd0d8c96791a674ea37455e6870a5ab7094f38d78df8",
+    "registry.h": "078290d7bb21d2c702c0c31edb5f5fe6318ebca47fd6a71ed60c9baed6188498",
+    "run-tests.py": "a68ff1fee6c29af8817125283a0ee4d98a92862c81077ffc57f2dec84394cfb0",
+    "test_registry.cpp": "0e69e72d087ba9353eb898f8b2ad628ab2f080c4ffa650d497009d352bbd57e8"
+  },
+  "offline_metadata_library": true,
+  "old_passing_matrices_or_captures_replayed": false,
+  "parent_sources_changed": false,
+  "plain_codegen": {
+    "commit_stlr": 1,
+    "lookup_ldar": 1,
+    "reviewed_atomic_or_lock_helpers": [],
+    "scope": "Method-bound standalone assembly; compiled-only relaxed variants remove their respective operation."
+  },
+  "pre_runtime_configuration_refusals": 2,
+  "preflight_history_sha256": "6bf5884567f6f036f528d5531253174ad898c394c4e402abfc05671a1af7622f",
+  "prior_configuration_packet_files": [
+    19,
+    19
+  ],
+  "private_result_sha256": "ff975927c921f3a4aa3bff33a4284cf19dc24b31926ce8bccba2cb156e2f895b",
+  "production_registry_or_core_repair": false,
+  "public_result_sha256": "c43f9654c06a3a9b36b0afff475dc9b6ba0a1526ba09d838a4e48bbeb608029b",
+  "real_loader_signal_or_persistence": false,
+  "retained_artifacts": 130,
+  "retained_commands": 70,
+  "retained_files": 417,
+  "retained_inputs": 6,
+  "retained_output_streams": 140,
+  "review_readme_sha256": "72e688acd8314cb2e60f30933b6472da035ec798bd4c9f0b4098880497fc5d86",
+  "runtime_gate": "CLOSED",
+  "safe_controls_per_mode": 8,
+  "sanitizer_compile_flags": [
+    "-fsanitize=address,undefined",
+    "-fno-sanitize-recover=all"
+  ],
+  "schema": 1,
+  "scope": "Offline v1 generated-range metadata library with authored installer/frame models",
+  "selectors_per_mode": 16,
+  "source_review": {
+    "claim_corrections": [
+      "Warning-stage order belongs to reviewed SDK source; harness checks selected warning outcomes and retention.",
+      "Disable/remove/Reload remain source-contract requirements, not executed lifecycle paths.",
+      "Positive postcommit read follows writer join; schedule does not isolate acquire/release synchronization."
+    ],
+    "independent_claim_review": true,
+    "independent_library_review": true,
+    "independent_runner_and_control_review": true,
+    "pre_execution_corrections": [
+      "Refuse full emitted-storage aliases, including literals, against blobs/modules/retained target16 ranges; keep attribution instruction-only.",
+      "Record and restrict command environment/cwd instead of inheriting unrecorded compiler/runtime overrides.",
+      "Exercise actual literal-end overflow, published capacity, and both modeled target-unlock routes; correct mixed-overlap comment."
+    ],
+    "preserved_config_failure_explanation": "Two clean default/default-CPU ARMv8-A compilations emitted LDAPR and failed the strict LDAR oracle before runtime; explicit generic CPU selected after a retained non-compiling driver diagnostic. Library/tests and strict oracle were unchanged."
+  },
+  "toolchain": "Apple Clang 16.0.0; arm64-apple-darwin25.2.0; -mcpu=generic -march=armv8-a",
+  "total_capture_files_excluding_audit": 459,
+  "tsan_executed": false
+}

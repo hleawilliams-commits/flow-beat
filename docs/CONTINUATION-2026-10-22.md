@@ -2006,3 +2006,58 @@ ownership, control-flow scope, writer/topology/recovery, Local Library
 row/provider/readiness/owner lifetime and stems staging gates remain CLOSED.
 No firmware, emulator/deck action, core installation, package/catalog change
 or community release occurred. Ownership remains distinct from causation.
+
+## November 9 — offline generated-range metadata and modeled publication
+
+The separate [generated-range fixture](../experiments/usb-browser-switch/activation-generated-range-fixture/README.md)
+follows the source contract at 53e0b13abab00828439939a5ef131d871faf988b.
+Eight fixed slots retain copied synthetic Core/Community identity, a target16
+reservation and exact instruction-only island/trampoline ranges. Tickets bind
+registry/instance/slot/generation; a move-only permit freezes validated data.
+Only invisible reservations may be reused. Published payload and identity never
+change, and readers acquire committed flags before touching those values.
+
+This fixture adds conservative full emitted-storage exclusion, including literal
+tails, against other blobs, known module envelopes and retained target16 ranges.
+Lookup still excludes generated literals/slack and remains module-first per
+PC/LR/frame. A generated community PC may beat a module LR; Core continues the
+community search. Later module snapshots may mask earlier generated records.
+No allocation/page ownership or reverse loader admission is inferred.
+
+The first completed host matrix passes 73 named checks across sixteen fresh
+processes per plain and ASan/UBSan mode, eight exact safe controls per mode and
+two compiled-only memory-order controls. It covers all seven relocation-length
+variants, literal/overflow/capacity boundaries, copied identity, stale tickets,
+modeled refusal/cleanup and publication order, permanent retention and selected
+ordinary-thread/nested-call schedules. The frame walk is newly authored scalar
+composition; no old exact SDK function suite was replayed.
+
+Two prior attempts stopped before any runtime execution: clean default and
+-march=armv8-a-only compilations emitted LDAPR where the strict oracle required
+LDAR. A retained non-compiling driver diagnostic confirmed the explicit generic
+CPU configuration. With -mcpu=generic -march=armv8-a, lookup has LDAR and commit
+STLR, without the reviewed atomic/lock-helper calls. Library/test sources and
+the strict oracle stayed unchanged. LDAPR is not labeled an incorrect acquire.
+
+Independent source/control review and retained-byte audit are linked in the
+fixture. The completed matrix retains six inputs, seventy commands, 140 output
+streams, 130 artifacts and 417 files privately; two refused configuration packets
+retain nineteen files each, and the driver diagnostic retains four. Only source
+and sanitized receipts are shared.
+
+The library requires external single-writer serialization and stable registry/
+module-snapshot lifetimes. It supplies no SDK owner authentication, real emission
+receipt, original/redirect, signal handling, native cleanup or persistence.
+Warning outcomes test record retention; their exact SDK stage order is source
+evidence. Failed init is modeled; disable/remove/Reload paths are not executed.
+Generation wrap is refused in source but not driven to exhaustion.
+
+Next perform a source-only integration review of enforceable common core/community
+writer admission, exact owned emission receipts, original/redirect ordering,
+immutable module inputs and failed/partial-init resource custody. Do not install
+this fixture or rerun its passing matrix unchanged. Apple ARM64 macOS host codegen
+and ASan/UBSan, with leak detection disabled, do not prove Linux SDK ABI, signals,
+whole-engine races/lifetime, callback quiescence, native timing or recovery.
+No emulator/deck, package/catalog, official core or release changed. All passive
+attachment, Local Library activation, writer/topology/recovery and stems gates
+remain CLOSED. Ownership is not fault causation.
