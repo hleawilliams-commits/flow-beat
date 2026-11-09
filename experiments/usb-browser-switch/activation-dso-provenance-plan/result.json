@@ -1,0 +1,184 @@
+{
+  "anchors": 21,
+  "artifacts": {
+    "anchor-index.json": {
+      "bytes": 6836,
+      "sha256": "cfcab2199a80447cc3576fb3a78d40405285b79b5a5f736897bc2dfe3171b779"
+    }
+  },
+  "baseline_commit": "e9bcf3db860ea5e87607ccddc51faab334bf5da6",
+  "child_commands": [],
+  "closed_inventory": true,
+  "compiler_loader_installer_or_matrix_execution": false,
+  "firmware_or_device_access": false,
+  "inputs": {
+    "README.md": {
+      "bytes": 12923,
+      "sha256": "3141ad86a355f71fa8a58625d090d1ba2fa3aa01c5f26bc18f5402c8111dabaf"
+    },
+    "claim/README.md": {
+      "bytes": 11112,
+      "sha256": "e0afb6ef48c5332932d98998f2ead4cba78893951773f6f09f6ac11ebf3ed21a"
+    },
+    "claim/composition-ledger.json": {
+      "bytes": 8450,
+      "sha256": "17e3684a32f5b1ff5ad72cdb272588c6c8b995aea9488a5f0bfa81f9f75062e4"
+    },
+    "claim/composition.c": {
+      "bytes": 22971,
+      "sha256": "e8a7228d1e9afa492f16e07f681daa82bf56da4ddd3f2119f17e578824be0ea8"
+    },
+    "claim/composition.h": {
+      "bytes": 6103,
+      "sha256": "a445905a2628c8b42ce6911b0bd27ef9e684cb1151c8b538a15123765f552c80"
+    },
+    "claim/test-contract.json": {
+      "bytes": 4189,
+      "sha256": "a7767901a99c7b9c6339ebf881bab8f99f114d8f69544047455a2e5eb2c89677"
+    },
+    "claim/verification.json": {
+      "bytes": 5228,
+      "sha256": "f3b4341e99f580ff62627e53834379ac5708ea7aa737f7f804c00ecab1098037"
+    },
+    "generated/azprot-receipt.h": {
+      "bytes": 6872,
+      "sha256": "28644f70e972dfa28ecd3b940e9f4d132492ecd22f73e48d561c8684ddb9506a"
+    },
+    "generated/inline-receipt.inc": {
+      "bytes": 21968,
+      "sha256": "03f927df4da1d9c3ed56bdf00b20893a68195e65042abcc113258e723f1398cc"
+    },
+    "generated/pinned-community.inc": {
+      "bytes": 800,
+      "sha256": "b51c85bbf81885a3ee58a2bb1e9b7e803509cfde2f9d073d04621549eccaac69"
+    },
+    "generated/receipt-body.inc": {
+      "bytes": 15570,
+      "sha256": "60233581d6a882d9e57e6b6fc9602ce440783060446872148f94e9e7205bc02e"
+    },
+    "generated/receipt-types.h": {
+      "bytes": 5369,
+      "sha256": "c97454db2aba6e942eb05241bbf80d67ffd8eecb5108927da69600a6a1d15f40"
+    },
+    "prior/composition-plan.json": {
+      "bytes": 24756,
+      "sha256": "a3c2a65d68232f7f307d988efede0ac3e60de3e8e2cd9b609bd1fa50e189ed59"
+    },
+    "provenance-plan.json": {
+      "bytes": 27746,
+      "sha256": "f627abddb34274af7d04d7b522ab9763bbc3c93f49a605757938c7f17646c75b"
+    },
+    "receipt/fixture.S": {
+      "bytes": 1803,
+      "sha256": "6cc196de4e7ef941411142ba335576b571c1beec7a2ef881f78fbd29f64a40f9"
+    },
+    "retain-source.py": {
+      "bytes": 12305,
+      "sha256": "b3ebcea8b9fc134cb36b7dda0e62ac786ceaa79068b64d182077728a02b7fe48"
+    },
+    "sdk/azmod-mod.h": {
+      "bytes": 32149,
+      "sha256": "b94e2ba6656c2b852f18691d32225486f29265953c8bf09dcac9a18ce561a630"
+    },
+    "sdk/community.c": {
+      "bytes": 102070,
+      "sha256": "4b2b72e2b623dcb1ecb0ef108a473815adab45a516a6aa13adb6cce512b80866"
+    }
+  },
+  "inventory": {
+    "anchor-index.json": {
+      "bytes": 6836,
+      "sha256": "cfcab2199a80447cc3576fb3a78d40405285b79b5a5f736897bc2dfe3171b779"
+    },
+    "inputs/README.md": {
+      "bytes": 12923,
+      "sha256": "3141ad86a355f71fa8a58625d090d1ba2fa3aa01c5f26bc18f5402c8111dabaf"
+    },
+    "inputs/claim/README.md": {
+      "bytes": 11112,
+      "sha256": "e0afb6ef48c5332932d98998f2ead4cba78893951773f6f09f6ac11ebf3ed21a"
+    },
+    "inputs/claim/composition-ledger.json": {
+      "bytes": 8450,
+      "sha256": "17e3684a32f5b1ff5ad72cdb272588c6c8b995aea9488a5f0bfa81f9f75062e4"
+    },
+    "inputs/claim/composition.c": {
+      "bytes": 22971,
+      "sha256": "e8a7228d1e9afa492f16e07f681daa82bf56da4ddd3f2119f17e578824be0ea8"
+    },
+    "inputs/claim/composition.h": {
+      "bytes": 6103,
+      "sha256": "a445905a2628c8b42ce6911b0bd27ef9e684cb1151c8b538a15123765f552c80"
+    },
+    "inputs/claim/test-contract.json": {
+      "bytes": 4189,
+      "sha256": "a7767901a99c7b9c6339ebf881bab8f99f114d8f69544047455a2e5eb2c89677"
+    },
+    "inputs/claim/verification.json": {
+      "bytes": 5228,
+      "sha256": "f3b4341e99f580ff62627e53834379ac5708ea7aa737f7f804c00ecab1098037"
+    },
+    "inputs/generated/azprot-receipt.h": {
+      "bytes": 6872,
+      "sha256": "28644f70e972dfa28ecd3b940e9f4d132492ecd22f73e48d561c8684ddb9506a"
+    },
+    "inputs/generated/inline-receipt.inc": {
+      "bytes": 21968,
+      "sha256": "03f927df4da1d9c3ed56bdf00b20893a68195e65042abcc113258e723f1398cc"
+    },
+    "inputs/generated/pinned-community.inc": {
+      "bytes": 800,
+      "sha256": "b51c85bbf81885a3ee58a2bb1e9b7e803509cfde2f9d073d04621549eccaac69"
+    },
+    "inputs/generated/receipt-body.inc": {
+      "bytes": 15570,
+      "sha256": "60233581d6a882d9e57e6b6fc9602ce440783060446872148f94e9e7205bc02e"
+    },
+    "inputs/generated/receipt-types.h": {
+      "bytes": 5369,
+      "sha256": "c97454db2aba6e942eb05241bbf80d67ffd8eecb5108927da69600a6a1d15f40"
+    },
+    "inputs/prior/composition-plan.json": {
+      "bytes": 24756,
+      "sha256": "a3c2a65d68232f7f307d988efede0ac3e60de3e8e2cd9b609bd1fa50e189ed59"
+    },
+    "inputs/provenance-plan.json": {
+      "bytes": 27746,
+      "sha256": "f627abddb34274af7d04d7b522ab9763bbc3c93f49a605757938c7f17646c75b"
+    },
+    "inputs/receipt/fixture.S": {
+      "bytes": 1803,
+      "sha256": "6cc196de4e7ef941411142ba335576b571c1beec7a2ef881f78fbd29f64a40f9"
+    },
+    "inputs/retain-source.py": {
+      "bytes": 12305,
+      "sha256": "b3ebcea8b9fc134cb36b7dda0e62ac786ceaa79068b64d182077728a02b7fe48"
+    },
+    "inputs/sdk/azmod-mod.h": {
+      "bytes": 32149,
+      "sha256": "b94e2ba6656c2b852f18691d32225486f29265953c8bf09dcac9a18ce561a630"
+    },
+    "inputs/sdk/community.c": {
+      "bytes": 102070,
+      "sha256": "4b2b72e2b623dcb1ecb0ef108a473815adab45a516a6aa13adb6cce512b80866"
+    },
+    "result.json": {
+      "bytes": 10700,
+      "sha256": "4ed252c69703026023dc80fc2132547044faf225fdf51dfdf6761485a2a372df"
+    }
+  },
+  "inventory_excludes": [],
+  "new_plan_inputs": 3,
+  "new_sdk_inputs": 0,
+  "old_capture_or_matrix_replay": false,
+  "plan_status": "specified-not-implemented",
+  "private_result_sha256": "4ed252c69703026023dc80fc2132547044faf225fdf51dfdf6761485a2a372df",
+  "retained_files": 20,
+  "reused_inputs": 15,
+  "runtime_gate": "CLOSED",
+  "schema": 1,
+  "scope": "Source-only authored-DSO provenance/custody plan",
+  "sdk_commit": "3e0c5cb010454228f4ee63226b60d060494eeaae",
+  "source_git_reads": 0,
+  "status": "retained"
+}

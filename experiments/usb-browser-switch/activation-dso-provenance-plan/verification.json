@@ -1,0 +1,96 @@
+{
+  "anchors": 21,
+  "auditor_history": {
+    "cause": "A concurrent auditor-author output-parent normalization edit occurred after the successful first audit, contrary to its initial timing report. Plan and packet inputs were unchanged.",
+    "executed_source": {
+      "bytes": 9833,
+      "sha256": "e5516a0a0c8429b30d521913b9293aa95adbcb0c5f4a38ed477d8e6a1e4b1ca9"
+    },
+    "followup_current_source_hash_check": "failed",
+    "post_execution_unexecuted_variant": {
+      "bytes": 9890,
+      "sha256": "ec2cb5d58d348a515e15fd5b8ce6316e115b2c87725a123085aa7e2da762d128"
+    },
+    "private_history": {
+      "bytes": 1154,
+      "sha256": "dc80ae895c92c5853d0f6a6881713a2a21df8b4bb6eedd0bb85d116a84b9b65f"
+    },
+    "resolution": "Retained the edited unexecuted variant and reversed its one confirmed replacement into a separate executed-source copy. That copy exactly matches the original audit result self-hash. No audit rerun."
+  },
+  "baseline_commit": "e9bcf3db860ea5e87607ccddc51faab334bf5da6",
+  "byte_audit": {
+    "executed_source": {
+      "bytes": 9833,
+      "sha256": "e5516a0a0c8429b30d521913b9293aa95adbcb0c5f4a38ed477d8e6a1e4b1ca9"
+    },
+    "first_invocation": "pass",
+    "inventory_sha256": "113e9d28c5fc3d77891f9e6cdcc700c3c71936f3dbcb559bbe7544757b60ac79",
+    "replayed": false,
+    "result": {
+      "bytes": 1263,
+      "sha256": "808dd68aeee5e00a7e27a793c55cf84db830fa137fc06c386a49c5c9196386f6"
+    },
+    "semantic_or_runtime_assertions": 0,
+    "structural_assertions": 1636
+  },
+  "compiler_transformer_loader_installer_matrix_or_device_execution": false,
+  "documentation_preflight": "An initial exact-heading assertion refused before changing the three continuation documents; the observed heading was then used. Source retention and byte audit were not repeated.",
+  "future_case_groups": 8,
+  "future_safe_controls": 5,
+  "future_transformations": 8,
+  "independent_reviews": [
+    {
+      "outcome": "pass",
+      "role": "exact retained SDK and loader/custody source reviewer",
+      "scope": "Actual SDK ABI, same-object provenance, per-index immutable module publication, permanent successful handles, unchanged host binding/cut and explicit constructor/loader limits."
+    },
+    {
+      "outcome": "pass",
+      "role": "future-control and retention-helper reviewer",
+      "scope": "Raw versus admission-used RA, single combined entry-owner veto, custody safety-hold continuation, exact planned control failures 3/1/1/1/1; no runtime claim."
+    }
+  ],
+  "inputs": 18,
+  "new_plan_inputs": 3,
+  "new_sdk_git_reads": 0,
+  "old_capture_or_passing_suite_replayed": false,
+  "pre_capture_corrections": [
+    "Helper initially expected four anchor keys; independent review identified the additional reason field and it was validated before first retention.",
+    "Plan clarified a single combined intended-map/symbol/extent entry-owner veto, raw-RA extent oracle, safety-hold-only custody control continuation, all root/dependency loads before sessions and the explicit immutable host fixture accessor.",
+    "One read-only shell heredoc preflight could not create its sandbox temporary file before Python started; the equivalent read-only -c preflight passed. This was not a retention/compiler/loader attempt."
+  ],
+  "remaining_limits": [
+    "Only a source plan and byte packet exist; no new DSO binary or runtime observation.",
+    "Actual caller/loader/entry/init provenance, arbitrary DSO/slot lifetime, external writers, interposition, signals/nonlocal exits, visibility, quiescence and recovery remain unproven.",
+    "Fixed process-image original/replacement custody remains unchanged; no live observer, release, quarantine or device action."
+  ],
+  "retained_packet_files": 20,
+  "retention": {
+    "first_invocation": "pass",
+    "private_result_sha256": "4ed252c69703026023dc80fc2132547044faf225fdf51dfdf6761485a2a372df",
+    "public_result": {
+      "bytes": 6489,
+      "sha256": "2fa5a53df75ae50ab53ebc3f03566865b047d82dcb6dc0cc554aa0c085ede133"
+    },
+    "replayed": false
+  },
+  "reused_inputs": 15,
+  "reviewed_sources": {
+    "README.md": {
+      "bytes": 12923,
+      "sha256": "3141ad86a355f71fa8a58625d090d1ba2fa3aa01c5f26bc18f5402c8111dabaf"
+    },
+    "provenance-plan.json": {
+      "bytes": 27746,
+      "sha256": "f627abddb34274af7d04d7b522ab9763bbc3c93f49a605757938c7f17646c75b"
+    },
+    "retain-source.py": {
+      "bytes": 12305,
+      "sha256": "b3ebcea8b9fc134cb36b7dda0e62ac786ceaa79068b64d182077728a02b7fe48"
+    }
+  },
+  "runtime_gate": "CLOSED",
+  "schema": 1,
+  "scope": "Independent source/future-control review and retained-byte audit; future loader cases remain unexecuted",
+  "status": "source-plan-reviewed-and-byte-audited"
+}

@@ -1,0 +1,491 @@
+{
+  "schema": 1,
+  "status": "specified-not-implemented",
+  "scope": "Source-only plan for an offline Linux authored-DSO provenance and custody successor",
+  "runtime_gate": "CLOSED",
+  "baseline_commit": "e9bcf3db860ea5e87607ccddc51faab334bf5da6",
+  "sdk_commit": "3e0c5cb010454228f4ee63226b60d060494eeaae",
+  "sources": [
+    {
+      "name": "sdk/community.c",
+      "path": "experiments/usb-browser-switch/activation-claim-receipt-plan/private/scope-5e93316acebc44a4852516c4413b9c99/inputs/sdk/community.c",
+      "bytes": 102070,
+      "sha256": "4b2b72e2b623dcb1ecb0ef108a473815adab45a516a6aa13adb6cce512b80866"
+    },
+    {
+      "name": "sdk/azmod-mod.h",
+      "path": "experiments/usb-browser-switch/activation-claim-receipt-plan/private/scope-5e93316acebc44a4852516c4413b9c99/inputs/sdk/azmod-mod.h",
+      "bytes": 32149,
+      "sha256": "b94e2ba6656c2b852f18691d32225486f29265953c8bf09dcac9a18ce561a630"
+    },
+    {
+      "name": "claim/composition.c",
+      "path": "experiments/usb-browser-switch/activation-claim-receipt-fixture/composition.c",
+      "bytes": 22971,
+      "sha256": "e8a7228d1e9afa492f16e07f681daa82bf56da4ddd3f2119f17e578824be0ea8"
+    },
+    {
+      "name": "claim/composition.h",
+      "path": "experiments/usb-browser-switch/activation-claim-receipt-fixture/composition.h",
+      "bytes": 6103,
+      "sha256": "a445905a2628c8b42ce6911b0bd27ef9e684cb1151c8b538a15123765f552c80"
+    },
+    {
+      "name": "claim/README.md",
+      "path": "experiments/usb-browser-switch/activation-claim-receipt-fixture/README.md",
+      "bytes": 11112,
+      "sha256": "e0afb6ef48c5332932d98998f2ead4cba78893951773f6f09f6ac11ebf3ed21a"
+    },
+    {
+      "name": "claim/composition-ledger.json",
+      "path": "experiments/usb-browser-switch/activation-claim-receipt-fixture/composition-ledger.json",
+      "bytes": 8450,
+      "sha256": "17e3684a32f5b1ff5ad72cdb272588c6c8b995aea9488a5f0bfa81f9f75062e4"
+    },
+    {
+      "name": "claim/verification.json",
+      "path": "experiments/usb-browser-switch/activation-claim-receipt-fixture/verification.json",
+      "bytes": 5228,
+      "sha256": "f3b4341e99f580ff62627e53834379ac5708ea7aa737f7f804c00ecab1098037"
+    },
+    {
+      "name": "claim/test-contract.json",
+      "path": "experiments/usb-browser-switch/activation-claim-receipt-fixture/test-contract.json",
+      "bytes": 4189,
+      "sha256": "a7767901a99c7b9c6339ebf881bab8f99f114d8f69544047455a2e5eb2c89677"
+    },
+    {
+      "name": "generated/receipt-body.inc",
+      "path": "experiments/usb-browser-switch/activation-claim-receipt-fixture/private/run-b8cf98e0931d4e7abaaffcccf9d964a3/generated/receipt-body.inc",
+      "bytes": 15570,
+      "sha256": "60233581d6a882d9e57e6b6fc9602ce440783060446872148f94e9e7205bc02e"
+    },
+    {
+      "name": "generated/receipt-types.h",
+      "path": "experiments/usb-browser-switch/activation-claim-receipt-fixture/private/run-b8cf98e0931d4e7abaaffcccf9d964a3/generated/receipt-types.h",
+      "bytes": 5369,
+      "sha256": "c97454db2aba6e942eb05241bbf80d67ffd8eecb5108927da69600a6a1d15f40"
+    },
+    {
+      "name": "generated/inline-receipt.inc",
+      "path": "experiments/usb-browser-switch/activation-claim-receipt-fixture/private/run-b8cf98e0931d4e7abaaffcccf9d964a3/generated/inline-receipt.inc",
+      "bytes": 21968,
+      "sha256": "03f927df4da1d9c3ed56bdf00b20893a68195e65042abcc113258e723f1398cc"
+    },
+    {
+      "name": "generated/azprot-receipt.h",
+      "path": "experiments/usb-browser-switch/activation-claim-receipt-fixture/private/run-b8cf98e0931d4e7abaaffcccf9d964a3/generated/azprot-receipt.h",
+      "bytes": 6872,
+      "sha256": "28644f70e972dfa28ecd3b940e9f4d132492ecd22f73e48d561c8684ddb9506a"
+    },
+    {
+      "name": "generated/pinned-community.inc",
+      "path": "experiments/usb-browser-switch/activation-claim-receipt-fixture/private/run-b8cf98e0931d4e7abaaffcccf9d964a3/generated/pinned-community.inc",
+      "bytes": 800,
+      "sha256": "b51c85bbf81885a3ee58a2bb1e9b7e803509cfde2f9d073d04621549eccaac69"
+    },
+    {
+      "name": "receipt/fixture.S",
+      "path": "experiments/usb-browser-switch/activation-claim-receipt-fixture/private/run-b8cf98e0931d4e7abaaffcccf9d964a3/inputs/frozen/fixture.S",
+      "bytes": 1803,
+      "sha256": "6cc196de4e7ef941411142ba335576b571c1beec7a2ef881f78fbd29f64a40f9"
+    },
+    {
+      "name": "prior/composition-plan.json",
+      "path": "experiments/usb-browser-switch/activation-claim-receipt-plan/composition-plan.json",
+      "bytes": 24756,
+      "sha256": "a3c2a65d68232f7f307d988efede0ac3e60de3e8e2cd9b609bd1fa50e189ed59"
+    }
+  ],
+  "anchors": [
+    {
+      "id": "sdk-module-custody",
+      "source": "sdk/community.c",
+      "first_line": 80,
+      "last_line": 124,
+      "reason": "Permanent module fields and loading/text envelope state."
+    },
+    {
+      "id": "sdk-main-text",
+      "source": "sdk/community.c",
+      "first_line": 138,
+      "last_line": 150,
+      "reason": "Main-image executable PT_LOAD envelope; add checked arithmetic in successor."
+    },
+    {
+      "id": "sdk-caller-envelope",
+      "source": "sdk/community.c",
+      "first_line": 1092,
+      "last_line": 1102,
+      "reason": "Recursive cm and exact half-open caller predicate."
+    },
+    {
+      "id": "sdk-ra",
+      "source": "sdk/community.c",
+      "first_line": 1126,
+      "last_line": 1126,
+      "reason": "Exact builtin return-address expression."
+    },
+    {
+      "id": "sdk-inline-claim",
+      "source": "sdk/community.c",
+      "first_line": 1226,
+      "last_line": 1273,
+      "reason": "Selected inline claim and result/account domains."
+    },
+    {
+      "id": "sdk-range",
+      "source": "sdk/community.c",
+      "first_line": 1503,
+      "last_line": 1523,
+      "reason": "Base-only callback and mutable scratch; explicitly replace, not reuse as provenance."
+    },
+    {
+      "id": "sdk-capability",
+      "source": "sdk/community.c",
+      "first_line": 1768,
+      "last_line": 1774,
+      "reason": "Authored manifest hooks/any remains outside actual loader proof."
+    },
+    {
+      "id": "sdk-preload-marker",
+      "source": "sdk/community.c",
+      "first_line": 1790,
+      "last_line": 1803,
+      "reason": "Starting marker precedes dlopen constructors; no persistent marker execution in future fixture."
+    },
+    {
+      "id": "sdk-load-range-entry",
+      "source": "sdk/community.c",
+      "first_line": 1804,
+      "last_line": 1827,
+      "reason": "Never close successful handle; selected dlinfo/range/dlsym/entry ordering."
+    },
+    {
+      "id": "sdk-descriptor",
+      "source": "sdk/community.c",
+      "first_line": 1828,
+      "last_line": 1845,
+      "reason": "Descriptor ABI/id/tag/init validation needs bounded owned reads."
+    },
+    {
+      "id": "sdk-init-failure",
+      "source": "sdk/community.c",
+      "first_line": 1846,
+      "last_line": 1866,
+      "reason": "Actual init signature and failed-init code/count retention."
+    },
+    {
+      "id": "sdk-core-claim-slot",
+      "source": "sdk/azmod-mod.h",
+      "first_line": 191,
+      "last_line": 204,
+      "reason": "Real service-table function pointer signature."
+    },
+    {
+      "id": "sdk-descriptor-abi",
+      "source": "sdk/azmod-mod.h",
+      "first_line": 441,
+      "last_line": 477,
+      "reason": "Real descriptor/init/entry ABI; fixed readable module storage and no constructor claims."
+    },
+    {
+      "id": "claim-state",
+      "source": "claim/composition.c",
+      "first_line": 20,
+      "last_line": 53,
+      "reason": "One module/session/permit domain and selected exact SDK helpers."
+    },
+    {
+      "id": "claim-authored-loader",
+      "source": "claim/composition.c",
+      "first_line": 152,
+      "last_line": 208,
+      "reason": "Authored facts/bulk publication are to be replaced by per-index actual load discovery."
+    },
+    {
+      "id": "claim-lifecycle",
+      "source": "claim/composition.c",
+      "first_line": 233,
+      "last_line": 322,
+      "reason": "Authored callback ABI is to be replaced while preserving session/lock/accounting mechanics."
+    },
+    {
+      "id": "claim-owned-installer",
+      "source": "claim/composition.c",
+      "first_line": 324,
+      "last_line": 395,
+      "reason": "Already-held writer entry and fixed bindings remain."
+    },
+    {
+      "id": "claim-worker",
+      "source": "claim/composition.c",
+      "first_line": 396,
+      "last_line": 480,
+      "reason": "Retained worker checks/counts and terminal incomplete boundary."
+    },
+    {
+      "id": "claim-ordinary-ra",
+      "source": "claim/composition.c",
+      "first_line": 482,
+      "last_line": 489,
+      "reason": "Ordinary noinline outer RA/session capture currently compile-only."
+    },
+    {
+      "id": "claim-authored-types",
+      "source": "claim/composition.h",
+      "first_line": 28,
+      "last_line": 72,
+      "reason": "Authored loader/callback types are not actual SDK ABI."
+    },
+    {
+      "id": "claim-fixed-binding-api",
+      "source": "claim/composition.h",
+      "first_line": 95,
+      "last_line": 108,
+      "reason": "Strong process-image binding custody is retained, not moved into DSOs."
+    }
+  ],
+  "non_execution": {
+    "new_sdk_git_reads": 0,
+    "compiler": false,
+    "transformer": false,
+    "loader": false,
+    "installer": false,
+    "matrix": false,
+    "firmware_or_device": false,
+    "old_capture_replay": false
+  },
+  "custody_scope": [
+    "Keep every existing fixed host target/replacement/strong aligned plain void* original definition and identity check; no DSO replacement, original slot, arbitrary pointer or unload proof is added.",
+    "Load only independently pinned authored DSOs and one declared harmless dependency in the existing isolated Linux AArch64 image; read-only private input tree, no network or system/firmware loader integration.",
+    "Pre-reserve fixed module, handle and constructor-event slots before dlopen. Store every nonnull successful raw handle immediately in a process-lifetime authoritative custody slot before another fallible loader/provenance/entry operation. Never dlclose, reset or reuse it, including later query, descriptor or init refusal.",
+    "Actual dlopen failure has no successful handle to retain; already-run code/dependency effects are not inferred absent. Actual failure may be a separately scoped case, not forced through invalid handles.",
+    "Constructor marker is a bounded diagnostic service with no claim capability. Its observation does not establish constructor containment, thread drainage or authenticity for arbitrary DSOs.",
+    "Default namespace, pinned authored files and dependencies, no concurrent unload/mprotect/mutation of descriptors and no arbitrary interposition are explicit experiment premises, not properties inferred from RTLD_LOCAL."
+  ],
+  "transformations": [
+    {
+      "id": "D1",
+      "sources": [
+        "sdk-load-range-entry",
+        "claim-authored-loader"
+      ],
+      "change": "Replace bulk authored boolean loader input with a serial fixed-index actual loader controller. Reserve all record identities first under cm then writer, call loader outside both locks with active session zero, and publish each successfully checked copied module envelope exactly once at its original index. Failed rows remain holes; no index reuse or reopening. Manifest hooks/firmware facts remain explicitly authored. Complete every fixed root DSO and declared dependency load with session zero before any descriptor entry/init session. Reserve constructor diagnostic capacity for all declared dependency constructors too; no nested loader work is admitted from init."
+    },
+    {
+      "id": "D2",
+      "sources": [
+        "sdk-range",
+        "sdk-load-range-entry"
+      ],
+      "change": "Separate handle/query/link-map/object selection from numeric base. Consume dlinfo return status plus nonnull link_map; retain raw and consumed outcomes separately for declared faults. Copy checked PT_LOAD extents from actual enumeration matched to the held object, retaining unique candidate evidence. Match handle map and per-symbol dladdr1 map identities, base, program-header/dynamic metadata and pinned ELF symbol offsets; do not accept pathname/base alone. Fail closed on missing, ambiguous, overflow, unsupported or truncated inputs. Zero base is valid only with positive provenance; do not replay the authored zero-base matrix or claim actual zero-base DSO coverage. Copy iterator values during callback and copy loader diagnostics before another loader call. dlinfo return and map output remain separate; errno does not replace loader diagnostics. Root-object selection and selected-symbol ownership are separate stages: do not enforce selected entry ownership twice."
+    },
+    {
+      "id": "D3",
+      "sources": [
+        "sdk-load-range-entry",
+        "sdk-descriptor",
+        "sdk-descriptor-abi",
+        "claim-lifecycle"
+      ],
+      "change": "Use the exact retained azmod-mod.h types and const az_mod_v1 *entry(void), int init(const az_core_v1 *) signatures. Resolve entry from the actual handle, reject foreign/dependency symbol ownership before calling it. Replace the authored cc_descriptor/callback ABI in a separately named successor, with a complete diff; do not describe adapters as exact SDK loader bodies. Define one combined entry-owner predicate over intended link-map equality, exact intended ELF symbol value/type and executable owned extent. Raw resolved-symbol facts and safe type/coverage of the actual resolved authored object are retained outside that predicate. The dry-decision control removes the entire combined predicate, not just one redundant conjunct; no earlier or later duplicate root-owner veto is allowed in that decision probe."
+    },
+    {
+      "id": "D4",
+      "sources": [
+        "sdk-descriptor",
+        "sdk-descriptor-abi"
+      ],
+      "change": "Before descriptor dereference/copy, require full fixed authored readable PT_LOAD coverage and expected ELF object identity for descriptor, ID and bounded tag-array/string storage; require init in an owned executable extent and exact fixed function identity. Bounded loop ordering checks count before array access. Snapshot immutable descriptor values, preserve SDK ABI/id/tag semantics, allow only explicit fixture tag values. Min/max caller envelope remains unchanged and is not reused as a readable-memory proof."
+    },
+    {
+      "id": "D5",
+      "sources": [
+        "sdk-core-claim-slot",
+        "claim-ordinary-ra",
+        "sdk-ra"
+      ],
+      "change": "Execute the ordinary noinline SDK-signature entry through the actual az_core_v1.claim_hook table slot from a fixed DSO assembly call site. Capture builtin RA and one acquire session value once at the outer entry. Exact symbol immediately following BLR is the independent expected RA. Retain raw capture and admission-used RA plus arguments/returns in bounded post-worker diagnostic copies; no authored-RA entry, TLS override, helper-frame capture or altered admission predicate. Review source/disassembly for call shape. Core table is process-lifetime, correct ABI/size, only supplied services nonnull. The actual-ra-in-owned-executable-extent oracle always uses raw builtin capture; only admission-ra-equals-dso-return-marker uses the potentially controlled admission-used RA."
+    },
+    {
+      "id": "D6",
+      "sources": [
+        "claim-state",
+        "claim-lifecycle",
+        "claim-worker",
+        "sdk-init-failure"
+      ],
+      "change": "Retain recursive cm then common writer, exact three SDK helpers, one-use release open/close, same count and warning semantics, callbacks and all loader work outside both locks. Actual entry occurs after immutable range publication with session zero; actual init receives an opened session, and returned init closes only after admitted claims/accounting complete. Late/post-init ordinary calls refuse. Uncertain exits remain terminal/incomplete; no new drain or recovery inference."
+    },
+    {
+      "id": "D7",
+      "sources": [
+        "claim-owned-installer",
+        "claim-fixed-binding-api"
+      ],
+      "change": "Copy existing generated installer/protection files and fixed host binding definitions byte for byte. Separately named immutable fixture-input ABI hands exact owned host arguments to authored DSO init before its direct SDK call; this is not an added SDK service. Existing receipt cut, permanent originals and partial-publication custody remain frozen. New loader/envelope inputs use the same common writer; no extra provider, callback or refusal inside target-unlock to metadata/original/redirect cut. Choose one host-exported fixture-only const dp_fixture_input *dp_fixture_input_get(unsigned fixed_index) accessor returning read-only process-lifetime target/replacement/original records. Its exact signature, host symbol identity and returned record identities are retained; the authored DSO calls it before its direct claim BLR. Do not insert it into az_core_v1 or use an unverified setter. Descriptor/context changes never affect the frozen host binding objects."
+    },
+    {
+      "id": "D8",
+      "sources": [
+        "sdk-preload-marker",
+        "sdk-load-range-entry",
+        "claim-authored-loader"
+      ],
+      "change": "Retain bounded actual loader/constructor/range/entry/init/close event order, raw API returns and meaningful error states; distinguish diagnostic events from authority. dlerror/dlsym error-state handling and exact API availability/types must be checked against the pinned future compiler headers before runtime. Do not run cm_elf_check, approved-hash/state files or claim firmware/approval validation. Extra fixture symbol exports and rejected dependency decoys are explicit test-only departures."
+    }
+  ],
+  "future_case_groups": [
+    {
+      "id": "ordinary-ingress",
+      "checks": [
+        "raw-builtin-ra-equals-dso-return-marker",
+        "admission-ra-equals-dso-return-marker",
+        "ordinary-claim-sdk-success",
+        "ordinary-claim-counted-once",
+        "actual-arguments-match-fixed-binding",
+        "actual-ra-in-owned-executable-extent",
+        "no-patched-target-or-replacement-invocation"
+      ],
+      "scope": "One actual returned claim from real DSO init needed for new provenance-to-receipt composition. Inspect existing original/metadata/redirect/account result, without re-running scalar forwarding/ABI/exception suites. Executable-extent check uses raw RA, while admission equality uses admission-used RA; receipt-dependent assertions are limited to the three named control failures."
+    },
+    {
+      "id": "constructor-order",
+      "checks": [
+        "constructor-marker-before-dlopen-return",
+        "constructor-local-count-one",
+        "session-zero-before-init",
+        "module-range-before-entry",
+        "entry-before-open-init",
+        "callbacks-outside-cm-and-writer"
+      ],
+      "scope": "Actual constructor local counter and separate bounded host diagnostic; actual entry/init markers. No constructor claim service is handed out. Real direct init may start/join a read-only probe to establish selected locks are released."
+    },
+    {
+      "id": "dependency-entry",
+      "checks": [
+        "dependency-entry-owner-refused",
+        "dependency-decoy-not-invoked",
+        "no-installer-on-dependency-decision"
+      ],
+      "scope": "Real dlsym resolves declared harmless dependency entry. Isolated dry-decision oracle evaluates exact symbol owner before any invocation; both candidate and control stop after that decision."
+    },
+    {
+      "id": "provenance-fault",
+      "checks": [
+        "raw-query-success-retained",
+        "consumed-query-failure-distinct",
+        "failed-provenance-decision-refused",
+        "no-installer-on-provenance-decision"
+      ],
+      "scope": "Actual valid dlinfo and held handle. Explicit post-call fault changes consumed query status only; dry-decision path ends before range publication/entry regardless of verdict. Never invoke loader API with fabricated/bad pointer."
+    },
+    {
+      "id": "descriptor-refusal-custody",
+      "checks": [
+        "successful-handle-retained-after-refusal",
+        "range-retained-after-descriptor-refusal",
+        "descriptor-refused-before-init",
+        "entry-attempted-once"
+      ],
+      "scope": "Actual owned entry returns safe authored ID/ABI/size mismatch. Handle remains authoritatively retained and exact descriptor buffers stay mapped. No dlclose, no reset/reopen."
+    },
+    {
+      "id": "partial-init-custody",
+      "checks": [
+        "actual-init-return-error-retained",
+        "published-route-retained-after-dso-init-error",
+        "dso-handle-retained-after-init-error",
+        "later-sdk-call-refused-after-init-close",
+        "no-patched-target-or-replacement-invocation"
+      ],
+      "scope": "One valid claim then ordinary authored init error through real SDK ABI, checking new DSO/session lifetime association; existing accounting tests not replayed wholesale."
+    },
+    {
+      "id": "foreign-caller",
+      "checks": [
+        "foreign-dso-id-caller-refused",
+        "foreign-raw-ra-belongs-to-actual-caller",
+        "foreign-no-installer"
+      ],
+      "scope": "Second held authored DSO makes a direct ordinary claim using first module ID while that ID has an active session; candidate reaches caller veto, not merely closed-session rejection. Orchestration outside locks; no thread-identity rule."
+    },
+    {
+      "id": "symbol-descriptor-custody",
+      "checks": [
+        "owned-entry-symbol-exact",
+        "owned-init-symbol-exact",
+        "descriptor-storage-bounded",
+        "id-and-tags-bounded",
+        "main-target-envelope-from-actual-phdr"
+      ],
+      "scope": "Read-only exact ELF/artifact and in-process observations for fixed authored files; complete bounded segment coverage under explicit no-mutation premise. Invalid authored descriptor pointers fail before reads; no inaccessible-memory or race control."
+    }
+  ],
+  "future_safe_controls": [
+    {
+      "id": "ra-host-substitute",
+      "selector": "ordinary-ingress",
+      "change": "At outer entry keep raw builtin capture, replace admission-used RA with known permanent host marker before worker. Do not change raw source observation or helper policy.",
+      "exact_failures": [
+        "admission-ra-equals-dso-return-marker",
+        "ordinary-claim-sdk-success",
+        "ordinary-claim-counted-once"
+      ],
+      "safety": "Control refuses before install; no target/replacement call, invalid pointers, data races or frees. Binding-argument checks use raw entry arguments even on refusal."
+    },
+    {
+      "id": "omit-entry-owner-veto",
+      "selector": "dependency-entry",
+      "change": "Omit the single combined entry-owner predicate (intended link-map, exact intended ELF symbol and owned executable extent) in the isolated dependency dry-decision selector. Retain independently valid actual dependency type/coverage facts. No equivalent same-root veto occurs earlier/later in that decision probe.",
+      "exact_failures": [
+        "dependency-entry-owner-refused"
+      ],
+      "safety": "Dry decision ends before entry/init/install for both variants; no foreign code invocation."
+    },
+    {
+      "id": "ignore-consumed-query-failure",
+      "selector": "provenance-fault",
+      "change": "After actual successful query and retained raw result, declared seam marks consumed status failed. Control omits this consumed-status veto, with nonnull actual map and all other prerequisites valid.",
+      "exact_failures": [
+        "failed-provenance-decision-refused"
+      ],
+      "safety": "Dry decision ends before publication or entry, no bad-handle API call. This is injected consumption failure, not observed dlinfo failure."
+    },
+    {
+      "id": "omit-constructor-marker",
+      "selector": "constructor-order",
+      "change": "Omit only benign host marker in authored constructor; retain independent actual DSO local counter and all other stage observations.",
+      "exact_failures": [
+        "constructor-marker-before-dlopen-return"
+      ],
+      "safety": "No constructor capability or loader behavior changed; control diagnoses missing observation, not constructor prevention."
+    },
+    {
+      "id": "omit-authoritative-handle-record",
+      "selector": "descriptor-refusal-custody",
+      "change": "Omit authoritative successful-handle field while an explicit separate fixture-only safety hold retains the actual successful handle through process exit.",
+      "exact_failures": [
+        "successful-handle-retained-after-refusal"
+      ],
+      "safety": "No dlclose, unload or stale read. Only bookkeeping-loss discrimination; safety hold must be declared and cannot be counted as authoritative receipt. Descriptor continuation uses only that declared safety hold for fixture access; an empty authoritative record must not add a lifecycle veto and cascade other failures."
+    }
+  ],
+  "future_execution_contract": [
+    "This document specifies cases/controls; none have run. Freeze final source/diff/test contract and exact full failure lists after review and before compilation. If a secondary guard masks a control, fix the future test contract before first runtime, not by weakening policy or hiding failures.",
+    "First compile actual Linux AArch64 C types, exact azmod-mod.h and libc loader API use in pinned existing image; inspect authored ELF symbol types, ordinary STT_FUNC/OBJECT exports, no IFUNC for selected symbols, PT_LOAD coverage, call/return marker and strong originals. Unsupported API/type/shape is a retained preparation refusal.",
+    "All real DSOs, dependency decoys and host are authored and pinned; their constructors/dependencies are intentional fixture code. Read-only mounts and paths do not provide general arbitrary-file TOCTOU or loader authentication.",
+    "Run only newly scoped selectors plain and ASan/UBSan with meaningful leak checks, retain all raw streams and partial attempts privately, and publish allowlisted hashes/results. No old compiler/matrix replays, scalar calls, return-channel/exception/CFI suite or generated code invocation.",
+    "Raw actual calls and post-call consumed faults are separate fields. Real API returns, null outputs, dlerror availability and actual symbol owner must remain independently inspectable. Do not turn diagnostic saturation into refusal after published install.",
+    "A source-only independent retained-byte audit can bind this plan. A later runtime audit must distinguish actual host/DSO binaries, source transforms, invoked API paths, per-control failures and data capture limits."
+  ],
+  "remaining_gates": [
+    "No arbitrary DSO/original/replacement lifetime or approval/manifest/firmware validation; fixed host custody remains narrower.",
+    "No production integration, live observer, device access, release, recovery, quarantine reset or watchdog weakening.",
+    "No concurrent native invocation/publication, nonparticipating writers, arbitrary loader/interposition, general signal/nonlocal-exit safety, anonymous unwind, callback quiescence or general race/lifetime proof.",
+    "No actual-zero-base DSO claim, broad loader failure coverage, dynamic unloading, shutdown recovery or resource reclamation.",
+    "Preserve module-first fault attribution as separate work; generated-only receipt lookup is not integrated blame and ownership is not fault causation.",
+    "All Local Library row/provider/readiness/arguments/operation-owner and destructive/queued paths, stems staging and emulator writer/topology/stopped recovery stay CLOSED. x16 tail-transfer, x17/island unwind, opaque x2/register Source and absent post-return native reads remain unchanged."
+  ]
+}
