@@ -1,0 +1,216 @@
+{
+  "anchors": 27,
+  "artifacts": {
+    "anchor-index.json": {
+      "bytes": 8641,
+      "sha256": "4fc3473fd08dd3be75b238d2f470f226e419b8558b78e2c9ff025d5dd612c3d9"
+    }
+  },
+  "baseline_commit": "f2cbeb2fb4394c5a79854c84d9d70f4bd812e721",
+  "child_commands": [],
+  "closed_inventory": true,
+  "compiler_loader_installer_or_matrix_execution": false,
+  "firmware_or_device_access": false,
+  "inputs": {
+    "README.md": {
+      "bytes": 6761,
+      "sha256": "972ce22f04e0827a3ca56a6a87c2bba0667956933e676a775667314ed7df5d9f"
+    },
+    "composition-plan.json": {
+      "bytes": 37551,
+      "sha256": "1bd883758d6bfce467c6aae9e57fa0c0d2196e06edf020049021d4b26f2808d4"
+    },
+    "dso/core.c": {
+      "bytes": 24598,
+      "sha256": "1cf59eae5a5d6de5866d7773da5a5723384670a35d051e5b9eb66b11679086cc"
+    },
+    "dso/core.h": {
+      "bytes": 3889,
+      "sha256": "b15d5d8ce8cfeab6646189ca93d4fd9e5f093ac0cad504a9210fb41ee0cc7f37"
+    },
+    "dso/loader.c": {
+      "bytes": 20157,
+      "sha256": "88fbcf828f608dee1cbdcbd8d35673c926fce1f225f1561132b9521b6ed0f930"
+    },
+    "dso/loader.h": {
+      "bytes": 2057,
+      "sha256": "da64db0ea5293e9dd17cbc0709ed5784556ae1c674d5da1348439d5dd67150e2"
+    },
+    "dso/result.json": {
+      "bytes": 140123,
+      "sha256": "72a5f6a2398c358eb6fe72121152b1fdd90f79f8cddc57b3e0b65de4ea564288"
+    },
+    "dso/source-ledger.json": {
+      "bytes": 8056,
+      "sha256": "5e211e3a40974c54d947a89996a3d54097066cc02d40bfa92b148156fa0dd0f0"
+    },
+    "dso/verification.json": {
+      "bytes": 3346,
+      "sha256": "8b834ff62c1dfda7a69b27ff1a06f2fc3786d6546438271bde836300ff1cf94d"
+    },
+    "receipt/azprot-receipt.h": {
+      "bytes": 6872,
+      "sha256": "28644f70e972dfa28ecd3b940e9f4d132492ecd22f73e48d561c8684ddb9506a"
+    },
+    "receipt/inline-receipt.inc": {
+      "bytes": 21968,
+      "sha256": "03f927df4da1d9c3ed56bdf00b20893a68195e65042abcc113258e723f1398cc"
+    },
+    "receipt/receipt-body.inc": {
+      "bytes": 15570,
+      "sha256": "60233581d6a882d9e57e6b6fc9602ce440783060446872148f94e9e7205bc02e"
+    },
+    "receipt/receipt-types.h": {
+      "bytes": 5369,
+      "sha256": "c97454db2aba6e942eb05241bbf80d67ffd8eecb5108927da69600a6a1d15f40"
+    },
+    "reference/integration-review.md": {
+      "bytes": 17647,
+      "sha256": "ac0b902286ddb119674e311f53c80d035a6d3b361029081ec67e84843b5d6a8b"
+    },
+    "reference/registry.cpp": {
+      "bytes": 14141,
+      "sha256": "418ceba1881fdb7cbd79bd0d8c96791a674ea37455e6870a5ab7094f38d78df8"
+    },
+    "reference/registry.h": {
+      "bytes": 8797,
+      "sha256": "078290d7bb21d2c702c0c31edb5f5fe6318ebca47fd6a71ed60c9baed6188498"
+    },
+    "reference/test_attribution.c": {
+      "bytes": 16333,
+      "sha256": "02022c3396eb2cc70e110d89cce255dc23fac99d337b5b0f09ba1eadb6d68ed7"
+    },
+    "retain-source.py": {
+      "bytes": 12340,
+      "sha256": "53bfc303f7b55de90f510efab7b5996648c6d56c3740ee2f3c0e334ccec9d273"
+    },
+    "sdk/azmod-mod.h": {
+      "bytes": 32149,
+      "sha256": "b94e2ba6656c2b852f18691d32225486f29265953c8bf09dcac9a18ce561a630"
+    },
+    "sdk/community.c": {
+      "bytes": 102070,
+      "sha256": "4b2b72e2b623dcb1ecb0ef108a473815adab45a516a6aa13adb6cce512b80866"
+    },
+    "sdk/crash_guards.c": {
+      "bytes": 23133,
+      "sha256": "358499ca5bccf3f71944ce408c02fa76b598ba5c81e81d4a2151b6d5e38727ab"
+    },
+    "sdk/ep_mem.h": {
+      "bytes": 10147,
+      "sha256": "aa1e4a60ea05ff2b00f53c37634f3614fc51ecfd6dac500b2b59ee86dcbb6e5d"
+    }
+  },
+  "inventory": {
+    "anchor-index.json": {
+      "bytes": 8641,
+      "sha256": "4fc3473fd08dd3be75b238d2f470f226e419b8558b78e2c9ff025d5dd612c3d9"
+    },
+    "inputs/README.md": {
+      "bytes": 6761,
+      "sha256": "972ce22f04e0827a3ca56a6a87c2bba0667956933e676a775667314ed7df5d9f"
+    },
+    "inputs/composition-plan.json": {
+      "bytes": 37551,
+      "sha256": "1bd883758d6bfce467c6aae9e57fa0c0d2196e06edf020049021d4b26f2808d4"
+    },
+    "inputs/dso/core.c": {
+      "bytes": 24598,
+      "sha256": "1cf59eae5a5d6de5866d7773da5a5723384670a35d051e5b9eb66b11679086cc"
+    },
+    "inputs/dso/core.h": {
+      "bytes": 3889,
+      "sha256": "b15d5d8ce8cfeab6646189ca93d4fd9e5f093ac0cad504a9210fb41ee0cc7f37"
+    },
+    "inputs/dso/loader.c": {
+      "bytes": 20157,
+      "sha256": "88fbcf828f608dee1cbdcbd8d35673c926fce1f225f1561132b9521b6ed0f930"
+    },
+    "inputs/dso/loader.h": {
+      "bytes": 2057,
+      "sha256": "da64db0ea5293e9dd17cbc0709ed5784556ae1c674d5da1348439d5dd67150e2"
+    },
+    "inputs/dso/result.json": {
+      "bytes": 140123,
+      "sha256": "72a5f6a2398c358eb6fe72121152b1fdd90f79f8cddc57b3e0b65de4ea564288"
+    },
+    "inputs/dso/source-ledger.json": {
+      "bytes": 8056,
+      "sha256": "5e211e3a40974c54d947a89996a3d54097066cc02d40bfa92b148156fa0dd0f0"
+    },
+    "inputs/dso/verification.json": {
+      "bytes": 3346,
+      "sha256": "8b834ff62c1dfda7a69b27ff1a06f2fc3786d6546438271bde836300ff1cf94d"
+    },
+    "inputs/receipt/azprot-receipt.h": {
+      "bytes": 6872,
+      "sha256": "28644f70e972dfa28ecd3b940e9f4d132492ecd22f73e48d561c8684ddb9506a"
+    },
+    "inputs/receipt/inline-receipt.inc": {
+      "bytes": 21968,
+      "sha256": "03f927df4da1d9c3ed56bdf00b20893a68195e65042abcc113258e723f1398cc"
+    },
+    "inputs/receipt/receipt-body.inc": {
+      "bytes": 15570,
+      "sha256": "60233581d6a882d9e57e6b6fc9602ce440783060446872148f94e9e7205bc02e"
+    },
+    "inputs/receipt/receipt-types.h": {
+      "bytes": 5369,
+      "sha256": "c97454db2aba6e942eb05241bbf80d67ffd8eecb5108927da69600a6a1d15f40"
+    },
+    "inputs/reference/integration-review.md": {
+      "bytes": 17647,
+      "sha256": "ac0b902286ddb119674e311f53c80d035a6d3b361029081ec67e84843b5d6a8b"
+    },
+    "inputs/reference/registry.cpp": {
+      "bytes": 14141,
+      "sha256": "418ceba1881fdb7cbd79bd0d8c96791a674ea37455e6870a5ab7094f38d78df8"
+    },
+    "inputs/reference/registry.h": {
+      "bytes": 8797,
+      "sha256": "078290d7bb21d2c702c0c31edb5f5fe6318ebca47fd6a71ed60c9baed6188498"
+    },
+    "inputs/reference/test_attribution.c": {
+      "bytes": 16333,
+      "sha256": "02022c3396eb2cc70e110d89cce255dc23fac99d337b5b0f09ba1eadb6d68ed7"
+    },
+    "inputs/retain-source.py": {
+      "bytes": 12340,
+      "sha256": "53bfc303f7b55de90f510efab7b5996648c6d56c3740ee2f3c0e334ccec9d273"
+    },
+    "inputs/sdk/azmod-mod.h": {
+      "bytes": 32149,
+      "sha256": "b94e2ba6656c2b852f18691d32225486f29265953c8bf09dcac9a18ce561a630"
+    },
+    "inputs/sdk/community.c": {
+      "bytes": 102070,
+      "sha256": "4b2b72e2b623dcb1ecb0ef108a473815adab45a516a6aa13adb6cce512b80866"
+    },
+    "inputs/sdk/crash_guards.c": {
+      "bytes": 23133,
+      "sha256": "358499ca5bccf3f71944ce408c02fa76b598ba5c81e81d4a2151b6d5e38727ab"
+    },
+    "inputs/sdk/ep_mem.h": {
+      "bytes": 10147,
+      "sha256": "aa1e4a60ea05ff2b00f53c37634f3614fc51ecfd6dac500b2b59ee86dcbb6e5d"
+    },
+    "result.json": {
+      "bytes": 12666,
+      "sha256": "d0108006522f73ef910fc87b9674cadaade532e011e56334f6f97ce214bf01d8"
+    }
+  },
+  "inventory_excludes": [],
+  "new_plan_inputs": 3,
+  "new_sdk_inputs": 0,
+  "old_capture_or_matrix_replay": false,
+  "plan_status": "specified-not-implemented",
+  "private_result_sha256": "d0108006522f73ef910fc87b9674cadaade532e011e56334f6f97ce214bf01d8",
+  "retained_files": 24,
+  "reused_inputs": 19,
+  "runtime_gate": "CLOSED",
+  "schema": 1,
+  "scope": "Source-only immutable module/generated attribution composition plan",
+  "sdk_commit": "3e0c5cb010454228f4ee63226b60d060494eeaae",
+  "source_git_reads": 0,
+  "status": "retained"
+}

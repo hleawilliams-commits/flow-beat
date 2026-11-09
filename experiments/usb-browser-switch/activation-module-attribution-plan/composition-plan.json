@@ -1,0 +1,605 @@
+{
+  "schema": 1,
+  "status": "specified-not-implemented",
+  "scope": "Source-only plan for offline immutable actual-module and generated-range attribution composition",
+  "runtime_gate": "CLOSED",
+  "baseline_commit": "f2cbeb2fb4394c5a79854c84d9d70f4bd812e721",
+  "sdk_commit": "3e0c5cb010454228f4ee63226b60d060494eeaae",
+  "sources": [
+    {
+      "name": "sdk/community.c",
+      "path": "experiments/usb-browser-switch/activation-unwind-policy/private/capture-4d7eb81ff4e04f6099c87eaa42bc66d3/inputs/sdk/src/azmod/community.c",
+      "bytes": 102070,
+      "sha256": "4b2b72e2b623dcb1ecb0ef108a473815adab45a516a6aa13adb6cce512b80866"
+    },
+    {
+      "name": "sdk/crash_guards.c",
+      "path": "experiments/usb-browser-switch/activation-unwind-policy/private/capture-4d7eb81ff4e04f6099c87eaa42bc66d3/inputs/sdk/src/azmod/crash_guards.c",
+      "bytes": 23133,
+      "sha256": "358499ca5bccf3f71944ce408c02fa76b598ba5c81e81d4a2151b6d5e38727ab"
+    },
+    {
+      "name": "sdk/ep_mem.h",
+      "path": "experiments/usb-browser-switch/activation-unwind-policy/private/capture-4d7eb81ff4e04f6099c87eaa42bc66d3/inputs/sdk/src/azmod/ep_mem.h",
+      "bytes": 10147,
+      "sha256": "aa1e4a60ea05ff2b00f53c37634f3614fc51ecfd6dac500b2b59ee86dcbb6e5d"
+    },
+    {
+      "name": "sdk/azmod-mod.h",
+      "path": "experiments/usb-browser-switch/activation-unwind-policy/private/capture-4d7eb81ff4e04f6099c87eaa42bc66d3/inputs/sdk/src/azmod/azmod-mod.h",
+      "bytes": 32149,
+      "sha256": "b94e2ba6656c2b852f18691d32225486f29265953c8bf09dcac9a18ce561a630"
+    },
+    {
+      "name": "dso/core.c",
+      "path": "experiments/usb-browser-switch/activation-dso-provenance-fixture/core.c",
+      "bytes": 24598,
+      "sha256": "1cf59eae5a5d6de5866d7773da5a5723384670a35d051e5b9eb66b11679086cc"
+    },
+    {
+      "name": "dso/core.h",
+      "path": "experiments/usb-browser-switch/activation-dso-provenance-fixture/core.h",
+      "bytes": 3889,
+      "sha256": "b15d5d8ce8cfeab6646189ca93d4fd9e5f093ac0cad504a9210fb41ee0cc7f37"
+    },
+    {
+      "name": "dso/loader.c",
+      "path": "experiments/usb-browser-switch/activation-dso-provenance-fixture/loader.c",
+      "bytes": 20157,
+      "sha256": "88fbcf828f608dee1cbdcbd8d35673c926fce1f225f1561132b9521b6ed0f930"
+    },
+    {
+      "name": "dso/loader.h",
+      "path": "experiments/usb-browser-switch/activation-dso-provenance-fixture/loader.h",
+      "bytes": 2057,
+      "sha256": "da64db0ea5293e9dd17cbc0709ed5784556ae1c674d5da1348439d5dd67150e2"
+    },
+    {
+      "name": "dso/source-ledger.json",
+      "path": "experiments/usb-browser-switch/activation-dso-provenance-fixture/source-ledger.json",
+      "bytes": 8056,
+      "sha256": "5e211e3a40974c54d947a89996a3d54097066cc02d40bfa92b148156fa0dd0f0"
+    },
+    {
+      "name": "dso/result.json",
+      "path": "experiments/usb-browser-switch/activation-dso-provenance-fixture/result.json",
+      "bytes": 140123,
+      "sha256": "72a5f6a2398c358eb6fe72121152b1fdd90f79f8cddc57b3e0b65de4ea564288"
+    },
+    {
+      "name": "dso/verification.json",
+      "path": "experiments/usb-browser-switch/activation-dso-provenance-fixture/verification.json",
+      "bytes": 3346,
+      "sha256": "8b834ff62c1dfda7a69b27ff1a06f2fc3786d6546438271bde836300ff1cf94d"
+    },
+    {
+      "name": "receipt/receipt-body.inc",
+      "path": "experiments/usb-browser-switch/activation-dso-provenance-fixture/private/run-392f285161d24a36b88ce82e754c0e6b/generated/receipt-body.inc",
+      "bytes": 15570,
+      "sha256": "60233581d6a882d9e57e6b6fc9602ce440783060446872148f94e9e7205bc02e"
+    },
+    {
+      "name": "receipt/receipt-types.h",
+      "path": "experiments/usb-browser-switch/activation-dso-provenance-fixture/private/run-392f285161d24a36b88ce82e754c0e6b/generated/receipt-types.h",
+      "bytes": 5369,
+      "sha256": "c97454db2aba6e942eb05241bbf80d67ffd8eecb5108927da69600a6a1d15f40"
+    },
+    {
+      "name": "receipt/inline-receipt.inc",
+      "path": "experiments/usb-browser-switch/activation-dso-provenance-fixture/private/run-392f285161d24a36b88ce82e754c0e6b/generated/inline-receipt.inc",
+      "bytes": 21968,
+      "sha256": "03f927df4da1d9c3ed56bdf00b20893a68195e65042abcc113258e723f1398cc"
+    },
+    {
+      "name": "receipt/azprot-receipt.h",
+      "path": "experiments/usb-browser-switch/activation-dso-provenance-fixture/private/run-392f285161d24a36b88ce82e754c0e6b/generated/azprot-receipt.h",
+      "bytes": 6872,
+      "sha256": "28644f70e972dfa28ecd3b940e9f4d132492ecd22f73e48d561c8684ddb9506a"
+    },
+    {
+      "name": "reference/registry.cpp",
+      "path": "experiments/usb-browser-switch/activation-generated-range-fixture/registry.cpp",
+      "bytes": 14141,
+      "sha256": "418ceba1881fdb7cbd79bd0d8c96791a674ea37455e6870a5ab7094f38d78df8"
+    },
+    {
+      "name": "reference/registry.h",
+      "path": "experiments/usb-browser-switch/activation-generated-range-fixture/registry.h",
+      "bytes": 8797,
+      "sha256": "078290d7bb21d2c702c0c31edb5f5fe6318ebca47fd6a71ed60c9baed6188498"
+    },
+    {
+      "name": "reference/test_attribution.c",
+      "path": "experiments/usb-browser-switch/activation-attribution-contract/test_attribution.c",
+      "bytes": 16333,
+      "sha256": "02022c3396eb2cc70e110d89cce255dc23fac99d337b5b0f09ba1eadb6d68ed7"
+    },
+    {
+      "name": "reference/integration-review.md",
+      "path": "experiments/usb-browser-switch/activation-generated-range-integration-review/README.md",
+      "bytes": 17647,
+      "sha256": "ac0b902286ddb119674e311f53c80d035a6d3b361029081ec67e84843b5d6a8b"
+    }
+  ],
+  "anchors": [
+    {
+      "id": "sdk-envelope",
+      "source": "sdk/community.c",
+      "first_line": 1503,
+      "last_line": 1521,
+      "reason": "Original min/max PT_LOAD semantics; checked actual loader replaces unguarded arithmetic."
+    },
+    {
+      "id": "sdk-owner",
+      "source": "sdk/community.c",
+      "first_line": 1533,
+      "last_line": 1537,
+      "reason": "First index and half-open bounds; no lifecycle permission gate."
+    },
+    {
+      "id": "sdk-consumer",
+      "source": "sdk/community.c",
+      "first_line": 1561,
+      "last_line": 1587,
+      "reason": "Exact 962-byte consumer, once guard, frame ordering and persistence/return."
+    },
+    {
+      "id": "sdk-loader-order",
+      "source": "sdk/community.c",
+      "first_line": 1817,
+      "last_line": 1827,
+      "reason": "Handle and range precede actual entry."
+    },
+    {
+      "id": "sdk-init-failure",
+      "source": "sdk/community.c",
+      "first_line": 1846,
+      "last_line": 1861,
+      "reason": "Failure clears callbacks, not mapped ownership."
+    },
+    {
+      "id": "sdk-reporter-call",
+      "source": "sdk/crash_guards.c",
+      "first_line": 357,
+      "last_line": 365,
+      "reason": "Actual ucontext call site retained as source reference only."
+    },
+    {
+      "id": "sdk-report-frame-loop",
+      "source": "sdk/crash_guards.c",
+      "first_line": 422,
+      "last_line": 454,
+      "reason": "Distinct forty-frame reporting loop is not attribution's sixteen-frame bound."
+    },
+    {
+      "id": "sdk-native-frame-read",
+      "source": "sdk/ep_mem.h",
+      "first_line": 97,
+      "last_line": 110,
+      "reason": "Native read is not executed by the proposed modeled provider."
+    },
+    {
+      "id": "dso-mutable-state",
+      "source": "dso/core.c",
+      "first_line": 16,
+      "last_line": 33,
+      "reason": "Mutable lifecycle array and count cannot serve unlocked fault lookup."
+    },
+    {
+      "id": "dso-module-conflict",
+      "source": "dso/core.c",
+      "first_line": 52,
+      "last_line": 57,
+      "reason": "Writer-held storage conflict source changes to immutable module payloads."
+    },
+    {
+      "id": "dso-reserve",
+      "source": "dso/core.c",
+      "first_line": 145,
+      "last_line": 156,
+      "reason": "Fixed reserved indexes and one-use loader start."
+    },
+    {
+      "id": "dso-register",
+      "source": "dso/core.c",
+      "first_line": 157,
+      "last_line": 195,
+      "reason": "Copied 33-byte identity, permission/range gating and private publication boundary."
+    },
+    {
+      "id": "dso-snapshot-close",
+      "source": "dso/core.c",
+      "first_line": 197,
+      "last_line": 217,
+      "reason": "Snapshot locks and session close do not provide signal-safe lookup."
+    },
+    {
+      "id": "dso-entry-order",
+      "source": "dso/core.c",
+      "first_line": 225,
+      "last_line": 249,
+      "reason": "Registration closes before entry; actual late publication is not claimed."
+    },
+    {
+      "id": "dso-refusal-retention",
+      "source": "dso/core.c",
+      "first_line": 267,
+      "last_line": 324,
+      "reason": "Descriptor/partial-init failure preserves ownership and retained count."
+    },
+    {
+      "id": "dso-claim-accounting",
+      "source": "dso/core.c",
+      "first_line": 437,
+      "last_line": 470,
+      "reason": "Ordinary publication/accounting boundary stays unchanged."
+    },
+    {
+      "id": "loader-constructor-hook",
+      "source": "dso/loader.c",
+      "first_line": 42,
+      "last_line": 64,
+      "reason": "Host marker can add bounded constructor-gap observation without changing DSO ABI."
+    },
+    {
+      "id": "loader-handles",
+      "source": "dso/loader.c",
+      "first_line": 94,
+      "last_line": 118,
+      "reason": "Immediate permanent handle retention after constructors already run."
+    },
+    {
+      "id": "loader-phdrs",
+      "source": "dso/loader.c",
+      "first_line": 125,
+      "last_line": 168,
+      "reason": "Actual checked base/dynamic/PT_LOAD ownership input."
+    },
+    {
+      "id": "loader-query",
+      "source": "dso/loader.c",
+      "first_line": 169,
+      "last_line": 206,
+      "reason": "Raw versus consumed query and successful provenance."
+    },
+    {
+      "id": "loader-root-registration",
+      "source": "dso/loader.c",
+      "first_line": 287,
+      "last_line": 295,
+      "reason": "Only A/B get independent Community identities."
+    },
+    {
+      "id": "receipt-layout",
+      "source": "receipt/receipt-body.inc",
+      "first_line": 35,
+      "last_line": 40,
+      "reason": "Separate generated flag and immutable metadata."
+    },
+    {
+      "id": "receipt-preparation",
+      "source": "receipt/receipt-body.inc",
+      "first_line": 274,
+      "last_line": 312,
+      "reason": "Actual immutable metadata preparation remains frozen."
+    },
+    {
+      "id": "receipt-lookup",
+      "source": "receipt/receipt-body.inc",
+      "first_line": 333,
+      "last_line": 351,
+      "reason": "Locking snapshot versus acquire-only copy lookup; no local ID pointer return."
+    },
+    {
+      "id": "receipt-cut",
+      "source": "receipt/inline-receipt.inc",
+      "first_line": 361,
+      "last_line": 384,
+      "reason": "Preserved metadata/original/redirect cut."
+    },
+    {
+      "id": "reference-module-first",
+      "source": "reference/registry.cpp",
+      "first_line": 340,
+      "last_line": 380,
+      "reason": "Earlier modeled policy is a reference, not C/Linux or current DSO proof."
+    },
+    {
+      "id": "reference-model-providers",
+      "source": "reference/test_attribution.c",
+      "first_line": 47,
+      "last_line": 147,
+      "reason": "Integer frame cells and modeled persistence; no native pointer fallback."
+    }
+  ],
+  "design": {
+    "artifact": "activation-module-attribution-fixture (future separately versioned C11 Linux offline successor)",
+    "fixed_scope": "Four permanent host bindings and four fixed authored default-namespace DSOs remain frozen. Only roots A and B have independently assigned Community identities and module indexes 0 and 1. Rootstub/dependency have successful retained handles and provenance but no Community identity; reserved indexes 2 and 3 remain holes. Authored IDs/process identities/capabilities are not actual signed approval/manifest execution.",
+    "reader_publication": "A separate static ma_modules[CC_MODULES=4] has an aligned _Atomic unsigned committed flag and once-written direct fields id[33], process_id, index, lo, hi. Lifecycle fields, session handles, hook counts, loader pointers and receipt stages are absent. Zero initialized; immutable payload copied completely before release-store 1. Never reset, reuse, compact, clear, or unload. Scan the compile-time bound, acquire each flag, skip uncommitted holes, then read payload. Do not use mutable g_cm_n or plain range_published as a reader bound/readiness test. The private payload/id lives through process exit; this is not a reclamation protocol.",
+    "producer": "After all fixed dlopen calls return at session zero, retain every successful handle before queries. Positive consumed handle/link-map/base/PT_LOAD provenance plus a trusted copied 1..32 character ID, nonzero process identity, exact reserved index and checked nonempty lo/hi authorizes one module publication under cm then writer. Copy only known fixed root inputs. Invalid, missing, or consumed-refused provenance does not publish, even if raw query succeeded and a handle is held. Publication precedes entry/descriptor/init and remains independent of hook permission or later descriptor/init result. All loader/provider/entry/callback work stays outside cm/writer. No publication flag is used to open an init session. Canonicalize the validated ID by zero-filling a local 33-byte array then copying only n+1 validated bytes, including NUL; copy all 33 canonical bytes into the immutable payload and preserve the same canonical identity in generated metadata. Never read 33 bytes from a shorter input string.",
+    "permission_separation": "The frozen dp_core_register currently gates range_published behind hooks&&firmware_any. The future separate fault payload publishes positive provenance independently before that lifecycle refusal; original hooks_ok, firmware_any, target/caller, session and fixed-binding admission predicates remain intact. A refused permission never grants entry/init/claim. Replace only cc_storage_overlaps_modules' private writer-held range source with committed fault payloads so known module storage remains excluded even after permission/descriptor/init refusal. Do not alter emitted instruction intervals, installer cut or overlap strength.",
+    "per_address": "ma_owner_index first scans committed module payloads in ascending original index for hi!=0 and lo<=address<hi. The min/max envelope includes PT_LOAD gaps and non-executable segments; it is ownership policy, not readability. If no module wins, call unchanged C rc_lookup once into a local copied rc_metadata. Core yields -1; None yields -1. Community resolves the full copied process_id plus all 33 ID bytes to exactly one committed module payload; no match or ambiguity yields -1. Do not use binding number as module index or ID alone. Return that stable module index, never an ID pointer into local metadata. All paths bounded; no locks, allocation, loader call, wait, retry, receipt snapshot or mutable g_cm read.",
+    "consumer": "Extract exact 962-byte SDK cm_blame_fault body (SHA-256 9e31f235353a169e46f366ec33488076829b9383bc0fd0c462b465a0ddef70b4) unchanged. Scoped lexical aliases rename cm_blame_fault to ma_blame_fault, cm_owner_of to ma_owner_index, and g_cm to the permanent ma_modules array. Keep direct immutable id fields so every strlen/write/return expression remains exact. Alias crash_peek8 to bounded integer-keyed cells, open/write/fsync/close to modeled ledgers, and cm_note_unblamed_crash to a modeled counter. Undefine aliases immediately afterward. The old cm_owner_of is a pinned semantic reference, not claimed byte-identical integration. cm_range_cb and crash_peek8 implementation are source references only; checked actual loader extraction remains authoritative.",
+    "precedence": "The exact consumer tries combined lookup at PC, then LR, then each of at most 16 frames. Module beats generated at the same address; generated Community PC beats module LR. Core at PC continues LR/frames without fabricating community blame. First matching frame is used even when its nfp is nonincreasing, because lookup precedes that break. Failed first read suppresses second; failed second suppresses advance; low/unaligned FP stops. Keep the original volatile written guard without reset, exact file flags/order and returned ID even after modeled persistence failure. Do not install cm_crash or the crash_guards reporter. Its separate 40-frame printing loop is not the 16-frame attribution bound.",
+    "visibility": "Each acquire is an independent monotonic observation, not one coherent registry snapshot. If an earlier index commits after it was scanned, that call can choose a later visible index or generated record; next call may change. First-index precedence applies to entries actually acquired as committed, and stable serial fixtures, not a globally linearizable snapshot. No retry is added. The same distinction applies between per-address PC/LR/frame calls. New module payloads may mask existing generated ownership and own literal addresses; no reverse loader admission or permanent non-overlap guarantee.",
+    "gaps": "Constructors execute within dlopen before return, permanent handle bookkeeping, provenance and module publication. Every fixed load completes before publication in this design, so constructors of all roots/dependencies see no module attribution; this is not repaired retroactively. A held handle with failed/consumed-refused provenance remains invisible permanently. Rootstub/dependency have no Community ID and remain invisible even after successful queries. Main/external libraries have no Community ID; fixed Core generated records do not invent one. Descriptor/entry/init refusal AFTER positive publication retains attribution, unlike provenance refusal BEFORE it.",
+    "lifetimes": "Permanent handle holds, copied module IDs/envelopes and immutable generated records survive failed/partial init, warning returns and closed capture/session state. The exact original pointer slots, replacements, target code, generated allocation custody and receipt cut stay in the host; no migration into DSOs. Ordinary returned publication increments nhooks exactly once before close as frozen. Incomplete/nonlocal outcomes remain terminal unknown; no reset/retry/unpatch/cleanup permission follows. Mutable status and counts are diagnostics only, not reader ownership.",
+    "limits": "C release/acquire source structure and ATOMIC_INT_LOCK_FREE==2 are prerequisites, not Linux signal safety or native visibility proof. Future standalone/codegen checks must bind the actual compiler flags/object and inspect reader calls/atomics; Apple LDAR/STLR evidence does not transfer. Do not weaken assertions to accept an unreviewed lowering. No TSan, real signal, native frame dereference, actual crash persistence, callback quiescence, anonymous unwind, external writer, interposition or general race/lifetime/recovery proof is claimed."
+  },
+  "transformations": [
+    {
+      "id": "T1",
+      "area": "Immutable module publication",
+      "from": "dso/core.c:16-27,145-195; dso/core.h:25-39",
+      "change": "Add static fixed ma_modules and private one-use publisher under existing cm->writer; separate copied immutable payload from existing g_cm lifecycle. Publish after complete positive provenance and checked copy, before permission result/entry. No count-based publication, reset or index compaction.",
+      "preserve": "All existing init/session/claim policy and permanent custody."
+    },
+    {
+      "id": "T2",
+      "area": "Actual loader handoff and gaps",
+      "from": "dso/loader.c:94-206,287-295",
+      "change": "Ledger the fixed validated root handoff and exact payload-release point. Retain raw and consumed query outcomes. Diagnostic future selectors may inspect each root separately after query_all false, but never enter/init a provenance-refused root. Rootstub/dependency stay unassigned.",
+      "preserve": "Actual checks, successful handles, fixed artifact pins and all loads at session0."
+    },
+    {
+      "id": "T3",
+      "area": "Writer module exclusion",
+      "from": "dso/core.c:52-57",
+      "change": "Switch this writer-held known-module read to the immutable committed table, including attribution-only capability refusals. No new lock/provider after target unlock.",
+      "preserve": "Full emitted storage/target exclusion, exact generated installer and its publication cut."
+    },
+    {
+      "id": "T4",
+      "area": "Bounded index resolver",
+      "from": "sdk/community.c:1533-1538; receipt/receipt-body.inc:340-351; reference/registry.cpp:340-380",
+      "change": "Add ma_owner_index module-first adapter using unchanged rc_lookup copy API and exact unique full identity resolution. Core/unresolved identity continue fallback. Never return copied local ID or treat bindings as module indexes.",
+      "preserve": "Instruction-only half-open generated intervals and permanent record custody."
+    },
+    {
+      "id": "T5",
+      "area": "Exact fault consumer extraction",
+      "from": "sdk/community.c:1561-1587",
+      "change": "Hash-check full source and exact cm_blame_fault extent; include exact body with explicit scoped aliases for name, index helper, immutable table, model frame/file/unblamed functions. Retain original function-local written guard.",
+      "preserve": "PC/LR/16-frame ordering, frame guards/read short circuit, monotonicity break, flags, write/fsync/close and returned stable ID."
+    },
+    {
+      "id": "T6",
+      "area": "Narrow new observations",
+      "from": "dso/loader.c:42-64,287-295; dso/core.c:267-321",
+      "change": "A noinline host constructor marker can capture its actual builtin caller RA for a direct dry lookup while no table payload exists. Add bounded lookup records at positive module publication, descriptor/partial-init returns, and integer-keyed consumer input. Never dereference captured PC/LR/frame numeric values.",
+      "preserve": "Constructor ABI, SDK entry/init, fixed host binding/receipt cut, and zero target/replacement invocation counters."
+    },
+    {
+      "id": "T7",
+      "area": "Separated synthetic policy selectors",
+      "from": "reference/test_attribution.c:47-147; reference/registry.cpp:340-380",
+      "change": "Use a separately compiled model-only publication/input path in fresh processes for overlapping module envelopes, late masking, identity ambiguity/mismatch, upper bounds and typed Core composition. Label every authored range/record, never represent these as actual DSO overlap or actual late-loader publication.",
+      "preserve": "Actual DSO loader closes registration before entry; no reopening seam in actual route."
+    },
+    {
+      "id": "T8",
+      "area": "Exact source/control ledger before build",
+      "from": "dso/source-ledger.json; dso/result.json; dso/verification.json",
+      "change": "Successor names all new and copied files, unchanged extents, generated include aliases, test-only model boundaries and exact control differences before first build. Bind retained DSO artifacts if reusing them; otherwise new build is only for changed composition, not old matrix replay.",
+      "preserve": "Both DSO fixture failure packets, frozen test bytes and existing audit history."
+    }
+  ],
+  "future_cases": [
+    {
+      "id": "actual-module-envelope",
+      "status": "specified-not-executed",
+      "scope": "Actual four fixed DSOs; positively publish A/B only, look up A function and descriptor addresses as integers; call exact consumer once on A PC with B LR. The upper-bound check means A.hi is not attributed to A, not universal absence of another owner. Retained plain/ASan descriptor segments have flags6 while executable LOAD has flags5; future artifacts must independently rebind this relation.",
+      "checks": [
+        "actual-module-exec-envelope-owned",
+        "actual-module-nonexec-envelope-owned",
+        "module-upper-bound-excluded",
+        "actual-pc-owner-and-payload",
+        "no-frame-reads-after-pc",
+        "fixed-target-replacement-counters-zero"
+      ]
+    },
+    {
+      "id": "constructor-and-dependency-gaps",
+      "status": "specified-not-executed",
+      "scope": "Actual constructor marker captures ordinary raw RA in the host; direct bounded lookup during all fixed loads. After all queries, inspect dependency code address without assigning it a Community identity.",
+      "checks": [
+        "constructor-lookups-unowned",
+        "constructors-before-handle-and-publication",
+        "dependency-handle-retained-without-community-owner",
+        "all-loads-before-session",
+        "fixed-target-replacement-counters-zero"
+      ]
+    },
+    {
+      "id": "query-refusal-and-hole",
+      "status": "specified-not-executed",
+      "scope": "Actual raw successful A dlinfo; declared consumed failure leaves index0 unpublished while B actual provenance publishes index1. No entry/init/installer. A-only bridge decision control can consume raw-valid facts under explicit dry-test scope.",
+      "checks": [
+        "raw-query-and-consumed-failure-distinct",
+        "unproven-module-remains-invisible",
+        "published-module-after-hole-found",
+        "both-successful-handles-retained",
+        "no-installer-on-query-refusal"
+      ]
+    },
+    {
+      "id": "descriptor-refusal-retention",
+      "status": "specified-not-executed",
+      "scope": "Actual A entry returns the existing bounded bad descriptor. Look up immutable module ownership only after descriptor refusal; hold all handle/code resources.",
+      "checks": [
+        "actual-descriptor-refused-before-init",
+        "descriptor-refused-module-owner-retained",
+        "successful-handle-retained",
+        "no-installer-on-descriptor-refusal"
+      ]
+    },
+    {
+      "id": "partial-init-attribution",
+      "status": "specified-not-executed",
+      "scope": "Actual A init returns -7 after one ordinary receipt publication. After closed session, direct module lookup and exact consumer generated-PC ownership use permanent identity. Keep separate raw rc_lookup record/receipt/count probes.",
+      "checks": [
+        "actual-init-minus7-and-session-closed",
+        "failed-init-module-owner-retained",
+        "failed-init-generated-owner-resolved",
+        "receipt-original-code-count-retained",
+        "raw-generated-record-still-visible",
+        "fixed-target-replacement-counters-zero"
+      ]
+    },
+    {
+      "id": "permission-independent-owner",
+      "status": "specified-not-executed",
+      "scope": "Actual positive A provenance feeds explicit authored hooks=true/firmware_any=true input in separate successor. Publish only immutable ownership then retain ordinary hook/callback refusal; never enter/init.",
+      "checks": [
+        "positive-provenance-owner-despite-permission-refusal",
+        "permission-result-still-refused",
+        "no-entry-init-or-installer",
+        "retained-handle-and-copied-id"
+      ]
+    },
+    {
+      "id": "generated-pc-module-lr",
+      "status": "specified-not-executed",
+      "scope": "Actual authored Community emission, no target invocation. Exact consumer gets actual generated instruction address as PC, actual B code as LR, and model frame cells. Inject modeled short write, then second consumer call with B PC; original once guard must suppress it.",
+      "checks": [
+        "generated-community-pc-precedes-module-lr",
+        "generated-owner-write-payload",
+        "no-frame-reads-after-generated-pc",
+        "ownership-survives-modeled-short-write",
+        "second-call-suppressed",
+        "fixed-target-replacement-counters-zero"
+      ]
+    },
+    {
+      "id": "core-pc-frame-fallback",
+      "status": "specified-not-executed",
+      "scope": "New model-only records for typed Core PC and empty LR; integer cells lead to generated Community RA on first frame (nonincreasing next-FP) or separate 16/17-frame variants. Uses exact consumer, same rc_lookup body, no mapping/loader claim for synthetic ranges.",
+      "checks": [
+        "core-does-not-fabricate-community-owner",
+        "generated-first-frame-owner-and-payload",
+        "lookup-before-nonincreasing-break",
+        "ordered-frame-read-trace",
+        "sixteenth-generated-frame-owned",
+        "seventeenth-generated-frame-unread"
+      ]
+    },
+    {
+      "id": "model-first-index-mask-identity",
+      "status": "specified-not-executed",
+      "scope": "Separately compiled model-only records/payloads in fresh processes, all immutable after publish. Overlapping synthetic envelopes and later synthetic module masking are not actual DSO facts. Probe exact identity resolution with a generated owner sharing ID but differing process_id, and a separate deliberately ambiguous model. Same-address precedence has a B module envelope covering the probe and a generated Community A record; A has a distinct committed payload whose envelope excludes the probe. Identity mismatch uses exactly one same-ID candidate with differing process_id and a probe outside every module envelope.",
+      "checks": [
+        "first-module-index-wins",
+        "module-beats-generated-at-same-address",
+        "later-module-can-mask-generated",
+        "module-can-own-generated-literal-address",
+        "mismatched-process-identity-not-resolved",
+        "ambiguous-identity-not-resolved",
+        "generated-literal-alone-unowned"
+      ]
+    },
+    {
+      "id": "publication-copy-and-bound",
+      "status": "specified-not-executed",
+      "scope": "Model-only fixed producer with an owned mutable staging ID copied before publication; mutate staging sequentially afterward. Observe unpublished slot exclusion before final release and fixed-index exhaustion/reuse refusal. A future held-writer dry lookup cannot wait on cm/writer; any thread probe is ordinary scheduling evidence only.",
+      "checks": [
+        "unpublished-slot-does-not-return-owner",
+        "copied-module-id-survives-input-change",
+        "published-slot-cannot-reopen",
+        "bounded-index-capacity-refused",
+        "reader-does-not-acquire-writer-lock"
+      ]
+    }
+  ],
+  "safe_controls": [
+    {
+      "id": "stop-at-hole",
+      "case": "query-refusal-and-hole",
+      "mutation": "Change only the new module scan's uncommitted-slot continue to break. Identity-resolution scans are not needed in this no-generated selector.",
+      "expected_failures": [
+        "published-module-after-hole-found"
+      ],
+      "safety": "Actual B read-only lookup; no entry/init/installer."
+    },
+    {
+      "id": "consume-raw-query-for-publication",
+      "case": "query-refusal-and-hole",
+      "mutation": "In the explicit dry bridge only, omit the consumed-success veto while retaining raw success, actual map/header identity, custody, bounds and fixed identity checks.",
+      "expected_failures": [
+        "unproven-module-remains-invisible"
+      ],
+      "safety": "No native claim/entry/init or device; raw-valid fixed A remains permanently held. Baseline has one consumed-success veto, not a duplicate masking guard."
+    },
+    {
+      "id": "omit-descriptor-case-publication",
+      "case": "descriptor-refusal-retention",
+      "mutation": "Omit only the new immutable A publication in this fresh control; retain existing lifecycle registration and actual descriptor refusal.",
+      "expected_failures": [
+        "descriptor-refused-module-owner-retained"
+      ],
+      "safety": "Never unload or alter actual handle/range/callback outcome."
+    },
+    {
+      "id": "clear-fault-visibility-after-init-error",
+      "case": "partial-init-attribution",
+      "mutation": "After ordinary returned init -7, clear only A's new committed flag in this deliberately defective fresh-process control. Retain payload/handle/original/code/generated flag/receipt/count.",
+      "expected_failures": [
+        "failed-init-module-owner-retained",
+        "failed-init-generated-owner-resolved"
+      ],
+      "safety": "No resource reclamation or code invocation; the raw rc_lookup check still passes. This is not a production reset API."
+    },
+    {
+      "id": "exec-only-module-envelope",
+      "case": "actual-module-envelope",
+      "mutation": "Feed the new fault payload only the actual executable PT_LOAD min/max while preserving other lifecycle/loader records. Keep PC on executable A and query descriptor on actual non-executable segment.",
+      "expected_failures": [
+        "actual-module-nonexec-envelope-owned"
+      ],
+      "safety": "Use numeric queries only; do not dereference/execute descriptor address. Upper-bound probe is outside either envelope."
+    },
+    {
+      "id": "generated-before-module",
+      "case": "model-first-index-mask-identity",
+      "mutation": "Move generated instruction lookup before module lookup in the model-only same-address precedence subselector; one dedicated subselector asserts only the same-address policy and unchanged independent boundaries. The module winner is B and generated identity resolves to distinct A; A module envelope excludes the probe, so the ordering defect cannot be masked by equal owners.",
+      "expected_failures": [
+        "module-beats-generated-at-same-address"
+      ],
+      "safety": "Only synthetic addresses/records; no actual overlaps, mappings or old-suite replay. Other subselectors are not executed for this control."
+    },
+    {
+      "id": "omit-process-identity-match",
+      "case": "model-first-index-mask-identity",
+      "mutation": "Drop only process_id equality from generated Community identity resolution in the dedicated mismatch subselector. The copied ID matches exactly but process identity differs. Exactly one committed same-ID candidate exists and the probe is outside all module envelopes, so neither module precedence nor ambiguity masks the defect.",
+      "expected_failures": [
+        "mismatched-process-identity-not-resolved"
+      ],
+      "safety": "Typed synthetic metadata only; actual g_cm/receipt records remain untouched."
+    },
+    {
+      "id": "omit-staging-id-copy",
+      "case": "publication-copy-and-bound",
+      "mutation": "In the dedicated model-only copy subselector, omit only the fixed 33-byte ID copy into the initially zero immutable payload. Preserve source ID validation, other payload fields and publication. No later duplicate payload-ID veto is added. Mutate only the independent staging input after publication; candidate retains mod-a, control returns an empty copied field.",
+      "expected_failures": [
+        "copied-module-id-survives-input-change"
+      ],
+      "safety": "Direct id[33] representation and exact consumer expressions remain unchanged; empty static string stays bounded. No DSO rodata/lifecycle ID changes, concurrent buffer race, pointer borrowing or reclamation. Generated identity resolution is not exercised by this control."
+    }
+  ],
+  "future_validation": [
+    "Cases and controls below are specified, not implemented or executed. Freeze full source ledger and exact expected failures before first Linux build; standalone configuration has no model insertion seam.",
+    "Separate actual fixed-DSO selectors from model-only policy selectors. Keep all mutable harness logs serial or synchronize explicit probes; no races for control convenience. No patched target, replacement or generated instruction invocation. New selectors only; no old scalar/ABI/exception matrix.",
+    "Extract cm_blame_fault byte-exact under the pinned hash; independent review of the small alias include and new ma_owner_index is required. Exact consumer body does not make dependencies or signal behavior exact.",
+    "Retain command/source/result/artifact pins, raw reports privately and sanitized evidence publicly. Require baseline exact names/counts and controls normal assertion-only exit, expected failure set, no sanitizer errors/unexpected stderr; crashes/compile failures are not positive controls.",
+    "Acquire/release-removal controls, if used for codegen, are compiled only and never executed as race tests. Do not claim global snapshot semantics, real signals, or weak-memory proof from joined threads.",
+    "Source-only plan retention and independent byte audit run once. Reuse existing pinned sources locally; no new Git source reads, transformer/compiler/loader/installer/matrix/device execution in this plan.",
+    "Unpublished-slot absence of returned ownership is a runtime oracle only; it does not prove absence of speculative/premature reads. Separately review source and actual codegen dependencies so no payload read precedes an acquired committed flag; no CPU speculation or signal guarantee is inferred."
+  ],
+  "remaining_gates": [
+    "Ownership attribution is not fault causation, successful durable blame, quarantine diagnosis or recovery.",
+    "No production integration, installed handler, native observer, device action, release, quarantine reset or watchdog weakening.",
+    "Arbitrary DSO/custody, approval/manifest execution, interposition, external writers, concurrent native invocation/publication, signals/nonlocal exits and callback quiescence remain unresolved.",
+    "Live provenance/current hook ownership, application/supervisor/QEMU/stopped recovery and native visibility remain gates.",
+    "Local Library row/provider/readiness/arguments/operation owners and destructive/queued paths, stems staging and physical timing remain CLOSED.",
+    "Preserve x16 tail-transfer, x17/island unwind, opaque action x2/register-only Source and absence of native pointee/post-return reads, return interception, TLS pending state or cross-entry pairing."
+  ]
+}

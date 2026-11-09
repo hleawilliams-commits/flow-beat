@@ -1,0 +1,150 @@
+{
+  "anchors": 27,
+  "auditor_history": {
+    "cause": "The call-name-only AST check treated re.compile regex construction at helper lines20/21 as dynamic builtin compile.",
+    "corrected_packet": {
+      "audit-v2.py": {
+        "bytes": 16697,
+        "sha256": "d184eacef8c2b0c2f24ebdaf04ce6ac179451c6592b38ddac463dc3c638b72c6"
+      },
+      "auditor-change.diff": {
+        "bytes": 1235,
+        "sha256": "c0391aceec04f75e6c82412e9d53b8ed8da7e015b8d8f616a51ebc13a29c3e23"
+      },
+      "command.json": {
+        "bytes": 1289,
+        "sha256": "b503f539e6474ae2dce2beded2e918851313de7e75702ccb1b7fea99c4dd27fd"
+      },
+      "execution.json": {
+        "bytes": 223,
+        "sha256": "c49c3e06edeb9c84e58499946675b90c7826f8d4eb13171f2a470d020e80d1ec"
+      },
+      "result.json": {
+        "bytes": 1391,
+        "sha256": "75660a8742c1fce972e7ac2c9a21bb91be99666e91a198f4f308ba1bfeb79e12"
+      },
+      "stderr.bin": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout.bin": {
+        "bytes": 405,
+        "sha256": "eef4e21a1787d6218f1b5042a5b52e13099d1404b483ba5d6f87bab291cf9bd6"
+      }
+    },
+    "correction": "Only AST Attribute(Name(re), compile) is allowed; bare compile and other .compile calls remain refused. All source/anchor/control/inventory/projection checks remain unchanged.",
+    "initial_invocation": "failed",
+    "initial_packet": {
+      "audit.py": {
+        "bytes": 16516,
+        "sha256": "eca8abc2eef3235e51def48dec7ef1ea6c0a18bf522350e103cd410828206cab"
+      },
+      "command.json": {
+        "bytes": 1286,
+        "sha256": "407603d4cc57931540b9cd980615419ad6c68a1c5aabff3ed826fd428ef9a5fd"
+      },
+      "execution.json": {
+        "bytes": 223,
+        "sha256": "bd64939742e449b437a3911400401044b6abe366380efda1926d301e328b1e01"
+      },
+      "stderr.bin": {
+        "bytes": 1205,
+        "sha256": "e0de98b27190e0aa60c6da2855681ccd832d7eec376c42a0782c65fbb496bb55"
+      },
+      "stdout.bin": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "initial_source": {
+      "bytes": 16516,
+      "sha256": "eca8abc2eef3235e51def48dec7ef1ea6c0a18bf522350e103cd410828206cab"
+    },
+    "old_passing_audit_replayed": false,
+    "plan_or_packet_changed": false,
+    "retained_diff": {
+      "bytes": 1235,
+      "sha256": "c0391aceec04f75e6c82412e9d53b8ed8da7e015b8d8f616a51ebc13a29c3e23"
+    }
+  },
+  "baseline_commit": "f2cbeb2fb4394c5a79854c84d9d70f4bd812e721",
+  "byte_audit": {
+    "corrected_auditor_first_invocation": "pass",
+    "executed_source": {
+      "bytes": 16697,
+      "sha256": "d184eacef8c2b0c2f24ebdaf04ce6ac179451c6592b38ddac463dc3c638b72c6"
+    },
+    "inventory_sha256": "d668acd2b565b76ab36131795c7efe174558ee00e57278779fd7a64b9d82e463",
+    "result": {
+      "bytes": 1391,
+      "sha256": "75660a8742c1fce972e7ac2c9a21bb91be99666e91a198f4f308ba1bfeb79e12"
+    },
+    "semantic_or_runtime_assertions": 0,
+    "source_frozen_before_execution": true,
+    "source_unchanged_after_execution": true,
+    "status": "pass-after-auditor-only-correction",
+    "structural_assertions": 2310
+  },
+  "compiler_transformer_loader_installer_matrix_or_device_execution": false,
+  "future_case_groups": 10,
+  "future_safe_controls": 8,
+  "future_transformations": 8,
+  "independent_reviews": [
+    {
+      "outcome": "pass",
+      "role": "exact retained SDK consumer and immutable publication reviewer",
+      "scope": "All27 anchors; exact consumer aliases; permanent indexed ID carrier; capability separation; per-slot noncoherent visibility; no runtime proof."
+    },
+    {
+      "outcome": "pass",
+      "role": "loader custody and future safe-control reviewer",
+      "scope": "Constructor/provenance gaps, independent root identity, canonical IDs, distinct-owner/process control isolation and actual non-executable descriptor evidence from retained artifacts only."
+    }
+  ],
+  "inputs": 22,
+  "new_plan_inputs": 3,
+  "new_sdk_git_reads": 0,
+  "old_capture_or_passing_suite_replayed": false,
+  "pre_retention_corrections": [
+    "Corrected T5 line range to exact1561-1587 without handler prefix.",
+    "Made distinct A/B owners and unique outside-envelope process mismatch explicit.",
+    "Narrowed upper endpoint to not-A and unpublished-slot runtime claim to no returned owner.",
+    "Replaced pointer-borrow control with direct33-byte omitted-copy control, and required zero-filled canonical IDs."
+  ],
+  "remaining_limits": [
+    "Only a source plan exists; no new C integration, loader matrix or live proof.",
+    "Immutable per-slot publication is not a coherent snapshot or native signal/recovery proof.",
+    "Fixed host custody, dependency gaps, arbitrary loading/interposition, external writers and callback quiescence remain separate.",
+    "Ownership is not fault causation, persisted blame or quarantine diagnosis. All existing gates stay CLOSED."
+  ],
+  "retained_packet_files": 24,
+  "retention": {
+    "first_invocation": "pass",
+    "private_result_sha256": "d0108006522f73ef910fc87b9674cadaade532e011e56334f6f97ce214bf01d8",
+    "public_result": {
+      "bytes": 7562,
+      "sha256": "a4be1ae7aad9072dc1f19a19e53d7ad39bc64645adffd4ba2c58f4a772b11d69"
+    },
+    "replayed": false
+  },
+  "reused_inputs": 19,
+  "reviewed_sources": {
+    "README.md": {
+      "bytes": 6761,
+      "sha256": "972ce22f04e0827a3ca56a6a87c2bba0667956933e676a775667314ed7df5d9f"
+    },
+    "composition-plan.json": {
+      "bytes": 37551,
+      "sha256": "1bd883758d6bfce467c6aae9e57fa0c0d2196e06edf020049021d4b26f2808d4"
+    },
+    "retain-source.py": {
+      "bytes": 12340,
+      "sha256": "53bfc303f7b55de90f510efab7b5996648c6d56c3740ee2f3c0e334ccec9d273"
+    }
+  },
+  "runtime_gate": "CLOSED",
+  "schema": 1,
+  "scope": "Independent source/future-control review and byte-only retention audit; no new runtime composition",
+  "sdk_commit": "3e0c5cb010454228f4ee63226b60d060494eeaae",
+  "status": "source-plan-reviewed-and-byte-audited"
+}
