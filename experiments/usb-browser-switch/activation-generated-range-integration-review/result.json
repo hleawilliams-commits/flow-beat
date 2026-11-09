@@ -1,0 +1,205 @@
+{
+  "artifacts": {
+    "lexical-index.json": {
+      "bytes": 36061,
+      "sha256": "4937293cc09f039488e6ee494d5238ddde43ea54388a68437d80664ddfac23ae"
+    }
+  },
+  "commands": [
+    {
+      "failure": null,
+      "receipt_sha256": "efbd39f85c1ad0f21f77823be51c7eea462f7ab5bcce434b925cccb78649a8d8",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 5487,
+      "stdout_sha256": "afa68a0c9f471e6a9ce5fb426b9b38fcacea70c873aa8d11e92a43b1cb15fc6b"
+    }
+  ],
+  "compiler_or_runtime_execution": false,
+  "firmware_or_device_access": false,
+  "inputs": {
+    "contract/README.md": {
+      "bytes": 19707,
+      "origin": "frozen-53e0b13abab00828439939a5ef131d871faf988b",
+      "sha256": "dac814afceb53820b0b7a86dc5339fd2a9ca3234b6e15d8ea64f59ba48f789f4"
+    },
+    "fixture/README.md": {
+      "bytes": 9038,
+      "origin": "frozen-cd48d522da0f9c2b6ff0d5c8e04733c900928d7b",
+      "sha256": "72e688acd8314cb2e60f30933b6472da035ec798bd4c9f0b4098880497fc5d86"
+    },
+    "fixture/registry.cpp": {
+      "bytes": 14141,
+      "origin": "frozen-cd48d522da0f9c2b6ff0d5c8e04733c900928d7b",
+      "sha256": "418ceba1881fdb7cbd79bd0d8c96791a674ea37455e6870a5ab7094f38d78df8"
+    },
+    "fixture/registry.h": {
+      "bytes": 8797,
+      "origin": "frozen-cd48d522da0f9c2b6ff0d5c8e04733c900928d7b",
+      "sha256": "078290d7bb21d2c702c0c31edb5f5fe6318ebca47fd6a71ed60c9baed6188498"
+    },
+    "fixture/verification.json": {
+      "bytes": 8440,
+      "origin": "frozen-cd48d522da0f9c2b6ff0d5c8e04733c900928d7b",
+      "sha256": "5b5b564d1b7b669f1d3d0671d028601e7c004b1ff942c122a194d893f91b956c"
+    },
+    "prior/source-objects-stdout.bin": {
+      "bytes": 3364813,
+      "origin": "reused-retained-capture",
+      "sha256": "148ee2f4f9c70e49e30d60e805f0f0c6b49df2801ec3b3277e8d1f42c59bf2d8"
+    },
+    "prior/source-ownership-result.json": {
+      "bytes": 24493,
+      "origin": "reused-retained-capture",
+      "sha256": "dafddcc8f9f42565803890bcd627b53310ef96bf97c6eb99b99db4f68c982a27"
+    },
+    "prior/source-tree-stdout.bin": {
+      "bytes": 3338,
+      "origin": "reused-retained-capture",
+      "sha256": "f1c074afdab88d7ac12ffb63a1c7f2e84b347f7c7facae2679691958e5290661"
+    },
+    "review-source.py": {
+      "bytes": 7957,
+      "origin": "new-review",
+      "sha256": "bb0190e38df2c43e2f7b0b8b5e052bbcc6100545a1e8b180742848b48b9407e4"
+    },
+    "sdk/src/Makefile": {
+      "bytes": 5487,
+      "origin": "new:3e0c5cb010454228f4ee63226b60d060494eeaae",
+      "sha256": "afa68a0c9f471e6a9ce5fb426b9b38fcacea70c873aa8d11e92a43b1cb15fc6b"
+    },
+    "sdk/src/azmod/azmod-mod.h": {
+      "bytes": 32149,
+      "origin": "reused:3e0c5cb010454228f4ee63226b60d060494eeaae",
+      "sha256": "b94e2ba6656c2b852f18691d32225486f29265953c8bf09dcac9a18ce561a630"
+    },
+    "sdk/src/azmod/azmod.c": {
+      "bytes": 138282,
+      "origin": "reused:3e0c5cb010454228f4ee63226b60d060494eeaae",
+      "sha256": "d4fc94472f507694720cb122064f4f571ed41c3a531f67cc64f81795c4a9cf78"
+    },
+    "sdk/src/azmod/azmod_internal.h": {
+      "bytes": 38116,
+      "origin": "reused:3e0c5cb010454228f4ee63226b60d060494eeaae",
+      "sha256": "60f743a1b3c87be3c67e873ed7edadf74130d963016f0bd7ab6d3fa1a8b2bf11"
+    },
+    "sdk/src/azmod/bluetooth.c": {
+      "bytes": 15495,
+      "origin": "reused:3e0c5cb010454228f4ee63226b60d060494eeaae",
+      "sha256": "de5ee34ba45c89eb045151ce40a52f3b9841768df86c2bc5dea14b8c0587efe3"
+    },
+    "sdk/src/azmod/community.c": {
+      "bytes": 102070,
+      "origin": "reused:3e0c5cb010454228f4ee63226b60d060494eeaae",
+      "sha256": "4b2b72e2b623dcb1ecb0ef108a473815adab45a516a6aa13adb6cce512b80866"
+    },
+    "sdk/src/azmod/crash_guards.c": {
+      "bytes": 23133,
+      "origin": "reused:3e0c5cb010454228f4ee63226b60d060494eeaae",
+      "sha256": "358499ca5bccf3f71944ce408c02fa76b598ba5c81e81d4a2151b6d5e38727ab"
+    },
+    "sdk/src/azmod/day_mode.c": {
+      "bytes": 124102,
+      "origin": "reused:3e0c5cb010454228f4ee63226b60d060494eeaae",
+      "sha256": "070eff2f2612a77f6fa107857af612d879657d068434344038f3c1121c9691e1"
+    },
+    "sdk/src/azmod/drum_roll_display.c": {
+      "bytes": 61714,
+      "origin": "reused:3e0c5cb010454228f4ee63226b60d060494eeaae",
+      "sha256": "e0966daccf1ad09d23e38e93aae47f6788705488ee1768fff544834fbb1c277a"
+    },
+    "sdk/src/azmod/ep_mem.h": {
+      "bytes": 10147,
+      "origin": "reused:3e0c5cb010454228f4ee63226b60d060494eeaae",
+      "sha256": "aa1e4a60ea05ff2b00f53c37634f3614fc51ecfd6dac500b2b59ee86dcbb6e5d"
+    },
+    "sdk/src/azmod/extras.c": {
+      "bytes": 47124,
+      "origin": "reused:3e0c5cb010454228f4ee63226b60d060494eeaae",
+      "sha256": "e927b417a792dfcd9fff007d191e55818008842c31a01145263cf017f1689116"
+    },
+    "sdk/src/azmod/inline_hooks.c": {
+      "bytes": 19402,
+      "origin": "reused:3e0c5cb010454228f4ee63226b60d060494eeaae",
+      "sha256": "f141b383c25e66c8acb1839280832a612a6ee0e25e9ada59f374ccbef8f81908"
+    },
+    "sdk/src/azmod/menu_popup.c": {
+      "bytes": 116383,
+      "origin": "reused:3e0c5cb010454228f4ee63226b60d060494eeaae",
+      "sha256": "fe1d2156f9308b615c836e22abd6ee480a7e82753e425cdaa4a3c84ab7ececb6"
+    },
+    "sdk/src/azmod/mod_menu_overlay.c": {
+      "bytes": 119710,
+      "origin": "reused:3e0c5cb010454228f4ee63226b60d060494eeaae",
+      "sha256": "d5cb265c3a2d3186b9dafa2163f84df5fffd5835060a12643d728588b86569ce"
+    },
+    "sdk/src/azmod/playlist_editor.c": {
+      "bytes": 165116,
+      "origin": "reused:3e0c5cb010454228f4ee63226b60d060494eeaae",
+      "sha256": "02c1cc72e0e0f578331731bcde5679508cfe4d771e54f0d9abc5bb2688aee76a"
+    },
+    "sdk/src/azmod/sdk_vslot.c": {
+      "bytes": 4429,
+      "origin": "reused:3e0c5cb010454228f4ee63226b60d060494eeaae",
+      "sha256": "8e162244e63cd3fcec1f17db1a7a526bdbb1b86ca7dd56383e50cdda625c08e3"
+    },
+    "sdk/src/azmod/source_list_entry.c": {
+      "bytes": 46770,
+      "origin": "reused:3e0c5cb010454228f4ee63226b60d060494eeaae",
+      "sha256": "12a252fa4225e6682b2b4e24a9dd048a289f4225bde253eb07d951f111253243"
+    },
+    "sdk/src/azmod/stem_marks.c": {
+      "bytes": 68740,
+      "origin": "reused:3e0c5cb010454228f4ee63226b60d060494eeaae",
+      "sha256": "9b8a5068c1bf3d129fece852aaa66e2f4c10e9a16015a23bed657b7193817b99"
+    },
+    "sdk/src/azmod/stems_display.c": {
+      "bytes": 71703,
+      "origin": "reused:3e0c5cb010454228f4ee63226b60d060494eeaae",
+      "sha256": "023e250441083ba25f9afa5530b7f94040ad91b9542e988df296d3463e6538fe"
+    },
+    "sdk/src/azmod/touch_accum.c": {
+      "bytes": 2745,
+      "origin": "reused:3e0c5cb010454228f4ee63226b60d060494eeaae",
+      "sha256": "e897e69830bab6db4b969cf0aa2d1d2622ee504e5b03158c2e75de6893acc1a2"
+    },
+    "sdk/src/azmod/track_list_rows.c": {
+      "bytes": 26058,
+      "origin": "reused:3e0c5cb010454228f4ee63226b60d060494eeaae",
+      "sha256": "03364b18ca6f5cdad09f7f1b1e3eaecaf38ba13cf748786fb64f79a59349731a"
+    },
+    "sdk/src/azmod/waveform.c": {
+      "bytes": 113872,
+      "origin": "reused:3e0c5cb010454228f4ee63226b60d060494eeaae",
+      "sha256": "968441f297898d9e6ccfa3327f1d80725b0ce1b4cb9ecc2b69412ab0d470f61f"
+    },
+    "sdk/src/azstem/azstem.c": {
+      "bytes": 61579,
+      "origin": "reused:3e0c5cb010454228f4ee63226b60d060494eeaae",
+      "sha256": "beaa3e7c6deac1448b5d50861acb688fd19acffe47538e549ebe7cae1457ae03"
+    },
+    "sdk/src/common/azprot.h": {
+      "bytes": 5296,
+      "origin": "reused:3e0c5cb010454228f4ee63226b60d060494eeaae",
+      "sha256": "0f1cc9c5d4ca212f798bf2e9d74a69507a82ce5cc59bd328bacc46816a119b33"
+    }
+  },
+  "lexical_counts": {
+    "installer_mentions": 102,
+    "owner_ledger_mentions": 14,
+    "protection_mentions": 28,
+    "vtable_mentions": 57
+  },
+  "new_sdk_files": 1,
+  "old_captures_or_matrices_replayed": false,
+  "private_result_sha256": "498e10ae84ddb4d6128d06ba0faab8d509500e54a87598a9af7866483f847a8f",
+  "retained_files": 39,
+  "retained_output_streams": 2,
+  "reused_corpus_files": 110,
+  "schema": 1,
+  "scope": "Source-only common writer, owner, emission and module-input integration review",
+  "sdk_commit": "3e0c5cb010454228f4ee63226b60d060494eeaae",
+  "selected_reused_sdk_files": 23,
+  "status": "retained"
+}

@@ -2061,3 +2061,56 @@ whole-engine races/lifetime, callback quiescence, native timing or recovery.
 No emulator/deck, package/catalog, official core or release changed. All passive
 attachment, Local Library activation, writer/topology/recovery and stems gates
 remain CLOSED. Ownership is not fault causation.
+
+## November 9 — source-only generated-range core integration review
+
+The separate [integration review](../experiments/usb-browser-switch/activation-generated-range-integration-review/README.md)
+follows the offline fixture at cd48d522da0f9c2b6ff0d5c8e04733c900928d7b.
+It identifies a common azmod inline-installer boundary, rather than claiming a
+universal patch lock. The proposed order is existing recursive g_cm_mu, new
+inline writer, then the azmod protection mutex; direct Core uses writer then
+protection and consumes immutable module inputs without reversing that order.
+
+One genuinely new pinned Makefile confirms azmod and azstem are separate C
+builds. Their header-static protection mutexes are distinct. Vtable, raw patch
+and azstem writer families remain outside the proposed inline transaction.
+Constructor-to-late transition must share the writer discipline, while actual
+native quiescence and loader/interposition/nonlocal-exit behavior remain open.
+
+Claim admission must capture the caller RA at the outer SDK entry and revalidate
+the init epoch under the same discipline used to close it; successful bookkeeping
+must finish before release. The proposal preserves existing claim predicates and
+does not invent a thread-identity restriction. Claimant identity is not proof
+that the replacement hook resides inside that owner. Permanent original-slot
+and replacement-code custody remain required beyond nonnull or shape checks.
+
+The source review identifies a conditional range-provenance gap: cm_range_of can
+run after failed dlinfo, using a fresh record's zero scratch base. If enumeration
+finds a zero-based main image, its envelope can be selected without proving the
+intended DSO. No such failure was observed. The proposed module boundary needs
+explicit successful-handle/base provenance, checked private scratch and fixed
+per-index one-way publication. Valid module attribution precedes entry/descriptor
+validation and survives failed descriptor/init; it does not cover earlier dlopen
+constructors. Later module masking and module-first PC/LR/frame ordering remain.
+
+An owned installer receipt must use actual relocation output, retain pool/slot
+and mapping custody before failed helpers discard details, separate island and
+target protection outcomes, and bind the exact original/replacement storage.
+Successful relock restores saved bits, not necessarily RX after an earlier warning.
+All fallible work precedes target unlock; metadata commits infallibly before
+original and redirect, with permanent retention after visibility. The frozen C++
+fixture's defensive commit errors and Apple codegen are not an implemented C/Linux
+core contract.
+
+The new packet reuses the retained 110-source corpus, extracts 23 selected reused
+SDK sources, and captures only src/Makefile: one Git read and two output streams.
+It retains 33 inputs and 39 files privately. Independent source review and a
+retained-byte audit are linked; no old capture or passing matrix, compiler, make,
+firmware, emulator or deck action was repeated. Raw material stays private.
+
+Next implement a separately versioned offline C admission/transaction fixture
+for these new source boundaries, with exact safe negative controls. Do not install
+or compose it into the observer. No production registry integration, repair patch
+or new executable fixture exists in this review. All live, Local Library activation,
+writer/topology/stopped-recovery and stems gates remain CLOSED. Ownership is not
+fault causation; quarantine and every historical failure remain preserved.

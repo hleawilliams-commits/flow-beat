@@ -1,0 +1,111 @@
+{
+  "baseline_commit": "cd48d522da0f9c2b6ff0d5c8e04733c900928d7b",
+  "community_release": false,
+  "compiler_or_test_execution": false,
+  "date": "2026-11-09",
+  "emulator_or_physical_device_contact": false,
+  "firmware_read": false,
+  "independent_retained_byte_audit": {
+    "audit_attempt": 1,
+    "audit_failures": 0,
+    "audit_result_sha256": "eaac33e40ef00a5227cc33d561f726d02332ce26f186c43dbbcbfd58fbf11e2a",
+    "audit_source_sha256": "55ceb4d839047edcc1fcdb549831a94ae5d135156a3fe5e0f504715ad095c15a",
+    "collector_imported_or_executed": false,
+    "commands": 1,
+    "frozen_inputs": 5,
+    "git_compiler_or_binary_executed": false,
+    "independent_auditor_source_review": true,
+    "inputs": 33,
+    "lexical_counts": {
+      "installer_mentions": 102,
+      "owner_ledger_mentions": 14,
+      "protection_mentions": 28,
+      "vtable_mentions": 57
+    },
+    "limitations": [
+      "Byte consistency and retained provenance only; not machine code, integration, signal safety or custody proof.",
+      "No command/capture/test replay; the reviewed packet is a bounded corpus, not proof of all external operations.",
+      "Exact public projection excludes command paths and raw source payloads; no general secret-discovery claim."
+    ],
+    "live_locking_owner_or_installation_proven": false,
+    "new_sdk_files": 1,
+    "output_streams": 2,
+    "packed_corpus_files": 110,
+    "packed_source_bytes": 3359025,
+    "private_result_sha256": "498e10ae84ddb4d6128d06ba0faab8d509500e54a87598a9af7866483f847a8f",
+    "public_result_sha256": "4e899b2da12474d6fea2b59bbf94303ab2a191330b30e0e1ee5de1e8f1ff8683",
+    "retained_files": 39,
+    "scope": "Retained byte/provenance/receipt/projection consistency only",
+    "selected_reused_sdk_files": 23,
+    "status": "passed"
+  },
+  "limits": [
+    "No production implementation, compiler or runtime result is added by this review.",
+    "Lexical index includes comments/declarations and is not a compiler-resolved call graph or whole-program absence proof.",
+    "Conditional source schedules are not observed faults or demonstrated exploitation.",
+    "New common inline boundary excludes vtable/raw writers and azstem; no universal exclusion.",
+    "SDK inline claimant association does not establish replacement-code or raw original-slot lifetime/aliasing.",
+    "Loader constructors precede module publication; other mutable g_cm users and arbitrary loader behavior remain outside new immutable records.",
+    "Makefile recipe/probe text is not executed-build, loaded-binary, Linux atomic codegen or ABI evidence.",
+    "Signal/nonlocal exits, loader/interposition dependencies, native/cache publication, races/lifetime, persistence, quiescence and recovery remain unproved.",
+    "Ownership is not fault causation; quarantine and all native activation/writer/topology/stopped-recovery gates remain."
+  ],
+  "make_or_probe_execution": false,
+  "new_executable_fixture": false,
+  "new_sdk_inputs": 1,
+  "new_source_findings": [
+    "Static header protection locks are distinct across separate azmod and azstem C builds.",
+    "Community-only prechecks and post-unlock nhooks update do not serialize init closure with admitted claims.",
+    "Conditional dlinfo failure leaves zero scratch base and can match a zero-based enumerated object without intended DSO provenance; not observed.",
+    "Current g_cm count precedes record initialization and range scratch fields are separately mutated.",
+    "Actual relocation word count and allocation/protection outcomes must be captured within installer, not reconstructed from return code/orig.",
+    "Successful protection restoration can preserve earlier writable bits; disjoint emitted blobs do not imply separate pages."
+  ],
+  "new_source_sha256": {
+    ".gitignore": "d56537a93a9565b3322aa9bc821c9cc30a16303467032cade13b069e394cfddc",
+    "review-source.py": "bb0190e38df2c43e2f7b0b8b5e052bbcc6100545a1e8b180742848b48b9407e4"
+  },
+  "old_captures_or_passing_matrices_replayed": false,
+  "parent_implementations_changed": false,
+  "private_result_sha256": "498e10ae84ddb4d6128d06ba0faab8d509500e54a87598a9af7866483f847a8f",
+  "production_registry_integration": false,
+  "proposed_protocol": {
+    "boundary": "azmod inline installer only, not process-wide exclusion",
+    "emission": "Actual relocation out/ncopy, retained pool/slot/mapping and separate returned protection/cleanup receipts; final prevalidation before target unlock",
+    "implemented": false,
+    "init_admission": "Capture caller RA at outer SDK entry; revalidate under common discipline; close epoch and finish bookkeeping under same discipline; no new thread predicate",
+    "lock_order": "g_cm_mu -> common inline writer -> azmod translation-unit protection lock; Core uses writer -> protection and never writer -> g_cm_mu",
+    "lookup": "Module first per PC/LR/frame; generated Community PC may beat module LR; typed Core continues fallback; later module masking remains",
+    "module_publication": "Explicit successful handle/base provenance, checked private scratch, fixed16 immutable per-index commit flags; publish before entry/descriptor check and retain after failure",
+    "phase": "Serialize go_late with complete fallback install; not native quiescence",
+    "publication": "Infallible bounded metadata visibility before permanent original and redirect; no post-unlock fallible provider or lock",
+    "retention": "Published owner/code/original custody permanent; invisible uncertain cleanup custody retained independently"
+  },
+  "public_result_sha256": "4e899b2da12474d6fea2b59bbf94303ab2a191330b30e0e1ee5de1e8f1ff8683",
+  "repair_patch": false,
+  "retained_commands": 1,
+  "retained_files": 39,
+  "retained_inputs": 33,
+  "retained_output_streams": 2,
+  "reused_corpus_files": 110,
+  "review_readme_sha256": "ac0b902286ddb119674e311f53c80d035a6d3b361029081ec67e84843b5d6a8b",
+  "runtime_gate": "CLOSED",
+  "schema": 1,
+  "scope": "Source-only azmod inline writer/admission, owned emission and immutable module-input integration review",
+  "sdk_commit": "3e0c5cb010454228f4ee63226b60d060494eeaae",
+  "selected_reused_sdk_inputs": 23,
+  "source_only": true,
+  "source_review": {
+    "capture_attempts": 1,
+    "capture_failures": 0,
+    "collector_correction_before_first_execution": "Five fixture/contract input hashes pinned explicitly before retention; previously copied live bytes could otherwise have been mislabeled frozen.",
+    "final_document_corrections": [
+      "Conditional worker creation described as attempts, not successful thread creation.",
+      "Before allocations refuse known target/capacity conflicts; validate emitted addresses after they exist and before island writing."
+    ],
+    "independent_admission_module_lifetime_review": true,
+    "independent_emission_receipt_review": true,
+    "independent_final_claim_reviews": 2,
+    "independent_writer_build_topology_review": true
+  }
+}
