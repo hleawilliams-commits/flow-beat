@@ -1,0 +1,468 @@
+{
+  "schema": 1,
+  "version": "0.1.0-source-plan",
+  "status": "specified-not-implemented",
+  "runtime_gate": "CLOSED",
+  "sdk_commit": "3e0c5cb010454228f4ee63226b60d060494eeaae",
+  "baseline_commit": "ab56c8f33df54cf0ad2bc05b159c5534dc03fdf3",
+  "scope": "Offline exact community inline-claim policy composed with owned late-island receipts; source-only contract",
+  "new_composition_implemented": false,
+  "sources": [
+    {
+      "name": "sdk/community.c",
+      "root": "sdk",
+      "path": "src/azmod/community.c",
+      "sha256": "4b2b72e2b623dcb1ecb0ef108a473815adab45a516a6aa13adb6cce512b80866",
+      "bytes": 102070
+    },
+    {
+      "name": "sdk/azmod-mod.h",
+      "root": "sdk",
+      "path": "src/azmod/azmod-mod.h",
+      "sha256": "b94e2ba6656c2b852f18691d32225486f29265953c8bf09dcac9a18ce561a630",
+      "bytes": 32149
+    },
+    {
+      "name": "sdk/inline_hooks.c",
+      "root": "sdk",
+      "path": "src/azmod/inline_hooks.c",
+      "sha256": "f141b383c25e66c8acb1839280832a612a6ee0e25e9ada59f374ccbef8f81908",
+      "bytes": 19402
+    },
+    {
+      "name": "sdk/azprot.h",
+      "root": "sdk",
+      "path": "src/common/azprot.h",
+      "sha256": "0f1cc9c5d4ca212f798bf2e9d74a69507a82ce5cc59bd328bacc46816a119b33",
+      "bytes": 5296
+    },
+    {
+      "name": "receipt/receipt.c",
+      "root": "repository",
+      "path": "activation-installer-receipt-fixture/receipt.c",
+      "sha256": "19d46afc34c05bbfaf19f6b2fc091fddb3af2b671b3fdd1373b524e07709d57a",
+      "bytes": 22019
+    },
+    {
+      "name": "receipt/receipt.h",
+      "root": "repository",
+      "path": "activation-installer-receipt-fixture/receipt.h",
+      "sha256": "abde4ac8f1d35fea71541f26103d5ea1b03dd44e1e475ba5b2fb65fd330dcb4d",
+      "bytes": 6397
+    },
+    {
+      "name": "receipt/fixture.S",
+      "root": "repository",
+      "path": "activation-installer-receipt-fixture/fixture.S",
+      "sha256": "6cc196de4e7ef941411142ba335576b571c1beec7a2ef881f78fbd29f64a40f9",
+      "bytes": 1803
+    },
+    {
+      "name": "receipt/transform-installer.py",
+      "root": "repository",
+      "path": "activation-installer-receipt-fixture/transform-installer.py",
+      "sha256": "38cece95d46b82041578efd6c95420d42db95ff5f0b16084aaf7dbb40f75aeda",
+      "bytes": 18646
+    },
+    {
+      "name": "receipt/transformation-ledger.json",
+      "root": "repository",
+      "path": "activation-installer-receipt-fixture/transformation-ledger.json",
+      "sha256": "6c56510b74070999b6c41f6f2e04827a75a5ec5bb3663f54a48af0aa2f2dd225",
+      "bytes": 4281
+    },
+    {
+      "name": "receipt/README.md",
+      "root": "repository",
+      "path": "activation-installer-receipt-fixture/README.md",
+      "sha256": "278b350d8d80c830692888c82db96a03f5735a784f3807c632c0b00d5f5a28bd",
+      "bytes": 17998
+    },
+    {
+      "name": "receipt/result.json",
+      "root": "repository",
+      "path": "activation-installer-receipt-fixture/result.json",
+      "sha256": "a5719f4674eccd9a2be4812ba40d21a3eea5fe7c9bd53e8f86b949c3d52d7742",
+      "bytes": 126136
+    },
+    {
+      "name": "receipt/verification.json",
+      "root": "repository",
+      "path": "activation-installer-receipt-fixture/verification.json",
+      "sha256": "b9f625d5e20c037c848939f3da2ca2f21f3d2633d7b5f4d00d53998da862cd24",
+      "bytes": 6729
+    },
+    {
+      "name": "generated/inline-receipt.inc",
+      "root": "generated",
+      "path": "inline-receipt.inc",
+      "sha256": "03f927df4da1d9c3ed56bdf00b20893a68195e65042abcc113258e723f1398cc",
+      "bytes": 21968
+    },
+    {
+      "name": "generated/azprot-receipt.h",
+      "root": "generated",
+      "path": "azprot-receipt.h",
+      "sha256": "28644f70e972dfa28ecd3b940e9f4d132492ecd22f73e48d561c8684ddb9506a",
+      "bytes": 6872
+    },
+    {
+      "name": "integration/README.md",
+      "root": "repository",
+      "path": "activation-generated-range-integration-review/README.md",
+      "sha256": "ac0b902286ddb119674e311f53c80d035a6d3b361029081ec67e84843b5d6a8b",
+      "bytes": 17647
+    }
+  ],
+  "anchors": [
+    {
+      "id": "record-and-init-fields",
+      "source": "sdk/community.c",
+      "first_line": 79,
+      "last_line": 124
+    },
+    {
+      "id": "main-text-envelope",
+      "source": "sdk/community.c",
+      "first_line": 138,
+      "last_line": 150
+    },
+    {
+      "id": "identity-and-find",
+      "source": "sdk/community.c",
+      "first_line": 459,
+      "last_line": 477
+    },
+    {
+      "id": "caller-policy",
+      "source": "sdk/community.c",
+      "first_line": 1092,
+      "last_line": 1126
+    },
+    {
+      "id": "claim-ingress",
+      "source": "sdk/community.c",
+      "first_line": 1225,
+      "last_line": 1258
+    },
+    {
+      "id": "claim-return-account",
+      "source": "sdk/community.c",
+      "first_line": 1259,
+      "last_line": 1274
+    },
+    {
+      "id": "sdk-table-slot",
+      "source": "sdk/community.c",
+      "first_line": 1417,
+      "last_line": 1426
+    },
+    {
+      "id": "module-range",
+      "source": "sdk/community.c",
+      "first_line": 1493,
+      "last_line": 1523
+    },
+    {
+      "id": "manifest-capability",
+      "source": "sdk/community.c",
+      "first_line": 1759,
+      "last_line": 1775
+    },
+    {
+      "id": "loader-provenance-entry",
+      "source": "sdk/community.c",
+      "first_line": 1804,
+      "last_line": 1845
+    },
+    {
+      "id": "init-open-close-result",
+      "source": "sdk/community.c",
+      "first_line": 1846,
+      "last_line": 1864
+    },
+    {
+      "id": "loader-no-once-guard",
+      "source": "sdk/community.c",
+      "first_line": 1876,
+      "last_line": 1894
+    },
+    {
+      "id": "sdk-claim-abi",
+      "source": "sdk/azmod-mod.h",
+      "first_line": 199,
+      "last_line": 204
+    },
+    {
+      "id": "sdk-id-and-lifetime",
+      "source": "sdk/azmod-mod.h",
+      "first_line": 443,
+      "last_line": 459
+    },
+    {
+      "id": "hook-ledger",
+      "source": "sdk/inline_hooks.c",
+      "first_line": 99,
+      "last_line": 107
+    },
+    {
+      "id": "hook-note",
+      "source": "sdk/inline_hooks.c",
+      "first_line": 150,
+      "last_line": 157
+    },
+    {
+      "id": "receipt-owned-types",
+      "source": "receipt/receipt.h",
+      "first_line": 7,
+      "last_line": 49
+    },
+    {
+      "id": "receipt-static-storage",
+      "source": "receipt/receipt.c",
+      "first_line": 23,
+      "last_line": 50
+    },
+    {
+      "id": "receipt-storage-and-permit",
+      "source": "receipt/receipt.c",
+      "first_line": 255,
+      "last_line": 322
+    },
+    {
+      "id": "receipt-epoch",
+      "source": "receipt/receipt.c",
+      "first_line": 332,
+      "last_line": 384
+    },
+    {
+      "id": "receipt-install-and-account",
+      "source": "receipt/receipt.c",
+      "first_line": 386,
+      "last_line": 461
+    },
+    {
+      "id": "receipt-lookup",
+      "source": "receipt/receipt.c",
+      "first_line": 470,
+      "last_line": 481
+    },
+    {
+      "id": "retained-actual-publication-cut",
+      "source": "generated/inline-receipt.inc",
+      "first_line": 348,
+      "last_line": 385
+    }
+  ],
+  "decisions": {
+    "scope": "Separately named copied C successor; frozen receipt and SDK bytes unchanged. No production integration, full community loader, fault attribution, native target or observer.",
+    "sdk_policy": "Retain ID lookup, caller half-open envelope, current-loading init, hooks_ok, target-start text envelope and sixteen-byte overlap semantics. Retain exact cm_id_ok, cm_find and cm_called_by bodies; cm_claim_hook orchestration is explicitly transformed. Inline claim does not call cm_self and supplies no frame-thread or LOADED-state veto; do not import those or vslot policy.",
+    "identity": "Use 33-byte owned ID storage throughout renamed receipt owner/module/ledger fields, accepting all 32 SDK ID characters plus NUL. Never truncate or infer Core from an ID string.",
+    "signature": "int claim_hook(const char*, uintptr_t, void*, void**), SDK 0 for normally returned published receipt including warnings, -1 before publication. Raw installer -3/-1/0/1 and richer receipt remain separate.",
+    "caller": "Capture CM_RA exactly once at outer noinline SDK-signature entry before helper calls; capture one acquire-loaded internal active-session handle there. Future runtime injection enters a separately named authored-RA seam; it does not validate the builtin or native provenance.",
+    "session": "One atomic unsigned active handle: 0 closed, index+1 names a fixed immutable one-use session, at most four. No independent index/generation reads, counter wrap, slot reuse or reopen. Same captured nonzero handle must still be current and match cm_find result under cm->writer. Never refresh queued input to a later session. One-use means one open epoch per module index, not one hook: multiple known bindings can claim within it. Immutable payload contains index/identity; mutable open/loading/count fields are accessed only under locks. Implement one combined new veto: captured==0 || captured!=current || captured!=index+1. After it passes, construct the private permit from the locked resolved current session; the captured handle is not separately rechecked in the private installer.",
+    "locking": "One SDK recursive cm -> one nonrecursive common writer -> actual azmod protection. Core only writer->protection. Remove receipt's second cm/epoch/module_hooks authority in copied successor; call private already-locked installer. No writer->cm edge or recursive public receipt call.",
+    "lifecycle": "Initialize fixed tables once; record and module/session slots have process lifetime. Publish immutable loader inputs before entry/descriptor validation. Open one session after descriptor acceptance; release locks before init callback; reacquire cm->writer to close and freeze count before selected failure/success state updates. No lock spans external callback or loader work.",
+    "loader": "Authored explicit handle-present, link-map-query-success, link-map-present, matched object identity, base-valid and base value plus bounded PT_LOAD scratch; accept valid zero base, reject absent provenance or checked endpoint overflow. No actual dlopen/dlinfo/enumeration/entry/parser/approval/quarantine/file operations.",
+    "capability": "Authored manifest hooks and firmware-any inputs feed the retained hooks && !any relation; hooks && any is refused at the selected loader boundary. hooks_ok remains the exact inline predicate. Not a new general capability token or a vslot replacement-range/thread rule.",
+    "custody": "Before resource calls resolve exact permanent process-image target/replacement/plain aligned original descriptor and check pointer identity without dereferencing rejected orig. Preserve one attempt, target/storage reservations, strong initialized originals and lifetime through failed init. Authored claimant envelope and replacement custody are separate facts. Remove the copied receipt's extra replacement-in-claimant-envelope admission test: exact fixed replacement identity/custody replaces it. SDK caller-envelope policy remains unchanged.",
+    "modules": "Fixed immutable per-index committed loader records; original cm index order and retained min/max PT_LOAD envelope semantics. Snapshot all committed module envelopes under writer for storage exclusion. Core never reads mutable cm fields. Later module masking and gap/non-executable membership remain; generated lookup stays separate.",
+    "capacity": "Prevalidate fixed binding/metadata/journal/common target-ledger and per-module accounting capacity before installer. Checked target+16 for new/existing conflicts. No silent diagnostic-capacity admission, postcut capacity failure or retry.",
+    "accounting": "A normal returned receipt with actual redirect_published consumes exactly one pre-reserved SDK nhooks increment under cm->writer, even warnings and later init failure. One per-attempt accounted flag; no independent module_hooks. Refusal before redirect adds zero; consumed binding/journal/uncertain custody retained. Do not equate RC_OK=0 with raw installer1 or use diagnostic table as authority.",
+    "permit": "Private permit binds immutable session identity, known binding and reservation during uninterrupted locks. The single locked admission decision grants the epoch lease; private final validation checks bound immutable data and actual receipt storage, not a second mutable epoch authority. All refusal before target unlock; cut stays metadata then real plain original then target redirect.",
+    "logs": "Copy bounded diagnostic values while admitted, release locks, then invoke authored log sink. No source-derived file/log persistence claim. Do not re-read mutable state to determine result after unlock.",
+    "unsupported": "Unexpected result/publication inconsistencies preserve resources and terminal incomplete/unknown evidence; do not retry or pretend recoverable ordinary refusal. Signals, forced exits and interruptions remain outside the normal-return protocol."
+  },
+  "transformations": [
+    {
+      "id": "T1",
+      "source": "sdk/community.c",
+      "anchor": "identity-and-find",
+      "change": "Extract exact cm_id_ok/cm_find bodies into a separately named bounded offline translation unit; preserve first-index string match. Initialize/count records only under recursive cm, never expose an uninitialized prefix. Use authored valid readable ID buffers; arbitrary pointer probing is excluded."
+    },
+    {
+      "id": "T2",
+      "source": "sdk/community.c",
+      "anchor": "caller-policy",
+      "change": "Preserve cm_called_by body. Capture CM_RA and atomic session handle at outer noinline SDK-signature entry; helper receives values. Add separately named authored-value entry only under fixture configuration; never silently redefine CM_RA."
+    },
+    {
+      "id": "T3",
+      "source": "sdk/community.c",
+      "anchor": "claim-ingress",
+      "change": "Relocate predicates into single recursive cm->writer admission; retain predicate meanings and order, then add explicit session match, descriptor custody/capacity and checked conflict guards. Separate refusal diagnostics from mutation."
+    },
+    {
+      "id": "T4",
+      "source": "receipt/receipt.c",
+      "anchor": "receipt-install-and-account",
+      "change": "Factor copied receipt installer into private writer-held transaction; remove nested cm/writer reacquisition, independent fixture epoch and module_hooks count. Pass copied typed owner, committed module envelopes and bound known descriptor. Keep Core wrapper writer-only. Full diff against frozen source required. Remove the old replacement-in-module-envelope proxy; exact fixed replacement custody is independently checked."
+    },
+    {
+      "id": "T5",
+      "source": "receipt/receipt.h",
+      "anchor": "receipt-owned-types",
+      "change": "Widen copied owner/module ID arrays from32 to33; fixed slot objects remain strong aligned plain void* with explicit initialization. Do not cast atomics as void** or infer arbitrary slot lifetime."
+    },
+    {
+      "id": "T6",
+      "source": "sdk/community.c",
+      "anchor": "loader-provenance-entry",
+      "change": "Replace OS loader/parser inputs with declared authored tuple and checked scratch builder; one-way per-index module publication before authored descriptor check. Retain handle marker/module even when descriptor refused. This is a transformed selected fragment, not execution of full cm_load_one."
+    },
+    {
+      "id": "T7",
+      "source": "sdk/community.c",
+      "anchor": "init-open-close-result",
+      "change": "Open immutable one-use session under cm->writer, release before authored init callback, then reacquire same order to close and snapshot nhooks before failure cleanup/state updates. Add one-start guard and prohibit reopening index; never hold locks across callbacks."
+    },
+    {
+      "id": "T8",
+      "source": "sdk/community.c",
+      "anchor": "claim-return-account",
+      "change": "Replace raw integer-only status mapping with actual receipt publication plus preserved raw result; published warnings map SDK0 and increment nhooks once before unlock. Keep failed-init suffix tied to retained count. Logging after unlock uses copied facts."
+    },
+    {
+      "id": "T9",
+      "source": "receipt/receipt.c",
+      "anchor": "receipt-storage-and-permit",
+      "change": "Replace single module_value exclusions with bounded immutable module view and immutable permit inputs. Do not change actual emission, cleanup/token semantics or lexical publication cut without separate ledger entry. All guards stay preunlock."
+    },
+    {
+      "id": "T10",
+      "source": "sdk/inline_hooks.c",
+      "anchor": "hook-ledger",
+      "change": "Make common target reservation authoritative for Core/community; keep inherited diagnostic hook note underwriter and pre-reserved capacity, never use optional diagnostics to reverse publication. Preserve no retry and one-way ownership."
+    }
+  ],
+  "future_cases": [
+    {
+      "id": "policy",
+      "oracle": "unknown ID, foreign RA, lo-1/lo/hi-1/hi, missing init/wrong loading session, hooks false, any firmware and target-start outside authored executable envelope; refusal yields SDK-1 and no receipt entry/resources; valid inputs selected independently",
+      "new_boundary": "Exact retained inline predicates against authored values before real receipt admission"
+    },
+    {
+      "id": "id32",
+      "oracle": "two valid32-character IDs differing only at final character remain distinct through cm_find, immutable copied owner, accounting and failed-init record; no truncation",
+      "new_boundary": "SDK33-byte identity custody composed with formerly32-byte receipt"
+    },
+    {
+      "id": "queued-close",
+      "oracle": "capture sessionA then block before admission; closeA, optionally openB; release claimant; SDK-1, no installer, countA0. A captured zero session also cannot join laterB Also capture0 before opening that SAME module, then resume with all other retained predicates satisfied; this is the exact safe control discriminator.",
+      "new_boundary": "Single entry token survives queue and is never refreshed"
+    },
+    {
+      "id": "admitted-close",
+      "oracle": "hold after real redirect before SDK accounting under cm->writer; closer sees actual EBUSY, then after release/join observes count1 and immutable original/metadata; no scalar invocation needed",
+      "new_boundary": "Real receipt publication is counted before exact init-close discipline"
+    },
+    {
+      "id": "partial-failed-init",
+      "oracle": "first owned receipt publishes; second fixed binding refuses at injected target unlock; authored init returns error; callbacks/state clear per selected source while first original/metadata, both receipts and SDK count1 survive",
+      "new_boundary": "Exact loader result/accounting composition rather than synthetic independent counter"
+    },
+    {
+      "id": "published-warning",
+      "oracle": "injected relock failure returns actual raw1, published receipt warning, SDK0, count1; route never invoked while writable",
+      "new_boundary": "SDK success mapping is based on publication, not RC_OK enum comparison"
+    },
+    {
+      "id": "fixed-custody",
+      "oracle": "valid SDK identity/capabilities with temporary/inaccessible/wrong original identity or wrong fixed replacement refuses before dereference/resources; known original unchanged",
+      "new_boundary": "Existing inline policy is necessary but not a lifetime receipt"
+    },
+    {
+      "id": "core-conflict",
+      "oracle": "Core first publishes owned target; SDK community claim to alias refuses under common writer, count0, Core metadata/original retained; concurrent queues use same reservation",
+      "new_boundary": "Exact claim ingress participates in actual common receipt ledger"
+    },
+    {
+      "id": "loader-inputs",
+      "oracle": "explicit failed provenance with base0 refuses; successful validbase0 accepted as values; malformed ranges refuse; committed module survives descriptor failure; entry/init run outside locks; no real DSO loaded",
+      "new_boundary": "Authored loader facts feed selected retained ingress instead of receipt's replacement envelope proxy"
+    },
+    {
+      "id": "lifecycle",
+      "oracle": "repeated/in-progress loader entry refuses before callbacks; closed index cannot reopen; two distinct indices can init sequentially; successful then failed init retains separate identities/counts; recursive cm entry is tested without recursing writer",
+      "new_boundary": "One shared recursive cm and one-use lifecycle replace independent fixture epoch"
+    }
+  ],
+  "safe_controls": [
+    {
+      "id": "adopt-preopen-session",
+      "mutation": "Omit the entire combined new veto (captured==0 || captured!=current || captured!=index+1), not merely equality; retain all legacy ID/loading/capability predicates. Select captured0 delayed until that SAME module opens. Private permit construction then uses the locked resolved current session, with no hidden duplicate entry-token check. All code destinations and custody remain valid.",
+      "selector": "queued-close",
+      "expected_failures": [
+        "preopen-session-refused",
+        "preopen-session-no-installer",
+        "preopen-session-zero-count"
+      ]
+    },
+    {
+      "id": "omit-account",
+      "mutation": "Omit actual SDK nhooks increment only; retain attempt accounted marker/source publication so the count cannot be inferred solely from that marker",
+      "selector": "admitted-close",
+      "expected_failures": [
+        "close-counts-published-claim"
+      ]
+    },
+    {
+      "id": "warning-sdk-refusal",
+      "mutation": "Change only final SDK return for normally returned published-with-warning from0 to-1; retain actual count, code and receipts",
+      "selector": "published-warning",
+      "expected_failures": [
+        "warning-sdk-success"
+      ]
+    },
+    {
+      "id": "failed-init-zero-count",
+      "mutation": "Set SDK nhooks to0 only in selected failed-init state cleanup; keep code/originals/metadata/resources",
+      "selector": "partial-failed-init",
+      "expected_failures": [
+        "failed-init-retains-hook-count"
+      ]
+    },
+    {
+      "id": "ignore-hooks",
+      "mutation": "Bypass hooks_ok at claim admission for otherwise valid fixed authored descriptor with false hooks; no additional hidden capability veto",
+      "selector": "policy",
+      "expected_failures": [
+        "hooks-refused",
+        "hooks-no-installer",
+        "hooks-zero-count"
+      ]
+    },
+    {
+      "id": "truncate-id32",
+      "mutation": "Set copied owner id[31] to NUL only in invisible metadata preparation, leaving source cm ID and actual bindings unchanged",
+      "selector": "id32",
+      "expected_failures": [
+        "owner-id32-exact"
+      ]
+    }
+  ],
+  "future_validation": [
+    "Freeze exact source diff/extraction ledger, authored inputs, selected case matrix and complete failure lists before any compile/runtime execution.",
+    "Pin exact Linux AArch64 toolchain and flags; standalone builtin-RA/no-fixture configuration compile-only unless separately selected. Runtime authored RA/loader/capability inputs must be reported distinctly.",
+    "Candidate tests use fresh processes and real owned receipt emissions only where needed for new composition cases; do not replay prior forwarding/CFI/exception matrices.",
+    "All controls preserve real destinations/custody and normal completion, release and join workers; no crash, null original, freed trampoline, data race or unsafe route invocation as oracle.",
+    "Retain all attempts, stderr/stdout, exits, transformed bytes and independent source/byte audit. Existing failure evidence stays untouched."
+  ],
+  "deferred": [
+    "full SDK community loader/manifest parser/approval/file and quarantine effects",
+    "actual caller-RA/native object provenance",
+    "arbitrary DSO/slot custody and loader interposition",
+    "nonparticipating vtable/raw/azstem writers",
+    "production registry/module-first fault attribution",
+    "signals/nonlocal exits/anonymous-PC unwind and instruction-fetch visibility",
+    "fallback/discarded-candidate cleanup/old ABI suites",
+    "live observer/native activation and recovery",
+    "stems runtime gate and physical timing"
+  ],
+  "evidence_limits": [
+    "Source-only plan: no new compiler, make, installer, transformer, runtime matrix, firmware or device execution.",
+    "Line-byte anchors and retained inputs establish identity, not semantic correctness.",
+    "Authored input tests in a future successor will not prove real loader, callback quiescence or general race/lifetime.",
+    "Ownership is not fault causation; quarantine unchanged; all live gates CLOSED."
+  ]
+}

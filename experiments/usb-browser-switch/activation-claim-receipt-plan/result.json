@@ -1,0 +1,95 @@
+{
+  "anchors": 23,
+  "artifacts": {
+    "anchor-index.json": {
+      "bytes": 5542,
+      "sha256": "fa22efb7a432abc52a53d2eb6ed6616481a930c44809085b3f44b1a0fb484a49"
+    }
+  },
+  "baseline_commit": "ab56c8f33df54cf0ad2bc05b159c5534dc03fdf3",
+  "child_commands": [],
+  "compiler_make_installer_or_matrix_execution": false,
+  "firmware_or_device_access": false,
+  "inputs": {
+    "composition-plan.json": {
+      "bytes": 24756,
+      "sha256": "a3c2a65d68232f7f307d988efede0ac3e60de3e8e2cd9b609bd1fa50e189ed59"
+    },
+    "generated/azprot-receipt.h": {
+      "bytes": 6872,
+      "sha256": "28644f70e972dfa28ecd3b940e9f4d132492ecd22f73e48d561c8684ddb9506a"
+    },
+    "generated/inline-receipt.inc": {
+      "bytes": 21968,
+      "sha256": "03f927df4da1d9c3ed56bdf00b20893a68195e65042abcc113258e723f1398cc"
+    },
+    "integration/README.md": {
+      "bytes": 17647,
+      "sha256": "ac0b902286ddb119674e311f53c80d035a6d3b361029081ec67e84843b5d6a8b"
+    },
+    "receipt/README.md": {
+      "bytes": 17998,
+      "sha256": "278b350d8d80c830692888c82db96a03f5735a784f3807c632c0b00d5f5a28bd"
+    },
+    "receipt/fixture.S": {
+      "bytes": 1803,
+      "sha256": "6cc196de4e7ef941411142ba335576b571c1beec7a2ef881f78fbd29f64a40f9"
+    },
+    "receipt/receipt.c": {
+      "bytes": 22019,
+      "sha256": "19d46afc34c05bbfaf19f6b2fc091fddb3af2b671b3fdd1373b524e07709d57a"
+    },
+    "receipt/receipt.h": {
+      "bytes": 6397,
+      "sha256": "abde4ac8f1d35fea71541f26103d5ea1b03dd44e1e475ba5b2fb65fd330dcb4d"
+    },
+    "receipt/result.json": {
+      "bytes": 126136,
+      "sha256": "a5719f4674eccd9a2be4812ba40d21a3eea5fe7c9bd53e8f86b949c3d52d7742"
+    },
+    "receipt/transform-installer.py": {
+      "bytes": 18646,
+      "sha256": "38cece95d46b82041578efd6c95420d42db95ff5f0b16084aaf7dbb40f75aeda"
+    },
+    "receipt/transformation-ledger.json": {
+      "bytes": 4281,
+      "sha256": "6c56510b74070999b6c41f6f2e04827a75a5ec5bb3663f54a48af0aa2f2dd225"
+    },
+    "receipt/verification.json": {
+      "bytes": 6729,
+      "sha256": "b9f625d5e20c037c848939f3da2ca2f21f3d2633d7b5f4d00d53998da862cd24"
+    },
+    "retain-source.py": {
+      "bytes": 5383,
+      "sha256": "e1359888e866a8f901eb1c114de75db6df35b97d54a3c94c30c4cd6292a789c5"
+    },
+    "sdk/azmod-mod.h": {
+      "bytes": 32149,
+      "sha256": "b94e2ba6656c2b852f18691d32225486f29265953c8bf09dcac9a18ce561a630"
+    },
+    "sdk/azprot.h": {
+      "bytes": 5296,
+      "sha256": "0f1cc9c5d4ca212f798bf2e9d74a69507a82ce5cc59bd328bacc46816a119b33"
+    },
+    "sdk/community.c": {
+      "bytes": 102070,
+      "sha256": "4b2b72e2b623dcb1ecb0ef108a473815adab45a516a6aa13adb6cce512b80866"
+    },
+    "sdk/inline_hooks.c": {
+      "bytes": 19402,
+      "sha256": "f141b383c25e66c8acb1839280832a612a6ee0e25e9ada59f374ccbef8f81908"
+    }
+  },
+  "new_plan_inputs": 2,
+  "new_sdk_inputs": 0,
+  "old_capture_or_matrix_replay": false,
+  "private_result_sha256": "710346fcb557ab25580e9790c16694ded5fa6e658d9e686e52a65cee24b2353b",
+  "retained_files": 19,
+  "reused_inputs": 15,
+  "runtime_gate": "CLOSED",
+  "schema": 1,
+  "scope": "Source-only community claim/receipt composition plan",
+  "sdk_commit": "3e0c5cb010454228f4ee63226b60d060494eeaae",
+  "source_git_reads": 0,
+  "status": "retained"
+}
