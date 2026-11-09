@@ -1,0 +1,58 @@
+# Fault-reader operating contract
+
+This source-only review follows the [offline module attribution fixture](../activation-module-attribution-fixture/README.md) at `fc715289b2dc020202e7cc522c902c6190c4c841`. Immutable owner lookup now has bounded offline evidence; the complete signal-to-attribution path still lacks an established operating contract. The shared once guard, native frame and persistence providers, handler installation/chaining, and thread exit conditions are separate obligations. Ownership is not fault causation. All live gates remain **CLOSED**.
+
+No source transformer, compiler, loader, installer, matrix, signal, native frame read, crash-persistence operation, emulator or device is run by this review. Existing successful matrices and their failures remain frozen. [The machine-readable contract](operating-contract.json) pins reused inputs and line-byte anchors. [Retention metadata](result.json) and [independent verification](verification.json) record this review's source packet; structural checks are not runtime cases.
+
+## Which entry is being discussed
+
+| Entry | Established by the selected source | Remaining requirement |
+| --- | --- | --- |
+| Ordinary fixture `ma_owner_index` | Four permanent module slots are acquired individually, then the unchanged generated reader is consulted. After a module miss, a generated Core or unresolved Community identity yields no Community index. | Valid permanent tables, intact stack and dependencies, supported ordinary entry, and a writer that obeys the publication contract. Per-slot reads are not a coherent snapshot. |
+| Main reporter after a successful per-TID claim | Sixteen atomic TID slots let `cr_handler` detect its own already-entered thread before calling attribution. The slot remains occupied through ordinary callback chaining. | This is per-thread recursion handling, not serialization of different faulting threads. The source does not supply emitted-code or native signal evidence for these reporter atomics. |
+| Main reporter before its claim | It obtains a TID, scans for that TID, then separately attempts a free slot. | The scan and claim are not one terminal entry transition. Do not extend the post-claim recursion property to every possible nested entry or fault in this interval. |
+| Separate `cm_crash` route | Calls attribution from supplied AArch64 context, restores its saved disposition and re-raises SIGABRT. It has no reporter TID slot. | Its entry/continuation contract differs from `cr_handler`; no generic process-termination or same-thread consumer exclusion follows. |
+| Direct/nonparticipating consumer entry | The consumer itself has only a plain volatile test then store. | Callers cannot borrow the main reporter's TID fence. Arbitrary signal numbers, context pointers and callback arguments are not supported inputs to the handlers. |
+| Simple SIGSEGV observer | The selected fallback uses direct frame loads and does not call the attribution consumer. | Its lack of SA_ONSTACK and direct reads cannot inherit the native-read or model conclusions of the other paths. |
+
+The installed main/community actions specify SA_SIGINFO and SA_ONSTACK, an empty additional mask, and no explicit SA_NODEFER. This is a source description, not verification of actual installed dispositions, incoming thread masks or every kernel delivery condition. Previous callbacks can also be called directly by `cr_chain`, which is not a fresh kernel delivery applying that previous action's mask and other flags.
+
+## Once means an attempted operation here
+
+The exact `cm_blame_fault` body reads a function-static `volatile int written`, returns if nonzero, then stores one **before** ownership lookup, frame reads or file operations. The ordinary serial behavior is permanent suppression after the first attempted attribution. A missing owner, rejected frame read, failed open, short write, failed fsync or failed close does not reopen the attempt. When an owner is found, its ID is returned even if persistence fails.
+
+That read-then-store is not an atomic admission operation and supplies no cross-thread synchronization. Distinct threads can claim distinct reporter slots and reach it concurrently. A schedule in which both observe zero is a source-level counterexample to an exactly-one claim, not an executed race or a claim of defined C behavior under unsynchronized concurrent access. The normal post-claim main-handler route detects same-thread reentry before this consumer; that fact must be preserved. The consumer in isolation and the separate `cm_crash`/nonparticipating routes do not have that fence. A nested consumer call before the store versus after it has different source-level consequences.
+
+Attribution happens before the main reporter's duplicate-PC suppression. The latter uses two separate plain volatile values, `last_pc` and `last_sig`; it does not provide a coherent pair or serialize the consumer. Immutable module flags do not repair these other shared variables.
+
+## Installation, chaining and stack custody
+
+A successful crash-log open sets `g_cr_fd`; installation then ignores each of five `sigaction` results. Both alternative installers use the nonnegative FD as an armed proxy. It therefore does not establish that all five dispositions were installed. The watcher is conditional on successful thread creation and progress through thirty sleep/rearm iterations; it is neither perpetual supervision nor an exact elapsed-time guarantee.
+
+Rearm checks callback pointer equality, not the complete action flags/mask. On a changed handler it installs the new action first, then assigns the returned previous action to plain `g_cr_old[sig]`. The handler reads that structure without a publication protocol in these selected files. This exposes an unresolved installation/publication interval and watcher/handler access contract. No such failure was observed.
+
+The main reporter directly calls a prior SA_SIGINFO or simple callback, otherwise restores the saved disposition (including SIG_IGN) and conditionally raises. Its claimed TID slot is released only if that callback returns ordinarily. A terminating signal or nonlocal exit can bypass release; no reclamation or cleanup guarantee is established. Restoring a disposition, returning from a callback and safely recovering the interrupted operation are different events.
+
+Alternate-stack setup preserves an already-enabled stack without proving its size or ownership. Setup can fail; both the constructor and thread wrapper ignore the result before continuing. Page-size arithmetic, failed cleanup, ignored `pthread_setspecific`, ignored disable and unmap outcomes remain explicit limitations. A successful wrapped pthread creation is not evidence that its alternate stack was installed or registered for cleanup. These sources establish selected wrapped callers, not every native or third-party thread. Thread-exit cleanup is not a callback/signal quiescence protocol. Header comments describing universal stack coverage or signal safety are not a substitute for those missing facts.
+
+## Native reads and persistence are outside the fixture
+
+The attribution consumer reads at most sixteen frame records, next-FP then RA, using short-circuit failure. It looks up the RA before rejecting a nonincreasing next-FP. `crash_peek8` applies the aligned numeric address predicate and accepts only an exactly eight-byte `process_vm_readv` result. It retains neither raw return nor errno, performs no retry, and supplies no stable two-word snapshot or ownership/lifetime evidence. A readable address is not proof that the bytes remain the interrupted frame. The main reporter has a separate forty-frame walk; the simple observer directly loads up to twenty-four records. These are distinct scopes.
+
+Blame uses a single O_TRUNC open/write attempt followed by fsync/close when open succeeded. The write comparison has no corrective body; neither fsync nor close changes the selected ID. The unblamed path additionally reads plain `g_cm_live`, obtains an unchecked time value, appends a decimal timestamp, and discards persistence outcomes. None of these selected boundaries preserves entry errno. There is no bounded completion deadline or durable-blame receipt here.
+
+Both the fixture's actual-DSO and model-only selectors use authored integer frame cells and configured file providers. Its `ma_note_unblamed` replaces the entire unblamed SDK provider with an observation increment: it does not test the live-mod gate, clock or append-file behavior. The held-writer case calls `ma_owner_index` only after publication and thread creation; it does not call the full consumer concurrently. The modeled short-write case then calls the consumer a second time serially. These distinctions prevent relabeling existing passing tests as native signal, reentry, errno or persistence evidence.
+
+## Lifetime and emitted dependencies
+
+The original SDK's static `g_cm` storage establishes storage duration, but plain count/range writes and reads do not establish the immutable publication discipline implemented in the separate fixture. Constructor-before-provenance and provenance-refusal visibility gaps remain. The fixture preserves validated module IDs, generated records, successful DSO handles, originals and replacements permanently after publication and partial init failure. Capture closure does not drain callbacks or permit reclamation. Model-only overlap and later masking are policy observations, not actual dynamic-loader admission proof.
+
+The predecessor's retained GCC object demonstrates selected normal-path payload stores before STLR and LDAR branches before payload reads. Normal reader calls include `memcpy` and `memcmp`; the complete consumer additionally has its own dependencies. Exact symbol/byte correspondence does not establish dynamic binding, interposition, lazy resolution or transitive libc behavior.
+
+GCC's exact `ma_generated_index` canary-mismatch path calls `__stack_chk_fail`; the reviewed normal path returns only with matching guards. Stack protection remains enabled. The earlier oracle refusal and two-artifact adoption remain valid historical evidence. This review reuses that evidence without replay and does not execute or bless the failure helper. A contract for intact-stack ordinary lookup cannot silently become a contract for every fatal-signal or stack-corruption context.
+
+## Conditions for any later executable scope
+
+Before extending beyond ordinary fixed-fixture lookup, identify one supported entry route, valid argument/state custody, actual installation and stack outcomes, concurrent/reentrant attempt ownership, previous-action publication and ordinary/nonlocal return behavior. Native frame providers need separately retained raw outcomes and an accepted lifetime/failure model. Persistence needs a distinct attempted/completed outcome that cannot turn an unknown write into retry or reset. Dependency resolution, relevant atomic codegen, signals/nonlocal exits, external writers and recovery remain gates.
+
+The next bounded step is a separately scoped **source-only fault-attempt admission plan**. Specify a fixed process-lifetime, terminal attempt record that separates admission, selected ownership, ordinary returned I/O outcomes and incomplete/unknown stages, while preserving one-attempt suppression and every quarantine policy. Define deterministic value-only schedules for competing and nested requests before implementation; do not execute an actual data race or change the frozen consumer. Keep handler installation/chaining, native providers, signal delivery, nonlocal exits and any production integration deferred. This is not authorization for a runtime repair or live observer.

@@ -1,0 +1,176 @@
+{
+  "anchors": 30,
+  "artifacts": {
+    "anchor-index.json": {
+      "bytes": 9599,
+      "sha256": "d6f030dae34b87d4ab87ef2e30a6708775bc328d130b94fa7e5c1e75898e32a0"
+    }
+  },
+  "baseline_commit": "fc715289b2dc020202e7cc522c902c6190c4c841",
+  "child_commands": [],
+  "closed_inventory": true,
+  "compiler_loader_installer_or_matrix_execution": false,
+  "firmware_or_device_access": false,
+  "inputs": {
+    "README.md": {
+      "bytes": 11701,
+      "sha256": "90ba1e6ddaa039350dc73c3d162b7f00b59c7bf3afd9e409111ce3045f86421d"
+    },
+    "codegen/core-disassembly.txt": {
+      "bytes": 220008,
+      "sha256": "170f12a98f1e8a98e1381aa8810891d89ee0c06b79afe88d82262aad50d06bdf"
+    },
+    "codegen/reader-codegen.json": {
+      "bytes": 88863,
+      "sha256": "10ec94cb249261091e1b1d21092e8feaaac3bad56479812286e912534bdcb0e0"
+    },
+    "fixture/README.md": {
+      "bytes": 9637,
+      "sha256": "d03348ac8b266ca94bc6b7b198f3fdfad334aa1b89a9b8fcb949b702e99f767a"
+    },
+    "fixture/attribution.inc": {
+      "bytes": 10365,
+      "sha256": "a39be49ab125639d0aa048ace337e822cf16e3c71c37e538ff8545183cb9f836"
+    },
+    "fixture/core.c": {
+      "bytes": 25819,
+      "sha256": "1010ac70c7e2284577a9e2d5d52ccc944cf6d32f928e71f210bb3e4ff046c9c8"
+    },
+    "fixture/pinned-consumer.inc": {
+      "bytes": 962,
+      "sha256": "9e31f235353a169e46f366ec33488076829b9383bc0fd0c462b465a0ddef70b4"
+    },
+    "fixture/receipt-body.inc": {
+      "bytes": 15570,
+      "sha256": "60233581d6a882d9e57e6b6fc9602ce440783060446872148f94e9e7205bc02e"
+    },
+    "fixture/test_module.c": {
+      "bytes": 30336,
+      "sha256": "387fa641ac792627d697e8fd2750531a60d9587ee0691dfc3b917734e9906027"
+    },
+    "fixture/verification.json": {
+      "bytes": 6427,
+      "sha256": "ae68aa7c8573a3ab7d3454f56cb7a33a86671391d8391735c835c4f9f5fc0b9c"
+    },
+    "operating-contract.json": {
+      "bytes": 16431,
+      "sha256": "d6879db76a09b3c3e475f6ec7d69d0a0087dafd2eafde3ae2896a55b092a263f"
+    },
+    "retain-source.py": {
+      "bytes": 12344,
+      "sha256": "a9636a371ee2d5272ac805c891d4e9a024afd34c8e974ca541551e8a67817e28"
+    },
+    "sdk/azaltstack.h": {
+      "bytes": 4275,
+      "sha256": "f929777434f77e31a91055588e897158d6bfd8c6adc993dde0eeeca04eccbd4c"
+    },
+    "sdk/azmod.c": {
+      "bytes": 138282,
+      "sha256": "d4fc94472f507694720cb122064f4f571ed41c3a531f67cc64f81795c4a9cf78"
+    },
+    "sdk/community.c": {
+      "bytes": 102070,
+      "sha256": "4b2b72e2b623dcb1ecb0ef108a473815adab45a516a6aa13adb6cce512b80866"
+    },
+    "sdk/crash_guards.c": {
+      "bytes": 23133,
+      "sha256": "358499ca5bccf3f71944ce408c02fa76b598ba5c81e81d4a2151b6d5e38727ab"
+    },
+    "sdk/ep_mem.h": {
+      "bytes": 10147,
+      "sha256": "aa1e4a60ea05ff2b00f53c37634f3614fc51ecfd6dac500b2b59ee86dcbb6e5d"
+    }
+  },
+  "inventory": {
+    "anchor-index.json": {
+      "bytes": 9599,
+      "sha256": "d6f030dae34b87d4ab87ef2e30a6708775bc328d130b94fa7e5c1e75898e32a0"
+    },
+    "inputs/README.md": {
+      "bytes": 11701,
+      "sha256": "90ba1e6ddaa039350dc73c3d162b7f00b59c7bf3afd9e409111ce3045f86421d"
+    },
+    "inputs/codegen/core-disassembly.txt": {
+      "bytes": 220008,
+      "sha256": "170f12a98f1e8a98e1381aa8810891d89ee0c06b79afe88d82262aad50d06bdf"
+    },
+    "inputs/codegen/reader-codegen.json": {
+      "bytes": 88863,
+      "sha256": "10ec94cb249261091e1b1d21092e8feaaac3bad56479812286e912534bdcb0e0"
+    },
+    "inputs/fixture/README.md": {
+      "bytes": 9637,
+      "sha256": "d03348ac8b266ca94bc6b7b198f3fdfad334aa1b89a9b8fcb949b702e99f767a"
+    },
+    "inputs/fixture/attribution.inc": {
+      "bytes": 10365,
+      "sha256": "a39be49ab125639d0aa048ace337e822cf16e3c71c37e538ff8545183cb9f836"
+    },
+    "inputs/fixture/core.c": {
+      "bytes": 25819,
+      "sha256": "1010ac70c7e2284577a9e2d5d52ccc944cf6d32f928e71f210bb3e4ff046c9c8"
+    },
+    "inputs/fixture/pinned-consumer.inc": {
+      "bytes": 962,
+      "sha256": "9e31f235353a169e46f366ec33488076829b9383bc0fd0c462b465a0ddef70b4"
+    },
+    "inputs/fixture/receipt-body.inc": {
+      "bytes": 15570,
+      "sha256": "60233581d6a882d9e57e6b6fc9602ce440783060446872148f94e9e7205bc02e"
+    },
+    "inputs/fixture/test_module.c": {
+      "bytes": 30336,
+      "sha256": "387fa641ac792627d697e8fd2750531a60d9587ee0691dfc3b917734e9906027"
+    },
+    "inputs/fixture/verification.json": {
+      "bytes": 6427,
+      "sha256": "ae68aa7c8573a3ab7d3454f56cb7a33a86671391d8391735c835c4f9f5fc0b9c"
+    },
+    "inputs/operating-contract.json": {
+      "bytes": 16431,
+      "sha256": "d6879db76a09b3c3e475f6ec7d69d0a0087dafd2eafde3ae2896a55b092a263f"
+    },
+    "inputs/retain-source.py": {
+      "bytes": 12344,
+      "sha256": "a9636a371ee2d5272ac805c891d4e9a024afd34c8e974ca541551e8a67817e28"
+    },
+    "inputs/sdk/azaltstack.h": {
+      "bytes": 4275,
+      "sha256": "f929777434f77e31a91055588e897158d6bfd8c6adc993dde0eeeca04eccbd4c"
+    },
+    "inputs/sdk/azmod.c": {
+      "bytes": 138282,
+      "sha256": "d4fc94472f507694720cb122064f4f571ed41c3a531f67cc64f81795c4a9cf78"
+    },
+    "inputs/sdk/community.c": {
+      "bytes": 102070,
+      "sha256": "4b2b72e2b623dcb1ecb0ef108a473815adab45a516a6aa13adb6cce512b80866"
+    },
+    "inputs/sdk/crash_guards.c": {
+      "bytes": 23133,
+      "sha256": "358499ca5bccf3f71944ce408c02fa76b598ba5c81e81d4a2151b6d5e38727ab"
+    },
+    "inputs/sdk/ep_mem.h": {
+      "bytes": 10147,
+      "sha256": "aa1e4a60ea05ff2b00f53c37634f3614fc51ecfd6dac500b2b59ee86dcbb6e5d"
+    },
+    "result.json": {
+      "bytes": 10284,
+      "sha256": "8624b875706885575f9779f0ed19616effcea5850a27f20d7ce545bbdceeab8f"
+    }
+  },
+  "inventory_excludes": [],
+  "new_plan_inputs": 3,
+  "new_sdk_inputs": 0,
+  "old_capture_or_matrix_replay": false,
+  "plan_status": "source-reviewed-not-integrated",
+  "private_result_sha256": "8624b875706885575f9779f0ed19616effcea5850a27f20d7ce545bbdceeab8f",
+  "retained_files": 19,
+  "reused_inputs": 14,
+  "runtime_gate": "CLOSED",
+  "schema": 1,
+  "scope": "Source-only fault-reader operating-contract review",
+  "sdk_commit": "3e0c5cb010454228f4ee63226b60d060494eeaae",
+  "source_git_reads": 0,
+  "status": "retained"
+}

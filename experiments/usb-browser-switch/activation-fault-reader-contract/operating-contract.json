@@ -1,0 +1,440 @@
+{
+  "schema": 1,
+  "status": "source-reviewed-not-integrated",
+  "runtime_gate": "CLOSED",
+  "sdk_commit": "3e0c5cb010454228f4ee63226b60d060494eeaae",
+  "baseline_commit": "fc715289b2dc020202e7cc522c902c6190c4c841",
+  "scope": "Source-only fault-reader operating contract; ownership is not causation",
+  "sources": [
+    {
+      "name": "sdk/crash_guards.c",
+      "path": "experiments/usb-browser-switch/activation-unwind-policy/private/capture-4d7eb81ff4e04f6099c87eaa42bc66d3/inputs/sdk/src/azmod/crash_guards.c",
+      "bytes": 23133,
+      "sha256": "358499ca5bccf3f71944ce408c02fa76b598ba5c81e81d4a2151b6d5e38727ab"
+    },
+    {
+      "name": "sdk/community.c",
+      "path": "experiments/usb-browser-switch/activation-unwind-policy/private/capture-4d7eb81ff4e04f6099c87eaa42bc66d3/inputs/sdk/src/azmod/community.c",
+      "bytes": 102070,
+      "sha256": "4b2b72e2b623dcb1ecb0ef108a473815adab45a516a6aa13adb6cce512b80866"
+    },
+    {
+      "name": "sdk/ep_mem.h",
+      "path": "experiments/usb-browser-switch/activation-unwind-policy/private/capture-4d7eb81ff4e04f6099c87eaa42bc66d3/inputs/sdk/src/azmod/ep_mem.h",
+      "bytes": 10147,
+      "sha256": "aa1e4a60ea05ff2b00f53c37634f3614fc51ecfd6dac500b2b59ee86dcbb6e5d"
+    },
+    {
+      "name": "sdk/azaltstack.h",
+      "path": "experiments/usb-browser-switch/activation-unwind-policy/private/capture-4d7eb81ff4e04f6099c87eaa42bc66d3/inputs/sdk/src/common/azaltstack.h",
+      "bytes": 4275,
+      "sha256": "f929777434f77e31a91055588e897158d6bfd8c6adc993dde0eeeca04eccbd4c"
+    },
+    {
+      "name": "sdk/azmod.c",
+      "path": "experiments/usb-browser-switch/activation-unwind-policy/private/capture-4d7eb81ff4e04f6099c87eaa42bc66d3/inputs/sdk/src/azmod/azmod.c",
+      "bytes": 138282,
+      "sha256": "d4fc94472f507694720cb122064f4f571ed41c3a531f67cc64f81795c4a9cf78"
+    },
+    {
+      "name": "fixture/attribution.inc",
+      "path": "experiments/usb-browser-switch/activation-module-attribution-fixture/attribution.inc",
+      "bytes": 10365,
+      "sha256": "a39be49ab125639d0aa048ace337e822cf16e3c71c37e538ff8545183cb9f836"
+    },
+    {
+      "name": "fixture/core.c",
+      "path": "experiments/usb-browser-switch/activation-module-attribution-fixture/core.c",
+      "bytes": 25819,
+      "sha256": "1010ac70c7e2284577a9e2d5d52ccc944cf6d32f928e71f210bb3e4ff046c9c8"
+    },
+    {
+      "name": "fixture/test_module.c",
+      "path": "experiments/usb-browser-switch/activation-module-attribution-fixture/test_module.c",
+      "bytes": 30336,
+      "sha256": "387fa641ac792627d697e8fd2750531a60d9587ee0691dfc3b917734e9906027"
+    },
+    {
+      "name": "fixture/README.md",
+      "path": "experiments/usb-browser-switch/activation-module-attribution-fixture/README.md",
+      "bytes": 9637,
+      "sha256": "d03348ac8b266ca94bc6b7b198f3fdfad334aa1b89a9b8fcb949b702e99f767a"
+    },
+    {
+      "name": "fixture/verification.json",
+      "path": "experiments/usb-browser-switch/activation-module-attribution-fixture/verification.json",
+      "bytes": 6427,
+      "sha256": "ae68aa7c8573a3ab7d3454f56cb7a33a86671391d8391735c835c4f9f5fc0b9c"
+    },
+    {
+      "name": "fixture/receipt-body.inc",
+      "path": "experiments/usb-browser-switch/activation-module-attribution-fixture/private/run-436494e0f4e44d2f955b99adf6227d72/generated/receipt-body.inc",
+      "bytes": 15570,
+      "sha256": "60233581d6a882d9e57e6b6fc9602ce440783060446872148f94e9e7205bc02e"
+    },
+    {
+      "name": "fixture/pinned-consumer.inc",
+      "path": "experiments/usb-browser-switch/activation-module-attribution-fixture/private/run-436494e0f4e44d2f955b99adf6227d72/generated/pinned-consumer.inc",
+      "bytes": 962,
+      "sha256": "9e31f235353a169e46f366ec33488076829b9383bc0fd0c462b465a0ddef70b4"
+    },
+    {
+      "name": "codegen/reader-codegen.json",
+      "path": "experiments/usb-browser-switch/activation-module-attribution-fixture/private/run-436494e0f4e44d2f955b99adf6227d72/work/build/standalone/plain/reader-codegen.json",
+      "bytes": 88863,
+      "sha256": "10ec94cb249261091e1b1d21092e8feaaac3bad56479812286e912534bdcb0e0"
+    },
+    {
+      "name": "codegen/core-disassembly.txt",
+      "path": "experiments/usb-browser-switch/activation-module-attribution-fixture/private/run-436494e0f4e44d2f955b99adf6227d72/work/build/standalone/plain/core-disassembly.txt",
+      "bytes": 220008,
+      "sha256": "170f12a98f1e8a98e1381aa8810891d89ee0c06b79afe88d82262aad50d06bdf"
+    }
+  ],
+  "anchors": [
+    {
+      "id": "simple-observer",
+      "source": "sdk/crash_guards.c",
+      "first_line": 51,
+      "last_line": 85,
+      "reason": "Direct native frame loads; separate handler scope."
+    },
+    {
+      "id": "simple-install",
+      "source": "sdk/crash_guards.c",
+      "first_line": 159,
+      "last_line": 177,
+      "reason": "File-descriptor armed proxy and simple SA_SIGINFO flags."
+    },
+    {
+      "id": "report-output",
+      "source": "sdk/crash_guards.c",
+      "first_line": 262,
+      "last_line": 277,
+      "reason": "Atomic attempted-byte accounting and ignored write return."
+    },
+    {
+      "id": "report-reentry",
+      "source": "sdk/crash_guards.c",
+      "first_line": 310,
+      "last_line": 360,
+      "reason": "Sixteen per-TID atomic slots and separate scan/claim steps."
+    },
+    {
+      "id": "report-attribution",
+      "source": "sdk/crash_guards.c",
+      "first_line": 361,
+      "last_line": 379,
+      "reason": "Attribution precedes plain volatile duplicate suppression."
+    },
+    {
+      "id": "report-native-frames",
+      "source": "sdk/crash_guards.c",
+      "first_line": 422,
+      "last_line": 454,
+      "reason": "Returned ID use and separate forty-frame walk."
+    },
+    {
+      "id": "report-chain",
+      "source": "sdk/crash_guards.c",
+      "first_line": 480,
+      "last_line": 499,
+      "reason": "Slot release after direct chain return; saved default/ignore restoration."
+    },
+    {
+      "id": "report-rearm",
+      "source": "sdk/crash_guards.c",
+      "first_line": 500,
+      "last_line": 527,
+      "reason": "Pointer-only action check and post-install plain previous-action assignment."
+    },
+    {
+      "id": "report-install",
+      "source": "sdk/crash_guards.c",
+      "first_line": 529,
+      "last_line": 547,
+      "reason": "Ignored sigaction outcomes after opening log."
+    },
+    {
+      "id": "original-storage",
+      "source": "sdk/community.c",
+      "first_line": 80,
+      "last_line": 112,
+      "reason": "Static original module storage and plain counts."
+    },
+    {
+      "id": "original-owner",
+      "source": "sdk/community.c",
+      "first_line": 1502,
+      "last_line": 1536,
+      "reason": "Original min/max range construction and unsynchronized owner scan."
+    },
+    {
+      "id": "unblamed-provider",
+      "source": "sdk/community.c",
+      "first_line": 1538,
+      "last_line": 1554,
+      "reason": "Plain live-mod gate and unretained time/file outcomes."
+    },
+    {
+      "id": "exact-consumer",
+      "source": "sdk/community.c",
+      "first_line": 1561,
+      "last_line": 1587,
+      "reason": "Exact volatile once guard, sixteen frames and returned ownership despite file outcomes."
+    },
+    {
+      "id": "community-handler",
+      "source": "sdk/community.c",
+      "first_line": 1588,
+      "last_line": 1620,
+      "reason": "Separate signal continuation and installation FD proxy."
+    },
+    {
+      "id": "original-load-retention",
+      "source": "sdk/community.c",
+      "first_line": 1804,
+      "last_line": 1857,
+      "reason": "Original loader/init path; retained handles after later refusal."
+    },
+    {
+      "id": "original-count-publication",
+      "source": "sdk/community.c",
+      "first_line": 1884,
+      "last_line": 1916,
+      "reason": "Count increment precedes record initialization in selected original loops."
+    },
+    {
+      "id": "native-address-predicate",
+      "source": "sdk/ep_mem.h",
+      "first_line": 41,
+      "last_line": 43,
+      "reason": "Aligned numeric address bounds."
+    },
+    {
+      "id": "native-frame-provider",
+      "source": "sdk/ep_mem.h",
+      "first_line": 97,
+      "last_line": 109,
+      "reason": "Exact-eight native provider; comments do not establish target runtime safety."
+    },
+    {
+      "id": "altstack-release",
+      "source": "sdk/azaltstack.h",
+      "first_line": 37,
+      "last_line": 49,
+      "reason": "Ignored disable/unmap results and key creation."
+    },
+    {
+      "id": "altstack-setup",
+      "source": "sdk/azaltstack.h",
+      "first_line": 51,
+      "last_line": 82,
+      "reason": "Existing-stack preservation, fallible setup and ignored destructor registration."
+    },
+    {
+      "id": "altstack-wrapper",
+      "source": "sdk/azaltstack.h",
+      "first_line": 85,
+      "last_line": 107,
+      "reason": "Thread body runs after unchecked setup result."
+    },
+    {
+      "id": "constructor-setup",
+      "source": "sdk/azmod.c",
+      "first_line": 2835,
+      "last_line": 2886,
+      "reason": "Build/process gate, ignored main-thread stack result and conditional watcher creation."
+    },
+    {
+      "id": "fallback-call",
+      "source": "sdk/azmod.c",
+      "first_line": 2614,
+      "last_line": 2626,
+      "reason": "Simple observer inside selected nowave condition."
+    },
+    {
+      "id": "immutable-modules",
+      "source": "fixture/attribution.inc",
+      "first_line": 16,
+      "last_line": 61,
+      "reason": "Permanent canonical IDs and one-way slot commit."
+    },
+    {
+      "id": "immutable-readers",
+      "source": "fixture/attribution.inc",
+      "first_line": 70,
+      "last_line": 115,
+      "reason": "Independent acquisitions, module-first and unique Community identity."
+    },
+    {
+      "id": "modeled-providers",
+      "source": "fixture/attribution.inc",
+      "first_line": 116,
+      "last_line": 196,
+      "reason": "Serial integer/file providers and entire unblamed-provider substitution."
+    },
+    {
+      "id": "frozen-consumer-body",
+      "source": "fixture/pinned-consumer.inc",
+      "first_line": 1,
+      "last_line": 27,
+      "reason": "Exact 962-byte consumer reused without editing."
+    },
+    {
+      "id": "frozen-generated-reader",
+      "source": "fixture/receipt-body.inc",
+      "first_line": 340,
+      "last_line": 351,
+      "reason": "Unchanged bounded generated reader and metadata copy."
+    },
+    {
+      "id": "short-write-serial",
+      "source": "fixture/test_module.c",
+      "first_line": 187,
+      "last_line": 204,
+      "reason": "Modeled short write then later serial suppression, no native persistence."
+    },
+    {
+      "id": "held-writer-lookup",
+      "source": "fixture/test_module.c",
+      "first_line": 320,
+      "last_line": 333,
+      "reason": "Owner lookup only, published before thread creation and joined under held locks."
+    }
+  ],
+  "findings": [
+    {
+      "id": "attempt-not-success",
+      "status": "source-established",
+      "statement": "Written is set before lookup/I/O and never reset; ownership return does not acknowledge persistence.",
+      "anchors": [
+        "exact-consumer",
+        "unblamed-provider"
+      ],
+      "observed_native_failure": false
+    },
+    {
+      "id": "thread-scope",
+      "status": "source-derived-limit",
+      "statement": "Main reporter post-claim same-thread recursion is fenced, but separate TIDs may reach the shared non-atomic guard. Preclaim, cm_crash and nonparticipating routes differ.",
+      "anchors": [
+        "report-reentry",
+        "report-attribution",
+        "community-handler"
+      ],
+      "observed_native_failure": false
+    },
+    {
+      "id": "armed-proxy",
+      "status": "source-derived-limit",
+      "statement": "Open log descriptor does not establish successful installation of five ignored sigaction outcomes; alternate installers defer on that proxy.",
+      "anchors": [
+        "simple-install",
+        "report-install",
+        "community-handler"
+      ],
+      "observed_native_failure": false
+    },
+    {
+      "id": "previous-action-publication",
+      "status": "source-derived-limit",
+      "statement": "Rearm installs first and assigns previous action afterward, without a reader publication protocol; pointer match does not compare flags or mask.",
+      "anchors": [
+        "report-rearm",
+        "report-chain"
+      ],
+      "observed_native_failure": false
+    },
+    {
+      "id": "ordinary-return-required",
+      "status": "source-derived-limit",
+      "statement": "TID release follows direct callback return; nonlocal exit cleanup is absent in this selected path.",
+      "anchors": [
+        "report-chain"
+      ],
+      "observed_native_failure": false
+    },
+    {
+      "id": "altstack-not-universal",
+      "status": "source-derived-limit",
+      "statement": "Selected setup and cleanup outcomes are ignored; wrapped pthread success does not prove stack setup or destructor registration.",
+      "anchors": [
+        "altstack-release",
+        "altstack-setup",
+        "altstack-wrapper",
+        "constructor-setup"
+      ],
+      "observed_native_failure": false
+    },
+    {
+      "id": "frames-not-lifetime",
+      "status": "source-derived-limit",
+      "statement": "Two successful reads are not a coherent pair or proof of stack ownership; raw native return/errno are discarded.",
+      "anchors": [
+        "native-address-predicate",
+        "native-frame-provider",
+        "exact-consumer"
+      ],
+      "observed_native_failure": false
+    },
+    {
+      "id": "provider-model-gap",
+      "status": "source-established",
+      "statement": "Actual-DSO selectors still use serial frame/file providers; unblamed path is replaced wholesale, held-writer calls only owner lookup.",
+      "anchors": [
+        "modeled-providers",
+        "short-write-serial",
+        "held-writer-lookup"
+      ],
+      "observed_native_failure": false
+    },
+    {
+      "id": "immutable-not-whole-handler",
+      "status": "source-established",
+      "statement": "Fixture immutable payloads retain permanent custody; full consumer volatile guard and native dependencies are separate.",
+      "anchors": [
+        "immutable-modules",
+        "immutable-readers",
+        "frozen-consumer-body",
+        "frozen-generated-reader"
+      ],
+      "observed_native_failure": false
+    },
+    {
+      "id": "codegen-normal-only",
+      "status": "retained-predecessor-evidence",
+      "statement": "Retained plain object review identifies acquire/release order, normal memcpy/memcmp and exact canary mismatch failure edge. No new code generation or code audit replay.",
+      "anchors": [],
+      "observed_native_failure": false
+    }
+  ],
+  "non_execution": {
+    "new_sdk_reads": 0,
+    "compiler": false,
+    "loader": false,
+    "installer": false,
+    "runtime_matrix": false,
+    "signals": false,
+    "native_frames": false,
+    "persistence": false,
+    "device": false,
+    "old_passing_replay": false
+  },
+  "predecessor_pins": {
+    "module_fixture_result": "eb97e4590bc07908b0526a75a979c260d825059ddd3c73a686a9a87b8fd77daa",
+    "module_fixture_auditor": "411c25dd6ad1f33175d28265e18097a26755154906d1b1fdee37ff27ae3cc39c",
+    "initial_guard_oracle_failure": "4874e3c32ca25e01acc43e7f54e13c50aec61d6931bdfe3971307f8a19ba181c",
+    "preparation_refusal": "c8de9fc9c0758543f08ffd358417f90feea42ccb7ceb043742923c31edf952ac"
+  },
+  "operating_requirements": [
+    "Identify one supported entry and valid signal/ucontext/local-storage custody.",
+    "Preserve permanent publication; no unload/reset/reclaim after reachability.",
+    "Do not infer cross-thread attempt serialization from per-TID recursion handling.",
+    "Retain actual installation/stack outcomes before claiming coverage.",
+    "Specify previous-action publication, direct-chain ordinary return and nonlocal exit boundaries.",
+    "Native frame availability and lifetime, raw return/errno, file outcomes and completion remain distinct.",
+    "Resolve relevant emitted atomics, libc/canary binding and interposition before signal-context claims."
+  ],
+  "next_scope": "Source-only terminal fault-attempt admission plan: fixed lifetime attempt state, ownership selection and ordinary returned versus incomplete/unknown stages; preserve one-attempt suppression and quarantine policies; value-only competing/nested schedules before implementation. Defer real signal/data-race/native-provider/handler-chain execution and production integration."
+}

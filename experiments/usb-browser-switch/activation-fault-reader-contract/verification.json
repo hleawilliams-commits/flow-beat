@@ -1,0 +1,75 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "runtime_gate": "CLOSED",
+  "scope": "Source-only contract and retained bytes, not signal/runtime validation",
+  "retained_byte_audit": {
+    "anchors": 30,
+    "auditor_sha256": "e886055803ef8738cadd9ad5dec67cd11e810cba0388dc0728af26d664c60dcb",
+    "child_commands": [],
+    "compiler_runtime_device_or_old_audit_execution": false,
+    "git_reads": 0,
+    "helper": {
+      "child_execution_surface_present": false,
+      "helper_executed": false,
+      "imports": [
+        "from pathlib import Path, PurePosixPath",
+        "import argparse",
+        "import hashlib",
+        "import json",
+        "import os",
+        "import re",
+        "import stat",
+        "import sys",
+        "import uuid"
+      ],
+      "qualified_regex_calls": [
+        "re.compile",
+        "re.fullmatch"
+      ]
+    },
+    "inputs": 17,
+    "limitations": [
+      "Byte and AST checks do not prove operating-contract semantics or signal safety.",
+      "Activity assertions combine retained metadata with a source-level helper call allowlist.",
+      "This audit does not invoke the helper, compiler, loader, runtime, previous collectors, or prior audits."
+    ],
+    "new_inputs": 3,
+    "new_runtime_test_cases": 0,
+    "predecessor_codegen_and_verification": "Reused pinned input bytes only; no machine-code re-audit",
+    "private_result_sha256": "8624b875706885575f9779f0ed19616effcea5850a27f20d7ce545bbdceeab8f",
+    "public_result_sha256": "4680f02cd9131b191b0137e6c669879fb9d268d532222de7b037e2a29ca2c44d",
+    "retained_files": 19,
+    "reused_inputs": 14,
+    "runtime_gate": "CLOSED",
+    "schema": 1,
+    "scope": "Independent retained-byte/source-helper audit only",
+    "status": "passed",
+    "structural_audit_assertions": 3832
+  },
+  "private_audit_result_sha256": "4bc53232747da8efe47ece2edc6b2bab5b73b925cdc95287b35588678d9b76f4",
+  "independent_source_reviews": {
+    "status": "passed",
+    "reviewers": 3,
+    "scope": [
+      "Actual handler installation/rearm/chaining and alternate-stack source",
+      "Consumer guard, native frame/file providers and model substitutions",
+      "Immutable publication/codegen limits and retention helper"
+    ],
+    "pre_retention_precision_corrections": [
+      "Distinguished returning signal interruption from terminal/nonlocal departure.",
+      "Qualified Core/unresolved generated fallback after a module-envelope miss.",
+      "Marked unsynchronized guard schedule as reasoning, not observed race or defined concurrent C behavior."
+    ]
+  },
+  "audit_execution": {
+    "source_copied_before_execution": true,
+    "source_unchanged_after_execution": true,
+    "exit_code": 0,
+    "stderr_empty": true,
+    "first_invocation_passed": true,
+    "replay": false
+  },
+  "implementation_or_runtime_change": false,
+  "privacy": "Raw retained sources, addresses, disassembly and execution logs remain private."
+}
