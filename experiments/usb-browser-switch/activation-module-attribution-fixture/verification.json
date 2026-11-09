@@ -1,0 +1,114 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "runtime_gate": "CLOSED",
+  "retained_byte_audit": {
+    "auditor_sha256": "411c25dd6ad1f33175d28265e18097a26755154906d1b1fdee37ff27ae3cc39c",
+    "candidate_summed_assertions_across_both_modes": 108,
+    "commands": 218,
+    "inputs": 163,
+    "limitations": [
+      "Structural assertions are not runtime test counts.",
+      "Source/disassembly/ELF correspondence is not a signal, weak-memory or native visibility proof.",
+      "Actual loader inputs apply only to the fixed retained authored DSOs; overlap/identity/frame policies remain explicitly modeled.",
+      "Ownership does not establish fault causation or persisted blame.",
+      "The retained compiler canary-mismatch failure helper is excluded from bounded normal reader evidence; its transitive behavior is not established."
+    ],
+    "machines": {
+      "core_objects": 22,
+      "guard_failure_dependency": "exact ma_generated_index canary mismatch edge only",
+      "guard_failure_excluded_from_bounded_normal_read_scope": true,
+      "host_executables": 20,
+      "stack_protection_disabled": false
+    },
+    "new_runtime_processes": 52,
+    "private_result_sha256": "eb97e4590bc07908b0526a75a979c260d825059ddd3c73a686a9a87b8fd77daa",
+    "retained_files": 1373,
+    "runtime_gate": "CLOSED",
+    "schema": 1,
+    "scope": "Independent retained-byte and selected raw-fact audit only; no compiler, runner/composer import, runtime, prior audit or device execution",
+    "standalone_adoption": {
+      "artifacts_adopted": 2,
+      "compiler_or_disassembler_replayed": false,
+      "failure_packet_commands": 6,
+      "failure_packet_files": 240,
+      "initial_oracle_failure_preserved": true,
+      "source_result_sha256": "4874e3c32ca25e01acc43e7f54e13c50aec61d6931bdfe3971307f8a19ba181c",
+      "successful_commands_adopted": 2
+    },
+    "status": "passed",
+    "streams": 436,
+    "structural_audit_assertions": 210559
+  },
+  "private_audit_result_sha256": "4580086a52a2e04534e96c743eefa32d736dce06389b841e7e9934f3ddfd04ae",
+  "source_review": {
+    "status": "passed",
+    "scope": "Independent core/loader/runner and root source/control review before first build; separately reviewed canary-only oracle correction before successor build",
+    "findings": [
+      "Reviewed initial module table, unique full identity resolver and scoped aliases against frozen plan.",
+      "Before freeze found bridge reconstructed raw-valid subset omitted scan.invalid/query error; instructed exact raw_provenance capture after all actual raw predicates, separate consumed filter. Agent corrected before compile.",
+      "Complete contract separates seven actual DSO selectors and eleven model-only selectors with eight exact unmasked safe controls.",
+      "Preserve copied canonical 33-byte IDs, irreversible static payloads, exact consumer once guard, module-first per-address semantics, no native signal/frame/persistence.",
+      "Before first build, aligned Core model process_id with frozen typed Core constant {RC_OWNER_CORE,1,{0}}; no Community identity.",
+      "Before first build, narrowed runner seam exclusion to model insertion/hold symbols while retaining modeled file/frame providers, and aligned closed raw evidence schema with attribution observations.",
+      "Independent runner integration review confirms include/source paths, immutable DSO reuse, macros/configurations and canonical raw/stdout schema; root confirms no target calls and exact-control isolation.",
+      "First standalone GCC compile and disassembly succeeded; strict direct-call oracle refused compiler-injected __stack_chk_fail before host/runtime. Root and all three agents independently traced exact canary mismatch path; protection stays enabled, dependency is hash/shape bound and excluded from normal reader/path-safety claims. Preserve failure packet and reuse exact successful object/disassembly; no compiler replay."
+    ]
+  },
+  "codegen_review": {
+    "status": "passed",
+    "scope": "Selected retained GCC 7.5 Linux AArch64 standalone object, normal canary-intact reader paths only",
+    "module_reader": "LDAR then CBZ gates envelope loads; bounded four-slot stride preserves original index.",
+    "generated_identity": "LDAR then CBZ gates process and complete 33-byte ID comparison.",
+    "generated_reader": "Unchanged rc_lookup acquire gates interval loads and metadata memcpy.",
+    "publication": "Root payload and ID stores precede staging completion and call to ma_commit_locked; one-use writer state precedes STLR.",
+    "direct_normal_dependencies": [
+      "ma_generated_index",
+      "rc_lookup",
+      "memcmp",
+      "memcpy"
+    ],
+    "guard_failure": "Compiler canary mismatch reaches sole __stack_chk_fail through reviewed conditional edge. Exact method bytes and relocation/instruction pattern bound; stack protection remains enabled.",
+    "limits": [
+      "No coherent snapshot",
+      "No weak-memory or signal proof",
+      "No transitive libc behavior proof",
+      "No canary-failure-path runtime execution",
+      "No production integration"
+    ]
+  },
+  "failure_history": [
+    {
+      "stage": "standalone direct-call oracle",
+      "result_sha256": "4874e3c32ca25e01acc43e7f54e13c50aec61d6931bdfe3971307f8a19ba181c",
+      "files_including_both_results": 240,
+      "commands": 6,
+      "runtime_processes": 0,
+      "outcome": "Compilation and disassembly clean; strict oracle refused compiler canary failure dependency. Narrow method-bound correction preserves stack protection and reuses only two successful artifacts/command receipts."
+    },
+    {
+      "stage": "review-lock metadata preparation",
+      "result_sha256": "c8de9fc9c0758543f08ffd358417f90feea42ccb7ceb043742923c31edf952ac",
+      "files_including_both_results": 5,
+      "commands": 0,
+      "runtime_processes": 0,
+      "outcome": "Root supplied an extra metadata field and different status to strict review-lock schema; corrected lock only; no source/compiler/runtime change."
+    }
+  ],
+  "auditor_execution": {
+    "source_copied_before_execution": true,
+    "source_unchanged_after_execution": true,
+    "exit_code": 0,
+    "stderr_empty": true,
+    "audit_replayed": false
+  },
+  "retention": {
+    "inputs": 163,
+    "commands": 218,
+    "streams": 436,
+    "build_artifacts": 248,
+    "reports": 52,
+    "files_including_both_results": 1373
+  },
+  "private_runtime_scripts_logs_binaries_not_published": true
+}

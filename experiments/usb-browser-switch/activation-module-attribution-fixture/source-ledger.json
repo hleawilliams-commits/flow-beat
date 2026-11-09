@@ -1,0 +1,419 @@
+{
+  "schema": 1,
+  "scope": "Separately versioned offline actual-module and generated-range attribution composition",
+  "runtime_gate": "CLOSED",
+  "plan_commit": "6f57ebbe7243a303540e8888fe598414402199b4",
+  "parent_commit": "f2cbeb2fb4394c5a79854c84d9d70f4bd812e721",
+  "review_boundary": "Initial complete authored source, full diffs and eight control sets were reviewed before the first Linux build. The retained first standalone compile/disassembly succeeded but the direct-call oracle refused a compiler guard-failure helper. This separately reviewed runner/ledger successor classifies only that exact dependency and adopts those exact two artifacts without compilation replay. C/header/receipt/test/control bytes remain unchanged. No live or production integration.",
+  "source_files": {
+    "core.c": {
+      "bytes": 25819,
+      "sha256": "1010ac70c7e2284577a9e2d5d52ccc944cf6d32f928e71f210bb3e4ff046c9c8"
+    },
+    "core.h": {
+      "bytes": 3794,
+      "sha256": "5b4c6ccd567b23ac174c8f48c9d940d10a7b6b3caa4603c96fafea7567ffbe43"
+    },
+    "attribution.h": {
+      "bytes": 2407,
+      "sha256": "9dade54a479285bf3b83a0dffcbf7a92bcefdc31589291b179a910efcd9b4095"
+    },
+    "attribution.inc": {
+      "bytes": 10365,
+      "sha256": "a39be49ab125639d0aa048ace337e822cf16e3c71c37e538ff8545183cb9f836"
+    },
+    "compose-source.py": {
+      "bytes": 6894,
+      "sha256": "21e9df6563e700b09d06b206b0f4bb172d7d9b0d3a09d06b7d4104ce82e8589c"
+    },
+    "loader.c": {
+      "bytes": 22002,
+      "sha256": "e56be9ceca3207981aff0e687c330534ca161d01fad2980bc4fd3c34fdd3ba93"
+    },
+    "loader.h": {
+      "bytes": 2421,
+      "sha256": "174e1851c78674095c9fee83f80a5ca1dedb291bb8113b0877e73ceb0b83fa1a"
+    },
+    "test_module.c": {
+      "bytes": 30336,
+      "sha256": "387fa641ac792627d697e8fd2750531a60d9587ee0691dfc3b917734e9906027"
+    },
+    "test-contract.json": {
+      "bytes": 8455,
+      "sha256": "3fb2e221fe52bf6284d4525c2ba30ab6a067b500591d2ca065dae22be5592a37"
+    },
+    "run-tests.py": {
+      "bytes": 65379,
+      "sha256": "a410d0c50ecfb4f655b4662747cc15ced503b8a920b72a457aa5b132e034c5ee"
+    },
+    "core-transformations.json": {
+      "bytes": 180832,
+      "sha256": "5145e1c09b56125937db372a9befbf0c9fb3c44dfe424bac7529e5eb40439f1b"
+    }
+  },
+  "full_transformation_ledger": {
+    "path": "core-transformations.json",
+    "bytes": 180832,
+    "sha256": "5145e1c09b56125937db372a9befbf0c9fb3c44dfe424bac7529e5eb40439f1b",
+    "contents": "Complete unified source diffs and parent/successor pins for all ten authored source/tool/contract files, exact consumer aliases and three unchanged core extents."
+  },
+  "transformations": [
+    {
+      "id": "T1",
+      "files": [
+        "core.c",
+        "attribution.h",
+        "attribution.inc"
+      ],
+      "change": "Separate fixed immutable module ownership payloads from mutable g_cm lifecycle. Four never-reused original indices carry copied canonical zero-padded 33-byte ID, process identity and checked min/max envelope, plus an acquire/release committed scalar. Writer-only attempted/staged/commit-used state prevents reopen even after the deliberately defective clear-visibility control. Publication and staging stay under recursive cm then common writer."
+    },
+    {
+      "id": "T2",
+      "files": [
+        "loader.c",
+        "loader.h",
+        "core.c"
+      ],
+      "change": "The two fixed authored roots pass separately retained raw loader provenance and consumed query success through one bridge. A sole consumed-result veto precedes staging; positive fault ownership publishes before hooks/firmware capability refusal and entry/descriptor/init. Private dry query mode cannot create lifecycle/session/claims. Handles remain permanently retained after every later refusal. Root/dependency objects without independent Community identity are never published."
+    },
+    {
+      "id": "T3",
+      "files": [
+        "attribution.inc",
+        "core.c"
+      ],
+      "change": "Replace mutable lifecycle-envelope storage exclusion with the same immutable module table. Numeric owner lookup scans every fixed index, skips uncommitted holes, selects first half-open envelope including non-executable segments and gaps, then consults unchanged rc_lookup. Later synthetic module publication may mask generated instructions or own a literal address; no reverse loader exclusion or coherent snapshot is claimed."
+    },
+    {
+      "id": "T4",
+      "files": [
+        "attribution.inc"
+      ],
+      "change": "Map generated Community records only by exact nonzero process identity and canonical full 33-byte copied ID to exactly one acquired committed module. Missing/ambiguous identity and typed Core return -1, preserving the consumer LR/frame fallback. The Core model uses the existing actual cc_install_core owner values kind Core, process_id 1, empty ID; the adapter ignores that process ID for attribution because it rejects Core before identity resolution. Binding is never a module index."
+    },
+    {
+      "id": "T5",
+      "files": [
+        "attribution.inc",
+        "compose-source.py"
+      ],
+      "change": "Extract exactly the retained 962-byte cm_blame_fault body. Scoped macro aliases redirect owner lookup, stable direct ma_modules[index].id, integer-keyed frame cells and modeled open/write/fsync/close/unblamed providers; every alias is undefined immediately afterward. Original PC then LR then bounded sixteen-frame search, lookup-before-frame-progress check, once-only local volatile written guard, persistence calls and returned stable ID remain byte-identical. No real frame dereference, persistence IO or installed fault handler."
+    },
+    {
+      "id": "T6",
+      "files": [
+        "attribution.h",
+        "attribution.inc",
+        "test_module.c"
+      ],
+      "change": "Always-present modeled consumer providers keep bounded integer cells, ordered read outcomes, IO call outcomes/bytes and no reset. Separately compiled MA_MODEL insertion APIs add synthetic module/generated records and an ordinary held-writer schedule only. Model records write the unchanged registry immutable value and release flag without claiming actual mapping/emission; actual selectors execute retained installer only for their new integrated ownership cases and never invoke patched targets or replacements."
+    },
+    {
+      "id": "T7",
+      "files": [
+        "loader.c",
+        "test_module.c",
+        "test-contract.json"
+      ],
+      "change": "Record ordinary builtin constructor RA and numeric unowned lookup before successful dlopen handle recording. Seven actual and eleven synthetic selectors cover capability-independent/refused/failed-init retention, module/generated precedence, exact copied-ID persistence, modeled short-write/once behavior, frame16/17 boundaries, copied staging ID, bounded one-use publication and an ordinary read that completes while another thread holds cm/writer. Eight safe controls retain the exact reviewed plan failure sets with no duplicated masking veto. Raw query and consumed outcomes stay distinct."
+    },
+    {
+      "id": "T8",
+      "files": [
+        "compose-source.py",
+        "run-tests.py"
+      ],
+      "change": "Retain all nineteen plan inputs plus exact prior generated/header/assembly dependencies; reuse completed plain and sanitizer authored DSO binary/header/metadata artifacts under prior result/source/command/file pins with no DSO build or old runtime replay. New composer verifies source pins, writes complete parent/addition diffs and unchanged extent pins, and never executes an old transformer. New runner freezes source review before build; standalone configs omit model insertion/fixture controls. Selected noinline module reader, generated resolver, snapshot and publication methods preserve identifiable GCC disassembly extents for LDAR/STLR and direct-call checks. This is bounded dependency evidence, not libc signal safety, a whole-program race proof or a coherent table snapshot. After the first clean standalone compilation, the runner narrowly classifies the exact emitted stack-canary mismatch-only terminal call using a fixed method-body hash, twelve words and five relocations. Stack protection remains enabled; the failure path is excluded from the bounded normal-read scope. Explicit two-artifact/two-command adoption preserves unchanged source/flag provenance and the original failed result."
+    }
+  ],
+  "safe_controls": [
+    {
+      "id": "stop-at-hole",
+      "macro": "MA_CONTROL_STOP_AT_HOLE",
+      "selector": "query-refusal-and-hole",
+      "configuration": "actual",
+      "expected_failures": [
+        "published-module-after-hole-found"
+      ],
+      "safety": "Actual B read-only lookup; no entry/init/installer.",
+      "source": "attribution.inc",
+      "first_line": 105,
+      "last_line": 109,
+      "source_hunk": "#ifdef MA_CONTROL_STOP_AT_HOLE\n            break;\n#else\n            continue;\n#endif\n",
+      "hunk": {
+        "bytes": 85,
+        "sha256": "207f490361cff96c50910d737b889088a71edb8307ada2879fe3b1f84f348be3"
+      }
+    },
+    {
+      "id": "consume-raw-query-for-publication",
+      "macro": "MA_CONTROL_RAW_QUERY",
+      "selector": "query-refusal-and-hole",
+      "configuration": "actual",
+      "expected_failures": [
+        "unproven-module-remains-invisible"
+      ],
+      "safety": "No native claim/entry/init or device; raw-valid fixed A remains permanently held. Baseline has one consumed-success veto, not a duplicate masking guard.",
+      "source": "core.c",
+      "first_line": 181,
+      "last_line": 183,
+      "source_hunk": "#ifdef MA_CONTROL_RAW_QUERY\n        if (request.dry) consumed = true; /* One explicitly dry consumption veto. */\n#endif\n",
+      "hunk": {
+        "bytes": 120,
+        "sha256": "de87153fb748d55172d0a3d8731e3a9da8b0d0fd25541a0456455ccd6efcc788"
+      }
+    },
+    {
+      "id": "omit-descriptor-case-publication",
+      "macro": "MA_CONTROL_OMIT_DESCRIPTOR_PUBLICATION",
+      "selector": "descriptor-refusal-retention",
+      "configuration": "actual",
+      "expected_failures": [
+        "descriptor-refused-module-owner-retained"
+      ],
+      "safety": "Never unload or alter actual handle/range/callback outcome.",
+      "source": "core.c",
+      "first_line": 193,
+      "last_line": 195,
+      "source_hunk": "#ifdef MA_CONTROL_OMIT_DESCRIPTOR_PUBLICATION\n            publish = index != 0;\n#endif\n",
+      "hunk": {
+        "bytes": 87,
+        "sha256": "2b4b4dd7ef77b5150075852468e76f486f17d0f06a2d5f6cbafbe4cadc609645"
+      }
+    },
+    {
+      "id": "clear-fault-visibility-after-init-error",
+      "macro": "MA_CONTROL_CLEAR_INIT",
+      "selector": "partial-init-attribution",
+      "configuration": "actual",
+      "expected_failures": [
+        "failed-init-module-owner-retained",
+        "failed-init-generated-owner-resolved"
+      ],
+      "safety": "No resource reclamation or code invocation; the raw rc_lookup check still passes. This is not a production reset API.",
+      "source": "core.c",
+      "first_line": 333,
+      "last_line": 336,
+      "source_hunk": "#ifdef MA_CONTROL_CLEAR_INIT\n            if (index == 0) atomic_store_explicit(&ma_modules[index].committed, 0u,\n                                                memory_order_release);\n#endif\n",
+      "hunk": {
+        "bytes": 191,
+        "sha256": "272f3ecc8dc9c52d91bf74d687ec961af62366cf5a7b4047573c7e8fc5d07b35"
+      }
+    },
+    {
+      "id": "exec-only-module-envelope",
+      "macro": "MA_CONTROL_EXEC_ONLY",
+      "selector": "actual-module-envelope",
+      "configuration": "actual",
+      "expected_failures": [
+        "actual-module-nonexec-envelope-owned"
+      ],
+      "safety": "Use numeric queries only; do not dereference/execute descriptor address. Upper-bound probe is outside either envelope.",
+      "source": "loader.c",
+      "first_line": 309,
+      "last_line": 317,
+      "source_hunk": "#ifdef MA_CONTROL_EXEC_ONLY\n    input.fault_lo=UINTPTR_MAX;\n    input.fault_hi=0;\n    for(unsigned i=0;i<o->segment_count;i++) {\n        if(!(o->segments[i].flags&PF_X))continue;\n        if(o->segments[i].lo<input.fault_lo)input.fault_lo=o->segments[i].lo;\n        if(o->segments[i].hi>input.fault_hi)input.fault_hi=o->segments[i].hi;\n    }\n#endif\n",
+      "hunk": {
+        "bytes": 348,
+        "sha256": "7e88c5f6177bf1b278647bb0503d6308f45a6d0aacc96c276c09e64f5ee759bb"
+      }
+    },
+    {
+      "id": "generated-before-module",
+      "macro": "MA_CONTROL_GENERATED_FIRST",
+      "selector": "same-address",
+      "configuration": "model",
+      "expected_failures": [
+        "module-beats-generated-at-same-address"
+      ],
+      "safety": "Only synthetic addresses/records; no actual overlaps, mappings or old-suite replay. Other subselectors are not executed for this control.",
+      "source": "attribution.inc",
+      "first_line": 99,
+      "last_line": 102,
+      "source_hunk": "#ifdef MA_CONTROL_GENERATED_FIRST\n    int generated = ma_generated_index(address);\n    if (generated >= 0) return generated;\n#endif\n",
+      "hunk": {
+        "bytes": 132,
+        "sha256": "d06de66a3888847dabe72ee398ea0b3ae11d97b3b6eb9251e9c8882c9cce4c74"
+      }
+    },
+    {
+      "id": "omit-process-identity-match",
+      "macro": "MA_CONTROL_OMIT_PROCESS",
+      "selector": "identity-mismatch",
+      "configuration": "model",
+      "expected_failures": [
+        "mismatched-process-identity-not-resolved"
+      ],
+      "safety": "Typed synthetic metadata only; actual g_cm/receipt records remain untouched.",
+      "source": "attribution.inc",
+      "first_line": 89,
+      "last_line": 91,
+      "source_hunk": "#ifndef MA_CONTROL_OMIT_PROCESS\n        if (m->process_id != metadata.owner.process_id) continue;\n#endif\n",
+      "hunk": {
+        "bytes": 105,
+        "sha256": "ac31c9c66d58b252bef85b537d29da2b7e5333adb29be3fdeb88986fe864b03b"
+      }
+    },
+    {
+      "id": "omit-staging-id-copy",
+      "macro": "MA_CONTROL_OMIT_ID_COPY",
+      "selector": "publication-copy",
+      "configuration": "model",
+      "expected_failures": [
+        "copied-module-id-survives-input-change"
+      ],
+      "safety": "Direct id[33] representation and exact consumer expressions remain unchanged; empty static string stays bounded. No DSO rodata/lifecycle ID changes, concurrent buffer race, pointer borrowing or reclamation. Generated identity resolution is not exercised by this control.",
+      "source": "attribution.inc",
+      "first_line": 47,
+      "last_line": 51,
+      "source_hunk": "#ifdef MA_CONTROL_OMIT_ID_COPY\n    if (!model) memcpy(m->id, copied_id, 33);\n#else\n    memcpy(m->id, copied_id, 33);\n#endif\n",
+      "hunk": {
+        "bytes": 124,
+        "sha256": "a978bee2f0b8c804d3e68ca21784b8cb6564508b9b58a0626f0d34561b9fe952"
+      }
+    }
+  ],
+  "exact_consumer": {
+    "source": "experiments/usb-browser-switch/activation-unwind-policy/private/capture-4d7eb81ff4e04f6099c87eaa42bc66d3/inputs/sdk/src/azmod/community.c",
+    "source_pin": {
+      "bytes": 102070,
+      "sha256": "4b2b72e2b623dcb1ecb0ef108a473815adab45a516a6aa13adb6cce512b80866"
+    },
+    "first_byte": 71830,
+    "end_byte_exclusive": 72792,
+    "bytes": 962,
+    "sha256": "9e31f235353a169e46f366ec33488076829b9383bc0fd0c462b465a0ddef70b4",
+    "aliases": {
+      "cm_blame_fault": "ma_blame_fault",
+      "cm_owner_of": "ma_owner_index",
+      "g_cm": "ma_modules",
+      "crash_peek8": "ma_frame_read",
+      "cm_note_unblamed_crash": "ma_note_unblamed",
+      "CM_BLAME": "MA_BLAME_PATH",
+      "open": "ma_file_open",
+      "write": "ma_file_write",
+      "fsync": "ma_file_fsync",
+      "close": "ma_file_close"
+    },
+    "body_rewritten": false,
+    "scoped_undef_after_include": true
+  },
+  "byte_identical_core_extents": [
+    {
+      "name": "metadata-owner-and-permit",
+      "first": "static bool cc_metadata_owner_valid(const rc_metadata *value) {",
+      "following": "static int cc_lock(",
+      "bytes": 1318,
+      "sha256": "8953135b393dd85c967dc37643b3d4f4b4b33c5196bbc490afdf42f4ad36ce8f"
+    },
+    {
+      "name": "close-session",
+      "first": "static cc_status cc_close_locked(",
+      "following": "cc_status dp_core_run(",
+      "bytes": 674,
+      "sha256": "8f6ec0f31ccbe8f0296ffc02e12d0c801280f3ed18bee895df5a5759ce7d1246"
+    },
+    {
+      "name": "fixed-writer-installer-and-claim",
+      "first": "static rc_status cc_install_locked(",
+      "following": "/* Process-lifetime diagnostic slots",
+      "bytes": 7058,
+      "sha256": "44e4ea0d7ab51c5602dc033b036916af4ebcce0e12bca1c5f0abf33035b33d83"
+    }
+  ],
+  "preserved": [
+    "Five exact retained generated receipt/protection/helper files, SDK header, strong aligned host original slots and fixed target/replacement assembly remain unchanged.",
+    "The installer target-unlock/metadata/original/redirect publication cut, rc_lookup reader and actual original/replacement custody are unchanged.",
+    "Actual entry builtin RA, one-use sessions, caller/init/hooks/target admission, ordinary warning-to-SDK0 mapping, accounting-before-close, partial/failed-init retention and terminal incomplete boundary remain unchanged.",
+    "Previously retained failures, matrices and source packets are untouched; no old compiler, runtime, source capture or audit replay."
+  ],
+  "visibility_limits": [
+    "Each slot is acquired independently and never rewritten after positive publication. There is no coherent cross-slot snapshot or linearizable whole-table result.",
+    "Staged-but-unpublished runtime outcome only establishes that no owner is returned. Separate exact source/instruction review is required to bound payload load dependencies.",
+    "Held-writer case uses ordinary threads and a joined reader while locks remain held; it is not a signal, concurrent native invocation/publication or whole-engine lifetime proof.",
+    "Modeled file/frame providers are intentionally available in standalone configurations; only insertion/lock-control APIs require MA_MODEL. No volatile-written synchronization, native memory read or durable blame proof is claimed.",
+    "The compiler-injected stack-protector guard-mismatch path calls __stack_chk_fail. Only the exact reviewed emitted body is recognized; this failure path is outside the bounded normal-read claim. No libc failure, lock or signal-safety contract is inferred."
+  ],
+  "prebuild_corrections": [
+    "Corrected stale core comment to name separate ma_modules table.",
+    "Added permanent commit-used writer state so no control-induced flag clear could allow republishing.",
+    "Narrowed standalone symbol exclusion to model insertion APIs, preserving ordinary modeled consumer providers.",
+    "Synthetic Core record uses the existing real fixture Core owner constant (kind Core, process_id 1, empty ID); it is never resolved to Community.",
+    "Retained direct rc_lookup readback of each synthetic generated record in raw evidence without adding semantic assertions."
+  ],
+  "independent_source_review": [
+    "Core author checked loader raw/consumed one-veto bridge, constructor ordering, capability separation, exact harness frame-cell order, partial-init retention, all eight safe controls and zero target/replacement invocation.",
+    "Loader/harness author independently checked bounded identity resolution, lexical alias scope, raw/consumed control isolation and exact safe-control failure sets.",
+    "Runner author checked new composer paths, configuration macros and exact report schema. Root performed a separate core/loader/harness/control review."
+  ],
+  "planned_test_counts": {
+    "fresh_candidate_selectors_per_mode": 18,
+    "summed_assertions_per_mode": 54,
+    "distinct_assertion_names": 51,
+    "safe_controls_per_mode": 8,
+    "runtime_executed": false
+  },
+  "limitations": [
+    "Ownership attribution is not fault causation, successful durable blame, quarantine diagnosis or recovery.",
+    "No production integration, installed handler, native observer, device action, release, quarantine reset or watchdog weakening.",
+    "Arbitrary DSO/custody, approval/manifest execution, interposition, external writers, concurrent native invocation/publication, signals/nonlocal exits and callback quiescence remain unresolved.",
+    "Live provenance/current hook ownership, application/supervisor/QEMU/stopped recovery and native visibility remain gates.",
+    "Local Library row/provider/readiness/arguments/operation owners and destructive/queued paths, stems staging and physical timing remain CLOSED.",
+    "Preserve x16 tail-transfer, x17/island unwind, opaque action x2/register-only Source and absence of native pointee/post-return reads, return interception, TLS pending state or cross-entry pairing.",
+    "Only fixed pinned authored DSOs and host lifetime custody; no arbitrary DSO loading, interposition or actual approval/manifest proof.",
+    "Native visibility, external writers, signal/nonlocal exits, callback quiescence, anonymous unwind and recovery remain unproved.",
+    "Ownership does not establish fault causation or successful persistence; all live gates remain closed."
+  ],
+  "retained_initial_codegen_refusal": {
+    "packet": "run-07909828d41e4eb5ad9436a735d952c6",
+    "result": "result-a183a458aabb493386b3ade0ccd4d75a.json",
+    "result_pin": {
+      "bytes": 110479,
+      "sha256": "4874e3c32ca25e01acc43e7f54e13c50aec61d6931bdfe3971307f8a19ba181c"
+    },
+    "original_runner": {
+      "bytes": 54799,
+      "sha256": "aff75d39e5cbcf0427537c6c84dae308ba37cbbf688b9908d089e9e5fbc5325f"
+    },
+    "original_source_ledger": {
+      "bytes": 20169,
+      "sha256": "2eb2a0607c7e85ce089db9fd4883f9fe7bb748f3368b0205cd9e83962ffd96d3"
+    },
+    "original_transformations": {
+      "bytes": 166248,
+      "sha256": "5e30d42e00dd261622c4c0bfb1ac4e77b3fc8c5afe8c5f13d39ebe2fd031f846"
+    },
+    "outcome": "First standalone plain C object compiled cleanly and objdump exited cleanly. The new direct-call oracle refused the compiler-injected __stack_chk_fail dependency in ma_generated_index. No candidate host or fixture runtime ran.",
+    "classification": "Evidence-oracle refusal after successful compilation, not a sanitizer/compiler/runtime failure and not an invalid stack protector.",
+    "guard_review": {
+      "method": "ma_generated_index",
+      "body_bytes": 3275,
+      "body_sha256": "d07ab1db0d7bdc9ba65655de3371c450fdde26c5f4ab5fad79bc21dfae9de416",
+      "saved_guard": 9168,
+      "guard_reload": [
+        9324,
+        9328,
+        9332
+      ],
+      "xor": 9336,
+      "mismatch_branch": 9340,
+      "failure_block": 9388,
+      "failure_call": 9396,
+      "normal_ret": 9352,
+      "interpretation": "Exact method body, twelve instruction words and five guard relocations bind the compiler dependency. The sole conditional edge into the terminal failure block is guard XOR/CBNZ at247c; normal guard-equal return is2488. Failure dependency is excluded from the bounded normal-read scope. Other direct-call, acquire/release and method bounds remain enforced.",
+      "stack_protection_disabled": false,
+      "general_guard_allowlist": false
+    },
+    "successor_runner": {
+      "bytes": 65379,
+      "sha256": "a410d0c50ecfb4f655b4662747cc15ced503b8a920b72a457aa5b132e034c5ee"
+    },
+    "reuse": "An explicit separately recorded adoption may retain only the original standalone plain core.o and disassembly, with the two clean command receipts, identical compiled/support source inputs and flags, fixed failed result and full artifact pins. The predecessor remains failed. New codegen review is separate; no old compiler or disassembler is replayed.",
+    "unchanged": "All C/header/receipt/helper/assembly/composer/test/control-contract bytes and compiler flags remain unchanged. Only runner and uncompiled review ledgers change.",
+    "independent_review": [
+      "Root and runner author reviewed exact guard block and scoped adoption.",
+      "Core author independently traced every branch in the retained method and verified the nine compiled/support authored inputs remain byte-identical."
+    ],
+    "runtime_gate": "CLOSED"
+  }
+}

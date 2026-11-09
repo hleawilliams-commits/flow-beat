@@ -1,0 +1,233 @@
+{
+  "schema": 1,
+  "scope": "Offline actual authored module and generated attribution composition; no installed handler, target invocation or live integration",
+  "selectors": {
+    "actual-module-envelope": {
+      "configuration": "actual",
+      "checks": [
+        "actual-module-exec-envelope-owned",
+        "actual-module-nonexec-envelope-owned",
+        "module-upper-bound-excluded",
+        "actual-pc-owner-and-payload",
+        "no-frame-reads-after-pc",
+        "fixed-target-replacement-counters-zero"
+      ]
+    },
+    "constructor-and-dependency-gaps": {
+      "configuration": "actual",
+      "checks": [
+        "constructor-lookups-unowned",
+        "constructors-before-handle-and-publication",
+        "dependency-handle-retained-without-community-owner",
+        "all-loads-before-session",
+        "fixed-target-replacement-counters-zero"
+      ]
+    },
+    "query-refusal-and-hole": {
+      "configuration": "actual",
+      "checks": [
+        "raw-query-and-consumed-failure-distinct",
+        "unproven-module-remains-invisible",
+        "published-module-after-hole-found",
+        "both-successful-handles-retained",
+        "no-installer-on-query-refusal"
+      ]
+    },
+    "descriptor-refusal-retention": {
+      "configuration": "actual",
+      "checks": [
+        "actual-descriptor-refused-before-init",
+        "descriptor-refused-module-owner-retained",
+        "successful-handle-retained",
+        "no-installer-on-descriptor-refusal"
+      ]
+    },
+    "partial-init-attribution": {
+      "configuration": "actual",
+      "checks": [
+        "actual-init-minus7-and-session-closed",
+        "failed-init-module-owner-retained",
+        "failed-init-generated-owner-resolved",
+        "receipt-original-code-count-retained",
+        "raw-generated-record-still-visible",
+        "fixed-target-replacement-counters-zero"
+      ]
+    },
+    "permission-independent-owner": {
+      "configuration": "actual",
+      "checks": [
+        "positive-provenance-owner-despite-permission-refusal",
+        "permission-result-still-refused",
+        "no-entry-init-or-installer",
+        "retained-handle-and-copied-id"
+      ]
+    },
+    "generated-pc-module-lr": {
+      "configuration": "actual",
+      "checks": [
+        "generated-community-pc-precedes-module-lr",
+        "generated-owner-write-payload",
+        "no-frame-reads-after-generated-pc",
+        "ownership-survives-modeled-short-write",
+        "second-call-suppressed",
+        "fixed-target-replacement-counters-zero"
+      ]
+    },
+    "core-first-frame": {
+      "configuration": "model",
+      "checks": [
+        "core-does-not-fabricate-community-owner",
+        "generated-first-frame-owner-and-payload",
+        "lookup-before-nonincreasing-break",
+        "ordered-frame-read-trace"
+      ]
+    },
+    "frame-sixteen": {
+      "configuration": "model",
+      "checks": [
+        "sixteenth-generated-frame-owned"
+      ]
+    },
+    "frame-seventeen": {
+      "configuration": "model",
+      "checks": [
+        "seventeenth-generated-frame-unread"
+      ]
+    },
+    "first-index": {
+      "configuration": "model",
+      "checks": [
+        "first-module-index-wins"
+      ]
+    },
+    "same-address": {
+      "configuration": "model",
+      "checks": [
+        "module-beats-generated-at-same-address"
+      ]
+    },
+    "later-mask": {
+      "configuration": "model",
+      "checks": [
+        "generated-literal-alone-unowned",
+        "later-module-can-mask-generated",
+        "module-can-own-generated-literal-address"
+      ]
+    },
+    "identity-mismatch": {
+      "configuration": "model",
+      "checks": [
+        "mismatched-process-identity-not-resolved"
+      ]
+    },
+    "identity-ambiguity": {
+      "configuration": "model",
+      "checks": [
+        "ambiguous-identity-not-resolved"
+      ]
+    },
+    "publication-copy": {
+      "configuration": "model",
+      "checks": [
+        "copied-module-id-survives-input-change"
+      ]
+    },
+    "publication-bound": {
+      "configuration": "model",
+      "checks": [
+        "unpublished-slot-does-not-return-owner",
+        "published-slot-cannot-reopen",
+        "bounded-index-capacity-refused"
+      ]
+    },
+    "held-writer": {
+      "configuration": "model",
+      "checks": [
+        "reader-does-not-acquire-writer-lock"
+      ]
+    }
+  },
+  "controls": {
+    "stop-at-hole": {
+      "macro": "MA_CONTROL_STOP_AT_HOLE",
+      "selector": "query-refusal-and-hole",
+      "configuration": "actual",
+      "expected_failures": [
+        "published-module-after-hole-found"
+      ],
+      "safety": "Actual B read-only lookup; no entry/init/installer."
+    },
+    "consume-raw-query-for-publication": {
+      "macro": "MA_CONTROL_RAW_QUERY",
+      "selector": "query-refusal-and-hole",
+      "configuration": "actual",
+      "expected_failures": [
+        "unproven-module-remains-invisible"
+      ],
+      "safety": "No native claim/entry/init or device; raw-valid fixed A remains permanently held. Baseline has one consumed-success veto, not a duplicate masking guard."
+    },
+    "omit-descriptor-case-publication": {
+      "macro": "MA_CONTROL_OMIT_DESCRIPTOR_PUBLICATION",
+      "selector": "descriptor-refusal-retention",
+      "configuration": "actual",
+      "expected_failures": [
+        "descriptor-refused-module-owner-retained"
+      ],
+      "safety": "Never unload or alter actual handle/range/callback outcome."
+    },
+    "clear-fault-visibility-after-init-error": {
+      "macro": "MA_CONTROL_CLEAR_INIT",
+      "selector": "partial-init-attribution",
+      "configuration": "actual",
+      "expected_failures": [
+        "failed-init-module-owner-retained",
+        "failed-init-generated-owner-resolved"
+      ],
+      "safety": "No resource reclamation or code invocation; the raw rc_lookup check still passes. This is not a production reset API."
+    },
+    "exec-only-module-envelope": {
+      "macro": "MA_CONTROL_EXEC_ONLY",
+      "selector": "actual-module-envelope",
+      "configuration": "actual",
+      "expected_failures": [
+        "actual-module-nonexec-envelope-owned"
+      ],
+      "safety": "Use numeric queries only; do not dereference/execute descriptor address. Upper-bound probe is outside either envelope."
+    },
+    "generated-before-module": {
+      "macro": "MA_CONTROL_GENERATED_FIRST",
+      "selector": "same-address",
+      "configuration": "model",
+      "expected_failures": [
+        "module-beats-generated-at-same-address"
+      ],
+      "safety": "Only synthetic addresses/records; no actual overlaps, mappings or old-suite replay. Other subselectors are not executed for this control."
+    },
+    "omit-process-identity-match": {
+      "macro": "MA_CONTROL_OMIT_PROCESS",
+      "selector": "identity-mismatch",
+      "configuration": "model",
+      "expected_failures": [
+        "mismatched-process-identity-not-resolved"
+      ],
+      "safety": "Typed synthetic metadata only; actual g_cm/receipt records remain untouched."
+    },
+    "omit-staging-id-copy": {
+      "macro": "MA_CONTROL_OMIT_ID_COPY",
+      "selector": "publication-copy",
+      "configuration": "model",
+      "expected_failures": [
+        "copied-module-id-survives-input-change"
+      ],
+      "safety": "Direct id[33] representation and exact consumer expressions remain unchanged; empty static string stays bounded. No DSO rodata/lifecycle ID changes, concurrent buffer race, pointer borrowing or reclamation. Generated identity resolution is not exercised by this control."
+    }
+  },
+  "limitations": [
+    "Ownership attribution is not fault causation, successful durable blame, quarantine diagnosis or recovery.",
+    "No production integration, installed handler, native observer, device action, release, quarantine reset or watchdog weakening.",
+    "Arbitrary DSO/custody, approval/manifest execution, interposition, external writers, concurrent native invocation/publication, signals/nonlocal exits and callback quiescence remain unresolved.",
+    "Live provenance/current hook ownership, application/supervisor/QEMU/stopped recovery and native visibility remain gates.",
+    "Local Library row/provider/readiness/arguments/operation owners and destructive/queued paths, stems staging and physical timing remain CLOSED.",
+    "Preserve x16 tail-transfer, x17/island unwind, opaque action x2/register-only Source and absence of native pointee/post-return reads, return interception, TLS pending state or cross-entry pairing."
+  ]
+}
