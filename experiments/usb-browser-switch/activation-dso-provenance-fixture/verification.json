@@ -1,0 +1,78 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "runtime_gate": "CLOSED",
+  "retained_byte_audit": {
+    "schema": 1,
+    "status": "passed",
+    "scope": "independent retained-byte audit; no compilation, fixture execution, loading or generator replay",
+    "structural_assertions": 72949,
+    "runtime_processes": 26,
+    "semantic_assertions_per_mode": 37,
+    "distinct_semantic_names": 36,
+    "inputs": 32,
+    "commands": 140,
+    "streams": 280,
+    "build_artifacts": 158,
+    "packet_files": 814,
+    "preserved_oracle_refusal": {
+      "source_result_sha256": "1afcfceb1be7a7f343a7fb2d8ef63e28db51ddd3f3b05ba5727a142646217e5b",
+      "files": 121,
+      "commands": 13,
+      "streams": 26,
+      "adopted_compiler_commands": 9,
+      "adopted_artifacts": 9,
+      "compiler_replayed": false,
+      "actual_prior_runtime_processes": 0
+    },
+    "preserved_link_failure": {
+      "result_sha256": "e0d5c8142ba59333921c2ce9f8ec6f032fa6699b5dc810f204775af227623281",
+      "files": 140,
+      "commands": 14,
+      "streams": 28,
+      "actual_runtime_processes": 0,
+      "reused_completed_dso_files": 19,
+      "adopted_metadata_commands": 8,
+      "adopted_metadata_artifacts": 10
+    },
+    "final_result": {
+      "bytes": 722636,
+      "sha256": "ba02e5d67e410160c1db5b2092395064e0a0459e9543d8709f55dc1ff000d05c"
+    },
+    "executed_auditor": {
+      "bytes": 35161,
+      "sha256": "c136fe8dc083574d111a98bda631668c2a4c855584448a6754baa52d3e5d63fd"
+    },
+    "limitations": [
+      "Source and ELF/receipt evidence does not prove arbitrary loader behavior, live firmware, concurrent invocation/publication, signals, interrupted-PC unwind or general lifetime.",
+      "Receipt stores and their recorded addresses are audited; new harness does not dump or invoke emitted generated instructions.",
+      "Structural assertion count is not a runtime semantic test count."
+    ]
+  },
+  "private_audit_result_sha256": "7a50ef4d423633a26c2b6b47819b52e10be712de8eead50c37fe05d7c7aeee83",
+  "source_review": {
+    "status": "passed",
+    "scope": "Independent core/loader/runner review plus root integration review; no runtime replay",
+    "findings": [
+      "Exact eight selector lists and five safe failure sets match retained plan.",
+      "Actual descriptor/ID/tag readable bounds remain separate from caller min/max envelope.",
+      "Foreign caller refusal occurs during the selected module open session.",
+      "Raw query success, consumed fault, and dependency dry decisions remain distinct.",
+      "Warning mapping is preserved source behavior; this matrix observed RC_OK only.",
+      "No actual zero-base DSO, patched target invocation, concurrent publication, native loader, approval/manifest or quiescence proof."
+    ]
+  },
+  "failure_history": [
+    "Initial DSO builds clean; instruction-byte parser refused nonallocated debug overlap before host/runtime.",
+    "Next host objects clean; link failed for missing frozen-assembly counters before runtime.",
+    "Both packets retained; exact nine DSO compile/link and eight metadata commands reused without replay."
+  ],
+  "auditor_execution": {
+    "source_copied_before_execution": true,
+    "source_unchanged_after_execution": true,
+    "exit_code": 0,
+    "stderr_empty": true,
+    "audit_replayed": false
+  },
+  "private_runtime_scripts_logs_binaries_not_published": true
+}

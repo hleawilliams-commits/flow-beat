@@ -1,0 +1,62 @@
+{
+  "files": {
+    "compose-source.py": {
+      "bytes": 8544,
+      "sha256": "f5701b9587c10cb7c76faa8945d69d05ea67f5de8051caa957bb55e95eaa0bf7"
+    },
+    "core.c": {
+      "bytes": 24598,
+      "sha256": "1cf59eae5a5d6de5866d7773da5a5723384670a35d051e5b9eb66b11679086cc"
+    },
+    "core.h": {
+      "bytes": 3889,
+      "sha256": "b15d5d8ce8cfeab6646189ca93d4fd9e5f093ac0cad504a9210fb41ee0cc7f37"
+    },
+    "dep.c": {
+      "bytes": 435,
+      "sha256": "9d7c97e3575c43f89d81328d2ccf24e253608f888da573f57c3ff991f3d41090"
+    },
+    "dp_fixture.h": {
+      "bytes": 754,
+      "sha256": "5cfc290dbe134bbcb3c5a70e75bcc94da7d8a4f284da1fc4443768ff9596282e"
+    },
+    "dso_call.S": {
+      "bytes": 558,
+      "sha256": "ba8799bae694464b050265a92122cc30720a1e00a51c3a3ff454f14d63ccc8f6"
+    },
+    "dsomod.c": {
+      "bytes": 2532,
+      "sha256": "e515e526bc857cf02ce62b6978f9efd74d762dce84c44ab107ae6066dbbbbe03"
+    },
+    "loader.c": {
+      "bytes": 20157,
+      "sha256": "88fbcf828f608dee1cbdcbd8d35673c926fce1f225f1561132b9521b6ed0f930"
+    },
+    "loader.h": {
+      "bytes": 2057,
+      "sha256": "da64db0ea5293e9dd17cbc0709ed5784556ae1c674d5da1348439d5dd67150e2"
+    },
+    "rootstub.c": {
+      "bytes": 304,
+      "sha256": "594aa8fa440a2112f5ce3c3c9473e9ad165b82b77598fbed551b5502aa345fa6"
+    },
+    "run-tests.py": {
+      "bytes": 50589,
+      "sha256": "21f44656c3edda4009e5edbb819460a82138fdc201613e0be9f49b7de5f1285e"
+    },
+    "source-ledger.json": {
+      "bytes": 8056,
+      "sha256": "5e211e3a40974c54d947a89996a3d54097066cc02d40bfa92b148156fa0dd0f0"
+    },
+    "test-contract.json": {
+      "bytes": 4585,
+      "sha256": "8548184acf49198959637cba03457b6cecd87ef095825bb827af34d480cb0137"
+    },
+    "test_dso.c": {
+      "bytes": 18087,
+      "sha256": "952f42315647ac158c8b7b70a2ef0309186dc3bdc37a11d32d97db7ce7074be7"
+    }
+  },
+  "schema": 1,
+  "status": "reviewed-before-build"
+}

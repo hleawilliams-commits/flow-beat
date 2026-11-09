@@ -1,0 +1,110 @@
+{
+  "schema": 1,
+  "scope": "Fresh-process offline Linux AArch64 fixed authored DSO provenance; no generated target invocation",
+  "selectors": {
+    "ordinary-ingress": [
+      "raw-builtin-ra-equals-dso-return-marker",
+      "admission-ra-equals-dso-return-marker",
+      "ordinary-claim-sdk-success",
+      "ordinary-claim-counted-once",
+      "actual-arguments-match-fixed-binding",
+      "actual-ra-in-owned-executable-extent",
+      "no-patched-target-or-replacement-invocation"
+    ],
+    "constructor-order": [
+      "constructor-marker-before-dlopen-return",
+      "constructor-local-count-one",
+      "session-zero-before-init",
+      "module-range-before-entry",
+      "entry-before-open-init",
+      "callbacks-outside-cm-and-writer"
+    ],
+    "dependency-entry": [
+      "dependency-entry-owner-refused",
+      "dependency-decoy-not-invoked",
+      "no-installer-on-dependency-decision"
+    ],
+    "provenance-fault": [
+      "raw-query-success-retained",
+      "consumed-query-failure-distinct",
+      "failed-provenance-decision-refused",
+      "no-installer-on-provenance-decision"
+    ],
+    "descriptor-refusal-custody": [
+      "successful-handle-retained-after-refusal",
+      "range-retained-after-descriptor-refusal",
+      "descriptor-refused-before-init",
+      "entry-attempted-once"
+    ],
+    "partial-init-custody": [
+      "actual-init-return-error-retained",
+      "published-route-retained-after-dso-init-error",
+      "dso-handle-retained-after-init-error",
+      "later-sdk-call-refused-after-init-close",
+      "no-patched-target-or-replacement-invocation"
+    ],
+    "foreign-caller": [
+      "foreign-dso-id-caller-refused",
+      "foreign-raw-ra-belongs-to-actual-caller",
+      "foreign-no-installer"
+    ],
+    "symbol-descriptor-custody": [
+      "owned-entry-symbol-exact",
+      "owned-init-symbol-exact",
+      "descriptor-storage-bounded",
+      "id-and-tags-bounded",
+      "main-target-envelope-from-actual-phdr"
+    ]
+  },
+  "controls": {
+    "ra-host-substitute": {
+      "selector": "ordinary-ingress",
+      "macro": "DP_CONTROL_RA_HOST_SUBSTITUTE",
+      "expected_failures": [
+        "admission-ra-equals-dso-return-marker",
+        "ordinary-claim-sdk-success",
+        "ordinary-claim-counted-once"
+      ],
+      "safety": "Control refuses before install; no target/replacement call, invalid pointers, data races or frees. Binding-argument checks use raw entry arguments even on refusal."
+    },
+    "omit-entry-owner-veto": {
+      "selector": "dependency-entry",
+      "macro": "DP_CONTROL_ENTRY_OWNER",
+      "expected_failures": [
+        "dependency-entry-owner-refused"
+      ],
+      "safety": "Dry decision ends before entry/init/install for both variants; no foreign code invocation."
+    },
+    "ignore-consumed-query-failure": {
+      "selector": "provenance-fault",
+      "macro": "DP_CONTROL_QUERY_CONSUMPTION",
+      "expected_failures": [
+        "failed-provenance-decision-refused"
+      ],
+      "safety": "Dry decision ends before publication or entry, no bad-handle API call. This is injected consumption failure, not observed dlinfo failure."
+    },
+    "omit-constructor-marker": {
+      "selector": "constructor-order",
+      "macro": "DP_CONTROL_CONSTRUCTOR_MARKER",
+      "expected_failures": [
+        "constructor-marker-before-dlopen-return"
+      ],
+      "safety": "No constructor capability or loader behavior changed; control diagnoses missing observation, not constructor prevention."
+    },
+    "omit-authoritative-handle-record": {
+      "selector": "descriptor-refusal-custody",
+      "macro": "DP_CONTROL_HANDLE_RECORD",
+      "expected_failures": [
+        "successful-handle-retained-after-refusal"
+      ],
+      "safety": "No dlclose, unload or stale read. Only bookkeeping-loss discrimination; safety hold must be declared and cannot be counted as authoritative receipt. Descriptor continuation uses only that declared safety hold for fixture access; an empty authoritative record must not add a lifecycle veto and cascade other failures."
+    }
+  },
+  "limitations": [
+    "No patched target/replacement dispatch exists in the authored harness; target_invocations=0 describes that bounded action surface, not instruction tracing.",
+    "All handles are retained permanently; the custody control keeps a separate explicit safety hold.",
+    "Raw builtin RA and actual libc query outcomes are separate from consumed control values.",
+    "No manifest/approval parser, arbitrary DSO or production loader.",
+    "No previous scalar, ABI, exception, CFI or policy suite is executed."
+  ]
+}

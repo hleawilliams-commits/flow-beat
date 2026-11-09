@@ -1,0 +1,119 @@
+{
+  "schema": 1,
+  "scope": "Separately versioned offline Linux fixed authored DSO provenance and permanent custody",
+  "plan_commit": "b12fbe65ac66927d9ed554036f80a287e1607d3c",
+  "parent_claim_commit": "e9bcf3db860ea5e87607ccddc51faab334bf5da6",
+  "runtime_gate": "CLOSED",
+  "review_boundary": "Source review and exact safe-control sets precede first Linux build. Complete parent/new core diffs and added runtime-file diffs are retained by compose-source.py; no parent composer or matrix is replayed.",
+  "transformations": [
+    {
+      "id": "D1",
+      "files": [
+        "loader.c",
+        "core.c"
+      ],
+      "change": "Reserve four permanent object slots and all fixed module indices before any dlopen. One-use initialization/load/query and terminal core registration closure prevent overwrite/reopen. Complete root/dependency loads at session zero before entry/init. Successful handles immediately enter authoritative custody; only the custody control retains one solely via an explicit safety hold."
+    },
+    {
+      "id": "D2",
+      "files": [
+        "loader.c",
+        "run-tests.py"
+      ],
+      "change": "Replace authored loader booleans with actual dlopen/dlinfo/dladdr1/dl_iterate_phdr on four fixed pinned artifacts. Match link-map base and PT_DYNAMIC l_ld, unique actual object, complete checked PT_LOAD values against ELF bytes, and exact root symbol value/type/size/map/extent. Keep raw API outcomes separate from consumed-failure control. Main target envelope derives from actual executable PT_LOADs."
+    },
+    {
+      "id": "D3",
+      "files": [
+        "core.c",
+        "dp_fixture.h",
+        "dsomod.c",
+        "dso_call.S"
+      ],
+      "change": "Use exact retained SDK descriptor, entry(void), init(const az_core_v1*) and claim signature. An ordinary authored DSO BLR stub supplies a typed four-byte return marker. Raw builtin caller RA and one acquire-loaded session handle are captured at the outer noinline SDK entry; only the RA control replaces admission-used RA."
+    },
+    {
+      "id": "D4",
+      "files": [
+        "loader.c",
+        "core.c"
+      ],
+      "change": "Validate whole exact descriptor OBJECT and full readable ID/tag array/string storage before reads; caller min/max is not readability. Tag loop checks bound before access. Actual init symbol is owned by fixed DSO; firmware tag and hooks capability remain authored fixture inputs."
+    },
+    {
+      "id": "D5",
+      "files": [
+        "core.c"
+      ],
+      "change": "Keep one recursive community mutex then common writer. Actual loader/entry/validator/init and callback probes run outside both locks. Immutable sessions release-publish once, close release-stores zero; ordinary returned publication increments selected-module nhooks before close. Incomplete/unknown remains terminal."
+    },
+    {
+      "id": "D6",
+      "files": [
+        "core.c",
+        "compose-source.py"
+      ],
+      "change": "Retain five generated receipt files byte for byte plus exact writer-held install/permit extents. Fixed process-image targets/replacements and initialized strong aligned plain originals stay in host. Immutable binding accessor is fixture-only, outside SDK table. No fallible operation added to target-unlock/metadata/original/redirect cut."
+    },
+    {
+      "id": "D7",
+      "files": [
+        "dsomod.c",
+        "dep.c",
+        "rootstub.c",
+        "loader.c"
+      ],
+      "change": "Record actual dependency/root constructors before corresponding dlopen return. Reserve dependency markers before load. Actual entry/init read-only probes use joined ordinary threads to demonstrate released locks in selected callbacks. Distinct A/B data names avoid a potential ASan global ODR collision without weakening sanitizer checks."
+    },
+    {
+      "id": "D8",
+      "files": [
+        "test_dso.c",
+        "test-contract.json",
+        "run-tests.py"
+      ],
+      "change": "Eight new selectors and five exact safe controls only. Dependency and query controls end at dry decisions; no arbitrary symbol or failed handle is invoked. Constructor control suppresses the host marker observation while constructor/local count still execute. Original/replacement/patched targets never invoked. Raw loader/address/receipt data stays private; public result is allowlisted checks and hashes."
+    }
+  ],
+  "preserved": [
+    "Exact retained SDK header and three selected helper bodies",
+    "Five retained generated receipt/protection files and fixed fixture.S",
+    "All earlier failures and passing evidence, no unchanged replay",
+    "Permanent partial publication/code/originals/metadata/receipts/nhooks and handle custody",
+    "No dlclose, production loader integration, device access, quarantine change or live observer composition"
+  ],
+  "limitations": [
+    "Only four pinned authored DSOs; no arbitrary loader/interposition or approval/manifest execution proof",
+    "One actual loader object instance per fixed slot; actual zero-base DSO need not occur; historical synthetic zero-base evidence remains separate",
+    "No patched target invocation, concurrent invocation/publication, real signal/nonlocal exit, anonymous unwind, general lifetime, callback quiescence or recovery proof",
+    "Host fixtures and fixed receipts remain isolated from firmware; all live gates CLOSED"
+  ],
+  "prebuild_corrections": [
+    "Aligned loader validator int signature with core callback typedef",
+    "Matched root constructor marker ELF OBJECT type",
+    "Added actual callback event markers used by ordering oracle",
+    "Aligned runner contract/stdout/evidence schema with harness",
+    "Added explicit terminal one-use load/query and registration guards",
+    "Separated A/B exported data symbol names before any compile"
+  ],
+  "independent_review": [
+    "Core author reviewed loader/descriptor bounds and exact safe controls",
+    "Runner author compared all eight check lists and five failure sets with retained plan",
+    "Root reviewed core/loader/call stub/runner and control isolation",
+    "Loader author independently reviewed ordinary RA capture, exact binding before original reads, warning mapping and once-only accounting under cm/writer"
+  ],
+  "retained_initial_failure": {
+    "packet": "run-8cd5c320082b4b71ba5139f6c0e388e8",
+    "result_sha256": "1afcfceb1be7a7f343a7fb2d8ef63e28db51ddd3f3b05ba5727a142646217e5b",
+    "outcome": "Nine plain DSO compile/link commands returned cleanly; ELF instruction-byte oracle refused overlapping .text SHF_ALLOC|SHF_EXECINSTR and nonallocated .debug_info at virtual address zero. No host compilation or runtime began.",
+    "correction": "Restrict instruction-byte extent to allocated executable sections. Preserve strict unique complete extent and BLR opcode/return marker checks. Reuse exact five object/four shared-object artifacts only after source, command and inventory checks; no compile replay.",
+    "scope": "Evidence parser correction only; fixture C/assembly/contract and all failure sets unchanged."
+  },
+  "retained_link_failure": {
+    "packet": "run-73d6159394aa459aa2b4d6e15e243000",
+    "result_sha256": "e0d5c8142ba59333921c2ce9f8ec6f032fa6699b5dc810f204775af227623281",
+    "outcome": "Adopted plain DSO artifacts passed the corrected ELF oracle and metadata retention. Four host objects compiled cleanly; first host link failed because the new harness omitted rc_target_hits and rc_replacement_hits definitions required by frozen fixture.S. No host executable, sanitizer build or runtime resulted.",
+    "correction": "Add two strong initialized aligned four-slot uint64 arrays to test_dso.c. Observe all eight actual authored assembly counters in the unchanged named no-invocation checks and raw evidence. Report their sum; preserve exact control sets. The frozen target/replacement assembly is unchanged.",
+    "reuse": "Reuse original nine DSO binaries/objects and the second packet's completed DSO metadata under fixed result, source, command and artifact pins. Build the revised host harness freshly; no old runtime was replayed."
+  }
+}
