@@ -1,0 +1,139 @@
+{
+  "selectors": {
+    "queued-close": [
+      "queued-close-completes",
+      "queued-claim-refused",
+      "queued-claim-has-no-side-effects"
+    ],
+    "admitted-close": [
+      "real-cm-contention",
+      "claim-completes-before-close",
+      "accounting-retained-at-close",
+      "epoch-stays-closed"
+    ],
+    "common-admission": [
+      "community-target-excludes-core",
+      "core-target-excludes-community",
+      "common-capacity-refuses-before-allocation",
+      "common-owner-and-capacity-accounting"
+    ],
+    "fallback-phase": [
+      "real-writer-contention",
+      "fallback-completes-before-late",
+      "late-fallback-refuses-before-reserve",
+      "island-remains-eligible-late"
+    ],
+    "permit-boundary": [
+      "wrong-system-before-unlock",
+      "wrong-slot-before-unlock",
+      "wrong-owner-before-unlock",
+      "consumed-permit-before-unlock",
+      "fresh-bound-permit-still-works"
+    ],
+    "module-provenance": [
+      "failed-handle-not-published",
+      "failed-link-map-retains-handle-fact",
+      "wrong-object-not-published",
+      "proven-zero-base-is-valid",
+      "failed-provenance-is-not-overwritten"
+    ],
+    "module-holes": [
+      "published-slot-after-hole-is-readable",
+      "module-publication-is-not-early-prefix",
+      "first-published-index-wins-overlap",
+      "module-publication-is-immutable"
+    ],
+    "lifecycle-retention": [
+      "descriptor-rejection-keeps-module",
+      "partial-init-retains-hook-accounting",
+      "partial-init-retains-code-owner-records",
+      "failed-init-closes-new-admission"
+    ],
+    "cleanup-receipts": [
+      "allocation-failure-keeps-burned-slot-fact",
+      "seal-failure-keeps-distinct-cleanup-return",
+      "island-failure-retains-uncertain-cleanup",
+      "fallback-unlock-failure-retains-mapping",
+      "failure-reservations-and-receipts-stay-retained"
+    ],
+    "protection-receipts": [
+      "island-and-target-tokens-stay-distinct",
+      "successful-relock-can-restore-writable-bits",
+      "target-warning-is-not-rx-proof",
+      "postpublication-warning-retains-emission"
+    ],
+    "publication-order": [
+      "cut-has-invisible-and-visible-boundaries",
+      "metadata-original-redirect-order",
+      "publication-observes-prerequisites",
+      "published-values-match-bound-plan"
+    ],
+    "loader-and-caller": [
+      "loader-start-is-one-shot",
+      "captured-caller-value-is-checked",
+      "epoch-is-bound-to-system",
+      "finished-init-epoch-does-not-reopen",
+      "admission-copies-public-input-values"
+    ]
+  },
+  "controls": {
+    "skip-epoch-recheck": {
+      "macro": "TX_CONTROL_SKIP_EPOCH_RECHECK",
+      "selector": "queued-close",
+      "expected_failures": [
+        "queued-claim-refused",
+        "queued-claim-has-no-side-effects"
+      ]
+    },
+    "omit-hook-accounting": {
+      "macro": "TX_CONTROL_OMIT_HOOK_ACCOUNTING",
+      "selector": "admitted-close",
+      "expected_failures": [
+        "accounting-retained-at-close"
+      ]
+    },
+    "allow-late-fallback": {
+      "macro": "TX_CONTROL_ALLOW_LATE_FALLBACK",
+      "selector": "fallback-phase",
+      "expected_failures": [
+        "late-fallback-refuses-before-reserve"
+      ]
+    },
+    "accept-bad-permit": {
+      "macro": "TX_CONTROL_ACCEPT_BAD_PERMIT",
+      "selector": "permit-boundary",
+      "expected_failures": [
+        "wrong-system-before-unlock",
+        "wrong-slot-before-unlock",
+        "wrong-owner-before-unlock",
+        "consumed-permit-before-unlock"
+      ]
+    },
+    "accept-failed-provenance": {
+      "macro": "TX_CONTROL_ACCEPT_FAILED_PROVENANCE",
+      "selector": "module-provenance",
+      "expected_failures": [
+        "failed-handle-not-published",
+        "failed-link-map-retains-handle-fact",
+        "wrong-object-not-published",
+        "failed-provenance-is-not-overwritten"
+      ]
+    },
+    "module-prefix-scan": {
+      "macro": "TX_CONTROL_MODULE_PREFIX_SCAN",
+      "selector": "module-holes",
+      "expected_failures": [
+        "published-slot-after-hole-is-readable",
+        "module-publication-is-not-early-prefix"
+      ]
+    },
+    "original-before-metadata": {
+      "macro": "TX_CONTROL_ORIGINAL_BEFORE_METADATA",
+      "selector": "publication-order",
+      "expected_failures": [
+        "metadata-original-redirect-order",
+        "publication-observes-prerequisites"
+      ]
+    }
+  }
+}

@@ -1,0 +1,1768 @@
+{
+  "artifacts": {
+    "candidate/test_transaction.c": {
+      "bytes": 27938,
+      "sha256": "ddac94359de5ed1fb7b3b1e85f2b9c38773aef630f99e5bae7cac230604b6d7a"
+    },
+    "candidate/transaction-asan-ubsan": {
+      "bytes": 192904,
+      "sha256": "ac62ca591ea0537697f12956261227bb685d7c2d56d104b50ab68294a8255300"
+    },
+    "candidate/transaction-asan-ubsan.dSYM/Contents/Info.plist": {
+      "bytes": 651,
+      "sha256": "554f5446199ff95c2b9b97e49523f114a66db7758ea1d9c7a7cb555d9812daec"
+    },
+    "candidate/transaction-asan-ubsan.dSYM/Contents/Resources/DWARF/transaction-asan-ubsan": {
+      "bytes": 128908,
+      "sha256": "c7bf9d441553d0a2cc0e11bca0205c462757e4c5ddf99bbd9195431fa7117a58"
+    },
+    "candidate/transaction-asan-ubsan.dSYM/Contents/Resources/Relocations/aarch64/transaction-asan-ubsan.yml": {
+      "bytes": 357,
+      "sha256": "fb8733bb69e98de23809a39a968e57f5e77c4a9d35f0b5a39c1376aec0ff3330"
+    },
+    "candidate/transaction-plain": {
+      "bytes": 57056,
+      "sha256": "0f1d23b79867fe45e29efa12b20e4945694cfd066ec5a0ef5c731ef52306af9e"
+    },
+    "candidate/transaction-plain.dSYM/Contents/Info.plist": {
+      "bytes": 646,
+      "sha256": "b9dfbe8dc5e68aa69ca26c4698bc9911135e86a6a264300f9c651993b0eaf1ca"
+    },
+    "candidate/transaction-plain.dSYM/Contents/Resources/DWARF/transaction-plain": {
+      "bytes": 88304,
+      "sha256": "9782af406318d33ef899b59f2df6a699d9c495f7a03bac938ab91f42a4d106ea"
+    },
+    "candidate/transaction-plain.dSYM/Contents/Resources/Relocations/aarch64/transaction-plain.yml": {
+      "bytes": 352,
+      "sha256": "be5a6d45bf6f8b132d19ce7f59a784ae7a4b42c4d298c43cef23736ec1fccc26"
+    },
+    "candidate/transaction-standalone.o": {
+      "bytes": 38488,
+      "sha256": "e0a98fa2529c5f54ceca3139c3a334e609ff38c2e0205533773eab7f98d0faba"
+    },
+    "candidate/transaction.c": {
+      "bytes": 26504,
+      "sha256": "703cd620957895d3b00fe816ee701fd324c639193adac66862ef1b6a506e7237"
+    },
+    "candidate/transaction.h": {
+      "bytes": 9801,
+      "sha256": "5209577a618920923c97b32a27b738e8c493f9976934e217eedd28f6203be1eb"
+    },
+    "controls/asan-ubsan/accept-bad-permit/test_transaction.c": {
+      "bytes": 27938,
+      "sha256": "ddac94359de5ed1fb7b3b1e85f2b9c38773aef630f99e5bae7cac230604b6d7a"
+    },
+    "controls/asan-ubsan/accept-bad-permit/transaction": {
+      "bytes": 192936,
+      "sha256": "e8852eda5929f39d4f328edaeaeaf3659e58470a451f0d299a0677ec4c0191f0"
+    },
+    "controls/asan-ubsan/accept-bad-permit/transaction.c": {
+      "bytes": 26504,
+      "sha256": "703cd620957895d3b00fe816ee701fd324c639193adac66862ef1b6a506e7237"
+    },
+    "controls/asan-ubsan/accept-bad-permit/transaction.dSYM/Contents/Info.plist": {
+      "bytes": 640,
+      "sha256": "afbb996101bdecd20fbb54434b2f6d46d05efc30c0847990e87009a1fea63367"
+    },
+    "controls/asan-ubsan/accept-bad-permit/transaction.dSYM/Contents/Resources/DWARF/transaction": {
+      "bytes": 128976,
+      "sha256": "4b92d65750089258089eb02b90df531a46ce56031fbf222b54c238ec01c984a9"
+    },
+    "controls/asan-ubsan/accept-bad-permit/transaction.dSYM/Contents/Resources/Relocations/aarch64/transaction.yml": {
+      "bytes": 374,
+      "sha256": "4ea360e59067b11e9bfa035152fd5a0366e49f5dd49da925e703432133bd1e52"
+    },
+    "controls/asan-ubsan/accept-bad-permit/transaction.h": {
+      "bytes": 9801,
+      "sha256": "5209577a618920923c97b32a27b738e8c493f9976934e217eedd28f6203be1eb"
+    },
+    "controls/asan-ubsan/accept-failed-provenance/test_transaction.c": {
+      "bytes": 27938,
+      "sha256": "ddac94359de5ed1fb7b3b1e85f2b9c38773aef630f99e5bae7cac230604b6d7a"
+    },
+    "controls/asan-ubsan/accept-failed-provenance/transaction": {
+      "bytes": 192952,
+      "sha256": "cd040878032fafa3f93aad12a089f6911d2d8e4fbddef80af743cf6b90c0506e"
+    },
+    "controls/asan-ubsan/accept-failed-provenance/transaction.c": {
+      "bytes": 26504,
+      "sha256": "703cd620957895d3b00fe816ee701fd324c639193adac66862ef1b6a506e7237"
+    },
+    "controls/asan-ubsan/accept-failed-provenance/transaction.dSYM/Contents/Info.plist": {
+      "bytes": 640,
+      "sha256": "afbb996101bdecd20fbb54434b2f6d46d05efc30c0847990e87009a1fea63367"
+    },
+    "controls/asan-ubsan/accept-failed-provenance/transaction.dSYM/Contents/Resources/DWARF/transaction": {
+      "bytes": 129220,
+      "sha256": "39afafb55d382ec255db625ef3cea3cae8715ed08625d94f3e8a73632bdb65c8"
+    },
+    "controls/asan-ubsan/accept-failed-provenance/transaction.dSYM/Contents/Resources/Relocations/aarch64/transaction.yml": {
+      "bytes": 381,
+      "sha256": "3290ed274cde22893debbe0087f5ba9a3b3fcef296945ff3d8ff781f122986c7"
+    },
+    "controls/asan-ubsan/accept-failed-provenance/transaction.h": {
+      "bytes": 9801,
+      "sha256": "5209577a618920923c97b32a27b738e8c493f9976934e217eedd28f6203be1eb"
+    },
+    "controls/asan-ubsan/allow-late-fallback/test_transaction.c": {
+      "bytes": 27938,
+      "sha256": "ddac94359de5ed1fb7b3b1e85f2b9c38773aef630f99e5bae7cac230604b6d7a"
+    },
+    "controls/asan-ubsan/allow-late-fallback/transaction": {
+      "bytes": 192952,
+      "sha256": "0ef9a37f7db0e606a1b7b05a19380bf1eb2a78adef91776587be16c83fcfe146"
+    },
+    "controls/asan-ubsan/allow-late-fallback/transaction.c": {
+      "bytes": 26504,
+      "sha256": "703cd620957895d3b00fe816ee701fd324c639193adac66862ef1b6a506e7237"
+    },
+    "controls/asan-ubsan/allow-late-fallback/transaction.dSYM/Contents/Info.plist": {
+      "bytes": 640,
+      "sha256": "afbb996101bdecd20fbb54434b2f6d46d05efc30c0847990e87009a1fea63367"
+    },
+    "controls/asan-ubsan/allow-late-fallback/transaction.dSYM/Contents/Resources/DWARF/transaction": {
+      "bytes": 129048,
+      "sha256": "ef316c5dd4e0a03645ad3f18f2ef0b8aa3aeb87351b2e04256671641c6b4323b"
+    },
+    "controls/asan-ubsan/allow-late-fallback/transaction.dSYM/Contents/Resources/Relocations/aarch64/transaction.yml": {
+      "bytes": 376,
+      "sha256": "02a93d9ab5a12608885193e14f880b261a5b161e0160164567a3b9227a3802db"
+    },
+    "controls/asan-ubsan/allow-late-fallback/transaction.h": {
+      "bytes": 9801,
+      "sha256": "5209577a618920923c97b32a27b738e8c493f9976934e217eedd28f6203be1eb"
+    },
+    "controls/asan-ubsan/module-prefix-scan/test_transaction.c": {
+      "bytes": 27938,
+      "sha256": "ddac94359de5ed1fb7b3b1e85f2b9c38773aef630f99e5bae7cac230604b6d7a"
+    },
+    "controls/asan-ubsan/module-prefix-scan/transaction": {
+      "bytes": 192952,
+      "sha256": "5c0eb613b29fb57bb465853a74cb0137d7991bcdcafbd5cf062423e89bb28d66"
+    },
+    "controls/asan-ubsan/module-prefix-scan/transaction.c": {
+      "bytes": 26504,
+      "sha256": "703cd620957895d3b00fe816ee701fd324c639193adac66862ef1b6a506e7237"
+    },
+    "controls/asan-ubsan/module-prefix-scan/transaction.dSYM/Contents/Info.plist": {
+      "bytes": 640,
+      "sha256": "afbb996101bdecd20fbb54434b2f6d46d05efc30c0847990e87009a1fea63367"
+    },
+    "controls/asan-ubsan/module-prefix-scan/transaction.dSYM/Contents/Resources/DWARF/transaction": {
+      "bytes": 129164,
+      "sha256": "2388bbb571e047641d1f31a1f012c334cb8888509eb5d58ef638f7151ee701a0"
+    },
+    "controls/asan-ubsan/module-prefix-scan/transaction.dSYM/Contents/Resources/Relocations/aarch64/transaction.yml": {
+      "bytes": 375,
+      "sha256": "823a7c3f778af4f37c8b39e64f8a51ee535d6ecc0a0fb4c94cf9d05cd18d7863"
+    },
+    "controls/asan-ubsan/module-prefix-scan/transaction.h": {
+      "bytes": 9801,
+      "sha256": "5209577a618920923c97b32a27b738e8c493f9976934e217eedd28f6203be1eb"
+    },
+    "controls/asan-ubsan/omit-hook-accounting/test_transaction.c": {
+      "bytes": 27938,
+      "sha256": "ddac94359de5ed1fb7b3b1e85f2b9c38773aef630f99e5bae7cac230604b6d7a"
+    },
+    "controls/asan-ubsan/omit-hook-accounting/transaction": {
+      "bytes": 192952,
+      "sha256": "dbe570f0d99f388cca34dea5f17cc4e8d89cd46c56ce4298801e7cd60fa4d21e"
+    },
+    "controls/asan-ubsan/omit-hook-accounting/transaction.c": {
+      "bytes": 26504,
+      "sha256": "703cd620957895d3b00fe816ee701fd324c639193adac66862ef1b6a506e7237"
+    },
+    "controls/asan-ubsan/omit-hook-accounting/transaction.dSYM/Contents/Info.plist": {
+      "bytes": 640,
+      "sha256": "afbb996101bdecd20fbb54434b2f6d46d05efc30c0847990e87009a1fea63367"
+    },
+    "controls/asan-ubsan/omit-hook-accounting/transaction.dSYM/Contents/Resources/DWARF/transaction": {
+      "bytes": 128732,
+      "sha256": "06c17d66206bf32a5259e970b7b565b1f4e128402cfcf81da252ae393241dd5a"
+    },
+    "controls/asan-ubsan/omit-hook-accounting/transaction.dSYM/Contents/Resources/Relocations/aarch64/transaction.yml": {
+      "bytes": 377,
+      "sha256": "9bba4e1edaf54a04faf1fc7fe42e94ed78b1bdeb56b3882d323e78e2a89eed86"
+    },
+    "controls/asan-ubsan/omit-hook-accounting/transaction.h": {
+      "bytes": 9801,
+      "sha256": "5209577a618920923c97b32a27b738e8c493f9976934e217eedd28f6203be1eb"
+    },
+    "controls/asan-ubsan/original-before-metadata/test_transaction.c": {
+      "bytes": 27938,
+      "sha256": "ddac94359de5ed1fb7b3b1e85f2b9c38773aef630f99e5bae7cac230604b6d7a"
+    },
+    "controls/asan-ubsan/original-before-metadata/transaction": {
+      "bytes": 192952,
+      "sha256": "ab12bce5e43194d9374d581f673bfbce41a53bad02d115c16e710d32975e03e0"
+    },
+    "controls/asan-ubsan/original-before-metadata/transaction.c": {
+      "bytes": 26504,
+      "sha256": "703cd620957895d3b00fe816ee701fd324c639193adac66862ef1b6a506e7237"
+    },
+    "controls/asan-ubsan/original-before-metadata/transaction.dSYM/Contents/Info.plist": {
+      "bytes": 640,
+      "sha256": "afbb996101bdecd20fbb54434b2f6d46d05efc30c0847990e87009a1fea63367"
+    },
+    "controls/asan-ubsan/original-before-metadata/transaction.dSYM/Contents/Resources/DWARF/transaction": {
+      "bytes": 129076,
+      "sha256": "3750cc480607071f89445c5c96a4170582ce2dcc3242b8d3e83cadaed4b98d44"
+    },
+    "controls/asan-ubsan/original-before-metadata/transaction.dSYM/Contents/Resources/Relocations/aarch64/transaction.yml": {
+      "bytes": 381,
+      "sha256": "7138f732c9c0ceef54633b61205d1b951a363a8b47420c61f39663e218805c72"
+    },
+    "controls/asan-ubsan/original-before-metadata/transaction.h": {
+      "bytes": 9801,
+      "sha256": "5209577a618920923c97b32a27b738e8c493f9976934e217eedd28f6203be1eb"
+    },
+    "controls/asan-ubsan/skip-epoch-recheck/test_transaction.c": {
+      "bytes": 27938,
+      "sha256": "ddac94359de5ed1fb7b3b1e85f2b9c38773aef630f99e5bae7cac230604b6d7a"
+    },
+    "controls/asan-ubsan/skip-epoch-recheck/transaction": {
+      "bytes": 192952,
+      "sha256": "7e37767c48041a9aa02daea175d11abbbfcfd0ee7057ee1d1637861eba3aba7d"
+    },
+    "controls/asan-ubsan/skip-epoch-recheck/transaction.c": {
+      "bytes": 26504,
+      "sha256": "703cd620957895d3b00fe816ee701fd324c639193adac66862ef1b6a506e7237"
+    },
+    "controls/asan-ubsan/skip-epoch-recheck/transaction.dSYM/Contents/Info.plist": {
+      "bytes": 640,
+      "sha256": "afbb996101bdecd20fbb54434b2f6d46d05efc30c0847990e87009a1fea63367"
+    },
+    "controls/asan-ubsan/skip-epoch-recheck/transaction.dSYM/Contents/Resources/DWARF/transaction": {
+      "bytes": 129052,
+      "sha256": "f511f2a3f007d5b2563f14e3eba96d6677ad3dfb3e51da3c9583582a2c2f8cbd"
+    },
+    "controls/asan-ubsan/skip-epoch-recheck/transaction.dSYM/Contents/Resources/Relocations/aarch64/transaction.yml": {
+      "bytes": 375,
+      "sha256": "a1cd029765ae59321a291daa7223ac3f62537787e6e7203242aded0bb99469b0"
+    },
+    "controls/asan-ubsan/skip-epoch-recheck/transaction.h": {
+      "bytes": 9801,
+      "sha256": "5209577a618920923c97b32a27b738e8c493f9976934e217eedd28f6203be1eb"
+    },
+    "controls/plain/accept-bad-permit/test_transaction.c": {
+      "bytes": 27938,
+      "sha256": "ddac94359de5ed1fb7b3b1e85f2b9c38773aef630f99e5bae7cac230604b6d7a"
+    },
+    "controls/plain/accept-bad-permit/transaction": {
+      "bytes": 57000,
+      "sha256": "1f73431feb16d4f0aac5e91ce4670137d0c4dda489e76af7533526e01d550e21"
+    },
+    "controls/plain/accept-bad-permit/transaction.c": {
+      "bytes": 26504,
+      "sha256": "703cd620957895d3b00fe816ee701fd324c639193adac66862ef1b6a506e7237"
+    },
+    "controls/plain/accept-bad-permit/transaction.dSYM/Contents/Info.plist": {
+      "bytes": 640,
+      "sha256": "afbb996101bdecd20fbb54434b2f6d46d05efc30c0847990e87009a1fea63367"
+    },
+    "controls/plain/accept-bad-permit/transaction.dSYM/Contents/Resources/DWARF/transaction": {
+      "bytes": 87896,
+      "sha256": "93b6ebaf1084ca7daffea8b4bcd8fc44d562ce8c218e3201fbff708f6333c36f"
+    },
+    "controls/plain/accept-bad-permit/transaction.dSYM/Contents/Resources/Relocations/aarch64/transaction.yml": {
+      "bytes": 369,
+      "sha256": "a5ddb37b9c85bf8d1580e4f37fe0463ee33d05d973e64d32a6a0ad8b368c984d"
+    },
+    "controls/plain/accept-bad-permit/transaction.h": {
+      "bytes": 9801,
+      "sha256": "5209577a618920923c97b32a27b738e8c493f9976934e217eedd28f6203be1eb"
+    },
+    "controls/plain/accept-failed-provenance/test_transaction.c": {
+      "bytes": 27938,
+      "sha256": "ddac94359de5ed1fb7b3b1e85f2b9c38773aef630f99e5bae7cac230604b6d7a"
+    },
+    "controls/plain/accept-failed-provenance/transaction": {
+      "bytes": 57112,
+      "sha256": "99cf851fb22601794a89501ae80e412126ea810c460f698b2afd201403aaa7cf"
+    },
+    "controls/plain/accept-failed-provenance/transaction.c": {
+      "bytes": 26504,
+      "sha256": "703cd620957895d3b00fe816ee701fd324c639193adac66862ef1b6a506e7237"
+    },
+    "controls/plain/accept-failed-provenance/transaction.dSYM/Contents/Info.plist": {
+      "bytes": 640,
+      "sha256": "afbb996101bdecd20fbb54434b2f6d46d05efc30c0847990e87009a1fea63367"
+    },
+    "controls/plain/accept-failed-provenance/transaction.dSYM/Contents/Resources/DWARF/transaction": {
+      "bytes": 88424,
+      "sha256": "b9c3b732abd654b4b4a6cebcf42a1d3bcaa8b4611a7286c3018fd8d7966bc4fc"
+    },
+    "controls/plain/accept-failed-provenance/transaction.dSYM/Contents/Resources/Relocations/aarch64/transaction.yml": {
+      "bytes": 376,
+      "sha256": "82fd496883bb84a1c99c01009dec3819e28726ec35a6e1bf24f772f5414cd412"
+    },
+    "controls/plain/accept-failed-provenance/transaction.h": {
+      "bytes": 9801,
+      "sha256": "5209577a618920923c97b32a27b738e8c493f9976934e217eedd28f6203be1eb"
+    },
+    "controls/plain/allow-late-fallback/test_transaction.c": {
+      "bytes": 27938,
+      "sha256": "ddac94359de5ed1fb7b3b1e85f2b9c38773aef630f99e5bae7cac230604b6d7a"
+    },
+    "controls/plain/allow-late-fallback/transaction": {
+      "bytes": 57096,
+      "sha256": "a42d1dafa238998a2b78e9bc974c2b7ba978af32f1d7be581dd3d6e88e0a565d"
+    },
+    "controls/plain/allow-late-fallback/transaction.c": {
+      "bytes": 26504,
+      "sha256": "703cd620957895d3b00fe816ee701fd324c639193adac66862ef1b6a506e7237"
+    },
+    "controls/plain/allow-late-fallback/transaction.dSYM/Contents/Info.plist": {
+      "bytes": 640,
+      "sha256": "afbb996101bdecd20fbb54434b2f6d46d05efc30c0847990e87009a1fea63367"
+    },
+    "controls/plain/allow-late-fallback/transaction.dSYM/Contents/Resources/DWARF/transaction": {
+      "bytes": 88416,
+      "sha256": "67cb76378edfd5c9a09145e6d4730c8ff07f9ac1d52562fd5f24904b98e299f7"
+    },
+    "controls/plain/allow-late-fallback/transaction.dSYM/Contents/Resources/Relocations/aarch64/transaction.yml": {
+      "bytes": 371,
+      "sha256": "383973c89f2fa2b96c36f373e45e7ff6a21126654515c6186e9bdd1a1c1d146a"
+    },
+    "controls/plain/allow-late-fallback/transaction.h": {
+      "bytes": 9801,
+      "sha256": "5209577a618920923c97b32a27b738e8c493f9976934e217eedd28f6203be1eb"
+    },
+    "controls/plain/module-prefix-scan/test_transaction.c": {
+      "bytes": 27938,
+      "sha256": "ddac94359de5ed1fb7b3b1e85f2b9c38773aef630f99e5bae7cac230604b6d7a"
+    },
+    "controls/plain/module-prefix-scan/transaction": {
+      "bytes": 57096,
+      "sha256": "7dfad11029a2225bdc14883f9bca76cf30eb19918b9e3ae82f3686f51151aca9"
+    },
+    "controls/plain/module-prefix-scan/transaction.c": {
+      "bytes": 26504,
+      "sha256": "703cd620957895d3b00fe816ee701fd324c639193adac66862ef1b6a506e7237"
+    },
+    "controls/plain/module-prefix-scan/transaction.dSYM/Contents/Info.plist": {
+      "bytes": 640,
+      "sha256": "afbb996101bdecd20fbb54434b2f6d46d05efc30c0847990e87009a1fea63367"
+    },
+    "controls/plain/module-prefix-scan/transaction.dSYM/Contents/Resources/DWARF/transaction": {
+      "bytes": 88520,
+      "sha256": "5b3b19132e2a2f8a0733847ced6a13a8686d76bbfee716f2752ead701b1a6d7f"
+    },
+    "controls/plain/module-prefix-scan/transaction.dSYM/Contents/Resources/Relocations/aarch64/transaction.yml": {
+      "bytes": 370,
+      "sha256": "c03019df50b97d0b258944340d2a36a49b5628ab659e369679ae746c6452d486"
+    },
+    "controls/plain/module-prefix-scan/transaction.h": {
+      "bytes": 9801,
+      "sha256": "5209577a618920923c97b32a27b738e8c493f9976934e217eedd28f6203be1eb"
+    },
+    "controls/plain/omit-hook-accounting/test_transaction.c": {
+      "bytes": 27938,
+      "sha256": "ddac94359de5ed1fb7b3b1e85f2b9c38773aef630f99e5bae7cac230604b6d7a"
+    },
+    "controls/plain/omit-hook-accounting/transaction": {
+      "bytes": 57096,
+      "sha256": "d206c2acdd68fe10a60230158a443cad5e5bbfcd40dc0b8d26d723341b1ce845"
+    },
+    "controls/plain/omit-hook-accounting/transaction.c": {
+      "bytes": 26504,
+      "sha256": "703cd620957895d3b00fe816ee701fd324c639193adac66862ef1b6a506e7237"
+    },
+    "controls/plain/omit-hook-accounting/transaction.dSYM/Contents/Info.plist": {
+      "bytes": 640,
+      "sha256": "afbb996101bdecd20fbb54434b2f6d46d05efc30c0847990e87009a1fea63367"
+    },
+    "controls/plain/omit-hook-accounting/transaction.dSYM/Contents/Resources/DWARF/transaction": {
+      "bytes": 88488,
+      "sha256": "14f5805b8973bfaa1b6498b45fb27aee863bf39d63e4e9a9167f418cc93ab902"
+    },
+    "controls/plain/omit-hook-accounting/transaction.dSYM/Contents/Resources/Relocations/aarch64/transaction.yml": {
+      "bytes": 372,
+      "sha256": "4190cf2cd84dc6a3722647c4cc630832cce795faf5e5d3e9b11d5f3e9560c25d"
+    },
+    "controls/plain/omit-hook-accounting/transaction.h": {
+      "bytes": 9801,
+      "sha256": "5209577a618920923c97b32a27b738e8c493f9976934e217eedd28f6203be1eb"
+    },
+    "controls/plain/original-before-metadata/test_transaction.c": {
+      "bytes": 27938,
+      "sha256": "ddac94359de5ed1fb7b3b1e85f2b9c38773aef630f99e5bae7cac230604b6d7a"
+    },
+    "controls/plain/original-before-metadata/transaction": {
+      "bytes": 57112,
+      "sha256": "5fda61ee3fd470a7f9438f662dddb0e17187dbd84c3c27a602cb25afd4456d79"
+    },
+    "controls/plain/original-before-metadata/transaction.c": {
+      "bytes": 26504,
+      "sha256": "703cd620957895d3b00fe816ee701fd324c639193adac66862ef1b6a506e7237"
+    },
+    "controls/plain/original-before-metadata/transaction.dSYM/Contents/Info.plist": {
+      "bytes": 640,
+      "sha256": "afbb996101bdecd20fbb54434b2f6d46d05efc30c0847990e87009a1fea63367"
+    },
+    "controls/plain/original-before-metadata/transaction.dSYM/Contents/Resources/DWARF/transaction": {
+      "bytes": 88464,
+      "sha256": "f0a317055d20f854ed68946be461d2c9b42ed44d708c57f791606a174c77c6a9"
+    },
+    "controls/plain/original-before-metadata/transaction.dSYM/Contents/Resources/Relocations/aarch64/transaction.yml": {
+      "bytes": 376,
+      "sha256": "720302e9e66fd0bc74e40ca007c7e72269197df588048af231c0b4b1d748be53"
+    },
+    "controls/plain/original-before-metadata/transaction.h": {
+      "bytes": 9801,
+      "sha256": "5209577a618920923c97b32a27b738e8c493f9976934e217eedd28f6203be1eb"
+    },
+    "controls/plain/skip-epoch-recheck/test_transaction.c": {
+      "bytes": 27938,
+      "sha256": "ddac94359de5ed1fb7b3b1e85f2b9c38773aef630f99e5bae7cac230604b6d7a"
+    },
+    "controls/plain/skip-epoch-recheck/transaction": {
+      "bytes": 57096,
+      "sha256": "c0536a13f35ed5d3a37dd01a11f0782d7d640fbe5e35504c197e7180adfc6f8d"
+    },
+    "controls/plain/skip-epoch-recheck/transaction.c": {
+      "bytes": 26504,
+      "sha256": "703cd620957895d3b00fe816ee701fd324c639193adac66862ef1b6a506e7237"
+    },
+    "controls/plain/skip-epoch-recheck/transaction.dSYM/Contents/Info.plist": {
+      "bytes": 640,
+      "sha256": "afbb996101bdecd20fbb54434b2f6d46d05efc30c0847990e87009a1fea63367"
+    },
+    "controls/plain/skip-epoch-recheck/transaction.dSYM/Contents/Resources/DWARF/transaction": {
+      "bytes": 88296,
+      "sha256": "551442bc7373d5d244475b15236d95f7a05c7987d3429681c09322370daae93e"
+    },
+    "controls/plain/skip-epoch-recheck/transaction.dSYM/Contents/Resources/Relocations/aarch64/transaction.yml": {
+      "bytes": 370,
+      "sha256": "1d4a61366d0c4dd5c6a4400216b048aa864298c761e20eb0ca2e2b80ef617a97"
+    },
+    "controls/plain/skip-epoch-recheck/transaction.h": {
+      "bytes": 9801,
+      "sha256": "5209577a618920923c97b32a27b738e8c493f9976934e217eedd28f6203be1eb"
+    }
+  },
+  "baseline_commit": "3f9b8078e090f7b688d1902b261653a0fb130548",
+  "candidate": {
+    "asan-ubsan": {
+      "admitted-close": {
+        "check_names": [
+          "real-cm-contention",
+          "claim-completes-before-close",
+          "accounting-retained-at-close",
+          "epoch-stays-closed"
+        ],
+        "checks": 4,
+        "failed_checks": [],
+        "failures": 0,
+        "selector": "admitted-close"
+      },
+      "cleanup-receipts": {
+        "check_names": [
+          "allocation-failure-keeps-burned-slot-fact",
+          "seal-failure-keeps-distinct-cleanup-return",
+          "island-failure-retains-uncertain-cleanup",
+          "fallback-unlock-failure-retains-mapping",
+          "failure-reservations-and-receipts-stay-retained"
+        ],
+        "checks": 5,
+        "failed_checks": [],
+        "failures": 0,
+        "selector": "cleanup-receipts"
+      },
+      "common-admission": {
+        "check_names": [
+          "community-target-excludes-core",
+          "core-target-excludes-community",
+          "common-capacity-refuses-before-allocation",
+          "common-owner-and-capacity-accounting"
+        ],
+        "checks": 4,
+        "failed_checks": [],
+        "failures": 0,
+        "selector": "common-admission"
+      },
+      "fallback-phase": {
+        "check_names": [
+          "real-writer-contention",
+          "fallback-completes-before-late",
+          "late-fallback-refuses-before-reserve",
+          "island-remains-eligible-late"
+        ],
+        "checks": 4,
+        "failed_checks": [],
+        "failures": 0,
+        "selector": "fallback-phase"
+      },
+      "lifecycle-retention": {
+        "check_names": [
+          "descriptor-rejection-keeps-module",
+          "partial-init-retains-hook-accounting",
+          "partial-init-retains-code-owner-records",
+          "failed-init-closes-new-admission"
+        ],
+        "checks": 4,
+        "failed_checks": [],
+        "failures": 0,
+        "selector": "lifecycle-retention"
+      },
+      "loader-and-caller": {
+        "check_names": [
+          "loader-start-is-one-shot",
+          "captured-caller-value-is-checked",
+          "epoch-is-bound-to-system",
+          "finished-init-epoch-does-not-reopen",
+          "admission-copies-public-input-values"
+        ],
+        "checks": 5,
+        "failed_checks": [],
+        "failures": 0,
+        "selector": "loader-and-caller"
+      },
+      "module-holes": {
+        "check_names": [
+          "published-slot-after-hole-is-readable",
+          "module-publication-is-not-early-prefix",
+          "first-published-index-wins-overlap",
+          "module-publication-is-immutable"
+        ],
+        "checks": 4,
+        "failed_checks": [],
+        "failures": 0,
+        "selector": "module-holes"
+      },
+      "module-provenance": {
+        "check_names": [
+          "failed-handle-not-published",
+          "failed-link-map-retains-handle-fact",
+          "wrong-object-not-published",
+          "proven-zero-base-is-valid",
+          "failed-provenance-is-not-overwritten"
+        ],
+        "checks": 5,
+        "failed_checks": [],
+        "failures": 0,
+        "selector": "module-provenance"
+      },
+      "permit-boundary": {
+        "check_names": [
+          "wrong-system-before-unlock",
+          "wrong-slot-before-unlock",
+          "wrong-owner-before-unlock",
+          "consumed-permit-before-unlock",
+          "fresh-bound-permit-still-works"
+        ],
+        "checks": 5,
+        "failed_checks": [],
+        "failures": 0,
+        "selector": "permit-boundary"
+      },
+      "protection-receipts": {
+        "check_names": [
+          "island-and-target-tokens-stay-distinct",
+          "successful-relock-can-restore-writable-bits",
+          "target-warning-is-not-rx-proof",
+          "postpublication-warning-retains-emission"
+        ],
+        "checks": 4,
+        "failed_checks": [],
+        "failures": 0,
+        "selector": "protection-receipts"
+      },
+      "publication-order": {
+        "check_names": [
+          "cut-has-invisible-and-visible-boundaries",
+          "metadata-original-redirect-order",
+          "publication-observes-prerequisites",
+          "published-values-match-bound-plan"
+        ],
+        "checks": 4,
+        "failed_checks": [],
+        "failures": 0,
+        "selector": "publication-order"
+      },
+      "queued-close": {
+        "check_names": [
+          "queued-close-completes",
+          "queued-claim-refused",
+          "queued-claim-has-no-side-effects"
+        ],
+        "checks": 3,
+        "failed_checks": [],
+        "failures": 0,
+        "selector": "queued-close"
+      }
+    },
+    "plain": {
+      "admitted-close": {
+        "check_names": [
+          "real-cm-contention",
+          "claim-completes-before-close",
+          "accounting-retained-at-close",
+          "epoch-stays-closed"
+        ],
+        "checks": 4,
+        "failed_checks": [],
+        "failures": 0,
+        "selector": "admitted-close"
+      },
+      "cleanup-receipts": {
+        "check_names": [
+          "allocation-failure-keeps-burned-slot-fact",
+          "seal-failure-keeps-distinct-cleanup-return",
+          "island-failure-retains-uncertain-cleanup",
+          "fallback-unlock-failure-retains-mapping",
+          "failure-reservations-and-receipts-stay-retained"
+        ],
+        "checks": 5,
+        "failed_checks": [],
+        "failures": 0,
+        "selector": "cleanup-receipts"
+      },
+      "common-admission": {
+        "check_names": [
+          "community-target-excludes-core",
+          "core-target-excludes-community",
+          "common-capacity-refuses-before-allocation",
+          "common-owner-and-capacity-accounting"
+        ],
+        "checks": 4,
+        "failed_checks": [],
+        "failures": 0,
+        "selector": "common-admission"
+      },
+      "fallback-phase": {
+        "check_names": [
+          "real-writer-contention",
+          "fallback-completes-before-late",
+          "late-fallback-refuses-before-reserve",
+          "island-remains-eligible-late"
+        ],
+        "checks": 4,
+        "failed_checks": [],
+        "failures": 0,
+        "selector": "fallback-phase"
+      },
+      "lifecycle-retention": {
+        "check_names": [
+          "descriptor-rejection-keeps-module",
+          "partial-init-retains-hook-accounting",
+          "partial-init-retains-code-owner-records",
+          "failed-init-closes-new-admission"
+        ],
+        "checks": 4,
+        "failed_checks": [],
+        "failures": 0,
+        "selector": "lifecycle-retention"
+      },
+      "loader-and-caller": {
+        "check_names": [
+          "loader-start-is-one-shot",
+          "captured-caller-value-is-checked",
+          "epoch-is-bound-to-system",
+          "finished-init-epoch-does-not-reopen",
+          "admission-copies-public-input-values"
+        ],
+        "checks": 5,
+        "failed_checks": [],
+        "failures": 0,
+        "selector": "loader-and-caller"
+      },
+      "module-holes": {
+        "check_names": [
+          "published-slot-after-hole-is-readable",
+          "module-publication-is-not-early-prefix",
+          "first-published-index-wins-overlap",
+          "module-publication-is-immutable"
+        ],
+        "checks": 4,
+        "failed_checks": [],
+        "failures": 0,
+        "selector": "module-holes"
+      },
+      "module-provenance": {
+        "check_names": [
+          "failed-handle-not-published",
+          "failed-link-map-retains-handle-fact",
+          "wrong-object-not-published",
+          "proven-zero-base-is-valid",
+          "failed-provenance-is-not-overwritten"
+        ],
+        "checks": 5,
+        "failed_checks": [],
+        "failures": 0,
+        "selector": "module-provenance"
+      },
+      "permit-boundary": {
+        "check_names": [
+          "wrong-system-before-unlock",
+          "wrong-slot-before-unlock",
+          "wrong-owner-before-unlock",
+          "consumed-permit-before-unlock",
+          "fresh-bound-permit-still-works"
+        ],
+        "checks": 5,
+        "failed_checks": [],
+        "failures": 0,
+        "selector": "permit-boundary"
+      },
+      "protection-receipts": {
+        "check_names": [
+          "island-and-target-tokens-stay-distinct",
+          "successful-relock-can-restore-writable-bits",
+          "target-warning-is-not-rx-proof",
+          "postpublication-warning-retains-emission"
+        ],
+        "checks": 4,
+        "failed_checks": [],
+        "failures": 0,
+        "selector": "protection-receipts"
+      },
+      "publication-order": {
+        "check_names": [
+          "cut-has-invisible-and-visible-boundaries",
+          "metadata-original-redirect-order",
+          "publication-observes-prerequisites",
+          "published-values-match-bound-plan"
+        ],
+        "checks": 4,
+        "failed_checks": [],
+        "failures": 0,
+        "selector": "publication-order"
+      },
+      "queued-close": {
+        "check_names": [
+          "queued-close-completes",
+          "queued-claim-refused",
+          "queued-claim-has-no-side-effects"
+        ],
+        "checks": 3,
+        "failed_checks": [],
+        "failures": 0,
+        "selector": "queued-close"
+      }
+    }
+  },
+  "codegen_or_signal_proof": false,
+  "commands": [
+    {
+      "failure": null,
+      "name": "compiler-version",
+      "receipt_sha256": "ecf75a24c09b919ddb2f60fbbfd62fdb0408709f5358ca357f316e2ece434634",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 158,
+      "stdout_sha256": "532ed371de5818d7a523b5ebb0b7d4dcca20065441aa3313777683f1fc48db70"
+    },
+    {
+      "failure": null,
+      "name": "compile-standalone-C",
+      "receipt_sha256": "1674a4053ca7288f34179aa89e917511f0a00a2065ed139aec49ef5f4bc4f59d",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "failure": null,
+      "name": "compile-candidate-plain",
+      "receipt_sha256": "184b5de0648121d99cbbdc98d92620bdb46cebc8d0de2f59dbbfc54d03d3b14c",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "failure": null,
+      "name": "candidate-plain-queued-close",
+      "receipt_sha256": "15bd7157a5bc9f4c1568128127160b4749a8f01148d77d38bedc92538838278b",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 170,
+      "stdout_sha256": "315fa5999a53fbdec36637698cac18cc62059b36f8cca699874cb989488c041e"
+    },
+    {
+      "failure": null,
+      "name": "candidate-plain-admitted-close",
+      "receipt_sha256": "bf68221464cf92e3a0a77cb3f7d7b616bc6d9496a658e2a21b7e8f1bc94691da",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 193,
+      "stdout_sha256": "5b4843a9a7fefdce55eccae345fe284bfa3497c650f815b310bd41647ef506bc"
+    },
+    {
+      "failure": null,
+      "name": "candidate-plain-common-admission",
+      "receipt_sha256": "31c72decadd2a857a1f1e4495fa3a8a46d01a13f9bf733f4e4d0342674a83a78",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 240,
+      "stdout_sha256": "5cbd05000f3fd5d5f5d27134ed1cc99caba5372ec12849f156f9a886030568a2"
+    },
+    {
+      "failure": null,
+      "name": "candidate-plain-fallback-phase",
+      "receipt_sha256": "1c8fc9f20f886791da40661860c0a514ffabc9a9de40f232470ffa7e0bedcdde",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 217,
+      "stdout_sha256": "7259cf6233befd19351360b14660d319ea54a83cacc5b2a6e3c9a40f5dae780f"
+    },
+    {
+      "failure": null,
+      "name": "candidate-plain-permit-boundary",
+      "receipt_sha256": "05dd9e2b209581e90be04314e3e4f41f8f82d3e6a36f799c537651ccb63b8bcd",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 239,
+      "stdout_sha256": "b6e764ea5e405338acca450eaa8e6cfffb6f025334b3cb2cfbdb45aa34196300"
+    },
+    {
+      "failure": null,
+      "name": "candidate-plain-module-provenance",
+      "receipt_sha256": "692af6914c53ce74ea2eb75414aba420a92245fecee8bd413cd6b02c2d4344e0",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 256,
+      "stdout_sha256": "da507a183f287131d78d72b4781596db78a37ed8c588495627b0c4690def3a72"
+    },
+    {
+      "failure": null,
+      "name": "candidate-plain-module-holes",
+      "receipt_sha256": "2f844c7f78ffbfd655b7cd918cb8c7554cfe6e8b7fbe90429a819ca3c8d458a6",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 239,
+      "stdout_sha256": "a86d43227456b22f31edc456216e32d675a7690ad5448586c814e2c9111e6783"
+    },
+    {
+      "failure": null,
+      "name": "candidate-plain-lifecycle-retention",
+      "receipt_sha256": "e5b4cf166b999e67b6cf68b90ca8a74f661b5b8bb0132eb9a3d8146fcf76cdac",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 246,
+      "stdout_sha256": "3040fdca62dd5a0fc8bbbfbf3db24c00122886665cde2d499e658779fc47abd8"
+    },
+    {
+      "failure": null,
+      "name": "candidate-plain-cleanup-receipts",
+      "receipt_sha256": "cded063c4acb845cdb70139696b67d00b929b44e37dc98c70a350f1985c4d2c5",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 315,
+      "stdout_sha256": "9e01246fea250409f659e872787a24c881e586d8e24e4b08ebcf96b8fbee3a34"
+    },
+    {
+      "failure": null,
+      "name": "candidate-plain-protection-receipts",
+      "receipt_sha256": "dabe8c4de388db43a634e3c2eee54329e060ec3a1567f4a274546bce8c920855",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 257,
+      "stdout_sha256": "23b64edf15e147765c7ca564f955684b40bc40edaa7574482ae565dc43270a17"
+    },
+    {
+      "failure": null,
+      "name": "candidate-plain-publication-order",
+      "receipt_sha256": "2cb3cce475646474181b934c0e8f90b390540b0d8aecf330b08e9661ed9a0941",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 243,
+      "stdout_sha256": "8d500f2cda9686ddfa27836f52318af527b162122f8ab6d5c752e8cfdd2f213b"
+    },
+    {
+      "failure": null,
+      "name": "candidate-plain-loader-and-caller",
+      "receipt_sha256": "289effbfe884feb6a7bc26cd7c105a6663862eb5c54084e4a6993150833d766f",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 258,
+      "stdout_sha256": "574f7caf6b77b2ba861763dc316b6dee7e139f5f5cfeb7f7802194be17188a1b"
+    },
+    {
+      "failure": null,
+      "name": "compile-control-plain-skip-epoch-recheck",
+      "receipt_sha256": "2b4e658b8088debe257ed9f267af955bb8e7ccd27e731250283d1a0c0c58ccd8",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "failure": null,
+      "name": "control-plain-skip-epoch-recheck",
+      "receipt_sha256": "3bab17f3665e0b444cf7f2ecd50009c3c282e03869f486af5f789d0c7e5bb12b",
+      "returncode": 1,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 227,
+      "stdout_sha256": "98ef34cdc6500d7f5642fa0f7da0b0bee24f77be5f341d8bf82dd6642d4c6600"
+    },
+    {
+      "failure": null,
+      "name": "compile-control-plain-omit-hook-accounting",
+      "receipt_sha256": "a7b391f43ac47654b50e7c93880545dd6277ab10ef89fad3353426c927b0fe07",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "failure": null,
+      "name": "control-plain-omit-hook-accounting",
+      "receipt_sha256": "9c8ecaccf9822a1c2b11056442dce9cd34914dd6eb3008b7f8ce15eca96d605e",
+      "returncode": 1,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 223,
+      "stdout_sha256": "bb38b7da47fe1fbb7e0b2195ecef984309d06c123131125f46cc39812088a384"
+    },
+    {
+      "failure": null,
+      "name": "compile-control-plain-allow-late-fallback",
+      "receipt_sha256": "3d60a427890648b584ec923b20164e81c8ae812568cd8c5bc0f273af17f07c8e",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "failure": null,
+      "name": "control-plain-allow-late-fallback",
+      "receipt_sha256": "8b5963278fbc32ade4855a37e7f9b2d897468da86f061455e78aaf9fea596e3d",
+      "returncode": 1,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 255,
+      "stdout_sha256": "5d52ade20ed05fb90e0b001cff4b0afdd7365433ddfd992692a56a2bb58dcbfc"
+    },
+    {
+      "failure": null,
+      "name": "compile-control-plain-accept-bad-permit",
+      "receipt_sha256": "384485c5a3757645ef6b56ca08fadcff4fb20fe110e84460ecfab78a4f52f26d",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "failure": null,
+      "name": "control-plain-accept-bad-permit",
+      "receipt_sha256": "4683fe4e9e58263de79531d45e276f08773cc7137deaf5f89918948b11639853",
+      "returncode": 1,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 354,
+      "stdout_sha256": "f2b63c9aab35ed9591b88e8422c76e0217bf021d1135e75521ffafa8dc8642bd"
+    },
+    {
+      "failure": null,
+      "name": "compile-control-plain-accept-failed-provenance",
+      "receipt_sha256": "b30ed9d401a00b5b9cb3727e8dfb324c949824f0e5da3faebe8a8231baa38a7d",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "failure": null,
+      "name": "control-plain-accept-failed-provenance",
+      "receipt_sha256": "b1e54b383d7380235b3f17c09a1a90074f47a4230c793354cc25672b7b7c0b78",
+      "returncode": 1,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 391,
+      "stdout_sha256": "bc8ab628a11dea033794a910a3deb4c20c29b8e0682501de330124414ca2e291"
+    },
+    {
+      "failure": null,
+      "name": "compile-control-plain-module-prefix-scan",
+      "receipt_sha256": "3017d39e3d85f8bb6e6f59b0f898944a29de9a8e57fcdccd2ed691b60e70a494",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "failure": null,
+      "name": "control-plain-module-prefix-scan",
+      "receipt_sha256": "8a635279485b127b646e7db11b72cbeb842ff8d9f35c28305e09c538586f9699",
+      "returncode": 1,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 319,
+      "stdout_sha256": "cf581dbbb7bd21bffa36a9c6f8e751bf9eab08af9e3f046dc81f46fb66277df7"
+    },
+    {
+      "failure": null,
+      "name": "compile-control-plain-original-before-metadata",
+      "receipt_sha256": "0642a24d629a9ee37a6c8e5b1f873bb6f0e2c496ba87a5a909566137430a02f5",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "failure": null,
+      "name": "control-plain-original-before-metadata",
+      "receipt_sha256": "fd7266e16820a6a0f41a18a4a89d70f207e5076fa85890bfbaa073b7b661cf06",
+      "returncode": 1,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 314,
+      "stdout_sha256": "6519b1db9cd3f5545e08ce2610351b49ccc87cb0d9c0e169e331141a6739230a"
+    },
+    {
+      "failure": null,
+      "name": "compile-candidate-asan-ubsan",
+      "receipt_sha256": "d410e3d5ee5f7214a6a635e0a5ec13de78e624339bec987bfb2bfceeb0bce233",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "failure": null,
+      "name": "candidate-asan-ubsan-queued-close",
+      "receipt_sha256": "23ce5a060bb80a0f68ab0d866e42edbbf8eb593678da4af4cfe19753996790c8",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 170,
+      "stdout_sha256": "315fa5999a53fbdec36637698cac18cc62059b36f8cca699874cb989488c041e"
+    },
+    {
+      "failure": null,
+      "name": "candidate-asan-ubsan-admitted-close",
+      "receipt_sha256": "98d05ffb77ed7babe113ad5ec958b163405ecef9d536e7940c93b1b22f2a3b98",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 193,
+      "stdout_sha256": "5b4843a9a7fefdce55eccae345fe284bfa3497c650f815b310bd41647ef506bc"
+    },
+    {
+      "failure": null,
+      "name": "candidate-asan-ubsan-common-admission",
+      "receipt_sha256": "f6d2c0a75a74b1f51f6e97cdaaaa51baecb648d21022544a0efe5d31d3d25e12",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 240,
+      "stdout_sha256": "5cbd05000f3fd5d5f5d27134ed1cc99caba5372ec12849f156f9a886030568a2"
+    },
+    {
+      "failure": null,
+      "name": "candidate-asan-ubsan-fallback-phase",
+      "receipt_sha256": "bf4ddf0398ddbcaebfd7f50015579605610d17efc3a6053289f6b6645d137ebf",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 217,
+      "stdout_sha256": "7259cf6233befd19351360b14660d319ea54a83cacc5b2a6e3c9a40f5dae780f"
+    },
+    {
+      "failure": null,
+      "name": "candidate-asan-ubsan-permit-boundary",
+      "receipt_sha256": "a56d81c22f35a066e924aa331358d4313e4b011c84f7f6877b8b9e3fca31b937",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 239,
+      "stdout_sha256": "b6e764ea5e405338acca450eaa8e6cfffb6f025334b3cb2cfbdb45aa34196300"
+    },
+    {
+      "failure": null,
+      "name": "candidate-asan-ubsan-module-provenance",
+      "receipt_sha256": "5e84468334638f681f82b04eac78ea81c2fc8d846ad0d22109c171a3aa457d89",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 256,
+      "stdout_sha256": "da507a183f287131d78d72b4781596db78a37ed8c588495627b0c4690def3a72"
+    },
+    {
+      "failure": null,
+      "name": "candidate-asan-ubsan-module-holes",
+      "receipt_sha256": "f8b1383d9664ae8a1466b75ca8919a79ec52fd6f6c58526c25f5a896dbed760e",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 239,
+      "stdout_sha256": "a86d43227456b22f31edc456216e32d675a7690ad5448586c814e2c9111e6783"
+    },
+    {
+      "failure": null,
+      "name": "candidate-asan-ubsan-lifecycle-retention",
+      "receipt_sha256": "df31e8e8bfe286955a6221a473347c1ca55e6782374eb0e15c573dd02b3e9d90",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 246,
+      "stdout_sha256": "3040fdca62dd5a0fc8bbbfbf3db24c00122886665cde2d499e658779fc47abd8"
+    },
+    {
+      "failure": null,
+      "name": "candidate-asan-ubsan-cleanup-receipts",
+      "receipt_sha256": "a2147379d79599d8be5d46d27f8adb6d7be62eee31da331984aebd1b5fe8539a",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 315,
+      "stdout_sha256": "9e01246fea250409f659e872787a24c881e586d8e24e4b08ebcf96b8fbee3a34"
+    },
+    {
+      "failure": null,
+      "name": "candidate-asan-ubsan-protection-receipts",
+      "receipt_sha256": "ce0254639818cde3b745e0e3781a4b5b0a977ca7c86117785652a806e62d289b",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 257,
+      "stdout_sha256": "23b64edf15e147765c7ca564f955684b40bc40edaa7574482ae565dc43270a17"
+    },
+    {
+      "failure": null,
+      "name": "candidate-asan-ubsan-publication-order",
+      "receipt_sha256": "960b7bd0e0d565f1cc0183d27bbc9787ae02d4d8790a1d2e0a4e407c937baa44",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 243,
+      "stdout_sha256": "8d500f2cda9686ddfa27836f52318af527b162122f8ab6d5c752e8cfdd2f213b"
+    },
+    {
+      "failure": null,
+      "name": "candidate-asan-ubsan-loader-and-caller",
+      "receipt_sha256": "4ccb345f6a477aa25e1fe37a5a7790e952a0de833fbefd4e5ffed5317e7ab18f",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 258,
+      "stdout_sha256": "574f7caf6b77b2ba861763dc316b6dee7e139f5f5cfeb7f7802194be17188a1b"
+    },
+    {
+      "failure": null,
+      "name": "compile-control-asan-ubsan-skip-epoch-recheck",
+      "receipt_sha256": "4b3eb693b3f6946ae309f2f2bcac2f8517584ea9514973b7db9256bac3178361",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "failure": null,
+      "name": "control-asan-ubsan-skip-epoch-recheck",
+      "receipt_sha256": "780c7ca5d9604a94817d4d44502d5d9a7fbde708e1486648d0ba70094cbab445",
+      "returncode": 1,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 227,
+      "stdout_sha256": "98ef34cdc6500d7f5642fa0f7da0b0bee24f77be5f341d8bf82dd6642d4c6600"
+    },
+    {
+      "failure": null,
+      "name": "compile-control-asan-ubsan-omit-hook-accounting",
+      "receipt_sha256": "ebf6f07bf3b062a19ca80d411fe0ea8f87a6f944e63b1fc6c3f7351bf776ea91",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "failure": null,
+      "name": "control-asan-ubsan-omit-hook-accounting",
+      "receipt_sha256": "14c287e5be98b505492119eb49eb0990974e1ca2a158a1224d369b2068d803cb",
+      "returncode": 1,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 223,
+      "stdout_sha256": "bb38b7da47fe1fbb7e0b2195ecef984309d06c123131125f46cc39812088a384"
+    },
+    {
+      "failure": null,
+      "name": "compile-control-asan-ubsan-allow-late-fallback",
+      "receipt_sha256": "a2496d00790eb13b15e8c604dd4590938c7f1293b60eb1e28d57fb7e2349697c",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "failure": null,
+      "name": "control-asan-ubsan-allow-late-fallback",
+      "receipt_sha256": "21c4dcf1ba2cbe132d39123d3ce85009f93ce188ef1e638d920cf28ac1822155",
+      "returncode": 1,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 255,
+      "stdout_sha256": "5d52ade20ed05fb90e0b001cff4b0afdd7365433ddfd992692a56a2bb58dcbfc"
+    },
+    {
+      "failure": null,
+      "name": "compile-control-asan-ubsan-accept-bad-permit",
+      "receipt_sha256": "573e2b10afda705a5e8f08646bb26730748afa8168567e33ea13373e20f9654d",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "failure": null,
+      "name": "control-asan-ubsan-accept-bad-permit",
+      "receipt_sha256": "84dcc211ad2a590c9ad95c303239e2869dedac2bbe8ca010d620d32b816daed4",
+      "returncode": 1,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 354,
+      "stdout_sha256": "f2b63c9aab35ed9591b88e8422c76e0217bf021d1135e75521ffafa8dc8642bd"
+    },
+    {
+      "failure": null,
+      "name": "compile-control-asan-ubsan-accept-failed-provenance",
+      "receipt_sha256": "28ae1e6d391d1d7ce0e8c0b1108e5ee7dfafde123bdcd45ac344e1cb6ee6d2bc",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "failure": null,
+      "name": "control-asan-ubsan-accept-failed-provenance",
+      "receipt_sha256": "cbfb2ffe7b0384116d9e1f8e49a3bd762680eecbda9991d48cb362f26a0aea55",
+      "returncode": 1,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 391,
+      "stdout_sha256": "bc8ab628a11dea033794a910a3deb4c20c29b8e0682501de330124414ca2e291"
+    },
+    {
+      "failure": null,
+      "name": "compile-control-asan-ubsan-module-prefix-scan",
+      "receipt_sha256": "2a428be7e7306a5e64da76ae542f9665b4cdc623388b95b5071c5632f8200c68",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "failure": null,
+      "name": "control-asan-ubsan-module-prefix-scan",
+      "receipt_sha256": "7eb9fc4adb9931837204adc69516b3f0d09bbbde0c0f57dbf37bde01b89dde75",
+      "returncode": 1,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 319,
+      "stdout_sha256": "cf581dbbb7bd21bffa36a9c6f8e751bf9eab08af9e3f046dc81f46fb66277df7"
+    },
+    {
+      "failure": null,
+      "name": "compile-control-asan-ubsan-original-before-metadata",
+      "receipt_sha256": "7bcd1857c10b3c9c5aff089ecfdd1d9ff6e7f1c5c90cfca5f50da4da557bba75",
+      "returncode": 0,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "failure": null,
+      "name": "control-asan-ubsan-original-before-metadata",
+      "receipt_sha256": "17c5db42e533f65c9d772e6974f69665e6cc9db74c1a1d6ba63871fd633c6af4",
+      "returncode": 1,
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 314,
+      "stdout_sha256": "6519b1db9cd3f5545e08ce2610351b49ccc87cb0d9c0e169e331141a6739230a"
+    }
+  ],
+  "common_flags": [
+    "-std=c17",
+    "-mcpu=generic",
+    "-march=armv8-a",
+    "-O1",
+    "-g",
+    "-fno-omit-frame-pointer",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-Wpedantic",
+    "-pthread"
+  ],
+  "compiler_version_sha256": "532ed371de5818d7a523b5ebb0b7d4dcca20065441aa3313777683f1fc48db70",
+  "control_names": [
+    "skip-epoch-recheck",
+    "omit-hook-accounting",
+    "allow-late-fallback",
+    "accept-bad-permit",
+    "accept-failed-provenance",
+    "module-prefix-scan",
+    "original-before-metadata"
+  ],
+  "controls": {
+    "asan-ubsan": {
+      "accept-bad-permit": {
+        "configuration": {
+          "expected_failures": [
+            "wrong-system-before-unlock",
+            "wrong-slot-before-unlock",
+            "wrong-owner-before-unlock",
+            "consumed-permit-before-unlock"
+          ],
+          "macro": "TX_CONTROL_ACCEPT_BAD_PERMIT",
+          "selector": "permit-boundary"
+        },
+        "report": {
+          "check_names": [
+            "wrong-system-before-unlock",
+            "wrong-slot-before-unlock",
+            "wrong-owner-before-unlock",
+            "consumed-permit-before-unlock",
+            "fresh-bound-permit-still-works"
+          ],
+          "checks": 5,
+          "failed_checks": [
+            "wrong-system-before-unlock",
+            "wrong-slot-before-unlock",
+            "wrong-owner-before-unlock",
+            "consumed-permit-before-unlock"
+          ],
+          "failures": 4,
+          "selector": "permit-boundary"
+        }
+      },
+      "accept-failed-provenance": {
+        "configuration": {
+          "expected_failures": [
+            "failed-handle-not-published",
+            "failed-link-map-retains-handle-fact",
+            "wrong-object-not-published",
+            "failed-provenance-is-not-overwritten"
+          ],
+          "macro": "TX_CONTROL_ACCEPT_FAILED_PROVENANCE",
+          "selector": "module-provenance"
+        },
+        "report": {
+          "check_names": [
+            "failed-handle-not-published",
+            "failed-link-map-retains-handle-fact",
+            "wrong-object-not-published",
+            "proven-zero-base-is-valid",
+            "failed-provenance-is-not-overwritten"
+          ],
+          "checks": 5,
+          "failed_checks": [
+            "failed-handle-not-published",
+            "failed-link-map-retains-handle-fact",
+            "wrong-object-not-published",
+            "failed-provenance-is-not-overwritten"
+          ],
+          "failures": 4,
+          "selector": "module-provenance"
+        }
+      },
+      "allow-late-fallback": {
+        "configuration": {
+          "expected_failures": [
+            "late-fallback-refuses-before-reserve"
+          ],
+          "macro": "TX_CONTROL_ALLOW_LATE_FALLBACK",
+          "selector": "fallback-phase"
+        },
+        "report": {
+          "check_names": [
+            "real-writer-contention",
+            "fallback-completes-before-late",
+            "late-fallback-refuses-before-reserve",
+            "island-remains-eligible-late"
+          ],
+          "checks": 4,
+          "failed_checks": [
+            "late-fallback-refuses-before-reserve"
+          ],
+          "failures": 1,
+          "selector": "fallback-phase"
+        }
+      },
+      "module-prefix-scan": {
+        "configuration": {
+          "expected_failures": [
+            "published-slot-after-hole-is-readable",
+            "module-publication-is-not-early-prefix"
+          ],
+          "macro": "TX_CONTROL_MODULE_PREFIX_SCAN",
+          "selector": "module-holes"
+        },
+        "report": {
+          "check_names": [
+            "published-slot-after-hole-is-readable",
+            "module-publication-is-not-early-prefix",
+            "first-published-index-wins-overlap",
+            "module-publication-is-immutable"
+          ],
+          "checks": 4,
+          "failed_checks": [
+            "published-slot-after-hole-is-readable",
+            "module-publication-is-not-early-prefix"
+          ],
+          "failures": 2,
+          "selector": "module-holes"
+        }
+      },
+      "omit-hook-accounting": {
+        "configuration": {
+          "expected_failures": [
+            "accounting-retained-at-close"
+          ],
+          "macro": "TX_CONTROL_OMIT_HOOK_ACCOUNTING",
+          "selector": "admitted-close"
+        },
+        "report": {
+          "check_names": [
+            "real-cm-contention",
+            "claim-completes-before-close",
+            "accounting-retained-at-close",
+            "epoch-stays-closed"
+          ],
+          "checks": 4,
+          "failed_checks": [
+            "accounting-retained-at-close"
+          ],
+          "failures": 1,
+          "selector": "admitted-close"
+        }
+      },
+      "original-before-metadata": {
+        "configuration": {
+          "expected_failures": [
+            "metadata-original-redirect-order",
+            "publication-observes-prerequisites"
+          ],
+          "macro": "TX_CONTROL_ORIGINAL_BEFORE_METADATA",
+          "selector": "publication-order"
+        },
+        "report": {
+          "check_names": [
+            "cut-has-invisible-and-visible-boundaries",
+            "metadata-original-redirect-order",
+            "publication-observes-prerequisites",
+            "published-values-match-bound-plan"
+          ],
+          "checks": 4,
+          "failed_checks": [
+            "metadata-original-redirect-order",
+            "publication-observes-prerequisites"
+          ],
+          "failures": 2,
+          "selector": "publication-order"
+        }
+      },
+      "skip-epoch-recheck": {
+        "configuration": {
+          "expected_failures": [
+            "queued-claim-refused",
+            "queued-claim-has-no-side-effects"
+          ],
+          "macro": "TX_CONTROL_SKIP_EPOCH_RECHECK",
+          "selector": "queued-close"
+        },
+        "report": {
+          "check_names": [
+            "queued-close-completes",
+            "queued-claim-refused",
+            "queued-claim-has-no-side-effects"
+          ],
+          "checks": 3,
+          "failed_checks": [
+            "queued-claim-refused",
+            "queued-claim-has-no-side-effects"
+          ],
+          "failures": 2,
+          "selector": "queued-close"
+        }
+      }
+    },
+    "plain": {
+      "accept-bad-permit": {
+        "configuration": {
+          "expected_failures": [
+            "wrong-system-before-unlock",
+            "wrong-slot-before-unlock",
+            "wrong-owner-before-unlock",
+            "consumed-permit-before-unlock"
+          ],
+          "macro": "TX_CONTROL_ACCEPT_BAD_PERMIT",
+          "selector": "permit-boundary"
+        },
+        "report": {
+          "check_names": [
+            "wrong-system-before-unlock",
+            "wrong-slot-before-unlock",
+            "wrong-owner-before-unlock",
+            "consumed-permit-before-unlock",
+            "fresh-bound-permit-still-works"
+          ],
+          "checks": 5,
+          "failed_checks": [
+            "wrong-system-before-unlock",
+            "wrong-slot-before-unlock",
+            "wrong-owner-before-unlock",
+            "consumed-permit-before-unlock"
+          ],
+          "failures": 4,
+          "selector": "permit-boundary"
+        }
+      },
+      "accept-failed-provenance": {
+        "configuration": {
+          "expected_failures": [
+            "failed-handle-not-published",
+            "failed-link-map-retains-handle-fact",
+            "wrong-object-not-published",
+            "failed-provenance-is-not-overwritten"
+          ],
+          "macro": "TX_CONTROL_ACCEPT_FAILED_PROVENANCE",
+          "selector": "module-provenance"
+        },
+        "report": {
+          "check_names": [
+            "failed-handle-not-published",
+            "failed-link-map-retains-handle-fact",
+            "wrong-object-not-published",
+            "proven-zero-base-is-valid",
+            "failed-provenance-is-not-overwritten"
+          ],
+          "checks": 5,
+          "failed_checks": [
+            "failed-handle-not-published",
+            "failed-link-map-retains-handle-fact",
+            "wrong-object-not-published",
+            "failed-provenance-is-not-overwritten"
+          ],
+          "failures": 4,
+          "selector": "module-provenance"
+        }
+      },
+      "allow-late-fallback": {
+        "configuration": {
+          "expected_failures": [
+            "late-fallback-refuses-before-reserve"
+          ],
+          "macro": "TX_CONTROL_ALLOW_LATE_FALLBACK",
+          "selector": "fallback-phase"
+        },
+        "report": {
+          "check_names": [
+            "real-writer-contention",
+            "fallback-completes-before-late",
+            "late-fallback-refuses-before-reserve",
+            "island-remains-eligible-late"
+          ],
+          "checks": 4,
+          "failed_checks": [
+            "late-fallback-refuses-before-reserve"
+          ],
+          "failures": 1,
+          "selector": "fallback-phase"
+        }
+      },
+      "module-prefix-scan": {
+        "configuration": {
+          "expected_failures": [
+            "published-slot-after-hole-is-readable",
+            "module-publication-is-not-early-prefix"
+          ],
+          "macro": "TX_CONTROL_MODULE_PREFIX_SCAN",
+          "selector": "module-holes"
+        },
+        "report": {
+          "check_names": [
+            "published-slot-after-hole-is-readable",
+            "module-publication-is-not-early-prefix",
+            "first-published-index-wins-overlap",
+            "module-publication-is-immutable"
+          ],
+          "checks": 4,
+          "failed_checks": [
+            "published-slot-after-hole-is-readable",
+            "module-publication-is-not-early-prefix"
+          ],
+          "failures": 2,
+          "selector": "module-holes"
+        }
+      },
+      "omit-hook-accounting": {
+        "configuration": {
+          "expected_failures": [
+            "accounting-retained-at-close"
+          ],
+          "macro": "TX_CONTROL_OMIT_HOOK_ACCOUNTING",
+          "selector": "admitted-close"
+        },
+        "report": {
+          "check_names": [
+            "real-cm-contention",
+            "claim-completes-before-close",
+            "accounting-retained-at-close",
+            "epoch-stays-closed"
+          ],
+          "checks": 4,
+          "failed_checks": [
+            "accounting-retained-at-close"
+          ],
+          "failures": 1,
+          "selector": "admitted-close"
+        }
+      },
+      "original-before-metadata": {
+        "configuration": {
+          "expected_failures": [
+            "metadata-original-redirect-order",
+            "publication-observes-prerequisites"
+          ],
+          "macro": "TX_CONTROL_ORIGINAL_BEFORE_METADATA",
+          "selector": "publication-order"
+        },
+        "report": {
+          "check_names": [
+            "cut-has-invisible-and-visible-boundaries",
+            "metadata-original-redirect-order",
+            "publication-observes-prerequisites",
+            "published-values-match-bound-plan"
+          ],
+          "checks": 4,
+          "failed_checks": [
+            "metadata-original-redirect-order",
+            "publication-observes-prerequisites"
+          ],
+          "failures": 2,
+          "selector": "publication-order"
+        }
+      },
+      "skip-epoch-recheck": {
+        "configuration": {
+          "expected_failures": [
+            "queued-claim-refused",
+            "queued-claim-has-no-side-effects"
+          ],
+          "macro": "TX_CONTROL_SKIP_EPOCH_RECHECK",
+          "selector": "queued-close"
+        },
+        "report": {
+          "check_names": [
+            "queued-close-completes",
+            "queued-claim-refused",
+            "queued-claim-has-no-side-effects"
+          ],
+          "checks": 3,
+          "failed_checks": [
+            "queued-claim-refused",
+            "queued-claim-has-no-side-effects"
+          ],
+          "failures": 2,
+          "selector": "queued-close"
+        }
+      }
+    }
+  },
+  "inputs": {
+    "integration/README.md": {
+      "bytes": 17647,
+      "origin": "3f9b8078e090f7b688d1902b261653a0fb130548",
+      "sha256": "ac0b902286ddb119674e311f53c80d035a6d3b361029081ec67e84843b5d6a8b"
+    },
+    "integration/verification.json": {
+      "bytes": 6905,
+      "origin": "3f9b8078e090f7b688d1902b261653a0fb130548",
+      "sha256": "491ed48e8075b34455abf889379d14070cbceac1fb0e9c46ab4dbd30aba56026"
+    },
+    "run-tests.py": {
+      "bytes": 11897,
+      "origin": "new-offline-C-fixture",
+      "sha256": "e8006bb97575d1cf6e62eed1b640b19da22f8305701c5f7c273966c9509c6a83"
+    },
+    "test-contract.json": {
+      "bytes": 4359,
+      "origin": "new-offline-C-fixture",
+      "sha256": "8b526bd130e9758728c696f7d761deae29a17f77506e30f0f7cc5c55e23d2c60"
+    },
+    "test_transaction.c": {
+      "bytes": 27938,
+      "origin": "new-offline-C-fixture",
+      "sha256": "ddac94359de5ed1fb7b3b1e85f2b9c38773aef630f99e5bae7cac230604b6d7a"
+    },
+    "transaction.c": {
+      "bytes": 26504,
+      "origin": "new-offline-C-fixture",
+      "sha256": "703cd620957895d3b00fe816ee701fd324c639193adac66862ef1b6a506e7237"
+    },
+    "transaction.h": {
+      "bytes": 9801,
+      "origin": "new-offline-C-fixture",
+      "sha256": "5209577a618920923c97b32a27b738e8c493f9976934e217eedd28f6203be1eb"
+    }
+  },
+  "modes": [
+    "plain",
+    "asan-ubsan"
+  ],
+  "old_suites_replayed": false,
+  "private_result_sha256": "90abd93dfcc0391b5be9a7a386f5813bdbc664cd04c98ff0f3a44ae31517d322",
+  "production_integration": false,
+  "retained_files": 342,
+  "retained_output_streams": 112,
+  "runtime_gate": "CLOSED",
+  "schema": 1,
+  "scope": "Authored C admission, pthread schedules and synthetic resource/installer outcomes only",
+  "sdk_or_device_execution": false,
+  "sections": [
+    "standalone",
+    "candidate",
+    "controls"
+  ],
+  "selectors": [
+    "queued-close",
+    "admitted-close",
+    "common-admission",
+    "fallback-phase",
+    "permit-boundary",
+    "module-provenance",
+    "module-holes",
+    "lifecycle-retention",
+    "cleanup-receipts",
+    "protection-receipts",
+    "publication-order",
+    "loader-and-caller"
+  ],
+  "standalone_compile_only": true,
+  "status": "passed"
+}

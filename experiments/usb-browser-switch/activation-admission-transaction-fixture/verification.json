@@ -1,0 +1,164 @@
+{
+  "actual_sdk_claim_or_installer": false,
+  "baseline_commit": "3f9b8078e090f7b688d1902b261653a0fb130548",
+  "checks_per_mode": 51,
+  "common_compile_flags": [
+    "-std=c17",
+    "-mcpu=generic",
+    "-march=armv8-a",
+    "-O1",
+    "-g",
+    "-fno-omit-frame-pointer",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-Wpedantic",
+    "-pthread"
+  ],
+  "community_release": false,
+  "date": "2026-11-09",
+  "emulator_or_physical_device_contact": false,
+  "exact_control_failures": {
+    "accept-bad-permit": [
+      "wrong-system-before-unlock",
+      "wrong-slot-before-unlock",
+      "wrong-owner-before-unlock",
+      "consumed-permit-before-unlock"
+    ],
+    "accept-failed-provenance": [
+      "failed-handle-not-published",
+      "failed-link-map-retains-handle-fact",
+      "wrong-object-not-published",
+      "failed-provenance-is-not-overwritten"
+    ],
+    "allow-late-fallback": [
+      "late-fallback-refuses-before-reserve"
+    ],
+    "module-prefix-scan": [
+      "published-slot-after-hole-is-readable",
+      "module-publication-is-not-early-prefix"
+    ],
+    "omit-hook-accounting": [
+      "accounting-retained-at-close"
+    ],
+    "original-before-metadata": [
+      "metadata-original-redirect-order",
+      "publication-observes-prerequisites"
+    ],
+    "skip-epoch-recheck": [
+      "queued-claim-refused",
+      "queued-claim-has-no-side-effects"
+    ]
+  },
+  "failed_compile_or_runtime_attempts": 0,
+  "first_complete_matrix_passed": true,
+  "fixture_compile_flags": [
+    "-DTX_FIXTURE=1"
+  ],
+  "fresh_process_per_selector": true,
+  "independent_retained_byte_audit": {
+    "all_executed_configurations_have_TX_FIXTURE": true,
+    "artifacts": 110,
+    "audit_attempt": 1,
+    "audit_result_sha256": "840b93dd399875e255cab05a38daa2edc898447e992d9ddbedccb2cc658511b7",
+    "audit_scope": "Retained bytes, exact recipes/reports and public projection only",
+    "audit_source_sha256": "2f11e93397b82dd6f98d75772dbf47384dbdffad0ca64edf0a211ef1fad25fb7",
+    "checks_per_mode": 51,
+    "commands": 56,
+    "compiler_or_test_replayed": false,
+    "control_source_sites": {
+      "accept-bad-permit": 1,
+      "accept-failed-provenance": 1,
+      "allow-late-fallback": 1,
+      "module-prefix-scan": 1,
+      "omit-hook-accounting": 1,
+      "original-before-metadata": 1,
+      "skip-epoch-recheck": 2
+    },
+    "debug_companions": 16,
+    "executables": 16,
+    "input_count": 7,
+    "modes": [
+      "plain",
+      "asan-ubsan"
+    ],
+    "native_authority_or_signal_safety_proven": false,
+    "output_streams": 112,
+    "private_result_sha256": "90abd93dfcc0391b5be9a7a386f5813bdbc664cd04c98ff0f3a44ae31517d322",
+    "public_result_sha256": "cacd20dfe47da37333717fcc86ec68fafd0ba1e767b844dd0b62909107bd1377",
+    "retained_directories": 174,
+    "retained_files": 342,
+    "runner_imported_or_executed": false,
+    "schema": 1,
+    "selectors_per_mode": 12,
+    "semantic_controls_per_mode": 7,
+    "standalone_configuration_executed": false,
+    "standalone_objects": 1,
+    "status": "passed"
+  },
+  "instruction_codegen_inspected": false,
+  "leak_detection": false,
+  "limits": [
+    "Authored C model; all loader/provenance/caller/native eligibility, mapping, relocation, protection and cleanup values are synthetic.",
+    "Actual cm/writer mutexes only; cm is nonrecursive and no actual protection mutex, SDK admission or arbitrary native output-slot custody is implemented.",
+    "All executions enable fixture scheduling/permit seams; standalone configuration compiled only.",
+    "Trylock EBUSY and joins establish selected ordinary-thread schedules, not signal, weak-memory, general race/lifetime or native quiescence.",
+    "All failed reservations permanently consume model capacity; no native allocator/reclamation or compatibility result follows.",
+    "Input/identity copies and private permits do not authenticate actual SDK RA/handles or establish permanent replacement/original code and storage lifetime.",
+    "Epoch exhaustion, pthread failure paths, disable/remove/Reload, signal/nonlocal exits and real loader behavior remain unexecuted.",
+    "Apple macOS host C results are not Linux core/compiler ABI, codegen, loader integration, instruction-cache publication or fault causation.",
+    "All native observer, Local Library activation, writer/topology/stopped-recovery and stems staging gates remain CLOSED."
+  ],
+  "modes": [
+    "plain",
+    "asan-ubsan"
+  ],
+  "native_pointee_access": false,
+  "new_source_sha256": {
+    ".gitignore": "d56537a93a9565b3322aa9bc821c9cc30a16303467032cade13b069e394cfddc",
+    "run-tests.py": "e8006bb97575d1cf6e62eed1b640b19da22f8305701c5f7c273966c9509c6a83",
+    "test-contract.json": "8b526bd130e9758728c696f7d761deae29a17f77506e30f0f7cc5c55e23d2c60",
+    "test_transaction.c": "ddac94359de5ed1fb7b3b1e85f2b9c38773aef630f99e5bae7cac230604b6d7a",
+    "transaction.c": "703cd620957895d3b00fe816ee701fd324c639193adac66862ef1b6a506e7237",
+    "transaction.h": "5209577a618920923c97b32a27b738e8c493f9976934e217eedd28f6203be1eb"
+  },
+  "old_passing_matrices_or_captures_replayed": false,
+  "parent_sources_changed": false,
+  "private_result_sha256": "90abd93dfcc0391b5be9a7a386f5813bdbc664cd04c98ff0f3a44ae31517d322",
+  "production_registry_or_repair": false,
+  "public_result_sha256": "cacd20dfe47da37333717fcc86ec68fafd0ba1e767b844dd0b62909107bd1377",
+  "real_loader_or_signal": false,
+  "retained_artifacts": 110,
+  "retained_commands": 56,
+  "retained_files": 342,
+  "retained_inputs": 7,
+  "retained_output_streams": 112,
+  "review_readme_sha256": "1132d2848dacc8552700c74334882527446e2b3e86861aa00f6faeba20e5a7c4",
+  "runtime_gate": "CLOSED",
+  "safe_controls_per_mode": 7,
+  "sanitizer_compile_flags": [
+    "-fsanitize=address,undefined",
+    "-fno-sanitize-recover=all"
+  ],
+  "schema": 1,
+  "scope": "Offline C admission, transaction and immutable module model",
+  "selectors_per_mode": 12,
+  "source_review": {
+    "independent_final_claim_reviews": 2,
+    "independent_harness_control_reviews": 2,
+    "independent_library_reviews": 1,
+    "independent_runner_review": true,
+    "pre_execution_corrections": [
+      "Configure fixture hooks before loader start.",
+      "Use distinct IDs for independently recorded provenance failures.",
+      "Expect TX_DESCRIPTOR for rejected descriptor.",
+      "Copy public plan/epoch values at entry before hooks and locks; test same-thread postcopy mutation.",
+      "Preserve first timeout output if later drain fails; reject duplicate control contracts.",
+      "Describe the epoch negative control as a two-site configuration."
+    ]
+  },
+  "standalone_compile_only_objects": 1,
+  "standalone_linked_or_executed": false,
+  "toolchain": "Apple Clang 16.0.0; arm64 macOS; generic ARMv8-A; C17",
+  "tsan_executed": false
+}

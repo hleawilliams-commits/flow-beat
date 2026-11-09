@@ -2114,3 +2114,61 @@ or compose it into the observer. No production registry integration, repair patc
 or new executable fixture exists in this review. All live, Local Library activation,
 writer/topology/stopped-recovery and stems gates remain CLOSED. Ownership is not
 fault causation; quarantine and every historical failure remain preserved.
+
+## November 9 — offline C admission and transaction fixture
+
+The [separately versioned C fixture](../experiments/usb-browser-switch/activation-admission-transaction-fixture/README.md)
+follows the source integration review at 3f9b8078e090f7b688d1902b261653a0fb130548.
+The first complete matrix passes **51 named checks in twelve fresh-process
+selectors per plain and ASan/UBSan mode**, plus seven exact safe controls per mode.
+One standalone C object without fixture seams compiled only; it was not linked
+or executed. No compiler or runtime attempt failed. Old captures, configuration
+attempts and passing matrices were not replayed.
+
+Actual pthread mutexes enforce the authored cm → writer order for Community
+mutation and writer-only Core/late transition. A claim delayed until after init
+close refuses; an admitted claim completes and accounts nhooks before close can
+advance. Real EBUSY observations establish the selected contention schedules.
+These extra trylock and gate callbacks are fixture-only instrumentation, not a
+signal/native scheduling proof. The authored cm mutex is nonrecursive, narrowing
+scope relative to the SDK's recursive g_cm_mu.
+
+A single loader-start guard and active init epoch bind copied input values and
+owner identity. Explicit handle/link-map/object provenance is separate from a
+zero load base. Per-index immutable module flags preserve holes and first-index
+precedence, publish before descriptor/init and survive their failure. Target
+eligibility, caller RA, loader facts and supplied envelopes remain synthetic;
+full SDK/native predicate and ELF discovery are not implemented.
+
+Both caller families reserve the same eight emission slots, target spans and
+bounded attempt ledger. All reservations remain consumed on failure, a stronger
+conservative availability policy than the older C++ fixture. Private permit
+faults refuse before modeled target unlock. The successful cut performs
+metadata publication, internal original store, then redirect without a new
+callback/provider/lock/refusal. Fixed atomic integer slots do not prove arbitrary
+SDK void** or replacement-code lifetime.
+
+Separate modeled allocation/seal/cleanup and island/target protection receipts
+retain raw outcomes and uncertain custody. Burned island slots remain consumed;
+successful relock can restore writable saved bits. Failed init and postpublication
+warnings preserve visible records. No actual mapping, code relocation/cache
+publication, native patch, protection syscall or recovery was performed.
+
+Seven inputs, 56 commands, 112 output streams, 110 artifacts and 342 files are
+retained privately. Independent source/claim reviews and a retained-byte audit
+are linked. Source review corrected three draft harness setup/oracle mismatches
+and added entry value copies before the first execution; these were not hidden
+failed runs. Exact control failure sets are preserved. The epoch-control macro
+changes both admission and final permit checks. Apple ARM64 macOS C evidence,
+with leak detection disabled, is not Linux core ABI/codegen, TSan, real signal,
+general race/lifetime or native custody proof. Epoch exhaustion, pthread failure
+paths, disable/remove/Reload and asynchronous exits are not exercised.
+
+Next scope an offline composition with the exact retained C installer, replacing
+authored emission/protection results with actual owned receipts. First specify
+permanent original/replacement custody and the prepublication failure boundary;
+do not treat this model as a live adapter or replay its passing matrix unchanged.
+Nonparticipating writers, loader/interposition, actual topology/stopped recovery,
+Local Library readiness/operation lifetime and stems staging remain unresolved.
+No device, official core, community package/catalog or release changed. Every
+live gate remains CLOSED; ownership is not fault causation.
