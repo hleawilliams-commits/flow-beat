@@ -1,0 +1,283 @@
+{
+  "authored_seams": [
+    {
+      "name": "FA_FIXTURE",
+      "scope": "All runtime configurations expose fa_fixture_begin, fa_fixture_step and fa_fixture_inspect; the no-seam fa_run configuration is compile-only."
+    },
+    {
+      "name": "fa_fixture_begin captured_state",
+      "scope": "Caller pre-observation supplied as a value. Baseline CAS ignores it as authorization; admit-second control consumes stale Virgin after CAS refusal. Both control schedules stop before second selection."
+    },
+    {
+      "name": "serial event stepping",
+      "scope": "READY_ENTER, ENTERED, RAW_AVAILABLE and RECORDED plus READY_COMPLETE publication cut. Withholding a step leaves Active; no process fault, signal, cancellation or nonlocal exit is executed."
+    },
+    {
+      "name": "private diagnostics",
+      "scope": "Winning driver is stopped while inspect copies working/raw state. No concurrent public progress API; only state or acquired immutable result is public."
+    },
+    {
+      "name": "provider scripts",
+      "scope": "Fixed process-image mutable scripts remain alive through execution. Raw script values are authored and do not measure native errno, file outcomes, addresses, frames or actual ownership."
+    }
+  ],
+  "baseline_commit": "b382fe947998e9843ae9f99df11f41a605cbf6f8",
+  "build_contract": {
+    "control_execution": "Eight dedicated fresh-process exact-singleton controls per mode; no crashes, timeouts or sanitizer diagnostics accepted.",
+    "image": "sha256:c7e3893c4f03e0ff30555c2120b3d9ec53834eaa2c8ce376a2da09b70fd23a90",
+    "leak_detection": true,
+    "modes": [
+      "plain",
+      "asan-ubsan"
+    ],
+    "retention": "Before any build capture exact source lock, plan/reference sources and contract; immutable phase results, complete command specs/receipts/streams, ELF/disassembly and all raw reports. Failed packet terminal, no successful command/matrix replay.",
+    "standalone": "Two no-FA_FIXTURE objects compile-only; runtime uses authored scheduling seam.",
+    "target": "GCC 7.5 Linux AArch64 C11"
+  },
+  "controls": {
+    "admit-second-contender": {
+      "expected_failures": [
+        "terminal-admission-single-winner"
+      ],
+      "isolation": "Dedicated fresh value-only selector asserts this semantic boundary once; other checks are infrastructure only. No duplicate downstream veto may mask the mutation.",
+      "macro": "FA_CONTROL_ADMIT_SECOND",
+      "mutation": "A and B preobserve Virgin; omit the single combined CAS-winner veto for B and admit using its cached observation; stop before selection.",
+      "selector": "control-admit-second-contender"
+    },
+    "derive-owner-from-write-success": {
+      "expected_failures": [
+        "selected-owner-independent-of-io-outcome"
+      ],
+      "isolation": "Dedicated fresh value-only selector asserts this semantic boundary once; other checks are infrastructure only. No duplicate downstream veto may mask the mutation.",
+      "macro": "FA_CONTROL_OWNER_FROM_WRITE",
+      "mutation": "On ordinary write failure, clear the selected Community result instead of retaining it; other outcome fields remain exact.",
+      "selector": "control-derive-owner-from-write-success"
+    },
+    "invent-unreturned-write-result": {
+      "expected_failures": [
+        "armed-write-without-return-remains-unknown"
+      ],
+      "isolation": "Dedicated fresh value-only selector asserts this semantic boundary once; other checks are infrastructure only. No duplicate downstream veto may mask the mutation.",
+      "macro": "FA_CONTROL_INVENT_WRITE_RETURN",
+      "mutation": "At held write entry synthesize success in the authoritative winner-private working receipt: set return-recorded/raw-result fields that would feed completion. Inspect serially without later operations or public completion.",
+      "selector": "control-invent-unreturned-write-result"
+    },
+    "omit-owner-id-copy": {
+      "expected_failures": [
+        "selected-owner-copy-survives-input-change"
+      ],
+      "isolation": "Dedicated fresh value-only selector asserts this semantic boundary once; other checks are infrastructure only. No duplicate downstream veto may mask the mutation.",
+      "macro": "FA_CONTROL_OMIT_ID_COPY",
+      "mutation": "Keep the safe caller-owned value reference instead of copying ID bytes; change the still-live canonical source array to a different valid same-length 32-byte ID before finalization, without changing bounds or validity.",
+      "selector": "control-omit-owner-id-copy"
+    },
+    "reopen-after-unknown": {
+      "expected_failures": [
+        "unknown-attempt-stays-terminal"
+      ],
+      "isolation": "Dedicated fresh value-only selector asserts this semantic boundary once; other checks are infrastructure only. No duplicate downstream veto may mask the mutation.",
+      "macro": "FA_CONTROL_REOPEN_UNKNOWN",
+      "mutation": "At held write entry, let a second request treat Active as Virgin; observe its admission and stop before its selection.",
+      "selector": "control-reopen-after-unknown"
+    },
+    "retain-stale-errno-after-success": {
+      "expected_failures": [
+        "successful-return-has-no-valid-failure-errno"
+      ],
+      "isolation": "Dedicated fresh value-only selector asserts this semantic boundary once; other checks are infrastructure only. No duplicate downstream veto may mask the mutation.",
+      "macro": "FA_CONTROL_STALE_ERRNO",
+      "mutation": "On successful fd=0 copy the authored stale errno sentinel and mark it failure-valid rather than retaining valid=false.",
+      "selector": "control-retain-stale-errno-after-success"
+    },
+    "retry-short-write": {
+      "expected_failures": [
+        "short-write-retains-single-write-sequence"
+      ],
+      "isolation": "Dedicated fresh value-only selector asserts this semantic boundary once; other checks are infrastructure only. No duplicate downstream veto may mask the mutation.",
+      "macro": "FA_CONTROL_RETRY_SHORT_WRITE",
+      "mutation": "On positive short return author one extra modeled write event before the unchanged fsync/close sequence; no native I/O.",
+      "selector": "control-retry-short-write"
+    },
+    "skip-close-after-write-error": {
+      "expected_failures": [
+        "returned-write-error-still-fsyncs-and-closes"
+      ],
+      "isolation": "Dedicated fresh value-only selector asserts this semantic boundary once; other checks are infrastructure only. No duplicate downstream veto may mask the mutation.",
+      "macro": "FA_CONTROL_SKIP_AFTER_WRITE_ERROR",
+      "mutation": "After returned write=-1, skip the paired fsync/close continuation while retaining the owner and raw write result.",
+      "selector": "control-skip-close-after-write-error"
+    }
+  },
+  "limits": [
+    "Sequential value schedules are not concurrent C executions, signal/reentry tests or nonlocal exits.",
+    "Normal retained object/disassembly does not prove lock-free signal safety, transitive libc/canary/interposition behavior or weak-memory/native visibility.",
+    "No actual attribution, loader, DSO, installer, generated transfer, target/replacement invocation, native frame or crash-file provider.",
+    "NoCommunity says nothing about live-mod/time/append/quarantine internals. Returned IO classifications do not establish persisted blame, causal fault ownership or recovery.",
+    "No implementation change to frozen consumer, handlers, official core, protection, quarantine, package, emulator or physical deck; all live gates CLOSED."
+  ],
+  "plan": {
+    "bytes": 23355,
+    "path": "experiments/usb-browser-switch/activation-fault-attempt-plan/admission-plan.json",
+    "sha256": "bc2b0da2aff87b6c15cb0772acd2f10b784cfae54ce58e8da972f09b1058abd1"
+  },
+  "prebuild_review_corrections": [
+    "Admission-ba now reverses actual script custody and expected owner, not only actor labels; report retains both scripts.",
+    "Core helper noinline/noclone attributes align stable ELF function-extent observation with GCC; no atomic/lock-free or call-free oracle is claimed.",
+    "Runner schema aligns complete private serial snapshots and explicit source-scope facts; process/container cleanup survives interrupted-prefix capture failure."
+  ],
+  "reference_only_inputs": [
+    {
+      "bytes": 23133,
+      "name": "sdk/crash_guards.c",
+      "path": "experiments/usb-browser-switch/activation-unwind-policy/private/capture-4d7eb81ff4e04f6099c87eaa42bc66d3/inputs/sdk/src/azmod/crash_guards.c",
+      "sha256": "358499ca5bccf3f71944ce408c02fa76b598ba5c81e81d4a2151b6d5e38727ab"
+    },
+    {
+      "bytes": 102070,
+      "name": "sdk/community.c",
+      "path": "experiments/usb-browser-switch/activation-unwind-policy/private/capture-4d7eb81ff4e04f6099c87eaa42bc66d3/inputs/sdk/src/azmod/community.c",
+      "sha256": "4b2b72e2b623dcb1ecb0ef108a473815adab45a516a6aa13adb6cce512b80866"
+    },
+    {
+      "bytes": 10147,
+      "name": "sdk/ep_mem.h",
+      "path": "experiments/usb-browser-switch/activation-unwind-policy/private/capture-4d7eb81ff4e04f6099c87eaa42bc66d3/inputs/sdk/src/azmod/ep_mem.h",
+      "sha256": "aa1e4a60ea05ff2b00f53c37634f3614fc51ecfd6dac500b2b59ee86dcbb6e5d"
+    },
+    {
+      "bytes": 10365,
+      "name": "fixture/attribution.inc",
+      "path": "experiments/usb-browser-switch/activation-module-attribution-fixture/attribution.inc",
+      "sha256": "a39be49ab125639d0aa048ace337e822cf16e3c71c37e538ff8545183cb9f836"
+    },
+    {
+      "bytes": 30336,
+      "name": "fixture/test_module.c",
+      "path": "experiments/usb-browser-switch/activation-module-attribution-fixture/test_module.c",
+      "sha256": "387fa641ac792627d697e8fd2750531a60d9587ee0691dfc3b917734e9906027"
+    },
+    {
+      "bytes": 15570,
+      "name": "fixture/receipt-body.inc",
+      "path": "experiments/usb-browser-switch/activation-module-attribution-fixture/private/run-436494e0f4e44d2f955b99adf6227d72/generated/receipt-body.inc",
+      "sha256": "60233581d6a882d9e57e6b6fc9602ce440783060446872148f94e9e7205bc02e"
+    },
+    {
+      "bytes": 962,
+      "name": "fixture/pinned-consumer.inc",
+      "path": "experiments/usb-browser-switch/activation-module-attribution-fixture/private/run-436494e0f4e44d2f955b99adf6227d72/generated/pinned-consumer.inc",
+      "sha256": "9e31f235353a169e46f366ec33488076829b9383bc0fd0c462b465a0ddef70b4"
+    },
+    {
+      "bytes": 11701,
+      "name": "review/README.md",
+      "path": "experiments/usb-browser-switch/activation-fault-reader-contract/README.md",
+      "sha256": "90ba1e6ddaa039350dc73c3d162b7f00b59c7bf3afd9e409111ce3045f86421d"
+    },
+    {
+      "bytes": 16431,
+      "name": "review/operating-contract.json",
+      "path": "experiments/usb-browser-switch/activation-fault-reader-contract/operating-contract.json",
+      "sha256": "d6879db76a09b3c3e475f6ec7d69d0a0087dafd2eafde3ae2896a55b092a263f"
+    },
+    {
+      "bytes": 2902,
+      "name": "review/verification.json",
+      "path": "experiments/usb-browser-switch/activation-fault-reader-contract/verification.json",
+      "sha256": "85b4c7f3888c482acbb092714138d2010c07771574f9e7889d24dc11df7ea3f2"
+    },
+    {
+      "bytes": 12344,
+      "name": "review/retain-source.py",
+      "path": "experiments/usb-browser-switch/activation-fault-reader-contract/retain-source.py",
+      "sha256": "a9636a371ee2d5272ac805c891d4e9a024afd34c8e974ca541551e8a67817e28"
+    },
+    {
+      "bytes": 65379,
+      "name": "scaffold/prior-run-tests.py",
+      "path": "experiments/usb-browser-switch/activation-module-attribution-fixture/run-tests.py",
+      "sha256": "a410d0c50ecfb4f655b4662747cc15ced503b8a920b72a457aa5b132e034c5ee"
+    }
+  ],
+  "runtime_gate": "CLOSED",
+  "schema": 1,
+  "scope": "Separately authored offline C11 value-only terminal fault-attempt admission; no frozen consumer invocation or integration.",
+  "source_files": {
+    "core.c": {
+      "bytes": 12040,
+      "sha256": "124e7f35407b6cba4989c9a9cd9157922297bd234db3d057e6d18a888a383151"
+    },
+    "core.h": {
+      "bytes": 3159,
+      "sha256": "a11dd07304855d6e023877c119b7cab6f195a4bf67fa9b4b6d1c1ac153a83876"
+    },
+    "run-tests.py": {
+      "bytes": 41852,
+      "sha256": "13bb85b861cd97888508a72652bc35fdaa94e7684ab274e32143f75666709af6"
+    },
+    "test-contract.json": {
+      "bytes": 24574,
+      "sha256": "fb68240d87cd1ab357b85f4ba23f82c24250b5566a53131a64c369abd0b27fd9"
+    },
+    "test_fault.c": {
+      "bytes": 30150,
+      "sha256": "f3752ab1ef7fb5fc03f65cf5457ea4b86f26d31ac4934da1120814276e6936f3"
+    }
+  },
+  "source_relationship": "core.c/core.h/test_fault.c are new authored sources. No SDK/previous fixture function body is transformed, included, linked or executed. run-tests.py adapts prior command capture, immutable receipt and bounded ELF metadata patterns; retained predecessor runner is reference only. The plan/readme and eleven source inputs are retained without old collector/matrix execution.",
+  "status": "source-frozen-before-build",
+  "transformation_groups": [
+    {
+      "files": [
+        "core.c",
+        "core.h"
+      ],
+      "id": "T1",
+      "implementation": "Separate fa_* module with fixed zero-initialized process-image state, winner-private working value and immutable final value. Existing consumer/readers/receipt cut remain byte-unchanged."
+    },
+    {
+      "files": [
+        "core.c",
+        "test_fault.c"
+      ],
+      "id": "T2",
+      "implementation": "Single strong acq_rel/acquire Virgin-to-Active CAS authority before script access. Losers return without touching winner payload/providers; cached observations do not authorize. Serial A/B and pre-CAS/nested schedules use live authored values; no actual race or thread."
+    },
+    {
+      "files": [
+        "core.c",
+        "core.h",
+        "test_fault.c"
+      ],
+      "id": "T3",
+      "implementation": "Authored resolved Community index/process identity/canonical zero-padded 33-byte ID or NoCommunity. Nonempty 1..32-byte IDs are bounded value fixtures, not SDK ID approval. Baseline copies values; controlled omission borrows a still-live same-length array."
+    },
+    {
+      "files": [
+        "core.c",
+        "test_fault.c"
+      ],
+      "id": "T4",
+      "implementation": "Six fixed event slots; selection plus open/write/fsync/close or opaque unblamed. Each event separately enters, receives an authored raw value, records a private receipt, then advances. No frame/module/DSO traversal or native fault I/O. Open zero valid, open failure terminates branch, every ordinary write continues through fsync/close."
+    },
+    {
+      "files": [
+        "core.c",
+        "core.h",
+        "test_fault.c"
+      ],
+      "id": "T5",
+      "implementation": "Winner copies full final result then release-stores OrdinaryReturned. fa_observe zeroes output and acquire-loads state once; only OrdinaryReturned copies final payload. Stopped schedules expose working data only through explicit serial test seam. Raw oracle remains distinct from authoritative receipt."
+    },
+    {
+      "files": [
+        "core.c",
+        "test_fault.c",
+        "test-contract.json",
+        "run-tests.py"
+      ],
+      "id": "T6",
+      "implementation": "Opaque NoCommunity event and exact eight FA_CONTROL_* mutations isolated to dedicated selectors. One control macro at a time under FA_FIXTURE. No retry/reset/reopen in baseline; six slots also bound extra-write control. Harness stdio writes only private evidence reports, not modeled crash persistence."
+    }
+  ]
+}

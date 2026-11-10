@@ -1,0 +1,669 @@
+{
+  "schema": 1,
+  "status": "source-frozen-not-executed",
+  "scope": "Fresh-process value-only terminal fault-attempt fixture; all live gates closed",
+  "configuration": "FA_FIXTURE",
+  "summary_keys": [
+    "schema",
+    "selector",
+    "checks",
+    "check_names",
+    "failures",
+    "failed_checks"
+  ],
+  "selectors": {
+    "admission-ab": {
+      "group": "G1",
+      "checks": [
+        "single-admission-authority",
+        "loser-preserves-private-state",
+        "admission-precedes-providers",
+        "schedule-bounded",
+        "report-capacity"
+      ],
+      "description": "Fresh-process authored-value scenario; no reset, native provider or concurrent execution."
+    },
+    "admission-ba": {
+      "group": "G1",
+      "checks": [
+        "single-admission-authority",
+        "loser-preserves-private-state",
+        "admission-precedes-providers",
+        "schedule-bounded",
+        "report-capacity"
+      ],
+      "description": "Fresh-process authored-value scenario; no reset, native provider or concurrent execution."
+    },
+    "precas-active": {
+      "group": "G1",
+      "checks": [
+        "nested-precas-request-wins",
+        "outer-precas-request-suppressed",
+        "precas-winner-state-preserved",
+        "schedule-bounded",
+        "report-capacity"
+      ],
+      "description": "Fresh-process authored-value scenario; no reset, native provider or concurrent execution."
+    },
+    "precas-returned": {
+      "group": "G1",
+      "checks": [
+        "nested-precas-request-wins",
+        "outer-precas-request-suppressed",
+        "precas-winner-state-preserved",
+        "schedule-bounded",
+        "report-capacity"
+      ],
+      "description": "Fresh-process authored-value scenario; no reset, native provider or concurrent execution."
+    },
+    "nested-community": {
+      "group": "G2",
+      "checks": [
+        "all-post-admission-boundaries-suppress",
+        "nested-requests-preserve-private-state",
+        "nested-branch-completes-once",
+        "schedule-bounded",
+        "report-capacity"
+      ],
+      "description": "Fresh-process authored-value scenario; no reset, native provider or concurrent execution."
+    },
+    "nested-unblamed": {
+      "group": "G2",
+      "checks": [
+        "all-post-admission-boundaries-suppress",
+        "nested-requests-preserve-private-state",
+        "nested-branch-completes-once",
+        "schedule-bounded",
+        "report-capacity"
+      ],
+      "description": "Fresh-process authored-value scenario; no reset, native provider or concurrent execution."
+    },
+    "copy-one": {
+      "group": "G3",
+      "checks": [
+        "owner-copy-survives-input-change",
+        "owner-id-is-canonical",
+        "copy-case-completes-once",
+        "schedule-bounded",
+        "report-capacity"
+      ],
+      "description": "Fresh-process authored-value scenario; no reset, native provider or concurrent execution."
+    },
+    "copy-thirtytwo": {
+      "group": "G3",
+      "checks": [
+        "owner-copy-survives-input-change",
+        "owner-id-is-canonical",
+        "copy-case-completes-once",
+        "schedule-bounded",
+        "report-capacity"
+      ],
+      "description": "Fresh-process authored-value scenario; no reset, native provider or concurrent execution."
+    },
+    "no-community": {
+      "group": "G3",
+      "checks": [
+        "no-community-is-not-fabricated-owner",
+        "one-opaque-unblamed-return",
+        "unblamed-completion-remains-terminal",
+        "schedule-bounded",
+        "report-capacity"
+      ],
+      "description": "Fresh-process authored-value scenario; no reset, native provider or concurrent execution."
+    },
+    "open-zero": {
+      "group": "G4",
+      "checks": [
+        "open-zero-is-valid",
+        "successful-errno-is-invalid",
+        "ordinary-owner-and-sequence-retained",
+        "schedule-bounded",
+        "report-capacity"
+      ],
+      "description": "Fresh-process authored-value scenario; no reset, native provider or concurrent execution."
+    },
+    "open-seven": {
+      "group": "G4",
+      "checks": [
+        "positive-open-fd-retained",
+        "successful-errno-is-invalid",
+        "ordinary-owner-and-sequence-retained",
+        "schedule-bounded",
+        "report-capacity"
+      ],
+      "description": "Fresh-process authored-value scenario; no reset, native provider or concurrent execution."
+    },
+    "open-failure": {
+      "group": "G4",
+      "checks": [
+        "failed-open-is-known-ordinary-return",
+        "failed-open-skips-later-operations",
+        "failed-open-retains-owner",
+        "schedule-bounded",
+        "report-capacity"
+      ],
+      "description": "Fresh-process authored-value scenario; no reset, native provider or concurrent execution."
+    },
+    "write-zero": {
+      "group": "G5",
+      "checks": [
+        "zero-write-is-short-known-return",
+        "returned-write-still-syncs-and-closes",
+        "write-outcome-retains-owner",
+        "schedule-bounded",
+        "report-capacity"
+      ],
+      "description": "Fresh-process authored-value scenario; no reset, native provider or concurrent execution."
+    },
+    "write-short": {
+      "group": "G5",
+      "checks": [
+        "positive-short-write-is-known-return",
+        "returned-write-still-syncs-and-closes",
+        "write-outcome-retains-owner",
+        "schedule-bounded",
+        "report-capacity"
+      ],
+      "description": "Fresh-process authored-value scenario; no reset, native provider or concurrent execution."
+    },
+    "write-failure": {
+      "group": "G5",
+      "checks": [
+        "failed-write-is-known-return",
+        "returned-write-still-syncs-and-closes",
+        "write-outcome-retains-owner",
+        "schedule-bounded",
+        "report-capacity"
+      ],
+      "description": "Fresh-process authored-value scenario; no reset, native provider or concurrent execution."
+    },
+    "sync-failure": {
+      "group": "G6",
+      "checks": [
+        "sync-failure-is-independent",
+        "close-after-sync-failure-recorded",
+        "sync-close-outcome-retains-owner",
+        "schedule-bounded",
+        "report-capacity"
+      ],
+      "description": "Fresh-process authored-value scenario; no reset, native provider or concurrent execution."
+    },
+    "close-failure": {
+      "group": "G6",
+      "checks": [
+        "close-failure-is-independent",
+        "close-error-grants-no-retry",
+        "sync-close-outcome-retains-owner",
+        "schedule-bounded",
+        "report-capacity"
+      ],
+      "description": "Fresh-process authored-value scenario; no reset, native provider or concurrent execution."
+    },
+    "combined-failures": {
+      "group": "G6",
+      "checks": [
+        "short-write-and-failure-flags-coexist",
+        "each-return-retains-own-errno",
+        "sync-close-outcome-retains-owner",
+        "schedule-bounded",
+        "report-capacity"
+      ],
+      "description": "Fresh-process authored-value scenario; no reset, native provider or concurrent execution."
+    },
+    "completion-observation": {
+      "group": "G8",
+      "checks": [
+        "virgin-observation-hides-payload",
+        "incomplete-observation-hides-payload",
+        "completion-publishes-immutable-payload",
+        "returned-attempt-remains-terminal",
+        "schedule-bounded",
+        "report-capacity"
+      ],
+      "description": "Fresh-process authored-value scenario; no reset, native provider or concurrent execution."
+    },
+    "stop-selection-before": {
+      "group": "G7",
+      "checks": [
+        "stop-position-reached",
+        "stopped-observation-hides-payload",
+        "raw-return-and-receipt-are-distinct",
+        "stopped-attempt-remains-terminal",
+        "schedule-bounded",
+        "report-capacity"
+      ],
+      "description": "Stop the serial winner at selection/before; inspect private data only while stopped, then issue a suppressed request."
+    },
+    "stop-selection-entered": {
+      "group": "G7",
+      "checks": [
+        "stop-position-reached",
+        "stopped-observation-hides-payload",
+        "raw-return-and-receipt-are-distinct",
+        "stopped-attempt-remains-terminal",
+        "schedule-bounded",
+        "report-capacity"
+      ],
+      "description": "Stop the serial winner at selection/entered; inspect private data only while stopped, then issue a suppressed request."
+    },
+    "stop-selection-raw": {
+      "group": "G7",
+      "checks": [
+        "stop-position-reached",
+        "stopped-observation-hides-payload",
+        "raw-return-and-receipt-are-distinct",
+        "stopped-attempt-remains-terminal",
+        "schedule-bounded",
+        "report-capacity"
+      ],
+      "description": "Stop the serial winner at selection/raw; inspect private data only while stopped, then issue a suppressed request."
+    },
+    "stop-selection-recorded": {
+      "group": "G7",
+      "checks": [
+        "stop-position-reached",
+        "stopped-observation-hides-payload",
+        "raw-return-and-receipt-are-distinct",
+        "stopped-attempt-remains-terminal",
+        "schedule-bounded",
+        "report-capacity"
+      ],
+      "description": "Stop the serial winner at selection/recorded; inspect private data only while stopped, then issue a suppressed request."
+    },
+    "stop-unblamed-before": {
+      "group": "G7",
+      "checks": [
+        "stop-position-reached",
+        "stopped-observation-hides-payload",
+        "raw-return-and-receipt-are-distinct",
+        "stopped-attempt-remains-terminal",
+        "schedule-bounded",
+        "report-capacity"
+      ],
+      "description": "Stop the serial winner at unblamed/before; inspect private data only while stopped, then issue a suppressed request."
+    },
+    "stop-unblamed-entered": {
+      "group": "G7",
+      "checks": [
+        "stop-position-reached",
+        "stopped-observation-hides-payload",
+        "raw-return-and-receipt-are-distinct",
+        "stopped-attempt-remains-terminal",
+        "schedule-bounded",
+        "report-capacity"
+      ],
+      "description": "Stop the serial winner at unblamed/entered; inspect private data only while stopped, then issue a suppressed request."
+    },
+    "stop-unblamed-raw": {
+      "group": "G7",
+      "checks": [
+        "stop-position-reached",
+        "stopped-observation-hides-payload",
+        "raw-return-and-receipt-are-distinct",
+        "stopped-attempt-remains-terminal",
+        "schedule-bounded",
+        "report-capacity"
+      ],
+      "description": "Stop the serial winner at unblamed/raw; inspect private data only while stopped, then issue a suppressed request."
+    },
+    "stop-unblamed-recorded": {
+      "group": "G7",
+      "checks": [
+        "stop-position-reached",
+        "stopped-observation-hides-payload",
+        "raw-return-and-receipt-are-distinct",
+        "stopped-attempt-remains-terminal",
+        "schedule-bounded",
+        "report-capacity"
+      ],
+      "description": "Stop the serial winner at unblamed/recorded; inspect private data only while stopped, then issue a suppressed request."
+    },
+    "stop-open-before": {
+      "group": "G7",
+      "checks": [
+        "stop-position-reached",
+        "stopped-observation-hides-payload",
+        "raw-return-and-receipt-are-distinct",
+        "stopped-attempt-remains-terminal",
+        "schedule-bounded",
+        "report-capacity"
+      ],
+      "description": "Stop the serial winner at open/before; inspect private data only while stopped, then issue a suppressed request."
+    },
+    "stop-open-entered": {
+      "group": "G7",
+      "checks": [
+        "stop-position-reached",
+        "stopped-observation-hides-payload",
+        "raw-return-and-receipt-are-distinct",
+        "stopped-attempt-remains-terminal",
+        "schedule-bounded",
+        "report-capacity"
+      ],
+      "description": "Stop the serial winner at open/entered; inspect private data only while stopped, then issue a suppressed request."
+    },
+    "stop-open-raw": {
+      "group": "G7",
+      "checks": [
+        "stop-position-reached",
+        "stopped-observation-hides-payload",
+        "raw-return-and-receipt-are-distinct",
+        "stopped-attempt-remains-terminal",
+        "schedule-bounded",
+        "report-capacity"
+      ],
+      "description": "Stop the serial winner at open/raw; inspect private data only while stopped, then issue a suppressed request."
+    },
+    "stop-open-recorded": {
+      "group": "G7",
+      "checks": [
+        "stop-position-reached",
+        "stopped-observation-hides-payload",
+        "raw-return-and-receipt-are-distinct",
+        "stopped-attempt-remains-terminal",
+        "schedule-bounded",
+        "report-capacity"
+      ],
+      "description": "Stop the serial winner at open/recorded; inspect private data only while stopped, then issue a suppressed request."
+    },
+    "stop-write-before": {
+      "group": "G7",
+      "checks": [
+        "stop-position-reached",
+        "stopped-observation-hides-payload",
+        "raw-return-and-receipt-are-distinct",
+        "stopped-attempt-remains-terminal",
+        "schedule-bounded",
+        "report-capacity"
+      ],
+      "description": "Stop the serial winner at write/before; inspect private data only while stopped, then issue a suppressed request."
+    },
+    "stop-write-entered": {
+      "group": "G7",
+      "checks": [
+        "stop-position-reached",
+        "stopped-observation-hides-payload",
+        "raw-return-and-receipt-are-distinct",
+        "stopped-attempt-remains-terminal",
+        "schedule-bounded",
+        "report-capacity"
+      ],
+      "description": "Stop the serial winner at write/entered; inspect private data only while stopped, then issue a suppressed request."
+    },
+    "stop-write-raw": {
+      "group": "G7",
+      "checks": [
+        "stop-position-reached",
+        "stopped-observation-hides-payload",
+        "raw-return-and-receipt-are-distinct",
+        "stopped-attempt-remains-terminal",
+        "schedule-bounded",
+        "report-capacity"
+      ],
+      "description": "Stop the serial winner at write/raw; inspect private data only while stopped, then issue a suppressed request."
+    },
+    "stop-write-recorded": {
+      "group": "G7",
+      "checks": [
+        "stop-position-reached",
+        "stopped-observation-hides-payload",
+        "raw-return-and-receipt-are-distinct",
+        "stopped-attempt-remains-terminal",
+        "schedule-bounded",
+        "report-capacity"
+      ],
+      "description": "Stop the serial winner at write/recorded; inspect private data only while stopped, then issue a suppressed request."
+    },
+    "stop-sync-before": {
+      "group": "G7",
+      "checks": [
+        "stop-position-reached",
+        "stopped-observation-hides-payload",
+        "raw-return-and-receipt-are-distinct",
+        "stopped-attempt-remains-terminal",
+        "schedule-bounded",
+        "report-capacity"
+      ],
+      "description": "Stop the serial winner at sync/before; inspect private data only while stopped, then issue a suppressed request."
+    },
+    "stop-sync-entered": {
+      "group": "G7",
+      "checks": [
+        "stop-position-reached",
+        "stopped-observation-hides-payload",
+        "raw-return-and-receipt-are-distinct",
+        "stopped-attempt-remains-terminal",
+        "schedule-bounded",
+        "report-capacity"
+      ],
+      "description": "Stop the serial winner at sync/entered; inspect private data only while stopped, then issue a suppressed request."
+    },
+    "stop-sync-raw": {
+      "group": "G7",
+      "checks": [
+        "stop-position-reached",
+        "stopped-observation-hides-payload",
+        "raw-return-and-receipt-are-distinct",
+        "stopped-attempt-remains-terminal",
+        "schedule-bounded",
+        "report-capacity"
+      ],
+      "description": "Stop the serial winner at sync/raw; inspect private data only while stopped, then issue a suppressed request."
+    },
+    "stop-sync-recorded": {
+      "group": "G7",
+      "checks": [
+        "stop-position-reached",
+        "stopped-observation-hides-payload",
+        "raw-return-and-receipt-are-distinct",
+        "stopped-attempt-remains-terminal",
+        "schedule-bounded",
+        "report-capacity"
+      ],
+      "description": "Stop the serial winner at sync/recorded; inspect private data only while stopped, then issue a suppressed request."
+    },
+    "stop-close-before": {
+      "group": "G7",
+      "checks": [
+        "stop-position-reached",
+        "stopped-observation-hides-payload",
+        "raw-return-and-receipt-are-distinct",
+        "stopped-attempt-remains-terminal",
+        "schedule-bounded",
+        "report-capacity"
+      ],
+      "description": "Stop the serial winner at close/before; inspect private data only while stopped, then issue a suppressed request."
+    },
+    "stop-close-entered": {
+      "group": "G7",
+      "checks": [
+        "stop-position-reached",
+        "stopped-observation-hides-payload",
+        "raw-return-and-receipt-are-distinct",
+        "stopped-attempt-remains-terminal",
+        "schedule-bounded",
+        "report-capacity"
+      ],
+      "description": "Stop the serial winner at close/entered; inspect private data only while stopped, then issue a suppressed request."
+    },
+    "stop-close-raw": {
+      "group": "G7",
+      "checks": [
+        "stop-position-reached",
+        "stopped-observation-hides-payload",
+        "raw-return-and-receipt-are-distinct",
+        "stopped-attempt-remains-terminal",
+        "schedule-bounded",
+        "report-capacity"
+      ],
+      "description": "Stop the serial winner at close/raw; inspect private data only while stopped, then issue a suppressed request."
+    },
+    "stop-close-recorded": {
+      "group": "G7",
+      "checks": [
+        "stop-position-reached",
+        "stopped-observation-hides-payload",
+        "raw-return-and-receipt-are-distinct",
+        "stopped-attempt-remains-terminal",
+        "schedule-bounded",
+        "report-capacity"
+      ],
+      "description": "Stop the serial winner at close/recorded; inspect private data only while stopped, then issue a suppressed request."
+    },
+    "stop-before-publication": {
+      "group": "G7",
+      "checks": [
+        "all-returns-recorded-before-publication",
+        "unpublished-completion-hides-payload",
+        "unpublished-completion-remains-terminal",
+        "schedule-bounded",
+        "report-capacity"
+      ],
+      "description": "All selected branch returns are recorded but immutable completion has not been published."
+    },
+    "control-admit-second-contender": {
+      "group": "G1",
+      "checks": [
+        "terminal-admission-single-winner",
+        "schedule-bounded",
+        "report-capacity"
+      ],
+      "description": "Dedicated control baseline with one semantic target and infrastructure checks only."
+    },
+    "control-reopen-after-unknown": {
+      "group": "G7",
+      "checks": [
+        "unknown-attempt-stays-terminal",
+        "schedule-bounded",
+        "report-capacity"
+      ],
+      "description": "Dedicated control baseline with one semantic target and infrastructure checks only."
+    },
+    "control-omit-owner-id-copy": {
+      "group": "G3",
+      "checks": [
+        "selected-owner-copy-survives-input-change",
+        "schedule-bounded",
+        "report-capacity"
+      ],
+      "description": "Dedicated control baseline with one semantic target and infrastructure checks only."
+    },
+    "control-derive-owner-from-write-success": {
+      "group": "G5",
+      "checks": [
+        "selected-owner-independent-of-io-outcome",
+        "schedule-bounded",
+        "report-capacity"
+      ],
+      "description": "Dedicated control baseline with one semantic target and infrastructure checks only."
+    },
+    "control-invent-unreturned-write-result": {
+      "group": "G7",
+      "checks": [
+        "armed-write-without-return-remains-unknown",
+        "schedule-bounded",
+        "report-capacity"
+      ],
+      "description": "Dedicated control baseline with one semantic target and infrastructure checks only."
+    },
+    "control-retry-short-write": {
+      "group": "G5",
+      "checks": [
+        "short-write-retains-single-write-sequence",
+        "schedule-bounded",
+        "report-capacity"
+      ],
+      "description": "Dedicated control baseline with one semantic target and infrastructure checks only."
+    },
+    "control-skip-close-after-write-error": {
+      "group": "G5",
+      "checks": [
+        "returned-write-error-still-fsyncs-and-closes",
+        "schedule-bounded",
+        "report-capacity"
+      ],
+      "description": "Dedicated control baseline with one semantic target and infrastructure checks only."
+    },
+    "control-retain-stale-errno-after-success": {
+      "group": "G4",
+      "checks": [
+        "successful-return-has-no-valid-failure-errno",
+        "schedule-bounded",
+        "report-capacity"
+      ],
+      "description": "Dedicated control baseline with one semantic target and infrastructure checks only."
+    }
+  },
+  "controls": {
+    "admit-second-contender": {
+      "macro": "FA_CONTROL_ADMIT_SECOND",
+      "selector": "control-admit-second-contender",
+      "expected_failures": [
+        "terminal-admission-single-winner"
+      ],
+      "safety": "Only a bounded authored-value semantic mutation. No native effects, reset API, undefined behavior or second provider sequence in admission controls."
+    },
+    "reopen-after-unknown": {
+      "macro": "FA_CONTROL_REOPEN_UNKNOWN",
+      "selector": "control-reopen-after-unknown",
+      "expected_failures": [
+        "unknown-attempt-stays-terminal"
+      ],
+      "safety": "Only a bounded authored-value semantic mutation. No native effects, reset API, undefined behavior or second provider sequence in admission controls."
+    },
+    "omit-owner-id-copy": {
+      "macro": "FA_CONTROL_OMIT_ID_COPY",
+      "selector": "control-omit-owner-id-copy",
+      "expected_failures": [
+        "selected-owner-copy-survives-input-change"
+      ],
+      "safety": "Only a bounded authored-value semantic mutation. No native effects, reset API, undefined behavior or second provider sequence in admission controls."
+    },
+    "derive-owner-from-write-success": {
+      "macro": "FA_CONTROL_OWNER_FROM_WRITE",
+      "selector": "control-derive-owner-from-write-success",
+      "expected_failures": [
+        "selected-owner-independent-of-io-outcome"
+      ],
+      "safety": "Only a bounded authored-value semantic mutation. No native effects, reset API, undefined behavior or second provider sequence in admission controls."
+    },
+    "invent-unreturned-write-result": {
+      "macro": "FA_CONTROL_INVENT_WRITE_RETURN",
+      "selector": "control-invent-unreturned-write-result",
+      "expected_failures": [
+        "armed-write-without-return-remains-unknown"
+      ],
+      "safety": "Only a bounded authored-value semantic mutation. No native effects, reset API, undefined behavior or second provider sequence in admission controls."
+    },
+    "retry-short-write": {
+      "macro": "FA_CONTROL_RETRY_SHORT_WRITE",
+      "selector": "control-retry-short-write",
+      "expected_failures": [
+        "short-write-retains-single-write-sequence"
+      ],
+      "safety": "Only a bounded authored-value semantic mutation. No native effects, reset API, undefined behavior or second provider sequence in admission controls."
+    },
+    "skip-close-after-write-error": {
+      "macro": "FA_CONTROL_SKIP_AFTER_WRITE_ERROR",
+      "selector": "control-skip-close-after-write-error",
+      "expected_failures": [
+        "returned-write-error-still-fsyncs-and-closes"
+      ],
+      "safety": "Only a bounded authored-value semantic mutation. No native effects, reset API, undefined behavior or second provider sequence in admission controls."
+    },
+    "retain-stale-errno-after-success": {
+      "macro": "FA_CONTROL_STALE_ERRNO",
+      "selector": "control-retain-stale-errno-after-success",
+      "expected_failures": [
+        "successful-return-has-no-valid-failure-errno"
+      ],
+      "safety": "Only a bounded authored-value semantic mutation. No native effects, reset API, undefined behavior or second provider sequence in admission controls."
+    }
+  },
+  "limits": [
+    "All schedules are serial authored step order, not actual concurrent or nested signal execution.",
+    "No frozen consumer, attribution, loader, installer or native fault-provider code is called.",
+    "Report file I/O is evidence output, not modeled blame persistence.",
+    "Stop inspection is fixture-only and serial; public ActiveIncomplete observation has no payload."
+  ]
+}

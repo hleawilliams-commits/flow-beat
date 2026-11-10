@@ -1,0 +1,53 @@
+{
+  "admission": {
+    "exclusive_monitor_retry": "0x160 -> 0x154",
+    "extent": [
+      "0x134",
+      "0x1a4"
+    ],
+    "interpretation": "One logical source strong CAS; compiler emits LL/SC monitor-failure retry. No bounded or wait-free machine admission claim.",
+    "ldaxr": "0x154",
+    "nonzero_rejection": "0x158",
+    "stlxr": "0x15c",
+    "winner_only_initialization": [
+      "memset at 0x188",
+      "script pointer store at 0x18c"
+    ]
+  },
+  "disassembly_sha256": "7ca06e794cd40411cd63288a09e1d767d4de97725718acd7ab7849eeba50213d",
+  "limits": [
+    "Selected allocated executable method extents and instruction relationships only.",
+    "Standalone configuration is compile-only; runtime matrix uses explicit serial fixture seams.",
+    "No wait-free, bounded-CAS, signal/reentry, libc/interposition, weak-memory, native visibility or concurrent publication proof.",
+    "No protections weakened, production integration or live observer."
+  ],
+  "object": {
+    "bytes": 22984,
+    "sha256": "2db2f51c4966923b6f37f299a33d828d2291b5bc22f659677fbea44275383a25"
+  },
+  "observation": {
+    "extent": [
+      "0x61c",
+      "0x68c"
+    ],
+    "output_clear": "memset at 0x638",
+    "payload": "state 2 branch gates memcpy at 0x680",
+    "state_acquire": "one LDAR at 0x648"
+  },
+  "publication": {
+    "extent": [
+      "0xf0",
+      "0x134"
+    ],
+    "payload": "504-byte memcpy at 0x110",
+    "state_release": "STLR(state=2) at 0x124"
+  },
+  "runtime_gate": "CLOSED",
+  "schema": 1,
+  "scope": "Read-only review of retained plain standalone GCC 7.5 Linux AArch64 object; no additional compiler/disassembler or invocation",
+  "status": "passed",
+  "undefined_dependencies": [
+    "memcpy",
+    "memset"
+  ]
+}

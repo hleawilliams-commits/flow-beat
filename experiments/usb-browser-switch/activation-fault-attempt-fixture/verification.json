@@ -1,0 +1,91 @@
+{
+  "auditor_execution": {
+    "command_receipt": {
+      "bytes": 1180,
+      "sha256": "8098eb05919e6c739e09017e2b185bc755c250d1489a18ce3aa20eeffe6bbb91"
+    },
+    "exception": null,
+    "execution_receipt": {
+      "bytes": 338,
+      "sha256": "5a2c83d087317d57e3b7b89011985821c4afa73dc56a863739de5e8163eecc1d"
+    },
+    "returncode": 0,
+    "source_copied_before_execution": true,
+    "source_peer_reviews": 2,
+    "source_sha256_after": "71865e0f1a7705836f785a525e60391de0941e1e31c310a77c7bc1ac84350364",
+    "source_unchanged": true,
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout_sha256": "9dccdfe8fd7e7a233511ab1a7ee762d14df5a28017968a37e9936b16c6545bb7"
+  },
+  "codegen_review": {
+    "bytes": 1725,
+    "sha256": "ce09d9272151ea4220413b882a068d7c7b8b2cb9b991e156d38a90a43a45a278"
+  },
+  "failure_history": [],
+  "failure_scope": "No compiler/runtime/audit failure in this fixture. Prebuild/source-review corrections preceded execution; all predecessor failure packets remain untouched.",
+  "next_scope": "Next make a separately scoped source-only attempt/attribution composition plan. Reuse the retained immutable module/generated-range readers and terminal-attempt implementation to specify one admission authority before selection, exact copied identity handoff, per-slot visibility and no-owner behavior, and private versus completed outcome ownership. Identify a separately named adapter boundary without calling or modifying the frozen volatile-guard consumer or silently adding a second once guard. Define genuinely new composition cases and exact safe controls before any implementation; preserve first-attempt suppression and all quarantine policies. Preserve the compiler CAS retry and libc dependency limits. Keep frame/file providers authored, and defer actual DSO/installer invocation, handler/signal/nonlocal-exit paths, concurrent/native publication, production integration and live observer composition. Do not replay this passing matrix, its byte audit or predecessor suites unchanged; all live gates remain CLOSED.",
+  "post_run_claim_review": {
+    "scope": "Independent retained raw-report and selected standalone codegen review without execution; clarified serial schedules, authored errno, sanitizer leak scope and LL/SC retry limits.",
+    "status": "passed"
+  },
+  "pre_audit_source_corrections": [
+    "Move final output-path assertion before structural counter capture.",
+    "Require audit output outside the immutable packet."
+  ],
+  "private_audit_result_sha256": "fba13f5b91fff84d322ef2fe422b4c135604501c07a8625153b731fdbbfe32a4",
+  "retained_byte_audit": {
+    "auditor_sha256": "71865e0f1a7705836f785a525e60391de0941e1e31c310a77c7bc1ac84350364",
+    "build_artifacts": 172,
+    "build_configurations": 20,
+    "candidate_processes": 104,
+    "classified_ELF_files": 56,
+    "commands": 237,
+    "compiler_or_runtime_or_previous_audit_execution": false,
+    "control_processes": 16,
+    "distinct_candidate_assertion_names": 55,
+    "inputs": 21,
+    "limits": [
+      "Authored sequential schedules are not concurrent or signal executions.",
+      "ELF/body identity does not prove semantic correctness, signal-safe dependencies or wait freedom.",
+      "The reviewed strong CAS uses an LL/SC retry; the machine path is not bounded or wait-free.",
+      "Model persistence and selected owner do not establish durable blame or fault causation."
+    ],
+    "new_runtime_test_cases": 0,
+    "output_streams": 474,
+    "packet_files_excluding_checkpoint": 1270,
+    "packet_files_including_checkpoint": 1271,
+    "private_result_sha256": "7798a5d41bb15869a4bb2bb08cce6567f38785d9a42701c8aa2a70ec84fc6bda",
+    "raw_reports": 120,
+    "reviewed_standalone_method_bytes": {
+      "fa_admit_internal": "a699c5fd32aa3c9da33425f14deaddd2fb462fbf5b4e8126173de0d9366cb8cd",
+      "fa_observe": "8cb42b6ae026285ea322c93bb6fa2cbc9b10b61ca4caec5d30bb91376e29a2a9",
+      "fa_publish_internal": "8e6ec9e9f024a7b921fd71cac35683a4f68069671320aefc1ad88f07b19b90e5"
+    },
+    "runtime_gate": "CLOSED",
+    "sanitized_result_sha256": "bc19cd43214360568c27293095f0d2dbddfa6c064a126856e88f48d2ccdced77",
+    "schema": 1,
+    "scope": "Independent retained-byte and raw-value audit; no fixture or prior suite execution",
+    "status": "passed",
+    "structural_audit_assertions": 494731,
+    "summed_candidate_assertions_per_mode": 269
+  },
+  "runtime_gate": "CLOSED",
+  "schema": 1,
+  "source_review": {
+    "ledger": {
+      "bytes": 15428,
+      "sha256": "5bc6f95fb16184ed427814097ab5995b4f1bfc9b40c3e008250afcae6df37c2d"
+    },
+    "lock": {
+      "bytes": 875,
+      "sha256": "960d95c482aada7ba669212ae2f7074c65d8c06f2419ed818f877c515eaf2fac"
+    },
+    "record": {
+      "bytes": 3812,
+      "sha256": "5759e738c7db4f611158e4f37b37c04cfd69447eb9cd972bf8b740710fe135df"
+    },
+    "scope": "Independent core/harness/runner/ledger and exact eight-control review before first build; root review included.",
+    "status": "passed-before-first-build"
+  },
+  "status": "passed"
+}

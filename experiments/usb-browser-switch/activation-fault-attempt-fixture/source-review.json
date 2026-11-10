@@ -1,0 +1,90 @@
+{
+  "execution_at_review": "No compiler, runner preparation, runtime, signal, native provider or device execution had occurred.",
+  "files": {
+    "core.c": {
+      "bytes": 12040,
+      "sha256": "124e7f35407b6cba4989c9a9cd9157922297bd234db3d057e6d18a888a383151"
+    },
+    "core.h": {
+      "bytes": 3159,
+      "sha256": "a11dd07304855d6e023877c119b7cab6f195a4bf67fa9b4b6d1c1ac153a83876"
+    },
+    "run-tests.py": {
+      "bytes": 41852,
+      "sha256": "13bb85b861cd97888508a72652bc35fdaa94e7684ab274e32143f75666709af6"
+    },
+    "source-ledger.json": {
+      "bytes": 15428,
+      "sha256": "5bc6f95fb16184ed427814097ab5995b4f1bfc9b40c3e008250afcae6df37c2d"
+    },
+    "test-contract.json": {
+      "bytes": 24574,
+      "sha256": "fb68240d87cd1ab357b85f4ba23f82c24250b5566a53131a64c369abd0b27fd9"
+    },
+    "test_fault.c": {
+      "bytes": 30150,
+      "sha256": "f3752ab1ef7fb5fc03f65cf5457ea4b86f26d31ac4934da1120814276e6936f3"
+    }
+  },
+  "limits": [
+    "Sequential value schedules are not concurrent C executions, signal/reentry tests or nonlocal exits.",
+    "Normal retained object/disassembly does not prove lock-free signal safety, transitive libc/canary/interposition behavior or weak-memory/native visibility.",
+    "No actual attribution, loader, DSO, installer, generated transfer, target/replacement invocation, native frame or crash-file provider.",
+    "NoCommunity says nothing about live-mod/time/append/quarantine internals. Returned IO classifications do not establish persisted blame, causal fault ownership or recovery.",
+    "No implementation change to frozen consumer, handlers, official core, protection, quarantine, package, emulator or physical deck; all live gates CLOSED."
+  ],
+  "prebuild_findings_resolved": [
+    "Admission-ba now reverses actual script custody and expected owner, not only actor labels; report retains both scripts.",
+    "Core helper noinline/noclone attributes align stable ELF function-extent observation with GCC; no atomic/lock-free or call-free oracle is claimed.",
+    "Runner schema aligns complete private serial snapshots and explicit source-scope facts; process/container cleanup survives interrupted-prefix capture failure."
+  ],
+  "review_lock": {
+    "bytes": 875,
+    "sha256": "960d95c482aada7ba669212ae2f7074c65d8c06f2419ed818f877c515eaf2fac"
+  },
+  "reviews": [
+    {
+      "role": "Independent harness author reviewing core",
+      "scope": "Core admission, publication, copied ownership, raw/recorded stages and eight isolated mutations",
+      "source_files": [
+        "core.c",
+        "core.h"
+      ],
+      "status": "passed"
+    },
+    {
+      "role": "Independent core author reviewing harness and runner",
+      "scope": "All52 fresh selectors, exact8 unmasked control sets, corrected reverse actor-input schedule, raw schema and immutable packet retention",
+      "source_files": [
+        "test_fault.c",
+        "test-contract.json",
+        "run-tests.py"
+      ],
+      "status": "passed"
+    },
+    {
+      "role": "Independent runner author reviewing ledger",
+      "scope": "All5 source pins, plan pin,12 reference-only inputs,6 transformations,8 exact control mappings and authored seams/build/evidence limits",
+      "source_files": [
+        "source-ledger.json"
+      ],
+      "status": "passed"
+    },
+    {
+      "role": "Root source/control review",
+      "scope": "Full core, harness, runner and ledger; preserved frozen sources; no native fault-provider or signal scope; exact controls and output contract",
+      "source_files": [
+        "core.c",
+        "core.h",
+        "run-tests.py",
+        "test-contract.json",
+        "test_fault.c",
+        "source-ledger.json"
+      ],
+      "status": "passed"
+    }
+  ],
+  "runtime_gate": "CLOSED",
+  "schema": 1,
+  "status": "passed-before-first-build"
+}
