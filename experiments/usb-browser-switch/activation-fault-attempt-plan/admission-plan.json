@@ -1,0 +1,447 @@
+{
+  "schema": 1,
+  "status": "source-planned-not-implemented",
+  "runtime_gate": "CLOSED",
+  "sdk_commit": "3e0c5cb010454228f4ee63226b60d060494eeaae",
+  "baseline_commit": "02989eff605289767cacf9761f2cd83edaee6182",
+  "scope": "Source-only terminal fault-attempt admission plan; no consumer or handler modification",
+  "sources": [
+    {
+      "name": "sdk/crash_guards.c",
+      "path": "experiments/usb-browser-switch/activation-unwind-policy/private/capture-4d7eb81ff4e04f6099c87eaa42bc66d3/inputs/sdk/src/azmod/crash_guards.c",
+      "bytes": 23133,
+      "sha256": "358499ca5bccf3f71944ce408c02fa76b598ba5c81e81d4a2151b6d5e38727ab"
+    },
+    {
+      "name": "sdk/community.c",
+      "path": "experiments/usb-browser-switch/activation-unwind-policy/private/capture-4d7eb81ff4e04f6099c87eaa42bc66d3/inputs/sdk/src/azmod/community.c",
+      "bytes": 102070,
+      "sha256": "4b2b72e2b623dcb1ecb0ef108a473815adab45a516a6aa13adb6cce512b80866"
+    },
+    {
+      "name": "sdk/ep_mem.h",
+      "path": "experiments/usb-browser-switch/activation-unwind-policy/private/capture-4d7eb81ff4e04f6099c87eaa42bc66d3/inputs/sdk/src/azmod/ep_mem.h",
+      "bytes": 10147,
+      "sha256": "aa1e4a60ea05ff2b00f53c37634f3614fc51ecfd6dac500b2b59ee86dcbb6e5d"
+    },
+    {
+      "name": "fixture/attribution.inc",
+      "path": "experiments/usb-browser-switch/activation-module-attribution-fixture/attribution.inc",
+      "bytes": 10365,
+      "sha256": "a39be49ab125639d0aa048ace337e822cf16e3c71c37e538ff8545183cb9f836"
+    },
+    {
+      "name": "fixture/test_module.c",
+      "path": "experiments/usb-browser-switch/activation-module-attribution-fixture/test_module.c",
+      "bytes": 30336,
+      "sha256": "387fa641ac792627d697e8fd2750531a60d9587ee0691dfc3b917734e9906027"
+    },
+    {
+      "name": "fixture/receipt-body.inc",
+      "path": "experiments/usb-browser-switch/activation-module-attribution-fixture/private/run-436494e0f4e44d2f955b99adf6227d72/generated/receipt-body.inc",
+      "bytes": 15570,
+      "sha256": "60233581d6a882d9e57e6b6fc9602ce440783060446872148f94e9e7205bc02e"
+    },
+    {
+      "name": "fixture/pinned-consumer.inc",
+      "path": "experiments/usb-browser-switch/activation-module-attribution-fixture/private/run-436494e0f4e44d2f955b99adf6227d72/generated/pinned-consumer.inc",
+      "bytes": 962,
+      "sha256": "9e31f235353a169e46f366ec33488076829b9383bc0fd0c462b465a0ddef70b4"
+    },
+    {
+      "name": "review/README.md",
+      "path": "experiments/usb-browser-switch/activation-fault-reader-contract/README.md",
+      "bytes": 11701,
+      "sha256": "90ba1e6ddaa039350dc73c3d162b7f00b59c7bf3afd9e409111ce3045f86421d"
+    },
+    {
+      "name": "review/operating-contract.json",
+      "path": "experiments/usb-browser-switch/activation-fault-reader-contract/operating-contract.json",
+      "bytes": 16431,
+      "sha256": "d6879db76a09b3c3e475f6ec7d69d0a0087dafd2eafde3ae2896a55b092a263f"
+    },
+    {
+      "name": "review/verification.json",
+      "path": "experiments/usb-browser-switch/activation-fault-reader-contract/verification.json",
+      "bytes": 2902,
+      "sha256": "85b4c7f3888c482acbb092714138d2010c07771574f9e7889d24dc11df7ea3f2"
+    },
+    {
+      "name": "review/retain-source.py",
+      "path": "experiments/usb-browser-switch/activation-fault-reader-contract/retain-source.py",
+      "bytes": 12344,
+      "sha256": "a9636a371ee2d5272ac805c891d4e9a024afd34c8e974ca541551e8a67817e28"
+    }
+  ],
+  "anchors": [
+    {
+      "id": "report-reentry",
+      "source": "sdk/crash_guards.c",
+      "first_line": 310,
+      "last_line": 360,
+      "reason": "Sixteen per-TID atomic slots and separate scan/claim steps."
+    },
+    {
+      "id": "report-attribution",
+      "source": "sdk/crash_guards.c",
+      "first_line": 361,
+      "last_line": 379,
+      "reason": "Attribution precedes plain volatile duplicate suppression."
+    },
+    {
+      "id": "report-chain",
+      "source": "sdk/crash_guards.c",
+      "first_line": 480,
+      "last_line": 499,
+      "reason": "Slot release after direct chain return; saved default/ignore restoration."
+    },
+    {
+      "id": "report-rearm",
+      "source": "sdk/crash_guards.c",
+      "first_line": 500,
+      "last_line": 527,
+      "reason": "Pointer-only action check and post-install plain previous-action assignment."
+    },
+    {
+      "id": "report-install",
+      "source": "sdk/crash_guards.c",
+      "first_line": 529,
+      "last_line": 547,
+      "reason": "Ignored sigaction outcomes after opening log."
+    },
+    {
+      "id": "unblamed-provider",
+      "source": "sdk/community.c",
+      "first_line": 1538,
+      "last_line": 1554,
+      "reason": "Plain live-mod gate and unretained time/file outcomes."
+    },
+    {
+      "id": "exact-consumer",
+      "source": "sdk/community.c",
+      "first_line": 1561,
+      "last_line": 1587,
+      "reason": "Exact volatile once guard, sixteen frames and returned ownership despite file outcomes."
+    },
+    {
+      "id": "community-handler",
+      "source": "sdk/community.c",
+      "first_line": 1588,
+      "last_line": 1620,
+      "reason": "Separate signal continuation and installation FD proxy."
+    },
+    {
+      "id": "native-address-predicate",
+      "source": "sdk/ep_mem.h",
+      "first_line": 41,
+      "last_line": 43,
+      "reason": "Aligned numeric address bounds."
+    },
+    {
+      "id": "native-frame-provider",
+      "source": "sdk/ep_mem.h",
+      "first_line": 97,
+      "last_line": 109,
+      "reason": "Exact-eight native provider; comments do not establish target runtime safety."
+    },
+    {
+      "id": "immutable-modules",
+      "source": "fixture/attribution.inc",
+      "first_line": 16,
+      "last_line": 61,
+      "reason": "Permanent canonical IDs and one-way slot commit."
+    },
+    {
+      "id": "immutable-readers",
+      "source": "fixture/attribution.inc",
+      "first_line": 70,
+      "last_line": 115,
+      "reason": "Independent acquisitions, module-first and unique Community identity."
+    },
+    {
+      "id": "modeled-providers",
+      "source": "fixture/attribution.inc",
+      "first_line": 116,
+      "last_line": 196,
+      "reason": "Serial integer/file providers and entire unblamed-provider substitution."
+    },
+    {
+      "id": "frozen-consumer-body",
+      "source": "fixture/pinned-consumer.inc",
+      "first_line": 1,
+      "last_line": 27,
+      "reason": "Exact 962-byte consumer reused without editing."
+    },
+    {
+      "id": "frozen-generated-reader",
+      "source": "fixture/receipt-body.inc",
+      "first_line": 340,
+      "last_line": 351,
+      "reason": "Unchanged bounded generated reader and metadata copy."
+    },
+    {
+      "id": "short-write-serial",
+      "source": "fixture/test_module.c",
+      "first_line": 187,
+      "last_line": 204,
+      "reason": "Modeled short write then later serial suppression, no native persistence."
+    },
+    {
+      "id": "held-writer-lookup",
+      "source": "fixture/test_module.c",
+      "first_line": 320,
+      "last_line": 333,
+      "reason": "Owner lookup only, published before thread creation and joined under held locks."
+    }
+  ],
+  "design": {
+    "entry_scope": "Future standalone C11 value-only state machine; no call into the frozen consumer, real module reader, loader, frame provider, persistence provider or handler.",
+    "custody": "One zero-initialized fixed process-image attempt record. No init/reset/reopen/reclaim API; each scenario is a fresh process. Inputs and provider scripts are bounded authored values with lifetime through completion. Working receipt and final payload are winner-only; module identities are copied values, not native pointers.",
+    "states": [
+      "Virgin",
+      "ActiveIncomplete",
+      "OrdinaryReturned"
+    ],
+    "admission": "A single strong compare-exchange Virgin -> ActiveIncomplete is the authority; success acq_rel, failure acquire. No read-then-store admission, CAS loop, wait, retry, TLS or per-thread ownership. The admitted winner alone release-stores OrdinaryReturned after complete payload initialization. No state returns to Virgin.",
+    "loser": "Suppressed is a return classification, never a stored attempt state. A loser does not inspect winner-private payload, invoke providers, wait or mutate the record.",
+    "snapshot": "One acquire state load; Virgin gives NotAttempted, ActiveIncomplete gives only state and no payload, OrdinaryReturned copies immutable final payload. No coherent progress snapshot or cross-thread/signal proof is claimed.",
+    "selection": "An authored value provider returns resolved Community index/process identity/canonical zero-padded 33-byte ID, or NoCommunity. The predecessor's module-first/generated/Core fallback policy is not reimplemented. NoCommunity includes an authored indication that no Community owner was resolved, not a fabricated Core blame ID.",
+    "providers": "One selection event and at most four blame I/O events, or one selection plus one opaque unblamed event. Six fixed event slots cover the bounded maximum with no allocation/truncation. Each event distinguishes planned/entered-may-have-invoked/returned-and-recorded; known returned raw value and optional valid failure errno remain distinct from a harness-only raw-return oracle.",
+    "io": "Open >=0 including 0 permits exactly write, fsync, close in that order after each preceding call returns; write result never skips fsync/close. Open=-1 completes without later calls. Write length equals bounded ID length without newline. Successful returns have errno_valid=false; failure raw=-1 has an authored valid errno. No retry even on EINTR, short write, sync or close failure; no close-result fd-custody guarantee.",
+    "outcome": "OrdinaryReturned means all planned calls for the selected branch returned and their receipts are recorded. Retain independent known_failure and short_write flags (both may be true), separate selected owner, and every per-stage raw outcome. Neither false flags nor any summary establishes durable blame, native success, causation or recovery. NoCommunity retains only one opaque unblamed invocation/return and establishes no g_cm_live/time/append/quarantine behavior.",
+    "incomplete": "No provider return, or no completion publication, leaves ActiveIncomplete permanently admission-closed. Public readers cannot infer selected owner or outcomes from private progress. Authorized test driver may inspect private receipts only serially after it has stopped advancing the winner; this is not a production snapshot API. A withheld step is not an executed nonlocal exit, cancellation or crashed process.",
+    "publication": "Only winner initializes final value then release-publishes OrdinaryReturned once; readers acquire before payload. The later Linux compiler/codegen and ordinary semantic matrix need their own review; no emitted atomic, lock-free signal, transitive libc or general race proof is supplied here."
+  },
+  "transformation_groups": [
+    {
+      "id": "T1",
+      "action": "Add separately named authored admission state module; preserve frozen consumer and all preceding tested files exactly.",
+      "anchors": [
+        "exact-consumer",
+        "frozen-consumer-body"
+      ]
+    },
+    {
+      "id": "T2",
+      "action": "Model one irreversible process-lifetime admission scalar and state-only losing requests; keep real per-TID/rearm/chaining domains deferred.",
+      "anchors": [
+        "report-reentry",
+        "report-attribution",
+        "community-handler",
+        "report-chain",
+        "report-rearm"
+      ]
+    },
+    {
+      "id": "T3",
+      "action": "Accept bounded authored selected-owner values and copy canonical ID/identity into winner-private working data; do not compose actual reader or DSO.",
+      "anchors": [
+        "immutable-modules",
+        "immutable-readers",
+        "frozen-generated-reader"
+      ]
+    },
+    {
+      "id": "T4",
+      "action": "Omit native frame/attribution traversal; use an authored resolved selection and explicit serial persistence value events. Preserve owner-after-error and single open/write/sync/close sequencing.",
+      "anchors": [
+        "exact-consumer",
+        "native-frame-provider",
+        "modeled-providers",
+        "short-write-serial"
+      ]
+    },
+    {
+      "id": "T5",
+      "action": "Publish immutable ordinary result separately from admitted/incomplete state; use serial private diagnostics only for stopped schedule cuts.",
+      "anchors": [
+        "exact-consumer",
+        "held-writer-lookup"
+      ]
+    },
+    {
+      "id": "T6",
+      "action": "Keep unblamed provider opaque, all quarantine and protections unchanged, and exact controlled mutations separate from baseline semantics.",
+      "anchors": [
+        "unblamed-provider",
+        "modeled-providers",
+        "report-install"
+      ]
+    }
+  ],
+  "case_groups": [
+    {
+      "id": "G1",
+      "name": "admission",
+      "cases": [
+        "Virgin observation then A and B both preobserve Virgin; A CAS wins, B CAS fails; reverse ordering in a separate fresh selector.",
+        "A pauses before CAS; nested B wins and completes or remains active; A then suppresses."
+      ],
+      "oracle": "Exactly one winning admission precedes all selection/provider activity; pre-observation is not permission."
+    },
+    {
+      "id": "G2",
+      "name": "nested-boundaries",
+      "cases": [
+        "Inject a nested request after admission, at selection and opaque unblamed entry/return, and each open/write/fsync/close entry/return boundary and after completion.",
+        "All nested requests return Suppressed with no providers and no mutable payload read; winner resumes only by authored schedule."
+      ],
+      "oracle": "Post-admission nesting cannot create a second attempt or disturb the winner; not signal delivery."
+    },
+    {
+      "id": "G3",
+      "name": "selection-copy",
+      "cases": [
+        "Authored resolved Community values with one- and 32-character canonical IDs; mutate caller-owned input after winner copies it.",
+        "Authored NoCommunity (including unresolved/Core fallback disposition) invokes one opaque unblamed operation, with ordinary return or held entry."
+      ],
+      "oracle": "Permanent copied selection is independent of mutable input and I/O; unblamed internals are not modeled."
+    },
+    {
+      "id": "G4",
+      "name": "open-outcomes",
+      "cases": [
+        "Authored open returns fd 0 or 7, or -1 with a valid failure errno; success may carry a stale errno sentinel which is not recorded as valid.",
+        "Open refusal ordinarily completes with selected owner retained and no write/fsync/close."
+      ],
+      "oracle": "Known open failure is ordinary completion, not incomplete; no retries or lost owner."
+    },
+    {
+      "id": "G5",
+      "name": "write-outcomes",
+      "cases": [
+        "Exactly one requested ID-length write returns exact length, zero, positive short, or -1 with failure errno.",
+        "Every ordinarily returned write after successful open proceeds to one fsync and one close, including short/error."
+      ],
+      "oracle": "Raw requested/returned counts differ from classification; no second write, rollback or inferred durability."
+    },
+    {
+      "id": "G6",
+      "name": "sync-close-outcomes",
+      "cases": [
+        "Author success/failure combinations for fsync and close after an ordinary write return.",
+        "All expected successes and each known error retain selected owner; each stage keeps its own return/errno-valid bit."
+      ],
+      "oracle": "Returned provider failure does not erase ownership or turn terminal admission retryable."
+    },
+    {
+      "id": "G7",
+      "name": "incomplete-boundaries",
+      "cases": [
+        "Stop progression before and after entry to selection/unblamed/open/write/fsync/close; do not execute nonlocal exits.",
+        "Stop after a provider's authored raw return but before its private receipt record, and after private record before public completion."
+      ],
+      "oracle": "Public snapshot remains ActiveIncomplete with no payload; no invented return or continuation. A raw oracle event is distinct from a recorded receipt."
+    },
+    {
+      "id": "G8",
+      "name": "terminal-observation",
+      "cases": [
+        "Observe Virgin, every Active cut, and acquired OrdinaryReturned result; payload readable only in the last state.",
+        "After no owner, every returned error, all expected returns, and held unknown stages, request again and require suppression without reset/reopen.",
+        "Keep record and copied IDs until process exit; each independent selector uses a fresh process, not a reset API."
+      ],
+      "oracle": "One-way admission and immutable completion remain distinct; no outcome grants reuse or reclamation."
+    }
+  ],
+  "safe_controls": [
+    {
+      "id": "admit-second-contender",
+      "case_group": "G1",
+      "mutation": "A and B preobserve Virgin; omit the single combined CAS-winner veto for B and admit using its cached observation; stop before selection.",
+      "expected_failure_set": [
+        "terminal-admission-single-winner"
+      ],
+      "status": "planned-not-executed",
+      "isolation": "Dedicated fresh value-only selector asserts this semantic boundary once; other checks are infrastructure only. No duplicate downstream veto may mask the mutation."
+    },
+    {
+      "id": "reopen-after-unknown",
+      "case_group": "G7",
+      "mutation": "At held write entry, let a second request treat Active as Virgin; observe its admission and stop before its selection.",
+      "expected_failure_set": [
+        "unknown-attempt-stays-terminal"
+      ],
+      "status": "planned-not-executed",
+      "isolation": "Dedicated fresh value-only selector asserts this semantic boundary once; other checks are infrastructure only. No duplicate downstream veto may mask the mutation."
+    },
+    {
+      "id": "omit-owner-id-copy",
+      "case_group": "G3",
+      "mutation": "Keep the safe caller-owned value reference instead of copying ID bytes; change the still-live canonical source array to a different valid same-length 32-byte ID before finalization, without changing bounds or validity.",
+      "expected_failure_set": [
+        "selected-owner-copy-survives-input-change"
+      ],
+      "status": "planned-not-executed",
+      "isolation": "Dedicated fresh value-only selector asserts this semantic boundary once; other checks are infrastructure only. No duplicate downstream veto may mask the mutation."
+    },
+    {
+      "id": "derive-owner-from-write-success",
+      "case_group": "G5",
+      "mutation": "On ordinary write failure, clear the selected Community result instead of retaining it; other outcome fields remain exact.",
+      "expected_failure_set": [
+        "selected-owner-independent-of-io-outcome"
+      ],
+      "status": "planned-not-executed",
+      "isolation": "Dedicated fresh value-only selector asserts this semantic boundary once; other checks are infrastructure only. No duplicate downstream veto may mask the mutation."
+    },
+    {
+      "id": "invent-unreturned-write-result",
+      "case_group": "G7",
+      "mutation": "At held write entry synthesize success in the authoritative winner-private working receipt: set return-recorded/raw-result fields that would feed completion. Inspect serially without later operations or public completion.",
+      "expected_failure_set": [
+        "armed-write-without-return-remains-unknown"
+      ],
+      "status": "planned-not-executed",
+      "isolation": "Dedicated fresh value-only selector asserts this semantic boundary once; other checks are infrastructure only. No duplicate downstream veto may mask the mutation."
+    },
+    {
+      "id": "retry-short-write",
+      "case_group": "G5",
+      "mutation": "On positive short return author one extra modeled write event before the unchanged fsync/close sequence; no native I/O.",
+      "expected_failure_set": [
+        "short-write-retains-single-write-sequence"
+      ],
+      "status": "planned-not-executed",
+      "isolation": "Dedicated fresh value-only selector asserts this semantic boundary once; other checks are infrastructure only. No duplicate downstream veto may mask the mutation."
+    },
+    {
+      "id": "skip-close-after-write-error",
+      "case_group": "G5",
+      "mutation": "After returned write=-1, skip the paired fsync/close continuation while retaining the owner and raw write result.",
+      "expected_failure_set": [
+        "returned-write-error-still-fsyncs-and-closes"
+      ],
+      "status": "planned-not-executed",
+      "isolation": "Dedicated fresh value-only selector asserts this semantic boundary once; other checks are infrastructure only. No duplicate downstream veto may mask the mutation."
+    },
+    {
+      "id": "retain-stale-errno-after-success",
+      "case_group": "G4",
+      "mutation": "On successful fd=0 copy the authored stale errno sentinel and mark it failure-valid rather than retaining valid=false.",
+      "expected_failure_set": [
+        "successful-return-has-no-valid-failure-errno"
+      ],
+      "status": "planned-not-executed",
+      "isolation": "Dedicated fresh value-only selector asserts this semantic boundary once; other checks are infrastructure only. No duplicate downstream veto may mask the mutation."
+    }
+  ],
+  "future_evidence_contract": {
+    "status": "specified-not-executed",
+    "case_groups": 8,
+    "safe_controls": 8,
+    "pre_build": "Freeze complete source transformation ledger, all input hashes, permitted value-only scheduling seams and each exact failure set; obtain independent source/control review before first build.",
+    "matrix": "Select fresh-process baseline cases from eight groups and one dedicated selector per safe control in plain and ASan/UBSan; no old suite invocation or scalar forwarding/ABI/exception/DSO replay. Keep build/run failures and exact source bytes. No executed-case counts are claimed by this plan.",
+    "control_policy": "Baseline must pass all named semantic assertions. Every compiled control must fail exactly its declared singleton and exit as a recognized assertion failure, not crash/timeout/UB. Guard mutation changes admission or semantic result rather than just the oracle. Unsafe native effects are absent.",
+    "limits": "A sequential authored schedule is not a concurrent C execution. C11 scalar semantics and offline codegen do not establish real signal/reentry, pthread failure, native frame/persistence/errno, dependency or handler safety."
+  },
+  "non_goals": [
+    "No implementation, compiler or runtime in this plan.",
+    "No actual data race, signals, nonlocal exits, handler installation/chaining/rearm or alternate-stack changes.",
+    "No native frame reads, crash-file writes, g_cm_live/time/append implementation or quarantine reset.",
+    "No loader, DSO, installer, generated transfer or patched target/replacement invocation.",
+    "No production integration, live observer, emulator or physical device action.",
+    "No change to any frozen consumer, reader, receipt cut, core, package, gate or prior evidence."
+  ],
+  "next_scope": "Implement only a separately versioned offline value-only terminal attempt fixture after this plan and exact source/control ledger are reviewed. Keep all native/live gates closed; no frozen consumer integration or actual race."
+}

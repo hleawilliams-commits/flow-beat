@@ -1,0 +1,84 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "runtime_gate": "CLOSED",
+  "scope": "Source-only admission plan and retained bytes, not implementation or runtime validation",
+  "retained_byte_audit": {
+    "anchors": 17,
+    "auditor_sha256": "91d00386cffb1c8127050a9b434275f6cdd7b7805fccfa72ab06e4771bce375a",
+    "child_commands": [],
+    "compiler_runtime_device_or_old_audit_execution": false,
+    "git_reads": 0,
+    "helper": {
+      "child_execution_surface_present": false,
+      "helper_executed": false,
+      "imports": [
+        "from pathlib import Path, PurePosixPath",
+        "import argparse",
+        "import hashlib",
+        "import json",
+        "import os",
+        "import re",
+        "import stat",
+        "import sys",
+        "import uuid"
+      ],
+      "qualified_regex_calls": [
+        "re.compile",
+        "re.fullmatch"
+      ]
+    },
+    "inputs": 14,
+    "limitations": [
+      "Byte and AST checks do not implement or execute the planned admission semantics or establish signal safety.",
+      "Activity assertions combine retained metadata with a source-level helper call allowlist.",
+      "This audit does not invoke the helper, compiler, loader, runtime, previous collectors, or prior audits."
+    ],
+    "new_inputs": 3,
+    "new_runtime_test_cases": 0,
+    "planned_case_groups": 8,
+    "planned_controls_executed": false,
+    "planned_safe_controls": 8,
+    "planned_transformation_groups": 6,
+    "predecessor_review_and_verification": "Reused pinned input bytes only; no prior audit or machine-code re-audit",
+    "private_result_sha256": "67a75e5405c5cb414ee6d7c068fa0f59b36a627fadbd363ff75f81add1a0b6bb",
+    "public_result_sha256": "354f1111a85db07b34f7973c07819929cee32263787cc6c01a5a71718480d538",
+    "retained_files": 16,
+    "reused_inputs": 11,
+    "runtime_gate": "CLOSED",
+    "schema": 1,
+    "scope": "Independent retained-byte/source-helper audit only",
+    "status": "passed",
+    "structural_audit_assertions": 3925
+  },
+  "private_audit_result_sha256": "fef7c9684a7a0c40b208c2a809eab62c02cc59e7b5c412edad554b3a5f4eb829",
+  "independent_source_reviews": {
+    "status": "passed",
+    "reviewers": 3,
+    "scope": [
+      "Terminal attempt semantics, selected ownership and provider outcome separation",
+      "Exact isolated control failure sets, unknown boundaries and future scope",
+      "Retainer adaptation and independent auditor schema/source closure"
+    ],
+    "pre_retention_precision_corrections": [
+      "Retained independent short-write and known-failure flags for combined outcomes.",
+      "Added opaque unblamed entry/return nesting and explicitly omitted native frame traversal.",
+      "Clarified authoritative receipt mutation and same-length valid32-byte ID control; aligned ownership control with G5.",
+      "Removed an ambiguous fourth-state wording."
+    ]
+  },
+  "retention_execution": {
+    "first_invocation_passed": true,
+    "replay": false
+  },
+  "audit_execution": {
+    "source_copied_before_execution": true,
+    "source_unchanged_after_execution": true,
+    "exit_code": 0,
+    "stderr_empty": true,
+    "first_invocation_passed": true,
+    "replay": false
+  },
+  "implementation_or_runtime_change": false,
+  "privacy": "Raw retained inputs and audit source/outputs remain private."
+}

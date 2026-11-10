@@ -1,0 +1,152 @@
+{
+  "anchors": 17,
+  "artifacts": {
+    "anchor-index.json": {
+      "bytes": 5528,
+      "sha256": "8b99c18934af63d517d65a00c2a151352ea135333568bcc87eac68c5886fa966"
+    }
+  },
+  "baseline_commit": "02989eff605289767cacf9761f2cd83edaee6182",
+  "child_commands": [],
+  "closed_inventory": true,
+  "compiler_loader_installer_or_matrix_execution": false,
+  "firmware_or_device_access": false,
+  "inputs": {
+    "README.md": {
+      "bytes": 10568,
+      "sha256": "5e59440018c14f19a776b7833b135a2fcb07064d5e9118bffef3d3bc099b626b"
+    },
+    "admission-plan.json": {
+      "bytes": 23355,
+      "sha256": "bc2b0da2aff87b6c15cb0772acd2f10b784cfae54ce58e8da972f09b1058abd1"
+    },
+    "fixture/attribution.inc": {
+      "bytes": 10365,
+      "sha256": "a39be49ab125639d0aa048ace337e822cf16e3c71c37e538ff8545183cb9f836"
+    },
+    "fixture/pinned-consumer.inc": {
+      "bytes": 962,
+      "sha256": "9e31f235353a169e46f366ec33488076829b9383bc0fd0c462b465a0ddef70b4"
+    },
+    "fixture/receipt-body.inc": {
+      "bytes": 15570,
+      "sha256": "60233581d6a882d9e57e6b6fc9602ce440783060446872148f94e9e7205bc02e"
+    },
+    "fixture/test_module.c": {
+      "bytes": 30336,
+      "sha256": "387fa641ac792627d697e8fd2750531a60d9587ee0691dfc3b917734e9906027"
+    },
+    "retain-source.py": {
+      "bytes": 12322,
+      "sha256": "45eaf64b09fda04356f3f6d7ab8aedc6d73359c7d03aca4c6b4ca394d17f2863"
+    },
+    "review/README.md": {
+      "bytes": 11701,
+      "sha256": "90ba1e6ddaa039350dc73c3d162b7f00b59c7bf3afd9e409111ce3045f86421d"
+    },
+    "review/operating-contract.json": {
+      "bytes": 16431,
+      "sha256": "d6879db76a09b3c3e475f6ec7d69d0a0087dafd2eafde3ae2896a55b092a263f"
+    },
+    "review/retain-source.py": {
+      "bytes": 12344,
+      "sha256": "a9636a371ee2d5272ac805c891d4e9a024afd34c8e974ca541551e8a67817e28"
+    },
+    "review/verification.json": {
+      "bytes": 2902,
+      "sha256": "85b4c7f3888c482acbb092714138d2010c07771574f9e7889d24dc11df7ea3f2"
+    },
+    "sdk/community.c": {
+      "bytes": 102070,
+      "sha256": "4b2b72e2b623dcb1ecb0ef108a473815adab45a516a6aa13adb6cce512b80866"
+    },
+    "sdk/crash_guards.c": {
+      "bytes": 23133,
+      "sha256": "358499ca5bccf3f71944ce408c02fa76b598ba5c81e81d4a2151b6d5e38727ab"
+    },
+    "sdk/ep_mem.h": {
+      "bytes": 10147,
+      "sha256": "aa1e4a60ea05ff2b00f53c37634f3614fc51ecfd6dac500b2b59ee86dcbb6e5d"
+    }
+  },
+  "inventory": {
+    "anchor-index.json": {
+      "bytes": 5528,
+      "sha256": "8b99c18934af63d517d65a00c2a151352ea135333568bcc87eac68c5886fa966"
+    },
+    "inputs/README.md": {
+      "bytes": 10568,
+      "sha256": "5e59440018c14f19a776b7833b135a2fcb07064d5e9118bffef3d3bc099b626b"
+    },
+    "inputs/admission-plan.json": {
+      "bytes": 23355,
+      "sha256": "bc2b0da2aff87b6c15cb0772acd2f10b784cfae54ce58e8da972f09b1058abd1"
+    },
+    "inputs/fixture/attribution.inc": {
+      "bytes": 10365,
+      "sha256": "a39be49ab125639d0aa048ace337e822cf16e3c71c37e538ff8545183cb9f836"
+    },
+    "inputs/fixture/pinned-consumer.inc": {
+      "bytes": 962,
+      "sha256": "9e31f235353a169e46f366ec33488076829b9383bc0fd0c462b465a0ddef70b4"
+    },
+    "inputs/fixture/receipt-body.inc": {
+      "bytes": 15570,
+      "sha256": "60233581d6a882d9e57e6b6fc9602ce440783060446872148f94e9e7205bc02e"
+    },
+    "inputs/fixture/test_module.c": {
+      "bytes": 30336,
+      "sha256": "387fa641ac792627d697e8fd2750531a60d9587ee0691dfc3b917734e9906027"
+    },
+    "inputs/retain-source.py": {
+      "bytes": 12322,
+      "sha256": "45eaf64b09fda04356f3f6d7ab8aedc6d73359c7d03aca4c6b4ca394d17f2863"
+    },
+    "inputs/review/README.md": {
+      "bytes": 11701,
+      "sha256": "90ba1e6ddaa039350dc73c3d162b7f00b59c7bf3afd9e409111ce3045f86421d"
+    },
+    "inputs/review/operating-contract.json": {
+      "bytes": 16431,
+      "sha256": "d6879db76a09b3c3e475f6ec7d69d0a0087dafd2eafde3ae2896a55b092a263f"
+    },
+    "inputs/review/retain-source.py": {
+      "bytes": 12344,
+      "sha256": "a9636a371ee2d5272ac805c891d4e9a024afd34c8e974ca541551e8a67817e28"
+    },
+    "inputs/review/verification.json": {
+      "bytes": 2902,
+      "sha256": "85b4c7f3888c482acbb092714138d2010c07771574f9e7889d24dc11df7ea3f2"
+    },
+    "inputs/sdk/community.c": {
+      "bytes": 102070,
+      "sha256": "4b2b72e2b623dcb1ecb0ef108a473815adab45a516a6aa13adb6cce512b80866"
+    },
+    "inputs/sdk/crash_guards.c": {
+      "bytes": 23133,
+      "sha256": "358499ca5bccf3f71944ce408c02fa76b598ba5c81e81d4a2151b6d5e38727ab"
+    },
+    "inputs/sdk/ep_mem.h": {
+      "bytes": 10147,
+      "sha256": "aa1e4a60ea05ff2b00f53c37634f3614fc51ecfd6dac500b2b59ee86dcbb6e5d"
+    },
+    "result.json": {
+      "bytes": 8471,
+      "sha256": "67a75e5405c5cb414ee6d7c068fa0f59b36a627fadbd363ff75f81add1a0b6bb"
+    }
+  },
+  "inventory_excludes": [],
+  "new_plan_inputs": 3,
+  "new_sdk_inputs": 0,
+  "old_capture_or_matrix_replay": false,
+  "plan_status": "source-planned-not-implemented",
+  "private_result_sha256": "67a75e5405c5cb414ee6d7c068fa0f59b36a627fadbd363ff75f81add1a0b6bb",
+  "retained_files": 16,
+  "reused_inputs": 11,
+  "runtime_gate": "CLOSED",
+  "schema": 1,
+  "scope": "Source-only fault-attempt admission plan",
+  "sdk_commit": "3e0c5cb010454228f4ee63226b60d060494eeaae",
+  "source_git_reads": 0,
+  "status": "retained"
+}
