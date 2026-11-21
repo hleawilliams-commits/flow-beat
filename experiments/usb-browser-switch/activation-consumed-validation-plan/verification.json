@@ -1,0 +1,145 @@
+{
+  "activity": {
+    "dso_or_installer": false,
+    "firmware_emulator_or_device": false,
+    "native_provider_io_or_callback_runtime": false,
+    "nesting_or_concurrency": false,
+    "new_compiler_or_disassembler": false,
+    "new_implementation_or_adapter": false,
+    "new_runtime_cases": 0,
+    "new_sdk_git_reads": 0,
+    "previous_successful_capture_audit_or_matrix_replayed": false,
+    "prior_tested_source_changed": false,
+    "production_or_live": false,
+    "signals_or_nonlocal_exit": false
+  },
+  "audit": {
+    "assertion_kind": "Structural assertions, not runtime cases",
+    "auditor": {
+      "bytes": 35087,
+      "sha256": "60e2f8366cac4369ffa834847f434ea238441bf13f25906765a8251afa6a3023"
+    },
+    "auditor_copied_before_invocation": true,
+    "auditor_unchanged": true,
+    "execution": {
+      "bytes": 169,
+      "sha256": "f1d878f3b784bbfc87a2835ca11de3e7a78f11145f8d3bcbe12c7ba35bfe0d4f"
+    },
+    "first_actual_invocation_passed": true,
+    "independent_source_reviews": {
+      "auditor-harness-review.json": {
+        "bytes": 4497,
+        "sha256": "aed68f6349117c6d8261062edf6682e4e7233806678c5ef1697ad0cec2cdb59a"
+      },
+      "auditor-source-review.json": {
+        "bytes": 6431,
+        "sha256": "3f1e6ed8acfe2560216401145a05605edb4d7f53160f40a7cd8b07dbd806c126"
+      }
+    },
+    "invocation": {
+      "bytes": 1199,
+      "sha256": "1ca814b0b43473e14b389b7ce6c50bd6a0ca407babf8aac230f60b57aa0005f5"
+    },
+    "launch_source": {
+      "bytes": 1044,
+      "sha256": "b3425116737f0e998231ed26ba0b59681191a707da3fd369ad27de65e2f3190f"
+    },
+    "old_report_pairs_or_machinecode_reaudited": false,
+    "prior_audit_replayed": false,
+    "result": {
+      "bytes": 10414,
+      "sha256": "bf73bd89b49674051554dfc1c91c440b4862b3c930f38faed2e7acd5d755f5dc"
+    },
+    "stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stdout": {
+      "bytes": 85,
+      "sha256": "ca2f70f3caea789c8df87028443225055bbbd9c9256667c912fecab7af089205"
+    },
+    "structural_assertions": 10320
+  },
+  "future_specification": {
+    "assertion_counts_are_future_specification": true,
+    "control_baselines_per_mode": 3,
+    "executed_here": 0,
+    "ordinary_selectors_per_mode": 1,
+    "singleton_controls_per_mode": 3,
+    "source_groups": 7,
+    "supervisor_assertions_per_execution": 8,
+    "total_exec_children": 14
+  },
+  "limits": [
+    "Successful native pairs must remain independent of the later consumed veto and corrupted export mirror.",
+    "The independent raw receipt is separate storage and consumer, not adversarial isolation or concurrent publication.",
+    "Cleanup Boolean, actual close result, public completion, report export, post-exit observation and parent cleanup remain separate.",
+    "No actual close failure or missing-return experiment is selected. Unknown/possibly closed descriptors are never probed, reused or retried.",
+    "No durability, signal safety, native visibility, arbitrary custody/interposition, quiescence, recovery or fault-causation proof.",
+    "LL/SC retry/libc/canary/sanitizer limits and every prior live gate remain."
+  ],
+  "next_scope": "Next implement only the separately versioned offline activation-consumed-validation-fixture from the retained consumed-validation plan. Before the first build, freeze and independently review the complete source ledger, exact unchanged engine/header/native leaves and six reader/type fragments, one fixed provider table/context, independent raw identity receipt and explicit consumed veto before VerifiedHeld, versioned envelope/ABI and parent observer, four candidate selectors and three exact singleton controls per mode. Use only the pinned isolated Linux AArch64 ordinary host process and fresh owned directory/file capability; all owner/module/frame inputs remain authored. Preserve actual successful native open/fd/name query evidence independently from the corruptible exported mirror, supplied {-2,7104}, actual incomplete return, public no-payload state and one external held cleanup request. Keep each control's changed consequences inside its sole composite while unrelated setup/query/report/observer/cleanup errors remain refused. Never manufacture real close failure, operate on an unknown or possibly closed token, retry close/write, touch CM_BLAME/CM_CRASHES/startup/quarantine, or infer durability, signal safety, recovery or fault causation. No private APIs, callback nesting/concurrency, native frames, DSO/installer, handler/signal/nonlocal exit, firmware/emulator/device, production or live composition. Retain every failed attempt, preserve all frozen bytes/failure packets, and do not replay passing predecessors. LL/SC/libc/canary limits, quarantine and every live gate remain unchanged and CLOSED.",
+  "ownership_is_fault_causation": false,
+  "pre_retention_corrections": {
+    "description": [
+      "Disambiguate unchanged C1 entered/returned true versus error_valid false.",
+      "Require truthful mutation-neutral cleanup shape in shared safety; only C3 requires attempted.",
+      "Place assertion evaluation in post-exit supervisor, not terminated child.",
+      "Pin exact authored direct module/request inputs."
+    ],
+    "record": {
+      "bytes": 546,
+      "sha256": "385da1a9a284e3238b66cb38b548151b1913ddf5ebd734f51885c53bf0703eda"
+    },
+    "retained_drafts": {
+      "pre-review-correction-README.md": {
+        "bytes": 8189,
+        "sha256": "6a1af8e38f4b3eed4bd649d1d6167b2d678034dcac4afad1facb0849771c716b"
+      },
+      "pre-review-correction-consumed-validation-plan.json": {
+        "bytes": 35684,
+        "sha256": "cfc935264cfbf436a36a5d51d0cc683893edc13ea843f782e4e4bedad0ba9d30"
+      }
+    },
+    "retention_or_audit_invocation_failed": false
+  },
+  "quarantine_changed": false,
+  "retention": {
+    "first_invocation_passed": true,
+    "line_byte_anchors": 34,
+    "new_plan_inputs": 3,
+    "packet_directories": 6,
+    "packet_files": 29,
+    "private_result": {
+      "bytes": 15229,
+      "sha256": "df50f448e2e21d3be3155796ca25b756f39bdf186f1f736d1a6b336e4783af7a"
+    },
+    "public_result": {
+      "bytes": 9305,
+      "sha256": "278497ac5f6ecd55fd18939a33b1a82c9b88e6d3e03320ef1bbf5163872d516d"
+    },
+    "retained_inputs": 27,
+    "retainer_unchanged": true,
+    "reused_inputs": 24
+  },
+  "runtime_gate": "CLOSED",
+  "schema": 1,
+  "scope": "Source-only consumed-validation refusal plan",
+  "source_review": {
+    "aggregate": {
+      "bytes": 20716,
+      "sha256": "5aaf3c92d86ceb5aff9c04bf84f7f804cd15f626018ed7bce99f6e8e9395f9b3"
+    },
+    "independent_reviews": {
+      "harness-source-review.json": {
+        "bytes": 7375,
+        "sha256": "aa4d26eb98aa0bd0ae6297bb1d7ae97f4534ee994e8084730a1dc5c5c6fb970a"
+      },
+      "provider-source-review.json": {
+        "bytes": 11565,
+        "sha256": "3ba2f52e511ccb8cf7cd8b7d7ba8f57fa1f27f5b233acf621726bcd2fc7a2524"
+      }
+    }
+  },
+  "status": "passed"
+}

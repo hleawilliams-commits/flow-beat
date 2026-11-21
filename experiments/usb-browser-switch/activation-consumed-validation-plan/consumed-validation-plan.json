@@ -1,0 +1,674 @@
+{
+  "anchors": [
+    {
+      "first_line": 249,
+      "id": "engine-admission",
+      "last_line": 275,
+      "reason": "One terminal CAS before request/provider fields.",
+      "source": "witness/core.c"
+    },
+    {
+      "first_line": 303,
+      "id": "engine-provider-return",
+      "last_line": 387,
+      "reason": "Synchronous callback return precedes private raw capture; reached-only validation.",
+      "source": "witness/core.c"
+    },
+    {
+      "first_line": 388,
+      "id": "engine-record",
+      "last_line": 424,
+      "reason": "Invalid-domain halt versus authoritative recorded failure.",
+      "source": "witness/core.c"
+    },
+    {
+      "first_line": 425,
+      "id": "engine-next",
+      "last_line": 441,
+      "reason": "Returned failure sequencing without retries.",
+      "source": "witness/core.c"
+    },
+    {
+      "first_line": 442,
+      "id": "engine-publication",
+      "last_line": 485,
+      "reason": "Immutable completion and acquire-only public payload.",
+      "source": "witness/core.c"
+    },
+    {
+      "first_line": 507,
+      "id": "engine-setup",
+      "last_line": 565,
+      "reason": "Five bounded setup functions.",
+      "source": "witness/core.c"
+    },
+    {
+      "first_line": 30,
+      "id": "provider-records",
+      "last_line": 122,
+      "reason": "Distinct custody, origin, native/query/callback/cleanup records.",
+      "source": "witness/file_provider.h"
+    },
+    {
+      "first_line": 47,
+      "id": "provider-prepared",
+      "last_line": 77,
+      "reason": "Entered and prepared callback journal differs from engine recording.",
+      "source": "witness/file_provider.c"
+    },
+    {
+      "first_line": 107,
+      "id": "token-eligibility",
+      "last_line": 113,
+      "reason": "Full int64 range/equality/custody before narrowing.",
+      "source": "witness/file_provider.c"
+    },
+    {
+      "first_line": 114,
+      "id": "validate-created",
+      "last_line": 134,
+      "reason": "Two actual identity queries before validated promotion.",
+      "source": "witness/file_provider.c"
+    },
+    {
+      "first_line": 135,
+      "id": "open-custody",
+      "last_line": 186,
+      "reason": "Real fd is held before validation; failure retains custody.",
+      "source": "witness/file_provider.c"
+    },
+    {
+      "first_line": 187,
+      "id": "write-supply",
+      "last_line": 237,
+      "reason": "Actual raw write and separately supplied invalid count/control.",
+      "source": "witness/file_provider.c"
+    },
+    {
+      "first_line": 257,
+      "id": "close-dispatch",
+      "last_line": 290,
+      "reason": "Pre-call refusal versus unknown close entry, and opaque unblamed.",
+      "source": "witness/file_provider.c"
+    },
+    {
+      "first_line": 291,
+      "id": "provider-prepare",
+      "last_line": 322,
+      "reason": "Stable complete table and directory prerequisite, no second admission.",
+      "source": "witness/file_provider.c"
+    },
+    {
+      "first_line": 323,
+      "id": "provider-freeze",
+      "last_line": 329,
+      "reason": "Frozen precleanup evidence.",
+      "source": "witness/file_provider.c"
+    },
+    {
+      "first_line": 330,
+      "id": "provider-cleanup",
+      "last_line": 350,
+      "reason": "One eligible held close; Boolean protocol return independent of raw success.",
+      "source": "witness/file_provider.c"
+    },
+    {
+      "first_line": 17,
+      "id": "leaf-capture",
+      "last_line": 78,
+      "reason": "Selected actual return/error capture and entered/returned ordering.",
+      "source": "witness/native_leaf.c"
+    },
+    {
+      "first_line": 167,
+      "id": "harness-inheritance",
+      "last_line": 201,
+      "reason": "Bounded descriptor inventory before entry, boolean rather than per-call receipts.",
+      "source": "witness/test_file.c"
+    },
+    {
+      "first_line": 202,
+      "id": "harness-child-setup",
+      "last_line": 244,
+      "reason": "Early refusals and setup before ordinary entry.",
+      "source": "witness/test_file.c"
+    },
+    {
+      "first_line": 245,
+      "id": "harness-export",
+      "last_line": 283,
+      "reason": "Return/snapshots precede freeze, cleanup and report write.",
+      "source": "witness/test_file.c"
+    },
+    {
+      "first_line": 328,
+      "id": "supervisor-setup",
+      "last_line": 393,
+      "reason": "Owned parent capabilities, fixed sentinel, handoff and exec.",
+      "source": "witness/test_file.c"
+    },
+    {
+      "first_line": 394,
+      "id": "supervisor-report",
+      "last_line": 406,
+      "reason": "Normal exit0 precedes exact-size report acceptance.",
+      "source": "witness/test_file.c"
+    },
+    {
+      "first_line": 407,
+      "id": "supervisor-observer",
+      "last_line": 435,
+      "reason": "Separate observer descriptor and raw identity prerequisite.",
+      "source": "witness/test_file.c"
+    },
+    {
+      "first_line": 436,
+      "id": "supervisor-cleanup",
+      "last_line": 459,
+      "reason": "Identity-checked fixed-name and parent capability cleanup.",
+      "source": "witness/test_file.c"
+    },
+    {
+      "first_line": 460,
+      "id": "supervisor-failure",
+      "last_line": 465,
+      "reason": "No recursive/unknown-token cleanup or retry on failure.",
+      "source": "witness/test_file.c"
+    },
+    {
+      "first_line": 600,
+      "id": "native-outcome-oracle",
+      "last_line": 627,
+      "reason": "Exact selected outcomes, not arbitrary failure acceptance.",
+      "source": "witness/test_file.c"
+    },
+    {
+      "first_line": 628,
+      "id": "cleanup-oracle",
+      "last_line": 645,
+      "reason": "Eligible cleanup must actually return zero in old matrix.",
+      "source": "witness/test_file.c"
+    },
+    {
+      "first_line": 1003,
+      "id": "supervisor-json",
+      "last_line": 1023,
+      "reason": "Report-output acknowledgment remains outside its contents.",
+      "source": "witness/test_file.c"
+    },
+    {
+      "first_line": 282,
+      "id": "runner-exception",
+      "last_line": 321,
+      "reason": "Timeout/exception containment is not native custody proof.",
+      "source": "witness/run-tests.py"
+    },
+    {
+      "first_line": 3,
+      "id": "reader-layouts",
+      "last_line": 20,
+      "reason": "Two unchanged layout/storage fragments.",
+      "source": "generated/readers.inc"
+    },
+    {
+      "first_line": 22,
+      "id": "generated-reader",
+      "last_line": 33,
+      "reason": "Exact rc_lookup function.",
+      "source": "generated/readers.inc"
+    },
+    {
+      "first_line": 35,
+      "id": "module-snapshot",
+      "last_line": 45,
+      "reason": "Exact immutable module snapshot function.",
+      "source": "generated/readers.inc"
+    },
+    {
+      "first_line": 47,
+      "id": "generated-index",
+      "last_line": 63,
+      "reason": "Exact generated identity resolution function.",
+      "source": "generated/readers.inc"
+    },
+    {
+      "first_line": 65,
+      "id": "module-first-owner",
+      "last_line": 82,
+      "reason": "Exact module-first reader function.",
+      "source": "generated/readers.inc"
+    }
+  ],
+  "baseline_commit": "9727891793349a7e47fecf921d97bab04294c8d0",
+  "contract": {
+    "close_uncertainty": "External close is attempted at most once only from known HeldUnvalidated; an actual returned failure remains UnknownAfterCloseReturn and refuses the case. Entered without return cannot reach downstream report. No retry, probe, dup, token reuse or native operation through any unknown or possibly closed token. An omitted-close control leaves known held custody until child termination without acknowledging cleanup.",
+    "expected_diagnostic": "Only OF_INFRA_FILE_VALIDATION together with the exact explicit evaluated/raw-valid/authored-veto/consumed-false tuple and an independently valid raw receipt is expected. Actual failed query, identity mismatch, missing receipt, setup/capacity/argument/phase/report/observer/cleanup error is refused. No blanket infrastructure-success reinterpretation.",
+    "freeze": [
+      "Exact core.c/core.h, native_leaf.c/native_leaf.h, readers.inc and receipt-types.h bytes stay unchanged.",
+      "One terminal admission, immutable acquire-gated completion and the five AO_WITNESS_SETUP APIs remain. No private stepping/inspection/refusal/diagnostic APIs or old control configurations compile.",
+      "Fixed process-lifetime provider table/context and request/model storage remain valid through ordinary return; authored module/owner/frame inputs only. Opaque unblamed boundary is preserved and is not exercised by this focused matrix.",
+      "No native write/fsync/attempt-close callback is reached in this scope; one external held close follows the completed ordinary call, including an incomplete result."
+    ],
+    "intent": "Exercise known HeldUnvalidated custody after an explicit consumed-validation veto following genuine successful open and identity queries. Do not seek actual close failure or missing returns.",
+    "limitations": "No durability, signal safety, native visibility, callback quiescence, arbitrary loader/interposition, recovery or fault-causation proof. LL/SC retry and libc/canary/sanitizer dependencies remain. Quarantine/startup protections and all live gates remain unchanged.",
+    "native_policy": "Open uses the existing exclusive nofollow fixed-name flags and0600. Native raw/error capture remains immediate in unchanged leaves. Native success error_valid=false/error_number0 is preserved despite explicit errno instrumentation. fd0 remains representable but is not a forced selector; descriptor number must be observed, never guessed.",
+    "ownership": "One same-Linux parent supervisor owns a fresh0700 disposable directory and fixed witness.dat name for one fresh exec child. Inherited directory/report descriptors remain distinct from the child's newly opened native int fd. No external writer, descriptor alias, close/reuse or callback retained pointer is permitted within the authored fixture.",
+    "raw_identity": "Raw identity availability is an ordinary serial evidence-validity marker, never a second attempt admission or publication/race contract. It is write-once after full successful-query validation and never changed by controls or cleanup."
+  },
+  "envelope_and_observer": {
+    "child_sequence": [
+      "Validate inherited directory/report capabilities and complete provider/setup.",
+      "Stage+commit one authored direct module while Virgin; no generated/frame cases replayed.",
+      "Invoke exactly one synchronous ac_run.",
+      "Acquire-observe actual public result separately from returned enum.",
+      "Freeze provider report, raw receipt and consumed decision; export-only C1 mutation belongs here.",
+      "Perform one separate held cleanup protocol; C3 only skips native eligible body.",
+      "Acquire-observe again and require snapshot equality.",
+      "Write one enclosing binary envelope after cleanup; ordinary main returns; child cannot acknowledge its own report write."
+    ],
+    "error_refusal": "Do not accept nonzero/signal exit, partial/malformed report, query failure/mismatch, conversions, unexpected contents, native cleanup failure or observer/cleanup errors. No attempt recovery/report salvage. Missing-return and failed-close branches remain unexecuted goals.",
+    "evidence_layers": [
+      "actual native open/query pairs and independent raw identities",
+      "consumed-validation tuple and expected diagnostic",
+      "exported query mirror",
+      "supplied callback pair/prepared journal",
+      "actual ordinary ac_run return",
+      "acquire-gated public snapshots",
+      "external held cleanup record",
+      "post-exit parent observation and its separately acknowledged cleanup"
+    ],
+    "identity_checks": "Compare current nofollow fixed name to raw by_fd/by_name dev+inode and owned regular metadata. Open a fresh parent-owned nofollow observer fd, verify same identity and bounded empty contents, close once, recheck name identity before fixed unlink; remove only the empty owned directory. No post-return native pointee reads or child-fd operations.",
+    "parent_basis": "Require exact envelope, normal waited child exit0 and valid new raw receipt before path operations. Report descriptor identity and length validation remain. Require decision tuple and absence of accepted creation; do not set creation_identity_available or borrow creation_identity for this path. Record observation_basis=RAW_IDENTITY_AFTER_CONSUMED_VETO.",
+    "version": "New handoff/report magic and explicit schema version, checked sizeof and offsets, zero-initialized pointer-free fields, exact-size single report write/pread. Full new ABI review before first run including nlink_t; do not guess target widths."
+  },
+  "future_matrix": {
+    "authored_inputs": {
+      "frame_cells": 0,
+      "generated_records": 0,
+      "id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "module_index": 0,
+      "process_identity_u64_hex": "0x1234567887654321",
+      "range_begin_hex": "0x1000",
+      "range_end_exclusive_hex": "0x2000",
+      "request_fp_hex": "0x0",
+      "request_lr_hex": "0x0",
+      "request_pc_hex": "0x1010",
+      "scope": "Pure authored direct ownership; no native address provenance."
+    },
+    "baseline_selectors": [
+      "control-query-evidence",
+      "control-refusal-domain",
+      "control-held-cleanup"
+    ],
+    "controls": [
+      {
+        "macro": "CV_CONTROL_CORRUPT_QUERY_EXPORT",
+        "selector": "control-query-evidence"
+      },
+      {
+        "macro": "CV_CONTROL_NORMALIZE_REFUSAL",
+        "selector": "control-refusal-domain"
+      },
+      {
+        "macro": "CV_CONTROL_OMIT_HELD_CLEANUP",
+        "selector": "control-held-cleanup"
+      }
+    ],
+    "executed_here": 0,
+    "frozen_before_build": "Complete source ledger, copied byte equality, table/context/capabilities, query/raw identity schema, exact three transformations, invariant and composite checks, new ABI/report encoding and runner must be independently reviewed and frozen before first build. Read-only metadata/codegen review precedes first runtime; findings require preserved new attempts, not policy weakening.",
+    "image": "sha256:c7e3893c4f03e0ff30555c2120b3d9ec53834eaa2c8ce376a2da09b70fd23a90",
+    "invocation": "Each selector/control pair gets a fresh process identity, fresh parent-owned directory and newly created empty file. Four candidate executions + three distinct matching control executions per mode. All use direct authored owner slot0, full64-bit process identity and canonical32-character ID. No old selector repeats.",
+    "modes": [
+      "plain",
+      "asan-ubsan"
+    ],
+    "ordinary_selectors": [
+      "consumed-validation-veto"
+    ],
+    "per_mode": {
+      "baselines": 3,
+      "controls": 3,
+      "exec_children": 7,
+      "ordinary": 1
+    },
+    "target": "GCC7.5 Linux AArch64 C11, same-Linux parent/exec child; plain and ASan/UBSan with leak detection enabled.",
+    "total_future_exec_children": 14
+  },
+  "next_scope": "After this source-only plan is retained and reviewed, implement only the separately versioned ordinary consumed-validation witness under the frozen ledger and14-child contract. No permission for real close failure, missing returns, native crash persistence, DSO/installer, emulator/device, production or live composition follows.",
+  "non_execution": {
+    "callbacks_or_runtime": false,
+    "compiler": false,
+    "dso_or_installer": false,
+    "firmware_or_device": false,
+    "implementation": false,
+    "native_provider_io": false,
+    "nesting_or_concurrency": false,
+    "new_sdk_git_reads": 0,
+    "prior_success_replay": false,
+    "production_or_live": false,
+    "signals_or_nonlocal_exits": false
+  },
+  "oracle_partition": {
+    "composites": [
+      {
+        "id": "validation-veto-preserves-native-query-evidence",
+        "owns": "Exact fieldwise fidelity of both exported post-open query records to independent raw receipt including entered/returned/raw/error/identity availability/value/kind/descriptor/flags. Setup-directory query remains a shared unchanged setup check. No other assertion repeats corruptible post-open evidence fidelity."
+      },
+      {
+        "id": "validation-veto-remains-terminal-incomplete",
+        "owns": "Supplied pair exactly{-2,7104} with original infrastructure origin, AC_INCOMPLETE, public ActiveIncomplete/no payload/zero result. This one composite owns every C2 callback/return/state/payload/event/known_failure consequence. Other oracles use raw native receipt and custody, not these expectations."
+      },
+      {
+        "id": "held-validation-refusal-has-explicit-cleanup",
+        "owns": "Protocol requested and eligible for saved native descriptor from HeldUnvalidated, attempted=true, actual entered/returned0/errorinvalid0, afterClosedReturned. Owns all C3 absent-call/result/custody differences. Public unchanged across cleanup is shared equality, not baseline-specific state."
+      }
+    ],
+    "execution": "All eight assertions (five shared and three composites) are evaluated for every candidate and control witness execution by its supervisor after the child exits. Each candidate must pass all; each control must fail exactly its named composite with all seven others passing. The14 count refers to fresh exec children, not assertion hosts. Future assertion names/counts are a specification, not observed results.",
+    "masking_rule": "Do not reuse predecessor public_matches_prepared/native_owned/journal_valid/cleanup_valid wholesale: they assume accepted creation or duplicate control-dependent fields. Partition affected checks exactly while retaining unrelated infrastructure rejection. No control macro in harness; compile one harness object for all provider configurations.",
+    "shared": [
+      {
+        "id": "setup-and-envelope-custody",
+        "scope": "One valid same-Linux parent/child capability handoff, complete table, direct module stage/commit, initialVirgin, exact new envelope and normalexit0; structural counts/types/bounds only on corruptible post-open mirrors."
+      },
+      {
+        "id": "independent-native-identity",
+        "scope": "Raw receipt complete and correctly bound to actual saved int fd, successful OPEN and two genuine query pairs/identities; no report-mirror substitution; checked widening/narrowing and expected fixed-name/directory."
+      },
+      {
+        "id": "consumed-veto-retains-unaccepted-held",
+        "scope": "Exact consumed tuple, expected FILE_VALIDATION diagnostic, known saved descriptor and HeldUnvalidated, creation_identity_availablefalse/zero identity. Any unrelated infrastructure error fails."
+      },
+      {
+        "id": "ordinary-scope-and-operation-bound",
+        "scope": "Exactly one ac_run, one OPEN callback/prepared return, no write/sync/close/unblamed callback or provider native follow-up, exactly directory/fd/name queries; unchanged engine/header/readers/leaves and setup-only symbols. External cleanup is separate."
+      },
+      {
+        "id": "postexit-observation-and-error-refusal",
+        "scope": "Parent own checked observer returns empty file and successful fixed cleanup; after-cleanup public snapshot equals first for either returned state. Require truthful cleanup shape: requested/eligible=true, descriptor and before bound to known saved native fd/HeldUnvalidated; attempted equals entered and returned. If attempted, require genuine raw0/errorinvalid0 and afterClosedReturned. If unattempted, require zero unused raw/error fields and afterHeldUnvalidated. Do not require attempted=true here; that belongs solely to C3. No unknown-token operation. Projected query consistency belongs solely to C1, public result expectations solely to C2."
+      }
+    ]
+  },
+  "receipt_schema": {
+    "cleanup": "Existing external cleanup record remains separate: requested/eligible/attempted, native int descriptor, custody before/after, raw/error/entered/returned. cleanup_ok is protocol completion only, never native close success.",
+    "consumed_validation_record": {
+      "fields": {
+        "authored_veto": "bool",
+        "consumed_valid": "bool",
+        "evaluated": "bool",
+        "raw_valid": "bool"
+      },
+      "not_reached": "Allfalse if no genuine valid receipt; such outcomes are unexpected/refused in this matrix.",
+      "semantics": "The native queries succeeded. Only the explicitly consumed decision refuses promotion; this is not native fstat failure.",
+      "veto_tuple": [
+        true,
+        true,
+        true,
+        false
+      ]
+    },
+    "native_identity_receipt": {
+      "copy_order": "Receipt fields copied from actual records after genuine validation, complete last, before authored veto and before any C1 export mutation. No pointers into query arrays, no union alias with corruptible mirror, no reconstruction from mirror or creation_identity. Context owns one nonreusable receipt until process exit.",
+      "fields": {
+        "by_fd": "full of_query_record, query kind FILE_FD, saved fd and genuine native pair/identity",
+        "by_name": "full of_query_record, kind FILE_NAME, inherited directory fd, AT_SYMLINK_NOFOLLOW and genuine pair/identity",
+        "complete": "bool, initially false; set last only after every field is copied and both real queries satisfy all predicates",
+        "directory_fd": "native int inherited capability identity, never reopened from a number in parent",
+        "expected_directory": "of_identity copied from validated setup",
+        "expected_uid": "native uid_t",
+        "fixed_name": "bounded zero-terminated copy exactly witness.dat; no path supplied by caller or control",
+        "open_record": "full of_native_record for the single actual OPEN, including native pair/flags/mode",
+        "opened_fd": "native int returned by actual successful open and already held"
+      },
+      "safety_basis": "Parent independently recomputes validity from this receipt and its own fresh name/observer identity. Independent means separate stored values and consumer, not adversarial memory isolation or coherent cross-thread publication.",
+      "schema_version": 1,
+      "validity": "Actual OPEN entered/returned, raw>=0 and exactly representable int matching saved opened_fd, error invalid/0, expected exclusive flags and0600. Both post-open queries entered/returned raw0/error invalid0/identity available; correct descriptors/kinds/flags, same dev+inode, regular owner expected_uid,nlink1, size0 for new file. Require stable validated directory matching handoff. Checked reporting conversions; no synthesized native success."
+    },
+    "precleanup": "Existing provider report retains saved fd and HeldUnvalidated, creation_identity_available=false and zero creation identity; expected infrastructure FILE_VALIDATION. It contains a separately corruptible export mirror of the query journal. It is copied before external cleanup.",
+    "public_result": "Baseline AC_INCOMPLETE with AC_ACTIVE_INCOMPLETE, has_payload=false and zero public result; no private payload observation. Engine raw capture/recording follows unchanged source, not inferred from callback prepared=true."
+  },
+  "runtime_gate": "CLOSED",
+  "safe_controls": [
+    {
+      "baseline": "control-query-evidence",
+      "exact_change": "In freeze export after context report copied, change only precleanup.queries[1].result.raw from0 to-1. Index0 is directory,index1FILE_FD,index2FILE_NAME. Keep entered=true, returned=true, error_valid=false, error_number=0 and every other field unchanged. This is intentionally inconsistent reporting, not a native failure.",
+      "expected_failure": [
+        "validation-veto-preserves-native-query-evidence"
+      ],
+      "id": "C1",
+      "macro": "CV_CONTROL_CORRUPT_QUERY_EXPORT",
+      "safety": "No changes to context query records, raw receipt, validation tuple, saved fd/custody, supplied pair, native dispatcher or cleanup. Parent safety reads independent receipt. C1 alone owns projected raw/error inconsistency and mirror equality. Mutation must be reached exactly once."
+    },
+    {
+      "baseline": "control-refusal-domain",
+      "consequence": "Unchanged engine records SELECTION then OPEN -1/errno7104, returns AC_RETURNED with AC_ORDINARY_RETURNED/payload, copied owner, known_failuretrue, short_writefalse, violationfalse, exactly2recorded events and no subsequent callback. C2 composite owns this whole difference; external held cleanup and empty-file observation remain exact.",
+      "exact_change": "After consumed veto change only supplied OPEN raw-2 to-1; retain7104, infrastructure origin, actual successful open/queries and HeldUnvalidated. No engine changes.",
+      "expected_failure": [
+        "validation-veto-remains-terminal-incomplete"
+      ],
+      "id": "C2",
+      "macro": "CV_CONTROL_NORMALIZE_REFUSAL",
+      "safety": "A supplied ordinary OPEN failure does not mean no descriptor was acquired; independent raw receipt retains actualfd and parent observation basis. Never infer closure or omit cleanup."
+    },
+    {
+      "baseline": "control-held-cleanup",
+      "exact_change": "Omit only eligible cleanup native-close body before attempted is set. Preserve cleanup_requested/requested=true, eligible=true, saved descriptor and before/afterHeldUnvalidated, default result entered/returnedfalse/raw0/errorinvalid0, return cleanup_ok=true as honest protocol progression.",
+      "expected_failure": [
+        "held-validation-refusal-has-explicit-cleanup"
+      ],
+      "id": "C3",
+      "macro": "CV_CONTROL_OMIT_HELD_CLEANUP",
+      "safety": "No compensating close, duplicate, probe, retry, injected native error or operation through token. Known-held descriptor remains until ordinary child exit; OS termination containment is not an acknowledged cleanup. Parent observes using own capability. Sole composite owns missing attempt/return and held-after differences."
+    }
+  ],
+  "schema": 1,
+  "scope": "Ordinary owned-file consumed-validation refusal; source-only plan",
+  "sdk_commit": "3e0c5cb010454228f4ee63226b60d060494eeaae",
+  "source_groups": [
+    {
+      "change": "Copy exact pinned bytes. Keep sole admission, ordinary driver, public observer, six reader/type fragments and five setup-only APIs. Verify source equality and selected-method/symbol/dependency evidence in the future successor without replaying predecessor suites.",
+      "files": [
+        "core.c",
+        "core.h",
+        "native_leaf.c",
+        "native_leaf.h",
+        "generated/readers.inc",
+        "generated/receipt-types.h"
+      ],
+      "id": "S1"
+    },
+    {
+      "change": "Separately version the provider context/report contract, add one fixed raw-identity receipt and one consumed-validation decision, and replace the allowed control surface with exactly three mutually exclusive new controls. All old control macros and private engine modes remain refused.",
+      "files": [
+        "file_provider.h"
+      ],
+      "id": "S2"
+    },
+    {
+      "change": "Before native open, reserve/prove unused one-shot raw-receipt storage alongside existing native/query capacities. Retain native int fd as HeldUnvalidated immediately after successful open. Perform both existing fd/name queries. After both succeed and existing identity predicates pass, copy the independent receipt, mark it complete last, record evaluated/raw-valid/veto/consumed-false, and return false before creation_identity assignment or VerifiedHeld promotion. The existing open refusal supplies {-2,7104} with OF_INFRA_FILE_VALIDATION and OF_INFRASTRUCTURE_REFUSAL. Real query failure does not receive the consumed-veto marker or completed receipt.",
+      "files": [
+        "file_provider.c"
+      ],
+      "id": "S3"
+    },
+    {
+      "change": "Extend the pure bounded freeze output to copy provider report, immutable raw receipt and consumed-validation decision into distinct sibling envelope fields before cleanup. C1 changes only the export copy's file-fd query raw0 to-1 after the copy; context/report originals and raw receipt remain intact. C2 changes only supplied raw-2 to-1 after veto; error7104/origin remain. C3 omits only the eligible cleanup native-close body, honestly keeping requested/eligible true, attempted false, unentered result and unchanged HeldUnvalidated; no compensating close.",
+      "files": [
+        "file_provider.c",
+        "file_provider.h"
+      ],
+      "id": "S4"
+    },
+    {
+      "change": "Use a new versioned child-report/handoff contract and pointer-free raw receipt/decision fields, retain exact same-Linux inherited capability validation, direct authored owner setup, one ordinary ac_run, separate actual return/public snapshots, freeze before cleanup and enclosing envelope write afterward. New ABI sizes/offsets must be measured and independently reviewed before future runtime; old4760 bytes are not reused.",
+      "files": [
+        "test_file.c"
+      ],
+      "id": "S5"
+    },
+    {
+      "change": "Parent accepts only matching normal exit0 and exact new report envelope. Select explicit RAW_IDENTITY_AFTER_CONSUMED_VETO observation basis; require independent receipt, decision and no accepted creation. Validate expected directory/fixed-name binding and raw identities, then retain parent nofollow name query, own observer open/fstat/bounded pread/close, identity recheck, fixed unlink and empty-directory removal. Never use child saved fd as a parent capability. Partition all assertions as below; harness has no control-dependent branch.",
+      "files": [
+        "test_file.c"
+      ],
+      "id": "S6"
+    },
+    {
+      "change": "Pin isolated image and new finite14-child matrix, exact three provider controls and one harness object, source transformations and complete ledger before first build. Separate raw binary/JSON reports, compiler/metadata output, command identities, independent byte audit and sanitized projection. Preserve failed attempts and prior bytes; no predecessor runtime/capture/audit replay.",
+      "files": [
+        "run-tests.py",
+        "test-contract.json",
+        "source-ledger.json",
+        "review-lock.json"
+      ],
+      "id": "S7"
+    }
+  ],
+  "sources": [
+    {
+      "bytes": 24981,
+      "name": "witness/core.c",
+      "path": "experiments/usb-browser-switch/activation-ordinary-file-fixture/core.c",
+      "sha256": "eca23b77d5e064a7015dd3f912e5652a7d61df196ce936b3fbf1934e4a4819d1"
+    },
+    {
+      "bytes": 8461,
+      "name": "witness/core.h",
+      "path": "experiments/usb-browser-switch/activation-ordinary-file-fixture/core.h",
+      "sha256": "a1c1f13832a8bdb55ba9a2d4379ff8c6cb689bd70826575497d13402430faa38"
+    },
+    {
+      "bytes": 15746,
+      "name": "witness/file_provider.c",
+      "path": "experiments/usb-browser-switch/activation-ordinary-file-fixture/file_provider.c",
+      "sha256": "58061c9dd54c790de4387d431b8cb297e9c02c46f0963555e691bbcaa42eb5d0"
+    },
+    {
+      "bytes": 4935,
+      "name": "witness/file_provider.h",
+      "path": "experiments/usb-browser-switch/activation-ordinary-file-fixture/file_provider.h",
+      "sha256": "2793df346c64a71aef23ce0419a8296cd8ec326fd45659c61c7a989cfedf09c8"
+    },
+    {
+      "bytes": 2944,
+      "name": "witness/native_leaf.c",
+      "path": "experiments/usb-browser-switch/activation-ordinary-file-fixture/native_leaf.c",
+      "sha256": "9033bfe9cf854a495cfb7056fb7627fe371e7961e792589d59b99fcfc4064669"
+    },
+    {
+      "bytes": 833,
+      "name": "witness/native_leaf.h",
+      "path": "experiments/usb-browser-switch/activation-ordinary-file-fixture/native_leaf.h",
+      "sha256": "55e4a5ed78d023fb652002d7bface8421a71b690033f9f3cf02ed21cc72cc348"
+    },
+    {
+      "bytes": 52620,
+      "name": "witness/test_file.c",
+      "path": "experiments/usb-browser-switch/activation-ordinary-file-fixture/test_file.c",
+      "sha256": "7806fe81ec19e05ae8baa52f387c4c434c7824b3e012c8da8c7bff8535194908"
+    },
+    {
+      "bytes": 40318,
+      "name": "witness/run-tests.py",
+      "path": "experiments/usb-browser-switch/activation-ordinary-file-fixture/run-tests.py",
+      "sha256": "323f5526f36aece7f6ecc87f1e8d32d72061e817bf7527923285ff20390eaefe"
+    },
+    {
+      "bytes": 13838,
+      "name": "witness/test-contract.json",
+      "path": "experiments/usb-browser-switch/activation-ordinary-file-fixture/test-contract.json",
+      "sha256": "e2219b8ec939a28f9485fc862dc62e7198fe011596645ea52941e971487fc000"
+    },
+    {
+      "bytes": 8114,
+      "name": "witness/source-ledger.json",
+      "path": "experiments/usb-browser-switch/activation-ordinary-file-fixture/source-ledger.json",
+      "sha256": "bfdeb71756881135541b0cb5016ef9dc081985d8a431ce5ed402c773c1214900"
+    },
+    {
+      "bytes": 184553,
+      "name": "witness/result.json",
+      "path": "experiments/usb-browser-switch/activation-ordinary-file-fixture/result.json",
+      "sha256": "3d0c0323435a32d7ae7bccd367f80a97a9c99ecefdfa0537fcb59ee38cc76b29"
+    },
+    {
+      "bytes": 14265,
+      "name": "witness/verification.json",
+      "path": "experiments/usb-browser-switch/activation-ordinary-file-fixture/verification.json",
+      "sha256": "72bbdd7e02f7f7a6ce61187556758f809d0b3fcda78032c5c02916644441abe5"
+    },
+    {
+      "bytes": 662991,
+      "name": "witness/codegen-review.json",
+      "path": "experiments/usb-browser-switch/activation-ordinary-file-fixture/codegen-review.json",
+      "sha256": "c1887be2763b92d29b15487bf4ae7ffefb84d94bbcf91a6c5ff2f6b85c4519ea"
+    },
+    {
+      "bytes": 4032,
+      "name": "witness/native-layout-review.json",
+      "path": "experiments/usb-browser-switch/activation-ordinary-file-fixture/native-layout-review.json",
+      "sha256": "0f2ba661e5a52539dc3dd93be9e5d617788bf80f1589a4b6f7b55323b0e298f2"
+    },
+    {
+      "bytes": 10351,
+      "name": "witness/README.md",
+      "path": "experiments/usb-browser-switch/activation-ordinary-file-fixture/README.md",
+      "sha256": "4bafe3bab1f5869eb8c53f37f29191777404526bea130e670653ce0bbc816dd2"
+    },
+    {
+      "bytes": 2994,
+      "name": "generated/readers.inc",
+      "path": "experiments/usb-browser-switch/activation-ordinary-provider-fixture/private/run-11ea3682fcc34d33b9034c6e041aee30/work/generated/readers.inc",
+      "sha256": "352048162f452f794136f8b90555783df101feacbf7550e3f4020bd6ef7ab140"
+    },
+    {
+      "bytes": 5369,
+      "name": "generated/receipt-types.h",
+      "path": "experiments/usb-browser-switch/activation-ordinary-provider-fixture/private/run-11ea3682fcc34d33b9034c6e041aee30/work/generated/receipt-types.h",
+      "sha256": "c97454db2aba6e942eb05241bbf80d67ffd8eecb5108927da69600a6a1d15f40"
+    },
+    {
+      "bytes": 24628,
+      "name": "native-review/provider-review.json",
+      "path": "experiments/usb-browser-switch/activation-native-provider-review/provider-review.json",
+      "sha256": "ba50c773928f0a0de47021edad9d5dcf91d0f439585947467deeb14f2111219c"
+    },
+    {
+      "bytes": 6004,
+      "name": "native-review/verification.json",
+      "path": "experiments/usb-browser-switch/activation-native-provider-review/verification.json",
+      "sha256": "5effa6037cc355d82f147829841ed63b7e944e32726147e34b1c863c8f91f2c6"
+    },
+    {
+      "bytes": 31555,
+      "name": "failure-review/failure-custody-review.json",
+      "path": "experiments/usb-browser-switch/activation-ordinary-file-failure-review/failure-custody-review.json",
+      "sha256": "5e6f36579c1525ddb4b7e0595dc437e6dd28934029992ea6f342fb262b273383"
+    },
+    {
+      "bytes": 8164,
+      "name": "failure-review/README.md",
+      "path": "experiments/usb-browser-switch/activation-ordinary-file-failure-review/README.md",
+      "sha256": "fc313e61a926f730bc8d8835c77883b321f1c4a424665f5b9ff5c13ded652ea9"
+    },
+    {
+      "bytes": 9540,
+      "name": "failure-review/result.json",
+      "path": "experiments/usb-browser-switch/activation-ordinary-file-failure-review/result.json",
+      "sha256": "70d89d5525293d041a2dc30667999251a5f87c69626dbcc2355c2527893c031b"
+    },
+    {
+      "bytes": 7270,
+      "name": "failure-review/verification.json",
+      "path": "experiments/usb-browser-switch/activation-ordinary-file-failure-review/verification.json",
+      "sha256": "455e2993133970af9ead182523e02b492c347928f3c03086c491f707470af4f7"
+    },
+    {
+      "bytes": 12370,
+      "name": "reference/retain-source.py",
+      "path": "experiments/usb-browser-switch/activation-ordinary-file-plan/retain-source.py",
+      "sha256": "a126c9d3f435765c1a203df20fb3dd5f54c98a6c293364231fd8f992519e6b57"
+    }
+  ],
+  "status": "source-planned-not-implemented",
+  "successor": "activation-consumed-validation-fixture"
+}

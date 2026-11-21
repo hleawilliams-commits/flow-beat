@@ -1,0 +1,325 @@
+{
+  "no_implementation_or_runtime": true,
+  "review_records": {
+    "harness-source-review.json": {
+      "bytes": 7375,
+      "sha256": "aa4d26eb98aa0bd0ae6297bb1d7ae97f4534ee994e8084730a1dc5c5c6fb970a"
+    },
+    "provider-source-review.json": {
+      "bytes": 11565,
+      "sha256": "3ba2f52e511ccb8cf7cd8b7d7ba8f57fa1f27f5b233acf621726bcd2fc7a2524"
+    }
+  },
+  "reviews": [
+    {
+      "activities": {
+        "all_declared_anchor_ranges_checked_against_local_bytes": true,
+        "all_declared_reused_input_lengths_and_sha256_compared": true,
+        "auditor_invocation": false,
+        "callback_or_native_provider_execution": false,
+        "compiler_or_linker": false,
+        "complete_helper_text_delta_inspected": true,
+        "complete_plan_and_readme_read": true,
+        "current_helper_read_as_source": true,
+        "device_or_firmware_access": false,
+        "helper_ast_parsed_without_execution": true,
+        "new_sdk_git_reads": false,
+        "old_capture_or_matrix_or_audit_replay": false,
+        "predecessor_helper_read_as_source": true,
+        "production_or_live_action": false,
+        "retainer_invocation": false,
+        "reviewed_script_import": false,
+        "selected_source_semantics_reviewed": true,
+        "source_mutations": "Only this new review record; no reviewed or predecessor source changed."
+      },
+      "corrected_wording": [
+        "C1 explicitly preserves actual entered and returned true while retaining invalid error fields.",
+        "Shared cleanup safety specifies both honest attempted and unattempted shapes without a second C3 presence assertion.",
+        "Supervisors, not child witness bodies, evaluate the eight planned assertions; fourteen counts fresh exec children.",
+        "Direct authored owner, full-width process identity and request constants are explicit."
+      ],
+      "findings": [
+        {
+          "assessment": "The frozen OPEN leaf returns an actual native int and captures failure errno before provider instrumentation. Provider lines 162\u2013165 save that descriptor and HeldUnvalidated custody before line 167 errno clobber and lines 168\u2013170 validation refusal. The proposed insertion retains those steps and both genuine fd/name queries, then returns false before lines 131\u2013133 accepted creation and VerifiedHeld promotion. A real failed query or identity mismatch cannot acquire a consumed-veto marker.",
+          "id": "R1",
+          "result": "accepted",
+          "source_anchors": [
+            "open-custody",
+            "validate-created",
+            "leaf-capture"
+          ],
+          "subject": "Actual descriptor custody precedes validation"
+        },
+        {
+          "assessment": "The new fixed slot is reserved before OPEN and copied from actual OPEN and query records after successful raw predicates. Complete is set last before the authored decision. Full native pairs, identity fields, expected directory/name and saved native descriptor are retained without borrowing the accepted-creation fields or mutable export mirror. This is separate evidence storage and an independent consumer, explicitly not adversarial isolation or a concurrent publication guarantee. It adds no engine admission.",
+          "id": "R2",
+          "result": "accepted",
+          "source_anchors": [
+            "provider-records",
+            "validate-created",
+            "provider-prepare",
+            "provider-freeze"
+          ],
+          "subject": "Independent immutable raw-identity receipt and serial completion"
+        },
+        {
+          "assessment": "The final exact mutation changes only the copied precleanup FILE_FD query raw field from 0 to -1, retaining entered=true, returned=true, error_valid=false and error_number=0. The intentionally inconsistent projected pair cannot alter original context queries, independent receipt, validation, callback result or descriptor cleanup. Only the query-evidence composite owns all post-open mirror fidelity and domain consistency; shared checks use independent raw evidence and structural mirror bounds. Setup-directory query checks remain independent. The parent observation route does not consult the corrupted mirror for custody.",
+          "id": "R3",
+          "result": "accepted-after-precision-correction",
+          "source_anchors": [
+            "provider-freeze",
+            "supervisor-observer"
+          ],
+          "subject": "C1 export corruption is unmasked and safe"
+        },
+        {
+          "assessment": "Frozen core lines 409\u2013413 reject OPEN -2 before authoritative event recording and completion, so the baseline returns incomplete with Active/no public payload. Changing only supplied raw to -1 preserves errno 7104 and origin, records selection then OPEN failure, sets known_failure and follows the early completion path without WRITE/SYNC/CLOSE callbacks. The refusal-domain composite owns all callback/public-result consequences; raw identity and held custody remain independently checked. No private engine API is proposed.",
+          "id": "R4",
+          "result": "accepted",
+          "source_anchors": [
+            "engine-provider-return",
+            "engine-record",
+            "engine-next",
+            "engine-publication"
+          ],
+          "subject": "C2 preserves the frozen invalid-domain versus returned-failure boundary"
+        },
+        {
+          "assessment": "The control omits only the eligible body before attempted is set. Requested and eligible remain true, result remains unentered/zero, and custody remains HeldUnvalidated. The shared oracle binds the same native descriptor and before-custody, requires attempted/entered/returned agreement, checks genuine zero return and ClosedReturned when attempted, and checks zero unused fields and HeldUnvalidated otherwise. Only the cleanup composite requires attempted=true. Unexpected actual close failure remains refused without retry, probing or reuse. Process exit containment is not cleanup acknowledgment.",
+          "id": "R5",
+          "result": "accepted-after-precision-correction",
+          "source_anchors": [
+            "provider-cleanup",
+            "cleanup-oracle"
+          ],
+          "subject": "C3 truthful cleanup omission and shared safety"
+        },
+        {
+          "assessment": "The old parent requires creation_identity_available and therefore cannot be reused unchanged for this refusal. The plan explicitly replaces that acceptance dependency with RAW_IDENTITY_AFTER_CONSUMED_VETO, requiring the complete independent raw receipt, exact decision and absence of accepted creation. Parent I/O uses its own directory and observer descriptors, checked identities and bounded empty read, followed by identity recheck and fixed-name cleanup. Freeze precedes external cleanup; the enclosing envelope is written afterward and is accepted only after normal child exit zero. New magic/version/layout are required; historical 4760 bytes are not asserted as the new ABI.",
+          "id": "R6",
+          "result": "accepted",
+          "source_anchors": [
+            "harness-export",
+            "supervisor-report",
+            "supervisor-observer",
+            "supervisor-cleanup",
+            "supervisor-failure"
+          ],
+          "subject": "Versioned child envelope and new parent observation basis"
+        },
+        {
+          "assessment": "One ordinary selector and three dedicated baselines plus three matching controls in each of two modes produce 14 future fresh exec children. The exact direct owner constants, full 64-bit identity and canonical 32-byte ID are specified. Every supervisor evaluates all five shared and three composite assertions after its child exits; counts distinguish children from assertion hosts. The harness is macro-independent and only provider controls vary. No old success/generated/frame/readonly/repeat selector is replayed.",
+          "id": "R7",
+          "result": "accepted-after-precision-correction",
+          "source_anchors": [
+            "engine-admission",
+            "engine-setup",
+            "module-first-owner"
+          ],
+          "subject": "Finite future matrix and assertion hosts"
+        },
+        {
+          "assessment": "All 24 declared source lengths/digests match local retained bytes and all 34 anchor intervals are in bounds. The plan explicitly freezes core/header, both native leaf files and retained reader/types. The reader include has two layout/storage fragments and four functions; this review does not rerun its extractor, compiler or codegen audit. The terminal CAS, ordinary driver, public observer and five setup-only APIs remain unchanged.",
+          "id": "R8",
+          "result": "accepted",
+          "source_anchors": [
+            "engine-admission",
+            "engine-publication",
+            "engine-setup",
+            "reader-layouts",
+            "generated-reader",
+            "module-snapshot",
+            "generated-index",
+            "module-first-owner"
+          ],
+          "subject": "Frozen engine, leaves and reader boundary"
+        },
+        {
+          "assessment": "The complete helper diff against reference/retain-source.py consists only of the descriptive scope, plan filename occurrences and experiment directory. Its imports and AST call forms are local standard-library retention/parsing operations; qualified re.compile builds regular expressions, not compiler execution. It has no subprocess, dynamic script loading, predecessor invocation or native witness invocation. Component-wise nofollow reads, stable regular-file identity/length checks, exclusive new writes, anchor byte indexing and private/public inventory projection remain. Successful public result refuses overwrite or replay. This source review does not claim the helper has executed or the anticipated packet exists.",
+          "id": "R9",
+          "result": "accepted",
+          "source_anchors": [],
+          "subject": "Retainer is a narrow source-only adaptation"
+        }
+      ],
+      "remaining_limits": [
+        "This is a source-only plan. No new provider implementation, report ABI, native query/close outcome or future control has been executed.",
+        "Fresh complete source/ledger/control review, target ABI/codegen review and separately retained first runtime evidence are required for the future successor.",
+        "A prepared callback return and provider freeze do not prove private engine raw capture or authoritative event recording.",
+        "The complete-last receipt is ordinary serial validity, not general race, publication, signal or nonlocal-exit safety.",
+        "No actual close-failure or missing-return branch is authorized; unknown or possibly closed descriptors remain ineligible for probe, reuse or retry.",
+        "Normal child exit, empty-file readback and unlink do not prove durability, general cleanup, recovery or fault causation.",
+        "DSO/installer, native frame, crash persistence, quarantine/startup, firmware/device, production and live integration remain excluded."
+      ],
+      "result": "pass",
+      "reviewed_inputs": {
+        "README.md": {
+          "bytes": 8509,
+          "sha256": "e4d2a047574dd4751fc2647cc072b2f05d73063894e3a439b10fb783ba99b116"
+        },
+        "consumed-validation-plan.json": {
+          "bytes": 36522,
+          "sha256": "0a76e2977f96c8aee82e2e9c12728fe53ee5dc4c9bb33d1666349a2fe4301c06"
+        },
+        "retain-source.py": {
+          "bytes": 12416,
+          "sha256": "c24dd4832cf16c62b99b7ce45b7492d593d34dbcef3d003a6384042d54812f14"
+        }
+      },
+      "schema": 1,
+      "scope": "Independent source-only provider, native-identity receipt, control-oracle and retention-helper review for the consumed-validation refusal plan",
+      "source_basis": {
+        "anchor_bounds": 34,
+        "baseline_commit": "9727891793349a7e47fecf921d97bab04294c8d0",
+        "composite_assertions_per_future_child": 3,
+        "dedicated_control_baselines": 3,
+        "distinct_safe_controls": 3,
+        "executed_children_in_this_review": 0,
+        "expected_private_packet_files": 29,
+        "expected_retention_inputs": 27,
+        "future_children_per_mode": 7,
+        "future_exec_children": 14,
+        "future_modes": [
+          "plain",
+          "asan-ubsan"
+        ],
+        "ordinary_selectors": 1,
+        "reused_input_pins": 24,
+        "scope_note": "Counts describe the planned successor and source-retention shape. They are not observed runtime or audit assertion counts.",
+        "shared_assertions_per_future_child": 5,
+        "source_groups": 7
+      },
+      "status": "reviewed-before-retention"
+    },
+    {
+      "activity": {
+        "compiler_or_disassembler_invoked": false,
+        "device_or_emulator_access": false,
+        "native_provider_io_or_runtime": false,
+        "old_capture_audit_or_matrix_replayed": false,
+        "prior_tested_sources_changed": false,
+        "reviewed_helper_imported": false,
+        "reviewed_helper_invoked": false
+      },
+      "counts": {
+        "anchors": 34,
+        "candidate_assertions_per_mode": 32,
+        "candidate_selectors_per_mode": 4,
+        "composites": 3,
+        "control_baselines_per_mode": 3,
+        "controls_per_mode": 3,
+        "executed_here": 0,
+        "expected_packet_files": 29,
+        "expected_total_retained_inputs": 27,
+        "future_exec_children": 14,
+        "new_plan_inputs": 3,
+        "ordinary_selectors_per_mode": 1,
+        "reused_inputs": 24,
+        "shared_assertions": 5,
+        "source_groups": 7
+      },
+      "findings": [
+        {
+          "anchors": [
+            "open-custody",
+            "validate-created",
+            "provider-prepared",
+            "engine-record",
+            "engine-next"
+          ],
+          "detail": "The planned raw receipt is reserved before open, copied only after genuine successful fd/name queries, completed before the consumed veto and independently bound to directory/fixed-name/actual descriptor identity. The veto leaves saved custody HeldUnvalidated and creation acceptance absent. Expected FILE_VALIDATION is conditional on the precise consumed decision and raw receipt; genuine query failure and other infrastructure remain rejected. Callback prepared return is not treated as engine recording.",
+          "id": "native-and-consumed-boundary",
+          "status": "passed"
+        },
+        {
+          "anchors": [
+            "harness-export",
+            "supervisor-report",
+            "supervisor-observer",
+            "supervisor-cleanup"
+          ],
+          "detail": "Distinct pointer-free raw receipt, consumed decision and corruptible provider projection freeze before external cleanup. The versioned exact-size envelope is written afterward, cannot acknowledge its own completed write, and requires normal exit0. Parent uses its own nofollow observer descriptor and independently checks the trusted raw receipt, current name and owned metadata before bounded empty-file read and fixed cleanup. It never synthesizes accepted creation or uses the child's integer as a parent capability. New target ABI must be reviewed; historical4760-byte size is not reused.",
+          "id": "envelope-and-observer",
+          "status": "passed"
+        },
+        {
+          "detail": "All five shared assertions and three composites run on every future execution without harness control macros. C1 alone owns exported post-open query fidelity and domain inconsistency. C2 alone owns the supplied pair and all AC_INCOMPLETE-to-AC_RETURNED/public payload/known-failure consequences. C3 alone requires the eligible native cleanup attempt and its successful disposition, while truthful record shape and unexpected-error refusal remain shared. No unchanged predecessor assertion may duplicate these affected expectations.",
+          "id": "oracle-partition",
+          "status": "passed"
+        },
+        {
+          "controls": {
+            "CV_CONTROL_CORRUPT_QUERY_EXPORT": [
+              "validation-veto-preserves-native-query-evidence"
+            ],
+            "CV_CONTROL_NORMALIZE_REFUSAL": [
+              "validation-veto-remains-terminal-incomplete"
+            ],
+            "CV_CONTROL_OMIT_HELD_CLEANUP": [
+              "held-validation-refusal-has-explicit-cleanup"
+            ]
+          },
+          "detail": "The C2 normal error follows unchanged core OPEN-domain/next/publication source and reaches no follow-up provider operation. The C3 omission keeps a known held descriptor until ordinary exit without probing, retrying, compensating close or acknowledging process cleanup.",
+          "id": "exact-control-failure-sets",
+          "status": "passed"
+        },
+        {
+          "detail": "One authored direct module at index0, canonical32-byte a ID, full-width process identity0x1234567887654321, range[0x1000,0x2000) and requestpc0x1010/lr0/fp0 make the future setup concrete. No generated/frame/repeat/read-only case replay is planned. Four candidates and three controls per mode, with eight assertions each, are future specifications only.",
+          "id": "fixed-future-scope",
+          "status": "passed"
+        },
+        {
+          "detail": "All24 reused source pins and34 anchor bounds match. Complete helper comparison to its pinned ordinary-file predecessor shows only plan-file, experiment-directory and scope-string changes. Nofollow ancestor/leaf handling, exclusive writes, failed-packet preservation, no-overwrite public result, inclusive line-byte anchors and closed file inventory remain. The helper imports no child execution mechanism and was not invoked by this reviewer.",
+          "id": "retention-helper-and-pins",
+          "status": "passed"
+        }
+      ],
+      "limits": [
+        "This is a source-only plan review, not implementation or execution evidence.",
+        "Independent stored receipt means separate storage and consumer, not adversarial isolation, thread-safe publication or durable persistence.",
+        "Actual close errors, missing returns, callback quiescence, arbitrary custody/interposition, signal/nonlocal safety and recovery remain unproved; every live gate stays closed."
+      ],
+      "remaining_blockers": [],
+      "resolved_findings": [
+        {
+          "detail": "The final C1 wording explicitly preserves entered=true, returned=true, error_valid=false and error_number=0 while changing only exported fd-query raw0 to-1. Actual context query records and immutable raw receipt remain unchanged.",
+          "id": "C1-explicit-entered-returned",
+          "status": "resolved-before-retention"
+        },
+        {
+          "detail": "Shared safety now binds requested/eligible, saved descriptor and HeldUnvalidated input and requires attempted/entered/returned agreement. An attempted close must actually return0 and finish ClosedReturned; an omitted attempt has canonical zero unused result and remains HeldUnvalidated. Only the cleanup composite requires attempted=true, so C3 remains a singleton while unrelated malformed or failed cleanup is rejected.",
+          "id": "cleanup-shape-independent-safety",
+          "status": "resolved-before-retention"
+        },
+        {
+          "detail": "The final plan places all eight assertions in the supervisor after normal child exit. Four candidate executions plus three control executions per mode give fourteen fresh exec children, independently of the assertion host.",
+          "id": "assertion-host-versus-child-count",
+          "status": "resolved-before-retention"
+        }
+      ],
+      "reviewed_inputs": {
+        "README.md": {
+          "bytes": 8509,
+          "sha256": "e4d2a047574dd4751fc2647cc072b2f05d73063894e3a439b10fb783ba99b116"
+        },
+        "consumed-validation-plan.json": {
+          "bytes": 36522,
+          "sha256": "0a76e2977f96c8aee82e2e9c12728fe53ee5dc4c9bb33d1666349a2fe4301c06"
+        },
+        "retain-source.py": {
+          "bytes": 12416,
+          "sha256": "c24dd4832cf16c62b99b7ce45b7492d593d34dbcef3d003a6384042d54812f14"
+        }
+      },
+      "reviewer_role": "Author of the frozen ordinary-file harness, independently reading the separately authored new plan and retention helper; this review does not execute the predecessor or future witness.",
+      "runtime_gate": "CLOSED",
+      "schema": 1,
+      "scope": "Independent source-only review of the consumed-validation plan, focused on the child envelope, parent observation, held cleanup and complete oracle partition.",
+      "status": "passed"
+    }
+  ],
+  "runtime_gate": "CLOSED",
+  "schema": 1,
+  "scope": "Independent source-only consumed-validation plan and future control review",
+  "status": "passed"
+}
