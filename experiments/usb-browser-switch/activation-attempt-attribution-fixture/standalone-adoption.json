@@ -1,0 +1,248 @@
+{
+  "schema": 1,
+  "status": "reviewed-metadata-only-adoption",
+  "runtime_gate": "CLOSED",
+  "source_result": {
+    "name": "result-e28810e78256422eaa44e93ae80d4603.json",
+    "bytes": 53621,
+    "sha256": "3591ebe73a9ec5ddf453a93c6c5b03450f28598ed1b6f27d318473764447779f"
+  },
+  "source_error": "Refusal: clean successful command: standalone-asan-ubsan-core-elf",
+  "source_phase": "build-standalone-asan-ubsan",
+  "command_pins": {
+    "extract-readers": {
+      "receipt": {
+        "bytes": 2087,
+        "sha256": "2d4bf5006542900b2f68d4b78887cb2aa7b4a9129394db72276fe4bc054820d6"
+      },
+      "stdout": {
+        "bytes": 277,
+        "sha256": "acf615c15c338a80e60307c76283b275ea838199af2a4f03e6f23d5c04d8bdd5"
+      },
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "image-inspect": {
+      "receipt": {
+        "bytes": 1296,
+        "sha256": "89596b241159ec9911375de32e76a142c7c24c12cff06627540f4d086c547faa"
+      },
+      "stdout": {
+        "bytes": 1695,
+        "sha256": "c5eb71f1ab42f4044d07d7c0a8a581c6d37f775f7e420e9184d8360d3b788c93"
+      },
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "compiler-version": {
+      "receipt": {
+        "bytes": 2342,
+        "sha256": "60c909bd57e6eb3b2f540f1b96572e1a53c85333c8a0c9124e27a75d67fee5b3"
+      },
+      "stdout": {
+        "bytes": 249,
+        "sha256": "839d24fe4997381909209a1cbf9a3d59e68a6637f6e7c02ebf39b4fcacf612c2"
+      },
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "compiler-target": {
+      "receipt": {
+        "bytes": 2342,
+        "sha256": "de19aedc80acb9dc145912d6d84e42b9192e39c2a3bca663c82ae191730ea06b"
+      },
+      "stdout": {
+        "bytes": 18,
+        "sha256": "811b17aa02eb472140fbd7c338e99ac8770181c999ed2ea78797163dfd0fbd5b"
+      },
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "compile-standalone-plain-core": {
+      "receipt": {
+        "bytes": 2671,
+        "sha256": "5bc311c8f732935c6884dbc2629dfd396ad31e00056129377d9041e120365d2c"
+      },
+      "stdout": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "standalone-plain-core-disassembly": {
+      "receipt": {
+        "bytes": 2418,
+        "sha256": "90cec429599f6f0188074ae85f51f6646569ad871f4906d4e5344a2d13ebe672"
+      },
+      "stdout": {
+        "bytes": 52950,
+        "sha256": "95d17d168cef9f348dda457f5c724dc3b51247d4335d8f466d2c4742e2ea51ec"
+      },
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "standalone-plain-core-elf": {
+      "receipt": {
+        "bytes": 2441,
+        "sha256": "6fbe80b843358069879a56d0b8a10cc7eb5e6bda0ee3d10cd8e43bf4ff1db99e"
+      },
+      "stdout": {
+        "bytes": 90018,
+        "sha256": "a044f447c0ebdf03db8fc314565c18cbb1b60ed030a91b7b83f3876f59583952"
+      },
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "compile-standalone-asan-ubsan-core": {
+      "receipt": {
+        "bytes": 2755,
+        "sha256": "2e2387801291c536c654bb364f7a5bc250346e6272add9667ae71cc22995efcf"
+      },
+      "stdout": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "standalone-asan-ubsan-core-disassembly": {
+      "receipt": {
+        "bytes": 2434,
+        "sha256": "8eabca31197a45d8e37f468c6d9623fc5074dcb292f25e2fc9e64920306cdddc"
+      },
+      "stdout": {
+        "bytes": 165791,
+        "sha256": "037571c97d9da8617ee93a5cc1ff75d0dce0a429f7a6c57b23a5d94f92e64e61"
+      },
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "standalone-asan-ubsan-core-elf": {
+      "receipt": {
+        "bytes": 2460,
+        "sha256": "81c3439e688f78c8ec98313a5781247d6c892f9d4367acdb47b4ceb7722e0a82"
+      },
+      "stdout": {
+        "bytes": 209921,
+        "sha256": "55e7007068ff104076874ecb66a7cdd206633a2534d374f2dcabd64c9579de80"
+      },
+      "stderr": {
+        "bytes": 75,
+        "sha256": "8ff6e7f5bf79278de0e186a04ab17cd6816a2261a867abffadfaabe901455525"
+      }
+    }
+  },
+  "changed_inputs": [
+    "review-lock.json",
+    "new/run-tests.py",
+    "new/source-ledger.json"
+  ],
+  "added_input": "new/standalone-adoption.json",
+  "generated": {
+    "generated/extraction.json": {
+      "bytes": 2188,
+      "sha256": "53aaa64db29ea0c840ea59b0bcfb823314e183cad88afefa0d994f50dcdfa027"
+    },
+    "generated/readers.inc": {
+      "bytes": 2994,
+      "sha256": "352048162f452f794136f8b90555783df101feacbf7550e3f4020bd6ef7ab140"
+    },
+    "generated/receipt-types.h": {
+      "bytes": 5369,
+      "sha256": "c97454db2aba6e942eb05241bbf80d67ffd8eecb5108927da69600a6a1d15f40"
+    }
+  },
+  "objects": {
+    "plain": {
+      "core.o": {
+        "bytes": 55960,
+        "sha256": "c530369583882bbb9110ad4f219c850dd34933282479b4a6623ec2c2a3dce22b"
+      },
+      "core-disassembly.txt": {
+        "bytes": 52950,
+        "sha256": "95d17d168cef9f348dda457f5c724dc3b51247d4335d8f466d2c4742e2ea51ec"
+      }
+    },
+    "asan-ubsan": {
+      "core.o": {
+        "bytes": 126808,
+        "sha256": "c00257af7ede4db2ab0d97255cfb66ff6f599f365b54206e55f5a1cc85531dda"
+      },
+      "core-disassembly.txt": {
+        "bytes": 165791,
+        "sha256": "037571c97d9da8617ee93a5cc1ff75d0dce0a429f7a6c57b23a5d94f92e64e61"
+      }
+    }
+  },
+  "warning": {
+    "command": "standalone-asan-ubsan-core-elf",
+    "classification": {
+      "classification": "single FINI_ARRAY relocation to bounded named compiler finalizer",
+      "section": {
+        "index": 7,
+        "name": ".rela.fini_array.00099",
+        "type": 4,
+        "flags": 64,
+        "link": 28,
+        "info": 6,
+        "alignment": 8,
+        "entry_size": 24,
+        "size": 24
+      },
+      "target": {
+        "index": 6,
+        "name": ".fini_array.00099",
+        "type": 15,
+        "flags": 3,
+        "link": 0,
+        "info": 0,
+        "alignment": 8,
+        "entry_size": 8,
+        "size": 8
+      },
+      "relocation": {
+        "offset": 0,
+        "type": 257,
+        "symbol_index": 2,
+        "symbol_section": 1,
+        "addend": 12244
+      },
+      "finalizer": {
+        "name": "_GLOBAL__sub_D_00099_0_rc_lookup",
+        "extent": {
+          "section": 1,
+          "value": 12244,
+          "size": 32,
+          "body_sha256": "891ad0475c4053b1f23f9f2f729309960a993d7bc40ed5c3e9c170c7a71ec23e"
+        }
+      },
+      "scope": "Metadata classification only; no tool-defect cause or runtime safety inference"
+    }
+  },
+  "limits": [
+    "Retain original failed source packet unchanged and terminal.",
+    "Adopt successful extraction, toolchain observations and compiled objects; no prior command is rerun.",
+    "Only metadata reconstruction and custody change; no candidate/runtime result exists in adopted source.",
+    "Future metadata acceptance requires the same structural FINI_ARRAY/finalizer class and exact derived diagnostic; no general warning allowance.",
+    "No claim about readelf defect cause or executable/signal/native safety."
+  ]
+}

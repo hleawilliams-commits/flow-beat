@@ -1,0 +1,83 @@
+{
+  "compiler_extraction_or_runtime_before_review": false,
+  "ledger": {
+    "bytes": 43128,
+    "sha256": "f68c9f57f5cb833a4bfb43a324add7cae71eda25dd8920e2d79a4608c4737c19"
+  },
+  "limits": [
+    "Source review is not runtime evidence.",
+    "All first build/runtime outputs must be retained, including failures.",
+    "Ownership is not causation; every live gate remains CLOSED."
+  ],
+  "matrix_planned": {
+    "controls_per_mode": 8,
+    "distinct_assertion_names": 57,
+    "groups": 9,
+    "selectors_per_mode": 27,
+    "summed_assertions_per_mode": 126
+  },
+  "old_suite_replay": false,
+  "prebuild_adjustments": [
+    "Added explicit const function-pointer evidence anchor for addressable static reader retention; no extracted bytes changed and no execution occurred.",
+    "Corrected literal backslash-n in new .gitignore to actual newlines before private evidence publication."
+  ],
+  "review_lock": {
+    "bytes": 1159,
+    "sha256": "ab9c43539eb37988b8262f611fd3b6e9c6f59d57d17f63f61e9e1f01c656f8e4"
+  },
+  "reviews": [
+    {
+      "findings": "No blocking source/scope mismatch. Sole admission, whole-call Pending, exact tuple and actual/consumed snapshot separation accepted. Frozen consumer and installer absent.",
+      "reviewer": "independent runner author",
+      "scope": "core/header, six exact extracted fragments/header, extraction helper and complete ledger"
+    },
+    {
+      "findings": "Actual A/B and B/A script custody, nine groups, eight unmasked singleton controls, shape-only report validation, once extraction, closed resume, source and manual-codegen build gates accepted.",
+      "reviewer": "independent core author",
+      "scope": "harness/contract, runner, extractor"
+    },
+    {
+      "findings": "Exact fragment output and header typedef byte matches; helper performs only pinned source reads and exclusive writes.",
+      "reviewer": "harness author independently checking extraction",
+      "scope": "six retained slices and exact ma_module_value typedef"
+    },
+    {
+      "findings": "Reviewed all authored cases/control mutations and honest raw/record/final boundaries. Address-only static-reader retention anchor is explicit outside exact fragments. No earlier fixture/source altered.",
+      "reviewer": "root integrator",
+      "scope": "complete core, harness, runner, transformation ledger and frozen input/extent design"
+    }
+  ],
+  "runtime_gate": "CLOSED",
+  "schema": 1,
+  "source_files": {
+    "core.c": {
+      "bytes": 22174,
+      "sha256": "d1aabc0f4a05cd47e7cd96222d4f7bd1fadba665a571dcc2b1a4c83bbb14c858"
+    },
+    "core.h": {
+      "bytes": 5659,
+      "sha256": "f93c5ce827ce3310b268f670e3bcb58cfc072ddb1216dfa70bbc33499c4d5bcf"
+    },
+    "extract-readers.py": {
+      "bytes": 3924,
+      "sha256": "36fc6428f3f106baa4f54001a9ea937499a6aa2dd2a660f02e3ee0413c03f85e"
+    },
+    "reader-extraction.json": {
+      "bytes": 2865,
+      "sha256": "c0170cbc03f9b7489146ff1670b609f8af6fc92f41892746a518e5d81482ba0b"
+    },
+    "run-tests.py": {
+      "bytes": 56740,
+      "sha256": "dbfb258b8382d02d7c9682583f18db781cb4442cc0630a552c82a479a099d986"
+    },
+    "test-contract.json": {
+      "bytes": 11446,
+      "sha256": "352c86ed8dd3a51c7409545535c10c99ebc0ab711585a759409be2668ed2f3ee"
+    },
+    "test_attempt.c": {
+      "bytes": 40462,
+      "sha256": "1af69cf70d59d12b1d157a9934c9c47e8d4cea7f714d6b85a57b09f274adf086"
+    }
+  },
+  "status": "accepted-before-first-build"
+}

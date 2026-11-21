@@ -1,0 +1,104 @@
+{
+  "compiler_extraction_or_runtime_before_review": true,
+  "ledger": {
+    "bytes": 45363,
+    "sha256": "af4f8a841a53188be849c5d2fb2ba0f4540590a8ad9e697c61989d056c891165"
+  },
+  "limits": [
+    "Source review is not runtime evidence.",
+    "All first build/runtime outputs must be retained, including failures.",
+    "Ownership is not causation; every live gate remains CLOSED."
+  ],
+  "matrix_planned": {
+    "controls_per_mode": 8,
+    "distinct_assertion_names": 57,
+    "groups": 9,
+    "selectors_per_mode": 27,
+    "summed_assertions_per_mode": 126
+  },
+  "old_suite_replay": false,
+  "prebuild_adjustments": [
+    "Added explicit const function-pointer evidence anchor for addressable static reader retention; no extracted bytes changed and no execution occurred.",
+    "Corrected literal backslash-n in new .gitignore to actual newlines before private evidence publication."
+  ],
+  "review_lock": {
+    "bytes": 1304,
+    "sha256": "20e6b6f404b8d2d0ffdc9a9b766a1ece3e1050a72b8a14376fa3ffd1f347fdab"
+  },
+  "review_stage": "Original independent review preceded first extraction/build. This revision reviews metadata-only adoption after two standalone compiles/disassemblies; no fixture executable or runtime exists.",
+  "reviews": [
+    {
+      "findings": "No blocking source/scope mismatch. Sole admission, whole-call Pending, exact tuple and actual/consumed snapshot separation accepted. Frozen consumer and installer absent.",
+      "reviewer": "independent runner author",
+      "scope": "core/header, six exact extracted fragments/header, extraction helper and complete ledger"
+    },
+    {
+      "findings": "Actual A/B and B/A script custody, nine groups, eight unmasked singleton controls, shape-only report validation, once extraction, closed resume, source and manual-codegen build gates accepted.",
+      "reviewer": "independent core author",
+      "scope": "harness/contract, runner, extractor"
+    },
+    {
+      "findings": "Exact fragment output and header typedef byte matches; helper performs only pinned source reads and exclusive writes.",
+      "reviewer": "harness author independently checking extraction",
+      "scope": "six retained slices and exact ma_module_value typedef"
+    },
+    {
+      "findings": "Reviewed all authored cases/control mutations and honest raw/record/final boundaries. Address-only static-reader retention anchor is explicit outside exact fragments. No earlier fixture/source altered.",
+      "reviewer": "root integrator",
+      "scope": "complete core, harness, runner, transformation ledger and frozen input/extent design"
+    },
+    {
+      "findings": "Accepted exact .rela.fini_array.00099 to .fini_array.00099 single ABS64 relocation classification with bounded text finalizer, RELA flags64/alignment8. Failed packet remains failed. No compiler flag, protector, C, test, extraction or runtime diagnostic policy weakened; no replay.",
+      "reviewer": "independent core author and root integrator",
+      "scope": "Exact ELF relocation warning, immutable failed closure, ten adopted command receipts, unchanged C/generated/object bytes, revised runner/spec/ledger"
+    }
+  ],
+  "runtime_gate": "CLOSED",
+  "schema": 1,
+  "source_files": {
+    "core.c": {
+      "bytes": 22174,
+      "sha256": "d1aabc0f4a05cd47e7cd96222d4f7bd1fadba665a571dcc2b1a4c83bbb14c858"
+    },
+    "core.h": {
+      "bytes": 5659,
+      "sha256": "f93c5ce827ce3310b268f670e3bcb58cfc072ddb1216dfa70bbc33499c4d5bcf"
+    },
+    "extract-readers.py": {
+      "bytes": 3924,
+      "sha256": "36fc6428f3f106baa4f54001a9ea937499a6aa2dd2a660f02e3ee0413c03f85e"
+    },
+    "reader-extraction.json": {
+      "bytes": 2865,
+      "sha256": "c0170cbc03f9b7489146ff1670b609f8af6fc92f41892746a518e5d81482ba0b"
+    },
+    "run-tests.py": {
+      "bytes": 71547,
+      "sha256": "b19c3fae74969cacecaa6ca3523639ddc589ef2d0c7197b8a166531484041440"
+    },
+    "standalone-adoption.json": {
+      "bytes": 7839,
+      "sha256": "6294648833637bbbd2d55b0c77b9f5f781dbdfdb56949c9b5a440efb55d99634"
+    },
+    "test-contract.json": {
+      "bytes": 11446,
+      "sha256": "352c86ed8dd3a51c7409545535c10c99ebc0ab711585a759409be2668ed2f3ee"
+    },
+    "test_attempt.c": {
+      "bytes": 40462,
+      "sha256": "1af69cf70d59d12b1d157a9934c9c47e8d4cea7f714d6b85a57b09f274adf086"
+    }
+  },
+  "standalone_metadata_history": {
+    "commands": 10,
+    "inputs": 28,
+    "packet": "run-29f8594691654b2aa82b7716baa01151",
+    "packet_files": 90,
+    "prebuild_adoption_review_correction": "The uninvoked adoption draft used unsuffixed section names. Root and independent reviewer caught it; corrected only to exact .00099 names and required RELA flags/alignment before invocation.",
+    "result": "result-e28810e78256422eaa44e93ae80d4603.json",
+    "result_sha256": "3591ebe73a9ec5ddf453a93c6c5b03450f28598ed1b6f27d318473764447779f",
+    "scope": "Both standalone C compilations and disassemblies exited0 clean. Sanitizer readelf exited0 with one FINI_ARRAY metadata warning, refused by initial empty-stderr oracle; no fixture executables or runtime. Exact sections and relocation independently reviewed; initial source/packet remains terminal. No compiler flags/protectors/C/test/extraction changes.",
+    "streams": 20
+  },
+  "status": "accepted-before-first-candidate-runtime"
+}

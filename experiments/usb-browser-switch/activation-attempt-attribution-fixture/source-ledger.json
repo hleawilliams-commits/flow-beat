@@ -1,0 +1,958 @@
+{
+  "authored_provider_boundary": {
+    "diagnostics": "Separately traced read-only lookup after completion; cannot mutate or reopen attempt.",
+    "evidence": "Harness stdio writes its private JSON only; real file I/O does not implement modeled fault persistence.",
+    "files": "Four raw/errno value fields; no native open/write/fsync/close in core. Opaque unblamed operation has no real quarantine, time or append behavior.",
+    "frames": "At most 64 fixed integer-keyed authored cells; absent key returns zero bytes; no pointer dereference.",
+    "publication": "Only serial whole-call boundaries; acquire loads of individual slots do not create a coherent registry snapshot.",
+    "request": "Two live static requests; caller retains valid request storage. Baseline reads fields after CAS."
+  },
+  "case_groups": [
+    {
+      "id": "C1",
+      "purpose": "Connect one admission to actual selection work",
+      "witness": "Two distinct live requests target different registered modules. In serial A/B and B/A custody orders, only the CAS winner issues PC lookup. At admitted/pre-selection, selection-raw, recorded and completed cuts a loser adds zero lookup/frame/IO/unblamed work. The admitted path reaches completion through the same authority."
+    },
+    {
+      "id": "C2",
+      "purpose": "Resolve generated binding to exact slot tuple",
+      "witness": "Generated binding0 resolves published module3 behind unpublished holes. Full64 process identity includes high bits and canonical ID has32 characters. Completed ownership and write bytes agree with that exact slot, not the binding or a caller-provided owner. A distinct direct module0 case confirms zero is a valid slot."
+    },
+    {
+      "id": "C3",
+      "purpose": "Connect precedence and fallback to branch operations",
+      "witness": "Generated Community PC beats another module LR; generated Core and a mismatched generated Community identity at PC continue to a Community LR or one authored frame RA. Frame owner is checked before a nonincreasing next-frame stop. Only selected branch operations execute."
+    },
+    {
+      "id": "C4",
+      "purpose": "Expose serial per-call visibility without a global snapshot",
+      "witness": "Complete a PC miss, publish a previously staged slot, then query LR/frame under that newer per-slot visibility. Do not restart PC. A separate later lower-index masking module published between resolved-index return and snapshot must not replace the selected old slot."
+    },
+    {
+      "id": "C5",
+      "purpose": "Bind raw selection to working/final handoff",
+      "witness": "After copied generated-owner selection returns, publish a lower-index module masking the original PC; pending recording, modeled write and final payload retain the original exact tuple. No address requery occurs. Working fields remain hidden before completion."
+    },
+    {
+      "id": "C6",
+      "purpose": "Freeze NoCommunity across late ownership",
+      "witness": "Exhaust selection while intended module is staged/unpublished, then publish it after raw NoCommunity and before recording. Exactly one opaque unblamed event follows and later requests are suppressed. Absence is not a durable statement about future registry contents."
+    },
+    {
+      "id": "C7",
+      "purpose": "Connect actual selected owner to ordinary I/O failure",
+      "witness": "A generated-range selection flows through fd0 and one authored failed write, then fsync and close. Exact copied tuple survives and OrdinaryReturned reports failure. Only this representative error chain is composed; do not replay the earlier complete I/O matrix."
+    },
+    {
+      "id": "C8",
+      "purpose": "Separate selection return, private record and immutable completion",
+      "witness": "Fresh stopped cases hold after selection entry, complete index lookup/before snapshot, copied raw return/before record, and recorded selection/before IO, plus final prepublication. Public state stays ActiveIncomplete with no payload; private diagnostics distinguish withheld versus returned stages. A synthetic failed snapshot after a valid index is a returned invariant error and remains closed. The error case calls the unchanged snapshot once, retains its actual successful result and copied tuple, and substitutes only consumed success=false through an explicitly labeled fixture seam. It is not an actual immutable-reader failure. Pending steps neither create raw availability nor increment selection-return sequence. This dedicated expected-error case accepts precisely the planned private invariant diagnostic and violation flag; its infrastructure oracle must not blanket-reject that expected flag. Other unexpected violations still fail."
+    },
+    {
+      "id": "C9",
+      "purpose": "Keep readers independent of admission and terminal policy",
+      "witness": "An explicitly named read-only model diagnostic may query a newly published owner after attempt completion without invoking selector or reopening attempt. It cannot mutate the attempt, create blame operations, return unfinished attempt data or become a second admission authority. Diagnostic-reader calls have a separately labeled trace and are excluded from attempt-adapter work counts."
+    }
+  ],
+  "controls": [
+    {
+      "expected_failures": [
+        "suppressed-request-performs-no-selection"
+      ],
+      "id": "AC_CONTROL_SELECT_BEFORE_CAS",
+      "mutation": "Move a real selection call before the sole CAS in each entry using a fresh control-only scratch cursor. After the first entry successfully admits the winner, capture the reader-work counts. Drive a valid losing request while the winner is Active and stop immediately after the losing entry returns; measure only the added work of that losing entry. The mutated first entry may already have performed an early scratch selection, so no zero-earlier-work claim is made.",
+      "safety": "All values/registries live and authored; real extra reader work is observed in its serial call trace. No assertion-only counter mutation, data race or downstream veto. The control-only losing traversal uses separate live scratch/cursor storage, so it cannot overwrite the admitted winner's cursor or latch. This scratch supplies no admission authority; baseline cursor initialization remains after CAS.",
+      "selector": "control-selection-order"
+    },
+    {
+      "expected_failures": [
+        "one-admission-reaches-selection-and-completion"
+      ],
+      "id": "AC_CONTROL_SECOND_ADMISSION",
+      "mutation": "After the outer CAS wins, incorrectly reenter the ordinary attempt entry to drive it, causing a second CAS against Active and suppression. Stop on that returned suppression.",
+      "safety": "No second provider sequence or reset. The semantic oracle checks the admitted request's disposition/progression as one conjunction; no other terminal-state semantic assertions in this dedicated selector. The erroneous reentry hook is strictly after a successful CAS; the inner failed CAS returns before that hook and cannot recur.",
+      "selector": "control-single-authority"
+    },
+    {
+      "expected_failures": [
+        "generated-selection-uses-resolved-module-slot"
+      ],
+      "id": "AC_CONTROL_BINDING_AS_SLOT",
+      "mutation": "For generated binding0 resolving module3, replace the resolved candidate index with0 before snapshot and copy. Slot0 is a valid distinct committed decoy, so all consistency checks use that altered candidate and no hidden mismatch veto masks the error.",
+      "safety": "Snapshot stays in bounds; select an ordinary failed-open value to avoid irrelevant write-length failures. Check exact chosen tuple in one semantic assertion. The committed decoy slot0 envelope must exclude PC, LR and every tested frame RA, so module-first lookup cannot mask baseline generated resolution to module3.",
+      "selector": "control-resolved-index"
+    },
+    {
+      "expected_failures": [
+        "selection-handoff-preserves-full-process-identity"
+      ],
+      "id": "AC_CONTROL_NARROW_PROCESS",
+      "mutation": "Narrow the snapshotted uint64 process identity to uint32 before assigning the raw selection value; input has nonzero high and low halves.",
+      "safety": "Identity resolution occurred correctly before this changed handoff. No subsequent admission revalidation masks narrowing. Use failed open; all IDs/storage remain valid.",
+      "selector": "control-process-handoff"
+    },
+    {
+      "expected_failures": [
+        "recorded-selection-matches-original-return"
+      ],
+      "id": "AC_CONTROL_RESELECT_AT_RECORD",
+      "mutation": "Replace selection recording's copy from the honest raw latch with a fresh ac_select_values call after a new lower-index module masks PC. Record the new tuple while preserving the old raw latch. Use a fresh bounded control-only scratch cursor for that actual new traversal; preserve the returned baseline cursor and raw latch. Reusing the terminal baseline cursor would mask the mutation and is forbidden.",
+      "safety": "Both immutable modules remain held, IDs same length, values valid; use failed open. One tuple equality assertion, no unrelated call-count assertion in this selector.",
+      "selector": "control-frozen-selection"
+    },
+    {
+      "expected_failures": [
+        "core-pc-continues-community-fallback"
+      ],
+      "id": "AC_CONTROL_STOP_ON_CORE_PC",
+      "mutation": "Use the generated Core-kind finding at PC to stop the newly authored outer selection policy with NoCommunity instead of proceeding to LR; exact readers are unchanged and any additional diagnostic rc_lookup is explicitly control-only.",
+      "safety": "Published module LR is valid. Compare final selected tuple/branch as one semantic conjunction; both resulting modeled branches terminate safely.",
+      "selector": "control-core-fallback"
+    },
+    {
+      "expected_failures": [
+        "noowner-return-is-not-refreshed"
+      ],
+      "id": "AC_CONTROL_REFRESH_NEGATIVE",
+      "mutation": "When recording an honest raw NoCommunity, rerun selection after a staged matching module was committed, then record that Community tuple. Traverse again using a fresh bounded control-only scratch cursor, preserving the original returned cursor and raw latch; merely calling the already returned cursor does not implement this mutation.",
+      "safety": "One attempt only, both branches use authored providers; use failed open for controlled Community branch. One assertion checks unchanged negative selection and opaque-unblamed branch.",
+      "selector": "control-noowner-freeze"
+    },
+    {
+      "expected_failures": [
+        "selection-return-remains-private-until-completion"
+      ],
+      "id": "AC_CONTROL_EXPOSE_RAW_SELECTION",
+      "mutation": "Modify public observation at Active with a returned raw selection to expose has_payload and a result containing that owner before selection is recorded; state itself remains Active.",
+      "safety": "Serial stopped driver reads fully initialized raw storage; no concurrent payload read or actual race. The control changes returned public data, not diagnostics only.",
+      "selector": "control-private-selection"
+    }
+  ],
+  "extraction": {
+    "fragments": [
+      {
+        "first_line": 16,
+        "last_line": 23,
+        "name": "module-storage",
+        "pin": {
+          "bytes": 199,
+          "sha256": "4f6fb86257c154a6254a9c4de84d1efe18ed405466039dc09b61abe753399b4f"
+        },
+        "source": "module/attribution.inc"
+      },
+      {
+        "first_line": 35,
+        "last_line": 40,
+        "name": "generated-storage",
+        "pin": {
+          "bytes": 152,
+          "sha256": "c84f510f57e163193f92221a080bebdb8ce3a101bff337ec58e6039ae6cf5957"
+        },
+        "source": "generated/receipt-body.inc"
+      },
+      {
+        "first_line": 340,
+        "last_line": 351,
+        "name": "generated-reader",
+        "pin": {
+          "bytes": 528,
+          "sha256": "72f6b545f06fefcc504e134b41dbea764187394aa319e39651c614e5a42bc1c4"
+        },
+        "source": "generated/receipt-body.inc"
+      },
+      {
+        "first_line": 70,
+        "last_line": 80,
+        "name": "slot-snapshot",
+        "pin": {
+          "bytes": 508,
+          "sha256": "50e7d7052d274a052da0034e2ac8dcd6ce47d8294eb30bc51bb29718cc7ad15d"
+        },
+        "source": "module/attribution.inc"
+      },
+      {
+        "first_line": 81,
+        "last_line": 97,
+        "name": "generated-index",
+        "pin": {
+          "bytes": 663,
+          "sha256": "773ef18568ead0807afe86786aa667b612f15433db3c6aa93baa2bb8b5c538d7"
+        },
+        "source": "module/attribution.inc"
+      },
+      {
+        "first_line": 98,
+        "last_line": 115,
+        "name": "module-first",
+        "pin": {
+          "bytes": 592,
+          "sha256": "6f54f87cb23fcb87d47b9d81ce0d7df114ffc3d4dc626ad6d2de548256be2a0b"
+        },
+        "source": "module/attribution.inc"
+      }
+    ],
+    "outputs": {
+      "readers.inc": {
+        "bytes": 2994,
+        "sha256": "352048162f452f794136f8b90555783df101feacbf7550e3f4020bd6ef7ab140"
+      },
+      "receipt-types.h": {
+        "bytes": 5369,
+        "sha256": "c97454db2aba6e942eb05241bbf80d67ffd8eecb5108927da69600a6a1d15f40"
+      }
+    },
+    "preamble": "/* SPDX-License-Identifier: GPL-3.0-only */\n/* Exact retained reader fragments only. New authored custody lives in core.c. */\n#if defined(MA_CONTROL_OMIT_PROCESS) || defined(MA_CONTROL_GENERATED_FIRST) || defined(MA_CONTROL_STOP_AT_HOLE) || defined(RC_FIXTURE)\n#error \"predecessor controls and installer fixture configuration are excluded\"\n#endif\n",
+    "runtime_gate": "CLOSED",
+    "schema": 1,
+    "scope": "Six exact retained fragments; no consumer, installer or loader bodies",
+    "sources": {
+      "generated/receipt-body.inc": {
+        "bytes": 15570,
+        "sha256": "60233581d6a882d9e57e6b6fc9602ce440783060446872148f94e9e7205bc02e"
+      },
+      "generated/receipt-types.h": {
+        "bytes": 5369,
+        "sha256": "c97454db2aba6e942eb05241bbf80d67ffd8eecb5108927da69600a6a1d15f40"
+      },
+      "module/attribution.inc": {
+        "bytes": 10365,
+        "sha256": "a39be49ab125639d0aa048ace337e822cf16e3c71c37e538ff8545183cb9f836"
+      }
+    }
+  },
+  "freeze_note": "Original complete ledger and independent review preceded first extraction/build. This revised ledger changes orchestration/adoption metadata only after the retained standalone metadata refusal and before any fixture runtime. C, header, harness, test contract and extraction bytes remain unchanged.",
+  "limitations": [
+    "No actual DSO/installer, native frame/crash-file provider, signal, handler, nonlocal exit, concurrent publication/invocation, firmware emulator, device or live observer execution.",
+    "Ordinary successful ac_run is compile-only; serial fixture steps exercise the same selected internal source under AC_FIXTURE.",
+    "Runtime if later passed establishes only authored schedules. No lock-free/wait-free bound, signal/reentry safety, transitive libc/interposition or canary-failure proof.",
+    "Arbitrary DSO/slot custody, external writers, loader provenance, native visibility, code lifetime, quiescence and recovery remain separate closed gates.",
+    "Frozen volatile consumer, exact readers, earlier evidence/failures, official core, protections and quarantine remain unchanged. Ownership is not causation."
+  ],
+  "matrix_contract": {
+    "configuration": "AC_FIXTURE",
+    "controls": {
+      "core-fallback": {
+        "expected_failures": [
+          "core-pc-continues-community-fallback"
+        ],
+        "macro": "AC_CONTROL_STOP_ON_CORE_PC",
+        "safety": "Control-only rc_lookup distinguishes authored Core. Retained readers remain unchanged. Either ordinary branch completes; selected tuple and branch form one assertion.",
+        "selector": "control-core-fallback"
+      },
+      "frozen-selection": {
+        "expected_failures": [
+          "recorded-selection-matches-original-return"
+        ],
+        "macro": "AC_CONTROL_RESELECT_AT_RECORD",
+        "safety": "Fresh control scratch actually traverses after lower-index masking publication. Original returned cursor and raw latch remain. Both IDs have32bytes; failed open.",
+        "selector": "control-frozen-selection"
+      },
+      "noowner-freeze": {
+        "expected_failures": [
+          "noowner-return-is-not-refreshed"
+        ],
+        "macro": "AC_CONTROL_REFRESH_NEGATIVE",
+        "safety": "Fresh control scratch traverses after publication and changes recording, preserving original negative raw/cursor. Failed-open Community branch is safe.",
+        "selector": "control-noowner-freeze"
+      },
+      "private-selection": {
+        "expected_failures": [
+          "selection-return-remains-private-until-completion"
+        ],
+        "macro": "AC_CONTROL_EXPOSE_RAW_SELECTION",
+        "safety": "Serial stopped observer exposes actual initialized raw value while Active. No concurrent payload read, diagnostic-only mutation or native effect.",
+        "selector": "control-private-selection"
+      },
+      "process-handoff": {
+        "expected_failures": [
+          "selection-handoff-preserves-full-process-identity"
+        ],
+        "macro": "AC_CONTROL_NARROW_PROCESS",
+        "safety": "Both process-identity halves are nonzero. Narrow only after successful snapshot; no later identity revalidation masks it. Failed open.",
+        "selector": "control-process-handoff"
+      },
+      "resolved-index": {
+        "expected_failures": [
+          "generated-selection-uses-resolved-module-slot"
+        ],
+        "macro": "AC_CONTROL_BINDING_AS_SLOT",
+        "safety": "Module0 is a valid distinct committed decoy outside PC/LR/frame lookup envelopes. Altered candidate0 is used consistently; failed open avoids unrelated writes.",
+        "selector": "control-resolved-index"
+      },
+      "selection-order": {
+        "expected_failures": [
+          "suppressed-request-performs-no-selection"
+        ],
+        "macro": "AC_CONTROL_SELECT_BEFORE_CAS",
+        "safety": "Real pre-CAS traversal uses fresh control scratch on each entry. Measure added losing-entry reader work after winner admission; no winner cursor overwrite.",
+        "selector": "control-selection-order"
+      },
+      "single-authority": {
+        "expected_failures": [
+          "one-admission-reaches-selection-and-completion"
+        ],
+        "macro": "AC_CONTROL_SECOND_ADMISSION",
+        "safety": "Second entry is reached only after successful outer CAS. The failed inner CAS returns before the reentry hook, without recursion or providers.",
+        "selector": "control-single-authority"
+      }
+    },
+    "limits": {
+      "checks": 16,
+      "control_scratch": 4,
+      "diagnostics": 8,
+      "observations": 128,
+      "ordinary_successful_run": "compile-only; dedicated second-admission control calls ordinary entry only for the failed inner CAS",
+      "replay": "No predecessor matrix or DSO/installer/ABI/exception suite execution.",
+      "report_bytes": 16777216,
+      "requests": 16,
+      "scheduling": "Serial whole calls and stopped observations; no actual threads, signals, nested callback stack or native frame/file effects.",
+      "selection_trace": 51,
+      "selector_cells": 32,
+      "selector_probes": 18,
+      "selector_snapshots": 1,
+      "setup_records": 48,
+      "snapshot_refusal": "Only snapshot-error consumes false after retaining an actual successful exact-reader bool/tuple. Its exact private violation is expected.",
+      "step_calls": 96
+    },
+    "schema": 1,
+    "scope": "Fresh serial authored attempt/immutable-attribution composition; all live gates CLOSED.",
+    "selectors": {
+      "admission-ab": {
+        "checks": [
+          "sole-admission-owns-selection",
+          "suppressed-requests-do-no-work",
+          "winner-address-selects-exact-owner",
+          "selection-return-occurs-once",
+          "completion-copies-working-owner",
+          "schedule-bounded",
+          "report-capacity"
+        ],
+        "group": "C1"
+      },
+      "admission-ba": {
+        "checks": [
+          "sole-admission-owns-selection",
+          "suppressed-requests-do-no-work",
+          "winner-address-selects-exact-owner",
+          "selection-return-occurs-once",
+          "completion-copies-working-owner",
+          "schedule-bounded",
+          "report-capacity"
+        ],
+        "group": "C1"
+      },
+      "control-core-fallback": {
+        "checks": [
+          "core-pc-continues-community-fallback",
+          "schedule-bounded",
+          "report-capacity"
+        ],
+        "group": "control"
+      },
+      "control-frozen-selection": {
+        "checks": [
+          "recorded-selection-matches-original-return",
+          "schedule-bounded",
+          "report-capacity"
+        ],
+        "group": "control"
+      },
+      "control-noowner-freeze": {
+        "checks": [
+          "noowner-return-is-not-refreshed",
+          "schedule-bounded",
+          "report-capacity"
+        ],
+        "group": "control"
+      },
+      "control-private-selection": {
+        "checks": [
+          "selection-return-remains-private-until-completion",
+          "schedule-bounded",
+          "report-capacity"
+        ],
+        "group": "control"
+      },
+      "control-process-handoff": {
+        "checks": [
+          "selection-handoff-preserves-full-process-identity",
+          "schedule-bounded",
+          "report-capacity"
+        ],
+        "group": "control"
+      },
+      "control-resolved-index": {
+        "checks": [
+          "generated-selection-uses-resolved-module-slot",
+          "schedule-bounded",
+          "report-capacity"
+        ],
+        "group": "control"
+      },
+      "control-selection-order": {
+        "checks": [
+          "suppressed-request-performs-no-selection",
+          "schedule-bounded",
+          "report-capacity"
+        ],
+        "group": "control"
+      },
+      "control-single-authority": {
+        "checks": [
+          "one-admission-reaches-selection-and-completion",
+          "schedule-bounded",
+          "report-capacity"
+        ],
+        "group": "control"
+      },
+      "core-lr": {
+        "checks": [
+          "core-negative-continues-to-lr",
+          "fallback-probe-order-is-pc-then-lr",
+          "fallback-community-branch-is-exact",
+          "schedule-bounded",
+          "report-capacity"
+        ],
+        "group": "C3"
+      },
+      "diagnostic-after-completion": {
+        "checks": [
+          "diagnostic-reader-sees-later-owner",
+          "diagnostic-does-not-mutate-completed-attempt",
+          "diagnostic-cannot-reopen-admission",
+          "schedule-bounded",
+          "report-capacity"
+        ],
+        "group": "C9"
+      },
+      "direct-slot0": {
+        "checks": [
+          "module-zero-is-valid-owner",
+          "direct-selection-reaches-write",
+          "schedule-bounded",
+          "report-capacity"
+        ],
+        "group": "C2"
+      },
+      "fd-zero-write-error": {
+        "checks": [
+          "selected-owner-survives-write-error",
+          "fd-zero-error-still-syncs-and-closes",
+          "io-failure-does-not-erase-selection",
+          "schedule-bounded",
+          "report-capacity"
+        ],
+        "group": "C7"
+      },
+      "generated-pc": {
+        "checks": [
+          "generated-pc-precedes-module-lr",
+          "selected-pc-stops-later-addresses",
+          "selected-community-branch-is-exact",
+          "schedule-bounded",
+          "report-capacity"
+        ],
+        "group": "C3"
+      },
+      "generated-slot3": {
+        "checks": [
+          "generated-binding-resolves-module-three",
+          "exact-process-and-id-reach-raw-working-final",
+          "generated-selection-write-uses-copied-id",
+          "holes-do-not-hide-generated-owner",
+          "schedule-bounded",
+          "report-capacity"
+        ],
+        "group": "C2"
+      },
+      "mask-after-raw": {
+        "checks": [
+          "raw-selection-survives-later-masking",
+          "frozen-owner-is-used-by-write",
+          "raw-and-working-selection-stay-private",
+          "schedule-bounded",
+          "report-capacity"
+        ],
+        "group": "C5"
+      },
+      "mask-before-snapshot": {
+        "checks": [
+          "chosen-index-survives-pre-snapshot-masking",
+          "exact-selected-slot-is-snapshotted",
+          "snapshot-masking-does-not-requery",
+          "schedule-bounded",
+          "report-capacity"
+        ],
+        "group": "C4"
+      },
+      "noowner-late": {
+        "checks": [
+          "negative-return-survives-late-ownership",
+          "negative-selection-has-one-opaque-branch",
+          "late-ownership-does-not-reopen-attempt",
+          "schedule-bounded",
+          "report-capacity"
+        ],
+        "group": "C6"
+      },
+      "publish-between-queries": {
+        "checks": [
+          "later-query-sees-newly-published-slot",
+          "earlier-pc-miss-is-not-restarted",
+          "pending-selection-has-no-raw-return",
+          "newly-visible-owner-reaches-completion",
+          "schedule-bounded",
+          "report-capacity"
+        ],
+        "group": "C4"
+      },
+      "snapshot-error": {
+        "checks": [
+          "snapshot-actual-result-remains-successful",
+          "consumed-snapshot-error-is-explicit",
+          "returned-error-is-not-successful-selection",
+          "returned-invariant-error-stays-terminal",
+          "schedule-bounded",
+          "report-capacity"
+        ],
+        "group": "C8"
+      },
+      "stop-entered": {
+        "checks": [
+          "selection-stop-retains-exact-stage",
+          "stopped-selection-hides-public-payload",
+          "stopped-selection-rejects-later-request",
+          "schedule-bounded",
+          "report-capacity"
+        ],
+        "group": "C8"
+      },
+      "stop-index": {
+        "checks": [
+          "selection-stop-retains-exact-stage",
+          "stopped-selection-hides-public-payload",
+          "stopped-selection-rejects-later-request",
+          "schedule-bounded",
+          "report-capacity"
+        ],
+        "group": "C8"
+      },
+      "stop-prepublication": {
+        "checks": [
+          "selection-stop-retains-exact-stage",
+          "stopped-selection-hides-public-payload",
+          "stopped-selection-rejects-later-request",
+          "schedule-bounded",
+          "report-capacity"
+        ],
+        "group": "C8"
+      },
+      "stop-raw": {
+        "checks": [
+          "selection-stop-retains-exact-stage",
+          "stopped-selection-hides-public-payload",
+          "stopped-selection-rejects-later-request",
+          "schedule-bounded",
+          "report-capacity"
+        ],
+        "group": "C8"
+      },
+      "stop-recorded": {
+        "checks": [
+          "selection-stop-retains-exact-stage",
+          "stopped-selection-hides-public-payload",
+          "stopped-selection-rejects-later-request",
+          "schedule-bounded",
+          "report-capacity"
+        ],
+        "group": "C8"
+      },
+      "unmatched-frame": {
+        "checks": [
+          "unmatched-generated-identity-reaches-frame",
+          "frame-pair-precedes-owner-query",
+          "frame-owner-precedes-nonincreasing-stop",
+          "frame-selected-branch-is-exact",
+          "schedule-bounded",
+          "report-capacity"
+        ],
+        "group": "C3"
+      }
+    },
+    "status": "frozen-source-contract-before-first-build",
+    "summary_keys": [
+      "schema",
+      "selector",
+      "checks",
+      "check_names",
+      "failures",
+      "failed_checks"
+    ]
+  },
+  "plan": {
+    "bytes": 34211,
+    "path": "experiments/usb-browser-switch/activation-attempt-attribution-plan/composition-plan.json",
+    "sha256": "56a2cff378642dffa38a8b9bb37ccd2bd702c2c3a01632ec649c50b98cd25d43"
+  },
+  "plan_commit": "1a619614be1854d533a15c95b882cb11293bba86",
+  "preserved_attempt_semantics": [
+    "One application-level admission CAS; machine LL/SC retries remain possible and must be inspected anew.",
+    "No reset, retry, reopening, fallback admission, reclaim or quarantine change.",
+    "Open fd zero valid; only raw -1 has valid failure errno. Single write then fsync then close after ordinary write return, including errors/short writes. Known failure and short write are independent.",
+    "Complete means all selected modeled branch operations returned and receipts were recorded, not persistence or fault causation.",
+    "Selection/raw/recorded/unknown stages remain distinct; no stopped serial schedule simulates nonlocal exits."
+  ],
+  "retained_inputs": [
+    {
+      "bytes": 12040,
+      "name": "attempt/core.c",
+      "path": "experiments/usb-browser-switch/activation-fault-attempt-fixture/core.c",
+      "sha256": "124e7f35407b6cba4989c9a9cd9157922297bd234db3d057e6d18a888a383151"
+    },
+    {
+      "bytes": 3159,
+      "name": "attempt/core.h",
+      "path": "experiments/usb-browser-switch/activation-fault-attempt-fixture/core.h",
+      "sha256": "a11dd07304855d6e023877c119b7cab6f195a4bf67fa9b4b6d1c1ac153a83876"
+    },
+    {
+      "bytes": 7949,
+      "name": "attempt/README.md",
+      "path": "experiments/usb-browser-switch/activation-fault-attempt-fixture/README.md",
+      "sha256": "b906e3f5d84436add4552449d8264128fade15c4a83cc38148e18f0cb0a9000e"
+    },
+    {
+      "bytes": 1725,
+      "name": "attempt/codegen-review.json",
+      "path": "experiments/usb-browser-switch/activation-fault-attempt-fixture/codegen-review.json",
+      "sha256": "ce09d9272151ea4220413b882a068d7c7b8b2cb9b991e156d38a90a43a45a278"
+    },
+    {
+      "bytes": 15428,
+      "name": "attempt/source-ledger.json",
+      "path": "experiments/usb-browser-switch/activation-fault-attempt-fixture/source-ledger.json",
+      "sha256": "5bc6f95fb16184ed427814097ab5995b4f1bfc9b40c3e008250afcae6df37c2d"
+    },
+    {
+      "bytes": 5058,
+      "name": "attempt/verification.json",
+      "path": "experiments/usb-browser-switch/activation-fault-attempt-fixture/verification.json",
+      "sha256": "63d984c076d369b8dfdafd4701a14f83c7f457bc1be47d6becebce6be07079a9"
+    },
+    {
+      "bytes": 10365,
+      "name": "module/attribution.inc",
+      "path": "experiments/usb-browser-switch/activation-module-attribution-fixture/attribution.inc",
+      "sha256": "a39be49ab125639d0aa048ace337e822cf16e3c71c37e538ff8545183cb9f836"
+    },
+    {
+      "bytes": 2407,
+      "name": "module/attribution.h",
+      "path": "experiments/usb-browser-switch/activation-module-attribution-fixture/attribution.h",
+      "sha256": "9dade54a479285bf3b83a0dffcbf7a92bcefdc31589291b179a910efcd9b4095"
+    },
+    {
+      "bytes": 9637,
+      "name": "module/README.md",
+      "path": "experiments/usb-browser-switch/activation-module-attribution-fixture/README.md",
+      "sha256": "d03348ac8b266ca94bc6b7b198f3fdfad334aa1b89a9b8fcb949b702e99f767a"
+    },
+    {
+      "bytes": 88863,
+      "name": "module/reader-codegen.json",
+      "path": "experiments/usb-browser-switch/activation-module-attribution-fixture/private/run-436494e0f4e44d2f955b99adf6227d72/work/build/standalone/plain/reader-codegen.json",
+      "sha256": "10ec94cb249261091e1b1d21092e8feaaac3bad56479812286e912534bdcb0e0"
+    },
+    {
+      "bytes": 15570,
+      "name": "generated/receipt-body.inc",
+      "path": "experiments/usb-browser-switch/activation-module-attribution-fixture/private/run-436494e0f4e44d2f955b99adf6227d72/generated/receipt-body.inc",
+      "sha256": "60233581d6a882d9e57e6b6fc9602ce440783060446872148f94e9e7205bc02e"
+    },
+    {
+      "bytes": 5369,
+      "name": "generated/receipt-types.h",
+      "path": "experiments/usb-browser-switch/activation-module-attribution-fixture/private/run-436494e0f4e44d2f955b99adf6227d72/generated/receipt-types.h",
+      "sha256": "c97454db2aba6e942eb05241bbf80d67ffd8eecb5108927da69600a6a1d15f40"
+    },
+    {
+      "bytes": 962,
+      "name": "generated/pinned-consumer.inc",
+      "path": "experiments/usb-browser-switch/activation-module-attribution-fixture/private/run-436494e0f4e44d2f955b99adf6227d72/generated/pinned-consumer.inc",
+      "sha256": "9e31f235353a169e46f366ec33488076829b9383bc0fd0c462b465a0ddef70b4"
+    },
+    {
+      "bytes": 16431,
+      "name": "reader/operating-contract.json",
+      "path": "experiments/usb-browser-switch/activation-fault-reader-contract/operating-contract.json",
+      "sha256": "d6879db76a09b3c3e475f6ec7d69d0a0087dafd2eafde3ae2896a55b092a263f"
+    },
+    {
+      "bytes": 11701,
+      "name": "reader/README.md",
+      "path": "experiments/usb-browser-switch/activation-fault-reader-contract/README.md",
+      "sha256": "90ba1e6ddaa039350dc73c3d162b7f00b59c7bf3afd9e409111ce3045f86421d"
+    },
+    {
+      "bytes": 12322,
+      "name": "predecessor/retain-source.py",
+      "path": "experiments/usb-browser-switch/activation-fault-attempt-plan/retain-source.py",
+      "sha256": "45eaf64b09fda04356f3f6d7ab8aedc6d73359c7d03aca4c6b4ca394d17f2863"
+    }
+  ],
+  "runtime_gate": "CLOSED",
+  "scaffold": {
+    "bytes": 41852,
+    "path": "experiments/usb-browser-switch/activation-fault-attempt-fixture/run-tests.py",
+    "sha256": "13bb85b861cd97888508a72652bc35fdaa94e7684ab274e32143f75666709af6"
+  },
+  "schema": 1,
+  "scope": "Separately versioned offline C11 terminal attempt/immutable attribution composition. All providers and publication schedules are authored serial values.",
+  "source_coverage": [
+    {
+      "change": "Configuration, exact fragment inclusion and address-only retention anchor",
+      "file": "core.c",
+      "first_line": 1,
+      "groups": "T3",
+      "last_line": 35,
+      "pin": {
+        "bytes": 2087,
+        "sha256": "a191c91e9383cb9700c7a4aae5b87140a9b03bba6742069dd18667f27dade8c4"
+      }
+    },
+    {
+      "change": "Attempt/model storage and bounded canonical value helpers",
+      "file": "core.c",
+      "first_line": 36,
+      "groups": "T1/T4/T6",
+      "last_line": 75,
+      "pin": {
+        "bytes": 1492,
+        "sha256": "016ab1577c7a3ecc2e6421fdc02c73e35f9f3b37bf03a7816559bd8f29fce9b2"
+      }
+    },
+    {
+      "change": "New private selection cursor and eight declared control seams",
+      "file": "core.c",
+      "first_line": 76,
+      "groups": "T2/T5/T6/T7",
+      "last_line": 253,
+      "pin": {
+        "bytes": 7392,
+        "sha256": "da59523860ced192fbbdc53cfefccca00f957a37a1f4b576722976504e16d748"
+      }
+    },
+    {
+      "change": "Terminal admission and adapted attempt progression/publication/observation",
+      "file": "core.c",
+      "first_line": 254,
+      "groups": "T1/T2/T6/T7",
+      "last_line": 429,
+      "pin": {
+        "bytes": 7404,
+        "sha256": "907147d1dc4b60b00314db9091884dee2a77622b0b523f2075e12e741109ad40"
+      }
+    },
+    {
+      "change": "Serial fixture wrappers, authored staging/publication and diagnostic boundary",
+      "file": "core.c",
+      "first_line": 430,
+      "groups": "T4/T5/T7",
+      "last_line": 500,
+      "pin": {
+        "bytes": 3799,
+        "sha256": "0aa3a068983d8de52c9e8001e47e19ae7ab1c7ca3c1f8f79666655d5031eccd2"
+      }
+    },
+    {
+      "change": "Original orchestration plus independently reviewed exact FINI_ARRAY metadata classification and fresh immutable standalone adoption; no compiled source change.",
+      "file": "run-tests.py",
+      "first_line": 1,
+      "groups": "T8",
+      "last_line": 1125,
+      "pin": {
+        "bytes": 71547,
+        "sha256": "b19c3fae74969cacecaa6ca3523639ddc589ef2d0c7197b8a166531484041440"
+      }
+    },
+    {
+      "change": "Complete separately versioned file accounted for by transformation groups and exact source pin.",
+      "file": "core.h",
+      "first_line": 1,
+      "groups": "T1/T3/T4/T5/T6",
+      "last_line": 152,
+      "pin": {
+        "bytes": 5659,
+        "sha256": "f93c5ce827ce3310b268f670e3bcb58cfc072ddb1216dfa70bbc33499c4d5bcf"
+      }
+    },
+    {
+      "change": "Complete separately versioned file accounted for by transformation groups and exact source pin.",
+      "file": "test_attempt.c",
+      "first_line": 1,
+      "groups": "T7",
+      "last_line": 705,
+      "pin": {
+        "bytes": 40462,
+        "sha256": "1af69cf70d59d12b1d157a9934c9c47e8d4cea7f714d6b85a57b09f274adf086"
+      }
+    },
+    {
+      "change": "Complete separately versioned file accounted for by transformation groups and exact source pin.",
+      "file": "test-contract.json",
+      "first_line": 1,
+      "groups": "T7",
+      "last_line": 361,
+      "pin": {
+        "bytes": 11446,
+        "sha256": "352c86ed8dd3a51c7409545535c10c99ebc0ab711585a759409be2668ed2f3ee"
+      }
+    },
+    {
+      "change": "Complete separately versioned file accounted for by transformation groups and exact source pin.",
+      "file": "extract-readers.py",
+      "first_line": 1,
+      "groups": "T3",
+      "last_line": 89,
+      "pin": {
+        "bytes": 3924,
+        "sha256": "36fc6428f3f106baa4f54001a9ea937499a6aa2dd2a660f02e3ee0413c03f85e"
+      }
+    },
+    {
+      "change": "Complete separately versioned file accounted for by transformation groups and exact source pin.",
+      "file": "reader-extraction.json",
+      "first_line": 1,
+      "groups": "T3",
+      "last_line": 92,
+      "pin": {
+        "bytes": 2865,
+        "sha256": "c0170cbc03f9b7489146ff1670b609f8af6fc92f41892746a518e5d81482ba0b"
+      }
+    },
+    {
+      "change": "Closed pins for failed packet, ten commands, generated bytes and both standalone objects; exact metadata-only exception and no replay.",
+      "file": "standalone-adoption.json",
+      "first_line": 1,
+      "groups": "T8",
+      "last_line": 248,
+      "pin": {
+        "bytes": 7839,
+        "sha256": "6294648833637bbbd2d55b0c77b9f5f781dbdfdb56949c9b5a440efb55d99634"
+      }
+    }
+  ],
+  "source_files": {
+    "core.c": {
+      "bytes": 22174,
+      "sha256": "d1aabc0f4a05cd47e7cd96222d4f7bd1fadba665a571dcc2b1a4c83bbb14c858"
+    },
+    "core.h": {
+      "bytes": 5659,
+      "sha256": "f93c5ce827ce3310b268f670e3bcb58cfc072ddb1216dfa70bbc33499c4d5bcf"
+    },
+    "extract-readers.py": {
+      "bytes": 3924,
+      "sha256": "36fc6428f3f106baa4f54001a9ea937499a6aa2dd2a660f02e3ee0413c03f85e"
+    },
+    "reader-extraction.json": {
+      "bytes": 2865,
+      "sha256": "c0170cbc03f9b7489146ff1670b609f8af6fc92f41892746a518e5d81482ba0b"
+    },
+    "run-tests.py": {
+      "bytes": 71547,
+      "sha256": "b19c3fae74969cacecaa6ca3523639ddc589ef2d0c7197b8a166531484041440"
+    },
+    "standalone-adoption.json": {
+      "bytes": 7839,
+      "sha256": "6294648833637bbbd2d55b0c77b9f5f781dbdfdb56949c9b5a440efb55d99634"
+    },
+    "test-contract.json": {
+      "bytes": 11446,
+      "sha256": "352c86ed8dd3a51c7409545535c10c99ebc0ab711585a759409be2668ed2f3ee"
+    },
+    "test_attempt.c": {
+      "bytes": 40462,
+      "sha256": "1af69cf70d59d12b1d157a9934c9c47e8d4cea7f714d6b85a57b09f274adf086"
+    }
+  },
+  "standalone_metadata_history": {
+    "commands": 10,
+    "inputs": 28,
+    "packet": "run-29f8594691654b2aa82b7716baa01151",
+    "packet_files": 90,
+    "prebuild_adoption_review_correction": "The uninvoked adoption draft used unsuffixed section names. Root and independent reviewer caught it; corrected only to exact .00099 names and required RELA flags/alignment before invocation.",
+    "result": "result-e28810e78256422eaa44e93ae80d4603.json",
+    "result_sha256": "3591ebe73a9ec5ddf453a93c6c5b03450f28598ed1b6f27d318473764447779f",
+    "scope": "Both standalone C compilations and disassemblies exited0 clean. Sanitizer readelf exited0 with one FINI_ARRAY metadata warning, refused by initial empty-stderr oracle; no fixture executables or runtime. Exact sections and relocation independently reviewed; initial source/packet remains terminal. No compiler flags/protectors/C/test/extraction changes.",
+    "streams": 20
+  },
+  "status": "source-frozen-before-first-build",
+  "transformation_groups": [
+    {
+      "description": "Adapt frozen fa_* engine as ac_*; retain one atomic Virgin->ActiveIncomplete strong CAS and optional OrdinaryReturned release publication. Remove all eight predecessor mutations, captured-state argument and borrowed-ID/retry variables. Request replaces caller-supplied selected owner with pc/lr/fp and authored I/O values. The only request reads occur in admitted selection/receive; losers return before private payload access. The ordinary winning entry is compile-only; second-admission control executes only a failed-CAS ordinary reentry.",
+      "id": "T1",
+      "implementation": [
+        "core.c",
+        "core.h"
+      ]
+    },
+    {
+      "description": "New receive stage invokes ac_select_values. Pending leaves entered event, raw availability and raw sequence unchanged. ReturnedValue copies one honest raw tuple; ReturnedInvariantError records separate private error, sets violation and halts without a successful raw return. Exact snapshot actual outcome precedes a dedicated authored consumed-false substitution.",
+      "id": "T2",
+      "implementation": [
+        "core.c"
+      ]
+    },
+    {
+      "description": "Extract six hash-bound retained storage/reader fragments verbatim into readers.inc, retain full exact receipt-types.h, and copy exact ma_module_value bytes into core.h. All former MA controls/RC_FIXTURE refused. No consumer/installer/DSO body is included. Unused rc_record attempt fields remain zero, not installed receipts. An exported const function pointer outside fragments retains the addressable static ma_generated_index symbol; no core or harness call uses this evidence anchor.",
+      "id": "T3",
+      "implementation": [
+        "extract-readers.py",
+        "reader-extraction.json",
+        "core.c",
+        "core.h"
+      ]
+    },
+    {
+      "description": "New AC_FIXTURE-only model setup stages fixed module/generated payloads before admission; validates bounded canonical ASCII IDs, nonzero 64-bit identities, indices and nonempty extents. Separate staged/used flags authorize only once-only release publication, not attempt admission. Payload is never cleared/replaced; only already staged slots may become visible at later serial cuts. Cells are integer keys, fixed after admission. No mapping, native memory or original/replacement pointer operations.",
+      "id": "T4",
+      "implementation": [
+        "core.c",
+        "core.h"
+      ]
+    },
+    {
+      "description": "New bounded private cursor probes PC then LR then up to sixteen authored frame pairs, exact eight-byte nfp then RA outcomes; RA ownership precedes nonincreasing break. New uintptr overflow guard is explicit model input policy. At most eighteen owner calls, thirty-two cell calls and one exact chosen-slot snapshot; whole-call traces are separate from six attempt events. Ordinary cursor loops, fixture yields between whole calls only. Index/-1 reader results retain no fabricated reason.",
+      "id": "T5",
+      "implementation": [
+        "core.c",
+        "core.h"
+      ]
+    },
+    {
+      "description": "Exact chosen module index, all 64 process bits and all 33 canonical ID bytes copied snapshot->selector->raw->working->final; binding never supplies index. No requery at record/I/O/completion. NoCommunity is zeroed, consumes attempt and invokes one opaque unblamed authored return. Copy final before release; ac_observe clears output then acquire-loads once and copies payload only at OrdinaryReturned. Private/raw trace APIs are serial fixture inspection.",
+      "id": "T6",
+      "implementation": [
+        "core.c",
+        "core.h"
+      ]
+    },
+    {
+      "description": "New nineteen composition witnesses plus eight dedicated baseline selectors implement nine groups. Eight safe single mutations are separate fresh executables/processes. Exact ordered check sets and singleton failure sets frozen in contract. Bounded explicit JSON serializes fields rather than padding; all request/setup/publication observations, actual/consumed snapshot values, working/raw/final and control scratch/diagnostics retained. Stdio writes evidence only.",
+      "id": "T7",
+      "implementation": [
+        "test_attempt.c",
+        "test-contract.json"
+      ]
+    },
+    {
+      "description": "Adapt pinned prior runner scaffold only; never execute predecessor. Freeze seven new source files plus this ledger; retain plan and sixteen pinned inputs. Run new extraction exactly once, then standalone-only builds in both modes. Retain exact ELF/disassembly/dependencies and require manual method-bound codegen review before candidate/control builds/runtime. Immutable image, network disabled, authored data only; fresh processes, exact stdout/exit/failure sets, empty diagnostics, leak detection enabled. No speculative call-free/canary whitelist or safety inference. Original seven-source prebuild freeze is preserved in the failed packet. Following its metadata-only refusal, add the exact adoption spec and reviewed orchestration delta: preserve the terminal 90-file packet, reuse its ten command receipts and exact standalone/generated artifacts in fresh custody, reconstruct metadata without compiler/extractor/disassembler execution, and require manual codegen review before the first new candidate/control work. Classify only the exact suffixed FINI_ARRAY relocation warning after structural ELF validation; all unrelated diagnostics remain refused.",
+      "id": "T8",
+      "implementation": [
+        "run-tests.py",
+        "standalone-adoption.json"
+      ]
+    }
+  ]
+}

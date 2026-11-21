@@ -1,0 +1,92 @@
+{
+  "schema": 1,
+  "runtime_gate": "CLOSED",
+  "scope": "Six exact retained fragments; no consumer, installer or loader bodies",
+  "sources": {
+    "module/attribution.inc": {
+      "bytes": 10365,
+      "sha256": "a39be49ab125639d0aa048ace337e822cf16e3c71c37e538ff8545183cb9f836"
+    },
+    "generated/receipt-body.inc": {
+      "bytes": 15570,
+      "sha256": "60233581d6a882d9e57e6b6fc9602ce440783060446872148f94e9e7205bc02e"
+    },
+    "generated/receipt-types.h": {
+      "bytes": 5369,
+      "sha256": "c97454db2aba6e942eb05241bbf80d67ffd8eecb5108927da69600a6a1d15f40"
+    }
+  },
+  "fragments": [
+    {
+      "name": "module-storage",
+      "source": "module/attribution.inc",
+      "first_line": 16,
+      "last_line": 23,
+      "pin": {
+        "bytes": 199,
+        "sha256": "4f6fb86257c154a6254a9c4de84d1efe18ed405466039dc09b61abe753399b4f"
+      }
+    },
+    {
+      "name": "generated-storage",
+      "source": "generated/receipt-body.inc",
+      "first_line": 35,
+      "last_line": 40,
+      "pin": {
+        "bytes": 152,
+        "sha256": "c84f510f57e163193f92221a080bebdb8ce3a101bff337ec58e6039ae6cf5957"
+      }
+    },
+    {
+      "name": "generated-reader",
+      "source": "generated/receipt-body.inc",
+      "first_line": 340,
+      "last_line": 351,
+      "pin": {
+        "bytes": 528,
+        "sha256": "72f6b545f06fefcc504e134b41dbea764187394aa319e39651c614e5a42bc1c4"
+      }
+    },
+    {
+      "name": "slot-snapshot",
+      "source": "module/attribution.inc",
+      "first_line": 70,
+      "last_line": 80,
+      "pin": {
+        "bytes": 508,
+        "sha256": "50e7d7052d274a052da0034e2ac8dcd6ce47d8294eb30bc51bb29718cc7ad15d"
+      }
+    },
+    {
+      "name": "generated-index",
+      "source": "module/attribution.inc",
+      "first_line": 81,
+      "last_line": 97,
+      "pin": {
+        "bytes": 663,
+        "sha256": "773ef18568ead0807afe86786aa667b612f15433db3c6aa93baa2bb8b5c538d7"
+      }
+    },
+    {
+      "name": "module-first",
+      "source": "module/attribution.inc",
+      "first_line": 98,
+      "last_line": 115,
+      "pin": {
+        "bytes": 592,
+        "sha256": "6f54f87cb23fcb87d47b9d81ce0d7df114ffc3d4dc626ad6d2de548256be2a0b"
+      }
+    }
+  ],
+  "preamble": "/* SPDX-License-Identifier: GPL-3.0-only */\n/* Exact retained reader fragments only. New authored custody lives in core.c. */\n#if defined(MA_CONTROL_OMIT_PROCESS) || defined(MA_CONTROL_GENERATED_FIRST) || defined(MA_CONTROL_STOP_AT_HOLE) || defined(RC_FIXTURE)\n#error \"predecessor controls and installer fixture configuration are excluded\"\n#endif\n",
+  "outputs": {
+    "readers.inc": {
+      "bytes": 2994,
+      "sha256": "352048162f452f794136f8b90555783df101feacbf7550e3f4020bd6ef7ab140"
+    },
+    "receipt-types.h": {
+      "bytes": 5369,
+      "sha256": "c97454db2aba6e942eb05241bbf80d67ffd8eecb5108927da69600a6a1d15f40"
+    }
+  }
+}

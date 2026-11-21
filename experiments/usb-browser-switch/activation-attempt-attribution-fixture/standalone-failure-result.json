@@ -1,0 +1,376 @@
+{
+  "AC_FIXTURE": true,
+  "actual_signal_or_concurrency_execution": false,
+  "builds": {
+    "standalone-plain": {
+      "artifacts": {
+        "build/standalone/plain/configuration.json": {
+          "bytes": 509,
+          "sha256": "f2d206f7321cab70ae9ed28fc7a3353edacf288e229aa30f950948918200f650"
+        },
+        "build/standalone/plain/core-disassembly.txt": {
+          "bytes": 52950,
+          "sha256": "95d17d168cef9f348dda457f5c724dc3b51247d4335d8f466d2c4742e2ea51ec"
+        },
+        "build/standalone/plain/core-elf.txt": {
+          "bytes": 90018,
+          "sha256": "a044f447c0ebdf03db8fc314565c18cbb1b60ed030a91b7b83f3876f59583952"
+        },
+        "build/standalone/plain/core-methods.json": {
+          "bytes": 1503,
+          "sha256": "d4cdf412f63d4b32266495eacfef738f7edb2aa22be15f08ab7c88adafd3abba"
+        },
+        "build/standalone/plain/core-symbols.json": {
+          "bytes": 12931,
+          "sha256": "52a08473e27d8496d26d75c1788c3b6385509d2c16c7dcec17e3f18856ed0a5e"
+        },
+        "build/standalone/plain/core-undefined.json": {
+          "bytes": 872,
+          "sha256": "4dcd08a7c74c4b290afb4c175f89458693103a84c4954cc3fa156a6fe598d599"
+        },
+        "build/standalone/plain/core.o": {
+          "bytes": 55960,
+          "sha256": "c530369583882bbb9110ad4f219c850dd34933282479b4a6623ec2c2a3dce22b"
+        }
+      },
+      "compile_only": true,
+      "kind": "standalone",
+      "macro": null,
+      "mode": "plain",
+      "variant": "standalone"
+    }
+  },
+  "candidate": {},
+  "codegen_review": null,
+  "commands": [
+    {
+      "exception_present": false,
+      "name": "extract-readers",
+      "receipt_sha256": "2d4bf5006542900b2f68d4b78887cb2aa7b4a9129394db72276fe4bc054820d6",
+      "returncode": 0,
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout": {
+        "bytes": 277,
+        "sha256": "acf615c15c338a80e60307c76283b275ea838199af2a4f03e6f23d5c04d8bdd5"
+      }
+    },
+    {
+      "exception_present": false,
+      "name": "image-inspect",
+      "receipt_sha256": "89596b241159ec9911375de32e76a142c7c24c12cff06627540f4d086c547faa",
+      "returncode": 0,
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout": {
+        "bytes": 1695,
+        "sha256": "c5eb71f1ab42f4044d07d7c0a8a581c6d37f775f7e420e9184d8360d3b788c93"
+      }
+    },
+    {
+      "exception_present": false,
+      "name": "compiler-version",
+      "receipt_sha256": "60c909bd57e6eb3b2f540f1b96572e1a53c85333c8a0c9124e27a75d67fee5b3",
+      "returncode": 0,
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout": {
+        "bytes": 249,
+        "sha256": "839d24fe4997381909209a1cbf9a3d59e68a6637f6e7c02ebf39b4fcacf612c2"
+      }
+    },
+    {
+      "exception_present": false,
+      "name": "compiler-target",
+      "receipt_sha256": "de19aedc80acb9dc145912d6d84e42b9192e39c2a3bca663c82ae191730ea06b",
+      "returncode": 0,
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout": {
+        "bytes": 18,
+        "sha256": "811b17aa02eb472140fbd7c338e99ac8770181c999ed2ea78797163dfd0fbd5b"
+      }
+    },
+    {
+      "exception_present": false,
+      "name": "compile-standalone-plain-core",
+      "receipt_sha256": "5bc311c8f732935c6884dbc2629dfd396ad31e00056129377d9041e120365d2c",
+      "returncode": 0,
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "exception_present": false,
+      "name": "standalone-plain-core-disassembly",
+      "receipt_sha256": "90cec429599f6f0188074ae85f51f6646569ad871f4906d4e5344a2d13ebe672",
+      "returncode": 0,
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout": {
+        "bytes": 52950,
+        "sha256": "95d17d168cef9f348dda457f5c724dc3b51247d4335d8f466d2c4742e2ea51ec"
+      }
+    },
+    {
+      "exception_present": false,
+      "name": "standalone-plain-core-elf",
+      "receipt_sha256": "6fbe80b843358069879a56d0b8a10cc7eb5e6bda0ee3d10cd8e43bf4ff1db99e",
+      "returncode": 0,
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout": {
+        "bytes": 90018,
+        "sha256": "a044f447c0ebdf03db8fc314565c18cbb1b60ed030a91b7b83f3876f59583952"
+      }
+    },
+    {
+      "exception_present": false,
+      "name": "compile-standalone-asan-ubsan-core",
+      "receipt_sha256": "2e2387801291c536c654bb364f7a5bc250346e6272add9667ae71cc22995efcf",
+      "returncode": 0,
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "exception_present": false,
+      "name": "standalone-asan-ubsan-core-disassembly",
+      "receipt_sha256": "8eabca31197a45d8e37f468c6d9623fc5074dcb292f25e2fc9e64920306cdddc",
+      "returncode": 0,
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout": {
+        "bytes": 165791,
+        "sha256": "037571c97d9da8617ee93a5cc1ff75d0dce0a429f7a6c57b23a5d94f92e64e61"
+      }
+    },
+    {
+      "exception_present": false,
+      "name": "standalone-asan-ubsan-core-elf",
+      "receipt_sha256": "81c3439e688f78c8ec98313a5781247d6c892f9d4367acdb47b4ceb7722e0a82",
+      "returncode": 0,
+      "stderr": {
+        "bytes": 75,
+        "sha256": "8ff6e7f5bf79278de0e186a04ab17cd6816a2261a867abffadfaabe901455525"
+      },
+      "stdout": {
+        "bytes": 209921,
+        "sha256": "55e7007068ff104076874ecb66a7cdd206633a2534d374f2dcabd64c9579de80"
+      }
+    }
+  ],
+  "controls": {},
+  "execution_attempts": [],
+  "extraction": {
+    "artifacts": {
+      "generated/extraction.json": {
+        "bytes": 2188,
+        "sha256": "53aaa64db29ea0c840ea59b0bcfb823314e183cad88afefa0d994f50dcdfa027"
+      },
+      "generated/readers.inc": {
+        "bytes": 2994,
+        "sha256": "352048162f452f794136f8b90555783df101feacbf7550e3f4020bd6ef7ab140"
+      },
+      "generated/receipt-types.h": {
+        "bytes": 5369,
+        "sha256": "c97454db2aba6e942eb05241bbf80d67ffd8eecb5108927da69600a6a1d15f40"
+      }
+    },
+    "compiler_or_runtime_execution": false,
+    "contract": {
+      "bytes": 2865,
+      "sha256": "c0170cbc03f9b7489146ff1670b609f8af6fc92f41892746a518e5d81482ba0b"
+    },
+    "fragments": 6
+  },
+  "image": {
+    "Architecture": "arm64",
+    "Id": "sha256:c7e3893c4f03e0ff30555c2120b3d9ec53834eaa2c8ce376a2da09b70fd23a90",
+    "Os": "linux"
+  },
+  "inputs": {
+    "frozen/attempt/README.md": {
+      "bytes": 7949,
+      "role": "reference-only retained source or evidence; not compiled or executed",
+      "sha256": "b906e3f5d84436add4552449d8264128fade15c4a83cc38148e18f0cb0a9000e"
+    },
+    "frozen/attempt/codegen-review.json": {
+      "bytes": 1725,
+      "role": "reference-only retained source or evidence; not compiled or executed",
+      "sha256": "ce09d9272151ea4220413b882a068d7c7b8b2cb9b991e156d38a90a43a45a278"
+    },
+    "frozen/attempt/core.c": {
+      "bytes": 12040,
+      "role": "reference-only retained source or evidence; not compiled or executed",
+      "sha256": "124e7f35407b6cba4989c9a9cd9157922297bd234db3d057e6d18a888a383151"
+    },
+    "frozen/attempt/core.h": {
+      "bytes": 3159,
+      "role": "reference-only retained source or evidence; not compiled or executed",
+      "sha256": "a11dd07304855d6e023877c119b7cab6f195a4bf67fa9b4b6d1c1ac153a83876"
+    },
+    "frozen/attempt/source-ledger.json": {
+      "bytes": 15428,
+      "role": "reference-only retained source or evidence; not compiled or executed",
+      "sha256": "5bc6f95fb16184ed427814097ab5995b4f1bfc9b40c3e008250afcae6df37c2d"
+    },
+    "frozen/attempt/verification.json": {
+      "bytes": 5058,
+      "role": "reference-only retained source or evidence; not compiled or executed",
+      "sha256": "63d984c076d369b8dfdafd4701a14f83c7f457bc1be47d6becebce6be07079a9"
+    },
+    "frozen/generated/pinned-consumer.inc": {
+      "bytes": 962,
+      "role": "reference-only retained source or evidence; not compiled or executed",
+      "sha256": "9e31f235353a169e46f366ec33488076829b9383bc0fd0c462b465a0ddef70b4"
+    },
+    "frozen/generated/receipt-body.inc": {
+      "bytes": 15570,
+      "role": "retained source container; only six exact extracted reader/storage fragments and the pinned types header are compiled",
+      "sha256": "60233581d6a882d9e57e6b6fc9602ce440783060446872148f94e9e7205bc02e"
+    },
+    "frozen/generated/receipt-types.h": {
+      "bytes": 5369,
+      "role": "retained source container; only six exact extracted reader/storage fragments and the pinned types header are compiled",
+      "sha256": "c97454db2aba6e942eb05241bbf80d67ffd8eecb5108927da69600a6a1d15f40"
+    },
+    "frozen/module/README.md": {
+      "bytes": 9637,
+      "role": "reference-only retained source or evidence; not compiled or executed",
+      "sha256": "d03348ac8b266ca94bc6b7b198f3fdfad334aa1b89a9b8fcb949b702e99f767a"
+    },
+    "frozen/module/attribution.h": {
+      "bytes": 2407,
+      "role": "reference-only retained source or evidence; not compiled or executed",
+      "sha256": "9dade54a479285bf3b83a0dffcbf7a92bcefdc31589291b179a910efcd9b4095"
+    },
+    "frozen/module/attribution.inc": {
+      "bytes": 10365,
+      "role": "retained source container; only six exact extracted reader/storage fragments and the pinned types header are compiled",
+      "sha256": "a39be49ab125639d0aa048ace337e822cf16e3c71c37e538ff8545183cb9f836"
+    },
+    "frozen/module/reader-codegen.json": {
+      "bytes": 88863,
+      "role": "reference-only retained source or evidence; not compiled or executed",
+      "sha256": "10ec94cb249261091e1b1d21092e8feaaac3bad56479812286e912534bdcb0e0"
+    },
+    "frozen/predecessor/retain-source.py": {
+      "bytes": 12322,
+      "role": "reference-only retained source or evidence; not compiled or executed",
+      "sha256": "45eaf64b09fda04356f3f6d7ab8aedc6d73359c7d03aca4c6b4ca394d17f2863"
+    },
+    "frozen/reader/README.md": {
+      "bytes": 11701,
+      "role": "reference-only retained source or evidence; not compiled or executed",
+      "sha256": "90ba1e6ddaa039350dc73c3d162b7f00b59c7bf3afd9e409111ce3045f86421d"
+    },
+    "frozen/reader/operating-contract.json": {
+      "bytes": 16431,
+      "role": "reference-only retained source or evidence; not compiled or executed",
+      "sha256": "d6879db76a09b3c3e475f6ec7d69d0a0087dafd2eafde3ae2896a55b092a263f"
+    },
+    "new/core.c": {
+      "bytes": 22174,
+      "role": "new authored attempt/attribution fixture",
+      "sha256": "d1aabc0f4a05cd47e7cd96222d4f7bd1fadba665a571dcc2b1a4c83bbb14c858"
+    },
+    "new/core.h": {
+      "bytes": 5659,
+      "role": "new authored attempt/attribution fixture",
+      "sha256": "f93c5ce827ce3310b268f670e3bcb58cfc072ddb1216dfa70bbc33499c4d5bcf"
+    },
+    "new/extract-readers.py": {
+      "bytes": 3924,
+      "role": "new authored attempt/attribution fixture",
+      "sha256": "36fc6428f3f106baa4f54001a9ea937499a6aa2dd2a660f02e3ee0413c03f85e"
+    },
+    "new/reader-extraction.json": {
+      "bytes": 2865,
+      "role": "new authored attempt/attribution fixture",
+      "sha256": "c0170cbc03f9b7489146ff1670b609f8af6fc92f41892746a518e5d81482ba0b"
+    },
+    "new/run-tests.py": {
+      "bytes": 56740,
+      "role": "new authored attempt/attribution fixture",
+      "sha256": "dbfb258b8382d02d7c9682583f18db781cb4442cc0630a552c82a479a099d986"
+    },
+    "new/source-ledger.json": {
+      "bytes": 43128,
+      "role": "new authored attempt/attribution fixture",
+      "sha256": "f68c9f57f5cb833a4bfb43a324add7cae71eda25dd8920e2d79a4608c4737c19"
+    },
+    "new/test-contract.json": {
+      "bytes": 11446,
+      "role": "new authored attempt/attribution fixture",
+      "sha256": "352c86ed8dd3a51c7409545535c10c99ebc0ab711585a759409be2668ed2f3ee"
+    },
+    "new/test_attempt.c": {
+      "bytes": 40462,
+      "role": "new authored attempt/attribution fixture",
+      "sha256": "1af69cf70d59d12b1d157a9934c9c47e8d4cea7f714d6b85a57b09f274adf086"
+    },
+    "plan/README.md": {
+      "bytes": 8903,
+      "role": "reviewed source-only plan clarification",
+      "sha256": "1cbc6758ed4054b8182cf5fbf8e763ff1fc602d3a5e3576da7e531befdc3fe2b"
+    },
+    "plan/composition-plan.json": {
+      "bytes": 34211,
+      "role": "reviewed source-only plan",
+      "sha256": "56a2cff378642dffa38a8b9bb37ccd2bd702c2c3a01632ec649c50b98cd25d43"
+    },
+    "review-lock.json": {
+      "bytes": 1159,
+      "role": "reviewed source fence",
+      "sha256": "ab9c43539eb37988b8262f611fd3b6e9c6f59d57d17f63f61e9e1f01c656f8e4"
+    },
+    "scaffold/prior-run-tests.py": {
+      "bytes": 41852,
+      "role": "source-only command/ELF scaffold reference; never executed",
+      "sha256": "13bb85b861cd97888508a72652bc35fdaa94e7684ab274e32143f75666709af6"
+    }
+  },
+  "native_firmware_or_device_access": false,
+  "native_provider_safety_proved": false,
+  "old_capture_or_matrix_replay": false,
+  "output_streams": 20,
+  "private_result_sha256": "3591ebe73a9ec5ddf453a93c6c5b03450f28598ed1b6f27d318473764447779f",
+  "providers_are_authored_values": true,
+  "retained_files_including_private_result": 88,
+  "runtime_gate": "CLOSED",
+  "schema": 1,
+  "scope": "Offline C11 terminal attempt and immutable attribution composition with authored value providers",
+  "status": "failed",
+  "toolchain": {
+    "target": "aarch64-linux-gnu",
+    "version": {
+      "bytes": 249,
+      "sha256": "839d24fe4997381909209a1cbf9a3d59e68a6637f6e7c02ebf39b4fcacf612c2"
+    }
+  }
+}

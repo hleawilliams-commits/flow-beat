@@ -1,0 +1,361 @@
+{
+  "schema": 1,
+  "status": "frozen-source-contract-before-first-build",
+  "scope": "Fresh serial authored attempt/immutable-attribution composition; all live gates CLOSED.",
+  "configuration": "AC_FIXTURE",
+  "summary_keys": [
+    "schema",
+    "selector",
+    "checks",
+    "check_names",
+    "failures",
+    "failed_checks"
+  ],
+  "selectors": {
+    "admission-ab": {
+      "group": "C1",
+      "checks": [
+        "sole-admission-owns-selection",
+        "suppressed-requests-do-no-work",
+        "winner-address-selects-exact-owner",
+        "selection-return-occurs-once",
+        "completion-copies-working-owner",
+        "schedule-bounded",
+        "report-capacity"
+      ]
+    },
+    "admission-ba": {
+      "group": "C1",
+      "checks": [
+        "sole-admission-owns-selection",
+        "suppressed-requests-do-no-work",
+        "winner-address-selects-exact-owner",
+        "selection-return-occurs-once",
+        "completion-copies-working-owner",
+        "schedule-bounded",
+        "report-capacity"
+      ]
+    },
+    "generated-slot3": {
+      "group": "C2",
+      "checks": [
+        "generated-binding-resolves-module-three",
+        "exact-process-and-id-reach-raw-working-final",
+        "generated-selection-write-uses-copied-id",
+        "holes-do-not-hide-generated-owner",
+        "schedule-bounded",
+        "report-capacity"
+      ]
+    },
+    "direct-slot0": {
+      "group": "C2",
+      "checks": [
+        "module-zero-is-valid-owner",
+        "direct-selection-reaches-write",
+        "schedule-bounded",
+        "report-capacity"
+      ]
+    },
+    "generated-pc": {
+      "group": "C3",
+      "checks": [
+        "generated-pc-precedes-module-lr",
+        "selected-pc-stops-later-addresses",
+        "selected-community-branch-is-exact",
+        "schedule-bounded",
+        "report-capacity"
+      ]
+    },
+    "core-lr": {
+      "group": "C3",
+      "checks": [
+        "core-negative-continues-to-lr",
+        "fallback-probe-order-is-pc-then-lr",
+        "fallback-community-branch-is-exact",
+        "schedule-bounded",
+        "report-capacity"
+      ]
+    },
+    "unmatched-frame": {
+      "group": "C3",
+      "checks": [
+        "unmatched-generated-identity-reaches-frame",
+        "frame-pair-precedes-owner-query",
+        "frame-owner-precedes-nonincreasing-stop",
+        "frame-selected-branch-is-exact",
+        "schedule-bounded",
+        "report-capacity"
+      ]
+    },
+    "publish-between-queries": {
+      "group": "C4",
+      "checks": [
+        "later-query-sees-newly-published-slot",
+        "earlier-pc-miss-is-not-restarted",
+        "pending-selection-has-no-raw-return",
+        "newly-visible-owner-reaches-completion",
+        "schedule-bounded",
+        "report-capacity"
+      ]
+    },
+    "mask-before-snapshot": {
+      "group": "C4",
+      "checks": [
+        "chosen-index-survives-pre-snapshot-masking",
+        "exact-selected-slot-is-snapshotted",
+        "snapshot-masking-does-not-requery",
+        "schedule-bounded",
+        "report-capacity"
+      ]
+    },
+    "mask-after-raw": {
+      "group": "C5",
+      "checks": [
+        "raw-selection-survives-later-masking",
+        "frozen-owner-is-used-by-write",
+        "raw-and-working-selection-stay-private",
+        "schedule-bounded",
+        "report-capacity"
+      ]
+    },
+    "noowner-late": {
+      "group": "C6",
+      "checks": [
+        "negative-return-survives-late-ownership",
+        "negative-selection-has-one-opaque-branch",
+        "late-ownership-does-not-reopen-attempt",
+        "schedule-bounded",
+        "report-capacity"
+      ]
+    },
+    "fd-zero-write-error": {
+      "group": "C7",
+      "checks": [
+        "selected-owner-survives-write-error",
+        "fd-zero-error-still-syncs-and-closes",
+        "io-failure-does-not-erase-selection",
+        "schedule-bounded",
+        "report-capacity"
+      ]
+    },
+    "stop-entered": {
+      "group": "C8",
+      "checks": [
+        "selection-stop-retains-exact-stage",
+        "stopped-selection-hides-public-payload",
+        "stopped-selection-rejects-later-request",
+        "schedule-bounded",
+        "report-capacity"
+      ]
+    },
+    "stop-index": {
+      "group": "C8",
+      "checks": [
+        "selection-stop-retains-exact-stage",
+        "stopped-selection-hides-public-payload",
+        "stopped-selection-rejects-later-request",
+        "schedule-bounded",
+        "report-capacity"
+      ]
+    },
+    "stop-raw": {
+      "group": "C8",
+      "checks": [
+        "selection-stop-retains-exact-stage",
+        "stopped-selection-hides-public-payload",
+        "stopped-selection-rejects-later-request",
+        "schedule-bounded",
+        "report-capacity"
+      ]
+    },
+    "stop-recorded": {
+      "group": "C8",
+      "checks": [
+        "selection-stop-retains-exact-stage",
+        "stopped-selection-hides-public-payload",
+        "stopped-selection-rejects-later-request",
+        "schedule-bounded",
+        "report-capacity"
+      ]
+    },
+    "stop-prepublication": {
+      "group": "C8",
+      "checks": [
+        "selection-stop-retains-exact-stage",
+        "stopped-selection-hides-public-payload",
+        "stopped-selection-rejects-later-request",
+        "schedule-bounded",
+        "report-capacity"
+      ]
+    },
+    "snapshot-error": {
+      "group": "C8",
+      "checks": [
+        "snapshot-actual-result-remains-successful",
+        "consumed-snapshot-error-is-explicit",
+        "returned-error-is-not-successful-selection",
+        "returned-invariant-error-stays-terminal",
+        "schedule-bounded",
+        "report-capacity"
+      ]
+    },
+    "diagnostic-after-completion": {
+      "group": "C9",
+      "checks": [
+        "diagnostic-reader-sees-later-owner",
+        "diagnostic-does-not-mutate-completed-attempt",
+        "diagnostic-cannot-reopen-admission",
+        "schedule-bounded",
+        "report-capacity"
+      ]
+    },
+    "control-selection-order": {
+      "group": "control",
+      "checks": [
+        "suppressed-request-performs-no-selection",
+        "schedule-bounded",
+        "report-capacity"
+      ]
+    },
+    "control-single-authority": {
+      "group": "control",
+      "checks": [
+        "one-admission-reaches-selection-and-completion",
+        "schedule-bounded",
+        "report-capacity"
+      ]
+    },
+    "control-resolved-index": {
+      "group": "control",
+      "checks": [
+        "generated-selection-uses-resolved-module-slot",
+        "schedule-bounded",
+        "report-capacity"
+      ]
+    },
+    "control-process-handoff": {
+      "group": "control",
+      "checks": [
+        "selection-handoff-preserves-full-process-identity",
+        "schedule-bounded",
+        "report-capacity"
+      ]
+    },
+    "control-frozen-selection": {
+      "group": "control",
+      "checks": [
+        "recorded-selection-matches-original-return",
+        "schedule-bounded",
+        "report-capacity"
+      ]
+    },
+    "control-core-fallback": {
+      "group": "control",
+      "checks": [
+        "core-pc-continues-community-fallback",
+        "schedule-bounded",
+        "report-capacity"
+      ]
+    },
+    "control-noowner-freeze": {
+      "group": "control",
+      "checks": [
+        "noowner-return-is-not-refreshed",
+        "schedule-bounded",
+        "report-capacity"
+      ]
+    },
+    "control-private-selection": {
+      "group": "control",
+      "checks": [
+        "selection-return-remains-private-until-completion",
+        "schedule-bounded",
+        "report-capacity"
+      ]
+    }
+  },
+  "controls": {
+    "selection-order": {
+      "macro": "AC_CONTROL_SELECT_BEFORE_CAS",
+      "selector": "control-selection-order",
+      "expected_failures": [
+        "suppressed-request-performs-no-selection"
+      ],
+      "safety": "Real pre-CAS traversal uses fresh control scratch on each entry. Measure added losing-entry reader work after winner admission; no winner cursor overwrite."
+    },
+    "single-authority": {
+      "macro": "AC_CONTROL_SECOND_ADMISSION",
+      "selector": "control-single-authority",
+      "expected_failures": [
+        "one-admission-reaches-selection-and-completion"
+      ],
+      "safety": "Second entry is reached only after successful outer CAS. The failed inner CAS returns before the reentry hook, without recursion or providers."
+    },
+    "resolved-index": {
+      "macro": "AC_CONTROL_BINDING_AS_SLOT",
+      "selector": "control-resolved-index",
+      "expected_failures": [
+        "generated-selection-uses-resolved-module-slot"
+      ],
+      "safety": "Module0 is a valid distinct committed decoy outside PC/LR/frame lookup envelopes. Altered candidate0 is used consistently; failed open avoids unrelated writes."
+    },
+    "process-handoff": {
+      "macro": "AC_CONTROL_NARROW_PROCESS",
+      "selector": "control-process-handoff",
+      "expected_failures": [
+        "selection-handoff-preserves-full-process-identity"
+      ],
+      "safety": "Both process-identity halves are nonzero. Narrow only after successful snapshot; no later identity revalidation masks it. Failed open."
+    },
+    "frozen-selection": {
+      "macro": "AC_CONTROL_RESELECT_AT_RECORD",
+      "selector": "control-frozen-selection",
+      "expected_failures": [
+        "recorded-selection-matches-original-return"
+      ],
+      "safety": "Fresh control scratch actually traverses after lower-index masking publication. Original returned cursor and raw latch remain. Both IDs have32bytes; failed open."
+    },
+    "core-fallback": {
+      "macro": "AC_CONTROL_STOP_ON_CORE_PC",
+      "selector": "control-core-fallback",
+      "expected_failures": [
+        "core-pc-continues-community-fallback"
+      ],
+      "safety": "Control-only rc_lookup distinguishes authored Core. Retained readers remain unchanged. Either ordinary branch completes; selected tuple and branch form one assertion."
+    },
+    "noowner-freeze": {
+      "macro": "AC_CONTROL_REFRESH_NEGATIVE",
+      "selector": "control-noowner-freeze",
+      "expected_failures": [
+        "noowner-return-is-not-refreshed"
+      ],
+      "safety": "Fresh control scratch traverses after publication and changes recording, preserving original negative raw/cursor. Failed-open Community branch is safe."
+    },
+    "private-selection": {
+      "macro": "AC_CONTROL_EXPOSE_RAW_SELECTION",
+      "selector": "control-private-selection",
+      "expected_failures": [
+        "selection-return-remains-private-until-completion"
+      ],
+      "safety": "Serial stopped observer exposes actual initialized raw value while Active. No concurrent payload read, diagnostic-only mutation or native effect."
+    }
+  },
+  "limits": {
+    "checks": 16,
+    "observations": 128,
+    "requests": 16,
+    "setup_records": 48,
+    "step_calls": 96,
+    "selection_trace": 51,
+    "selector_probes": 18,
+    "selector_cells": 32,
+    "selector_snapshots": 1,
+    "control_scratch": 4,
+    "diagnostics": 8,
+    "report_bytes": 16777216,
+    "ordinary_successful_run": "compile-only; dedicated second-admission control calls ordinary entry only for the failed inner CAS",
+    "scheduling": "Serial whole calls and stopped observations; no actual threads, signals, nested callback stack or native frame/file effects.",
+    "snapshot_refusal": "Only snapshot-error consumes false after retaining an actual successful exact-reader bool/tuple. Its exact private violation is expected.",
+    "replay": "No predecessor matrix or DSO/installer/ABI/exception suite execution."
+  }
+}

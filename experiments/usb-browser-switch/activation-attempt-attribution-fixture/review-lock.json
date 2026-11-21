@@ -1,0 +1,42 @@
+{
+  "files": {
+    "core.c": {
+      "bytes": 22174,
+      "sha256": "d1aabc0f4a05cd47e7cd96222d4f7bd1fadba665a571dcc2b1a4c83bbb14c858"
+    },
+    "core.h": {
+      "bytes": 5659,
+      "sha256": "f93c5ce827ce3310b268f670e3bcb58cfc072ddb1216dfa70bbc33499c4d5bcf"
+    },
+    "extract-readers.py": {
+      "bytes": 3924,
+      "sha256": "36fc6428f3f106baa4f54001a9ea937499a6aa2dd2a660f02e3ee0413c03f85e"
+    },
+    "reader-extraction.json": {
+      "bytes": 2865,
+      "sha256": "c0170cbc03f9b7489146ff1670b609f8af6fc92f41892746a518e5d81482ba0b"
+    },
+    "run-tests.py": {
+      "bytes": 71547,
+      "sha256": "b19c3fae74969cacecaa6ca3523639ddc589ef2d0c7197b8a166531484041440"
+    },
+    "source-ledger.json": {
+      "bytes": 45363,
+      "sha256": "af4f8a841a53188be849c5d2fb2ba0f4540590a8ad9e697c61989d056c891165"
+    },
+    "standalone-adoption.json": {
+      "bytes": 7839,
+      "sha256": "6294648833637bbbd2d55b0c77b9f5f781dbdfdb56949c9b5a440efb55d99634"
+    },
+    "test-contract.json": {
+      "bytes": 11446,
+      "sha256": "352c86ed8dd3a51c7409545535c10c99ebc0ab711585a759409be2668ed2f3ee"
+    },
+    "test_attempt.c": {
+      "bytes": 40462,
+      "sha256": "1af69cf70d59d12b1d157a9934c9c47e8d4cea7f714d6b85a57b09f274adf086"
+    }
+  },
+  "schema": 1,
+  "status": "reviewed-before-build"
+}

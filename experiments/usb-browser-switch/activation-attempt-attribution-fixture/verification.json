@@ -1,0 +1,174 @@
+{
+  "auditor_execution": {
+    "command_receipt": {
+      "bytes": 1349,
+      "sha256": "63c92e5a3eb10c8ba2703ce7b5097b43532b4c1ec038499377250bc2bb81d918"
+    },
+    "returncode": 0,
+    "source": {
+      "bytes": 71736,
+      "sha256": "6a15c4a6281948cf2a592f76ecbea54ab3ff9dc0783aa163a812dcdb188e28ff"
+    },
+    "source_copied_before_execution": true,
+    "source_unchanged_after_execution": true,
+    "stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stdout": {
+      "bytes": 138,
+      "sha256": "607850468eacb8fb4471ccd172f963107c0c443a41dc62762a96132db4b499b7"
+    }
+  },
+  "codegen_review": {
+    "bytes": 10653,
+    "sha256": "ab3646b72fa56a3236682d059b1992d5b4660e192e79002f94691ebafae1c5f4"
+  },
+  "failure_history": [
+    {
+      "compiler_failure": false,
+      "files": 90,
+      "private_result": {
+        "bytes": 53621,
+        "sha256": "3591ebe73a9ec5ddf453a93c6c5b03450f28598ed1b6f27d318473764447779f"
+      },
+      "public_result": {
+        "bytes": 14201,
+        "sha256": "c842ed958c214aa91f24353baf2bcb7eeab189344c123e788c3320aa465c62a4"
+      },
+      "reason": "readelf exited0 with exact FINI_ARRAY warning after both standalone compiles/disassemblies passed; initial empty-stderr oracle refused. Reviewed structural relocation exception plus fresh artifact adoption; no tool-defect cause asserted and no compile/extraction replay.",
+      "runtime_attempts": 0,
+      "stage": "standalone metadata query",
+      "status": "preserved-failed"
+    },
+    {
+      "invocation": {
+        "command_receipt": {
+          "bytes": 1349,
+          "sha256": "975d1cfed64d96de67fbb9880f3e512b96a18a48c2b2133a068c89ee49da1faa"
+        },
+        "returncode": 1,
+        "source": {
+          "bytes": 70801,
+          "sha256": "d8af4f8985e2d26ff188f69babd5fd876ad5307b428193621370ad79b46f6022"
+        },
+        "source_copied_before_execution": true,
+        "source_unchanged_after_execution": true,
+        "stderr": {
+          "bytes": 1537,
+          "sha256": "c823d60376cf6cd764b117cf36692f55133fe851f63cab8545eebb00d62dbbce"
+        },
+        "stdout": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "reason": "Auditor required the file-only copy to preserve original empty tmp directory; all90 files matched. Revised auditor verifies original complete dirs and copied exact file-parent projection, permitting only that empty tmp omission. No packet/tested source change.",
+      "retained_files": 4,
+      "stage": "first independent auditor",
+      "status": "preserved-failed"
+    }
+  ],
+  "next_scope": "Next make a separately scoped source-only ordinary-entry witness plan. Reuse this frozen engine and exact readers to specify authored module/generated/cell setup completed before a single synchronous ac_run call, with stable request/model storage through ordinary return. Separate setup access from private stepping, snapshot-refusal and mutation-control APIs without adding another admission authority. Define new ordinary-driver completion, no-owner, admitted-input-error, representative returned-I/O-failure and repeated-entry cases, plus exact safe controls for premature driving and incorrect return-state mapping, before implementation. Do not replay the completed seam-driven matrix or successful audit. Keep actual callbacks/nesting, concurrent publication, native frame/file providers, DSO/installer invocation, signals/nonlocal exits, production and live observer composition deferred. Preserve LL/SC retry, libc/canary limits, quarantine and every closed live gate.",
+  "post_run_claim_review": {
+    "additional_source_review": "Independent core/codegen/claim review accepted scope and successor plan; clarified rejected-inner-CAS-only ordinary call and absence of native application/frame pointer reads.",
+    "scope": "Independent retained five-witness/all-eight-control report review in both modes; identical authored values, exact raw/snapshot/error/no-owner/I/O distinctions. Leak detection claim narrowed to ASan/UBSan processes. No execution.",
+    "status": "passed"
+  },
+  "pre_invocation_source_corrections": [
+    "Uninvoked adoption draft used unsuffixed FINI_ARRAY names; review corrected .00099 names and enforced RELA flags64/alignment8. Both drafts remain private.",
+    "Uninvoked auditor expected wrong Core enum; corrected to retained Core1 before first invocation.",
+    "Non-runtime stdout diagnostic check strengthened before first auditor freeze."
+  ],
+  "private_audit_result": {
+    "bytes": 14648,
+    "sha256": "d91400989aea9ab786905aef15403f8dfb3be0f6e95888948a668c8dc02512c3"
+  },
+  "retained_byte_audit": {
+    "adopted_commands": 10,
+    "adopted_failed_result": {
+      "bytes": 53621,
+      "sha256": "3591ebe73a9ec5ddf453a93c6c5b03450f28598ed1b6f27d318473764447779f"
+    },
+    "auditor": {
+      "bytes": 71736,
+      "sha256": "6a15c4a6281948cf2a592f76ecbea54ab3ff9dc0783aa163a812dcdb188e28ff"
+    },
+    "build_artifacts": 232,
+    "candidate_assertions_per_mode": 126,
+    "candidate_distinct_names": 57,
+    "candidate_processes": 54,
+    "candidate_selectors_per_mode": 27,
+    "commands": 188,
+    "control_processes": 16,
+    "controls_per_mode": 8,
+    "earlier_phase_results": [
+      {
+        "commands": 108,
+        "phase": "built-selected-variants",
+        "result_sha256": "13db1d5922fada5b0d2b7e8c78f3ea96d027a181ceae502df0c8534f504ba087"
+      },
+      {
+        "commands": 0,
+        "phase": "prepared",
+        "result_sha256": "e6c733adface7ca9d128291de552a503edd65247cdb61d0755b6d370bf1c1699"
+      },
+      {
+        "commands": 12,
+        "phase": "built-selected-variants",
+        "result_sha256": "52a00841841790463cc072a742358e86cdf9c0f0a382ca142f6c1b0ac87f4046"
+      }
+    ],
+    "extracted_fragments": 6,
+    "inputs": 119,
+    "limitations": [
+      "Structural assertion count is not semantic test count.",
+      "ARM64 instruction bytes and retained manual reviews are bound; no automatic signal, libc, canary-failure or lock-free proof.",
+      "Serial authored schedules and integer-keyed providers prove no actual concurrency, nested callbacks, signal handler or native persistence.",
+      "No loader/installer/native invocation, device access, quiescence, recovery or live gate opening."
+    ],
+    "new_commands": 178,
+    "new_compiler_or_runtime_execution": false,
+    "old_audit_or_matrix_replay": false,
+    "output_streams": 376,
+    "plan_sha256": "56a2cff378642dffa38a8b9bb37ccd2bd702c2c3a01632ec649c50b98cd25d43",
+    "private_result": {
+      "bytes": 962787,
+      "sha256": "654bdf373b9463df2f6a06c651b4da906f3e6146e836d3ece7556ea4f7a5afab"
+    },
+    "retained_files": 1153,
+    "runtime_gate": "CLOSED",
+    "runtime_reports": 70,
+    "sanitized_result": {
+      "bytes": 257032,
+      "sha256": "c8ff2611a47649a5443f87ffc2d49ab1b8d86029a63536fa2b53df9ae634c1f8"
+    },
+    "schema": 1,
+    "scope": "Independent retained byte closure, exact commands/contracts, explicit raw composition and control semantics; no execution.",
+    "source_ledger_sha256": "af4f8a841a53188be849c5d2fb2ba0f4540590a8ad9e697c61989d056c891165",
+    "status": "passed",
+    "structural_assertions": 613602
+  },
+  "runtime_gate": "CLOSED",
+  "schema": 1,
+  "source_review": {
+    "initial_record": {
+      "bytes": 3443,
+      "sha256": "6cd23b757030770eb0403daa2fde81e8eeb15668a9ab16598162c2e277ae685a"
+    },
+    "ledger": {
+      "bytes": 45363,
+      "sha256": "af4f8a841a53188be849c5d2fb2ba0f4540590a8ad9e697c61989d056c891165"
+    },
+    "lock": {
+      "bytes": 1304,
+      "sha256": "20e6b6f404b8d2d0ffdc9a9b766a1ece3e1050a72b8a14376fa3ffd1f347fdab"
+    },
+    "record": {
+      "bytes": 5289,
+      "sha256": "960e90c5ca22804ca5c19fb2a314ba43693b13c3e1e628b9702f5b8968e1ad75"
+    },
+    "scope": "Complete independent source/ledger/reader/control review before first build; exact metadata-adoption delta reviewed separately before candidate runtime."
+  },
+  "status": "passed"
+}
