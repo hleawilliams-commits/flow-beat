@@ -1,0 +1,90 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "runtime_gate": "CLOSED",
+  "scope": "Source-only ordinary-entry witness plan and retained bytes; no implementation or runtime validation",
+  "source_review": {
+    "bytes": 3052,
+    "sha256": "34f8f4c36065d4a0abd574975f8df19c7e7479c26bcb5dd387666e4dc3ceb6be"
+  },
+  "independent_source_reviews": {
+    "status": "passed",
+    "independent_reviewers": 2,
+    "root_review": true,
+    "scope": [
+      "Ordinary engine preservation, setup-only API and sole terminal admission",
+      "Five new ordinary case groups and five exact isolated safe controls"
+    ],
+    "precision_corrections": "Three clarifications and the missed initial wording replacement were resolved before retention; see source-review.json."
+  },
+  "retained_byte_audit": {
+    "anchors": 25,
+    "auditor_sha256": "90de45214ba5ffcd1f40165a8ce66d2cf9795fcdae9d5ec473fe757e7097b27c",
+    "child_commands": [],
+    "compiler_runtime_device_or_old_audit_execution": false,
+    "future_candidate_selectors_per_mode": 15,
+    "future_control_processes_per_mode": 5,
+    "future_processes": 40,
+    "git_reads": 0,
+    "helper": {
+      "child_execution_surface_present": false,
+      "helper_executed": false,
+      "imports": [
+        "from pathlib import Path, PurePosixPath",
+        "import argparse",
+        "import hashlib",
+        "import json",
+        "import os",
+        "import re",
+        "import stat",
+        "import sys",
+        "import uuid"
+      ],
+      "qualified_regex_calls": [
+        "re.compile",
+        "re.fullmatch"
+      ]
+    },
+    "inputs": 17,
+    "limitations": [
+      "Byte and AST checks do not implement or execute the planned ordinary-entry witness or establish signal safety.",
+      "Activity assertions combine retained metadata with a source-level helper call allowlist.",
+      "This audit does not invoke the helper, compiler, loader, runtime, previous collectors, or prior audits."
+    ],
+    "new_inputs": 3,
+    "new_runtime_test_cases": 0,
+    "planned_case_groups": 5,
+    "planned_controls_executed": false,
+    "planned_safe_controls": 5,
+    "planned_transformation_groups": 7,
+    "predecessor_review_and_verification": "Reused pinned input bytes and metadata links only; no prior audit or machine-code re-audit",
+    "private_result_sha256": "db1411cbea48b19025e5efeb0c43e34bfb8fd3c706bedf5a7ab7e6ab93bbae27",
+    "public_result_sha256": "881f3e3ea8df403b19b39e1970c4b6e3bb6a49a27569783a01dac1cd85c087eb",
+    "retained_files": 19,
+    "reused_inputs": 14,
+    "runtime_gate": "CLOSED",
+    "schema": 1,
+    "scope": "Independent retained-byte/source-helper audit only",
+    "status": "passed",
+    "structural_audit_assertions": 11272
+  },
+  "private_audit_result_sha256": "e95a02b73f6c8f2788a557917f77aef904d7285fb960847c45e73401408fd8ab",
+  "private_audit_execution_sha256": "f2e16e8e110182f3dd8cf0e540af0d00fc27a2a8606fffed7d881d5781a69eb3",
+  "private_retention_execution_sha256": "7e1284c796e2b72c9b396e939e69c4abd98accc8cccd7a58fb586fcb25f2ec90",
+  "retention_execution": {
+    "first_invocation_passed": true,
+    "stderr_empty": true,
+    "replay": false
+  },
+  "audit_execution": {
+    "source_reviewed_before_freeze": true,
+    "source_copied_before_execution": true,
+    "source_unchanged_after_execution": true,
+    "exit_code": 0,
+    "stderr_empty": true,
+    "first_invocation_passed": true,
+    "replay": false
+  },
+  "implementation_or_runtime_change": false,
+  "privacy": "Raw retained inputs, first reviewed draft, frozen auditor source and command/output receipts remain private."
+}

@@ -1,0 +1,176 @@
+{
+  "anchors": 25,
+  "artifacts": {
+    "anchor-index.json": {
+      "bytes": 7949,
+      "sha256": "5677a7b4996d71f8fa79eed13d1e6800a88a9e66823a7bc7d821effd844cd74d"
+    }
+  },
+  "baseline_commit": "4e134822cd4fbaf821092ac06cf69b22c024cfdd",
+  "child_commands": [],
+  "closed_inventory": true,
+  "compiler_loader_installer_or_matrix_execution": false,
+  "firmware_or_device_access": false,
+  "inputs": {
+    "README.md": {
+      "bytes": 7948,
+      "sha256": "75f0ed349a1e2678abb9ea80ccc6cbf4e1a0d85c33ae51d03b17d2f979866f18"
+    },
+    "engine/core.c": {
+      "bytes": 22174,
+      "sha256": "d1aabc0f4a05cd47e7cd96222d4f7bd1fadba665a571dcc2b1a4c83bbb14c858"
+    },
+    "engine/core.h": {
+      "bytes": 5659,
+      "sha256": "f93c5ce827ce3310b268f670e3bcb58cfc072ddb1216dfa70bbc33499c4d5bcf"
+    },
+    "evidence/codegen-review.json": {
+      "bytes": 10653,
+      "sha256": "ab3646b72fa56a3236682d059b1992d5b4660e192e79002f94691ebafae1c5f4"
+    },
+    "evidence/fixture-ledger.json": {
+      "bytes": 45363,
+      "sha256": "af4f8a841a53188be849c5d2fb2ba0f4540590a8ad9e697c61989d056c891165"
+    },
+    "evidence/fixture-result.json": {
+      "bytes": 257032,
+      "sha256": "c8ff2611a47649a5443f87ffc2d49ab1b8d86029a63536fa2b53df9ae634c1f8"
+    },
+    "evidence/fixture-review.json": {
+      "bytes": 5289,
+      "sha256": "960e90c5ca22804ca5c19fb2a314ba43693b13c3e1e628b9702f5b8968e1ad75"
+    },
+    "evidence/fixture-verification.json": {
+      "bytes": 8075,
+      "sha256": "5a141f916c00385c6fec68aecae47aa1af4f48b058848f08da9f150ea62d4fcd"
+    },
+    "ordinary-plan.json": {
+      "bytes": 27816,
+      "sha256": "4e48a87cc83f171219805ff3369157bdc0588290a19ca9c6f868ced53110c2f4"
+    },
+    "reader-extraction.json": {
+      "bytes": 2865,
+      "sha256": "c0170cbc03f9b7489146ff1670b609f8af6fc92f41892746a518e5d81482ba0b"
+    },
+    "readers/readers.inc": {
+      "bytes": 2994,
+      "sha256": "352048162f452f794136f8b90555783df101feacbf7550e3f4020bd6ef7ab140"
+    },
+    "readers/receipt-types.h": {
+      "bytes": 5369,
+      "sha256": "c97454db2aba6e942eb05241bbf80d67ffd8eecb5108927da69600a6a1d15f40"
+    },
+    "reference/composition-plan.json": {
+      "bytes": 34211,
+      "sha256": "56a2cff378642dffa38a8b9bb37ccd2bd702c2c3a01632ec649c50b98cd25d43"
+    },
+    "reference/fixture-README.md": {
+      "bytes": 7985,
+      "sha256": "d102d2b0e03ae48805a984ee44e54beb8361b4d425672c65f206a90ff3b2b7c0"
+    },
+    "reference/retain-source.py": {
+      "bytes": 12372,
+      "sha256": "bfc6e9cd706a870b46cd762991f7b7f60c8fa7fd0a7073a89dff23b7a63a8c4d"
+    },
+    "reference/test-contract.json": {
+      "bytes": 11446,
+      "sha256": "352c86ed8dd3a51c7409545535c10c99ebc0ab711585a759409be2668ed2f3ee"
+    },
+    "retain-source.py": {
+      "bytes": 12317,
+      "sha256": "6a722e6ba2bb13568bab5dadde2bdf8a625bd412749fb0b7c119f5c49e25eeb8"
+    }
+  },
+  "inventory": {
+    "anchor-index.json": {
+      "bytes": 7949,
+      "sha256": "5677a7b4996d71f8fa79eed13d1e6800a88a9e66823a7bc7d821effd844cd74d"
+    },
+    "inputs/README.md": {
+      "bytes": 7948,
+      "sha256": "75f0ed349a1e2678abb9ea80ccc6cbf4e1a0d85c33ae51d03b17d2f979866f18"
+    },
+    "inputs/engine/core.c": {
+      "bytes": 22174,
+      "sha256": "d1aabc0f4a05cd47e7cd96222d4f7bd1fadba665a571dcc2b1a4c83bbb14c858"
+    },
+    "inputs/engine/core.h": {
+      "bytes": 5659,
+      "sha256": "f93c5ce827ce3310b268f670e3bcb58cfc072ddb1216dfa70bbc33499c4d5bcf"
+    },
+    "inputs/evidence/codegen-review.json": {
+      "bytes": 10653,
+      "sha256": "ab3646b72fa56a3236682d059b1992d5b4660e192e79002f94691ebafae1c5f4"
+    },
+    "inputs/evidence/fixture-ledger.json": {
+      "bytes": 45363,
+      "sha256": "af4f8a841a53188be849c5d2fb2ba0f4540590a8ad9e697c61989d056c891165"
+    },
+    "inputs/evidence/fixture-result.json": {
+      "bytes": 257032,
+      "sha256": "c8ff2611a47649a5443f87ffc2d49ab1b8d86029a63536fa2b53df9ae634c1f8"
+    },
+    "inputs/evidence/fixture-review.json": {
+      "bytes": 5289,
+      "sha256": "960e90c5ca22804ca5c19fb2a314ba43693b13c3e1e628b9702f5b8968e1ad75"
+    },
+    "inputs/evidence/fixture-verification.json": {
+      "bytes": 8075,
+      "sha256": "5a141f916c00385c6fec68aecae47aa1af4f48b058848f08da9f150ea62d4fcd"
+    },
+    "inputs/ordinary-plan.json": {
+      "bytes": 27816,
+      "sha256": "4e48a87cc83f171219805ff3369157bdc0588290a19ca9c6f868ced53110c2f4"
+    },
+    "inputs/reader-extraction.json": {
+      "bytes": 2865,
+      "sha256": "c0170cbc03f9b7489146ff1670b609f8af6fc92f41892746a518e5d81482ba0b"
+    },
+    "inputs/readers/readers.inc": {
+      "bytes": 2994,
+      "sha256": "352048162f452f794136f8b90555783df101feacbf7550e3f4020bd6ef7ab140"
+    },
+    "inputs/readers/receipt-types.h": {
+      "bytes": 5369,
+      "sha256": "c97454db2aba6e942eb05241bbf80d67ffd8eecb5108927da69600a6a1d15f40"
+    },
+    "inputs/reference/composition-plan.json": {
+      "bytes": 34211,
+      "sha256": "56a2cff378642dffa38a8b9bb37ccd2bd702c2c3a01632ec649c50b98cd25d43"
+    },
+    "inputs/reference/fixture-README.md": {
+      "bytes": 7985,
+      "sha256": "d102d2b0e03ae48805a984ee44e54beb8361b4d425672c65f206a90ff3b2b7c0"
+    },
+    "inputs/reference/retain-source.py": {
+      "bytes": 12372,
+      "sha256": "bfc6e9cd706a870b46cd762991f7b7f60c8fa7fd0a7073a89dff23b7a63a8c4d"
+    },
+    "inputs/reference/test-contract.json": {
+      "bytes": 11446,
+      "sha256": "352c86ed8dd3a51c7409545535c10c99ebc0ab711585a759409be2668ed2f3ee"
+    },
+    "inputs/retain-source.py": {
+      "bytes": 12317,
+      "sha256": "6a722e6ba2bb13568bab5dadde2bdf8a625bd412749fb0b7c119f5c49e25eeb8"
+    },
+    "result.json": {
+      "bytes": 9989,
+      "sha256": "db1411cbea48b19025e5efeb0c43e34bfb8fd3c706bedf5a7ab7e6ab93bbae27"
+    }
+  },
+  "inventory_excludes": [],
+  "new_plan_inputs": 3,
+  "new_sdk_inputs": 0,
+  "old_capture_or_matrix_replay": false,
+  "plan_status": "source-planned-not-implemented",
+  "private_result_sha256": "db1411cbea48b19025e5efeb0c43e34bfb8fd3c706bedf5a7ab7e6ab93bbae27",
+  "retained_files": 19,
+  "reused_inputs": 14,
+  "runtime_gate": "CLOSED",
+  "schema": 1,
+  "scope": "Source-only ordinary-entry witness plan",
+  "sdk_commit": "3e0c5cb010454228f4ee63226b60d060494eeaae",
+  "source_git_reads": 0,
+  "status": "retained"
+}

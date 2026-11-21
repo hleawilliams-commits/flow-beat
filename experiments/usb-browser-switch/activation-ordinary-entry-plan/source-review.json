@@ -1,0 +1,60 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "runtime_gate": "CLOSED",
+  "scope": "Independent source/design and future-control review before first retention; no implementation or runtime execution",
+  "reviewed_inputs": {
+    "ordinary-plan.json": {
+      "bytes": 27816,
+      "sha256": "4e48a87cc83f171219805ff3369157bdc0588290a19ca9c6f868ced53110c2f4"
+    },
+    "README.md": {
+      "bytes": 7948,
+      "sha256": "75f0ed349a1e2678abb9ea80ccc6cbf4e1a0d85c33ae51d03b17d2f979866f18"
+    },
+    "retain-source.py": {
+      "bytes": 12317,
+      "sha256": "6a722e6ba2bb13568bab5dadde2bdf8a625bd412749fb0b7c119f5c49e25eeb8"
+    }
+  },
+  "independent_reviewers": 2,
+  "root_review": true,
+  "findings": [
+    "One existing terminal admission precedes request/selection; no second once guard or frozen consumer call.",
+    "Setup-only guard split excludes private stepping/inspection/refusal/auxiliary/diagnostic APIs and all old controls.",
+    "Both commit functions need the newly planned Virgin eligibility test; serial checks do not establish concurrent writer exclusion.",
+    "Six exact reader fragments and receipt types are reused from retained artifacts; no extractor or old audit replay.",
+    "Five new case groups, ten normal selectors, five dedicated control baselines and five exact singleton controls are unmasked.",
+    "C1/C2 genuinely terminate driving; C3/C4 compare actual return separately from unchanged public state; C5 records two distinct commit calls before evaluating their conjunction.",
+    "NULL and out-of-domain write give public ActiveIncomplete without exposing private receipts; exact internal cut is source-established.",
+    "All plans remain unexecuted. LL/SC retry, libc/canary/sanitizer dependencies and every live gate remain."
+  ],
+  "pre_retention_clarifications": [
+    "Leak detection is explicitly enabled for ASan/UBSan, not described as plain-mode instrumentation.",
+    "G5 allows post-return mutation of caller-owned request/ID source storage but forbids baseline model publication.",
+    "C5 explicitly invokes and records both commit calls separately before its conjunction.",
+    "The first G5 text replacement missed its prefix; independent delta review caught it and the final hash-bound correction preceded retention. One reviewer message crossed that edit and was superseded by its final hash-bound acceptance."
+  ],
+  "retained_original_draft": {
+    "plan": {
+      "bytes": 27729,
+      "sha256": "460e12c5e9df29e2face9c3231d2a2dddabd4cf00bf191dbd2a72a06ccb94259"
+    },
+    "readme": {
+      "bytes": 7918,
+      "sha256": "b0d89564b4759a57a9ce396f3005699ee8d85f4f94117f33ec968f9a1aedab4c"
+    }
+  },
+  "helper_change": "Only predecessor docstring, machine-plan filename, directory and scope literals; no added callable behavior.",
+  "planned": {
+    "transformation_groups": 7,
+    "case_groups": 5,
+    "safe_controls": 5,
+    "inputs": 17,
+    "anchors": 25,
+    "retained_files": 19,
+    "future_processes": 40,
+    "executed_now": 0
+  },
+  "no_compiler_runtime_device_or_old_replay": true
+}
