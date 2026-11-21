@@ -1,0 +1,51 @@
+{
+  "schema": 1,
+  "status": "passed-before-first-retention",
+  "runtime_gate": "CLOSED",
+  "scope": "Independent source and future-case/control review; no implementation or runtime proof",
+  "files": {
+    "composition-plan.json": {
+      "bytes": 34211,
+      "sha256": "56a2cff378642dffa38a8b9bb37ccd2bd702c2c3a01632ec649c50b98cd25d43"
+    },
+    "README.md": {
+      "bytes": 8903,
+      "sha256": "1cbc6758ed4054b8182cf5fbf8e763ff1fc602d3a5e3576da7e531befdc3fe2b"
+    },
+    "retain-source.py": {
+      "bytes": 12372,
+      "sha256": "bfc6e9cd706a870b46cd762991f7b7f60c8fa7fd0a7073a89dff23b7a63a8c4d"
+    }
+  },
+  "reviews": [
+    {
+      "role": "Independent source/contract reviewer",
+      "status": "passed",
+      "scope": "One terminal authority, exact copied identity, per-slot visibility, Pending/error distinctions, completion privacy, retained input/anchor support."
+    },
+    {
+      "role": "Independent case/control reviewer",
+      "status": "passed",
+      "scope": "Nine new composition groups and eight exact safe singleton controls, fresh scratch traversal, nonmasking decoy, expected error and diagnostic trace scope."
+    },
+    {
+      "role": "Root source review",
+      "status": "passed",
+      "scope": "Retained attempt/reader source cuts, exclusion of volatile consumer and installer bodies, source-only helper adaptation, future boundaries and preserved limits."
+    }
+  ],
+  "pre_retention_precision_corrections": [
+    "Pending steps do not clear or advance the raw-return latch; only one actual ReturnedValue advances its sequence.",
+    "Snapshot-error case retains actual successful return/tuple before an authored consumed=false substitution; error is explicitly returned, private and terminal.",
+    "Bounded model ID alphabet is explicitly [A-Za-z0-9._-], with canonical zero-padded 33-byte storage.",
+    "Early and repeated traversal controls use separate fresh scratch; losing-entry delta avoids a false zero-earlier-work claim.",
+    "Second-admission hook follows successful CAS only; failed inner CAS cannot recurse.",
+    "Binding-index control decoy excludes all tested lookup addresses; expected invariant-error case has a dedicated oracle; diagnostic lookup has a separate trace."
+  ],
+  "execution_at_review": "No retention helper, compiler, source transformer, loader, installer, matrix, native provider, signal, emulator or device execution occurred for this new plan.",
+  "limits": [
+    "All cases and controls are planned, not run.",
+    "No new signal, concurrency, native visibility, loader/custody, libc/canary, quiescence or recovery proof.",
+    "The frozen consumer, prior fixtures, quarantine/protections and all live gates remain unchanged."
+  ]
+}

@@ -1,0 +1,86 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "runtime_gate": "CLOSED",
+  "scope": "Source-only attempt/attribution composition plan and retained bytes; no implementation or runtime validation",
+  "source_review": {
+    "bytes": 2715,
+    "sha256": "79db9279ad9f4b5489f17a6ebb48a48861df1f124872e14a5a9bf01831e489a2"
+  },
+  "independent_source_reviews": {
+    "status": "passed",
+    "independent_reviewers": 2,
+    "root_review": true,
+    "scope": [
+      "Single attempt authority, exact reader/value boundary, visibility and completion ownership",
+      "Nine new composition groups and eight exact isolated safe controls"
+    ],
+    "precision_corrections": "See source-review.json; all corrections preceded first retention."
+  },
+  "retained_byte_audit": {
+    "anchors": 25,
+    "auditor_sha256": "30a298d1fe6a62a2736fc79fb3f05fa699954a733ed09b981eb9a0d4b28381ad",
+    "child_commands": [],
+    "compiler_runtime_device_or_old_audit_execution": false,
+    "git_reads": 0,
+    "helper": {
+      "child_execution_surface_present": false,
+      "helper_executed": false,
+      "imports": [
+        "from pathlib import Path, PurePosixPath",
+        "import argparse",
+        "import hashlib",
+        "import json",
+        "import os",
+        "import re",
+        "import stat",
+        "import sys",
+        "import uuid"
+      ],
+      "qualified_regex_calls": [
+        "re.compile",
+        "re.fullmatch"
+      ]
+    },
+    "inputs": 19,
+    "limitations": [
+      "Byte and AST checks do not implement or execute the planned attempt/attribution composition or establish signal safety.",
+      "Activity assertions combine retained metadata with a source-level helper call allowlist.",
+      "This audit does not invoke the helper, compiler, loader, runtime, previous collectors, or prior audits."
+    ],
+    "new_inputs": 3,
+    "new_runtime_test_cases": 0,
+    "planned_case_groups": 9,
+    "planned_controls_executed": false,
+    "planned_safe_controls": 8,
+    "planned_transformation_groups": 8,
+    "predecessor_review_and_verification": "Reused pinned input bytes and metadata links only; no prior audit or machine-code re-audit",
+    "private_result_sha256": "2b8997aa3f8cb787313c09a2680250c2f03eb1ad32c299e085a80212b91a68b8",
+    "public_result_sha256": "6301520fec68ed0301521dc25a5120b3e8ba4e38443ca76ae1414512aa9dc4db",
+    "retained_files": 21,
+    "reused_inputs": 16,
+    "runtime_gate": "CLOSED",
+    "schema": 1,
+    "scope": "Independent retained-byte/source-helper audit only",
+    "status": "passed",
+    "structural_audit_assertions": 5526
+  },
+  "private_audit_result_sha256": "20e899ac2b9dcb325241ba10d8f0f17bbf0b2ac7426a5af81fa60c13c0f325ad",
+  "private_audit_execution_sha256": "7f3d068a9ced7896f7eed31f6f895747de14b9d305ca01f0d1c7ae7f0808128c",
+  "retention_execution": {
+    "first_invocation_passed": true,
+    "replay": false
+  },
+  "audit_execution": {
+    "source_reviewed_before_freeze": true,
+    "source_copied_before_execution": true,
+    "source_unchanged_after_execution": true,
+    "exit_code": 0,
+    "stderr_empty": true,
+    "first_invocation_passed": true,
+    "replay": false,
+    "pre_execution_correction": "Auditor draft's closed boundary schema was updated for error_injection before freezing; no failed invocation occurred."
+  },
+  "implementation_or_runtime_change": false,
+  "privacy": "Raw retained input bytes, auditor source, command and output receipts remain private."
+}

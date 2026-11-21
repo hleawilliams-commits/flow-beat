@@ -1,0 +1,489 @@
+{
+  "schema": 1,
+  "title": "Terminal attempt and immutable attribution composition plan",
+  "status": "source-planned-not-implemented",
+  "runtime_gate": "CLOSED",
+  "baseline_commit": "ffa804c2d1c919ac88bbe5edef449b680106d72c",
+  "sdk_commit": "3e0c5cb010454228f4ee63226b60d060494eeaae",
+  "scope": "Source-only design for a separately named offline C11 composition. No C implementation, source transformation, compiler, loader, installer, matrix, signal, native frame/crash-file provider or device execution.",
+  "successor": "activation-attempt-attribution-fixture",
+  "boundary": {
+    "entry": "ac_run(const ac_request *) and fixture-only ac_fixture_begin/step; public ac_observe.",
+    "input": "ac_request contains authored pc/lr/fp values and the four fa_io_value fields, with no caller-supplied resolved owner. Caller retains valid request storage through use. All request field reads and adapter work occur after the sole attempt CAS.",
+    "selection": "A newly authored ac_select_values policy drives exact retained ma_owner_index and ma_module_snapshot. It runs only in the admitted attempt's selection receive stage. It never calls ma_consume_fault, ma_blame_fault or cm_blame_fault.",
+    "authority": "Reuse one process-lifetime fa_state_word and the existing strong CAS transition; separately named entry replaces orchestration, not a wrapper that enters fa_run after admitting. No second boolean, atomic, once guard, admission permit or consumer invocation.",
+    "loser": "Failed CAS returns Suppressed without request-field reads, selector initialization, module/generated/frame calls, I/O, unblamed work or working/final payload reads. ac_observe is separate and follows existing completed-only semantics.",
+    "identity": "First nonnegative ma_owner_index result is the sole chosen module index. Snapshot exactly that slot once. Copy snapshot.index, all64 process_id bits and all33 canonical zero-padded ID bytes into a value, then raw selection latch, authoritative working owner and immutable completed result. metadata.binding never supplies a module index.",
+    "anomaly": "A nonnegative out-of-bounds index, failed snapshot, mismatched snapshot index or noncanonical identity is an explicitly returned adapter invariant error. Record that private diagnostic and halt ActiveIncomplete with violation; no ordinary NoCommunity, retry or invented successful selection receipt. This is distinct from a selection call whose return was withheld.",
+    "no_owner": "Only exhausting PC/LR/authored-frame policy without a Community index returns a zeroed NoCommunity. It remains a successful selection return and consumes the attempt. Continue exactly one opaque authored unblamed operation; no live-mod/time/append/quarantine implementation.",
+    "completion": "Selection output and partial receipts remain private. ac_observe publishes no payload before OrdinaryReturned. The existing final copy then release-store and acquire-before-copy remain. Completion means selected modeled calls returned/recorded, not durable persistence, causation or recovery.",
+    "progress": "A new private selector cursor advances one whole reader or authored cell operation per fixture step. ac_select_values in ordinary mode drives the same cursor synchronously to ReturnedValue or ReturnedInvariantError. Fixture steps may return Pending to the outer serial driver while the attempt selection event stays Entered, never RawAvailable. Pending is private progress, not an adapter return or admission authority. The cursor is initialized only by the sole CAS winner, has no reset/reopen capability, and cannot admit another caller. No nonlocal exit, suspended native callback stack or instrumentation inside a frozen reader is used. Repeated Pending steps keep raw_oracle.available=false and do not clear, increment or republish the selection raw-return latch or its sequence. Only ReturnedValue creates one raw selection value and advances that sequence once. ReturnedInvariantError has its own private returned-error diagnostic, leaves no successful raw selection available and halts.",
+    "reader_result": "The exact ma_owner_index interface returns only a module index or -1. Baseline traces preserve that value and do not invent a reason distinguishing Core, absence, unresolved or ambiguous generated identity.",
+    "error_injection": "Only the dedicated C8 fixture seam may substitute consumed snapshot success=false after one complete actual ma_module_snapshot. Preserve actual returned bool and copied snapshot separately, label the consumed substitution authored, then exercise explicit returned adapter-error handling. Do not change any committed payload, exact reader or custody invariant. This is not an observed reader failure."
+  },
+  "selection_policy": [
+    "Probe pc once, then lr once only on negative owner index. ma_owner_index retains module-first lookup at EACH address; generated Community may beat another module at LR, while Core/absent/ambiguous generated identity permits fallback.",
+    "If still negative, inspect at most16 authored frame pairs while fp>=0x10000 and aligned to8. Resolve integer-keyed values only, never native pointer dereferences. First read nfp, then fp+8 RA; a missing/short modeled cell result ends fallback. Probe RA before testing nfp<=fp, then advance only if increasing.",
+    "The new authored frame adapter checks fp<=UINTPTR_MAX-8 before the pair. Overflow stops fallback with a private address-bound diagnostic. This is an explicit additional model input rule, not a claim that the retained consumer checked it.",
+    "On the first nonnegative index, do not probe later addresses. Complete the exact-index snapshot and canonical value handoff; no second address resolution during selection recording, I/O or completion.",
+    "Separate bounded selector trace holds at most18 address probes,32 cell reads and one successful-slot snapshot. These records do not consume the six existing attempt event slots. Overflow is a terminal private invariant error, not silent truncation.",
+    "Fixture-only serial seams may stop or publish previously staged synthetic slots ONLY between complete reader calls, before the exact-index snapshot, or after the copied selection returns. No hook inside an acquire loop, no callback from frozen readers, no actual callback nesting or signal claim."
+  ],
+  "visibility": [
+    "Four permanent immutable module slots and four generated records use original index order and one-way release/acquire publication. Staged payload is invisible until committed; there is no clearing, replacement or reusing a slot.",
+    "Retained ma_owner_index and ma_generated_index independently acquire module flags; rc_lookup independently acquires generated flags; ma_module_snapshot acquires the selected module flag again. These reads do not form a coherent registry snapshot.",
+    "Later publication can affect a later address query, including masking generated ranges, but never restarts earlier PC/LR probes and never refreshes an already returned selected value.",
+    "Because a selected slot is immutable and permanently published, later same-index snapshot is valid under the model's custody invariant. Test storage/publication facts are authored and establish no arbitrary DSO, loader, native memory or nonparticipating-writer custody.",
+    "An observed NoCommunity before later publication is an ordinary result of that query schedule. Late ownership does not reopen a completed or incomplete attempt. Root/dependency/provenance visibility gaps are represented by absence of publication, without DSO execution."
+  ],
+  "transformation_groups": [
+    {
+      "id": "T1",
+      "subject": "Attempt engine",
+      "change": "Copy frozen core.c/core.h into the separately versioned successor; rename exported entries to ac_*. Replace fa_script input with ac_request address/IO values. Preserve one state word, strong CAS admission, loser ordering, event progression, ordinary I/O classification, copy-before-release completion and completed-only observation. Do not link or call the predecessor executable."
+    },
+    {
+      "id": "T2",
+      "subject": "Selection receive cut",
+      "change": "Replace only authored resolved-selection source in fa_receive with ac_select_values. Copy returned value into the honest raw latch. Preserve fa_record ownership copy and no application retry. Add a private returned-error diagnostic for invariant refusal; no second admission. Pending cursor steps must bypass raw latch initialization/sequence increment; only a real returned value advances it. The dedicated C8 fixture seam records actual snapshot outcome before overriding only its consumed success flag."
+    },
+    {
+      "id": "T3",
+      "subject": "Reader extraction",
+      "change": "Retain exact ma_module layout, ma_module_snapshot, ma_generated_index, ma_owner_index and rc_lookup function bytes under a reviewed extraction ledger. Controls from predecessors are disabled. Retain exact rc_record layout and receipt-types.h value types; unused receipt fields remain zero and are never treated as actual installed receipts. No installer/protection/SDK/DSO bodies or pinned-consumer include are linked."
+    },
+    {
+      "id": "T4",
+      "subject": "Authored registry custody",
+      "change": "New serial model setup stages checked bounded canonical IDs/process identities/envelopes and generated instruction extents in permanent fixed storage, then release-publishes each slot at most once. Duplicate identities/overlap are explicitly model-only cases. No dynamic allocation, native address reads, executable mappings, original/replacement slots or real target bindings. No changes to frozen receipt cut or old setup. Canonical ID validation is new bounded authored setup logic (1–32 ASCII characters from [A-Za-z0-9._-] plus NUL and zero padding), not an SDK cm_id_ok call; full process identity is nonzero. Setup cannot alter a published payload."
+    },
+    {
+      "id": "T5",
+      "subject": "Authored selection traversal",
+      "change": "New PC/LR/frame policy uses unchanged readers plus bounded integer-keyed cells. An outer serial scheduler records complete calls and supports declared cuts; it does not add instrumentation within the retained readers. Frame successes are modeled exact eight-byte outcomes; no coherent pair/lifetime claim. The private cursor advances between complete calls; the ordinary adapter loops to an actual result, while fixture-only Pending yields to an authored serial driver without recording a selection return."
+    },
+    {
+      "id": "T6",
+      "subject": "Exact identity and output ownership",
+      "change": "Copy exact resolved slot tuple at snapshot into raw then working then final storage. Keep negative selection, returned invariant failure and withheld return separate. Public ac_observe never exposes selection trace/raw/working fields until existing final publication; private trace inspection is serial and stopped only."
+    },
+    {
+      "id": "T7",
+      "subject": "Fresh composition harness",
+      "change": "Fresh-process selectors use only new composition witnesses and eight dedicated exact controls below. No previous consumer/matrix, DSO loading, installer, patched code, native frame or crash-file calls. Plain and ASan/UBSan may be planned later; no runtime claims here."
+    },
+    {
+      "id": "T8",
+      "subject": "Source/build boundary",
+      "change": "Before first build, freeze complete source ledger, exact extraction ranges and output hashes, headers/configurations, fixture seams, case assertion sets and controls for independent review. Inspect successor codegen afresh if later built; inherited CAS/libc/canary observations do not prove successor instructions."
+    }
+  ],
+  "case_groups": [
+    {
+      "id": "C1",
+      "purpose": "Connect one admission to actual selection work",
+      "witness": "Two distinct live requests target different registered modules. In serial A/B and B/A custody orders, only the CAS winner issues PC lookup. At admitted/pre-selection, selection-raw, recorded and completed cuts a loser adds zero lookup/frame/IO/unblamed work. The admitted path reaches completion through the same authority."
+    },
+    {
+      "id": "C2",
+      "purpose": "Resolve generated binding to exact slot tuple",
+      "witness": "Generated binding0 resolves published module3 behind unpublished holes. Full64 process identity includes high bits and canonical ID has32 characters. Completed ownership and write bytes agree with that exact slot, not the binding or a caller-provided owner. A distinct direct module0 case confirms zero is a valid slot."
+    },
+    {
+      "id": "C3",
+      "purpose": "Connect precedence and fallback to branch operations",
+      "witness": "Generated Community PC beats another module LR; generated Core and a mismatched generated Community identity at PC continue to a Community LR or one authored frame RA. Frame owner is checked before a nonincreasing next-frame stop. Only selected branch operations execute."
+    },
+    {
+      "id": "C4",
+      "purpose": "Expose serial per-call visibility without a global snapshot",
+      "witness": "Complete a PC miss, publish a previously staged slot, then query LR/frame under that newer per-slot visibility. Do not restart PC. A separate later lower-index masking module published between resolved-index return and snapshot must not replace the selected old slot."
+    },
+    {
+      "id": "C5",
+      "purpose": "Bind raw selection to working/final handoff",
+      "witness": "After copied generated-owner selection returns, publish a lower-index module masking the original PC; pending recording, modeled write and final payload retain the original exact tuple. No address requery occurs. Working fields remain hidden before completion."
+    },
+    {
+      "id": "C6",
+      "purpose": "Freeze NoCommunity across late ownership",
+      "witness": "Exhaust selection while intended module is staged/unpublished, then publish it after raw NoCommunity and before recording. Exactly one opaque unblamed event follows and later requests are suppressed. Absence is not a durable statement about future registry contents."
+    },
+    {
+      "id": "C7",
+      "purpose": "Connect actual selected owner to ordinary I/O failure",
+      "witness": "A generated-range selection flows through fd0 and one authored failed write, then fsync and close. Exact copied tuple survives and OrdinaryReturned reports failure. Only this representative error chain is composed; do not replay the earlier complete I/O matrix."
+    },
+    {
+      "id": "C8",
+      "purpose": "Separate selection return, private record and immutable completion",
+      "witness": "Fresh stopped cases hold after selection entry, complete index lookup/before snapshot, copied raw return/before record, and recorded selection/before IO, plus final prepublication. Public state stays ActiveIncomplete with no payload; private diagnostics distinguish withheld versus returned stages. A synthetic failed snapshot after a valid index is a returned invariant error and remains closed. The error case calls the unchanged snapshot once, retains its actual successful result and copied tuple, and substitutes only consumed success=false through an explicitly labeled fixture seam. It is not an actual immutable-reader failure. Pending steps neither create raw availability nor increment selection-return sequence. This dedicated expected-error case accepts precisely the planned private invariant diagnostic and violation flag; its infrastructure oracle must not blanket-reject that expected flag. Other unexpected violations still fail."
+    },
+    {
+      "id": "C9",
+      "purpose": "Keep readers independent of admission and terminal policy",
+      "witness": "An explicitly named read-only model diagnostic may query a newly published owner after attempt completion without invoking selector or reopening attempt. It cannot mutate the attempt, create blame operations, return unfinished attempt data or become a second admission authority. Diagnostic-reader calls have a separately labeled trace and are excluded from attempt-adapter work counts."
+    }
+  ],
+  "safe_controls": [
+    {
+      "id": "AC_CONTROL_SELECT_BEFORE_CAS",
+      "selector": "control-selection-order",
+      "mutation": "Move a real selection call before the sole CAS in each entry using a fresh control-only scratch cursor. After the first entry successfully admits the winner, capture the reader-work counts. Drive a valid losing request while the winner is Active and stop immediately after the losing entry returns; measure only the added work of that losing entry. The mutated first entry may already have performed an early scratch selection, so no zero-earlier-work claim is made.",
+      "expected_failures": [
+        "suppressed-request-performs-no-selection"
+      ],
+      "safety": "All values/registries live and authored; real extra reader work is observed in its serial call trace. No assertion-only counter mutation, data race or downstream veto. The control-only losing traversal uses separate live scratch/cursor storage, so it cannot overwrite the admitted winner's cursor or latch. This scratch supplies no admission authority; baseline cursor initialization remains after CAS."
+    },
+    {
+      "id": "AC_CONTROL_SECOND_ADMISSION",
+      "selector": "control-single-authority",
+      "mutation": "After the outer CAS wins, incorrectly reenter the ordinary attempt entry to drive it, causing a second CAS against Active and suppression. Stop on that returned suppression.",
+      "expected_failures": [
+        "one-admission-reaches-selection-and-completion"
+      ],
+      "safety": "No second provider sequence or reset. The semantic oracle checks the admitted request's disposition/progression as one conjunction; no other terminal-state semantic assertions in this dedicated selector. The erroneous reentry hook is strictly after a successful CAS; the inner failed CAS returns before that hook and cannot recur."
+    },
+    {
+      "id": "AC_CONTROL_BINDING_AS_SLOT",
+      "selector": "control-resolved-index",
+      "mutation": "For generated binding0 resolving module3, replace the resolved candidate index with0 before snapshot and copy. Slot0 is a valid distinct committed decoy, so all consistency checks use that altered candidate and no hidden mismatch veto masks the error.",
+      "expected_failures": [
+        "generated-selection-uses-resolved-module-slot"
+      ],
+      "safety": "Snapshot stays in bounds; select an ordinary failed-open value to avoid irrelevant write-length failures. Check exact chosen tuple in one semantic assertion. The committed decoy slot0 envelope must exclude PC, LR and every tested frame RA, so module-first lookup cannot mask baseline generated resolution to module3."
+    },
+    {
+      "id": "AC_CONTROL_NARROW_PROCESS",
+      "selector": "control-process-handoff",
+      "mutation": "Narrow the snapshotted uint64 process identity to uint32 before assigning the raw selection value; input has nonzero high and low halves.",
+      "expected_failures": [
+        "selection-handoff-preserves-full-process-identity"
+      ],
+      "safety": "Identity resolution occurred correctly before this changed handoff. No subsequent admission revalidation masks narrowing. Use failed open; all IDs/storage remain valid."
+    },
+    {
+      "id": "AC_CONTROL_RESELECT_AT_RECORD",
+      "selector": "control-frozen-selection",
+      "mutation": "Replace selection recording's copy from the honest raw latch with a fresh ac_select_values call after a new lower-index module masks PC. Record the new tuple while preserving the old raw latch. Use a fresh bounded control-only scratch cursor for that actual new traversal; preserve the returned baseline cursor and raw latch. Reusing the terminal baseline cursor would mask the mutation and is forbidden.",
+      "expected_failures": [
+        "recorded-selection-matches-original-return"
+      ],
+      "safety": "Both immutable modules remain held, IDs same length, values valid; use failed open. One tuple equality assertion, no unrelated call-count assertion in this selector."
+    },
+    {
+      "id": "AC_CONTROL_STOP_ON_CORE_PC",
+      "selector": "control-core-fallback",
+      "mutation": "Use the generated Core-kind finding at PC to stop the newly authored outer selection policy with NoCommunity instead of proceeding to LR; exact readers are unchanged and any additional diagnostic rc_lookup is explicitly control-only.",
+      "expected_failures": [
+        "core-pc-continues-community-fallback"
+      ],
+      "safety": "Published module LR is valid. Compare final selected tuple/branch as one semantic conjunction; both resulting modeled branches terminate safely."
+    },
+    {
+      "id": "AC_CONTROL_REFRESH_NEGATIVE",
+      "selector": "control-noowner-freeze",
+      "mutation": "When recording an honest raw NoCommunity, rerun selection after a staged matching module was committed, then record that Community tuple. Traverse again using a fresh bounded control-only scratch cursor, preserving the original returned cursor and raw latch; merely calling the already returned cursor does not implement this mutation.",
+      "expected_failures": [
+        "noowner-return-is-not-refreshed"
+      ],
+      "safety": "One attempt only, both branches use authored providers; use failed open for controlled Community branch. One assertion checks unchanged negative selection and opaque-unblamed branch."
+    },
+    {
+      "id": "AC_CONTROL_EXPOSE_RAW_SELECTION",
+      "selector": "control-private-selection",
+      "mutation": "Modify public observation at Active with a returned raw selection to expose has_payload and a result containing that owner before selection is recorded; state itself remains Active.",
+      "expected_failures": [
+        "selection-return-remains-private-until-completion"
+      ],
+      "safety": "Serial stopped driver reads fully initialized raw storage; no concurrent payload read or actual race. The control changes returned public data, not diagnostics only."
+    }
+  ],
+  "control_rules": [
+    "Each control has a dedicated fresh baseline selector that passes one declared semantic assertion plus infrastructure checks. The mutation must produce exactly its stated singleton failure and recognized assertion exit; crashes, timeouts, sanitizer errors or undeclared failures refuse the control.",
+    "Control mutations belong only to a declared offline configuration. No control changes retained reader function bodies, frozen consumer, existing fixture bytes or live policies.",
+    "No compiler or runtime is executed for this source-only plan. Case groups are specifications, not counts of passed tests; full implementation/assertion ledgers must be independently frozen later."
+  ],
+  "limits": [
+    "One source-level strong CAS does not imply bounded/wait-free machine admission: predecessor GCC7.5 ARM64 uses LDAXR/STLXR retry on exclusive-store failure.",
+    "Retained attempt normal paths depend on memcpy/memset; module reader normal paths include memcmp/memcpy and an exactly classified stack-canary mismatch edge. Do not disable stack protection, claim transitive libc/interposition or signal safety, or assume identical successor codegen.",
+    "Serial authored scheduling does not execute competing threads, actual nested callback stacks, nonlocal exits, signal delivery or native publication. Per-slot acquire is not a coherent snapshot or a whole-handler safety proof.",
+    "Actual DSO/installer/SDK admission, native frame/file providers, handlers/chaining, arbitrary loader/slot custody, nonparticipating writers, native visibility, signal/nonlocal-exit scope, quiescence and recovery remain deferred.",
+    "Quarantine, watchdog/protections, original/replacement lifetime gates, prior failure packets and all production/live gates remain unchanged. Ownership is not causation."
+  ],
+  "sources": [
+    {
+      "name": "attempt/core.c",
+      "path": "experiments/usb-browser-switch/activation-fault-attempt-fixture/core.c",
+      "bytes": 12040,
+      "sha256": "124e7f35407b6cba4989c9a9cd9157922297bd234db3d057e6d18a888a383151"
+    },
+    {
+      "name": "attempt/core.h",
+      "path": "experiments/usb-browser-switch/activation-fault-attempt-fixture/core.h",
+      "bytes": 3159,
+      "sha256": "a11dd07304855d6e023877c119b7cab6f195a4bf67fa9b4b6d1c1ac153a83876"
+    },
+    {
+      "name": "attempt/README.md",
+      "path": "experiments/usb-browser-switch/activation-fault-attempt-fixture/README.md",
+      "bytes": 7949,
+      "sha256": "b906e3f5d84436add4552449d8264128fade15c4a83cc38148e18f0cb0a9000e"
+    },
+    {
+      "name": "attempt/codegen-review.json",
+      "path": "experiments/usb-browser-switch/activation-fault-attempt-fixture/codegen-review.json",
+      "bytes": 1725,
+      "sha256": "ce09d9272151ea4220413b882a068d7c7b8b2cb9b991e156d38a90a43a45a278"
+    },
+    {
+      "name": "attempt/source-ledger.json",
+      "path": "experiments/usb-browser-switch/activation-fault-attempt-fixture/source-ledger.json",
+      "bytes": 15428,
+      "sha256": "5bc6f95fb16184ed427814097ab5995b4f1bfc9b40c3e008250afcae6df37c2d"
+    },
+    {
+      "name": "attempt/verification.json",
+      "path": "experiments/usb-browser-switch/activation-fault-attempt-fixture/verification.json",
+      "bytes": 5058,
+      "sha256": "63d984c076d369b8dfdafd4701a14f83c7f457bc1be47d6becebce6be07079a9"
+    },
+    {
+      "name": "module/attribution.inc",
+      "path": "experiments/usb-browser-switch/activation-module-attribution-fixture/attribution.inc",
+      "bytes": 10365,
+      "sha256": "a39be49ab125639d0aa048ace337e822cf16e3c71c37e538ff8545183cb9f836"
+    },
+    {
+      "name": "module/attribution.h",
+      "path": "experiments/usb-browser-switch/activation-module-attribution-fixture/attribution.h",
+      "bytes": 2407,
+      "sha256": "9dade54a479285bf3b83a0dffcbf7a92bcefdc31589291b179a910efcd9b4095"
+    },
+    {
+      "name": "module/README.md",
+      "path": "experiments/usb-browser-switch/activation-module-attribution-fixture/README.md",
+      "bytes": 9637,
+      "sha256": "d03348ac8b266ca94bc6b7b198f3fdfad334aa1b89a9b8fcb949b702e99f767a"
+    },
+    {
+      "name": "module/reader-codegen.json",
+      "path": "experiments/usb-browser-switch/activation-module-attribution-fixture/private/run-436494e0f4e44d2f955b99adf6227d72/work/build/standalone/plain/reader-codegen.json",
+      "bytes": 88863,
+      "sha256": "10ec94cb249261091e1b1d21092e8feaaac3bad56479812286e912534bdcb0e0"
+    },
+    {
+      "name": "generated/receipt-body.inc",
+      "path": "experiments/usb-browser-switch/activation-module-attribution-fixture/private/run-436494e0f4e44d2f955b99adf6227d72/generated/receipt-body.inc",
+      "bytes": 15570,
+      "sha256": "60233581d6a882d9e57e6b6fc9602ce440783060446872148f94e9e7205bc02e"
+    },
+    {
+      "name": "generated/receipt-types.h",
+      "path": "experiments/usb-browser-switch/activation-module-attribution-fixture/private/run-436494e0f4e44d2f955b99adf6227d72/generated/receipt-types.h",
+      "bytes": 5369,
+      "sha256": "c97454db2aba6e942eb05241bbf80d67ffd8eecb5108927da69600a6a1d15f40"
+    },
+    {
+      "name": "generated/pinned-consumer.inc",
+      "path": "experiments/usb-browser-switch/activation-module-attribution-fixture/private/run-436494e0f4e44d2f955b99adf6227d72/generated/pinned-consumer.inc",
+      "bytes": 962,
+      "sha256": "9e31f235353a169e46f366ec33488076829b9383bc0fd0c462b465a0ddef70b4"
+    },
+    {
+      "name": "reader/operating-contract.json",
+      "path": "experiments/usb-browser-switch/activation-fault-reader-contract/operating-contract.json",
+      "bytes": 16431,
+      "sha256": "d6879db76a09b3c3e475f6ec7d69d0a0087dafd2eafde3ae2896a55b092a263f"
+    },
+    {
+      "name": "reader/README.md",
+      "path": "experiments/usb-browser-switch/activation-fault-reader-contract/README.md",
+      "bytes": 11701,
+      "sha256": "90ba1e6ddaa039350dc73c3d162b7f00b59c7bf3afd9e409111ce3045f86421d"
+    },
+    {
+      "name": "predecessor/retain-source.py",
+      "path": "experiments/usb-browser-switch/activation-fault-attempt-plan/retain-source.py",
+      "bytes": 12322,
+      "sha256": "45eaf64b09fda04356f3f6d7ab8aedc6d73359c7d03aca4c6b4ca394d17f2863"
+    }
+  ],
+  "anchors": [
+    {
+      "id": "sole-storage",
+      "source": "attempt/core.c",
+      "first_line": 21,
+      "last_line": 26,
+      "reason": "One terminal state, private working value and separate completed value."
+    },
+    {
+      "id": "canonical-value-copy",
+      "source": "attempt/core.c",
+      "first_line": 38,
+      "last_line": 55,
+      "reason": "Canonical bounded ID and copied index/process/full 33-byte identity."
+    },
+    {
+      "id": "sole-admission",
+      "source": "attempt/core.c",
+      "first_line": 65,
+      "last_line": 100,
+      "reason": "Strong CAS before winner initialization and script retention; disabled old controls are not baseline."
+    },
+    {
+      "id": "selection-entry",
+      "source": "attempt/core.c",
+      "first_line": 102,
+      "last_line": 112,
+      "reason": "Entered event differs from available raw return and authoritative receipt."
+    },
+    {
+      "id": "selection-receive-cut",
+      "source": "attempt/core.c",
+      "first_line": 129,
+      "last_line": 162,
+      "reason": "Replace only resolved selection source with separate authored adapter; preserve raw-return staging."
+    },
+    {
+      "id": "selection-record-cut",
+      "source": "attempt/core.c",
+      "first_line": 164,
+      "last_line": 185,
+      "reason": "Copy honest raw selection into authoritative working owner."
+    },
+    {
+      "id": "returned-io-receipts",
+      "source": "attempt/core.c",
+      "first_line": 185,
+      "last_line": 213,
+      "reason": "Returned I/O values, failure classification and short-write flags stay separate from ownership."
+    },
+    {
+      "id": "branch-progression",
+      "source": "attempt/core.c",
+      "first_line": 215,
+      "last_line": 247,
+      "reason": "NoCommunity opaque branch, fd zero and fsync/close progression; old controls disabled."
+    },
+    {
+      "id": "immutable-publication",
+      "source": "attempt/core.c",
+      "first_line": 248,
+      "last_line": 278,
+      "reason": "Copy working payload before release; step-driving is not a second admission."
+    },
+    {
+      "id": "public-observation",
+      "source": "attempt/core.c",
+      "first_line": 280,
+      "last_line": 299,
+      "reason": "Acquire completion gates payload; stopped private fixture inspection has separate scope."
+    },
+    {
+      "id": "owner-and-request-types",
+      "source": "attempt/core.h",
+      "first_line": 27,
+      "last_line": 39,
+      "reason": "Index, full process identity, 33-byte ID and predecessor resolved script replaced by authored addresses."
+    },
+    {
+      "id": "receipt-and-raw-types",
+      "source": "attempt/core.h",
+      "first_line": 41,
+      "last_line": 81,
+      "reason": "Working receipts, public snapshot and raw oracle have distinct ownership."
+    },
+    {
+      "id": "attempt-machine-limits",
+      "source": "attempt/codegen-review.json",
+      "first_line": 1,
+      "last_line": 53,
+      "reason": "Retained LL/SC retry and libc dependencies are limitations, not new codegen proof."
+    },
+    {
+      "id": "module-layout",
+      "source": "module/attribution.inc",
+      "first_line": 16,
+      "last_line": 25,
+      "reason": "Permanent immutable module payload plus publication scalar; setup bits are writer-only."
+    },
+    {
+      "id": "module-publication-reference",
+      "source": "module/attribution.inc",
+      "first_line": 34,
+      "last_line": 61,
+      "reason": "One-way publication and no overwritten committed payload; successor setup is separately authored."
+    },
+    {
+      "id": "exact-slot-snapshot",
+      "source": "module/attribution.inc",
+      "first_line": 70,
+      "last_line": 80,
+      "reason": "Independent acquire and full exact-index payload copy."
+    },
+    {
+      "id": "generated-identity-resolution",
+      "source": "module/attribution.inc",
+      "first_line": 81,
+      "last_line": 97,
+      "reason": "Generated Community requires full process and full ID unique match, not metadata binding."
+    },
+    {
+      "id": "module-first-reader",
+      "source": "module/attribution.inc",
+      "first_line": 98,
+      "last_line": 115,
+      "reason": "Index-order half-open module lookup then generated resolution; holes skipped."
+    },
+    {
+      "id": "excluded-consumer-aliases",
+      "source": "module/attribution.inc",
+      "first_line": 173,
+      "last_line": 197,
+      "reason": "Frozen volatile consumer inclusion and public wrapper are expressly excluded."
+    },
+    {
+      "id": "module-snapshot-type",
+      "source": "module/attribution.h",
+      "first_line": 22,
+      "last_line": 28,
+      "reason": "Exact module snapshot shape reused for value handoff."
+    },
+    {
+      "id": "generated-record-layout",
+      "source": "generated/receipt-body.inc",
+      "first_line": 35,
+      "last_line": 40,
+      "reason": "Reader-visible record payload layout retained; receipt/install machinery excluded."
+    },
+    {
+      "id": "generated-reader",
+      "source": "generated/receipt-body.inc",
+      "first_line": 340,
+      "last_line": 351,
+      "reason": "Exact acquire-gated generated instruction extent lookup."
+    },
+    {
+      "id": "generated-owner-type",
+      "source": "generated/receipt-types.h",
+      "first_line": 28,
+      "last_line": 33,
+      "reason": "Generated owner has typed process identity and ID but no module index."
+    },
+    {
+      "id": "consumer-policy-reference",
+      "source": "generated/pinned-consumer.inc",
+      "first_line": 1,
+      "last_line": 27,
+      "reason": "Policy reference only: PC/LR/frame precedence and early volatile guard; no execution or body reuse."
+    },
+    {
+      "id": "reader-context-limits",
+      "source": "reader/README.md",
+      "first_line": 1,
+      "last_line": 58,
+      "reason": "Retained signal/reentry/native-provider/volatile-guard limits remain closed."
+    }
+  ]
+}
