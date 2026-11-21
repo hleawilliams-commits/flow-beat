@@ -1,0 +1,53 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "runtime_gate": "CLOSED",
+  "scope": "Independent pre-retention source-only provider contract and future-control review",
+  "reviewed_inputs": {
+    "provider-plan.json": {
+      "bytes": 29618,
+      "sha256": "a49b860e413b00657f0ee35b27261369ad8bade69bd0d7a2c70ea7fd1c44ab1f"
+    },
+    "README.md": {
+      "bytes": 5568,
+      "sha256": "292fc69adb9a5fc4464514e1981d1eaaf0be6ae785dfdfa5a5840b0f99143c24"
+    },
+    "retain-source.py": {
+      "bytes": 12368,
+      "sha256": "050e605782a1984af940c852f91077d9c082561ae8f8da968698f95d6c22661c"
+    }
+  },
+  "independent_reviewers": [
+    "dso_core_impl: engine preservation, exact source anchors, helper and control isolation",
+    "dso_loader_impl: provider contract, future witnesses, singleton controls and helper adaptation"
+  ],
+  "root_review": true,
+  "planned_counts": {
+    "transformations": 7,
+    "case_groups": 5,
+    "normal_selectors": 14,
+    "control_baselines": 8,
+    "safe_controls": 8,
+    "future_processes": 60,
+    "executed_processes": 0
+  },
+  "reviewed_contract": [
+    "Winner-only binding after existing sole CAS, suppressed request/provider access absent",
+    "Branch-local function validation; unused NULL functions allowed",
+    "By-value owner/write args and return/error pairs; full int64 open token including zero",
+    "Exact readers and setup eligibility preserved; no private step/inspection/refusal/diagnostic API",
+    "Nested same-thread ordinary loser is a future authored case, not general reentrancy",
+    "Entered/raw/record source ordering distinct from prepared-return transcript and public acquire completion",
+    "All eight controls isolate one semantic failure without changing expected constants"
+  ],
+  "pre_retention_corrections": [
+    "Initial draft-construction line-bound assertion refused header last_line176 beyond175 before plan write or helper execution; recorded privately.",
+    "Function anchors corrected to exact record/next/publish/step extents, including payload copy before release.",
+    "G5 explicitly mutates original caller-owned ID/request fields after return and retains before/after values.",
+    "C1 spy only logs; C3 invocation oracle solely owns absent observations; C4 alternate binding is explicit fixed control-only custody; C7 duplicate comparison is identical and macro-independent."
+  ],
+  "prior_drafts": "Private earlier plan/README/helper copies retained; no prior tested source changed.",
+  "new_sdk_git_reads": 0,
+  "compiler_runtime_callback_nesting_or_device_execution": false,
+  "old_capture_matrix_or_audit_replay": false
+}

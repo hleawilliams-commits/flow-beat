@@ -1,0 +1,217 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "runtime_gate": "CLOSED",
+  "scope": "Source-only provider boundary plan and first retained-byte audit; no implementation/runtime validation",
+  "source_review": {
+    "bytes": 2613,
+    "sha256": "8b719f87be48706c18e8fa2804f2e922d255bd0c4d3643e1650f9b47bc77b8d2"
+  },
+  "independent_source_reviews": {
+    "status": "passed",
+    "reviewers": 2,
+    "root_review": true,
+    "scope": [
+      "provider contract and frozen engine/readers",
+      "new planned witnesses and exact singleton controls",
+      "source-only helper and honest limits"
+    ]
+  },
+  "retained_byte_audit": {
+    "anchor_pins": {
+      "cell-selection": {
+        "bytes": 3774,
+        "sha256": "249d08c7f21f5d1e63dec91e5f942c73b419c0982ea1586c7724d43de45a2f02"
+      },
+      "cell-setup": {
+        "bytes": 475,
+        "sha256": "725d4139126efecd3f10fe4930dd7e53bd313a64c7f9ea6ca2090fb97a654332"
+      },
+      "entered": {
+        "bytes": 714,
+        "sha256": "af0cc54f4a6780c0ad557da8efe2fa17f5041b19b1dfe6560e2c6d67950c58f7"
+      },
+      "excluded-private": {
+        "bytes": 527,
+        "sha256": "c267b4e179720285fffa891093218ca5f3bad34dd1a7a7e871ff1868b1363408"
+      },
+      "generated-setup": {
+        "bytes": 1679,
+        "sha256": "1a39305b6f3f67b16cfa37b97fbcee851f92dd0de433f2599bd0f8b3d2f182f6"
+      },
+      "identity-copy": {
+        "bytes": 677,
+        "sha256": "49654f04479a0ae015cf15181cc181dcd4548cbe75210ae5c35ccf5361935a2d"
+      },
+      "lookup": {
+        "bytes": 528,
+        "sha256": "72f6b545f06fefcc504e134b41dbea764187394aa319e39651c614e5a42bc1c4"
+      },
+      "module-first": {
+        "bytes": 592,
+        "sha256": "6f54f87cb23fcb87d47b9d81ce0d7df114ffc3d4dc626ad6d2de548256be2a0b"
+      },
+      "module-setup": {
+        "bytes": 1101,
+        "sha256": "1a1af1b5697793242ec5e2d3a572080aa2a5bddbe77e529db10467415756c72e"
+      },
+      "next": {
+        "bytes": 677,
+        "sha256": "6327381f3d7f48c5e8e658291cde33fe590b5320841ecd086986128ce95a1a51"
+      },
+      "ordinary-entry": {
+        "bytes": 844,
+        "sha256": "feb8df7fcb4d50b0a5149c37905e81631e1a6e554bd439624923b4ca63b2bbb7"
+      },
+      "public-observe": {
+        "bytes": 684,
+        "sha256": "dffb38d04aa570521d274e66b98fea443daf1354a8aa3f3e3b16bfcd6b6643fd"
+      },
+      "public-values": {
+        "bytes": 1782,
+        "sha256": "13397a1074eb6ec5458a94e859f359fefc4737391f253a201147c2fd5b323aac"
+      },
+      "publish": {
+        "bytes": 230,
+        "sha256": "f53f41d3d13aac1e94f3d13c5115f6b34b4d6f34b62c3358e7647a5d29825566"
+      },
+      "reader-layouts": {
+        "bytes": 573,
+        "sha256": "d3a63a2f68d9de982e1f6f44222a78117dc198c4cd394a685363b0040013f71b"
+      },
+      "receive": {
+        "bytes": 1441,
+        "sha256": "b708f89680d3b437dd483a9687ba11f6c9f2a762199e8a1288d547391aa4dab1"
+      },
+      "record": {
+        "bytes": 1745,
+        "sha256": "b382041f1d84e5565fb73b191217e18334cdd66a56fe2742eae6ca339d2e9f22"
+      },
+      "resolution": {
+        "bytes": 663,
+        "sha256": "773ef18568ead0807afe86786aa667b612f15433db3c6aa93baa2bb8b5c538d7"
+      },
+      "setup-surface": {
+        "bytes": 2074,
+        "sha256": "d85455e4d985f01cea50731f4e82331c6734a6aea438edb21c0ba5d79df9d415"
+      },
+      "snapshot": {
+        "bytes": 508,
+        "sha256": "50e7d7052d274a052da0034e2ac8dcd6ce47d8294eb30bc51bb29718cc7ad15d"
+      },
+      "sole-admission": {
+        "bytes": 1035,
+        "sha256": "1ce05686bd3146d75b31e68401f10cf21754a6929d63a2e43683f0f5eff1c201"
+      },
+      "state-bindings": {
+        "bytes": 781,
+        "sha256": "d19e8d31b48d947d8b3df83bd08798cf18df7888e3a14e800bad3f49ff36d8d7"
+      },
+      "step": {
+        "bytes": 549,
+        "sha256": "e28739ad24aa8e4cbd76a04b59a0e9adeef76167989b71d1b7dec549ed1124b1"
+      }
+    },
+    "auditor": {
+      "bytes": 36602,
+      "sha256": "ffb6d33301a94944cd79d54af2a02a376a180f82955dfb8e0da3212ff9a0c445"
+    },
+    "counts": {
+      "anchors": 23,
+      "inputs": 19,
+      "new_inputs": 3,
+      "packet_directories": 5,
+      "packet_files": 21,
+      "planned_case_groups": 5,
+      "planned_control_baselines": 8,
+      "planned_controls": 8,
+      "planned_future_processes": 60,
+      "planned_normal_selectors": 14,
+      "processes_executed_now": 0,
+      "reused_inputs": 16,
+      "transformations": 7
+    },
+    "helper_static_review": {
+      "functions": 14,
+      "helper_executed": false,
+      "imports": 9,
+      "qualified_call_forms": 71
+    },
+    "limitations": [
+      "Structural assertions and planned counts are not runtime test counts.",
+      "Exact source/hash and declared plan checks do not establish callback semantics, native safety, lifetime, codegen or quiescence.",
+      "Prior evidence is checked as pinned metadata only; no prior machine code, runtime or audit is replayed.",
+      "All live, native provider, DSO/installer, concurrent publication, signal/nonlocal-exit and recovery gates remain closed."
+    ],
+    "predecessor_metadata_links": {
+      "prior_audits_or_tests_invoked": false,
+      "verification_links_only": true
+    },
+    "private_result": {
+      "bytes": 10995,
+      "sha256": "19f93cc74a48f8784db338cdf09bf579bda1d571de6d3c23eae29611ea97191d"
+    },
+    "procedures_executed": {
+      "callback_or_nesting": false,
+      "compiler": false,
+      "device": false,
+      "fixture": false,
+      "old_audit": false,
+      "retainer": false,
+      "sdk_git_read": false,
+      "source_transformer": false
+    },
+    "public_result": {
+      "bytes": 6866,
+      "sha256": "401e47e4a01b273b5e83e210b843a4cb65d1e27d283d6989b94a5b6885a38dd3"
+    },
+    "retained_reader_provenance": {
+      "fragment_extractor_executed": false,
+      "fragments": 6,
+      "reader_bytes": 2994,
+      "reader_lines": 82
+    },
+    "runtime_gate": "CLOSED",
+    "schema": 1,
+    "scope": "Independent byte audit of one source-only ordinary-provider plan packet; no implementation or execution replay",
+    "status": "passed",
+    "structural_audit_assertions": 11803
+  },
+  "private_audit_result": {
+    "bytes": 5138,
+    "sha256": "e016acaaddd36855a2b18d8bc65668868cfd3e051a2a2dc92619f1702325be44"
+  },
+  "private_audit_execution": {
+    "bytes": 1567,
+    "sha256": "a1210b2f5bf2889f7f4169bba6be057cbcf04b13447ad060c4d8f7a3f1ea4008"
+  },
+  "private_retention_execution": {
+    "bytes": 1072,
+    "sha256": "605ea2668dcca751bc9f0ecc9a045b910acd51ce656ea842fe71d02bcdfee0c1"
+  },
+  "retention_execution": {
+    "first_invocation_passed": true,
+    "stderr_empty": true,
+    "helper_unchanged": true,
+    "replay": false
+  },
+  "audit_execution": {
+    "author": "dso_core_impl",
+    "independent_read_only_reviewer": "dso_loader_impl",
+    "root_source_review": true,
+    "source_reviewed_before_freeze": true,
+    "source_copied_before_invocation": true,
+    "source_unchanged_after_invocation": true,
+    "first_invocation_passed": true,
+    "stderr_empty": true,
+    "replay": false
+  },
+  "failures_this_slice": {
+    "draft_construction": "Initial out-of-bounds source anchor refused before plan write or retention; corrected and recorded privately.",
+    "retention_or_audit": false,
+    "compiler_or_runtime": "Not invoked."
+  },
+  "prior_evidence": "Every prior tested source and failure packet preserved; no old collector, audit or passing matrix replay.",
+  "privacy": "Raw packet, draft corrections, frozen auditor and command/output receipts remain private.",
+  "implementation_callback_nesting_native_or_live_execution": false
+}

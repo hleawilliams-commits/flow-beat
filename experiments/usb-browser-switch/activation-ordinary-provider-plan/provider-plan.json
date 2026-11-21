@@ -1,0 +1,506 @@
+{
+  "schema": 1,
+  "status": "source-planned-not-implemented",
+  "runtime_gate": "CLOSED",
+  "scope": "Separately scoped ordinary-provider boundary plan; no callback implementation or execution",
+  "baseline_commit": "5eeb992a813b1feb80334c2777b8bb128573d420",
+  "preservation": [
+    "All prior source, tested artifacts and failures remain unchanged. No old retention, collector, matrix or audit replay.",
+    "Only a future separately versioned offline C11 successor may add the declared provider boundary; no production core or live observer composition.",
+    "One existing terminal attempt CAS remains the sole authority. No second once guard, reset, retry or reopening."
+  ],
+  "contract": {
+    "entry": "Retain ac_run(const ac_request *) and its ordinary loop/return mapping. A future request retains pc/lr/fp but replaces authored open/write/sync/close fields with const ap_provider_table *providers and void *context. Only the winning ac_begin_internal path copies those pointer values into private winning bindings after ac_admit_internal succeeds and before driving. NULL request stores NULL bindings without dereference and retains the selected NULL-input failure path. Suppressed callers return before reading any request field, table field or context storage.",
+    "table": "One fixed const table per authored context, with typed open/write/sync/close callbacks returning ac_io_value by value and void unblamed(void *context). Callback code and table/context/request/model storage remain live through the outer ordinary return, including any nested loser. These pointers are authored custody, not proof of arbitrary DSO/code/pointee lifetime.",
+    "signatures": [
+      "ac_io_value open(void *context, ac_owner owner_value)",
+      "ac_io_value write(void *context, ap_write_args args_value)",
+      "ac_io_value sync(void *context, int64_t accepted_open_token)",
+      "ac_io_value close(void *context, int64_t accepted_open_token)",
+      "void unblamed(void *context)"
+    ],
+    "write_args": "ap_write_args is a value struct containing int64_t accepted_open_token, size_t requested_length and char payload[33]. Build a zero-initialized local value from the entered WRITE receipt. Pass the copied owner and write args by value so no callback receives a pointer to private working owner/event/raw state. The full 33 canonical owner bytes and write bytes/length stay distinct.",
+    "binding": "The table and context are captured once only after successful admission. No binding refresh at dispatch or after nested return. Context may be NULL if the selected authored callback accepts it; the planned runtime harness uses actual live nonnull contexts. A pointer is not dereferenced merely to validate it.",
+    "branch_local_validation": "Immediately before each required dispatch, test the captured table and the reached function pointer. Missing required table/function halts Active/INCOMPLETE without a callback return, raw-available state for that operation, authoritative returned receipt or public completion. Unused callbacks may be NULL: no-owner needs only unblamed; open -1 needs no later callbacks. No global all-functions validator or second admission.",
+    "selection": "Keep exact six retained reader fragments, selector/cell path, full 64-bit process identity and canonical 33-byte ID unchanged. Complete authored module/generated/cell setup before entry using only the five AO_WITNESS_SETUP APIs. Both commit Virgin checks remain intact. A generated binding is not a module index; per-slot acquires are not a coherent snapshot.",
+    "dispatch_order": [
+      "ac_enter marks the selected event entered, clears raw availability and prepares WRITE length/payload before any required callback.",
+      "ac_receive performs one branch-local callback call. An I/O result is assigned immediately by value to a local ac_io_value, then copied into raw.io without any intervening callback or error getter; publish raw.available/AC_RAW_AVAILABLE only after ordinary callback return. Void unblamed gets raw availability only after it returns.",
+      "ac_record alone validates returned domains, marks returned_recorded, captures error_number only for raw==-1, and sets independent known_failure/short_write flags. The callback-return pair and this authoritative receipt are different stages.",
+      "Only after OPEN has been recorded with nonnegative raw does the next dispatch consume that exact int64_t token from the accepted OPEN receipt; never narrow it to int or treat zero as failure. WRITE/FSYNC/CLOSE use that saved accepted value, never re-call open.",
+      "Preserve branch continuation: open -1 completes after OPEN; returned write -1/short still leads to FSYNC then CLOSE; invalid domain halts before recording that event or later calls.",
+      "Only after all selected operations return and record does ac_publish_internal copy the complete result then release-store OrdinaryReturned. ac_observe remains acquire-gated and returns no working/raw payload during callbacks."
+    ],
+    "errors": "failure_errno is an explicitly authored integer returned in the same ac_io_value. It is not a read of ambient errno, errno TLS, native syscall result or retry instruction. Nonfailure return ignores this field in the authoritative receipt. A callback-prepared pair, actual by-value return, private raw capture, authoritative receipt and public completion must not be conflated.",
+    "journal": "Callbacks append only to their own bounded authored transcript, including invocation kind, context identity and argument values; a journal entry labelled prepared_return is written before the callback's C return and is not itself proof the outer engine captured/recorded it. Completed receipts and exact source/future method review corroborate the path. Incomplete cases expose no private partial state. No private observer/step/inspection/refusal API is added.",
+    "nesting": "A designated unblamed/open/write callback sets its one-use local nesting flag before making exactly one synchronous ac_run call, with either a distinct stable valid request/table/context or genuine NULL. The nested call must return SUPPRESSED at the same terminal CAS before request/provider access. It neither drives nor changes winning bindings, selector, raw or working state. Callback may call public ac_observe before/after this nested call: Active/no payload. Outer callback then returns its authored value and ordinary outer progression resumes.",
+    "lifetime": "The outer request/table/registry and callback code remain unchanged throughout the synchronous entry. Context mutation is limited to bounded transcript, nesting guard and recorded public/nested results; no free/unload, table swap, model publication, source request mutation, reset or arbitrary recursion. Repeated-entry tests mutate only caller-owned source values after first return. Winning bindings are not used by suppressed later entries. This is not quiescence or reclamation proof.",
+    "nonreturn": "Nonreturning/nonlocal callbacks are not executed or modeled as successful returns. Source reasoning leaves the attempt Active and entered-but-no-recorded-return unknown if control never returns; no cleanup, recovery or signal-safety conclusion."
+  },
+  "transformations": [
+    {
+      "id": "T1",
+      "change": "Create separately named activation-ordinary-provider-fixture with full byte-segment transformation ledger against frozen ordinary-entry core/header. Preserve parent untouched. Reject AC_FIXTURE, old AC/AO/MA/RC controls; expose only five setup APIs plus ordinary entry/observer and existing address-only reader anchor."
+    },
+    {
+      "id": "T2",
+      "change": "Add typed provider table/write-argument value types; replace scalar I/O request fields with table/context pointers. Keep return/state/owner/event/result semantics, full IDs and immutable completion layout. Capture two winning bindings only after sole admission, no request reads in loser."
+    },
+    {
+      "id": "T3",
+      "change": "Replace only UNBLAMED and four I/O value-source cases in ac_receive with branch-local typed calls and immediate raw-value capture. Retain selection branch, event-before-call/record-after-return phase order. Missing reached provider halts before raw availability."
+    },
+    {
+      "id": "T4",
+      "change": "Supply successful recorded OPEN raw as int64_t token to subsequent callbacks. Copy owner/write arguments into value objects; no private-state pointers escape. Preserve ac_record domains, next-branch sequence, ordinary driver and release/acquire observer."
+    },
+    {
+      "id": "T5",
+      "change": "Authored harness supplies fixed tables/contexts, immutable setup/request values, bounded transcripts and guarded nested ordinary loser calls; no native provider or actual frame reads. Normal contexts are not alternate engine authority."
+    },
+    {
+      "id": "T6",
+      "change": "Add eight mutually exclusive safe control macros only in separately named successor, each with dedicated baseline, exact singleton failure set and no unsafe pointer/undefined race/nonlocal exit. Controls do not modify expected assertion constants."
+    },
+    {
+      "id": "T7",
+      "change": "Freeze complete source ledger, exact reader hashes, setup symbol surface, harness case names and control assertions before any future first build. Retain fresh compilation/method/dependency review before future runtime; no claim from old codegen alone. New plan retention and audit execute only local source copying/validation."
+    }
+  ],
+  "cases": [
+    {
+      "id": "G1",
+      "selectors": [
+        "provider-generated-fd-zero",
+        "provider-wide-open-token"
+      ],
+      "setup": "Use committed module3/full process0x100000001/32-character ID, generated binding0; prepare all five setup calls before entry. Fixed callbacks receive owner/write values. Tokens are 0 or 0x100000001; all returned operations succeed.",
+      "expected": "Actual ac_run RETURNED and public completed exact owner/events. Callback order OPEN,WRITE,FSYNC,CLOSE; exact context, full owner, exact payload32/zero tail, and unchanged int64 token. Success errno sentinels ignored. Callback public observations Active/no payload."
+    },
+    {
+      "id": "G2",
+      "selectors": [
+        "provider-no-owner",
+        "provider-open-refusal"
+      ],
+      "setup": "No-owner table has only unblamed; open-refusal table has only open returning {-1,71}. Other callbacks NULL and unused.",
+      "expected": "Only selected callbacks run once. No-owner completes SELECTION/UNBLAMED with no fabricated I/O value; open refusal completes SELECTION/OPEN with captured71 and known_failure."
+    },
+    {
+      "id": "G3",
+      "selectors": [
+        "provider-short-sync-error",
+        "provider-write-error",
+        "provider-invalid-write",
+        "provider-missing-write"
+      ],
+      "setup": "Valid owner/open0. Returns: write31/sync-1/error72/close0; write-1/error73/sync0/close0; invalid write33; or NULL reached write callback. For first two use length32.",
+      "expected": "Returned short/write failures retain correct raw/error and still invoke/record sync and close. Invalid returned domain and missing reached callback return INCOMPLETE/Active/no payload. Invalid case records callback prepared_return33; missing case has no WRITE invocation. These are different from returned -1 and native cancellation."
+    },
+    {
+      "id": "G4",
+      "selectors": [
+        "nested-unblamed",
+        "nested-open",
+        "nested-write",
+        "nested-null"
+      ],
+      "setup": "Exactly one guarded nested call from selected ordinary callback. Distinct live nested request/table/context has callbacks which would log if entered. NULL variant nested from open passes genuine NULL. All outer storage stable.",
+      "expected": "Nested actual return SUPPRESSED, all nested callback counts zero, public state Active/no payload before and after. Outer callback completes, preserves winning binding/arguments and returns exact completed result. No nested model/setup mutation or concurrent call."
+    },
+    {
+      "id": "G5",
+      "selectors": [
+        "repeat-after-returned",
+        "repeat-after-incomplete"
+      ],
+      "setup": "First provider call completes or has missing reached write. After that outer return, record and change the original caller-owned ID source array and first request pc/lr/fp fields, retaining before/after values. Do not change the already copied model, provider tables, code or live contexts. Then repeat using a distinct fully live request/table/context; all pointers stay valid and there is no reset/model publication.",
+      "expected": "Repeat SUPPRESSED and no new provider calls; public snapshot unchanged fieldwise, including immutable completion if present. Prior caller source mutation after return does not alter copied owner/receipt."
+    }
+  ],
+  "safe_controls": [
+    {
+      "id": "C1",
+      "name": "provider-before-admission",
+      "macro": "AP_CONTROL_EARLY_PROVIDER",
+      "selector": "control-suppressed-provider",
+      "mutation": "Before original ac_begin_internal in ac_run, for a nonnull request/table/unblamed pointer call that unblamed(context) once. Preserve original CAS/driver. The first Community table has unblamed NULL; the post-completion repeated request has a live spy unblamed.",
+      "expected_failure_set": [
+        "suppressed-entry-does-not-call-provider"
+      ],
+      "oracle": "Assert repeated context invocation count0; mutant has1. Separate actual repeat SUPPRESSED/public unchanged assertions still pass. This witnesses premature invocation; absence of all pre-CAS field loads still requires source/method review.",
+      "safety": "Only valid stable pointers; no native operation or nested recursion. The dedicated post-completion unblamed spy only logs invocation: no Active-state assertion, observer or nesting, avoiding a second intentional failure."
+    },
+    {
+      "id": "C2",
+      "name": "nested-loser-return",
+      "macro": "AP_CONTROL_WRONG_SUPPRESSED_RETURN",
+      "selector": "control-nested-return",
+      "mutation": "In ac_run only, map original result AC_SUPPRESSED to AC_RETURNED on the early nonadmitted return; do not drive, change state or touch providers.",
+      "expected_failure_set": [
+        "nested-entry-returns-suppressed"
+      ],
+      "oracle": "Dedicated open callback nested ordinary call records wrong actual enum; nested count0 and outer exact completion remain passing.",
+      "safety": "No second admission or provider access."
+    },
+    {
+      "id": "C3",
+      "name": "omit-unblamed-call",
+      "macro": "AP_CONTROL_OMIT_UNBLAMED",
+      "selector": "control-unblamed-dispatch",
+      "mutation": "Skip only actual unblamed(context) call, then retain normal raw-available/record/complete path.",
+      "expected_failure_set": [
+        "unblamed-callback-is-invoked-once"
+      ],
+      "oracle": "No-owner callback count should1, mutant0. Exact public SELECTION/UNBLAMED completion and returned enum remain passing. The invocation assertion alone owns absent callback observations; do not add a generic observation-count assertion that fails when this callback is intentionally omitted.",
+      "safety": "Omission of authored callback only."
+    },
+    {
+      "id": "C4",
+      "name": "alternate-context",
+      "macro": "AP_CONTROL_ALTERNATE_CONTEXT",
+      "selector": "control-bound-context",
+      "mutation": "Only for CLOSE dispatch, pass a separately declared live alternate authored context instead of captured context. Both contexts return identical {0,0}; no new callback/table authority or accessor.",
+      "expected_failure_set": [
+        "callback-receives-bound-context"
+      ],
+      "oracle": "Aggregate transcript across both fixed contexts shows one close to alternate; single semantic assertion checks context identity. Count/order/arguments/return/completion checks use aggregate and remain passing.",
+      "safety": "Dedicated control-only const pointer to live alternate context configured before entry; no invalid pointer. Pin the exact fixed alternate-context symbol and binding in the future complete transformation ledger; no added setup API."
+    },
+    {
+      "id": "C5",
+      "name": "decoy-write-value",
+      "macro": "AP_CONTROL_DECOY_WRITE",
+      "selector": "control-write-payload",
+      "mutation": "Only the by-value write argument payload changes to a separate same-length canonical decoy before callback. Preserve private event payload, requested length and callback returned count.",
+      "expected_failure_set": [
+        "write-callback-receives-recorded-payload"
+      ],
+      "oracle": "Compare transcript write bytes to public entered/recorded payload. All tokens/lengths/counts/completion fields still pass. Full byte compare belongs solely to this assertion.",
+      "safety": "Defined local value copy, no caller/private pointer mutation."
+    },
+    {
+      "id": "C6",
+      "name": "replace-close-return",
+      "macro": "AP_CONTROL_REPLACE_CLOSE_RETURN",
+      "selector": "control-close-return",
+      "mutation": "After actual close callback returns {-1,93} into local ac_io_value, replace consumed pair with {0,0} before raw capture. Actual callback prepared_return transcript remains truthful; no alteration of callback/journal.",
+      "expected_failure_set": [
+        "close-receipt-matches-callback-return"
+      ],
+      "oracle": "One composite assertion checks close raw/error and known_failure against expected {-1,93}. Other checks cover invariant identity/order/count/return/state and remain passing. No duplicate generic known_failure assertion.",
+      "safety": "Last event avoids continuation masking; no retry."
+    },
+    {
+      "id": "C7",
+      "name": "repeat-short-write",
+      "macro": "AP_CONTROL_REPEAT_SHORT_WRITE",
+      "selector": "control-short-write-once",
+      "mutation": "After first WRITE callback returns31 for requested32, call the same callback once more with the exact args, consume its same returned pair and continue normal sync/close. Fixed provider has capacity for both and returns31 both times.",
+      "expected_failure_set": [
+        "short-write-dispatch-is-single-attempt"
+      ],
+      "oracle": "One assertion checks exactly one WRITE invocation. Other sequence/argument/result checks collapse the declared identical duplicate for unaffected comparisons; transcript retains both actual calls. Duplicate normalization is the exact same bounded comparison in baseline and mutant, independent of any control macro; retain and reject other kind/order/argument differences, and never rewrite the transcript.",
+      "safety": "Two finite authored calls, no loop/native retry or extra admission."
+    },
+    {
+      "id": "C8",
+      "name": "narrow-open-token",
+      "macro": "AP_CONTROL_NARROW_OPEN_TOKEN",
+      "selector": "control-wide-token",
+      "mutation": "Only subsequent provider argument construction narrows the accepted positive OPEN token0x100000001 through uint32_t before widening to int64_t. Authoritative OPEN receipt remains unchanged.",
+      "expected_failure_set": [
+        "accepted-open-token-reaches-followup-callbacks"
+      ],
+      "oracle": "One composite assertion checks WRITE/FSYNC/CLOSE received full token. Callbacks return unchanged values independent of token; public receipts, context, order and payload checks remain passing.",
+      "safety": "Defined unsigned narrowing on authored integer; no real descriptor operation."
+    }
+  ],
+  "future_execution_contract": {
+    "normal_selectors": 14,
+    "control_baseline_selectors": 8,
+    "candidate_selectors_per_mode": 22,
+    "control_processes_per_mode": 8,
+    "planned_modes": [
+      "plain",
+      "ASan/UBSan with leak detection"
+    ],
+    "future_processes": 60,
+    "executed_now": 0,
+    "rules": [
+      "Plan only: no C implementation, transformer, compiler or callback/nesting/runtime execution now.",
+      "Before future build, freeze every assertion/report field and source transformation; each control baseline must pass with mutant exact singleton failures and exit1. Infrastructure checks stay independent.",
+      "Use fresh isolated authored processes; no predecessor replay. External timeout is harness containment, not bounded/wait-free proof.",
+      "In-call public observations prove only Active/no payload. Exact entered/raw/record ordering is source/future method evidence, not private runtime telemetry."
+    ]
+  },
+  "limits": [
+    "Structured callback return errors are authored values, not ambient errno, EINTR handling or actual crash persistence.",
+    "Selection/frame cells stay authored; no actual DSO/installer, native file/frame provider, firmware/device, signal/nonlocal exit, concurrent publication or production/live composition.",
+    "LL/SC admission retry, libc memcpy/memset/memcmp, canary-failure edges and sanitizer dependencies remain unproved for signal safety; no bounded/wait-free admission.",
+    "No arbitrary DSO/slot/code custody, nonparticipating-writer coordination, loader/interposition, native visibility, callback quiescence, reclamation or recovery proof.",
+    "Quarantine, official cores/protections/packages remain unchanged. Ownership is not fault causation. Every live gate remains CLOSED."
+  ],
+  "sdk_commit": "3e0c5cb010454228f4ee63226b60d060494eeaae",
+  "sources": [
+    {
+      "name": "engine/core.c",
+      "path": "experiments/usb-browser-switch/activation-ordinary-entry-fixture/core.c",
+      "bytes": 22271,
+      "sha256": "f1ffbc6e07a15653028364dda1b689290bbd1f85c4cd63e8498eb7522a771592"
+    },
+    {
+      "name": "engine/core.h",
+      "path": "experiments/usb-browser-switch/activation-ordinary-entry-fixture/core.h",
+      "bytes": 6907,
+      "sha256": "89cee41d2247cfedf00ef424def1979ca6ffe7aaf78957615420208d89a991be"
+    },
+    {
+      "name": "readers/readers.inc",
+      "path": "experiments/usb-browser-switch/activation-ordinary-entry-fixture/private/run-c7e9634d431c4d789d4c366093adc9aa/work/generated/readers.inc",
+      "bytes": 2994,
+      "sha256": "352048162f452f794136f8b90555783df101feacbf7550e3f4020bd6ef7ab140"
+    },
+    {
+      "name": "readers/receipt-types.h",
+      "path": "experiments/usb-browser-switch/activation-ordinary-entry-fixture/private/run-c7e9634d431c4d789d4c366093adc9aa/work/generated/receipt-types.h",
+      "bytes": 5369,
+      "sha256": "c97454db2aba6e942eb05241bbf80d67ffd8eecb5108927da69600a6a1d15f40"
+    },
+    {
+      "name": "evidence/source-transform.json",
+      "path": "experiments/usb-browser-switch/activation-ordinary-entry-fixture/source-transform.json",
+      "bytes": 34710,
+      "sha256": "02274080b0a37ee88730c6c0cd5f16ab6c269d632dba989d1bf603e0413463d9"
+    },
+    {
+      "name": "evidence/source-ledger.json",
+      "path": "experiments/usb-browser-switch/activation-ordinary-entry-fixture/source-ledger.json",
+      "bytes": 24049,
+      "sha256": "ba12f4fef229a738fba209b84392c022bfdd5e0f1536d85b17ffa55fd26bf0e8"
+    },
+    {
+      "name": "evidence/review-lock.json",
+      "path": "experiments/usb-browser-switch/activation-ordinary-entry-fixture/review-lock.json",
+      "bytes": 1021,
+      "sha256": "7cf08e6b04f39a8463d5622198efad8971f7518004060253f810c3c5b1345ce4"
+    },
+    {
+      "name": "evidence/source-review.json",
+      "path": "experiments/usb-browser-switch/activation-ordinary-entry-fixture/source-review.json",
+      "bytes": 3293,
+      "sha256": "0ffd88b26a9535011fe3bf3fb7af634f9c3c64e414c1c0f0ef9e353e03aef2ed"
+    },
+    {
+      "name": "evidence/codegen-review.json",
+      "path": "experiments/usb-browser-switch/activation-ordinary-entry-fixture/codegen-review.json",
+      "bytes": 44680,
+      "sha256": "69fa7b18a8bcf51932d03848cde4892c1c7f3269ba05c023dbf1fe1fbf643bda"
+    },
+    {
+      "name": "evidence/result.json",
+      "path": "experiments/usb-browser-switch/activation-ordinary-entry-fixture/result.json",
+      "bytes": 155773,
+      "sha256": "108ad56967aaf91b56c1313b83d5c3b0c09a55851a6f8b104120ae122b83abe5"
+    },
+    {
+      "name": "evidence/verification.json",
+      "path": "experiments/usb-browser-switch/activation-ordinary-entry-fixture/verification.json",
+      "bytes": 6885,
+      "sha256": "51d0ea959304ed46ab5d712fdd95b406ea67d0d82368e21a0f8bc648612da813"
+    },
+    {
+      "name": "evidence/test-contract.json",
+      "path": "experiments/usb-browser-switch/activation-ordinary-entry-fixture/test-contract.json",
+      "bytes": 11727,
+      "sha256": "075bacde93490fdc484761f2e77f66d7e74b2388598ca050dc397d35dbdf8d4e"
+    },
+    {
+      "name": "evidence/README.md",
+      "path": "experiments/usb-browser-switch/activation-ordinary-entry-fixture/README.md",
+      "bytes": 8085,
+      "sha256": "66f5e015347e95c6bf22ca159dd12e52c996a525b52fabef5e7dc12705ffcb8b"
+    },
+    {
+      "name": "reference/ordinary-plan.json",
+      "path": "experiments/usb-browser-switch/activation-ordinary-entry-plan/ordinary-plan.json",
+      "bytes": 27816,
+      "sha256": "4e48a87cc83f171219805ff3369157bdc0588290a19ca9c6f868ced53110c2f4"
+    },
+    {
+      "name": "reference/retain-source.py",
+      "path": "experiments/usb-browser-switch/activation-ordinary-entry-plan/retain-source.py",
+      "bytes": 12317,
+      "sha256": "6a722e6ba2bb13568bab5dadde2bdf8a625bd412749fb0b7c119f5c49e25eeb8"
+    },
+    {
+      "name": "reference/reader-extraction.json",
+      "path": "experiments/usb-browser-switch/activation-attempt-attribution-fixture/reader-extraction.json",
+      "bytes": 2865,
+      "sha256": "c0170cbc03f9b7489146ff1670b609f8af6fc92f41892746a518e5d81482ba0b"
+    }
+  ],
+  "anchors": [
+    {
+      "id": "state-bindings",
+      "source": "engine/core.c",
+      "first_line": 29,
+      "last_line": 47,
+      "reason": "One terminal state and captured request binding."
+    },
+    {
+      "id": "identity-copy",
+      "source": "engine/core.c",
+      "first_line": 49,
+      "last_line": 68,
+      "reason": "Canonical copied identity."
+    },
+    {
+      "id": "cell-selection",
+      "source": "engine/core.c",
+      "first_line": 142,
+      "last_line": 231,
+      "reason": "Authored cells and exact selection path."
+    },
+    {
+      "id": "sole-admission",
+      "source": "engine/core.c",
+      "first_line": 245,
+      "last_line": 270,
+      "reason": "CAS and winner-only binding insertion."
+    },
+    {
+      "id": "entered",
+      "source": "engine/core.c",
+      "first_line": 271,
+      "last_line": 288,
+      "reason": "Entered before dispatch."
+    },
+    {
+      "id": "receive",
+      "source": "engine/core.c",
+      "first_line": 289,
+      "last_line": 322,
+      "reason": "Scalar sources replaced by typed calls."
+    },
+    {
+      "id": "record",
+      "source": "engine/core.c",
+      "first_line": 323,
+      "last_line": 359,
+      "reason": "Authoritative receipt and domain checks."
+    },
+    {
+      "id": "next",
+      "source": "engine/core.c",
+      "first_line": 360,
+      "last_line": 376,
+      "reason": "Returned error and short-write continuation."
+    },
+    {
+      "id": "publish",
+      "source": "engine/core.c",
+      "first_line": 377,
+      "last_line": 382,
+      "reason": "Payload before release publication."
+    },
+    {
+      "id": "step",
+      "source": "engine/core.c",
+      "first_line": 383,
+      "last_line": 394,
+      "reason": "Private driver eligibility."
+    },
+    {
+      "id": "ordinary-entry",
+      "source": "engine/core.c",
+      "first_line": 395,
+      "last_line": 416,
+      "reason": "Ordinary loop and return mapping."
+    },
+    {
+      "id": "public-observe",
+      "source": "engine/core.c",
+      "first_line": 417,
+      "last_line": 435,
+      "reason": "Acquire-gated public completion."
+    },
+    {
+      "id": "excluded-private",
+      "source": "engine/core.c",
+      "first_line": 437,
+      "last_line": 447,
+      "reason": "Private APIs remain excluded."
+    },
+    {
+      "id": "module-setup",
+      "source": "engine/core.c",
+      "first_line": 448,
+      "last_line": 469,
+      "reason": "Module Virgin eligibility."
+    },
+    {
+      "id": "generated-setup",
+      "source": "engine/core.c",
+      "first_line": 470,
+      "last_line": 498,
+      "reason": "Generated Virgin eligibility."
+    },
+    {
+      "id": "cell-setup",
+      "source": "engine/core.c",
+      "first_line": 499,
+      "last_line": 507,
+      "reason": "Authored cell setup bounds."
+    },
+    {
+      "id": "public-values",
+      "source": "engine/core.h",
+      "first_line": 40,
+      "last_line": 93,
+      "reason": "Existing value semantics."
+    },
+    {
+      "id": "setup-surface",
+      "source": "engine/core.h",
+      "first_line": 139,
+      "last_line": 175,
+      "reason": "Entry/observer and five setup APIs."
+    },
+    {
+      "id": "reader-layouts",
+      "source": "readers/readers.inc",
+      "first_line": 3,
+      "last_line": 20,
+      "reason": "Immutable storage."
+    },
+    {
+      "id": "lookup",
+      "source": "readers/readers.inc",
+      "first_line": 22,
+      "last_line": 33,
+      "reason": "Exact generated lookup."
+    },
+    {
+      "id": "snapshot",
+      "source": "readers/readers.inc",
+      "first_line": 35,
+      "last_line": 45,
+      "reason": "Exact chosen slot."
+    },
+    {
+      "id": "resolution",
+      "source": "readers/readers.inc",
+      "first_line": 47,
+      "last_line": 63,
+      "reason": "Full identity resolution."
+    },
+    {
+      "id": "module-first",
+      "source": "readers/readers.inc",
+      "first_line": 65,
+      "last_line": 82,
+      "reason": "Module-first ordering."
+    }
+  ]
+}
