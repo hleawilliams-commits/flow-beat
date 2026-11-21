@@ -1,0 +1,201 @@
+{
+  "anchors": 29,
+  "artifacts": {
+    "anchor-index.json": {
+      "bytes": 9395,
+      "sha256": "07c547a462fcd5a86bbb5f256b467d61309580dcd996fbd9319b7d44ac36fdab"
+    }
+  },
+  "baseline_commit": "d9185e9a05748343194ca716c0247f2dbc65fbcf",
+  "callback_or_nesting_execution": false,
+  "child_commands": [],
+  "closed_inventory": true,
+  "compiler_loader_installer_or_matrix_execution": false,
+  "firmware_or_device_access": false,
+  "inputs": {
+    "README.md": {
+      "bytes": 11579,
+      "sha256": "2cad78f83b16cbea3f51986bb55bb3423894f0d0cd4a6a44c8eebb498e79edea"
+    },
+    "engine/README.md": {
+      "bytes": 8111,
+      "sha256": "b689bb36a418004e6294e36892713614aeb098a9ec26b34909d680917f72778c"
+    },
+    "engine/codegen-review.json": {
+      "bytes": 69461,
+      "sha256": "495d48c25210f3d1d9f3d828fb31cbf002125fd46ed6b86082ebc4a58254a808"
+    },
+    "engine/core.c": {
+      "bytes": 24981,
+      "sha256": "eca23b77d5e064a7015dd3f912e5652a7d61df196ce936b3fbf1934e4a4819d1"
+    },
+    "engine/core.h": {
+      "bytes": 8461,
+      "sha256": "a1c1f13832a8bdb55ba9a2d4379ff8c6cb689bd70826575497d13402430faa38"
+    },
+    "engine/result.json": {
+      "bytes": 245147,
+      "sha256": "91e6a0061bda5dafa0f4cd4e9d056bbadee09833aad37d45270504b658eba29c"
+    },
+    "engine/test-contract.json": {
+      "bytes": 25995,
+      "sha256": "a2954157b402739efbfaf82f6090c357720e275228a3ceb259acb9f910a2079f"
+    },
+    "engine/test_provider.c": {
+      "bytes": 42414,
+      "sha256": "16b5610facb8e4380b44747a42f29656738f732185791e9810acae40ad2af868"
+    },
+    "engine/verification.json": {
+      "bytes": 8933,
+      "sha256": "6b3f990d58eb4a6a44470d805ed9d741da6f6ce57d0b720582227e187d55237c"
+    },
+    "fault/README.md": {
+      "bytes": 11701,
+      "sha256": "90ba1e6ddaa039350dc73c3d162b7f00b59c7bf3afd9e409111ce3045f86421d"
+    },
+    "fault/operating-contract.json": {
+      "bytes": 16431,
+      "sha256": "d6879db76a09b3c3e475f6ec7d69d0a0087dafd2eafde3ae2896a55b092a263f"
+    },
+    "fault/verification.json": {
+      "bytes": 2902,
+      "sha256": "85b4c7f3888c482acbb092714138d2010c07771574f9e7889d24dc11df7ea3f2"
+    },
+    "generated/readers.inc": {
+      "bytes": 2994,
+      "sha256": "352048162f452f794136f8b90555783df101feacbf7550e3f4020bd6ef7ab140"
+    },
+    "generated/receipt-types.h": {
+      "bytes": 5369,
+      "sha256": "c97454db2aba6e942eb05241bbf80d67ffd8eecb5108927da69600a6a1d15f40"
+    },
+    "provider-review.json": {
+      "bytes": 24628,
+      "sha256": "ba50c773928f0a0de47021edad9d5dcf91d0f439585947467deeb14f2111219c"
+    },
+    "retain-source.py": {
+      "bytes": 12390,
+      "sha256": "75bbab9e924284674d2fc736166674fca1c918b9d85baca8e934b15ad65bb2e2"
+    },
+    "sdk/azaltstack.h": {
+      "bytes": 4275,
+      "sha256": "f929777434f77e31a91055588e897158d6bfd8c6adc993dde0eeeca04eccbd4c"
+    },
+    "sdk/community.c": {
+      "bytes": 102070,
+      "sha256": "4b2b72e2b623dcb1ecb0ef108a473815adab45a516a6aa13adb6cce512b80866"
+    },
+    "sdk/crash_guards.c": {
+      "bytes": 23133,
+      "sha256": "358499ca5bccf3f71944ce408c02fa76b598ba5c81e81d4a2151b6d5e38727ab"
+    },
+    "sdk/ep_mem.h": {
+      "bytes": 10147,
+      "sha256": "aa1e4a60ea05ff2b00f53c37634f3614fc51ecfd6dac500b2b59ee86dcbb6e5d"
+    }
+  },
+  "inventory": {
+    "anchor-index.json": {
+      "bytes": 9395,
+      "sha256": "07c547a462fcd5a86bbb5f256b467d61309580dcd996fbd9319b7d44ac36fdab"
+    },
+    "inputs/README.md": {
+      "bytes": 11579,
+      "sha256": "2cad78f83b16cbea3f51986bb55bb3423894f0d0cd4a6a44c8eebb498e79edea"
+    },
+    "inputs/engine/README.md": {
+      "bytes": 8111,
+      "sha256": "b689bb36a418004e6294e36892713614aeb098a9ec26b34909d680917f72778c"
+    },
+    "inputs/engine/codegen-review.json": {
+      "bytes": 69461,
+      "sha256": "495d48c25210f3d1d9f3d828fb31cbf002125fd46ed6b86082ebc4a58254a808"
+    },
+    "inputs/engine/core.c": {
+      "bytes": 24981,
+      "sha256": "eca23b77d5e064a7015dd3f912e5652a7d61df196ce936b3fbf1934e4a4819d1"
+    },
+    "inputs/engine/core.h": {
+      "bytes": 8461,
+      "sha256": "a1c1f13832a8bdb55ba9a2d4379ff8c6cb689bd70826575497d13402430faa38"
+    },
+    "inputs/engine/result.json": {
+      "bytes": 245147,
+      "sha256": "91e6a0061bda5dafa0f4cd4e9d056bbadee09833aad37d45270504b658eba29c"
+    },
+    "inputs/engine/test-contract.json": {
+      "bytes": 25995,
+      "sha256": "a2954157b402739efbfaf82f6090c357720e275228a3ceb259acb9f910a2079f"
+    },
+    "inputs/engine/test_provider.c": {
+      "bytes": 42414,
+      "sha256": "16b5610facb8e4380b44747a42f29656738f732185791e9810acae40ad2af868"
+    },
+    "inputs/engine/verification.json": {
+      "bytes": 8933,
+      "sha256": "6b3f990d58eb4a6a44470d805ed9d741da6f6ce57d0b720582227e187d55237c"
+    },
+    "inputs/fault/README.md": {
+      "bytes": 11701,
+      "sha256": "90ba1e6ddaa039350dc73c3d162b7f00b59c7bf3afd9e409111ce3045f86421d"
+    },
+    "inputs/fault/operating-contract.json": {
+      "bytes": 16431,
+      "sha256": "d6879db76a09b3c3e475f6ec7d69d0a0087dafd2eafde3ae2896a55b092a263f"
+    },
+    "inputs/fault/verification.json": {
+      "bytes": 2902,
+      "sha256": "85b4c7f3888c482acbb092714138d2010c07771574f9e7889d24dc11df7ea3f2"
+    },
+    "inputs/generated/readers.inc": {
+      "bytes": 2994,
+      "sha256": "352048162f452f794136f8b90555783df101feacbf7550e3f4020bd6ef7ab140"
+    },
+    "inputs/generated/receipt-types.h": {
+      "bytes": 5369,
+      "sha256": "c97454db2aba6e942eb05241bbf80d67ffd8eecb5108927da69600a6a1d15f40"
+    },
+    "inputs/provider-review.json": {
+      "bytes": 24628,
+      "sha256": "ba50c773928f0a0de47021edad9d5dcf91d0f439585947467deeb14f2111219c"
+    },
+    "inputs/retain-source.py": {
+      "bytes": 12390,
+      "sha256": "75bbab9e924284674d2fc736166674fca1c918b9d85baca8e934b15ad65bb2e2"
+    },
+    "inputs/sdk/azaltstack.h": {
+      "bytes": 4275,
+      "sha256": "f929777434f77e31a91055588e897158d6bfd8c6adc993dde0eeeca04eccbd4c"
+    },
+    "inputs/sdk/community.c": {
+      "bytes": 102070,
+      "sha256": "4b2b72e2b623dcb1ecb0ef108a473815adab45a516a6aa13adb6cce512b80866"
+    },
+    "inputs/sdk/crash_guards.c": {
+      "bytes": 23133,
+      "sha256": "358499ca5bccf3f71944ce408c02fa76b598ba5c81e81d4a2151b6d5e38727ab"
+    },
+    "inputs/sdk/ep_mem.h": {
+      "bytes": 10147,
+      "sha256": "aa1e4a60ea05ff2b00f53c37634f3614fc51ecfd6dac500b2b59ee86dcbb6e5d"
+    },
+    "result.json": {
+      "bytes": 11625,
+      "sha256": "9446e8c2a7f726fcd6ac7e5f7ab268d1c34b1aee7de4dfabfd299240c91adc96"
+    }
+  },
+  "inventory_excludes": [],
+  "new_review_inputs": 3,
+  "new_sdk_inputs": 0,
+  "old_capture_or_matrix_replay": false,
+  "private_result_sha256": "9446e8c2a7f726fcd6ac7e5f7ab268d1c34b1aee7de4dfabfd299240c91adc96",
+  "retained_files": 22,
+  "reused_inputs": 17,
+  "review_status": "source-reviewed-not-integrated",
+  "runtime_gate": "CLOSED",
+  "schema": 1,
+  "scope": "Source-only native-provider admissibility review",
+  "sdk_commit": "3e0c5cb010454228f4ee63226b60d060494eeaae",
+  "source_git_reads": 0,
+  "status": "retained"
+}

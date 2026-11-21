@@ -1,0 +1,146 @@
+{
+  "audit_execution": {
+    "author": "dso_loader_impl",
+    "first_invocation_passed": true,
+    "independent_read_only_reviewer": "dso_core_impl",
+    "preexecution_review": {
+      "bytes": 481,
+      "sha256": "353a95908ace2b9eb928d42dbbb0482aa9312e593471bbe0e49da170d3bffd5c"
+    },
+    "replay": false,
+    "root_source_review": true,
+    "source_copied_before_invocation": true,
+    "source_reviewed_before_freeze": true,
+    "source_unchanged_after_invocation": true,
+    "stderr_empty": true
+  },
+  "failures_this_slice": {
+    "byte_audit": false,
+    "compiler_or_runtime": "Not invoked.",
+    "inspection_shell_setup": "Read-only shell heredoc inspection was refused before Python temporary-file creation; quoted python -c source inspection completed. This is not a retention/auditor invocation. A retrospective private note does not claim original command/stream custody.",
+    "publication_preparation": "One prewrite assertion incorrectly expected the predecessor ignore file to contain only private/. Its second __pycache__/ line was then read and the full file copied exactly. Retrospective private note retained; no original failed-script/stream file custody claimed. No frozen review, packet, retainer or audit changed.",
+    "retention": false
+  },
+  "implementation_callback_nesting_native_or_live_execution": false,
+  "independent_source_reviews": {
+    "reviewers": [
+      "dso_core_impl",
+      "dso_loader_impl"
+    ],
+    "root_review": true,
+    "scope": "All five callback mappings, eleven findings, 17 reused input pins, 29 line anchors, future boundary and helper source-only behavior.",
+    "status": "passed"
+  },
+  "pre_retention_corrections": {
+    "changes": [
+      "Six reader/type fragments comprise two layout/storage fragments and four functions.",
+      "Conditional short-prefix startup example requires a g_cm record, not an already loaded DSO."
+    ],
+    "retained_drafts": "private/pre-retention-review-6d757353fd1a4cfaaa3d6e8564f0514d",
+    "retention_or_audit_had_not_run": true
+  },
+  "prior_evidence": "All prior tested sources and failure packets are unchanged. Historical result/codegen links are reused metadata only; no predecessor procedure replay.",
+  "privacy": "Raw retained sources, origin paths, command/stream receipts, drafts and frozen auditor remain private; this projection contains hashes and source-only findings.",
+  "private_audit_execution": {
+    "bytes": 2008,
+    "sha256": "e286b2e9a836e055f3df1b9e6bd99313808da295f9077cf0f3d52ad3dd9640f1"
+  },
+  "private_audit_result": {
+    "bytes": 2558,
+    "sha256": "688a799d61d0637cacc110c23050ed451312045d7769f81a819aa4a32b9e326c"
+  },
+  "private_retention_execution": {
+    "bytes": 1438,
+    "sha256": "d0652f20f53524be76b98030626e4154ed1afd742ad2ca438f916888deb8619c"
+  },
+  "retained_byte_audit": {
+    "auditor": {
+      "bytes": 36233,
+      "sha256": "1e965e747376dada067b6f1861161ac1e6eda8647e907f73e91f7a77c6708360"
+    },
+    "counts": {
+      "anchors": 29,
+      "findings": 11,
+      "new_review_inputs": 3,
+      "new_runtime_processes": 0,
+      "new_sdk_git_reads": 0,
+      "packet_directories": 5,
+      "packet_files": 22,
+      "provider_mappings": 5,
+      "reused_inputs": 17,
+      "total_inputs": 20
+    },
+    "helper_static_review": {
+      "functions": 14,
+      "helper_executed": false,
+      "import_statements": 9,
+      "qualification": "AST and frozen source review; qualified re.compile/fullmatch are regex calls, not code evaluation",
+      "qualified_call_forms": 71
+    },
+    "historical_metadata": {
+      "historical_byte_audits_replayed": false,
+      "historical_codegen_reaudited": false,
+      "historical_engine_matrix_replayed": false,
+      "scope": "Pinned metadata links only"
+    },
+    "limitations": [
+      "Structural counts are not runtime cases or semantic execution proof.",
+      "Human/source claims were independently reviewed and frozen; this audit checks their byte identity, anchors, metadata and conservative scope.",
+      "No new libc/ABI, fd custody, native errno, persistence, signal, nonlocal-exit, concurrency, lifetime or recovery evidence.",
+      "Historical source/codegen/runtime/audit results are pinned references only; none is replayed."
+    ],
+    "new_sources": {
+      "README.md": {
+        "bytes": 11579,
+        "sha256": "2cad78f83b16cbea3f51986bb55bb3423894f0d0cd4a6a44c8eebb498e79edea"
+      },
+      "provider-review.json": {
+        "bytes": 24628,
+        "sha256": "ba50c773928f0a0de47021edad9d5dcf91d0f439585947467deeb14f2111219c"
+      },
+      "retain-source.py": {
+        "bytes": 12390,
+        "sha256": "75bbab9e924284674d2fc736166674fca1c918b9d85baca8e934b15ad65bb2e2"
+      }
+    },
+    "private_result": {
+      "bytes": 11625,
+      "sha256": "9446e8c2a7f726fcd6ac7e5f7ab268d1c34b1aee7de4dfabfd299240c91adc96"
+    },
+    "procedures_executed": {
+      "compiler": false,
+      "device": false,
+      "fixture": false,
+      "native_provider": false,
+      "old_audit_or_matrix": false,
+      "retainer": false
+    },
+    "public_result": {
+      "bytes": 7034,
+      "sha256": "3e373fee6aef8a5543200c84c0b51ff58747d2fc8facd85ef0c9cc3c0fdc779a"
+    },
+    "runtime_gate": "CLOSED",
+    "schema": 1,
+    "scope": "Independent retained-byte/source-only native-provider review audit; no execution replay",
+    "source_review": {
+      "bytes": 6647,
+      "sha256": "fb7e501207ba690e80e6c2bf3f72892b3884edd53c00e8cbaafdc5a42a9c641e"
+    },
+    "status": "passed",
+    "structural_audit_assertions": 10384
+  },
+  "retention_execution": {
+    "first_invocation_passed": true,
+    "helper_unchanged": true,
+    "replay": false,
+    "stderr_empty": true
+  },
+  "runtime_gate": "CLOSED",
+  "schema": 1,
+  "scope": "Source-only native-provider admissibility review and first independent retained-byte audit; no adapter or runtime validation",
+  "source_review": {
+    "bytes": 6647,
+    "sha256": "fb7e501207ba690e80e6c2bf3f72892b3884edd53c00e8cbaafdc5a42a9c641e"
+  },
+  "status": "passed"
+}

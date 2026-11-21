@@ -1,0 +1,113 @@
+{
+  "activity": {
+    "byte_auditor_execution": false,
+    "compiler_or_linker_execution": false,
+    "concurrent_publication_execution": false,
+    "firmware_emulator_or_device_access": false,
+    "loader_or_installer_execution": false,
+    "native_frame_or_file_provider_execution": false,
+    "new_sdk_git_reads": 0,
+    "old_capture_matrix_or_audit_replay": false,
+    "predecessor_source_edits": false,
+    "primitive_local_pin_and_line_range_checks": true,
+    "production_or_live_composition": false,
+    "read_only_source_and_metadata_inspection": true,
+    "retention_helper_execution": false,
+    "reviewed_program_import_or_invocation": false,
+    "runtime_matrix_or_callback_execution": false,
+    "signal_or_nonlocal_exit_execution": false,
+    "sole_authored_output": "source-review.json"
+  },
+  "baseline_commit": "d9185e9a05748343194ca716c0247f2dbc65fbcf",
+  "findings": [
+    {
+      "detail": "The ordinary authored callback evidence is kept distinct from cm_crash and postclaim cr_handler fatal-handler entries, the frozen volatile consumer, native frame reads, and dependency/stack/publication limitations.",
+      "id": "ordinary-versus-native-entry",
+      "result": "accepted"
+    },
+    {
+      "detail": "Full int64 fixture token preservation is not native int descriptor provenance. Checked native ABI conversions, descriptor/path custody and immediate native error capture are requirements, not established facts. Synthetic refusal and caller-entry errno policy remain separate.",
+      "id": "descriptor-and-error-domain",
+      "result": "accepted"
+    },
+    {
+      "detail": "Reached-only callback checks and return-domain validation can halt after successful OPEN without compensating CLOSE. Stable complete reachable callbacks and valid conversion contracts are prerequisites; no second admission, cleanup/reset or inferred descriptor recovery is introduced.",
+      "id": "incomplete-native-custody",
+      "result": "accepted"
+    },
+    {
+      "detail": "The single native blame write and unconditional subsequent sync/close after ordinary return match the engine branch sequence. Separate retrying sig_write is not substituted. Ordinary completion, failure/short-write receipts, durable file contents and closed-descriptor custody remain distinct.",
+      "id": "ordering-and-persistence",
+      "result": "accepted"
+    },
+    {
+      "detail": "Fixture canonical ID syntax is broader than SDK cm_id_ok. The foobar-to-foo example is expressly conditional source reasoning, depends on a matching startup g_cm record and successful relevant operations, and does not assert observed I/O, loading, causation or a permitted quarantine change.",
+      "id": "identity-and-conditional-prefix",
+      "result": "accepted"
+    },
+    {
+      "detail": "The void callback cannot separately establish live-mod, clock, open, write, sync or close outcomes. CM_CRASHES/CM_BLAME startup policy is excluded from any proposed ordinary witness.",
+      "id": "opaque-unblamed",
+      "result": "accepted"
+    },
+    {
+      "detail": "The proposed next slice is a source-only ordinary-file custody plan. A later disposable-file witness remains contingent on explicit ABI, binding, file/descriptor ownership, raw/error capture, stable arguments, no-retry close uncertainty, fresh process/file identities and external cleanup custody; no adapter or native execution is authorized here.",
+      "id": "future-boundary",
+      "result": "accepted"
+    },
+    {
+      "detail": "The helper contains no child-command, compiler, callback, loader, device or prior-suite invocation. It reads pinned local bytes through nofollow directory descriptors, rejects duplicate/conflicting input names, creates fresh private output exclusively, closes regular-file inventory, and publishes an origin-free projection only after successful retention.",
+      "id": "retainer-source-only-behavior",
+      "result": "accepted"
+    }
+  ],
+  "limits": [
+    "This is source review and local pin comparison, not a runtime or retained-packet audit result.",
+    "Historical fixture results and codegen limitations are reused as retained metadata; no previous successful procedure was replayed.",
+    "Helper retention and independent packet verification are still pending at this review.",
+    "Every native/provider/signal/concurrency/lifetime/recovery/live gate remains closed; ownership is not fault causation."
+  ],
+  "resolved_pre_retention_findings": [
+    {
+      "correction": "Replaced the claim of six lookup functions with six reader/type fragments comprising two layout/storage fragments and four functions.",
+      "id": "reader-fragment-count",
+      "prior_copy": "private/pre-retention-review-6d757353fd1a4cfaaa3d6e8564f0514d"
+    },
+    {
+      "correction": "The prefix counterexample now requires foo to be present in g_cm at startup; it does not claim that the record has already been loaded before startup blame handling.",
+      "id": "startup-record-versus-loaded",
+      "prior_copy": "private/pre-retention-review-6d757353fd1a4cfaaa3d6e8564f0514d"
+    }
+  ],
+  "reviewed_inputs": {
+    "README.md": {
+      "bytes": 11579,
+      "sha256": "2cad78f83b16cbea3f51986bb55bb3423894f0d0cd4a6a44c8eebb498e79edea"
+    },
+    "provider-review.json": {
+      "bytes": 24628,
+      "sha256": "ba50c773928f0a0de47021edad9d5dcf91d0f439585947467deeb14f2111219c"
+    },
+    "retain-source.py": {
+      "bytes": 12390,
+      "sha256": "75bbab9e924284674d2fc736166674fca1c918b9d85baca8e934b15ad65bb2e2"
+    }
+  },
+  "reviewed_scope": {
+    "helper_execution": false,
+    "helper_scope": "Complete helper source reviewed against the prior ordinary-provider plan retainer. Only review naming/status/scope/input-key substitutions change; descriptor-relative nofollow reads, exclusive writes, pin/anchor validation, closed inventories and sanitized projection remain.",
+    "line_byte_anchors": 29,
+    "provider_mappings": 5,
+    "reader_scope": "The 82-line retained include contains six reader/type fragments: two layout/storage fragments and four functions. This review does not re-audit predecessor machine code.",
+    "retention_or_byte_audit_execution": false,
+    "reused_source_pins": 17,
+    "source_findings": 11,
+    "source_pin_validation": "All 17 declared local byte lengths and SHA-256 values matched; all 29 line ranges are in bounds and their source content supports the stated anchor reasons."
+  },
+  "reviewer": "dso_core_impl",
+  "runtime_gate": "CLOSED",
+  "schema": 1,
+  "scope": "Independent pre-retention source-only native-provider admissibility review",
+  "status": "passed",
+  "unresolved_source_review_blockers": []
+}

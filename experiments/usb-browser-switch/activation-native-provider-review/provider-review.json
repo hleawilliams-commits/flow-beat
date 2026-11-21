@@ -1,0 +1,544 @@
+{
+  "anchors": [
+    {
+      "first_line": 71,
+      "id": "callback-types",
+      "last_line": 89,
+      "reason": "Copied typed provider arguments and by-value return/error; opaque unblamed.",
+      "source": "engine/core.h"
+    },
+    {
+      "first_line": 249,
+      "id": "engine-admission",
+      "last_line": 275,
+      "reason": "Sole terminal CAS precedes request/provider binding; loser returns first.",
+      "source": "engine/core.c"
+    },
+    {
+      "first_line": 276,
+      "id": "event-entry",
+      "last_line": 293,
+      "reason": "Entered event precedes provider call; copied payload and cleared raw latch.",
+      "source": "engine/core.c"
+    },
+    {
+      "first_line": 294,
+      "id": "accepted-token",
+      "last_line": 302,
+      "reason": "Full authoritative int64 OPEN token without native descriptor provenance.",
+      "source": "engine/core.c"
+    },
+    {
+      "first_line": 303,
+      "id": "callback-dispatch",
+      "last_line": 387,
+      "reason": "Reached-only validation; synchronous callbacks and private capture after return.",
+      "source": "engine/core.c"
+    },
+    {
+      "first_line": 343,
+      "id": "copy-write",
+      "last_line": 361,
+      "reason": "Copied token/length/payload passed by value, no private event pointer.",
+      "source": "engine/core.c"
+    },
+    {
+      "first_line": 388,
+      "id": "record-domains",
+      "last_line": 424,
+      "reason": "Raw value validation then authoritative receipt/error/short flags.",
+      "source": "engine/core.c"
+    },
+    {
+      "first_line": 425,
+      "id": "next-operations",
+      "last_line": 441,
+      "reason": "One selected write followed by sync and close after recorded ordinary return.",
+      "source": "engine/core.c"
+    },
+    {
+      "first_line": 442,
+      "id": "driver-publication",
+      "last_line": 486,
+      "reason": "Immutable result release publication, ordinary return and public acquire observer.",
+      "source": "engine/core.c"
+    },
+    {
+      "first_line": 507,
+      "id": "setup-only",
+      "last_line": 565,
+      "reason": "Five bounded setup APIs with Virgin eligibility; no concurrent writer contract.",
+      "source": "engine/core.c"
+    },
+    {
+      "first_line": 44,
+      "id": "authored-identity",
+      "last_line": 64,
+      "reason": "Canonical fixture identity is copied but syntax is broader than SDK admission.",
+      "source": "engine/core.c"
+    },
+    {
+      "first_line": 1,
+      "id": "harness-scope",
+      "last_line": 5,
+      "reason": "Explicit authored-only provider scope.",
+      "source": "engine/test_provider.c"
+    },
+    {
+      "first_line": 86,
+      "id": "harness-storage",
+      "last_line": 95,
+      "reason": "Fixed authored callback/context storage.",
+      "source": "engine/test_provider.c"
+    },
+    {
+      "first_line": 168,
+      "id": "harness-callbacks",
+      "last_line": 263,
+      "reason": "Prepared-return journals and bounded nested losers are authored ordinary calls.",
+      "source": "engine/test_provider.c"
+    },
+    {
+      "first_line": 38,
+      "id": "native-path-policy",
+      "last_line": 65,
+      "reason": "Selected crash paths and existing safety policy names.",
+      "source": "sdk/community.c"
+    },
+    {
+      "first_line": 461,
+      "id": "native-identity-find",
+      "last_line": 475,
+      "reason": "SDK identity validation and exact startup matching.",
+      "source": "sdk/community.c"
+    },
+    {
+      "first_line": 1540,
+      "id": "native-unblamed",
+      "last_line": 1554,
+      "reason": "Opaque live-mod/time/append/write/sync/close native operation.",
+      "source": "sdk/community.c"
+    },
+    {
+      "first_line": 1561,
+      "id": "native-consumer",
+      "last_line": 1587,
+      "reason": "Volatile attempted-once consumer, frame lookup and ignored persistence returns.",
+      "source": "sdk/community.c"
+    },
+    {
+      "first_line": 1588,
+      "id": "community-entry",
+      "last_line": 1620,
+      "reason": "Separate fatal community handler and signal installation.",
+      "source": "sdk/community.c"
+    },
+    {
+      "first_line": 39,
+      "id": "different-write-helper",
+      "last_line": 49,
+      "reason": "Distinct retrying reporting helper is not the selected blame write.",
+      "source": "sdk/crash_guards.c"
+    },
+    {
+      "first_line": 314,
+      "id": "report-claim",
+      "last_line": 360,
+      "reason": "Per-TID postclaim reentry fence and separate concurrent reporter slots.",
+      "source": "sdk/crash_guards.c"
+    },
+    {
+      "first_line": 361,
+      "id": "report-entry",
+      "last_line": 379,
+      "reason": "Attribution inside fatal handler, before duplicate-PC handling.",
+      "source": "sdk/crash_guards.c"
+    },
+    {
+      "first_line": 480,
+      "id": "report-chain",
+      "last_line": 499,
+      "reason": "Direct chain and TID release only after ordinary return.",
+      "source": "sdk/crash_guards.c"
+    },
+    {
+      "first_line": 500,
+      "id": "report-install",
+      "last_line": 547,
+      "reason": "Previous-action storage, rearm and ignored installation returns.",
+      "source": "sdk/crash_guards.c"
+    },
+    {
+      "first_line": 97,
+      "id": "native-frame",
+      "last_line": 110,
+      "reason": "Fatal-handler-only native read; Boolean exact-eight result is not lifetime proof.",
+      "source": "sdk/ep_mem.h"
+    },
+    {
+      "first_line": 37,
+      "id": "alternate-stack",
+      "last_line": 107,
+      "reason": "Fallible alternate-stack setup, wrapped entry and cleanup.",
+      "source": "sdk/azaltstack.h"
+    },
+    {
+      "first_line": 1978,
+      "id": "startup-blame",
+      "last_line": 1999,
+      "reason": "Read surviving ID bytes, exact match and crashed marker policy.",
+      "source": "sdk/community.c"
+    },
+    {
+      "first_line": 2015,
+      "id": "startup-unblamed",
+      "last_line": 2039,
+      "reason": "Timestamp history drives startup suspension; preserve policy files.",
+      "source": "sdk/community.c"
+    },
+    {
+      "first_line": 1,
+      "id": "exact-readers",
+      "last_line": 82,
+      "reason": "Six retained reader/type fragments (two layout/storage fragments and four functions); authored inputs do not prove native custody.",
+      "source": "generated/readers.inc"
+    }
+  ],
+  "baseline_commit": "d9185e9a05748343194ca716c0247f2dbc65fbcf",
+  "entry_contexts": {
+    "fixture": "Fixed authored ordinary synchronous callbacks; one guarded same-thread nested loser per designated case, historical execution only.",
+    "future_candidate": "Ordinary synchronous disposable-file syscall-to-value correspondence, separately planned; authored owners/modules/frame cells.",
+    "native": "Selected cm_crash and cr_handler fatal handlers; source-only inspection, no invocation."
+  },
+  "findings": [
+    {
+      "anchors": [
+        "native-consumer",
+        "community-entry",
+        "report-claim",
+        "report-entry",
+        "harness-scope"
+      ],
+      "finding": "Both selected native blame entry sites are fatal-handler paths; the frozen fixture is an ordinary synchronous authored caller. No native/signal eligibility follows.",
+      "id": "context-gap"
+    },
+    {
+      "anchors": [
+        "engine-admission",
+        "event-entry",
+        "callback-dispatch",
+        "record-domains",
+        "driver-publication",
+        "harness-callbacks"
+      ],
+      "finding": "Admission, entered event, callback prepared-return transcript, actual callback return, private raw capture, authoritative record and acquire-gated completion are distinct. Suppressed nested entries read no request/provider fields. No intermediate payload exposure is introduced.",
+      "id": "receipt-order"
+    },
+    {
+      "anchors": [
+        "callback-types",
+        "accepted-token",
+        "record-domains",
+        "native-consumer"
+      ],
+      "finding": "Full nonnegative int64 including zero is an opaque fixture token; native code uses int fd. A native provider needs exact ABI, provenance and checked 0..INT_MAX conversion before use. Valid number alone does not exclude foreign close/reuse.",
+      "id": "fd-domain-gap"
+    },
+    {
+      "anchors": [
+        "callback-dispatch",
+        "record-domains",
+        "next-operations",
+        "driver-publication"
+      ],
+      "finding": "Missing reached callback or invalid result can halt after successful OPEN without compensating CLOSE. Establish stable complete reachable functions and conversions as provider prerequisites without changing reached-only validation or adding another admission; external cleanup custody must remain explicit.",
+      "id": "incomplete-resource-custody"
+    },
+    {
+      "anchors": [
+        "callback-types",
+        "callback-dispatch",
+        "record-domains",
+        "native-consumer"
+      ],
+      "finding": "Authored failure_errno is not native errno capture. Capture native raw return and valid failure error before any helper/log/nested/next call; distinguish synthetic conversion/custody refusal. Caller-entry errno preservation remains a separate contract.",
+      "id": "error-capture-gap"
+    },
+    {
+      "anchors": [
+        "next-operations",
+        "native-consumer",
+        "different-write-helper"
+      ],
+      "finding": "The selected blame path writes once and proceeds to sync/close after ordinary return. A different sig_write helper retries; substituting it changes behavior. No EINTR or short-write retry is authorized.",
+      "id": "no-write-retry"
+    },
+    {
+      "anchors": [
+        "authored-identity",
+        "native-identity-find"
+      ],
+      "finding": "Canonical copied fixture identity accepts a broader syntax than SDK cm_id_ok. Immutable ownership value does not establish SDK admission or filesystem authority.",
+      "id": "identity-admission-gap"
+    },
+    {
+      "anchors": [
+        "native-identity-find",
+        "native-consumer",
+        "startup-blame"
+      ],
+      "finding": "Conditional source reasoning: if writing foobar leaves exactly foo, next startup reads that prefix and a distinct foo record is present in g_cm at startup, exact cm_find can select foo and create its crashed marker. Both IDs meet SDK syntax. This is not observed I/O/startup/fault/causation and changes no protection.",
+      "id": "short-prefix-counterexample"
+    },
+    {
+      "anchors": [
+        "callback-types",
+        "native-unblamed",
+        "startup-unblamed"
+      ],
+      "finding": "Void ordinary return cannot report live-mod/clock/open/write/sync/close outcomes. NoCommunity completion without known_failure does not acknowledge append or quarantine persistence.",
+      "id": "opaque-unblamed"
+    },
+    {
+      "anchors": [
+        "report-claim",
+        "report-chain",
+        "report-install",
+        "alternate-stack",
+        "native-frame"
+      ],
+      "finding": "Postclaim per-TID fencing, prior-action publication, ignored install returns, alternate stacks and native frame reads retain separate signal/nonlocal/cross-thread lifetime gates. Guarded ordinary nested losers do not resolve them.",
+      "id": "handler-lifetime-gap"
+    },
+    {
+      "anchors": [
+        "setup-only",
+        "exact-readers",
+        "driver-publication"
+      ],
+      "finding": "Preserve five setup-only APIs, six exact reader/type fragments, sole admission and immutable completed ownership. Retained LL/SC retry, libc/canary/sanitizer and per-slot-not-coherent limits remain; no new machine-code or native binding evidence.",
+      "id": "dependencies-and-setup"
+    }
+  ],
+  "next_scope": "Next make a separately scoped source-only ordinary-file custody plan. Specify a fixed provider table/context and an owned temporary directory/file capability for one ordinary synchronous entry using the frozen engine and exact readers; keep frame cells and owner inputs authored. Define native int descriptor provenance and checked widening/narrowing, value/error capture before instrumentation, entered/returned/recorded/completed receipts, close uncertainty and terminal no-retry behavior, plus explicit cleanup custody outside the terminal attempt. Use fresh process/file identities and bounded exact controls before any implementation. Preserve the opaque unblamed boundary; do not invoke CM_BLAME, CM_CRASHES or native quarantine/startup policy. No adapter, native I/O, compiler, runtime matrix, callback/nesting, handler/signal/nonlocal exit, concurrent publication, DSO/installer, emulator/device, production or live work is authorized in that plan slice. Preserve all frozen sources/failures, LL/SC/libc/canary limits and every closed live gate; do not replay completed retention, audits or matrices unchanged.",
+  "non_execution": {
+    "callback_or_nesting": false,
+    "compiler": false,
+    "concurrent_publication": false,
+    "firmware_emulator_device": false,
+    "loader_or_installer": false,
+    "native_frame_or_file_provider": false,
+    "new_sdk_git_reads": 0,
+    "old_capture_matrix_audit_replay": false,
+    "production_or_live_composition": false,
+    "runtime_matrix": false,
+    "signal_or_nonlocal_exit": false,
+    "source_transformer": false
+  },
+  "operating_requirements": [
+    "Keep fixed callback code/table/context and copied argument storage alive through synchronous return; no escaping private pointer, unload/drain/reclamation claim.",
+    "Prove exact native ABI, errno capture, descriptors and path/external-writer custody before any adapter; full int64 value preservation is not a native int contract.",
+    "Keep completed call/receipt distinct from file-content/directory/crash durability, closed-fd custody, bounded latency, quiescence and recovery.",
+    "Define failed/interrupted/unknown close disposition without blind retry or token reuse; external cleanup cannot reset/reopen the terminal attempt.",
+    "Keep CM_BLAME, CM_CRASHES, startup suspension and all quarantine/protections unchanged. Ownership is not fault causation.",
+    "Retain opaque unblamed and authored frame/module inputs; no native frame adapter, actual persistence or live availability is inferred."
+  ],
+  "provider_mappings": [
+    {
+      "anchors": [
+        "callback-types",
+        "callback-dispatch",
+        "native-consumer"
+      ],
+      "established": "The engine accepts raw >= 0, including zero, as an opaque int64 token; native code stores an int and gates fd >= 0. A selected owner is independent of open success.",
+      "fixture": "open(context, copied ac_owner) returns ac_io_value",
+      "id": "open",
+      "native": "int fd = open(CM_BLAME, O_WRONLY | O_CREAT | O_TRUNC | O_CLOEXEC, 0644)",
+      "not_proved": "Actual open, native token width/binding, correct path/file identity, exclusion of other fd users and durable creation are untested.",
+      "requirements": [
+        "Require native int descriptor provenance and 0..INT_MAX before any narrowing; do not cast arbitrary nonnegative fixture tokens to int.",
+        "Bind the opened file/path and descriptor custody to stable context; copied owner identity authorizes no filesystem effect by itself.",
+        "Record raw native return and capture its error immediately on failure, before instrumentation, any next call or normalization; entry/caller error-state policy is separate."
+      ]
+    },
+    {
+      "anchors": [
+        "copy-write",
+        "record-domains",
+        "native-consumer"
+      ],
+      "established": "Fixture writes the copied canonical ID bytes without terminator and records a returned count in [-1, requested_length]; short and failed writes still advance to sync then close. Native code's comparison has an empty body.",
+      "fixture": "write(context, copied token/length/33-byte payload) returns ac_io_value",
+      "id": "write",
+      "native": "write(fd, g_cm[who].id, strlen(g_cm[who].id)) compared once to requested count",
+      "not_proved": "The fixture's authored count and payload are not an actual write, complete persistence, device output or native failure observation.",
+      "requirements": [
+        "Keep exact requested bytes/length alive until ordinary native return; no private pointer may escape the callback.",
+        "Prove ssize_t return representability before encoding into int64; preserve the actual raw result/error before validation.",
+        "No retry, completion fill-in or re-open follows a short write. An operation entered without ordinary return remains unknown."
+      ]
+    },
+    {
+      "anchors": [
+        "callback-dispatch",
+        "record-domains",
+        "native-consumer"
+      ],
+      "established": "The engine records only 0/-1 for sync and advances to close after a recorded ordinary return even on failure; native code discards the result.",
+      "fixture": "sync(context, accepted int64 token) returns ac_io_value",
+      "id": "sync",
+      "native": "fsync(fd), result ignored",
+      "not_proved": "No actual file or filesystem synchronization, crash durability, timeout bound or native binding is established.",
+      "requirements": [
+        "Use the same valid owned descriptor, with checked int representation, for the call.",
+        "Capture raw return/error before the close or any journal/log helper.",
+        "Keep file-content synchronization distinct from directory-entry persistence and from a global durability claim."
+      ]
+    },
+    {
+      "anchors": [
+        "callback-dispatch",
+        "record-domains",
+        "native-consumer",
+        "driver-publication"
+      ],
+      "established": "A 0/-1 close receipt can complete the terminal attempt. Completed means selected calls returned and were recorded, not a later ownership/recovery permission.",
+      "fixture": "close(context, accepted int64 token) returns ac_io_value",
+      "id": "close",
+      "native": "close(fd), result ignored; automatic local int then goes out of scope",
+      "not_proved": "The selected source supplies no descriptor-generation protocol, failed-close custody record, cancellation cleanup or recovery.",
+      "requirements": [
+        "Define platform-specific close outcome/custody, including failure and interrupted return, before an adapter. A numeric token does not establish that a descriptor remains owned or is safely reusable.",
+        "Never retry a failed/unknown close blindly, reopen the attempt or reuse a token based only on its number.",
+        "Separate any external cleanup owner and evidence from engine completion; no inferred drain or reclamation."
+      ]
+    },
+    {
+      "anchors": [
+        "callback-types",
+        "native-unblamed",
+        "startup-unblamed",
+        "record-domains"
+      ],
+      "established": "The void callback cannot carry clock/open/write/sync/close outcomes into ac_result; a returned UNBLAMED event can coexist with unobserved native persistence failure. The authored fixture callback has no native side effects.",
+      "fixture": "unblamed(context) returns void; only opaque returned-recorded event",
+      "id": "unblamed",
+      "native": "cm_note_unblamed_crash: plain live-mod test, append open, unchecked time, decimal formatting, one write/sync/close",
+      "not_proved": "No native g_cm_live snapshot, clock validity, append outcome, quarantine interaction or failure receipt exists in this callback witness.",
+      "requirements": [
+        "Keep no-owner selection separate from whether unblamed work happened, returned, succeeded or persisted.",
+        "Do not retrofit native clock/live-mod/append work into the opaque callback without a separately reviewed outcome and context contract.",
+        "Leave startup suspension and all quarantine records unchanged; future ordinary tests must use owned disposable paths and keep this branch authored/opaque."
+      ]
+    }
+  ],
+  "runtime_gate": "CLOSED",
+  "schema": 1,
+  "scope": "Source-only native-provider admissibility review",
+  "sdk_commit": "3e0c5cb010454228f4ee63226b60d060494eeaae",
+  "sources": [
+    {
+      "bytes": 102070,
+      "name": "sdk/community.c",
+      "path": "experiments/usb-browser-switch/activation-unwind-policy/private/capture-4d7eb81ff4e04f6099c87eaa42bc66d3/inputs/sdk/src/azmod/community.c",
+      "sha256": "4b2b72e2b623dcb1ecb0ef108a473815adab45a516a6aa13adb6cce512b80866"
+    },
+    {
+      "bytes": 23133,
+      "name": "sdk/crash_guards.c",
+      "path": "experiments/usb-browser-switch/activation-unwind-policy/private/capture-4d7eb81ff4e04f6099c87eaa42bc66d3/inputs/sdk/src/azmod/crash_guards.c",
+      "sha256": "358499ca5bccf3f71944ce408c02fa76b598ba5c81e81d4a2151b6d5e38727ab"
+    },
+    {
+      "bytes": 10147,
+      "name": "sdk/ep_mem.h",
+      "path": "experiments/usb-browser-switch/activation-unwind-policy/private/capture-4d7eb81ff4e04f6099c87eaa42bc66d3/inputs/sdk/src/azmod/ep_mem.h",
+      "sha256": "aa1e4a60ea05ff2b00f53c37634f3614fc51ecfd6dac500b2b59ee86dcbb6e5d"
+    },
+    {
+      "bytes": 4275,
+      "name": "sdk/azaltstack.h",
+      "path": "experiments/usb-browser-switch/activation-unwind-policy/private/capture-4d7eb81ff4e04f6099c87eaa42bc66d3/inputs/sdk/src/common/azaltstack.h",
+      "sha256": "f929777434f77e31a91055588e897158d6bfd8c6adc993dde0eeeca04eccbd4c"
+    },
+    {
+      "bytes": 16431,
+      "name": "fault/operating-contract.json",
+      "path": "experiments/usb-browser-switch/activation-fault-reader-contract/operating-contract.json",
+      "sha256": "d6879db76a09b3c3e475f6ec7d69d0a0087dafd2eafde3ae2896a55b092a263f"
+    },
+    {
+      "bytes": 11701,
+      "name": "fault/README.md",
+      "path": "experiments/usb-browser-switch/activation-fault-reader-contract/README.md",
+      "sha256": "90ba1e6ddaa039350dc73c3d162b7f00b59c7bf3afd9e409111ce3045f86421d"
+    },
+    {
+      "bytes": 2902,
+      "name": "fault/verification.json",
+      "path": "experiments/usb-browser-switch/activation-fault-reader-contract/verification.json",
+      "sha256": "85b4c7f3888c482acbb092714138d2010c07771574f9e7889d24dc11df7ea3f2"
+    },
+    {
+      "bytes": 24981,
+      "name": "engine/core.c",
+      "path": "experiments/usb-browser-switch/activation-ordinary-provider-fixture/core.c",
+      "sha256": "eca23b77d5e064a7015dd3f912e5652a7d61df196ce936b3fbf1934e4a4819d1"
+    },
+    {
+      "bytes": 8461,
+      "name": "engine/core.h",
+      "path": "experiments/usb-browser-switch/activation-ordinary-provider-fixture/core.h",
+      "sha256": "a1c1f13832a8bdb55ba9a2d4379ff8c6cb689bd70826575497d13402430faa38"
+    },
+    {
+      "bytes": 42414,
+      "name": "engine/test_provider.c",
+      "path": "experiments/usb-browser-switch/activation-ordinary-provider-fixture/test_provider.c",
+      "sha256": "16b5610facb8e4380b44747a42f29656738f732185791e9810acae40ad2af868"
+    },
+    {
+      "bytes": 8111,
+      "name": "engine/README.md",
+      "path": "experiments/usb-browser-switch/activation-ordinary-provider-fixture/README.md",
+      "sha256": "b689bb36a418004e6294e36892713614aeb098a9ec26b34909d680917f72778c"
+    },
+    {
+      "bytes": 69461,
+      "name": "engine/codegen-review.json",
+      "path": "experiments/usb-browser-switch/activation-ordinary-provider-fixture/codegen-review.json",
+      "sha256": "495d48c25210f3d1d9f3d828fb31cbf002125fd46ed6b86082ebc4a58254a808"
+    },
+    {
+      "bytes": 245147,
+      "name": "engine/result.json",
+      "path": "experiments/usb-browser-switch/activation-ordinary-provider-fixture/result.json",
+      "sha256": "91e6a0061bda5dafa0f4cd4e9d056bbadee09833aad37d45270504b658eba29c"
+    },
+    {
+      "bytes": 8933,
+      "name": "engine/verification.json",
+      "path": "experiments/usb-browser-switch/activation-ordinary-provider-fixture/verification.json",
+      "sha256": "6b3f990d58eb4a6a44470d805ed9d741da6f6ce57d0b720582227e187d55237c"
+    },
+    {
+      "bytes": 25995,
+      "name": "engine/test-contract.json",
+      "path": "experiments/usb-browser-switch/activation-ordinary-provider-fixture/test-contract.json",
+      "sha256": "a2954157b402739efbfaf82f6090c357720e275228a3ceb259acb9f910a2079f"
+    },
+    {
+      "bytes": 2994,
+      "name": "generated/readers.inc",
+      "path": "experiments/usb-browser-switch/activation-ordinary-provider-fixture/private/run-11ea3682fcc34d33b9034c6e041aee30/work/generated/readers.inc",
+      "sha256": "352048162f452f794136f8b90555783df101feacbf7550e3f4020bd6ef7ab140"
+    },
+    {
+      "bytes": 5369,
+      "name": "generated/receipt-types.h",
+      "path": "experiments/usb-browser-switch/activation-ordinary-provider-fixture/private/run-11ea3682fcc34d33b9034c6e041aee30/work/generated/receipt-types.h",
+      "sha256": "c97454db2aba6e942eb05241bbf80d67ffd8eecb5108927da69600a6a1d15f40"
+    }
+  ],
+  "status": "source-reviewed-not-integrated"
+}
