@@ -1,0 +1,170 @@
+{
+  "codegen_review": {
+    "bytes": 44680,
+    "sha256": "69fa7b18a8bcf51932d03848cde4892c1c7f3269ba05c023dbf1fe1fbf643bda"
+  },
+  "failures_this_packet": {
+    "compiler": 0,
+    "independent_byte_audit": 0,
+    "runtime": 0
+  },
+  "first_runtime_packet": "run-c7e9634d431c4d789d4c366093adc9aa",
+  "independent_audit": {
+    "execution_count": 1,
+    "findings": {
+      "auditor": {
+        "bytes": 54421,
+        "sha256": "b24334bbf6b3977391b1957738ddcc75bfa290915d513a5e78701e9685e79422"
+      },
+      "counts": {
+        "artifacts": 164,
+        "candidate_distinct_assertion_names_per_mode": 31,
+        "candidate_processes": 30,
+        "candidate_selectors_per_mode": 15,
+        "candidate_summed_assertions_per_mode": 103,
+        "commands": 111,
+        "configurations": 16,
+        "control_processes": 10,
+        "controls_per_mode": 5,
+        "elf_files": 40,
+        "executables": 12,
+        "inputs": 28,
+        "metadata_warning_classifications": 7,
+        "object_files": 28,
+        "output_streams": 222,
+        "packet_directories": 208,
+        "packet_files": 685,
+        "preflight_projection": {
+          "bytes": 19118,
+          "sha256": "077bf31fcd7f289e5f51ce09264946d12e571cdb2bef783d4a9e09afae35ff59"
+        },
+        "preflight_result": {
+          "bytes": 95805,
+          "sha256": "f52ff3805ff40b4b89b63714734d1fab06a184f59850b3c259ba7b8f2053e42e"
+        },
+        "runtime_processes": 40,
+        "work_files": 207
+      },
+      "limitations": [
+        "Structural audit counts are not additional runtime assertions.",
+        "Public completion is observed before entry and after return only; control-specific internal stopping positions are source reasoning, not private runtime observation.",
+        "No general race/lifetime, native frame/file providers, real signal, asynchronous reentry, lock-free or wait-free guarantee, DSO/installer/target invocation, native visibility or recovery proof.",
+        "Compiler loops, libc/atomic instrumentation and canary failure paths are retained dependencies; metadata classification does not establish tool-defect cause or runtime safety."
+      ],
+      "private_result": {
+        "bytes": 689490,
+        "sha256": "6a5889cdf62193e3d84d64548d1e97060e0fa80143ac1b97f8390bde0887cea1"
+      },
+      "procedures_executed": {
+        "compiler": false,
+        "device": false,
+        "fixture": false,
+        "old_capture_or_audit": false,
+        "runner": false
+      },
+      "review_lock": {
+        "bytes": 1021,
+        "sha256": "7cf08e6b04f39a8463d5622198efad8971f7518004060253f810c3c5b1345ce4"
+      },
+      "runtime_gate": "CLOSED",
+      "sanitized_result": {
+        "bytes": 155773,
+        "sha256": "108ad56967aaf91b56c1313b83d5c3b0c09a55851a6f8b104120ae122b83abe5"
+      },
+      "schema": 1,
+      "scope": "Independent retained-byte and public-value audit of one new ordinary-entry fixture packet; no execution replay",
+      "semantic_scope": [
+        "Exact fresh command/stream/build/report and packet inventories; no importer, compiler, tool or native invocation.",
+        "Full source transformation/reused reader bytes and independent ELF64/AArch64 metadata parsing.",
+        "All authored input/setup values, actual public ordinary returns, complete public receipts, canonical identity, terminal suppression and five exact safe controls independently reconstructed.",
+        "First source/runtime packet is retained, with manual pre-runtime method/dependency review bound to all four standalone/setup configurations."
+      ],
+      "status": "passed",
+      "structural_audit_assertions": 186853
+    },
+    "result": {
+      "bytes": 2999,
+      "sha256": "4078614c36512db06d0f94039622c76b1620bed6c6f9df1ae392f24d05cf7d19"
+    },
+    "source": {
+      "bytes": 54421,
+      "sha256": "b24334bbf6b3977391b1957738ddcc75bfa290915d513a5e78701e9685e79422"
+    },
+    "source_frozen_before_invocation": true,
+    "source_unchanged_after_invocation": true,
+    "stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stdout": {
+      "bytes": 165,
+      "sha256": "4c8c298dd48676b67b80fe0b8088459d26a4979b7518f621fe4e9a7a833f9d71"
+    }
+  },
+  "notes": [
+    "Seven exact FINI_ARRAY metadata warnings classified under narrow frozen policy, not failures or runtime sanitizer reports.",
+    "No source changed after first build; no successful predecessor suite or audit replay.",
+    "Actual ordinary entry return is separate from acquire-gated completed payload; only authored stable model/request/provider values.",
+    "All protections, previous failure packets and quarantine unchanged; ownership is not causation."
+  ],
+  "prebuild_draft_history": [
+    {
+      "directory": "prebuild-input-b27ca553459e4c58a78c13d443d58905",
+      "files": {
+        "review-lock.json": {
+          "bytes": 1021,
+          "sha256": "86a4e85749825adeb506e88292320b5614677ab7ecf51e28bc6399fea6095871"
+        },
+        "source-ledger.json": {
+          "bytes": 23808,
+          "sha256": "b310f76ed814633545474724354971c0e5d60dd77131609d74ed4979bb0004f0"
+        },
+        "test_ordinary.c": {
+          "bytes": 23842,
+          "sha256": "69c9a040dfc6be4c6a84f821c217cae69a2e8e29008e2c0e823c1120b1290590"
+        }
+      }
+    },
+    {
+      "directory": "prebuild-review-b4ec746d0acc4cb186943a62071f2c42",
+      "files": {
+        "review-lock.json": {
+          "bytes": 1021,
+          "sha256": "95b20462311c5e027721d000e987571df7fcabc98b11146bca40f7e7cacc5642"
+        },
+        "run-tests.py": {
+          "bytes": 40660,
+          "sha256": "dd48b93a0d13c6caa85e4bf7959b591a52bf25a866ac6a9ed4e0c8329929fe64"
+        },
+        "source-ledger.json": {
+          "bytes": 23426,
+          "sha256": "1a2a1fb9717bd5165f8f78005b9f3bb8ba427af3e4415a68fa48771134707af2"
+        }
+      }
+    }
+  ],
+  "private_result": {
+    "bytes": 689490,
+    "sha256": "6a5889cdf62193e3d84d64548d1e97060e0fa80143ac1b97f8390bde0887cea1"
+  },
+  "public_result": {
+    "bytes": 155773,
+    "sha256": "108ad56967aaf91b56c1313b83d5c3b0c09a55851a6f8b104120ae122b83abe5"
+  },
+  "review_roles": {
+    "core_author": "Authored core/header/transform and independently reviewed harness/runner.",
+    "other_reviewer": "Independently reviewed core/header, runner, fresh codegen and byte auditor.",
+    "root": "Integrated, reviewed source/codegen and retained verified evidence; frozen source-review's combined role title does not mean the core author independently audited their own core."
+  },
+  "runtime_gate": "CLOSED",
+  "schema": 1,
+  "source_lock": {
+    "bytes": 1021,
+    "sha256": "7cf08e6b04f39a8463d5622198efad8971f7518004060253f810c3c5b1345ce4"
+  },
+  "source_review": {
+    "bytes": 3293,
+    "sha256": "0ffd88b26a9535011fe3bf3fb7af634f9c3c64e414c1c0f0ef9e353e03aef2ed"
+  },
+  "status": "passed"
+}

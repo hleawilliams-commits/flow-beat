@@ -1,0 +1,785 @@
+{
+  "generated": {
+    "readers.inc": {
+      "bytes": 2994,
+      "sha256": "352048162f452f794136f8b90555783df101feacbf7550e3f4020bd6ef7ab140"
+    },
+    "receipt-types.h": {
+      "bytes": 5369,
+      "sha256": "c97454db2aba6e942eb05241bbf80d67ffd8eecb5108927da69600a6a1d15f40"
+    }
+  },
+  "guard_failure_review": "Root reviewed fresh acquire/copy/publication and source-selected reader paths; independent loader reviewer decoded all four ELF tables and reviewed admission/driver/return/setup/canary offsets. Plain undefined symbols include memcpy,memset,memcmp,__stack_chk_guard,__stack_chk_fail. ASan/UBSan adds instrumentation/init/finalizer dependencies; no blanket call allowance or transitive proof. Both plain metadata stderr empty. Both sanitizer readelf commands returned0 with one exact75-byte warning: RELA section7 flags64 align8 links28/info6; FINI_ARRAY section6 WA size8 align8, zero cell; sole offset0 ABS64(257) to text symbol2+finalizer0x2fd4 standalone or0x4318 setup. Exact defined32-byte compiler finalizers match the frozen structural exception. This is metadata classification only; no tool-defect or runtime safety conclusion.",
+  "limitations": [
+    "Method extents/relocations are tied to these four fresh objects; no predecessor codegen replay or machine-code equivalence claim.",
+    "Only setup-only witness objects may execute; standalone objects remain compile-only. Controls may intentionally optimize away private static methods and are separately limited to public/setup symbol surface.",
+    "No new input/header/core/harness/runner/ledger changed after first build.",
+    "Source strong CAS retains machine exclusive-monitor retries; not bounded/wait-free. libc, canary failure and sanitizer dependencies remain.",
+    "Authored synchronous values only. No callback/nesting, concurrent publication, native frame/file provider, DSO/installer, signal/nonlocal-exit, device, production or live composition. Ownership is not causation; live gates CLOSED."
+  ],
+  "method_reviews": {
+    "setup-asan-ubsan": {
+      "ac_admit_internal": {
+        "extent": {
+          "body_sha256": "b49587fcb99a87a366d858f8b7ef41c55bf45786aadb1cb65785e38c160bce3a",
+          "section": 1,
+          "size": 376,
+          "value": 1480
+        },
+        "observations": [
+          "One logical strong CAS lowers to LDAXR/STLXR with CBNZ exclusive-store retry. Winner initializes private work then stores request pointer; suppressed path does neither. Entry prologue/sanitizer work is not excluded by the source admission ordering. No wait-free bound.",
+          "Retained method-bound instruction/relocation anchors: 67c:\t885ffc03 \tldaxr\tw3, [x0]; 684:\t8804fc01 \tstlxr\tw4, w1, [x0]; 6b0: R_AARCH64_CALL26\tmemset; 73c: R_AARCH64_CALL26\t__stack_chk_fail",
+          "Sanitizer shadow checks and abort dependencies are additional machine operations; no transitive safety claim.",
+          "LDAXR0x67c/STLXR0x684/retry0x688\u21920x67c; winner request store0x6b8; own canary failure0x73c."
+        ]
+      },
+      "ac_model_add_cell": {
+        "extent": {
+          "body_sha256": "bfdfa7a0e2e3ab2adcaaffcf43fc61591e837ec132a85798b46b277c0c08dc59",
+          "section": 1,
+          "size": 780,
+          "value": 16396
+        },
+        "observations": [
+          "Serial Virgin/capacity/value-domain/duplicate-key checks precede bounded integer-keyed cell append. No native frame dereference.",
+          "No selected atomic/call relocation in this method; source/disassembly guard and bounded-store path reviewed.",
+          "Sanitizer shadow checks and abort dependencies are additional machine operations; no transitive safety claim."
+        ]
+      },
+      "ac_model_commit_generated": {
+        "extent": {
+          "body_sha256": "5e5f1eef13cda2ea199d2fa81ec170eccbde72809656ff3b73e64ad99e248e0b",
+          "section": 1,
+          "size": 620,
+          "value": 15776
+        },
+        "observations": [
+          "New relaxed Virgin load rejects before old bounds/staged/used/acquire predicates; accepted path marks used then STLR published. No second CAS or concurrent writer protocol.",
+          "Retained method-bound instruction/relocation anchors: 3f18:\t88dffc82 \tldar\tw2, [x4]; 3fb4:\t889ffc81 \tstlr\tw1, [x4]",
+          "Sanitizer shadow checks and abort dependencies are additional machine operations; no transitive safety claim.",
+          "Virgin load0x3dac/eligibility branch0x3dc0/release0x3fb4."
+        ]
+      },
+      "ac_model_commit_module": {
+        "extent": {
+          "body_sha256": "631254b6937aff581615ad8f865650e5ee4af6eee7c41a26741f079c0c375b10",
+          "section": 1,
+          "size": 624,
+          "value": 13804
+        },
+        "observations": [
+          "New relaxed Virgin load rejects before old bounds/staged/used/acquire predicates; accepted path marks used then STLR committed. Relaxed eligibility supports serial setup only.",
+          "Retained method-bound instruction/relocation anchors: 3768:\t88dffc82 \tldar\tw2, [x4]; 3804:\t889ffc81 \tstlr\tw1, [x4]",
+          "Sanitizer shadow checks and abort dependencies are additional machine operations; no transitive safety claim.",
+          "Virgin load0x35f8/eligibility branch0x360c/release0x3804."
+        ]
+      },
+      "ac_model_stage_generated": {
+        "extent": {
+          "body_sha256": "98ced4f022e59ed2040d0d02af0b457a4ac9b2fac14a801a48bd1cf9309289ff",
+          "section": 1,
+          "size": 1348,
+          "value": 14428
+        },
+        "observations": [
+          "Serial Virgin/bounds/unused/typed-owner/range/canonical-ID checks precede copied immutable authored generated identity. No installer/mapping/publication invocation.",
+          "Retained method-bound instruction/relocation anchors: 3c90: R_AARCH64_CALL26\tmemcpy",
+          "Sanitizer shadow checks and abort dependencies are additional machine operations; no transitive safety claim."
+        ]
+      },
+      "ac_model_stage_module": {
+        "extent": {
+          "body_sha256": "6930126fb512e0c514679c5980278d7145ebb9f3ab60130b201a7aa4f1a1e1c8",
+          "section": 1,
+          "size": 904,
+          "value": 12900
+        },
+        "observations": [
+          "Serial setup checks Virgin and fixed bounds/unused slot, full canonical ID and range before payload copy. Copy precedes staged flag. No second admission.",
+          "Retained method-bound instruction/relocation anchors: 34c4: R_AARCH64_CALL26\tmemcpy",
+          "Sanitizer shadow checks and abort dependencies are additional machine operations; no transitive safety claim."
+        ]
+      },
+      "ac_observe": {
+        "extent": {
+          "body_sha256": "631a9ce7ffd3b48d1bcfc2dbabc92d196d3ff7a876285d08b56562ee28618488",
+          "section": 1,
+          "size": 288,
+          "value": 12612
+        },
+        "observations": [
+          "Public destination is cleared before state acquire. Only equality with OrdinaryReturned2 admits final payload copy; incomplete and Virgin observations remain empty. Sanitizer pointer/metadata checks do not replace this state gate.",
+          "Retained method-bound instruction/relocation anchors: 3170:\t88dffc01 \tldar\tw1, [x0]; 3160: R_AARCH64_CALL26\tmemset; 324c: R_AARCH64_CALL26\tmemcpy",
+          "Sanitizer shadow checks and abort dependencies are additional machine operations; no transitive safety claim."
+        ]
+      },
+      "ac_publish_internal": {
+        "extent": {
+          "body_sha256": "4001770693716682699b68db06d81f284baa38982a9c4d9aeb6233a26961ed43",
+          "section": 1,
+          "size": 76,
+          "value": 492
+        },
+        "observations": [
+          "504-byte result memcpy precedes phase5 and release STLR state2. Source result remains immutable after release. Normal returned memcpy is assumed; no transitive signal/nonlocal-exit guarantee.",
+          "Retained method-bound instruction/relocation anchors: 228:\t889ffe60 \tstlr\tw0, [x19]; 214: R_AARCH64_CALL26\tmemcpy",
+          "Sanitizer shadow checks and abort dependencies are additional machine operations; no transitive safety claim."
+        ]
+      },
+      "ac_run": {
+        "extent": {
+          "body_sha256": "0da40a69d3c4ae4ddee0b0c2be21b292e3cdec1217abe06fafa3be6edcc7041e",
+          "section": 1,
+          "size": 2956,
+          "value": 9656
+        },
+        "observations": [
+          "Independent review: ordinary driver calls sole admission before selection, suppressed returns0; loop drives whole-call selection and receipts through publication or halt. Final phase5 comparison maps RETURNED2 else INCOMPLETE3. No private seam or indirect provider call; canary and library/instrumentation dependencies remain.",
+          "Retained method-bound instruction/relocation anchors: 2730: R_AARCH64_CALL26\tmemset; 2814: R_AARCH64_CALL26\tmemset; 2964: R_AARCH64_CALL26\tmemcpy; 3140: R_AARCH64_CALL26\t__stack_chk_fail",
+          "Sanitizer shadow checks and abort dependencies are additional machine operations; no transitive safety claim.",
+          "admission0x263c; selector0x2990; Active loop0x2a28\u20130x2a34; phase5 return0x2a40\u20130x2a48; canary mismatch0x2674\u21920x3134\u2192fail0x3140"
+        ]
+      },
+      "ac_select_values": {
+        "extent": {
+          "body_sha256": "52f9595d45314450ff37e1f593d1eb8668c8cbca32143d6281c84f5f39f8fc04",
+          "section": 1,
+          "size": 4888,
+          "value": 4768
+        },
+        "observations": [
+          "Calls exact owner and chosen-slot snapshot readers. Authored cell trace/value iteration never dereferences native addresses. NULL request halts with request-domain error. Whole-call complete mode loops Pending progress; source receipt/selection remains private.",
+          "Retained method-bound instruction/relocation anchors: 148c: R_AARCH64_CALL26\tma_module_snapshot; 16f0: R_AARCH64_CALL26\tma_owner_index; 1a48: R_AARCH64_CALL26\tma_owner_index; 235c: R_AARCH64_CALL26\tmemset; 2414: R_AARCH64_CALL26\tmemcpy",
+          "Sanitizer shadow checks and abort dependencies are additional machine operations; no transitive safety claim."
+        ]
+      },
+      "ma_generated_index": {
+        "extent": {
+          "body_sha256": "f479bd2d6df2f0c24a5cc12da49415458490576444cfbdc5e595331314f7d6a1",
+          "section": 1,
+          "size": 700,
+          "value": 2984
+        },
+        "observations": [
+          "Generated lookup first; Community kind then per-module LDAR, full64-bit process comparison and33-byte memcmp resolve unique module index. Core/unmatched/ambiguous identities return fallback. Canary and libc dependencies retained.",
+          "Retained method-bound instruction/relocation anchors: d4c:\t88dffe60 \tldar\tw0, [x19]; c30: R_AARCH64_CALL26\trc_lookup; d98: R_AARCH64_CALL26\tmemcmp; e60: R_AARCH64_CALL26\t__stack_chk_fail",
+          "Sanitizer shadow checks and abort dependencies are additional machine operations; no transitive safety claim."
+        ]
+      },
+      "ma_module_snapshot": {
+        "extent": {
+          "body_sha256": "a1eefa6dda5af1988db51c4773b66f9c85dee0123a8ce4e4a9e29423ab5b9eeb",
+          "section": 1,
+          "size": 820,
+          "value": 3684
+        },
+        "observations": [
+          "Bounds/output checks and zeroed output precede selected-slot LDAR; committed nonzero gates exact selected module payload/index/full64-bit identity and all33ID bytes. No re-search or binding-as-index interpretation.",
+          "Retained method-bound instruction/relocation anchors: ee8:\t88dffc02 \tldar\tw2, [x0]; ea4: R_AARCH64_CALL26\tmemset; 10c8: R_AARCH64_CALL26\tmemcpy",
+          "Sanitizer shadow checks and abort dependencies are additional machine operations; no transitive safety claim."
+        ]
+      },
+      "ma_owner_index": {
+        "extent": {
+          "body_sha256": "5f5778bdb01ddb2d21c46cef9eb8e13575eab8287f63c8c312b6e9704a5fa084",
+          "section": 1,
+          "size": 264,
+          "value": 4504
+        },
+        "observations": [
+          "Module slots acquire committed state before envelope reads; first matching module wins. Only miss calls generated identity resolution. This order is per address, not whole-selection snapshot.",
+          "Retained method-bound instruction/relocation anchors: 123c:\t88dffc44 \tldar\tw4, [x2]",
+          "Sanitizer shadow checks and abort dependencies are additional machine operations; no transitive safety claim."
+        ]
+      },
+      "rc_lookup": {
+        "extent": {
+          "body_sha256": "1efbec9b7c05e1d18ce8afb1175d68eac787a0e2584b4a654b6f4e1174f516b5",
+          "section": 1,
+          "size": 600,
+          "value": 2384
+        },
+        "observations": [
+          "Per-slot LDAR and zero branch precede payload/range reads; half-open instruction ranges select copied metadata. Fixed four-slot generated-only reader; acquire iteration is not a coherent registry snapshot.",
+          "Retained method-bound instruction/relocation anchors: a34:\t88dffc46 \tldar\tw6, [x2]; b88: R_AARCH64_CALL26\tmemcpy",
+          "Sanitizer shadow checks and abort dependencies are additional machine operations; no transitive safety claim."
+        ]
+      }
+    },
+    "setup-plain": {
+      "ac_admit_internal": {
+        "extent": {
+          "body_sha256": "7ebd6ef9c0a68c34734b4577dc480d40762cebfb1638dc6c55eb37d0beb6969b",
+          "section": 1,
+          "size": 104,
+          "value": 628
+        },
+        "observations": [
+          "One logical strong CAS lowers to LDAXR/STLXR with CBNZ exclusive-store retry. Winner initializes private work then stores request pointer; suppressed path does neither. Entry prologue/sanitizer work is not excluded by the source admission ordering. No wait-free bound.",
+          "Retained method-bound instruction/relocation anchors: 290:\t885ffc23 \tldaxr\tw3, [x1]; 298:\t8804fc22 \tstlxr\tw4, w2, [x1]; 2c0: R_AARCH64_CALL26\tmemset",
+          "Plain object review is selected codegen evidence, not whole-program safety or native visibility proof.",
+          "LDAXR0x290/STLXR0x298/retry0x29c\u21920x290; winner request store0x2c8."
+        ]
+      },
+      "ac_model_add_cell": {
+        "extent": {
+          "body_sha256": "58cab49445697274b010d40ad3bff7ec8566357bc0d3e3cad868af0454a841bd",
+          "section": 1,
+          "size": 200,
+          "value": 5484
+        },
+        "observations": [
+          "Serial Virgin/capacity/value-domain/duplicate-key checks precede bounded integer-keyed cell append. No native frame dereference.",
+          "No selected atomic/call relocation in this method; source/disassembly guard and bounded-store path reviewed.",
+          "Plain object review is selected codegen evidence, not whole-program safety or native visibility proof."
+        ]
+      },
+      "ac_model_commit_generated": {
+        "extent": {
+          "body_sha256": "0cb86ab8475e12cd7222d34e02cf99ac2c81c128194b59671cfbab225ef06089",
+          "section": 1,
+          "size": 164,
+          "value": 5320
+        },
+        "observations": [
+          "New relaxed Virgin load rejects before old bounds/staged/used/acquire predicates; accepted path marks used then STLR published. No second CAS or concurrent writer protocol.",
+          "Retained method-bound instruction/relocation anchors: 153c:\t88dffc61 \tldar\tw1, [x3]; 1564:\t889ffc60 \tstlr\tw0, [x3]",
+          "Plain object review is selected codegen evidence, not whole-program safety or native visibility proof.",
+          "Virgin load0x14d4/eligibility branch0x14ec/release0x1564."
+        ]
+      },
+      "ac_model_commit_module": {
+        "extent": {
+          "body_sha256": "66fff960a503de7bd2eef878d0720411a503bc0906db4c8b17d772ab46369dd6",
+          "section": 1,
+          "size": 168,
+          "value": 4716
+        },
+        "observations": [
+          "New relaxed Virgin load rejects before old bounds/staged/used/acquire predicates; accepted path marks used then STLR committed. Relaxed eligibility supports serial setup only.",
+          "Retained method-bound instruction/relocation anchors: 12e4:\t88dffc61 \tldar\tw1, [x3]; 130c:\t889ffc60 \tstlr\tw0, [x3]",
+          "Plain object review is selected codegen evidence, not whole-program safety or native visibility proof.",
+          "Virgin load0x1278/eligibility branch0x1290/release0x130c."
+        ]
+      },
+      "ac_model_stage_generated": {
+        "extent": {
+          "body_sha256": "51aa6da7dba25a54f5ecb4a99732b15b7c637ef61937924403093a97d7a8314d",
+          "section": 1,
+          "size": 436,
+          "value": 4884
+        },
+        "observations": [
+          "Serial Virgin/bounds/unused/typed-owner/range/canonical-ID checks precede copied immutable authored generated identity. No installer/mapping/publication invocation.",
+          "No selected atomic/call relocation in this method; source/disassembly guard and bounded-store path reviewed.",
+          "Plain object review is selected codegen evidence, not whole-program safety or native visibility proof."
+        ]
+      },
+      "ac_model_stage_module": {
+        "extent": {
+          "body_sha256": "d812a6a03b4e899254ef5a8d516cf84273120fe52db55900139b4343a5afefdc",
+          "section": 1,
+          "size": 312,
+          "value": 4404
+        },
+        "observations": [
+          "Serial setup checks Virgin and fixed bounds/unused slot, full canonical ID and range before payload copy. Copy precedes staged flag. No second admission.",
+          "No selected atomic/call relocation in this method; source/disassembly guard and bounded-store path reviewed.",
+          "Plain object review is selected codegen evidence, not whole-program safety or native visibility proof."
+        ]
+      },
+      "ac_observe": {
+        "extent": {
+          "body_sha256": "0426972d33172311e1b3b544ae90f4e75c6ecc75bd712c59bbc3673e68a8a574",
+          "section": 1,
+          "size": 108,
+          "value": 4296
+        },
+        "observations": [
+          "Public destination is cleared before state acquire. Only equality with OrdinaryReturned2 admits final payload copy; incomplete and Virgin observations remain empty. Sanitizer pointer/metadata checks do not replace this state gate.",
+          "Retained method-bound instruction/relocation anchors: 10f4:\t88dffc00 \tldar\tw0, [x0]; 10e4: R_AARCH64_CALL26\tmemset; 1128: R_AARCH64_CALL26\tmemcpy",
+          "Plain object review is selected codegen evidence, not whole-program safety or native visibility proof."
+        ]
+      },
+      "ac_publish_internal": {
+        "extent": {
+          "body_sha256": "d605ff2381710ede17368395e54472dcbc2c5486bbf48726028722a03887494b",
+          "section": 1,
+          "size": 76,
+          "value": 552
+        },
+        "observations": [
+          "504-byte result memcpy precedes phase5 and release STLR state2. Source result remains immutable after release. Normal returned memcpy is assumed; no transitive signal/nonlocal-exit guarantee.",
+          "Retained method-bound instruction/relocation anchors: 264:\t889ffe60 \tstlr\tw0, [x19]; 250: R_AARCH64_CALL26\tmemcpy",
+          "Plain object review is selected codegen evidence, not whole-program safety or native visibility proof."
+        ]
+      },
+      "ac_run": {
+        "extent": {
+          "body_sha256": "ad703737a0107869ca60747e8dcd7eebd9765d663a385bdeca1073b1486e9311",
+          "section": 1,
+          "size": 1572,
+          "value": 2724
+        },
+        "observations": [
+          "Independent review: ordinary driver calls sole admission before selection, suppressed returns0; loop drives whole-call selection and receipts through publication or halt. Final phase5 comparison maps RETURNED2 else INCOMPLETE3. No private seam or indirect provider call; canary and library/instrumentation dependencies remain.",
+          "Retained method-bound instruction/relocation anchors: cbc: R_AARCH64_CALL26\tmemcpy; 10c4: R_AARCH64_CALL26\t__stack_chk_fail",
+          "Plain object review is selected codegen evidence, not whole-program safety or native visibility proof.",
+          "admission0xac0; selector0xce4; Active loop0xfe8\u20130xff0; phase5 return0xffc\u20130x1004; canary mismatch0xae0\u21920x10b4\u2192fail0x10c4"
+        ]
+      },
+      "ac_select_values": {
+        "extent": {
+          "body_sha256": "31713fdcbe5446a1e195e8ca8d626a7f9ae14c95c669f5b09f38c44ae2cc474a",
+          "section": 1,
+          "size": 1244,
+          "value": 1480
+        },
+        "observations": [
+          "Calls exact owner and chosen-slot snapshot readers. Authored cell trace/value iteration never dereferences native addresses. NULL request halts with request-domain error. Whole-call complete mode loops Pending progress; source receipt/selection remains private.",
+          "Retained method-bound instruction/relocation anchors: 708: R_AARCH64_CALL26\tma_module_snapshot; 79c: R_AARCH64_CALL26\tma_owner_index; a58: R_AARCH64_CALL26\tma_owner_index",
+          "Plain object review is selected codegen evidence, not whole-program safety or native visibility proof."
+        ]
+      },
+      "ma_generated_index": {
+        "extent": {
+          "body_sha256": "a3fa95e7f0af76aea44c7d6c299dad8acedb4f85a0d8374790248eb50affb996",
+          "section": 1,
+          "size": 252,
+          "value": 904
+        },
+        "observations": [
+          "Generated lookup first; Community kind then per-module LDAR, full64-bit process comparison and33-byte memcmp resolve unique module index. Core/unmatched/ambiguous identities return fallback. Canary and libc dependencies retained.",
+          "Retained method-bound instruction/relocation anchors: 3f4:\t88dffe60 \tldar\tw0, [x19]; 3a8: R_AARCH64_CALL26\trc_lookup; 418: R_AARCH64_CALL26\tmemcmp; 480: R_AARCH64_CALL26\t__stack_chk_fail",
+          "Plain object review is selected codegen evidence, not whole-program safety or native visibility proof."
+        ]
+      },
+      "ma_module_snapshot": {
+        "extent": {
+          "body_sha256": "715fd34a69f2de25ea63fdee21e423b5d733d9dd96762e7fc7a54f806eb1e5a5",
+          "section": 1,
+          "size": 228,
+          "value": 1156
+        },
+        "observations": [
+          "Bounds/output checks and zeroed output precede selected-slot LDAR; committed nonzero gates exact selected module payload/index/full64-bit identity and all33ID bytes. No re-search or binding-as-index interpretation.",
+          "Retained method-bound instruction/relocation anchors: 4d8:\t88dffc84 \tldar\tw4, [x4]",
+          "Plain object review is selected codegen evidence, not whole-program safety or native visibility proof."
+        ]
+      },
+      "ma_owner_index": {
+        "extent": {
+          "body_sha256": "529f64e61004d33277b3b2a841da874ca10843da2ffab75494ead7ad5f00e944",
+          "section": 1,
+          "size": 96,
+          "value": 1384
+        },
+        "observations": [
+          "Module slots acquire committed state before envelope reads; first matching module wins. Only miss calls generated identity resolution. This order is per address, not whole-selection snapshot.",
+          "Retained method-bound instruction/relocation anchors: 58c:\t88dffc23 \tldar\tw3, [x1]",
+          "Plain object review is selected codegen evidence, not whole-program safety or native visibility proof."
+        ]
+      },
+      "rc_lookup": {
+        "extent": {
+          "body_sha256": "2bec6db4019a9223af8f9ac5ebdb82b08429f76f1c9c9bab46ed7f2262b8fc85",
+          "section": 1,
+          "size": 172,
+          "value": 732
+        },
+        "observations": [
+          "Per-slot LDAR and zero branch precede payload/range reads; half-open instruction ranges select copied metadata. Fixed four-slot generated-only reader; acquire iteration is not a coherent registry snapshot.",
+          "Retained method-bound instruction/relocation anchors: 308:\t88dffc45 \tldar\tw5, [x2]; 368: R_AARCH64_CALL26\tmemcpy",
+          "Plain object review is selected codegen evidence, not whole-program safety or native visibility proof."
+        ]
+      }
+    },
+    "standalone-asan-ubsan": {
+      "ac_admit_internal": {
+        "extent": {
+          "body_sha256": "b49587fcb99a87a366d858f8b7ef41c55bf45786aadb1cb65785e38c160bce3a",
+          "section": 1,
+          "size": 376,
+          "value": 1480
+        },
+        "observations": [
+          "One logical strong CAS lowers to LDAXR/STLXR with CBNZ exclusive-store retry. Winner initializes private work then stores request pointer; suppressed path does neither. Entry prologue/sanitizer work is not excluded by the source admission ordering. No wait-free bound.",
+          "Retained method-bound instruction/relocation anchors: 67c:\t885ffc03 \tldaxr\tw3, [x0]; 684:\t8804fc01 \tstlxr\tw4, w1, [x0]; 6b0: R_AARCH64_CALL26\tmemset; 73c: R_AARCH64_CALL26\t__stack_chk_fail",
+          "Sanitizer shadow checks and abort dependencies are additional machine operations; no transitive safety claim.",
+          "LDAXR0x67c/STLXR0x684/retry0x688\u21920x67c; winner request store0x6b8; own canary failure0x73c."
+        ]
+      },
+      "ac_observe": {
+        "extent": {
+          "body_sha256": "99dfe2729ad6cf9366c3fbdc9f3794184682f03b2a9619b07c0b28decc82014a",
+          "section": 1,
+          "size": 288,
+          "value": 11956
+        },
+        "observations": [
+          "Public destination is cleared before state acquire. Only equality with OrdinaryReturned2 admits final payload copy; incomplete and Virgin observations remain empty. Sanitizer pointer/metadata checks do not replace this state gate.",
+          "Retained method-bound instruction/relocation anchors: 2ee0:\t88dffc01 \tldar\tw1, [x0]; 2ed0: R_AARCH64_CALL26\tmemset; 2fbc: R_AARCH64_CALL26\tmemcpy",
+          "Sanitizer shadow checks and abort dependencies are additional machine operations; no transitive safety claim."
+        ]
+      },
+      "ac_publish_internal": {
+        "extent": {
+          "body_sha256": "4001770693716682699b68db06d81f284baa38982a9c4d9aeb6233a26961ed43",
+          "section": 1,
+          "size": 76,
+          "value": 492
+        },
+        "observations": [
+          "504-byte result memcpy precedes phase5 and release STLR state2. Source result remains immutable after release. Normal returned memcpy is assumed; no transitive signal/nonlocal-exit guarantee.",
+          "Retained method-bound instruction/relocation anchors: 228:\t889ffe60 \tstlr\tw0, [x19]; 214: R_AARCH64_CALL26\tmemcpy",
+          "Sanitizer shadow checks and abort dependencies are additional machine operations; no transitive safety claim."
+        ]
+      },
+      "ac_run": {
+        "extent": {
+          "body_sha256": "0afd00e3aebabdc27f027438c1cc013075ee93b1f95ae979bd05d3bc58376706",
+          "section": 1,
+          "size": 2956,
+          "value": 9000
+        },
+        "observations": [
+          "Independent review: ordinary driver calls sole admission before selection, suppressed returns0; loop drives whole-call selection and receipts through publication or halt. Final phase5 comparison maps RETURNED2 else INCOMPLETE3. No private seam or indirect provider call; canary and library/instrumentation dependencies remain.",
+          "Retained method-bound instruction/relocation anchors: 24a0: R_AARCH64_CALL26\tmemset; 2584: R_AARCH64_CALL26\tmemset; 26d4: R_AARCH64_CALL26\tmemcpy; 2eb0: R_AARCH64_CALL26\t__stack_chk_fail",
+          "Sanitizer shadow checks and abort dependencies are additional machine operations; no transitive safety claim.",
+          "admission0x23ac; selector0x2700; Active loop0x2798\u20130x27a4; phase5 return0x27b0\u20130x27b8; canary mismatch0x23e4\u21920x2ea4\u2192fail0x2eb0"
+        ]
+      },
+      "ac_select_values": {
+        "extent": {
+          "body_sha256": "e7b4059bb861c4d2e30888d2040f487cb4f33eef59a3452469ad8c8a54d07e4f",
+          "section": 1,
+          "size": 4232,
+          "value": 4768
+        },
+        "observations": [
+          "Calls exact owner and chosen-slot snapshot readers. Authored cell trace/value iteration never dereferences native addresses. NULL request halts with request-domain error. Whole-call complete mode loops Pending progress; source receipt/selection remains private.",
+          "Retained method-bound instruction/relocation anchors: 1488: R_AARCH64_CALL26\tma_module_snapshot; 16f4: R_AARCH64_CALL26\tma_owner_index; 1a3c: R_AARCH64_CALL26\tma_owner_index; 20c8: R_AARCH64_CALL26\tmemset; 2180: R_AARCH64_CALL26\tmemcpy",
+          "Sanitizer shadow checks and abort dependencies are additional machine operations; no transitive safety claim."
+        ]
+      },
+      "ma_generated_index": {
+        "extent": {
+          "body_sha256": "f479bd2d6df2f0c24a5cc12da49415458490576444cfbdc5e595331314f7d6a1",
+          "section": 1,
+          "size": 700,
+          "value": 2984
+        },
+        "observations": [
+          "Generated lookup first; Community kind then per-module LDAR, full64-bit process comparison and33-byte memcmp resolve unique module index. Core/unmatched/ambiguous identities return fallback. Canary and libc dependencies retained.",
+          "Retained method-bound instruction/relocation anchors: d4c:\t88dffe60 \tldar\tw0, [x19]; c30: R_AARCH64_CALL26\trc_lookup; d98: R_AARCH64_CALL26\tmemcmp; e60: R_AARCH64_CALL26\t__stack_chk_fail",
+          "Sanitizer shadow checks and abort dependencies are additional machine operations; no transitive safety claim."
+        ]
+      },
+      "ma_module_snapshot": {
+        "extent": {
+          "body_sha256": "a1eefa6dda5af1988db51c4773b66f9c85dee0123a8ce4e4a9e29423ab5b9eeb",
+          "section": 1,
+          "size": 820,
+          "value": 3684
+        },
+        "observations": [
+          "Bounds/output checks and zeroed output precede selected-slot LDAR; committed nonzero gates exact selected module payload/index/full64-bit identity and all33ID bytes. No re-search or binding-as-index interpretation.",
+          "Retained method-bound instruction/relocation anchors: ee8:\t88dffc02 \tldar\tw2, [x0]; ea4: R_AARCH64_CALL26\tmemset; 10c8: R_AARCH64_CALL26\tmemcpy",
+          "Sanitizer shadow checks and abort dependencies are additional machine operations; no transitive safety claim."
+        ]
+      },
+      "ma_owner_index": {
+        "extent": {
+          "body_sha256": "5f5778bdb01ddb2d21c46cef9eb8e13575eab8287f63c8c312b6e9704a5fa084",
+          "section": 1,
+          "size": 264,
+          "value": 4504
+        },
+        "observations": [
+          "Module slots acquire committed state before envelope reads; first matching module wins. Only miss calls generated identity resolution. This order is per address, not whole-selection snapshot.",
+          "Retained method-bound instruction/relocation anchors: 123c:\t88dffc44 \tldar\tw4, [x2]",
+          "Sanitizer shadow checks and abort dependencies are additional machine operations; no transitive safety claim."
+        ]
+      },
+      "rc_lookup": {
+        "extent": {
+          "body_sha256": "1efbec9b7c05e1d18ce8afb1175d68eac787a0e2584b4a654b6f4e1174f516b5",
+          "section": 1,
+          "size": 600,
+          "value": 2384
+        },
+        "observations": [
+          "Per-slot LDAR and zero branch precede payload/range reads; half-open instruction ranges select copied metadata. Fixed four-slot generated-only reader; acquire iteration is not a coherent registry snapshot.",
+          "Retained method-bound instruction/relocation anchors: a34:\t88dffc46 \tldar\tw6, [x2]; b88: R_AARCH64_CALL26\tmemcpy",
+          "Sanitizer shadow checks and abort dependencies are additional machine operations; no transitive safety claim."
+        ]
+      }
+    },
+    "standalone-plain": {
+      "ac_admit_internal": {
+        "extent": {
+          "body_sha256": "7ebd6ef9c0a68c34734b4577dc480d40762cebfb1638dc6c55eb37d0beb6969b",
+          "section": 1,
+          "size": 104,
+          "value": 628
+        },
+        "observations": [
+          "One logical strong CAS lowers to LDAXR/STLXR with CBNZ exclusive-store retry. Winner initializes private work then stores request pointer; suppressed path does neither. Entry prologue/sanitizer work is not excluded by the source admission ordering. No wait-free bound.",
+          "Retained method-bound instruction/relocation anchors: 290:\t885ffc23 \tldaxr\tw3, [x1]; 298:\t8804fc22 \tstlxr\tw4, w2, [x1]; 2c0: R_AARCH64_CALL26\tmemset",
+          "Plain object review is selected codegen evidence, not whole-program safety or native visibility proof.",
+          "LDAXR0x290/STLXR0x298/retry0x29c\u21920x290; winner request store0x2c8."
+        ]
+      },
+      "ac_observe": {
+        "extent": {
+          "body_sha256": "0426972d33172311e1b3b544ae90f4e75c6ecc75bd712c59bbc3673e68a8a574",
+          "section": 1,
+          "size": 108,
+          "value": 4184
+        },
+        "observations": [
+          "Public destination is cleared before state acquire. Only equality with OrdinaryReturned2 admits final payload copy; incomplete and Virgin observations remain empty. Sanitizer pointer/metadata checks do not replace this state gate.",
+          "Retained method-bound instruction/relocation anchors: 1084:\t88dffc00 \tldar\tw0, [x0]; 1074: R_AARCH64_CALL26\tmemset; 10b8: R_AARCH64_CALL26\tmemcpy",
+          "Plain object review is selected codegen evidence, not whole-program safety or native visibility proof."
+        ]
+      },
+      "ac_publish_internal": {
+        "extent": {
+          "body_sha256": "d605ff2381710ede17368395e54472dcbc2c5486bbf48726028722a03887494b",
+          "section": 1,
+          "size": 76,
+          "value": 552
+        },
+        "observations": [
+          "504-byte result memcpy precedes phase5 and release STLR state2. Source result remains immutable after release. Normal returned memcpy is assumed; no transitive signal/nonlocal-exit guarantee.",
+          "Retained method-bound instruction/relocation anchors: 264:\t889ffe60 \tstlr\tw0, [x19]; 250: R_AARCH64_CALL26\tmemcpy",
+          "Plain object review is selected codegen evidence, not whole-program safety or native visibility proof."
+        ]
+      },
+      "ac_run": {
+        "extent": {
+          "body_sha256": "96223bec78e093c03a61146393786de9132dd1cf79157049b1a81ebbd6cad785",
+          "section": 1,
+          "size": 1572,
+          "value": 2612
+        },
+        "observations": [
+          "Independent review: ordinary driver calls sole admission before selection, suppressed returns0; loop drives whole-call selection and receipts through publication or halt. Final phase5 comparison maps RETURNED2 else INCOMPLETE3. No private seam or indirect provider call; canary and library/instrumentation dependencies remain.",
+          "Retained method-bound instruction/relocation anchors: c4c: R_AARCH64_CALL26\tmemcpy; 1054: R_AARCH64_CALL26\t__stack_chk_fail",
+          "Plain object review is selected codegen evidence, not whole-program safety or native visibility proof.",
+          "admission0xa50; selector0xc74; Active loop0xf78\u20130xf80; phase5 return0xf8c\u20130xf94; canary mismatch0xa70\u21920x1044\u2192fail0x1054"
+        ]
+      },
+      "ac_select_values": {
+        "extent": {
+          "body_sha256": "79f1d0dabfa3f4f7a55c1f341cdf42601e9504bd450ebf777f8146560599b1cc",
+          "section": 1,
+          "size": 1132,
+          "value": 1480
+        },
+        "observations": [
+          "Calls exact owner and chosen-slot snapshot readers. Authored cell trace/value iteration never dereferences native addresses. NULL request halts with request-domain error. Whole-call complete mode loops Pending progress; source receipt/selection remains private.",
+          "Retained method-bound instruction/relocation anchors: 6e4: R_AARCH64_CALL26\tma_module_snapshot; 778: R_AARCH64_CALL26\tma_owner_index; 9e0: R_AARCH64_CALL26\tma_owner_index",
+          "Plain object review is selected codegen evidence, not whole-program safety or native visibility proof."
+        ]
+      },
+      "ma_generated_index": {
+        "extent": {
+          "body_sha256": "a3fa95e7f0af76aea44c7d6c299dad8acedb4f85a0d8374790248eb50affb996",
+          "section": 1,
+          "size": 252,
+          "value": 904
+        },
+        "observations": [
+          "Generated lookup first; Community kind then per-module LDAR, full64-bit process comparison and33-byte memcmp resolve unique module index. Core/unmatched/ambiguous identities return fallback. Canary and libc dependencies retained.",
+          "Retained method-bound instruction/relocation anchors: 3f4:\t88dffe60 \tldar\tw0, [x19]; 3a8: R_AARCH64_CALL26\trc_lookup; 418: R_AARCH64_CALL26\tmemcmp; 480: R_AARCH64_CALL26\t__stack_chk_fail",
+          "Plain object review is selected codegen evidence, not whole-program safety or native visibility proof."
+        ]
+      },
+      "ma_module_snapshot": {
+        "extent": {
+          "body_sha256": "715fd34a69f2de25ea63fdee21e423b5d733d9dd96762e7fc7a54f806eb1e5a5",
+          "section": 1,
+          "size": 228,
+          "value": 1156
+        },
+        "observations": [
+          "Bounds/output checks and zeroed output precede selected-slot LDAR; committed nonzero gates exact selected module payload/index/full64-bit identity and all33ID bytes. No re-search or binding-as-index interpretation.",
+          "Retained method-bound instruction/relocation anchors: 4d8:\t88dffc84 \tldar\tw4, [x4]",
+          "Plain object review is selected codegen evidence, not whole-program safety or native visibility proof."
+        ]
+      },
+      "ma_owner_index": {
+        "extent": {
+          "body_sha256": "529f64e61004d33277b3b2a841da874ca10843da2ffab75494ead7ad5f00e944",
+          "section": 1,
+          "size": 96,
+          "value": 1384
+        },
+        "observations": [
+          "Module slots acquire committed state before envelope reads; first matching module wins. Only miss calls generated identity resolution. This order is per address, not whole-selection snapshot.",
+          "Retained method-bound instruction/relocation anchors: 58c:\t88dffc23 \tldar\tw3, [x1]",
+          "Plain object review is selected codegen evidence, not whole-program safety or native visibility proof."
+        ]
+      },
+      "rc_lookup": {
+        "extent": {
+          "body_sha256": "2bec6db4019a9223af8f9ac5ebdb82b08429f76f1c9c9bab46ed7f2262b8fc85",
+          "section": 1,
+          "size": 172,
+          "value": 732
+        },
+        "observations": [
+          "Per-slot LDAR and zero branch precede payload/range reads; half-open instruction ranges select copied metadata. Fixed four-slot generated-only reader; acquire iteration is not a coherent registry snapshot.",
+          "Retained method-bound instruction/relocation anchors: 308:\t88dffc45 \tldar\tw5, [x2]; 368: R_AARCH64_CALL26\tmemcpy",
+          "Plain object review is selected codegen evidence, not whole-program safety or native visibility proof."
+        ]
+      }
+    }
+  },
+  "preflight": {
+    "setup-asan-ubsan": {
+      "build/setup/asan-ubsan/configuration.json": {
+        "bytes": 383,
+        "sha256": "133e079026f1db2b14c155d6f839f10c45f2ef0c94173dc494d3e12764159d40"
+      },
+      "build/setup/asan-ubsan/core-disassembly.txt": {
+        "bytes": 235198,
+        "sha256": "bcfdf4a0eb753cf75c800a0babfd477bb4b91da4f77eebee08e4401094560fdb"
+      },
+      "build/setup/asan-ubsan/core-elf.txt": {
+        "bytes": 294001,
+        "sha256": "093c97856ce1edef2e1d3f0f7ca56bab445fdcad619412720f2ddc2a4041c8d5"
+      },
+      "build/setup/asan-ubsan/core-metadata-review.json": {
+        "bytes": 1505,
+        "sha256": "5d17ef508683de99e0c255e69eab58070ae43ddc881e2ded25c6e0ef86c9e776"
+      },
+      "build/setup/asan-ubsan/core-methods.json": {
+        "bytes": 2388,
+        "sha256": "c2dd94035d95352600962eff98ae60bcab023a82d5cfa334960893b880c4ff1f"
+      },
+      "build/setup/asan-ubsan/core-symbols.json": {
+        "bytes": 21738,
+        "sha256": "b1db168ca3f9f8fd9dade042c5e670edf6c11bc568cb3dbfbf2a48326f048a2b"
+      },
+      "build/setup/asan-ubsan/core-undefined.json": {
+        "bytes": 4700,
+        "sha256": "9d06c53cf399296654cfd2edb5dc8297859f70aaaf194f8b55bb5670e8900fa9"
+      },
+      "build/setup/asan-ubsan/core.o": {
+        "bytes": 178760,
+        "sha256": "d921feb57d5539a8ca4ae9354faa7123572d2903b0c5056d500ca8ed4b565af1"
+      }
+    },
+    "setup-plain": {
+      "build/setup/plain/configuration.json": {
+        "bytes": 314,
+        "sha256": "fd6a56e0b69c6c4ee3caf7d2301d86ebc70cff3318baa404277b8fbd57c2dc19"
+      },
+      "build/setup/plain/core-disassembly.txt": {
+        "bytes": 70310,
+        "sha256": "f9a5259ebebc130981a930cdfc4b568b9d947488e9badf7e2084fde944878aa6"
+      },
+      "build/setup/plain/core-elf.txt": {
+        "bytes": 105711,
+        "sha256": "edd1d85f385049307dba067cc63c84aeab112f0d6bfaa00e8af036b508fe87bd"
+      },
+      "build/setup/plain/core-metadata-review.json": {
+        "bytes": 480,
+        "sha256": "d366557e03a6dd61948293353e01757be315b311355e793e112fad6c4d7de32a"
+      },
+      "build/setup/plain/core-methods.json": {
+        "bytes": 2377,
+        "sha256": "ce535dbef3d3deb59f8c45ba554b56ca672f827777ddf6ff45ed1b6125b7c9f4"
+      },
+      "build/setup/plain/core-symbols.json": {
+        "bytes": 14682,
+        "sha256": "e43a022d84e6dbda0b4fcedca428406bfb437cae0f36008579ed77bb6b71ca5d"
+      },
+      "build/setup/plain/core-undefined.json": {
+        "bytes": 835,
+        "sha256": "c7c50af383552fea2d860cec26ef851daf4689f4710a421de32e8cb86cf9c33c"
+      },
+      "build/setup/plain/core.o": {
+        "bytes": 66608,
+        "sha256": "4a656a5ab9a9bb6cf65cd465bd8d2c8b2c626454f72f514b44cba57aed39007e"
+      }
+    },
+    "standalone-asan-ubsan": {
+      "build/standalone/asan-ubsan/configuration.json": {
+        "bytes": 356,
+        "sha256": "e9211a219948c2d5940f6b0f3fb7a9c3ef0d1d35f9e58bfd209398b75e0cefc0"
+      },
+      "build/standalone/asan-ubsan/core-disassembly.txt": {
+        "bytes": 165791,
+        "sha256": "037571c97d9da8617ee93a5cc1ff75d0dce0a429f7a6c57b23a5d94f92e64e61"
+      },
+      "build/standalone/asan-ubsan/core-elf.txt": {
+        "bytes": 209921,
+        "sha256": "2f7310dcdfd9ce3de381eb0f45bd9a8721d3bac7ac4534b1168eff2807ad2e29"
+      },
+      "build/standalone/asan-ubsan/core-metadata-review.json": {
+        "bytes": 1510,
+        "sha256": "436ee2fd039dbf1c8a803b1eeb6a7db06310b81b250a4478fbb392764127bf0d"
+      },
+      "build/standalone/asan-ubsan/core-methods.json": {
+        "bytes": 1508,
+        "sha256": "e1f4aecf61344ca27b30950eac21343b01f01efee40aaab937a21cd80a0d7bbc"
+      },
+      "build/standalone/asan-ubsan/core-symbols.json": {
+        "bytes": 19816,
+        "sha256": "7f1e7e4f0a2545b0c119a14532516d3fbd2b17ad30230a1f47e164663c733896"
+      },
+      "build/standalone/asan-ubsan/core-undefined.json": {
+        "bytes": 4542,
+        "sha256": "a49bb8a15c1244c9eea52d23b6739fc569c88c402f31445a14b10352255d0c3a"
+      },
+      "build/standalone/asan-ubsan/core.o": {
+        "bytes": 126808,
+        "sha256": "a5646c644c2c3ed1952b3852b323e03fe3358aa8dd1fef6f1a78f41f83495b16"
+      }
+    },
+    "standalone-plain": {
+      "build/standalone/plain/configuration.json": {
+        "bytes": 287,
+        "sha256": "2008176a2fd12e353b9a0b1e01435a3a6bf0eaee6eb5af6c6485191e318f0114"
+      },
+      "build/standalone/plain/core-disassembly.txt": {
+        "bytes": 52950,
+        "sha256": "95d17d168cef9f348dda457f5c724dc3b51247d4335d8f466d2c4742e2ea51ec"
+      },
+      "build/standalone/plain/core-elf.txt": {
+        "bytes": 90018,
+        "sha256": "3137c29c9a67898a7ee8f9e504b69e028476b51c079346a7f5cae00f6df5a3ea"
+      },
+      "build/standalone/plain/core-metadata-review.json": {
+        "bytes": 484,
+        "sha256": "8a08b08275dcc4742aa63f0bb4341dd62ddc75c775813c590f4c927aeee3c474"
+      },
+      "build/standalone/plain/core-methods.json": {
+        "bytes": 1503,
+        "sha256": "d4cdf412f63d4b32266495eacfef738f7edb2aa22be15f08ab7c88adafd3abba"
+      },
+      "build/standalone/plain/core-symbols.json": {
+        "bytes": 12931,
+        "sha256": "686f6085a4fdec0b7a1ddc1b94113a8ca5baca43e15f08919e1b5d5a707fffd6"
+      },
+      "build/standalone/plain/core-undefined.json": {
+        "bytes": 835,
+        "sha256": "c7c50af383552fea2d860cec26ef851daf4689f4710a421de32e8cb86cf9c33c"
+      },
+      "build/standalone/plain/core.o": {
+        "bytes": 55944,
+        "sha256": "5e49c97985bf23c3907f64c608206009596ad5c9a6e5b07338acf076ce451e01"
+      }
+    }
+  },
+  "review_lock": {
+    "bytes": 1021,
+    "sha256": "7cf08e6b04f39a8463d5622198efad8971f7518004060253f810c3c5b1345ce4"
+  },
+  "runtime_gate": "CLOSED",
+  "schema": 1,
+  "status": "reviewed-before-candidate-runtime"
+}

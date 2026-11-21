@@ -1,0 +1,637 @@
+{
+  "configuration": {
+    "controls_mutually_exclusive": true,
+    "controls_require_setup": true,
+    "old_control_macros_rejected": [
+      "AC_CONTROL_SELECT_BEFORE_CAS",
+      "AC_CONTROL_SECOND_ADMISSION",
+      "AC_CONTROL_BINDING_AS_SLOT",
+      "AC_CONTROL_NARROW_PROCESS",
+      "AC_CONTROL_RESELECT_AT_RECORD",
+      "AC_CONTROL_STOP_ON_CORE_PC",
+      "AC_CONTROL_REFRESH_NEGATIVE",
+      "AC_CONTROL_EXPOSE_RAW_SELECTION"
+    ],
+    "old_fixture_rejected": true,
+    "standalone": "No AO_WITNESS_SETUP: ordinary entry/observer compile only, no setup or private APIs.",
+    "witness": "AO_WITNESS_SETUP: ordinary entry/observer plus exactly five authored setup APIs; no AC_FIXTURE APIs."
+  },
+  "controls": [
+    {
+      "expected_failure_set": [
+        "ordinary-entry-drives-to-publication"
+      ],
+      "id": "C1",
+      "macro": "AO_CONTROL_OMIT_DRIVER",
+      "mutation": "In separately versioned ac_run, after the original successful admission check, return AC_INCOMPLETE before calling ac_step_internal. Admission and its private initialization remain unchanged.",
+      "replacement_ids": [
+        "c-ordinary-controls"
+      ],
+      "selector": "control-omit-driver"
+    },
+    {
+      "expected_failure_set": [
+        "selection-return-does-not-end-ordinary-entry"
+      ],
+      "id": "C2",
+      "macro": "AO_CONTROL_STOP_AFTER_SELECTION_RAW",
+      "mutation": "In separately versioned ac_run keep the ordinary ac_step_internal(false) call, but inside its while body break only when phase==AC_RAW_AVAILABLE and current raw kind==AC_SELECTION; then retain original final return mapping. No alternate provider/injection/private API.",
+      "replacement_ids": [
+        "c-ordinary-controls"
+      ],
+      "selector": "control-stop-after-selection"
+    },
+    {
+      "expected_failure_set": [
+        "published-entry-returns-returned"
+      ],
+      "id": "C3",
+      "macro": "AO_CONTROL_WRONG_PUBLISHED_RETURN",
+      "mutation": "Only the final ac_run expression maps phase AC_PUBLISHED to AC_INCOMPLETE instead of AC_RETURNED; driver and actual publication remain unchanged.",
+      "replacement_ids": [
+        "c-ordinary-controls"
+      ],
+      "selector": "control-published-return"
+    },
+    {
+      "expected_failure_set": [
+        "halted-entry-returns-incomplete"
+      ],
+      "id": "C4",
+      "macro": "AO_CONTROL_WRONG_HALTED_RETURN",
+      "mutation": "Only the nonpublished arm of the final ac_run return expression yields AC_RETURNED instead of AC_INCOMPLETE; admission and halting logic unchanged.",
+      "replacement_ids": [
+        "c-ordinary-controls"
+      ],
+      "selector": "control-halted-return"
+    },
+    {
+      "expected_failure_set": [
+        "post-entry-setup-commits-are-refused"
+      ],
+      "id": "C5",
+      "macro": "AO_CONTROL_OMIT_COMMIT_PHASE_GUARDS",
+      "mutation": "Omit both newly added Virgin checks in the setup-only module and generated commit APIs. Preserve all preexisting bounds/staged/used/publication predicates.",
+      "replacement_ids": [
+        "c-module-virgin",
+        "c-generated-virgin"
+      ],
+      "selector": "control-post-entry-setup"
+    }
+  ],
+  "files": {
+    "core.c": {
+      "complete_unified_diff": "--- predecessor/core.c\n\n+++ successor/core.c\n\n@@ -1,6 +1,7 @@\n\n /* SPDX-License-Identifier: GPL-3.0-only */\n-/* Separately named authored composition. No frozen consumer, SDK admission,\n- * installer, DSO, native frame/file provider, signal or callback is invoked. */\n+/* Separately versioned ordinary-entry witness with pre-entry authored setup.\n+ * No frozen consumer, SDK admission, installer, DSO, native frame/file provider,\n+ * signal or callback is invoked. */\n #include \"core.h\"\n #include <stdatomic.h>\n #include <string.h>\n@@ -10,18 +11,6 @@\n\n     defined(MA_CONTROL_EXEC_ONLY) || defined(MA_CONTROL_GENERATED_FIRST) || \\\n     defined(MA_CONTROL_OMIT_PROCESS) || defined(MA_CONTROL_OMIT_ID_COPY) || defined(RC_FIXTURE)\n #error \"predecessor controls and installer fixtures are excluded\"\n-#endif\n-#if (defined(AC_CONTROL_SELECT_BEFORE_CAS) || defined(AC_CONTROL_SECOND_ADMISSION) || \\\n-     defined(AC_CONTROL_BINDING_AS_SLOT) || defined(AC_CONTROL_NARROW_PROCESS) || \\\n-     defined(AC_CONTROL_RESELECT_AT_RECORD) || defined(AC_CONTROL_STOP_ON_CORE_PC) || \\\n-     defined(AC_CONTROL_REFRESH_NEGATIVE) || defined(AC_CONTROL_EXPOSE_RAW_SELECTION)) && !defined(AC_FIXTURE)\n-#error \"composition controls require the explicit serial fixture\"\n-#endif\n-#if (defined(AC_CONTROL_SELECT_BEFORE_CAS) + defined(AC_CONTROL_SECOND_ADMISSION) + \\\n-     defined(AC_CONTROL_BINDING_AS_SLOT) + defined(AC_CONTROL_NARROW_PROCESS) + \\\n-     defined(AC_CONTROL_RESELECT_AT_RECORD) + defined(AC_CONTROL_STOP_ON_CORE_PC) + \\\n-     defined(AC_CONTROL_REFRESH_NEGATIVE) + defined(AC_CONTROL_EXPOSE_RAW_SELECTION)) > 1\n-#error \"one exact control per executable\"\n #endif\n _Static_assert(AC_ID_BYTES == RC_ID_BYTES && MA_MODULES == 4 && RC_BINDINGS == 4,\n                \"fixed retained identity and registry bounds\");\n@@ -42,9 +31,11 @@\n\n static unsigned ac_cell_count;\n #ifdef AC_FIXTURE\n static ac_auxiliary ac_aux;\n+static bool ac_snapshot_refused;\n+#endif\n+#ifdef AO_WITNESS_SETUP\n static bool ac_module_staged[MA_MODULES], ac_module_used[MA_MODULES];\n static bool ac_generated_staged[RC_BINDINGS], ac_generated_used[RC_BINDINGS];\n-static bool ac_snapshot_refused;\n #endif\n \n static size_t ac_id_length(const char id[AC_ID_BYTES]) {\n@@ -404,8 +395,24 @@\n\n ac_request_result ac_run(const ac_request *request) {\n     ac_request_result result = ac_begin_internal(request);\n     if (result != AC_ADMITTED) return result;\n+#ifdef AO_CONTROL_OMIT_DRIVER\n+    return AC_INCOMPLETE;\n+#endif\n+#ifdef AO_CONTROL_STOP_AFTER_SELECTION_RAW\n+    while (ac_step_internal(false)) {\n+        if (ac_work.phase == AC_RAW_AVAILABLE && ac_work.raw_oracle.kind == AC_SELECTION)\n+            break;\n+    }\n+#else\n     while (ac_step_internal(false)) { /* Bounded authored progress, not a CAS retry loop. */ }\n+#endif\n+#ifdef AO_CONTROL_WRONG_PUBLISHED_RETURN\n+    return ac_work.phase == AC_PUBLISHED ? AC_INCOMPLETE : AC_INCOMPLETE;\n+#elif defined(AO_CONTROL_WRONG_HALTED_RETURN)\n+    return ac_work.phase == AC_PUBLISHED ? AC_RETURNED : AC_RETURNED;\n+#else\n     return ac_work.phase == AC_PUBLISHED ? AC_RETURNED : AC_INCOMPLETE;\n+#endif\n }\n __attribute__((noinline))\n void ac_observe(ac_snapshot *out) {\n@@ -437,6 +444,8 @@\n\n     ac_snapshot_refused = enable;\n     return true;\n }\n+#endif\n+#ifdef AO_WITNESS_SETUP\n bool ac_model_stage_module(unsigned index, const char id[AC_ID_BYTES],\n                            uint64_t process_id, uintptr_t lo, uintptr_t hi) {\n     if (atomic_load_explicit(&ac_state_word, memory_order_relaxed) != AC_VIRGIN ||\n@@ -449,6 +458,9 @@\n\n     return true;\n }\n bool ac_model_commit_module(unsigned index) {\n+#ifndef AO_CONTROL_OMIT_COMMIT_PHASE_GUARDS\n+    if (atomic_load_explicit(&ac_state_word, memory_order_relaxed) != AC_VIRGIN) return false;\n+#endif\n     if (index >= MA_MODULES || !ac_module_staged[index] || ac_module_used[index] ||\n         atomic_load_explicit(&ma_modules[index].committed, memory_order_acquire)) return false;\n     ac_module_used[index] = true;\n@@ -475,6 +487,9 @@\n\n     return true;\n }\n bool ac_model_commit_generated(unsigned binding) {\n+#ifndef AO_CONTROL_OMIT_COMMIT_PHASE_GUARDS\n+    if (atomic_load_explicit(&ac_state_word, memory_order_relaxed) != AC_VIRGIN) return false;\n+#endif\n     if (binding >= RC_BINDINGS || !ac_generated_staged[binding] || ac_generated_used[binding] ||\n         atomic_load_explicit(&records[binding].published, memory_order_acquire)) return false;\n     ac_generated_used[binding] = true;\n@@ -489,6 +504,8 @@\n\n     ac_cells[ac_cell_count++] = (ac_cell){address, value, returned_bytes};\n     return true;\n }\n+#endif\n+#ifdef AC_FIXTURE\n bool ac_model_diagnostic(uintptr_t address, int *out_index) {\n     if (!out_index || ac_aux.diagnostic_count >= AC_DIAGNOSTICS) return false;\n     ac_diagnostic *event = &ac_aux.diagnostics[ac_aux.diagnostic_count++];\n",
+      "destination": "core.c",
+      "new": {
+        "bytes": 22271,
+        "sha256": "f1ffbc6e07a15653028364dda1b689290bbd1f85c4cd63e8498eb7522a771592"
+      },
+      "old": {
+        "bytes": 22174,
+        "sha256": "d1aabc0f4a05cd47e7cd96222d4f7bd1fadba665a571dcc2b1a4c83bbb14c858"
+      },
+      "replacements": [
+        {
+          "after": "/* Separately versioned ordinary-entry witness with pre-entry authored setup.\n * No frozen consumer, SDK admission, installer, DSO, native frame/file provider,\n * signal or callback is invoked. */",
+          "after_pin": {
+            "bytes": 196,
+            "sha256": "4c147e71ae9edd27fbcbf83e61e2a83941b2320f020bbf0a92042219b9147310"
+          },
+          "before": "/* Separately named authored composition. No frozen consumer, SDK admission,\n * installer, DSO, native frame/file provider, signal or callback is invoked. */",
+          "before_pin": {
+            "bytes": 157,
+            "sha256": "048a07a67b6c488836dfabee1ed796aba67ac19217ec058f36dd31f15233a8a8"
+          },
+          "id": "c-comment",
+          "new_first_line": 2,
+          "new_last_line": 4,
+          "new_span": [
+            44,
+            240
+          ],
+          "old_first_line": 2,
+          "old_last_line": 3,
+          "old_span": [
+            44,
+            201
+          ],
+          "reason": "Describe the separately versioned ordinary-entry scope; no executable change."
+        },
+        {
+          "after": "",
+          "after_pin": {
+            "bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "before": "#if (defined(AC_CONTROL_SELECT_BEFORE_CAS) || defined(AC_CONTROL_SECOND_ADMISSION) || \\\n     defined(AC_CONTROL_BINDING_AS_SLOT) || defined(AC_CONTROL_NARROW_PROCESS) || \\\n     defined(AC_CONTROL_RESELECT_AT_RECORD) || defined(AC_CONTROL_STOP_ON_CORE_PC) || \\\n     defined(AC_CONTROL_REFRESH_NEGATIVE) || defined(AC_CONTROL_EXPOSE_RAW_SELECTION)) && !defined(AC_FIXTURE)\n#error \"composition controls require the explicit serial fixture\"\n#endif\n#if (defined(AC_CONTROL_SELECT_BEFORE_CAS) + defined(AC_CONTROL_SECOND_ADMISSION) + \\\n     defined(AC_CONTROL_BINDING_AS_SLOT) + defined(AC_CONTROL_NARROW_PROCESS) + \\\n     defined(AC_CONTROL_RESELECT_AT_RECORD) + defined(AC_CONTROL_STOP_ON_CORE_PC) + \\\n     defined(AC_CONTROL_REFRESH_NEGATIVE) + defined(AC_CONTROL_EXPOSE_RAW_SELECTION)) > 1\n#error \"one exact control per executable\"\n#endif\n",
+          "before_pin": {
+            "bytes": 837,
+            "sha256": "282bb9c623fb731ba19c8247c9a9fb168e2c4bd0027c2d1c3edf118154ec77d4"
+          },
+          "id": "c-config",
+          "new_first_line": 15,
+          "new_last_line": 15,
+          "new_span": [
+            716,
+            716
+          ],
+          "old_first_line": 14,
+          "old_last_line": 25,
+          "old_span": [
+            677,
+            1514
+          ],
+          "reason": "The successor header rejects AC_FIXTURE/all eight old controls and owns the new control configuration checks; remove superseded predecessor checks."
+        },
+        {
+          "after": "#ifdef AC_FIXTURE\nstatic ac_auxiliary ac_aux;\nstatic bool ac_snapshot_refused;\n#endif\n#ifdef AO_WITNESS_SETUP\nstatic bool ac_module_staged[MA_MODULES], ac_module_used[MA_MODULES];\nstatic bool ac_generated_staged[RC_BINDINGS], ac_generated_used[RC_BINDINGS];\n#endif",
+          "after_pin": {
+            "bytes": 264,
+            "sha256": "e1ea80cf188c42242fc7291f2d9bf06e19a62390ae5a85d470b4d32ba68334bf"
+          },
+          "before": "#ifdef AC_FIXTURE\nstatic ac_auxiliary ac_aux;\nstatic bool ac_module_staged[MA_MODULES], ac_module_used[MA_MODULES];\nstatic bool ac_generated_staged[RC_BINDINGS], ac_generated_used[RC_BINDINGS];\nstatic bool ac_snapshot_refused;\n#endif",
+          "before_pin": {
+            "bytes": 233,
+            "sha256": "d012441edf724625cad4ba01496f8fcbcc40583a4caac9d30f9bdeb65486a605"
+          },
+          "id": "c-setup-storage",
+          "new_first_line": 32,
+          "new_last_line": 39,
+          "new_span": [
+            1613,
+            1877
+          ],
+          "old_first_line": 43,
+          "old_last_line": 48,
+          "old_span": [
+            2411,
+            2644
+          ],
+          "reason": "Split only setup staging/one-use flags from excluded fixture auxiliary/refusal storage."
+        },
+        {
+          "after": "    if (result != AC_ADMITTED) return result;\n#ifdef AO_CONTROL_OMIT_DRIVER\n    return AC_INCOMPLETE;\n#endif\n#ifdef AO_CONTROL_STOP_AFTER_SELECTION_RAW\n    while (ac_step_internal(false)) {\n        if (ac_work.phase == AC_RAW_AVAILABLE && ac_work.raw_oracle.kind == AC_SELECTION)\n            break;\n    }\n#else\n    while (ac_step_internal(false)) { /* Bounded authored progress, not a CAS retry loop. */ }\n#endif\n#ifdef AO_CONTROL_WRONG_PUBLISHED_RETURN\n    return ac_work.phase == AC_PUBLISHED ? AC_INCOMPLETE : AC_INCOMPLETE;\n#elif defined(AO_CONTROL_WRONG_HALTED_RETURN)\n    return ac_work.phase == AC_PUBLISHED ? AC_RETURNED : AC_RETURNED;\n#else\n    return ac_work.phase == AC_PUBLISHED ? AC_RETURNED : AC_INCOMPLETE;\n#endif",
+          "after_pin": {
+            "bytes": 728,
+            "sha256": "2e63f9e97f74fea3c0bf750f4070d70dfea129a96a02e607194d6a3a792a2bf5"
+          },
+          "before": "    if (result != AC_ADMITTED) return result;\n    while (ac_step_internal(false)) { /* Bounded authored progress, not a CAS retry loop. */ }\n    return ac_work.phase == AC_PUBLISHED ? AC_RETURNED : AC_INCOMPLETE;",
+          "before_pin": {
+            "bytes": 212,
+            "sha256": "e1338f21a215c5a46f7f90016e93f12b12699af2b98590d650d0f9b26ec6216e"
+          },
+          "id": "c-ordinary-controls",
+          "new_first_line": 397,
+          "new_last_line": 415,
+          "new_span": [
+            16708,
+            17436
+          ],
+          "old_first_line": 406,
+          "old_last_line": 408,
+          "old_span": [
+            17475,
+            17687
+          ],
+          "reason": "Four mutually exclusive plan controls alter only ordinary driver progress or returned enum. With no AO_CONTROL macro the existing driver/call/final return lines remain exact."
+        },
+        {
+          "after": "    ac_snapshot_refused = enable;\n    return true;\n}\n#endif\n#ifdef AO_WITNESS_SETUP\nbool ac_model_stage_module",
+          "after_pin": {
+            "bytes": 110,
+            "sha256": "39b06532631385e1cb3be005c5a8102aeca6334d547b6c814724b87a64d1e76e"
+          },
+          "before": "    ac_snapshot_refused = enable;\n    return true;\n}\nbool ac_model_stage_module",
+          "before_pin": {
+            "bytes": 79,
+            "sha256": "667249951bb159d74e8c7decc124e83803f28aa35a9f45fadd3fc44588f1dfdf"
+          },
+          "id": "c-open-setup",
+          "new_first_line": 444,
+          "new_last_line": 449,
+          "new_span": [
+            18591,
+            18701
+          ],
+          "old_first_line": 437,
+          "old_last_line": 440,
+          "old_span": [
+            18842,
+            18921
+          ],
+          "reason": "Close the excluded private fixture API section and expose only the five setup functions under AO_WITNESS_SETUP."
+        },
+        {
+          "after": "bool ac_model_commit_module(unsigned index) {\n#ifndef AO_CONTROL_OMIT_COMMIT_PHASE_GUARDS\n    if (atomic_load_explicit(&ac_state_word, memory_order_relaxed) != AC_VIRGIN) return false;\n#endif\n",
+          "after_pin": {
+            "bytes": 192,
+            "sha256": "556b71a226ed782a7345638cbf9ff3926e12de0afad778b3abecb8a154f22c9d"
+          },
+          "before": "bool ac_model_commit_module(unsigned index) {\n",
+          "before_pin": {
+            "bytes": 46,
+            "sha256": "accaa8366f2ee04e290d658c0e0ff16596d5203c4daf40ca348ced3061a3a8a6"
+          },
+          "id": "c-module-virgin",
+          "new_first_line": 460,
+          "new_last_line": 463,
+          "new_span": [
+            19244,
+            19436
+          ],
+          "old_first_line": 451,
+          "old_last_line": 451,
+          "old_span": [
+            19464,
+            19510
+          ],
+          "reason": "Require serial setup Virgin before any preexisting predicate/store. C5 omits exactly this new check in both commit APIs; no second admission CAS."
+        },
+        {
+          "after": "bool ac_model_commit_generated(unsigned binding) {\n#ifndef AO_CONTROL_OMIT_COMMIT_PHASE_GUARDS\n    if (atomic_load_explicit(&ac_state_word, memory_order_relaxed) != AC_VIRGIN) return false;\n#endif\n",
+          "after_pin": {
+            "bytes": 197,
+            "sha256": "bd3e75ab02b9fb9e6bb24a3c868aac8767d7cb80ba0adcd07dbfcde1bd329099"
+          },
+          "before": "bool ac_model_commit_generated(unsigned binding) {\n",
+          "before_pin": {
+            "bytes": 51,
+            "sha256": "9ccc6fe1729d6ee699933ab5b1d2626ded341cb7d6080fd29cb3fc11fd489ca8"
+          },
+          "id": "c-generated-virgin",
+          "new_first_line": 489,
+          "new_last_line": 492,
+          "new_span": [
+            20902,
+            21099
+          ],
+          "old_first_line": 477,
+          "old_last_line": 477,
+          "old_span": [
+            20976,
+            21027
+          ],
+          "reason": "Require serial setup Virgin before any preexisting predicate/store. C5 omits exactly this new check in both commit APIs; no second admission CAS."
+        },
+        {
+          "after": "    ac_cells[ac_cell_count++] = (ac_cell){address, value, returned_bytes};\n    return true;\n}\n#endif\n#ifdef AC_FIXTURE\nbool ac_model_diagnostic",
+          "after_pin": {
+            "bytes": 143,
+            "sha256": "4199c55d4183fe22e8f897d066ab3e844b884cde065c0370e3b5a4be23411eaa"
+          },
+          "before": "    ac_cells[ac_cell_count++] = (ac_cell){address, value, returned_bytes};\n    return true;\n}\nbool ac_model_diagnostic",
+          "before_pin": {
+            "bytes": 118,
+            "sha256": "198427bcaa3d13176ca6c4377379795b47ebfabbdcae8d300c22231e467cddc3"
+          },
+          "id": "c-close-setup",
+          "new_first_line": 504,
+          "new_last_line": 509,
+          "new_span": [
+            21805,
+            21948
+          ],
+          "old_first_line": 489,
+          "old_last_line": 492,
+          "old_span": [
+            21733,
+            21851
+          ],
+          "reason": "Close the setup-only API surface before the excluded fixture diagnostic function."
+        }
+      ],
+      "source_path": "experiments/usb-browser-switch/activation-attempt-attribution-fixture/core.c",
+      "spans_half_open": true,
+      "unchanged_spans": [
+        {
+          "bytes": 44,
+          "new_span": [
+            0,
+            44
+          ],
+          "old_span": [
+            0,
+            44
+          ],
+          "sha256": "9fe23d9219ab2fd3f85e587e831c1879624b6ce5d1035b37913ac4794a731799"
+        },
+        {
+          "bytes": 476,
+          "new_span": [
+            240,
+            716
+          ],
+          "old_span": [
+            201,
+            677
+          ],
+          "sha256": "a084c773cf399c599ccbee6d7d24b9fb418f50f7c86dc419934c92c71acadfae"
+        },
+        {
+          "bytes": 897,
+          "new_span": [
+            716,
+            1613
+          ],
+          "old_span": [
+            1514,
+            2411
+          ],
+          "sha256": "7f05e10ba8fdfc609ec5bc570271838c0e1ee61c8021a35bb122a64b63f45722"
+        },
+        {
+          "bytes": 14831,
+          "new_span": [
+            1877,
+            16708
+          ],
+          "old_span": [
+            2644,
+            17475
+          ],
+          "sha256": "1fe88c8cbf20d05fac400cbca3fe1e2df6769cdc8a75741e70aa4026bd39343c"
+        },
+        {
+          "bytes": 1155,
+          "new_span": [
+            17436,
+            18591
+          ],
+          "old_span": [
+            17687,
+            18842
+          ],
+          "sha256": "cf61c92b29692a2c4837b45cd486dfe3de56ad73cbbcecf0f2f3247783d58623"
+        },
+        {
+          "bytes": 543,
+          "new_span": [
+            18701,
+            19244
+          ],
+          "old_span": [
+            18921,
+            19464
+          ],
+          "sha256": "2640f2b17e6f7371ac813d2c0c628f030ead5be03db987a2aa7618da097e56b8"
+        },
+        {
+          "bytes": 1466,
+          "new_span": [
+            19436,
+            20902
+          ],
+          "old_span": [
+            19510,
+            20976
+          ],
+          "sha256": "4f4d221cc0fc9e82cdbfbf1861e28d0cafe678151eb5ec5881ec323a8881af04"
+        },
+        {
+          "bytes": 706,
+          "new_span": [
+            21099,
+            21805
+          ],
+          "old_span": [
+            21027,
+            21733
+          ],
+          "sha256": "da29f9f81446b8cad4a318fe9a777d7a22dafb715818b6797d5c81013b00cb53"
+        },
+        {
+          "bytes": 323,
+          "new_span": [
+            21948,
+            22271
+          ],
+          "old_span": [
+            21851,
+            22174
+          ],
+          "sha256": "53cd46da3c31c512e3f2b1302b4e3b7bec3d818b6c9b048cb57882d89d64770d"
+        }
+      ]
+    },
+    "core.h": {
+      "complete_unified_diff": "--- predecessor/core.h\n\n+++ successor/core.h\n\n@@ -5,6 +5,24 @@\n\n #include <stddef.h>\n #include <stdint.h>\n #include \"receipt-types.h\"\n+\n+#if defined(AC_FIXTURE) || defined(AC_CONTROL_SELECT_BEFORE_CAS) || \\\n+    defined(AC_CONTROL_SECOND_ADMISSION) || defined(AC_CONTROL_BINDING_AS_SLOT) || \\\n+    defined(AC_CONTROL_NARROW_PROCESS) || defined(AC_CONTROL_RESELECT_AT_RECORD) || \\\n+    defined(AC_CONTROL_STOP_ON_CORE_PC) || defined(AC_CONTROL_REFRESH_NEGATIVE) || \\\n+    defined(AC_CONTROL_EXPOSE_RAW_SELECTION)\n+#error \"the predecessor fixture and its controls are excluded from this witness\"\n+#endif\n+#if (defined(AO_CONTROL_OMIT_DRIVER) || defined(AO_CONTROL_STOP_AFTER_SELECTION_RAW) || \\\n+     defined(AO_CONTROL_WRONG_PUBLISHED_RETURN) || defined(AO_CONTROL_WRONG_HALTED_RETURN) || \\\n+     defined(AO_CONTROL_OMIT_COMMIT_PHASE_GUARDS)) && !defined(AO_WITNESS_SETUP)\n+#error \"ordinary witness controls require authored setup\"\n+#endif\n+#if (defined(AO_CONTROL_OMIT_DRIVER) + defined(AO_CONTROL_STOP_AFTER_SELECTION_RAW) + \\\n+     defined(AO_CONTROL_WRONG_PUBLISHED_RETURN) + defined(AO_CONTROL_WRONG_HALTED_RETURN) + \\\n+     defined(AO_CONTROL_OMIT_COMMIT_PHASE_GUARDS)) > 1\n+#error \"one exact ordinary witness control per executable\"\n+#endif\n \n #define MA_MODULES 4u\n #define AC_ID_BYTES 33u\n@@ -118,8 +136,8 @@\n\n     bool violation;\n } ac_auxiliary;\n \n-/* Ordinary synchronous progression; compile-only except failed-CAS reentry in its\n- * dedicated control. No native provider or frozen consumer is called. */\n+/* Ordinary synchronous progression with stable authored inputs through return.\n+ * No private driver, native provider or frozen consumer is called by the witness. */\n ac_request_result ac_run(const ac_request *request);\n void ac_observe(ac_snapshot *out);\n /* Address-only standalone evidence anchor; neither harness nor core invokes it. */\n@@ -135,9 +153,12 @@\n\n /* Configure before admission. The sole injected outcome is consumed=false AFTER\n  * an actual snapshot result has been retained; the reader itself remains exact. */\n bool ac_fixture_snapshot_refusal(bool enable);\n+#endif\n+#ifdef AO_WITNESS_SETUP\n /* All IDs are actual 33-byte canonical arrays, not arbitrary C string pointers.\n- * Stage before admission; commit previously staged slots between stopped steps.\n- * Cells are authored integer keys and become fixed when admission begins. */\n+ * Complete staging and selected commits before the first ordinary ac_run call.\n+ * Cells are authored integer keys. Request/model storage stays fixed through return.\n+ * Both commit APIs refuse once the attempt leaves Virgin. Serial setup only. */\n bool ac_model_stage_module(unsigned index, const char id[AC_ID_BYTES],\n                            uint64_t process_id, uintptr_t lo, uintptr_t hi);\n bool ac_model_commit_module(unsigned index);\n@@ -146,6 +167,8 @@\n\n                               rc_span island_instructions, rc_span trampoline_instructions);\n bool ac_model_commit_generated(unsigned binding);\n bool ac_model_add_cell(uintptr_t address, uint64_t value, int64_t returned_bytes);\n+#endif\n+#ifdef AC_FIXTURE\n /* Separate diagnostic trace; never admits or advances an attempt. */\n bool ac_model_diagnostic(uintptr_t address, int *out_index);\n #endif\n",
+      "destination": "core.h",
+      "new": {
+        "bytes": 6907,
+        "sha256": "89cee41d2247cfedf00ef424def1979ca6ffe7aaf78957615420208d89a991be"
+      },
+      "old": {
+        "bytes": 5659,
+        "sha256": "f93c5ce827ce3310b268f670e3bcb58cfc072ddb1216dfa70bbc33499c4d5bcf"
+      },
+      "replacements": [
+        {
+          "after": "#include \"receipt-types.h\"\n\n#if defined(AC_FIXTURE) || defined(AC_CONTROL_SELECT_BEFORE_CAS) || \\\n    defined(AC_CONTROL_SECOND_ADMISSION) || defined(AC_CONTROL_BINDING_AS_SLOT) || \\\n    defined(AC_CONTROL_NARROW_PROCESS) || defined(AC_CONTROL_RESELECT_AT_RECORD) || \\\n    defined(AC_CONTROL_STOP_ON_CORE_PC) || defined(AC_CONTROL_REFRESH_NEGATIVE) || \\\n    defined(AC_CONTROL_EXPOSE_RAW_SELECTION)\n#error \"the predecessor fixture and its controls are excluded from this witness\"\n#endif\n#if (defined(AO_CONTROL_OMIT_DRIVER) || defined(AO_CONTROL_STOP_AFTER_SELECTION_RAW) || \\\n     defined(AO_CONTROL_WRONG_PUBLISHED_RETURN) || defined(AO_CONTROL_WRONG_HALTED_RETURN) || \\\n     defined(AO_CONTROL_OMIT_COMMIT_PHASE_GUARDS)) && !defined(AO_WITNESS_SETUP)\n#error \"ordinary witness controls require authored setup\"\n#endif\n#if (defined(AO_CONTROL_OMIT_DRIVER) + defined(AO_CONTROL_STOP_AFTER_SELECTION_RAW) + \\\n     defined(AO_CONTROL_WRONG_PUBLISHED_RETURN) + defined(AO_CONTROL_WRONG_HALTED_RETURN) + \\\n     defined(AO_CONTROL_OMIT_COMMIT_PHASE_GUARDS)) > 1\n#error \"one exact ordinary witness control per executable\"\n#endif\n",
+          "after_pin": {
+            "bytes": 1122,
+            "sha256": "4e2e5e83e0083af7fc2e8b4113a9774fc6f39557aba501ac649a38ac8b379f9b"
+          },
+          "before": "#include \"receipt-types.h\"\n",
+          "before_pin": {
+            "bytes": 27,
+            "sha256": "a5edabcd00e8de86923bf3feb2ca725e51c46f4bce6d46af454d2720dc953de0"
+          },
+          "id": "h-config",
+          "new_first_line": 7,
+          "new_last_line": 25,
+          "new_span": [
+            141,
+            1263
+          ],
+          "old_first_line": 7,
+          "old_last_line": 7,
+          "old_span": [
+            141,
+            168
+          ],
+          "reason": "Make predecessor fixture/control rejection apply to every inclusion; require setup for new controls and reject combined controls."
+        },
+        {
+          "after": "/* Ordinary synchronous progression with stable authored inputs through return.\n * No private driver, native provider or frozen consumer is called by the witness. */",
+          "after_pin": {
+            "bytes": 165,
+            "sha256": "fd51caf657524d72ecc3b5e5f1df8d181a385cafcd41dc76f56b7c8d37c1fcc6"
+          },
+          "before": "/* Ordinary synchronous progression; compile-only except failed-CAS reentry in its\n * dedicated control. No native provider or frozen consumer is called. */",
+          "before_pin": {
+            "bytes": 156,
+            "sha256": "0f3c75761c38eefb198721ecd165d9b33a4ff9217a44f64a1f21a924ba3194a5"
+          },
+          "id": "h-entry-comment",
+          "new_first_line": 139,
+          "new_last_line": 140,
+          "new_span": [
+            4833,
+            4998
+          ],
+          "old_first_line": 121,
+          "old_last_line": 122,
+          "old_span": [
+            3738,
+            3894
+          ],
+          "reason": "Replace the predecessor-only evidence comment with the successor input/lifetime contract; no executable or layout change."
+        },
+        {
+          "after": "bool ac_fixture_snapshot_refusal(bool enable);\n#endif\n#ifdef AO_WITNESS_SETUP\n/* All IDs are actual 33-byte canonical arrays, not arbitrary C string pointers.\n * Complete staging and selected commits before the first ordinary ac_run call.\n * Cells are authored integer keys. Request/model storage stays fixed through return.\n * Both commit APIs refuse once the attempt leaves Virgin. Serial setup only. */",
+          "after_pin": {
+            "bytes": 405,
+            "sha256": "c1f425d028ca31c0bb644013803fdf2b838eb774546c3c53aea544e9ece6cd35"
+          },
+          "before": "bool ac_fixture_snapshot_refusal(bool enable);\n/* All IDs are actual 33-byte canonical arrays, not arbitrary C string pointers.\n * Stage before admission; commit previously staged slots between stopped steps.\n * Cells are authored integer keys and become fixed when admission begins. */",
+          "before_pin": {
+            "bytes": 286,
+            "sha256": "b20ddea4d6c4d357438bd5e745de4ed82e718d512459cb167eff7679b7d41961"
+          },
+          "id": "h-open-setup",
+          "new_first_line": 155,
+          "new_last_line": 161,
+          "new_span": [
+            5765,
+            6170
+          ],
+          "old_first_line": 137,
+          "old_last_line": 140,
+          "old_span": [
+            4661,
+            4947
+          ],
+          "reason": "Split the setup declarations from the excluded private fixture API and state the new pre-entry-only custody rule."
+        },
+        {
+          "after": "bool ac_model_add_cell(uintptr_t address, uint64_t value, int64_t returned_bytes);\n#endif\n#ifdef AC_FIXTURE\n/* Separate diagnostic trace; never admits or advances an attempt. */",
+          "after_pin": {
+            "bytes": 177,
+            "sha256": "4d0abbe4ce415079e0cc1f46ab6ee4542069431ae6a25e5c0f2f320d56b5c035"
+          },
+          "before": "bool ac_model_add_cell(uintptr_t address, uint64_t value, int64_t returned_bytes);\n/* Separate diagnostic trace; never admits or advances an attempt. */",
+          "before_pin": {
+            "bytes": 152,
+            "sha256": "0bccaa7a3f6756afc99ef133cc7470fc110df06a73f546dd5200ffc458c204fd"
+          },
+          "id": "h-close-setup",
+          "new_first_line": 169,
+          "new_last_line": 172,
+          "new_span": [
+            6654,
+            6831
+          ],
+          "old_first_line": 148,
+          "old_last_line": 149,
+          "old_span": [
+            5431,
+            5583
+          ],
+          "reason": "Exclude the old diagnostic declaration from the setup-only surface."
+        }
+      ],
+      "source_path": "experiments/usb-browser-switch/activation-attempt-attribution-fixture/core.h",
+      "spans_half_open": true,
+      "unchanged_spans": [
+        {
+          "bytes": 141,
+          "new_span": [
+            0,
+            141
+          ],
+          "old_span": [
+            0,
+            141
+          ],
+          "sha256": "58b515d03f473d67c4d261d81e5efa9e82665b9a89dad527e677a5e0f5f68326"
+        },
+        {
+          "bytes": 3570,
+          "new_span": [
+            1263,
+            4833
+          ],
+          "old_span": [
+            168,
+            3738
+          ],
+          "sha256": "9536e60ac7ab102ff69425d0a77a99428ccbd3675398bea966cc2027aa6a634e"
+        },
+        {
+          "bytes": 767,
+          "new_span": [
+            4998,
+            5765
+          ],
+          "old_span": [
+            3894,
+            4661
+          ],
+          "sha256": "c0153f5d6966b164fbe929237180a53a98c20433c1370cdf10bf1f67d3d1fea5"
+        },
+        {
+          "bytes": 484,
+          "new_span": [
+            6170,
+            6654
+          ],
+          "old_span": [
+            4947,
+            5431
+          ],
+          "sha256": "d91777c5b188f797929791411d687ffb4ca08df124119edd009bdd2c9b6dc366"
+        },
+        {
+          "bytes": 76,
+          "new_span": [
+            6831,
+            6907
+          ],
+          "old_span": [
+            5583,
+            5659
+          ],
+          "sha256": "fcaa98a7610737fc8b02126db900f55f6f67272e6c506faf3c1ab95f7b50f487"
+        }
+      ]
+    }
+  },
+  "invariants": [
+    "One existing process-lifetime strong CAS; no new admission state, reset, retry, writer or callback authority.",
+    "Existing engine bodies and public value layouts stay byte-exact outside the complete listed replacements. Baseline ac_run retains its exact ordinary loop and final return lines inside disabled-control branches.",
+    "Only two new runtime baseline checks are serial setup eligibility loads in commit APIs. All setup before ordinary entry; no concurrent exclusion claim.",
+    "No copied reader/types edits; reader include is retained separately by the runner, without extractor replay.",
+    "Old fixture-only text remains guarded but AC_FIXTURE is rejected by the header; no such API can compile in this successor.",
+    "No runtime private-state inspection or native provider/installer/DSO/target invocation."
+  ],
+  "plan": {
+    "bytes": 27816,
+    "path": "experiments/usb-browser-switch/activation-ordinary-entry-plan/ordinary-plan.json",
+    "sha256": "4e48a87cc83f171219805ff3369157bdc0588290a19ca9c6f868ced53110c2f4"
+  },
+  "reader_inputs": [
+    {
+      "bytes": 2994,
+      "name": "readers/readers.inc",
+      "path": "experiments/usb-browser-switch/activation-attempt-attribution-fixture/private/run-7b6a0bf3f05b41e99736e8443735bf7a/work/generated/readers.inc",
+      "sha256": "352048162f452f794136f8b90555783df101feacbf7550e3f4020bd6ef7ab140"
+    },
+    {
+      "bytes": 5369,
+      "name": "readers/receipt-types.h",
+      "path": "experiments/usb-browser-switch/activation-attempt-attribution-fixture/private/run-7b6a0bf3f05b41e99736e8443735bf7a/work/generated/receipt-types.h",
+      "sha256": "c97454db2aba6e942eb05241bbf80d67ffd8eecb5108927da69600a6a1d15f40"
+    },
+    {
+      "bytes": 2865,
+      "name": "reader-extraction.json",
+      "path": "experiments/usb-browser-switch/activation-attempt-attribution-fixture/reader-extraction.json",
+      "sha256": "c0170cbc03f9b7489146ff1670b609f8af6fc92f41892746a518e5d81482ba0b"
+    }
+  ],
+  "runtime_gate": "CLOSED",
+  "schema": 1,
+  "scope": "Exact source-only transformation from frozen attempt/attribution core to separately versioned ordinary-entry witness. No compiler, runtime, extractor or old suite execution.",
+  "status": "source-written-not-built"
+}

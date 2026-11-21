@@ -1,0 +1,367 @@
+{
+  "schema": 1,
+  "status": "source-frozen-not-executed",
+  "scope": "New ordinary synchronous entry and public post-return evidence only; authored setup completed before entry, with separately reported post-return refusal probes. No private scheduling, native provider, thread, signal, loader, installer or device execution.",
+  "configuration": "AO_WITNESS_SETUP",
+  "summary_keys": [
+    "schema",
+    "selector",
+    "checks",
+    "check_names",
+    "failures",
+    "failed_checks"
+  ],
+  "selectors": {
+    "ordinary-direct": {
+      "group": "G1",
+      "checks": [
+        "initial-public-state-is-virgin",
+        "authored-setup-succeeds",
+        "ordinary-call-input-remains-stable",
+        "ordinary-success-returns-returned",
+        "ordinary-success-retains-full-owner",
+        "ordinary-success-publishes-complete-events",
+        "report-bounds-respected"
+      ]
+    },
+    "ordinary-generated": {
+      "group": "G1",
+      "checks": [
+        "initial-public-state-is-virgin",
+        "authored-setup-succeeds",
+        "ordinary-call-input-remains-stable",
+        "ordinary-success-returns-returned",
+        "ordinary-success-retains-full-owner",
+        "ordinary-success-publishes-complete-events",
+        "report-bounds-respected"
+      ]
+    },
+    "ordinary-frame": {
+      "group": "G1",
+      "checks": [
+        "initial-public-state-is-virgin",
+        "authored-setup-succeeds",
+        "ordinary-call-input-remains-stable",
+        "ordinary-success-returns-returned",
+        "ordinary-success-retains-full-owner",
+        "ordinary-success-publishes-complete-events",
+        "report-bounds-respected"
+      ]
+    },
+    "ordinary-noowner": {
+      "group": "G2",
+      "checks": [
+        "initial-public-state-is-virgin",
+        "authored-setup-succeeds",
+        "ordinary-call-input-remains-stable",
+        "noowner-ordinary-entry-returns-returned",
+        "noowner-identity-is-canonical-zero",
+        "noowner-completes-with-unused-invalid-io",
+        "report-bounds-respected"
+      ]
+    },
+    "ordinary-null": {
+      "group": "G3",
+      "checks": [
+        "initial-public-state-is-virgin",
+        "authored-setup-succeeds",
+        "ordinary-call-input-remains-stable",
+        "admitted-error-returns-incomplete",
+        "incomplete-entry-exposes-no-payload",
+        "report-bounds-respected"
+      ]
+    },
+    "ordinary-invalid-write": {
+      "group": "G3",
+      "checks": [
+        "initial-public-state-is-virgin",
+        "authored-setup-succeeds",
+        "ordinary-call-input-remains-stable",
+        "admitted-error-returns-incomplete",
+        "incomplete-entry-exposes-no-payload",
+        "report-bounds-respected"
+      ]
+    },
+    "ordinary-open-refusal": {
+      "group": "G4",
+      "checks": [
+        "initial-public-state-is-virgin",
+        "authored-setup-succeeds",
+        "ordinary-call-input-remains-stable",
+        "returned-failure-is-ordinary-completion",
+        "returned-failure-retains-selected-owner",
+        "open-refusal-stops-later-events",
+        "report-bounds-respected"
+      ]
+    },
+    "ordinary-short-sync-error": {
+      "group": "G4",
+      "checks": [
+        "initial-public-state-is-virgin",
+        "authored-setup-succeeds",
+        "ordinary-call-input-remains-stable",
+        "returned-failure-is-ordinary-completion",
+        "returned-failure-retains-selected-owner",
+        "short-write-sync-error-still-records-close",
+        "report-bounds-respected"
+      ]
+    },
+    "terminal-completed": {
+      "group": "G5",
+      "checks": [
+        "initial-public-state-is-virgin",
+        "authored-setup-succeeds",
+        "terminal-first-entry-completes",
+        "post-return-caller-mutation-is-real",
+        "ordinary-call-input-remains-stable",
+        "terminal-repeat-is-suppressed",
+        "terminal-repeat-preserves-public-snapshot",
+        "post-entry-setup-commits-are-refused",
+        "setup-refusal-preserves-public-snapshot",
+        "report-bounds-respected"
+      ]
+    },
+    "terminal-incomplete": {
+      "group": "G5",
+      "checks": [
+        "initial-public-state-is-virgin",
+        "authored-setup-succeeds",
+        "terminal-first-entry-is-incomplete",
+        "post-return-caller-mutation-is-real",
+        "ordinary-call-input-remains-stable",
+        "terminal-repeat-is-suppressed",
+        "terminal-repeat-preserves-public-snapshot",
+        "post-entry-setup-commits-are-refused",
+        "setup-refusal-preserves-public-snapshot",
+        "report-bounds-respected"
+      ]
+    },
+    "control-omit-driver": {
+      "group": "C1",
+      "checks": [
+        "initial-public-state-is-virgin",
+        "authored-setup-succeeds",
+        "ordinary-call-input-remains-stable",
+        "ordinary-entry-drives-to-publication",
+        "report-bounds-respected"
+      ]
+    },
+    "control-stop-after-selection": {
+      "group": "C2",
+      "checks": [
+        "initial-public-state-is-virgin",
+        "authored-setup-succeeds",
+        "ordinary-call-input-remains-stable",
+        "selection-return-does-not-end-ordinary-entry",
+        "report-bounds-respected"
+      ]
+    },
+    "control-published-return": {
+      "group": "C3",
+      "checks": [
+        "initial-public-state-is-virgin",
+        "authored-setup-succeeds",
+        "ordinary-call-input-remains-stable",
+        "published-entry-returns-returned",
+        "published-control-preserves-completed-payload",
+        "report-bounds-respected"
+      ]
+    },
+    "control-halted-return": {
+      "group": "C4",
+      "checks": [
+        "initial-public-state-is-virgin",
+        "authored-setup-succeeds",
+        "ordinary-call-input-remains-stable",
+        "halted-entry-returns-incomplete",
+        "halted-control-preserves-empty-active-state",
+        "report-bounds-respected"
+      ]
+    },
+    "control-post-entry-setup": {
+      "group": "C5",
+      "checks": [
+        "initial-public-state-is-virgin",
+        "authored-setup-succeeds",
+        "ordinary-call-input-remains-stable",
+        "setup-control-starts-from-completed-attempt",
+        "post-entry-setup-commits-are-refused",
+        "setup-control-preserves-completed-payload",
+        "report-bounds-respected"
+      ]
+    }
+  },
+  "controls": {
+    "omit-ordinary-driver": {
+      "macro": "AO_CONTROL_OMIT_DRIVER",
+      "selector": "control-omit-driver",
+      "expected_failures": [
+        "ordinary-entry-drives-to-publication"
+      ],
+      "safety": "Admits once, returns incomplete before any driving; public-only composite completion assertion fails."
+    },
+    "stop-after-selection-return": {
+      "macro": "AO_CONTROL_STOP_AFTER_SELECTION_RAW",
+      "selector": "control-stop-after-selection",
+      "expected_failures": [
+        "selection-return-does-not-end-ordinary-entry"
+      ],
+      "safety": "Ordinary selection reaches raw return, then driver stops without recording or publication; precise cut is source evidence only."
+    },
+    "map-published-to-incomplete": {
+      "macro": "AO_CONTROL_WRONG_PUBLISHED_RETURN",
+      "selector": "control-published-return",
+      "expected_failures": [
+        "published-entry-returns-returned"
+      ],
+      "safety": "Changes only returned enum; unchanged completed public payload is checked separately."
+    },
+    "map-halted-to-returned": {
+      "macro": "AO_CONTROL_WRONG_HALTED_RETURN",
+      "selector": "control-halted-return",
+      "expected_failures": [
+        "halted-entry-returns-incomplete"
+      ],
+      "safety": "Changes only returned enum on genuine NULL input; unchanged empty Active public snapshot is checked separately."
+    },
+    "omit-setup-commit-phase-guards": {
+      "macro": "AO_CONTROL_OMIT_COMMIT_PHASE_GUARDS",
+      "selector": "control-post-entry-setup",
+      "expected_failures": [
+        "post-entry-setup-commits-are-refused"
+      ],
+      "safety": "Both pre-staged unused commit calls occur and are recorded separately before conjunction; only authored storage publishes after completion, followed by public observation and no lookup."
+    }
+  },
+  "limits": {
+    "candidate_selectors_per_mode": 15,
+    "control_selectors_per_mode": 5,
+    "checks_per_selector": 16,
+    "setup_records": 24,
+    "calls": 2,
+    "event_slots": 6,
+    "report_bytes": 1048576
+  },
+  "evidence_schema": {
+    "closed_objects": true,
+    "summary_keys": [
+      "schema",
+      "selector",
+      "checks",
+      "check_names",
+      "failures",
+      "failed_checks"
+    ],
+    "private_keys": [
+      "schema",
+      "selector",
+      "checks",
+      "check_names",
+      "failures",
+      "failed_checks",
+      "source_scope",
+      "caller_id_before_hex",
+      "caller_id_after_hex",
+      "expected_owner",
+      "initial_snapshot",
+      "setup",
+      "calls",
+      "post_setup"
+    ],
+    "source_scope": {
+      "providers": "authored-values-only",
+      "native_fault_provider_functions_present": false,
+      "signals": false,
+      "threads": false,
+      "evidence_io": "stdio-report-only",
+      "attempt_observation": "public-before-entry-and-after-return-only"
+    },
+    "hex33": "Exactly 66 lowercase hexadecimal characters representing all 33 bytes; no NUL trimming.",
+    "objects": {
+      "io_value": {
+        "raw": "int64",
+        "failure_errno": "int32"
+      },
+      "request": {
+        "pc": "uint64",
+        "lr": "uint64",
+        "fp": "uint64",
+        "open": "io_value",
+        "write": "io_value",
+        "sync": "io_value",
+        "close": "io_value"
+      },
+      "owner": {
+        "kind": "enum[0,1]",
+        "index": "uint32",
+        "process_id": "uint64",
+        "id_hex": "hex33"
+      },
+      "event": {
+        "kind": "enum[0,1,2,3,4,5]",
+        "entered": "bool",
+        "returned_recorded": "bool",
+        "raw": "int64",
+        "errno_valid": "bool",
+        "error_number": "int32",
+        "requested_length": "uint64",
+        "payload_hex": "hex33"
+      },
+      "result": {
+        "selection_known": "bool",
+        "owner": "owner",
+        "known_failure": "bool",
+        "short_write": "bool",
+        "violation": "bool",
+        "event_count": "uint[0,6]",
+        "events": "event[6]"
+      },
+      "snapshot": {
+        "state": "enum[0,1,2]",
+        "has_payload": "bool",
+        "result": "result"
+      },
+      "setup_record": {
+        "operation": "enum[stage-module,commit-module,stage-generated,commit-generated,add-cell]",
+        "after_entry": "bool",
+        "returned": "bool",
+        "index": "uint32",
+        "kind": "enum[0,1,2]",
+        "process_id": "uint64",
+        "lo": "uint64",
+        "hi": "uint64",
+        "island_lo": "uint64",
+        "island_hi": "uint64",
+        "trampoline_lo": "uint64",
+        "trampoline_hi": "uint64",
+        "cell_address": "uint64",
+        "cell_value": "uint64",
+        "cell_bytes": "int64",
+        "id_hex": "hex33"
+      },
+      "call_record": {
+        "null_request": "bool",
+        "before": "request",
+        "after": "request",
+        "returned": "enum[0,1,2,3]",
+        "snapshot": "snapshot"
+      },
+      "post_setup": {
+        "observed": "bool",
+        "module_commit_returned": "bool",
+        "generated_commit_returned": "bool",
+        "snapshot": "snapshot"
+      }
+    },
+    "private_fields": {
+      "caller_id_before_hex": "hex33",
+      "caller_id_after_hex": "hex33",
+      "expected_owner": "owner",
+      "initial_snapshot": "snapshot",
+      "setup": "setup_record[0..24]",
+      "calls": "call_record[1..2]",
+      "post_setup": "post_setup"
+    },
+    "validation_scope": "Shape validation permits intentional control outcomes; it does not add semantic state/result predicates that would duplicate or mask the exact safe-control oracle."
+  }
+}

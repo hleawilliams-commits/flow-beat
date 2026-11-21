@@ -1,0 +1,408 @@
+{
+  "baseline_commit": "142eaa3e41e5aae906f551cee170b5f34ce08717",
+  "complete_engine_coverage": "Every old/new core/header byte is covered by preserved spans or exact replacement spans in source-transform.json; no predecessor is edited.",
+  "excluded": "AC_FIXTURE and all eight prior AC_CONTROL configurations rejected; private stepping/inspection/auxiliary/diagnostic/snapshot-refusal symbols absent. Address-only reader anchor remains uncalled.",
+  "executed_before_freeze": {
+    "compiler": false,
+    "device": false,
+    "matrix": false,
+    "old_passing_audit": false
+  },
+  "groups": [
+    {
+      "description": "Copy the frozen core/header into a separately named experiment; preserve engine bodies, public result layouts, single CAS, receipt cut, completion copy/release and public acquire observer. Retain old bytes and a complete exact transformation ledger. No edits to predecessor source.",
+      "id": "T1"
+    },
+    {
+      "description": "Introduce AO_WITNESS_SETUP; split only staged/used storage and five setup functions from the old AC_FIXTURE guard. Exclude all fixture stepping/inspection/auxiliary/diagnostic/injection APIs and explicitly reject AC_FIXTURE and all eight known AC_CONTROL_* macros. Keep ac_aux and ac_snapshot_refused out of this configuration. Keep exact reader evidence anchor address-only and uncalled.",
+      "id": "T2"
+    },
+    {
+      "description": "At ac_model_commit_module and ac_model_commit_generated add a short-circuit relaxed load requiring AC_VIRGIN before any existing predicates/stores. Preserve existing fixed bounds, one-use staged/used checks and release publication. Stage/cell bodies retain their existing eligibility and value checks. These functions are serial setup-only; this supplies no concurrent writer discipline.",
+      "id": "T3"
+    },
+    {
+      "description": "Reuse retained readers.inc and receipt-types.h verbatim under their full byte pins, plus source extraction contract as provenance. No rerun of the old extractor; no SDK Git capture, consumer, installer or generated code invocation.",
+      "id": "T4"
+    },
+    {
+      "description": "New witness harness performs checked authored setup, retains pre-entry input values, calls ordinary ac_run, captures its actual return and public post-return snapshot, then performs specified suppression/mutation/refusal observations. No driver stepping, private payload reads or in-call probes. Report fields individually, not padding. Each case/control runs in a new process.",
+      "id": "T5"
+    },
+    {
+      "description": "New compile-only/control seams are limited to separately reviewed AO_CONTROL_* driver/return/setup mutations below. Candidate engine path remains exact apart from setup-only guard split and two eligibility additions. All controls are mutually exclusive, network-free, authored-memory-only and have exact declared singleton failures.",
+      "id": "T6"
+    },
+    {
+      "description": "Before future build freeze exact copied-source ledger, harness contract, generated input pins and source/control review. Review new standalone and setup-only symbols, method bytes, imports and diagnostic outcomes before runtime. Preserve earlier FINI_ARRAY warning/adoption and auditor failure; reuse evidence as history only, never infer future artifacts or skip fresh diagnostics. No old matrix or audit replay.",
+      "id": "T7"
+    }
+  ],
+  "harness": {
+    "case_groups": [
+      {
+        "action": "One actual ac_run with a stable request, followed by ac_observe only.",
+        "expected": "AC_RETURNED, state OrdinaryReturned, payload present, exact index/full process/33-byte identity and selected ordinary event sequence. Public completion must exist when entry returns; no private selector trace is observed.",
+        "id": "G1",
+        "name": "ordinary successful selection",
+        "new_scope": "Previously only step-driven runtime covered these readers. This tests actual successful synchronous driver plus typed return/public completion boundary; not old reader edge suites.",
+        "selectors": [
+          "ordinary-direct",
+          "ordinary-generated",
+          "ordinary-frame"
+        ],
+        "setup": "Complete all authored commits before entry. Direct module 0 is valid. Generated binding 0 resolves module 3 with process_id 0x100000001 and a 32-character canonical ID; distinct module LR must not replace that PC owner. One frame witness uses exact-eight-byte authored NFP/RA cells and a Community frame RA after PC/LR misses."
+      },
+      {
+        "action": "Call ac_run once then observe.",
+        "expected": "AC_RETURNED with zero NoCommunity identity and exactly SELECTION then UNBLAMED recorded, no Community I/O events. Unused bad I/O outcomes do not make this branch incomplete.",
+        "id": "G2",
+        "name": "ordinary no-owner branch",
+        "new_scope": "Synchronous no-owner completion, not refreshed lookup or native unblamed persistence.",
+        "selectors": [
+          "ordinary-noowner"
+        ],
+        "setup": "No eligible module/generated address; bounded invalid fp prevents frame traversal. Request I/O values deliberately outside their valid domains remain unused."
+      },
+      {
+        "action": "One ordinary call then public observation.",
+        "expected": "AC_INCOMPLETE, state ActiveIncomplete, no public payload. Null never reads request fields; invalid write halts before recorded write/sync/close/publication by source analysis. No private partial receipt is exposed or claimed as a runtime observation.",
+        "id": "G3",
+        "name": "admitted incomplete ordinary return",
+        "new_scope": "Ordinary return status on representable errors; no injected snapshot error or invalid-pointer dereference.",
+        "selectors": [
+          "ordinary-null",
+          "ordinary-invalid-write"
+        ],
+        "setup": "For null, pass genuine NULL after any required authored setup. For invalid-write, select a valid owner, open 0, then write raw requested_length+1."
+      },
+      {
+        "action": "Call ac_run synchronously and observe completed public result.",
+        "expected": "Both return AC_RETURNED. Open refusal publishes SELECTION/OPEN with known_failure and no later events. Short/sync-error publishes all five events with short_write and known_failure both true, including recorded close. Returned failure differs from G3 incomplete domain errors.",
+        "id": "G4",
+        "name": "ordinary returned failures",
+        "new_scope": "Representative complete driver outcome retention, not a replay of every persistence outcome or proof of native errno/EINTR handling.",
+        "selectors": [
+          "ordinary-open-refusal",
+          "ordinary-short-sync-error"
+        ],
+        "setup": "Valid copied owner. First request has open -1/authored errno and unused out-of-domain write/sync/close. Second has open 0, short write length-1, sync -1/authored errno and close 0."
+      },
+      {
+        "action": "Observe first return; mutate only caller-owned request/ID source arrays after return, call ordinary entry again with stable valid request, observe again. Then call each previously staged unused commit once and observe once more. No subsequent selection or diagnostic call.",
+        "expected": "Second call AC_SUPPRESSED and fieldwise public snapshot unchanged, including copied completion for the completed case. Both commit calls false after either first outcome; public snapshot unchanged. No private payload read, reset, retry or post-return baseline model publication.",
+        "id": "G5",
+        "name": "terminal repeated entry and setup refusal",
+        "new_scope": "Real synchronous repeated entry, copied outcome lifetime and new setup-only eligibility\u2014not a concurrent writer guarantee.",
+        "selectors": [
+          "terminal-completed",
+          "terminal-incomplete"
+        ],
+        "setup": "Pre-stage unused module 2 and generated 2 without commit, separate from selected owner 3/binding 0. First call completes normally or admits NULL and becomes incomplete."
+      }
+    ],
+    "check_counts": {
+      "candidate_selectors_per_mode": 15,
+      "control_baselines": 5,
+      "control_processes_per_mode": 5,
+      "distinct_candidate_names": 31,
+      "normal_selectors": 10,
+      "runtime_processes_total": 40,
+      "summed_candidate_assertions": 103
+    },
+    "closed_evidence_schema": {
+      "closed_objects": true,
+      "hex33": "Exactly 66 lowercase hexadecimal characters representing all 33 bytes; no NUL trimming.",
+      "objects": {
+        "call_record": {
+          "after": "request",
+          "before": "request",
+          "null_request": "bool",
+          "returned": "enum[0,1,2,3]",
+          "snapshot": "snapshot"
+        },
+        "event": {
+          "entered": "bool",
+          "errno_valid": "bool",
+          "error_number": "int32",
+          "kind": "enum[0,1,2,3,4,5]",
+          "payload_hex": "hex33",
+          "raw": "int64",
+          "requested_length": "uint64",
+          "returned_recorded": "bool"
+        },
+        "io_value": {
+          "failure_errno": "int32",
+          "raw": "int64"
+        },
+        "owner": {
+          "id_hex": "hex33",
+          "index": "uint32",
+          "kind": "enum[0,1]",
+          "process_id": "uint64"
+        },
+        "post_setup": {
+          "generated_commit_returned": "bool",
+          "module_commit_returned": "bool",
+          "observed": "bool",
+          "snapshot": "snapshot"
+        },
+        "request": {
+          "close": "io_value",
+          "fp": "uint64",
+          "lr": "uint64",
+          "open": "io_value",
+          "pc": "uint64",
+          "sync": "io_value",
+          "write": "io_value"
+        },
+        "result": {
+          "event_count": "uint[0,6]",
+          "events": "event[6]",
+          "known_failure": "bool",
+          "owner": "owner",
+          "selection_known": "bool",
+          "short_write": "bool",
+          "violation": "bool"
+        },
+        "setup_record": {
+          "after_entry": "bool",
+          "cell_address": "uint64",
+          "cell_bytes": "int64",
+          "cell_value": "uint64",
+          "hi": "uint64",
+          "id_hex": "hex33",
+          "index": "uint32",
+          "island_hi": "uint64",
+          "island_lo": "uint64",
+          "kind": "enum[0,1,2]",
+          "lo": "uint64",
+          "operation": "enum[stage-module,commit-module,stage-generated,commit-generated,add-cell]",
+          "process_id": "uint64",
+          "returned": "bool",
+          "trampoline_hi": "uint64",
+          "trampoline_lo": "uint64"
+        },
+        "snapshot": {
+          "has_payload": "bool",
+          "result": "result",
+          "state": "enum[0,1,2]"
+        }
+      },
+      "private_fields": {
+        "caller_id_after_hex": "hex33",
+        "caller_id_before_hex": "hex33",
+        "calls": "call_record[1..2]",
+        "expected_owner": "owner",
+        "initial_snapshot": "snapshot",
+        "post_setup": "post_setup",
+        "setup": "setup_record[0..24]"
+      },
+      "private_keys": [
+        "schema",
+        "selector",
+        "checks",
+        "check_names",
+        "failures",
+        "failed_checks",
+        "source_scope",
+        "caller_id_before_hex",
+        "caller_id_after_hex",
+        "expected_owner",
+        "initial_snapshot",
+        "setup",
+        "calls",
+        "post_setup"
+      ],
+      "source_scope": {
+        "attempt_observation": "public-before-entry-and-after-return-only",
+        "evidence_io": "stdio-report-only",
+        "native_fault_provider_functions_present": false,
+        "providers": "authored-values-only",
+        "signals": false,
+        "threads": false
+      },
+      "summary_keys": [
+        "schema",
+        "selector",
+        "checks",
+        "check_names",
+        "failures",
+        "failed_checks"
+      ],
+      "validation_scope": "Shape validation permits intentional control outcomes; it does not add semantic state/result predicates that would duplicate or mask the exact safe-control oracle."
+    },
+    "contract_pin": {
+      "bytes": 11727,
+      "sha256": "075bacde93490fdc484761f2e77f66d7e74b2388598ca050dc397d35dbdf8d4e"
+    },
+    "prebuild_corrections": [
+      "Harness snapshot member reference typo corrected by author before first build.",
+      "Source-scope literal now accounts for public initial Virgin observation as well as post-return observation.",
+      "Root runner placeholder/schema/status inconsistencies, directory closure, timeout partial retention and lock-release paths corrected in independent source review before first build; no runtime attempt.",
+      "Independent review found missing previous-artifact checks before inventory refresh; corrected before first build. Earlier runner/ledger/lock retained in prebuild-review-b4ec746d0acc4cb186943a62071f2c42.",
+      "Independent plan review found G3 invalid-write inherited open3 instead of the planned open0; corrected that authored value before first build. Earlier harness/ledger/lock retained in prebuild-input-b27ca553459e4c58a78c13d443d58905."
+    ],
+    "safe_controls": [
+      {
+        "expected_failure_set": [
+          "ordinary-entry-drives-to-publication"
+        ],
+        "id": "C1",
+        "macro": "AO_CONTROL_OMIT_DRIVER",
+        "mutation": "In separately versioned ac_run, after the original successful admission check, return AC_INCOMPLETE before calling ac_step_internal. Admission and its private initialization remain unchanged.",
+        "name": "omit-ordinary-driver",
+        "oracle": "One composite semantic assertion requires actual AC_RETURNED plus OrdinaryReturned and the exact completed owner/events. Mutant truthfully returns INCOMPLETE/Active/no payload. Do not duplicate this predicate in infrastructure.",
+        "safe_effect": "No reader or file-provider work; process ends with terminal Active.",
+        "selector": "control-omit-driver",
+        "setup": "Dedicated otherwise-successful generated-Community request with all setup committed."
+      },
+      {
+        "expected_failure_set": [
+          "selection-return-does-not-end-ordinary-entry"
+        ],
+        "id": "C2",
+        "macro": "AO_CONTROL_STOP_AFTER_SELECTION_RAW",
+        "mutation": "In separately versioned ac_run keep the ordinary ac_step_internal(false) call, but inside its while body break only when phase==AC_RAW_AVAILABLE and current raw kind==AC_SELECTION; then retain original final return mapping. No alternate provider/injection/private API.",
+        "name": "stop-after-selection-return",
+        "oracle": "One composite semantic assertion requires actual RETURNED and exact completed snapshot. Mutant returns INCOMPLETE/Active/no payload. Exact RAW_AVAILABLE location is checked by source transformation and method review, not claimed as private runtime observation.",
+        "safe_effect": "Actual selection returns, but it is not authoritatively recorded or published; no I/O starts.",
+        "selector": "control-stop-after-selection",
+        "setup": "Dedicated otherwise-successful direct-Community request."
+      },
+      {
+        "expected_failure_set": [
+          "published-entry-returns-returned"
+        ],
+        "id": "C3",
+        "macro": "AO_CONTROL_WRONG_PUBLISHED_RETURN",
+        "mutation": "Only the final ac_run expression maps phase AC_PUBLISHED to AC_INCOMPLETE instead of AC_RETURNED; driver and actual publication remain unchanged.",
+        "name": "map-published-to-incomplete",
+        "oracle": "Semantic assertion checks actual entry result==AC_RETURNED. Independent snapshot sanity requires the unchanged completed owner/events and must still pass.",
+        "safe_effect": "Returned enum wrong, actual completed state/payload unchanged. No second admission or alternate publication.",
+        "selector": "control-published-return",
+        "setup": "Dedicated valid generated-owner ordinary completion."
+      },
+      {
+        "expected_failure_set": [
+          "halted-entry-returns-incomplete"
+        ],
+        "id": "C4",
+        "macro": "AO_CONTROL_WRONG_HALTED_RETURN",
+        "mutation": "Only the nonpublished arm of the final ac_run return expression yields AC_RETURNED instead of AC_INCOMPLETE; admission and halting logic unchanged.",
+        "name": "map-halted-to-returned",
+        "oracle": "Semantic assertion checks actual entry result==AC_INCOMPLETE. Independent public snapshot sanity remains Active with no payload and passes.",
+        "safe_effect": "Returned enum wrong; no completed payload fabricated.",
+        "selector": "control-halted-return",
+        "setup": "Dedicated actual NULL request, no unsafe pointer."
+      },
+      {
+        "expected_failure_set": [
+          "post-entry-setup-commits-are-refused"
+        ],
+        "id": "C5",
+        "macro": "AO_CONTROL_OMIT_COMMIT_PHASE_GUARDS",
+        "mutation": "Omit both newly added Virgin checks in the setup-only module and generated commit APIs. Preserve all preexisting bounds/staged/used/publication predicates.",
+        "name": "omit-setup-commit-phase-guards",
+        "oracle": "Invoke both commits separately and record both returns before evaluating one semantic conjunction that checks both actual commit returns are false. Mutant returns true twice and publishes only authored storage. Completed public snapshot sanity remains unchanged. No subsequent lookup, native invocation or diagnostic masks or amplifies the effect.",
+        "safe_effect": "Post-completion model-only publication in a fresh control process; no native code or reset.",
+        "selector": "control-post-entry-setup",
+        "setup": "Use a different committed owner for normal ordinary completion. Pre-stage unused module 2/generated 2 before entry and leave them unpublished. After completion invoke each commit exactly once; no staged/used/committed veto is already true."
+      }
+    ],
+    "source_pin": {
+      "bytes": 23864,
+      "sha256": "6c91723cc6e28194d752ed139de7b37d6e66c787690be13951a1705ce3259bca"
+    },
+    "stable_storage": "Static request, source ID arrays, immutable model commits and integer-keyed cells complete before entry. Post-return request/source-ID mutation tests copied outcomes only; every subsequent ac_run input remains stable.",
+    "style": "New authored C11 driver, fieldwise snapshot comparisons, full33-byte identity, ordinary return captured separately from acquire observer. No macro-dependent expectations.",
+    "surface": "Only five setup APIs, ac_run and ac_observe; stdio writes reports only, never a crash-file provider."
+  },
+  "limits": [
+    "Existing LL/SC strong-CAS retry, libc memcpy/memset/memcmp, canary failure and sanitizer dependencies remain; no bounded/wait-free or transitive signal-safety claim.",
+    "Per-slot acquire/release publications are not a coherent registry snapshot and this witness will complete all setup before entry.",
+    "No runtime private-state observability is promised; incomplete outcomes give public state only. Exact internal partial receipts are source facts unless separately exposed by a future approved scope.",
+    "Authored frame/file values provide no native frame lifetime, crash persistence, provider cancellation or physical timing proof.",
+    "Actual callbacks/nesting, concurrency/native publication, DSO/installer, nonparticipating writers, loader/interposition, signals/nonlocal exits, quiescence, recovery, production and live observer composition remain deferred.",
+    "No quarantine reset, protection weakening, official-core/package/device change or release. Ownership is not fault causation; every live gate remains CLOSED."
+  ],
+  "new_commit_guards": "Both setup commit APIs check Virgin with relaxed load before existing predicates/stores; serial eligibility only, no second CAS/admission or concurrent writer protocol.",
+  "reader_extraction": "Copy both retained generated files exactly; prior extraction contract is retained as provenance and never executed.",
+  "retained_plan": {
+    "bytes": 27816,
+    "sha256": "4e48a87cc83f171219805ff3369157bdc0588290a19ca9c6f868ced53110c2f4"
+  },
+  "runner_provenance": {
+    "authored": "All orchestration outside class Elf is new for the ordinary witness; no dynamic predecessor import or execution.",
+    "bounded_elf_parser": {
+      "bytes": 6924,
+      "end": 15167,
+      "sha256": "6279f7fbdc785a245af9343866ec15e150792baee3271631f0ad9bbcf52926e5",
+      "source": "activation-attempt-attribution-fixture/run-tests.py",
+      "source_pin": {
+        "bytes": 71547,
+        "sha256": "b19c3fae74969cacecaa6ca3523639ddc589ef2d0c7197b8a166531484041440"
+      },
+      "start": 8243,
+      "successor_end": 11457,
+      "successor_start": 4533
+    },
+    "closure": "Stable regular inputs and closed file/directory inventories; UUID packet, exclusive execution lock, unique commands/process names, full commands/streams and before-result inventory. Failed runs cannot resume; no successful old suite/audit is replayed. Every additive work-inventory refresh first verifies all previous file pins and directory custody; later writable builds cannot silently adopt changed earlier artifacts.",
+    "configuration": "Pinned GCC7.5 Linux AArch64 C11 image; network=none, pull=never, read-only root; only owned artifacts/reports writable. Plain and ASan/UBSan with leak detection.",
+    "diagnostics": "Compiler/link stdout and stderr must be empty; runtime stderr empty and strict diagnostic search. One exact structural FINI_ARRAY metadata exception is inherited, object-derived anew. No generic warning allowance.",
+    "phases": "Fresh build compiles four standalone/setup objects and records metadata. A separately pinned method/dependency review gates resumed first runtime. The same-packet setup object feeds candidate; one invariant harness object per mode feeds all controls.",
+    "report_shape": "Closed structural schema validates every public value/array/range without duplicating semantic mutant failure predicates.",
+    "timeout": "External45-second process bound; retain partial outputs, independently kill/drain only the owned process group and own container. No algorithmic bounded-admission claim."
+  },
+  "runtime_gate": "CLOSED",
+  "schema": 1,
+  "setup_only_surface": [
+    "ac_model_stage_module",
+    "ac_model_commit_module",
+    "ac_model_stage_generated",
+    "ac_model_commit_generated",
+    "ac_model_add_cell"
+  ],
+  "source_files": {
+    "core.c": {
+      "bytes": 22271,
+      "sha256": "f1ffbc6e07a15653028364dda1b689290bbd1f85c4cd63e8498eb7522a771592"
+    },
+    "core.h": {
+      "bytes": 6907,
+      "sha256": "89cee41d2247cfedf00ef424def1979ca6ffe7aaf78957615420208d89a991be"
+    },
+    "run-tests.py": {
+      "bytes": 40963,
+      "sha256": "1c5b5549a43e6e4ec060541af6c91374c3793cdad562c5bb885dce6a38e726c3"
+    },
+    "source-transform.json": {
+      "bytes": 34710,
+      "sha256": "02274080b0a37ee88730c6c0cd5f16ab6c269d632dba989d1bf603e0413463d9"
+    },
+    "test-contract.json": {
+      "bytes": 11727,
+      "sha256": "075bacde93490fdc484761f2e77f66d7e74b2388598ca050dc397d35dbdf8d4e"
+    },
+    "test_ordinary.c": {
+      "bytes": 23864,
+      "sha256": "6c91723cc6e28194d752ed139de7b37d6e66c787690be13951a1705ce3259bca"
+    }
+  },
+  "status": "complete-source-transformation-before-first-build",
+  "transformation_ledger": "source-transform.json",
+  "unchanged_reader_inputs": [
+    {
+      "bytes": 2994,
+      "name": "readers/readers.inc",
+      "path": "experiments/usb-browser-switch/activation-attempt-attribution-fixture/private/run-7b6a0bf3f05b41e99736e8443735bf7a/work/generated/readers.inc",
+      "sha256": "352048162f452f794136f8b90555783df101feacbf7550e3f4020bd6ef7ab140"
+    },
+    {
+      "bytes": 5369,
+      "name": "readers/receipt-types.h",
+      "path": "experiments/usb-browser-switch/activation-attempt-attribution-fixture/private/run-7b6a0bf3f05b41e99736e8443735bf7a/work/generated/receipt-types.h",
+      "sha256": "c97454db2aba6e942eb05241bbf80d67ffd8eecb5108927da69600a6a1d15f40"
+    }
+  ]
+}
