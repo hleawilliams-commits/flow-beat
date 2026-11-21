@@ -1,0 +1,673 @@
+{
+  "schema": 1,
+  "status": "source-frozen-not-executed",
+  "scope": "Ordinary synchronous provider dispatch and guarded same-thread nested losers with stable authored bindings. Public snapshots and honest prepared-return transcript only; no private scheduler/inspection, native fault provider, thread, signal, loader, installer or device.",
+  "configuration": "AO_WITNESS_SETUP",
+  "summary_keys": [
+    "schema",
+    "selector",
+    "checks",
+    "check_names",
+    "failures",
+    "failed_checks"
+  ],
+  "selectors": {
+    "provider-generated-fd-zero": {
+      "group": "G1",
+      "checks": [
+        "initial-public-state-is-virgin",
+        "authored-setup-succeeds",
+        "ordinary-call-inputs-and-bindings-stay-stable",
+        "observed-callback-boundaries-have-empty-active-state",
+        "ordinary-provider-entry-returns-returned",
+        "public-completion-matches-authored-return-values",
+        "callback-sequence-and-prepared-values-match",
+        "callback-receives-bound-context",
+        "callback-receives-copied-owner-and-length",
+        "write-callback-receives-recorded-payload",
+        "accepted-open-token-reaches-followup-callbacks",
+        "report-bounds-respected"
+      ]
+    },
+    "provider-wide-open-token": {
+      "group": "G1",
+      "checks": [
+        "initial-public-state-is-virgin",
+        "authored-setup-succeeds",
+        "ordinary-call-inputs-and-bindings-stay-stable",
+        "observed-callback-boundaries-have-empty-active-state",
+        "ordinary-provider-entry-returns-returned",
+        "public-completion-matches-authored-return-values",
+        "callback-sequence-and-prepared-values-match",
+        "callback-receives-bound-context",
+        "callback-receives-copied-owner-and-length",
+        "write-callback-receives-recorded-payload",
+        "accepted-open-token-reaches-followup-callbacks",
+        "report-bounds-respected"
+      ]
+    },
+    "provider-no-owner": {
+      "group": "G2",
+      "checks": [
+        "initial-public-state-is-virgin",
+        "authored-setup-succeeds",
+        "ordinary-call-inputs-and-bindings-stay-stable",
+        "observed-callback-boundaries-have-empty-active-state",
+        "ordinary-provider-entry-returns-returned",
+        "public-completion-matches-authored-return-values",
+        "callback-sequence-and-prepared-values-match",
+        "callback-receives-bound-context",
+        "callback-receives-copied-owner-and-length",
+        "write-callback-receives-recorded-payload",
+        "accepted-open-token-reaches-followup-callbacks",
+        "report-bounds-respected"
+      ]
+    },
+    "provider-open-refusal": {
+      "group": "G2",
+      "checks": [
+        "initial-public-state-is-virgin",
+        "authored-setup-succeeds",
+        "ordinary-call-inputs-and-bindings-stay-stable",
+        "observed-callback-boundaries-have-empty-active-state",
+        "ordinary-provider-entry-returns-returned",
+        "public-completion-matches-authored-return-values",
+        "callback-sequence-and-prepared-values-match",
+        "callback-receives-bound-context",
+        "callback-receives-copied-owner-and-length",
+        "write-callback-receives-recorded-payload",
+        "accepted-open-token-reaches-followup-callbacks",
+        "report-bounds-respected"
+      ]
+    },
+    "provider-short-sync-error": {
+      "group": "G3",
+      "checks": [
+        "initial-public-state-is-virgin",
+        "authored-setup-succeeds",
+        "ordinary-call-inputs-and-bindings-stay-stable",
+        "observed-callback-boundaries-have-empty-active-state",
+        "ordinary-provider-entry-returns-returned",
+        "public-completion-matches-authored-return-values",
+        "callback-sequence-and-prepared-values-match",
+        "callback-receives-bound-context",
+        "callback-receives-copied-owner-and-length",
+        "write-callback-receives-recorded-payload",
+        "accepted-open-token-reaches-followup-callbacks",
+        "report-bounds-respected"
+      ]
+    },
+    "provider-write-error": {
+      "group": "G3",
+      "checks": [
+        "initial-public-state-is-virgin",
+        "authored-setup-succeeds",
+        "ordinary-call-inputs-and-bindings-stay-stable",
+        "observed-callback-boundaries-have-empty-active-state",
+        "ordinary-provider-entry-returns-returned",
+        "public-completion-matches-authored-return-values",
+        "callback-sequence-and-prepared-values-match",
+        "callback-receives-bound-context",
+        "callback-receives-copied-owner-and-length",
+        "write-callback-receives-recorded-payload",
+        "accepted-open-token-reaches-followup-callbacks",
+        "report-bounds-respected"
+      ]
+    },
+    "provider-invalid-write": {
+      "group": "G3",
+      "checks": [
+        "initial-public-state-is-virgin",
+        "authored-setup-succeeds",
+        "ordinary-call-inputs-and-bindings-stay-stable",
+        "observed-callback-boundaries-have-empty-active-state",
+        "invalid-or-missing-provider-returns-incomplete",
+        "incomplete-provider-exposes-no-public-payload",
+        "invalid-write-retains-prepared-return-transcript",
+        "callback-receives-bound-context",
+        "callback-receives-copied-owner-and-length",
+        "write-callback-receives-recorded-payload",
+        "accepted-open-token-reaches-followup-callbacks",
+        "report-bounds-respected"
+      ]
+    },
+    "provider-missing-write": {
+      "group": "G3",
+      "checks": [
+        "initial-public-state-is-virgin",
+        "authored-setup-succeeds",
+        "ordinary-call-inputs-and-bindings-stay-stable",
+        "observed-callback-boundaries-have-empty-active-state",
+        "invalid-or-missing-provider-returns-incomplete",
+        "incomplete-provider-exposes-no-public-payload",
+        "missing-write-has-no-callback-invocation",
+        "callback-receives-bound-context",
+        "callback-receives-copied-owner-and-length",
+        "write-callback-receives-recorded-payload",
+        "accepted-open-token-reaches-followup-callbacks",
+        "report-bounds-respected"
+      ]
+    },
+    "nested-unblamed": {
+      "group": "G4",
+      "checks": [
+        "initial-public-state-is-virgin",
+        "authored-setup-succeeds",
+        "ordinary-call-inputs-and-bindings-stay-stable",
+        "observed-callback-boundaries-have-empty-active-state",
+        "exactly-one-guarded-nested-call-occurs",
+        "nested-entry-returns-suppressed",
+        "nested-loser-invokes-no-provider",
+        "nested-boundaries-preserve-empty-active-state",
+        "outer-provider-entry-completes-after-nested-loser",
+        "callback-sequence-and-prepared-values-match",
+        "callback-receives-bound-context",
+        "callback-receives-copied-owner-and-length",
+        "write-callback-receives-recorded-payload",
+        "accepted-open-token-reaches-followup-callbacks",
+        "report-bounds-respected"
+      ]
+    },
+    "nested-open": {
+      "group": "G4",
+      "checks": [
+        "initial-public-state-is-virgin",
+        "authored-setup-succeeds",
+        "ordinary-call-inputs-and-bindings-stay-stable",
+        "observed-callback-boundaries-have-empty-active-state",
+        "exactly-one-guarded-nested-call-occurs",
+        "nested-entry-returns-suppressed",
+        "nested-loser-invokes-no-provider",
+        "nested-boundaries-preserve-empty-active-state",
+        "outer-provider-entry-completes-after-nested-loser",
+        "callback-sequence-and-prepared-values-match",
+        "callback-receives-bound-context",
+        "callback-receives-copied-owner-and-length",
+        "write-callback-receives-recorded-payload",
+        "accepted-open-token-reaches-followup-callbacks",
+        "report-bounds-respected"
+      ]
+    },
+    "nested-write": {
+      "group": "G4",
+      "checks": [
+        "initial-public-state-is-virgin",
+        "authored-setup-succeeds",
+        "ordinary-call-inputs-and-bindings-stay-stable",
+        "observed-callback-boundaries-have-empty-active-state",
+        "exactly-one-guarded-nested-call-occurs",
+        "nested-entry-returns-suppressed",
+        "nested-loser-invokes-no-provider",
+        "nested-boundaries-preserve-empty-active-state",
+        "outer-provider-entry-completes-after-nested-loser",
+        "callback-sequence-and-prepared-values-match",
+        "callback-receives-bound-context",
+        "callback-receives-copied-owner-and-length",
+        "write-callback-receives-recorded-payload",
+        "accepted-open-token-reaches-followup-callbacks",
+        "report-bounds-respected"
+      ]
+    },
+    "nested-null": {
+      "group": "G4",
+      "checks": [
+        "initial-public-state-is-virgin",
+        "authored-setup-succeeds",
+        "ordinary-call-inputs-and-bindings-stay-stable",
+        "observed-callback-boundaries-have-empty-active-state",
+        "exactly-one-guarded-nested-call-occurs",
+        "nested-entry-returns-suppressed",
+        "nested-loser-invokes-no-provider",
+        "nested-boundaries-preserve-empty-active-state",
+        "outer-provider-entry-completes-after-nested-loser",
+        "callback-sequence-and-prepared-values-match",
+        "callback-receives-bound-context",
+        "callback-receives-copied-owner-and-length",
+        "write-callback-receives-recorded-payload",
+        "accepted-open-token-reaches-followup-callbacks",
+        "report-bounds-respected"
+      ]
+    },
+    "repeat-after-returned": {
+      "group": "G5",
+      "checks": [
+        "initial-public-state-is-virgin",
+        "authored-setup-succeeds",
+        "ordinary-call-inputs-and-bindings-stay-stable",
+        "observed-callback-boundaries-have-empty-active-state",
+        "first-provider-attempt-has-expected-terminal-state",
+        "post-return-caller-source-mutation-is-real",
+        "terminal-repeat-returns-suppressed",
+        "terminal-repeat-preserves-public-snapshot",
+        "suppressed-entry-does-not-call-provider",
+        "report-bounds-respected"
+      ]
+    },
+    "repeat-after-incomplete": {
+      "group": "G5",
+      "checks": [
+        "initial-public-state-is-virgin",
+        "authored-setup-succeeds",
+        "ordinary-call-inputs-and-bindings-stay-stable",
+        "observed-callback-boundaries-have-empty-active-state",
+        "first-provider-attempt-has-expected-terminal-state",
+        "post-return-caller-source-mutation-is-real",
+        "terminal-repeat-returns-suppressed",
+        "terminal-repeat-preserves-public-snapshot",
+        "suppressed-entry-does-not-call-provider",
+        "report-bounds-respected"
+      ]
+    },
+    "control-suppressed-provider": {
+      "group": "C1",
+      "checks": [
+        "initial-public-state-is-virgin",
+        "authored-setup-succeeds",
+        "ordinary-call-inputs-and-bindings-stay-stable",
+        "observed-callback-boundaries-have-empty-active-state",
+        "first-provider-attempt-has-expected-terminal-state",
+        "terminal-repeat-returns-suppressed",
+        "terminal-repeat-preserves-public-snapshot",
+        "suppressed-entry-does-not-call-provider",
+        "report-bounds-respected"
+      ]
+    },
+    "control-nested-return": {
+      "group": "C2",
+      "checks": [
+        "initial-public-state-is-virgin",
+        "authored-setup-succeeds",
+        "ordinary-call-inputs-and-bindings-stay-stable",
+        "observed-callback-boundaries-have-empty-active-state",
+        "exactly-one-guarded-nested-call-occurs",
+        "nested-entry-returns-suppressed",
+        "nested-loser-invokes-no-provider",
+        "nested-boundaries-preserve-empty-active-state",
+        "outer-provider-entry-completes-after-nested-loser",
+        "callback-sequence-and-prepared-values-match",
+        "callback-receives-bound-context",
+        "callback-receives-copied-owner-and-length",
+        "write-callback-receives-recorded-payload",
+        "accepted-open-token-reaches-followup-callbacks",
+        "report-bounds-respected"
+      ]
+    },
+    "control-unblamed-dispatch": {
+      "group": "C3",
+      "checks": [
+        "initial-public-state-is-virgin",
+        "authored-setup-succeeds",
+        "ordinary-call-inputs-and-bindings-stay-stable",
+        "observed-callback-boundaries-have-empty-active-state",
+        "ordinary-provider-entry-returns-returned",
+        "public-completion-matches-authored-return-values",
+        "unblamed-callback-is-invoked-once",
+        "report-bounds-respected"
+      ]
+    },
+    "control-bound-context": {
+      "group": "C4",
+      "checks": [
+        "initial-public-state-is-virgin",
+        "authored-setup-succeeds",
+        "ordinary-call-inputs-and-bindings-stay-stable",
+        "observed-callback-boundaries-have-empty-active-state",
+        "ordinary-provider-entry-returns-returned",
+        "public-completion-matches-authored-return-values",
+        "callback-sequence-and-prepared-values-match",
+        "callback-receives-bound-context",
+        "callback-receives-copied-owner-and-length",
+        "write-callback-receives-recorded-payload",
+        "accepted-open-token-reaches-followup-callbacks",
+        "report-bounds-respected"
+      ]
+    },
+    "control-write-payload": {
+      "group": "C5",
+      "checks": [
+        "initial-public-state-is-virgin",
+        "authored-setup-succeeds",
+        "ordinary-call-inputs-and-bindings-stay-stable",
+        "observed-callback-boundaries-have-empty-active-state",
+        "ordinary-provider-entry-returns-returned",
+        "public-completion-matches-authored-return-values",
+        "callback-sequence-and-prepared-values-match",
+        "callback-receives-bound-context",
+        "callback-receives-copied-owner-and-length",
+        "write-callback-receives-recorded-payload",
+        "accepted-open-token-reaches-followup-callbacks",
+        "report-bounds-respected"
+      ]
+    },
+    "control-close-return": {
+      "group": "C6",
+      "checks": [
+        "initial-public-state-is-virgin",
+        "authored-setup-succeeds",
+        "ordinary-call-inputs-and-bindings-stay-stable",
+        "observed-callback-boundaries-have-empty-active-state",
+        "ordinary-provider-entry-returns-returned",
+        "close-control-preserves-other-completion-fields",
+        "close-receipt-matches-callback-return",
+        "callback-sequence-and-prepared-values-match",
+        "callback-receives-bound-context",
+        "callback-receives-copied-owner-and-length",
+        "write-callback-receives-recorded-payload",
+        "accepted-open-token-reaches-followup-callbacks",
+        "report-bounds-respected"
+      ]
+    },
+    "control-short-write-once": {
+      "group": "C7",
+      "checks": [
+        "initial-public-state-is-virgin",
+        "authored-setup-succeeds",
+        "ordinary-call-inputs-and-bindings-stay-stable",
+        "observed-callback-boundaries-have-empty-active-state",
+        "ordinary-provider-entry-returns-returned",
+        "public-completion-matches-authored-return-values",
+        "callback-sequence-and-prepared-values-match",
+        "callback-receives-bound-context",
+        "callback-receives-copied-owner-and-length",
+        "write-callback-receives-recorded-payload",
+        "accepted-open-token-reaches-followup-callbacks",
+        "short-write-dispatch-is-single-attempt",
+        "report-bounds-respected"
+      ]
+    },
+    "control-wide-token": {
+      "group": "C8",
+      "checks": [
+        "initial-public-state-is-virgin",
+        "authored-setup-succeeds",
+        "ordinary-call-inputs-and-bindings-stay-stable",
+        "observed-callback-boundaries-have-empty-active-state",
+        "ordinary-provider-entry-returns-returned",
+        "public-completion-matches-authored-return-values",
+        "callback-sequence-and-prepared-values-match",
+        "callback-receives-bound-context",
+        "callback-receives-copied-owner-and-length",
+        "write-callback-receives-recorded-payload",
+        "accepted-open-token-reaches-followup-callbacks",
+        "report-bounds-respected"
+      ]
+    }
+  },
+  "controls": {
+    "provider-before-admission": {
+      "macro": "AP_CONTROL_EARLY_PROVIDER",
+      "selector": "control-suppressed-provider",
+      "expected_failures": [
+        "suppressed-entry-does-not-call-provider"
+      ],
+      "safety": "Only valid stable pointers; no native operation or nested recursion. The dedicated post-completion unblamed spy only logs invocation: no Active-state assertion, observer or nesting, avoiding a second intentional failure."
+    },
+    "nested-loser-return": {
+      "macro": "AP_CONTROL_WRONG_SUPPRESSED_RETURN",
+      "selector": "control-nested-return",
+      "expected_failures": [
+        "nested-entry-returns-suppressed"
+      ],
+      "safety": "No second admission or provider access."
+    },
+    "omit-unblamed-call": {
+      "macro": "AP_CONTROL_OMIT_UNBLAMED",
+      "selector": "control-unblamed-dispatch",
+      "expected_failures": [
+        "unblamed-callback-is-invoked-once"
+      ],
+      "safety": "Omission of authored callback only."
+    },
+    "alternate-context": {
+      "macro": "AP_CONTROL_ALTERNATE_CONTEXT",
+      "selector": "control-bound-context",
+      "expected_failures": [
+        "callback-receives-bound-context"
+      ],
+      "safety": "Dedicated control-only const pointer to live alternate context configured before entry; no invalid pointer. Pin the exact fixed alternate-context symbol and binding in the future complete transformation ledger; no added setup API."
+    },
+    "decoy-write-value": {
+      "macro": "AP_CONTROL_DECOY_WRITE",
+      "selector": "control-write-payload",
+      "expected_failures": [
+        "write-callback-receives-recorded-payload"
+      ],
+      "safety": "Defined local value copy, no caller/private pointer mutation."
+    },
+    "replace-close-return": {
+      "macro": "AP_CONTROL_REPLACE_CLOSE_RETURN",
+      "selector": "control-close-return",
+      "expected_failures": [
+        "close-receipt-matches-callback-return"
+      ],
+      "safety": "Last event avoids continuation masking; no retry."
+    },
+    "repeat-short-write": {
+      "macro": "AP_CONTROL_REPEAT_SHORT_WRITE",
+      "selector": "control-short-write-once",
+      "expected_failures": [
+        "short-write-dispatch-is-single-attempt"
+      ],
+      "safety": "Two finite authored calls, no loop/native retry or extra admission."
+    },
+    "narrow-open-token": {
+      "macro": "AP_CONTROL_NARROW_OPEN_TOKEN",
+      "selector": "control-wide-token",
+      "expected_failures": [
+        "accepted-open-token-reaches-followup-callbacks"
+      ],
+      "safety": "Defined unsigned narrowing on authored integer; no real descriptor operation."
+    }
+  },
+  "summary_counts": {
+    "normal_selectors": 14,
+    "control_baselines": 8,
+    "candidate_selectors_per_mode": 22,
+    "controls_per_mode": 8,
+    "summed_assertions_per_mode": 270,
+    "distinct_assertion_names": 30,
+    "fresh_runtime_processes": 60
+  },
+  "limits": {
+    "candidate_selectors_per_mode": 22,
+    "control_selectors_per_mode": 8,
+    "checks_per_selector": 20,
+    "setup_records": 16,
+    "calls": 3,
+    "callbacks": 12,
+    "contexts": 4,
+    "event_slots": 6,
+    "report_bytes": 1048576
+  },
+  "evidence_schema": {
+    "closed_objects": true,
+    "summary_keys": [
+      "schema",
+      "selector",
+      "checks",
+      "check_names",
+      "failures",
+      "failed_checks"
+    ],
+    "private_keys": [
+      "schema",
+      "selector",
+      "checks",
+      "check_names",
+      "failures",
+      "failed_checks",
+      "source_scope",
+      "caller_id_before_hex",
+      "caller_id_after_hex",
+      "expected_owner",
+      "initial_snapshot",
+      "setup",
+      "calls",
+      "callbacks",
+      "contexts",
+      "mutation",
+      "normalization"
+    ],
+    "source_scope": {
+      "providers": "authored-c-callbacks-only",
+      "native_fault_provider_functions_present": false,
+      "signals": false,
+      "threads": false,
+      "evidence_io": "stdio-report-only",
+      "attempt_observation": "public-entry-return-and-callback-boundaries",
+      "callback_return_evidence": "prepared-before-C-return-not-private-raw-telemetry"
+    },
+    "hex33": "Exactly 66 lowercase hexadecimal characters encoding all 33 bytes; no NUL trimming.",
+    "objects": {
+      "io_value": {
+        "raw": "int64",
+        "failure_errno": "int32"
+      },
+      "request": {
+        "pc": "uint64",
+        "lr": "uint64",
+        "fp": "uint64",
+        "table_id": "uint32",
+        "context_id": "uint32"
+      },
+      "owner": {
+        "kind": "enum[0,1]",
+        "index": "uint32",
+        "process_id": "uint64",
+        "id_hex": "hex33"
+      },
+      "write_arg": {
+        "accepted_open_token": "int64",
+        "requested_length": "uint64",
+        "payload_hex": "hex33"
+      },
+      "event": {
+        "kind": "enum[0,1,2,3,4,5]",
+        "entered": "bool",
+        "returned_recorded": "bool",
+        "raw": "int64",
+        "errno_valid": "bool",
+        "error_number": "int32",
+        "requested_length": "uint64",
+        "payload_hex": "hex33"
+      },
+      "result": {
+        "selection_known": "bool",
+        "owner": "owner",
+        "known_failure": "bool",
+        "short_write": "bool",
+        "violation": "bool",
+        "event_count": "uint[0,6]",
+        "events": "event[6]"
+      },
+      "snapshot": {
+        "state": "enum[0,1,2]",
+        "has_payload": "bool",
+        "result": "result"
+      },
+      "setup_record": {
+        "operation": "enum[stage-module,commit-module,stage-generated,commit-generated]",
+        "returned": "bool",
+        "index": "uint32",
+        "kind": "enum[0,1,2]",
+        "process_id": "uint64",
+        "lo": "uint64",
+        "hi": "uint64",
+        "island_lo": "uint64",
+        "island_hi": "uint64",
+        "trampoline_lo": "uint64",
+        "trampoline_hi": "uint64",
+        "id_hex": "hex33"
+      },
+      "call_record": {
+        "null_request": "bool",
+        "before": "request",
+        "after": "request",
+        "returned": "enum[0,1,2,3]",
+        "snapshot": "snapshot"
+      },
+      "callback_record": {
+        "context_id": "uint32",
+        "kind": "enum[0,1,2,3,4,5]",
+        "owner_arg": "owner",
+        "write_arg": "write_arg",
+        "token_arg": "int64",
+        "entry_observed": "bool",
+        "exit_observed": "bool",
+        "entry_snapshot": "snapshot",
+        "exit_snapshot": "snapshot",
+        "has_prepared_return": "bool",
+        "prepared_void_return": "bool",
+        "prepared_return": "io_value",
+        "nested_attempted": "bool",
+        "nested_null": "bool",
+        "nested_call_index": "uint32",
+        "nested_return": "enum[0,1,2,3]",
+        "nested_before": "snapshot",
+        "nested_after": "snapshot"
+      },
+      "table": {
+        "open": "bool",
+        "write": "bool",
+        "sync": "bool",
+        "close": "bool",
+        "unblamed": "bool"
+      },
+      "configuration": {
+        "id": "uint32",
+        "open": "io_value",
+        "write": "io_value",
+        "sync": "io_value",
+        "close": "io_value",
+        "observe": "bool",
+        "nested_kind": "int32",
+        "nested_null": "bool",
+        "nested_request_present": "bool"
+      },
+      "context": {
+        "before": "configuration",
+        "after": "configuration",
+        "table_before": "table",
+        "table_after": "table",
+        "nested_started": "bool",
+        "invocations": "uint32[6]"
+      },
+      "mutation": {
+        "performed": "bool",
+        "id_before_hex": "hex33",
+        "id_after_hex": "hex33",
+        "request_before": "request",
+        "request_after": "request"
+      },
+      "normalization": {
+        "valid": "bool",
+        "indices": "uint32[0..12]"
+      }
+    },
+    "private_fields": {
+      "caller_id_before_hex": "hex33",
+      "caller_id_after_hex": "hex33",
+      "expected_owner": "owner",
+      "initial_snapshot": "snapshot",
+      "setup": "setup_record[0..16]",
+      "calls": "call_record[1..3]",
+      "callbacks": "callback_record[0..12]",
+      "contexts": "context[4]",
+      "mutation": "mutation",
+      "normalization": "normalization"
+    },
+    "validation_scope": "Shape validation permits deliberate safe-control outcomes without adding semantic state/count/result predicates. Prepared callback values are recorded before C return; only the separate final public receipt establishes engine completion. Context/table IDs identify fixed authored objects by pointer equality; no native address is serialized."
+  },
+  "oracle_rules": [
+    "Candidate and all eight controls use the identical harness object, without control-specific preprocessor branches.",
+    "Provider tables are mutable authored setup storage, then unchanged through entry and return; the engine receives const pointers. Context script/binding fields stay stable, while invocation counts, one nested guard and the separate callback journal may change.",
+    "Each safe control changes only its separately compiled core; baseline and mutant use the same named assertion set, exact singleton failure list and shape schema.",
+    "C1 repeated spy records invocation only, with no observer or nested call.",
+    "C3 invocation assertion alone owns absent callback observations; the common observed-boundary check quantifies only actual observed callbacks.",
+    "C4 context identity uses the aggregate transcript across the primary and fixed alternate contexts.",
+    "C5 payload, C6 close receipt/known-failure fields and C8 follow-up token checks each have a sole semantic owner.",
+    "C7 normalization permits exactly one adjacent field-identical WRITE duplicate for unaffected checks, equally in candidate and control, while preserving the unmodified callback transcript; other differences remain failures.",
+    "G5 mutates the original caller ID/request coordinates only after the first outer return. Model copies, tables, code and context configurations stay unchanged.",
+    "Same-thread nested losers are bounded authored calls; no general callback quiescence, interruption, signal, race or concurrent visibility claim."
+  ]
+}

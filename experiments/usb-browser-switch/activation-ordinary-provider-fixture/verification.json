@@ -1,0 +1,216 @@
+{
+  "authoring_history": {
+    "directory": "codegen-authoring-note-8202333f3d31403fb2d7fc8713b0e932",
+    "files": {
+      "corrected-codegen-writer.py": {
+        "bytes": 19526,
+        "sha256": "ae27b68e0279372622bb8c7955906330797b0868fcf8c4dfdf99c346f69fe4d9"
+      },
+      "note.json": {
+        "bytes": 1399,
+        "sha256": "9fc11dbe49b4fa1e1d3cffcf9c11b50baf97c3e0f96da31463dd4ea076485b8f"
+      }
+    },
+    "note": "Retrospective record only: codegen JSON authoring assertion used wrong expected phase before creating output; no original failed script/stream receipt was saved. Corrected session writer retained unexecuted as a source copy. Earlier harness sentinel/duplicate-comparison edits have review history, not a saved original draft."
+  },
+  "codegen_review": {
+    "bytes": 69461,
+    "sha256": "495d48c25210f3d1d9f3d828fb31cbf002125fd46ed6b86082ebc4a58254a808"
+  },
+  "failures_this_packet": {
+    "compiler": 0,
+    "independent_byte_audit": 1,
+    "runtime": 0
+  },
+  "first_runtime_packet": "run-11ea3682fcc34d33b9034c6e041aee30",
+  "independent_audit": {
+    "execution_count": 1,
+    "findings": {
+      "auditor": {
+        "bytes": 63245,
+        "sha256": "923f2e47e6b65059cef1b08b4d3443ccbf1351c20388968e2a446e7924b08f60"
+      },
+      "counts": {
+        "artifacts": 236,
+        "candidate_distinct_assertion_names_per_mode": 30,
+        "candidate_processes": 44,
+        "candidate_selectors_per_mode": 22,
+        "candidate_summed_assertions_per_mode": 270,
+        "commands": 161,
+        "configurations": 22,
+        "control_processes": 16,
+        "controls_per_mode": 8,
+        "elf_files": 58,
+        "executables": 18,
+        "inputs": 30,
+        "metadata_warning_classifications": 10,
+        "object_files": 40,
+        "output_streams": 322,
+        "packet_directories": 296,
+        "packet_files": 979,
+        "preflight_projection": {
+          "bytes": 19482,
+          "sha256": "b6d3099dedd1001674e1dff0d9a816186e0a90519a8e222f98c002c8cad57037"
+        },
+        "preflight_result": {
+          "bytes": 96983,
+          "sha256": "976e73d76bda2ac58ce641db3f0b62b8efb6a44513bc99c0efbe3eca46e9db60"
+        },
+        "runtime_processes": 60,
+        "work_files": 299
+      },
+      "limitations": [
+        "Structural audit counts are not additional runtime assertions.",
+        "Public state is observed at ordinary-entry/return and declared callback boundaries; prepared callback values precede C return and are not private raw telemetry. No private phase is observed.",
+        "No general race/lifetime, native frame/file providers, real signal, asynchronous reentry, lock-free or wait-free guarantee, DSO/installer/target invocation, native visibility or recovery proof.",
+        "Compiler loops, libc/atomic instrumentation and canary failure paths are retained dependencies; metadata classification does not establish tool-defect cause or runtime safety."
+      ],
+      "private_result": {
+        "bytes": 1012768,
+        "sha256": "42d6931d587f6d3893753548ccbcda5d1e68fd5a50ec9bf4e5228be7bdb92b2b"
+      },
+      "procedures_executed": {
+        "compiler": false,
+        "device": false,
+        "fixture": false,
+        "old_capture_or_audit": false,
+        "runner": false
+      },
+      "review_lock": {
+        "bytes": 1021,
+        "sha256": "fb455b55f0f26287d007e01e765198030e7705435b1aa92762553daa0ec2c398"
+      },
+      "runtime_gate": "CLOSED",
+      "sanitized_result": {
+        "bytes": 245147,
+        "sha256": "91e6a0061bda5dafa0f4cd4e9d056bbadee09833aad37d45270504b658eba29c"
+      },
+      "schema": 1,
+      "scope": "Independent retained-byte and public-value audit of one new ordinary-provider fixture packet; no execution replay",
+      "semantic_scope": [
+        "Exact fresh command/stream/build/report and packet inventories; no importer, compiler, tool or native invocation.",
+        "Full source transformation/reused reader bytes and independent ELF64/AArch64 metadata parsing.",
+        "All authored input/setup values, actual public ordinary returns, complete public receipts, canonical identity, callback argument/return journals, bounded nested losers, terminal suppression and eight exact safe controls independently reconstructed.",
+        "First source/runtime packet is retained, with manual pre-runtime method/dependency review bound to all four standalone/setup configurations."
+      ],
+      "status": "passed",
+      "structural_audit_assertions": 486378
+    },
+    "result": {
+      "bytes": 3088,
+      "sha256": "9648ea6f4fb1a71b5b0137fa7c4fd178c96ed63a8f3832b53330de56b7ea9b39"
+    },
+    "source": {
+      "bytes": 63245,
+      "sha256": "923f2e47e6b65059cef1b08b4d3443ccbf1351c20388968e2a446e7924b08f60"
+    },
+    "source_frozen_before_invocation": true,
+    "source_unchanged_after_invocation": true,
+    "stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stdout": {
+      "bytes": 165,
+      "sha256": "aa8a58e85e22a80c2539743c813d8b63659285ccb00b6be9a236118f0fa9608b"
+    },
+    "version": "separately frozen corrected serializer"
+  },
+  "notes": [
+    "Ten exact FINI_ARRAY metadata warnings classified under frozen policy; not runtime sanitizer reports.",
+    "All C/header/harness/runner/extraction inputs remain unchanged after first build.",
+    "Only fixed authored ordinary callbacks and bounded guarded nested losers execute. Prepared-return journals are not private raw telemetry.",
+    "No successful predecessor capture/matrix/audit replay.",
+    "All protections, previous failures and quarantine unchanged; ownership is not causation."
+  ],
+  "prebuild_draft_history": [
+    {
+      "directory": "contract-draft-d549d6a1ff404ffead43ce497de72573",
+      "files": {
+        "test-contract.json": {
+          "bytes": 25994,
+          "sha256": "19b438b78b9bfa76ce425cd8d525bcc038085228062bd98937da0e8508bb2e72"
+        }
+      }
+    },
+    {
+      "directory": "runner-draft-3a2215c1c9a94288be7350ede5701662",
+      "files": {
+        "run-tests.py": {
+          "bytes": 42846,
+          "sha256": "7681e33eb2fe8121686744271805ad2084c7584a5c3a42bb6616a1cdc74328d8"
+        }
+      }
+    },
+    {
+      "directory": "runner-draft-44243e3339f549a09f56c3070b07a76e",
+      "files": {
+        "run-tests.py": {
+          "bytes": 42156,
+          "sha256": "091d00fcb5371753cc28cce1838f47ccbc8c773212290c2431e668f0ad93bf7b"
+        }
+      }
+    }
+  ],
+  "preserved_audit_failure": {
+    "corrected_source": {
+      "bytes": 63245,
+      "sha256": "923f2e47e6b65059cef1b08b4d3443ccbf1351c20388968e2a446e7924b08f60"
+    },
+    "correction": "Only two serializer lines changed: splitlines(keepends=True), direct join and no added final newline. Exact equality, reconstruction/coverage and all runtime oracles retained.",
+    "directory": "audit-a8588b3facb04977b0b7f504b244cc63",
+    "files": {
+      "auditor.py": {
+        "bytes": 63226,
+        "sha256": "ed3c15d2643a5c1785a3a7750bdd11f5b6f43ffcb851fa93197ceb7950798d72"
+      },
+      "execution.json": {
+        "bytes": 1630,
+        "sha256": "9104f0848a750b6b10916ff40d723c50ecb1541d3113dd6930dc54222e0926b2"
+      },
+      "review.json": {
+        "bytes": 1397,
+        "sha256": "83c0b2fc80f7b6ec9f78d918e0fd699a9ba1a568bc1b62d61ce824a11c2cd4d1"
+      },
+      "stderr.bin": {
+        "bytes": 1830,
+        "sha256": "37f7af54671ce08899124a65607ff26a64dc47e54fb99597c287cf03e99ef0fe"
+      },
+      "stdout.bin": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "reason": "Auditor newline-join duplicated unified-diff headers/hunk separators; no fixture/source/span change.",
+    "returncode": 1,
+    "source": {
+      "bytes": 63226,
+      "sha256": "ed3c15d2643a5c1785a3a7750bdd11f5b6f43ffcb851fa93197ceb7950798d72"
+    },
+    "source_unchanged": true
+  },
+  "private_result": {
+    "bytes": 1012768,
+    "sha256": "42d6931d587f6d3893753548ccbcda5d1e68fd5a50ec9bf4e5228be7bdb92b2b"
+  },
+  "public_result": {
+    "bytes": 245147,
+    "sha256": "91e6a0061bda5dafa0f4cd4e9d056bbadee09833aad37d45270504b658eba29c"
+  },
+  "review_roles": {
+    "core_author": "Authored core/header/transform, independently reviewed harness/runner and authored new byte auditor.",
+    "harness_author": "Authored harness, independently reviewed core/runner, fresh codegen and byte auditor including the narrow correction.",
+    "root": "Integrated runner/ledger; reviewed source and codegen, froze/invoked audits, inspected receipts and published sanitized evidence."
+  },
+  "runtime_gate": "CLOSED",
+  "schema": 1,
+  "source_lock": {
+    "bytes": 1021,
+    "sha256": "fb455b55f0f26287d007e01e765198030e7705435b1aa92762553daa0ec2c398"
+  },
+  "source_review": {
+    "bytes": 4097,
+    "sha256": "d7f94f85cd9e4b77500232a425f5571e631e6c4edab6c8e6d240f911262fee1c"
+  },
+  "status": "passed"
+}

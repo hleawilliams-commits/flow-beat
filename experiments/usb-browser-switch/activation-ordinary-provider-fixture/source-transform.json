@@ -1,0 +1,630 @@
+{
+  "binding_contract": {
+    "accepted_open_token": "ac_work.working.events[1].raw: unchanged path records selection0 then open1; next advances to WRITE/FSYNC/CLOSE only after successful nonnegative OPEN record. No extra predicate, token authority or narrowing in baseline.",
+    "alternate_context_scope": "Declaration only under AP_CONTROL_ALTERNATE_CONTEXT; harness defines strong fixed pointer to live authored context before entry, no setter or accessor.",
+    "alternate_context_symbol": "ap_control_alternate_context",
+    "alternate_context_type": "extern void *const",
+    "callback_field_names": [
+      "open",
+      "write",
+      "sync",
+      "close",
+      "unblamed"
+    ],
+    "capture": "ac_begin_internal after sole successful ac_admit_internal; NULL request stores NULL bindings without dereference.",
+    "codegen_extent_attribute": "Only ac_receive receives noinline,noclone for fresh method-bound evidence; no phase/authority/API change.",
+    "context": "void *",
+    "table": "const ap_provider_table *",
+    "write_argument_fields": [
+      "accepted_open_token",
+      "requested_length",
+      "payload"
+    ]
+  },
+  "configuration": {
+    "controls_mutually_exclusive": true,
+    "controls_require_setup": true,
+    "old_control_macros_rejected": [
+      "AC_CONTROL_SELECT_BEFORE_CAS",
+      "AC_CONTROL_SECOND_ADMISSION",
+      "AC_CONTROL_BINDING_AS_SLOT",
+      "AC_CONTROL_NARROW_PROCESS",
+      "AC_CONTROL_RESELECT_AT_RECORD",
+      "AC_CONTROL_STOP_ON_CORE_PC",
+      "AC_CONTROL_REFRESH_NEGATIVE",
+      "AC_CONTROL_EXPOSE_RAW_SELECTION",
+      "AO_CONTROL_OMIT_DRIVER",
+      "AO_CONTROL_STOP_AFTER_SELECTION_RAW",
+      "AO_CONTROL_WRONG_PUBLISHED_RETURN",
+      "AO_CONTROL_WRONG_HALTED_RETURN",
+      "AO_CONTROL_OMIT_COMMIT_PHASE_GUARDS",
+      "MA_CONTROL_STOP_AT_HOLE",
+      "MA_CONTROL_RAW_QUERY",
+      "MA_CONTROL_OMIT_DESCRIPTOR_PUBLICATION",
+      "MA_CONTROL_CLEAR_INIT",
+      "MA_CONTROL_EXEC_ONLY",
+      "MA_CONTROL_GENERATED_FIRST",
+      "MA_CONTROL_OMIT_PROCESS",
+      "MA_CONTROL_OMIT_ID_COPY",
+      "RC_CONTROL_ORIGINAL_BEFORE_METADATA",
+      "RC_CONTROL_LITERAL_AS_INSTRUCTION",
+      "RC_CONTROL_ERASE_CLEANUP_FAILURE",
+      "RC_CONTROL_TOKEN_EVIDENCE_ALIAS",
+      "RC_CONTROL_WARNING_AS_REFUSAL"
+    ],
+    "old_fixture_macros_rejected": [
+      "AC_FIXTURE",
+      "RC_FIXTURE"
+    ],
+    "standalone": "No AO_WITNESS_SETUP: ordinary entry/observer/address-only reader anchor; no setup/private APIs.",
+    "witness": "AO_WITNESS_SETUP: exactly five pre-entry authored setup APIs plus ordinary entry/observer; all AC_FIXTURE APIs rejected."
+  },
+  "controls": [
+    {
+      "expected_failure_set": [
+        "suppressed-entry-does-not-call-provider"
+      ],
+      "id": "C1",
+      "macro": "AP_CONTROL_EARLY_PROVIDER",
+      "mutation": "Before original ac_begin_internal in ac_run, for a nonnull request/table/unblamed pointer call that unblamed(context) once. Preserve original CAS/driver. The first Community table has unblamed NULL; the post-completion repeated request has a live spy unblamed.",
+      "name": "provider-before-admission",
+      "oracle": "Assert repeated context invocation count0; mutant has1. Separate actual repeat SUPPRESSED/public unchanged assertions still pass. This witnesses premature invocation; absence of all pre-CAS field loads still requires source/method review.",
+      "replacement_ids": [
+        "c-entry-controls"
+      ],
+      "safety": "Only valid stable pointers; no native operation or nested recursion. The dedicated post-completion unblamed spy only logs invocation: no Active-state assertion, observer or nesting, avoiding a second intentional failure.",
+      "selector": "control-suppressed-provider"
+    },
+    {
+      "expected_failure_set": [
+        "nested-entry-returns-suppressed"
+      ],
+      "id": "C2",
+      "macro": "AP_CONTROL_WRONG_SUPPRESSED_RETURN",
+      "mutation": "In ac_run only, map original result AC_SUPPRESSED to AC_RETURNED on the early nonadmitted return; do not drive, change state or touch providers.",
+      "name": "nested-loser-return",
+      "oracle": "Dedicated open callback nested ordinary call records wrong actual enum; nested count0 and outer exact completion remain passing.",
+      "replacement_ids": [
+        "c-entry-controls"
+      ],
+      "safety": "No second admission or provider access.",
+      "selector": "control-nested-return"
+    },
+    {
+      "expected_failure_set": [
+        "unblamed-callback-is-invoked-once"
+      ],
+      "id": "C3",
+      "macro": "AP_CONTROL_OMIT_UNBLAMED",
+      "mutation": "Skip only actual unblamed(context) call, then retain normal raw-available/record/complete path.",
+      "name": "omit-unblamed-call",
+      "oracle": "No-owner callback count should1, mutant0. Exact public SELECTION/UNBLAMED completion and returned enum remain passing. The invocation assertion alone owns absent callback observations; do not add a generic observation-count assertion that fails when this callback is intentionally omitted.",
+      "replacement_ids": [
+        "c-typed-provider-dispatch"
+      ],
+      "safety": "Omission of authored callback only.",
+      "selector": "control-unblamed-dispatch"
+    },
+    {
+      "expected_failure_set": [
+        "callback-receives-bound-context"
+      ],
+      "id": "C4",
+      "macro": "AP_CONTROL_ALTERNATE_CONTEXT",
+      "mutation": "Only for CLOSE dispatch, pass a separately declared live alternate authored context instead of captured context. Both contexts return identical {0,0}; no new callback/table authority or accessor.",
+      "name": "alternate-context",
+      "oracle": "Aggregate transcript across both fixed contexts shows one close to alternate; single semantic assertion checks context identity. Count/order/arguments/return/completion checks use aggregate and remain passing.",
+      "replacement_ids": [
+        "c-typed-provider-dispatch",
+        "h-configuration"
+      ],
+      "safety": "Dedicated control-only const pointer to live alternate context configured before entry; no invalid pointer. Pin the exact fixed alternate-context symbol and binding in the future complete transformation ledger; no added setup API.",
+      "selector": "control-bound-context"
+    },
+    {
+      "expected_failure_set": [
+        "write-callback-receives-recorded-payload"
+      ],
+      "id": "C5",
+      "macro": "AP_CONTROL_DECOY_WRITE",
+      "mutation": "Only the by-value write argument payload changes to a separate same-length canonical decoy before callback. Preserve private event payload, requested length and callback returned count.",
+      "name": "decoy-write-value",
+      "oracle": "Compare transcript write bytes to public entered/recorded payload. All tokens/lengths/counts/completion fields still pass. Full byte compare belongs solely to this assertion.",
+      "replacement_ids": [
+        "c-typed-provider-dispatch"
+      ],
+      "safety": "Defined local value copy, no caller/private pointer mutation.",
+      "selector": "control-write-payload"
+    },
+    {
+      "expected_failure_set": [
+        "close-receipt-matches-callback-return"
+      ],
+      "id": "C6",
+      "macro": "AP_CONTROL_REPLACE_CLOSE_RETURN",
+      "mutation": "After actual close callback returns {-1,93} into local ac_io_value, replace consumed pair with {0,0} before raw capture. Actual callback prepared_return transcript remains truthful; no alteration of callback/journal.",
+      "name": "replace-close-return",
+      "oracle": "One composite assertion checks close raw/error and known_failure against expected {-1,93}. Other checks cover invariant identity/order/count/return/state and remain passing. No duplicate generic known_failure assertion.",
+      "replacement_ids": [
+        "c-typed-provider-dispatch"
+      ],
+      "safety": "Last event avoids continuation masking; no retry.",
+      "selector": "control-close-return"
+    },
+    {
+      "expected_failure_set": [
+        "short-write-dispatch-is-single-attempt"
+      ],
+      "id": "C7",
+      "macro": "AP_CONTROL_REPEAT_SHORT_WRITE",
+      "mutation": "After first WRITE callback returns31 for requested32, call the same callback once more with the exact args, consume its same returned pair and continue normal sync/close. Fixed provider has capacity for both and returns31 both times.",
+      "name": "repeat-short-write",
+      "oracle": "One assertion checks exactly one WRITE invocation. Other sequence/argument/result checks collapse the declared identical duplicate for unaffected comparisons; transcript retains both actual calls. Duplicate normalization is the exact same bounded comparison in baseline and mutant, independent of any control macro; retain and reject other kind/order/argument differences, and never rewrite the transcript.",
+      "replacement_ids": [
+        "c-typed-provider-dispatch"
+      ],
+      "safety": "Two finite authored calls, no loop/native retry or extra admission.",
+      "selector": "control-short-write-once"
+    },
+    {
+      "expected_failure_set": [
+        "accepted-open-token-reaches-followup-callbacks"
+      ],
+      "id": "C8",
+      "macro": "AP_CONTROL_NARROW_OPEN_TOKEN",
+      "mutation": "Only subsequent provider argument construction narrows the accepted positive OPEN token0x100000001 through uint32_t before widening to int64_t. Authoritative OPEN receipt remains unchanged.",
+      "name": "narrow-open-token",
+      "oracle": "One composite assertion checks WRITE/FSYNC/CLOSE received full token. Callbacks return unchanged values independent of token; public receipts, context, order and payload checks remain passing.",
+      "replacement_ids": [
+        "c-token-and-receive-extent"
+      ],
+      "safety": "Defined unsigned narrowing on authored integer; no real descriptor operation.",
+      "selector": "control-wide-token"
+    }
+  ],
+  "files": {
+    "core.c": {
+      "complete_unified_diff": "--- predecessor/core.c\n+++ successor/core.c\n@@ -1,7 +1,7 @@\n /* SPDX-License-Identifier: GPL-3.0-only */\n-/* Separately versioned ordinary-entry witness with pre-entry authored setup.\n- * No frozen consumer, SDK admission, installer, DSO, native frame/file provider,\n- * signal or callback is invoked. */\n+/* Separately versioned ordinary-provider witness with pre-entry authored setup.\n+ * Only fixed authored callbacks are invoked; no frozen consumer, SDK admission,\n+ * installer, DSO, native frame/file provider, signal or concurrent writer. */\n #include \"core.h\"\n #include <stdatomic.h>\n #include <string.h>\n@@ -26,6 +26,9 @@\n static ac_private ac_work;\n static ac_result ac_final;\n static const ac_request *ac_request_value;\n+/* Assigned only by the winner, retained through the synchronous outer return. */\n+static const ap_provider_table *ap_bound_providers;\n+static void *ap_bound_context;\n typedef struct { uintptr_t address; uint64_t value; int64_t returned_bytes; } ac_cell;\n static ac_cell ac_cells[AC_MODEL_CELLS];\n static unsigned ac_cell_count;\n@@ -261,6 +264,8 @@\n     if (!early || early->status != AC_RETURNED_VALUE) return AC_INCOMPLETE;\n #endif\n     if (!ac_admit_internal(request)) return AC_SUPPRESSED;\n+    ap_bound_providers = request ? request->providers : NULL;\n+    ap_bound_context = request ? request->context : NULL;\n #ifdef AC_CONTROL_SECOND_ADMISSION\n     /* The inner failed CAS returns before this hook, so it cannot recurse. */\n     return ac_run(request);\n@@ -286,6 +291,18 @@\n     ac_work.phase = AC_ENTERED;\n     return true;\n }\n+/* The unchanged Community path records SELECTION at0 and OPEN at1, then advances\n+ * to WRITE/FSYNC/CLOSE only after that OPEN record accepts a nonnegative raw.\n+ * This reads that authoritative int64 value; it is not a second eligibility check. */\n+static int64_t ap_accepted_open_token(void) {\n+    int64_t token = ac_work.working.events[1].raw;\n+#ifdef AP_CONTROL_NARROW_OPEN_TOKEN\n+    token = (int64_t)(uint32_t)token;\n+#endif\n+    return token;\n+}\n+/* Evidence-only extent attribute for fresh method-bound callback-order review. */\n+__attribute__((noinline, noclone))\n static bool ac_receive(bool one_call) {\n     ac_owner selected;\n     if (ac_work.next_kind == AC_SELECTION) {\n@@ -309,11 +326,59 @@\n     raw->kind = ac_work.next_kind;\n     switch (raw->kind) {\n     case AC_SELECTION: ac_owner_value(&raw->selection, &selected); break;\n-    case AC_UNBLAMED: break; /* Opaque authored ordinary return only. */\n-    case AC_OPEN: raw->io = ac_request_value->open; break;\n-    case AC_WRITE: raw->io = ac_request_value->write; break;\n-    case AC_FSYNC: raw->io = ac_request_value->sync; break;\n-    case AC_CLOSE: raw->io = ac_request_value->close; break;\n+    case AC_UNBLAMED:\n+        if (!ap_bound_providers || !ap_bound_providers->unblamed) { ac_halt(); return false; }\n+#ifndef AP_CONTROL_OMIT_UNBLAMED\n+        ap_bound_providers->unblamed(ap_bound_context);\n+#endif\n+        break; /* Opaque ordinary return; no fabricated I/O pair. */\n+    case AC_OPEN: {\n+        if (!ap_bound_providers || !ap_bound_providers->open) { ac_halt(); return false; }\n+        ac_owner owner_value;\n+        ac_owner_value(&owner_value, &ac_work.working.owner);\n+        ac_io_value returned = ap_bound_providers->open(ap_bound_context, owner_value);\n+        raw->io = returned;\n+        break;\n+    }\n+    case AC_WRITE: {\n+        if (!ap_bound_providers || !ap_bound_providers->write) { ac_halt(); return false; }\n+        const ac_event *event = &ac_work.working.events[ac_work.current_event];\n+        ap_write_args args_value;\n+        memset(&args_value, 0, sizeof args_value);\n+        args_value.accepted_open_token = ap_accepted_open_token();\n+        args_value.requested_length = event->requested_length;\n+        memcpy(args_value.payload, event->payload, AC_ID_BYTES);\n+#ifdef AP_CONTROL_DECOY_WRITE\n+        /* Same valid length with an independent canonical copied payload. */\n+        memset(args_value.payload, 'z', args_value.requested_length);\n+#endif\n+        ac_io_value returned = ap_bound_providers->write(ap_bound_context, args_value);\n+#ifdef AP_CONTROL_REPEAT_SHORT_WRITE\n+        if (returned.raw == 31 && args_value.requested_length == 32)\n+            returned = ap_bound_providers->write(ap_bound_context, args_value);\n+#endif\n+        raw->io = returned;\n+        break;\n+    }\n+    case AC_FSYNC: {\n+        if (!ap_bound_providers || !ap_bound_providers->sync) { ac_halt(); return false; }\n+        ac_io_value returned = ap_bound_providers->sync(ap_bound_context, ap_accepted_open_token());\n+        raw->io = returned;\n+        break;\n+    }\n+    case AC_CLOSE: {\n+        if (!ap_bound_providers || !ap_bound_providers->close) { ac_halt(); return false; }\n+        void *context = ap_bound_context;\n+#ifdef AP_CONTROL_ALTERNATE_CONTEXT\n+        context = ap_control_alternate_context;\n+#endif\n+        ac_io_value returned = ap_bound_providers->close(context, ap_accepted_open_token());\n+#ifdef AP_CONTROL_REPLACE_CLOSE_RETURN\n+        returned = (ac_io_value){0, 0};\n+#endif\n+        raw->io = returned;\n+        break;\n+    }\n     default: ac_halt(); return false;\n     }\n     raw->available = true;\n@@ -393,26 +458,20 @@\n     }\n }\n ac_request_result ac_run(const ac_request *request) {\n+#ifdef AP_CONTROL_EARLY_PROVIDER\n+    if (request && request->providers && request->providers->unblamed)\n+        request->providers->unblamed(request->context);\n+#endif\n     ac_request_result result = ac_begin_internal(request);\n-    if (result != AC_ADMITTED) return result;\n-#ifdef AO_CONTROL_OMIT_DRIVER\n-    return AC_INCOMPLETE;\n-#endif\n-#ifdef AO_CONTROL_STOP_AFTER_SELECTION_RAW\n-    while (ac_step_internal(false)) {\n-        if (ac_work.phase == AC_RAW_AVAILABLE && ac_work.raw_oracle.kind == AC_SELECTION)\n-            break;\n-    }\n+    if (result != AC_ADMITTED) {\n+#ifdef AP_CONTROL_WRONG_SUPPRESSED_RETURN\n+        return result == AC_SUPPRESSED ? AC_RETURNED : result;\n #else\n+        return result;\n+#endif\n+    }\n     while (ac_step_internal(false)) { /* Bounded authored progress, not a CAS retry loop. */ }\n-#endif\n-#ifdef AO_CONTROL_WRONG_PUBLISHED_RETURN\n-    return ac_work.phase == AC_PUBLISHED ? AC_INCOMPLETE : AC_INCOMPLETE;\n-#elif defined(AO_CONTROL_WRONG_HALTED_RETURN)\n-    return ac_work.phase == AC_PUBLISHED ? AC_RETURNED : AC_RETURNED;\n-#else\n     return ac_work.phase == AC_PUBLISHED ? AC_RETURNED : AC_INCOMPLETE;\n-#endif\n }\n __attribute__((noinline))\n void ac_observe(ac_snapshot *out) {\n",
+      "destination": "core.c",
+      "new": {
+        "bytes": 24981,
+        "sha256": "eca23b77d5e064a7015dd3f912e5652a7d61df196ce936b3fbf1934e4a4819d1"
+      },
+      "old": {
+        "bytes": 22271,
+        "sha256": "f1ffbc6e07a15653028364dda1b689290bbd1f85c4cd63e8498eb7522a771592"
+      },
+      "replacements": [
+        {
+          "after": "/* Separately versioned ordinary-provider witness with pre-entry authored setup.\n * Only fixed authored callbacks are invoked; no frozen consumer, SDK admission,\n * installer, DSO, native frame/file provider, signal or concurrent writer. */",
+          "after_pin": {
+            "bytes": 240,
+            "sha256": "bfa57a0b64c3bd18d7d8e562f25f90c79f5f46e9819d2f38082b312cd089a5cf"
+          },
+          "before": "/* Separately versioned ordinary-entry witness with pre-entry authored setup.\n * No frozen consumer, SDK admission, installer, DSO, native frame/file provider,\n * signal or callback is invoked. */",
+          "before_pin": {
+            "bytes": 196,
+            "sha256": "4c147e71ae9edd27fbcbf83e61e2a83941b2320f020bbf0a92042219b9147310"
+          },
+          "id": "c-provider-scope",
+          "new_first_line": 2,
+          "new_last_line": 4,
+          "new_span": [
+            44,
+            284
+          ],
+          "old_first_line": 2,
+          "old_last_line": 4,
+          "old_span": [
+            44,
+            240
+          ],
+          "reason": "Describe the new authored callback boundary and preserve every live exclusion."
+        },
+        {
+          "after": "static const ac_request *ac_request_value;\n/* Assigned only by the winner, retained through the synchronous outer return. */\nstatic const ap_provider_table *ap_bound_providers;\nstatic void *ap_bound_context;",
+          "after_pin": {
+            "bytes": 207,
+            "sha256": "1f4f6c6a93f2ecf9f9605025882c2f26eae24de852581624c3d62d70bfcc2a64"
+          },
+          "before": "static const ac_request *ac_request_value;",
+          "before_pin": {
+            "bytes": 42,
+            "sha256": "cc1a0dc25341cd4a47e80a44956bbe97a1f2c7e22397c7ceba2b75ce86f630ca"
+          },
+          "id": "c-winning-bindings",
+          "new_first_line": 28,
+          "new_last_line": 31,
+          "new_span": [
+            1455,
+            1662
+          ],
+          "old_first_line": 28,
+          "old_last_line": 28,
+          "old_span": [
+            1411,
+            1453
+          ],
+          "reason": "Add two private process-lifetime binding pointers; no authority or reset API."
+        },
+        {
+          "after": "    if (!ac_admit_internal(request)) return AC_SUPPRESSED;\n    ap_bound_providers = request ? request->providers : NULL;\n    ap_bound_context = request ? request->context : NULL;\n#ifdef AC_CONTROL_SECOND_ADMISSION",
+          "after_pin": {
+            "bytes": 213,
+            "sha256": "5a6e7d262b6148d0cd0331d05af8c6a1c92aca3aec2930ecaa026f94bc83472e"
+          },
+          "before": "    if (!ac_admit_internal(request)) return AC_SUPPRESSED;\n#ifdef AC_CONTROL_SECOND_ADMISSION",
+          "before_pin": {
+            "bytes": 93,
+            "sha256": "0f3413f022cf48bc4195e604f2cc7a206339c3f8a25f70085341cd1f1f401d91"
+          },
+          "id": "c-capture-after-cas",
+          "new_first_line": 266,
+          "new_last_line": 269,
+          "new_span": [
+            11208,
+            11421
+          ],
+          "old_first_line": 263,
+          "old_last_line": 264,
+          "old_span": [
+            10999,
+            11092
+          ],
+          "reason": "Capture provider/context values only after the existing successful CAS. A suppressed entry returns before these reads; genuine NULL gets NULL bindings."
+        },
+        {
+          "after": "/* The unchanged Community path records SELECTION at0 and OPEN at1, then advances\n * to WRITE/FSYNC/CLOSE only after that OPEN record accepts a nonnegative raw.\n * This reads that authoritative int64 value; it is not a second eligibility check. */\nstatic int64_t ap_accepted_open_token(void) {\n    int64_t token = ac_work.working.events[1].raw;\n#ifdef AP_CONTROL_NARROW_OPEN_TOKEN\n    token = (int64_t)(uint32_t)token;\n#endif\n    return token;\n}\n/* Evidence-only extent attribute for fresh method-bound callback-order review. */\n__attribute__((noinline, noclone))\nstatic bool ac_receive(bool one_call) {",
+          "after_pin": {
+            "bytes": 603,
+            "sha256": "47710490f805c26eb112ebdd317b6ebdeb0786cf93238fb098a48dfc61943991"
+          },
+          "before": "static bool ac_receive(bool one_call) {",
+          "before_pin": {
+            "bytes": 39,
+            "sha256": "f60a771e0ca09c39472d77dcf0fad482ce3fef3f1a75c185b367984365eee436"
+          },
+          "id": "c-token-and-receive-extent",
+          "new_first_line": 294,
+          "new_last_line": 306,
+          "new_span": [
+            12282,
+            12885
+          ],
+          "old_first_line": 289,
+          "old_last_line": 289,
+          "old_span": [
+            11953,
+            11992
+          ],
+          "reason": "Add one nonfallible accepted-token value helper for the existing fixed event order and C8 narrowing only in follow-up argument construction. Keep ac_receive identifiable for fresh codegen review without changing phases."
+        },
+        {
+          "after": "    case AC_UNBLAMED:\n        if (!ap_bound_providers || !ap_bound_providers->unblamed) { ac_halt(); return false; }\n#ifndef AP_CONTROL_OMIT_UNBLAMED\n        ap_bound_providers->unblamed(ap_bound_context);\n#endif\n        break; /* Opaque ordinary return; no fabricated I/O pair. */\n    case AC_OPEN: {\n        if (!ap_bound_providers || !ap_bound_providers->open) { ac_halt(); return false; }\n        ac_owner owner_value;\n        ac_owner_value(&owner_value, &ac_work.working.owner);\n        ac_io_value returned = ap_bound_providers->open(ap_bound_context, owner_value);\n        raw->io = returned;\n        break;\n    }\n    case AC_WRITE: {\n        if (!ap_bound_providers || !ap_bound_providers->write) { ac_halt(); return false; }\n        const ac_event *event = &ac_work.working.events[ac_work.current_event];\n        ap_write_args args_value;\n        memset(&args_value, 0, sizeof args_value);\n        args_value.accepted_open_token = ap_accepted_open_token();\n        args_value.requested_length = event->requested_length;\n        memcpy(args_value.payload, event->payload, AC_ID_BYTES);\n#ifdef AP_CONTROL_DECOY_WRITE\n        /* Same valid length with an independent canonical copied payload. */\n        memset(args_value.payload, 'z', args_value.requested_length);\n#endif\n        ac_io_value returned = ap_bound_providers->write(ap_bound_context, args_value);\n#ifdef AP_CONTROL_REPEAT_SHORT_WRITE\n        if (returned.raw == 31 && args_value.requested_length == 32)\n            returned = ap_bound_providers->write(ap_bound_context, args_value);\n#endif\n        raw->io = returned;\n        break;\n    }\n    case AC_FSYNC: {\n        if (!ap_bound_providers || !ap_bound_providers->sync) { ac_halt(); return false; }\n        ac_io_value returned = ap_bound_providers->sync(ap_bound_context, ap_accepted_open_token());\n        raw->io = returned;\n        break;\n    }\n    case AC_CLOSE: {\n        if (!ap_bound_providers || !ap_bound_providers->close) { ac_halt(); return false; }\n        void *context = ap_bound_context;\n#ifdef AP_CONTROL_ALTERNATE_CONTEXT\n        context = ap_control_alternate_context;\n#endif\n        ac_io_value returned = ap_bound_providers->close(context, ap_accepted_open_token());\n#ifdef AP_CONTROL_REPLACE_CLOSE_RETURN\n        returned = (ac_io_value){0, 0};\n#endif\n        raw->io = returned;\n        break;\n    }",
+          "after_pin": {
+            "bytes": 2345,
+            "sha256": "b7d77d999414cedf1518a842e60d3df5c75d3f59e733d678d6f1cf257e1e96b2"
+          },
+          "before": "    case AC_UNBLAMED: break; /* Opaque authored ordinary return only. */\n    case AC_OPEN: raw->io = ac_request_value->open; break;\n    case AC_WRITE: raw->io = ac_request_value->write; break;\n    case AC_FSYNC: raw->io = ac_request_value->sync; break;\n    case AC_CLOSE: raw->io = ac_request_value->close; break;",
+          "before_pin": {
+            "bytes": 313,
+            "sha256": "2a679c0f1a486caa8b8f23ebe741ebf5a61e85b9f86203c2f714682746475f20"
+          },
+          "id": "c-typed-provider-dispatch",
+          "new_first_line": 329,
+          "new_last_line": 381,
+          "new_span": [
+            13845,
+            16190
+          ],
+          "old_first_line": 312,
+          "old_last_line": 316,
+          "old_span": [
+            12952,
+            13265
+          ],
+          "reason": "Replace only five scalar/opaque value sources with reached-provider checks, by-value arguments, ordinary calls, and immediate local-to-raw assignment. C3/C4/C5/C6/C7 act at the exact declared dispatch boundaries. No unused callback is required and no private-state pointer escapes."
+        },
+        {
+          "after": "ac_request_result ac_run(const ac_request *request) {\n#ifdef AP_CONTROL_EARLY_PROVIDER\n    if (request && request->providers && request->providers->unblamed)\n        request->providers->unblamed(request->context);\n#endif\n    ac_request_result result = ac_begin_internal(request);\n    if (result != AC_ADMITTED) {\n#ifdef AP_CONTROL_WRONG_SUPPRESSED_RETURN\n        return result == AC_SUPPRESSED ? AC_RETURNED : result;\n#else\n        return result;\n#endif\n    }\n    while (ac_step_internal(false)) { /* Bounded authored progress, not a CAS retry loop. */ }\n    return ac_work.phase == AC_PUBLISHED ? AC_RETURNED : AC_INCOMPLETE;\n}\n",
+          "after_pin": {
+            "bytes": 629,
+            "sha256": "cd65c2a900b36c856a8cc9b2cb516c39dd7f4a76baea0e3712962cb5dbb92f2a"
+          },
+          "before": "ac_request_result ac_run(const ac_request *request) {\n    ac_request_result result = ac_begin_internal(request);\n    if (result != AC_ADMITTED) return result;\n#ifdef AO_CONTROL_OMIT_DRIVER\n    return AC_INCOMPLETE;\n#endif\n#ifdef AO_CONTROL_STOP_AFTER_SELECTION_RAW\n    while (ac_step_internal(false)) {\n        if (ac_work.phase == AC_RAW_AVAILABLE && ac_work.raw_oracle.kind == AC_SELECTION)\n            break;\n    }\n#else\n    while (ac_step_internal(false)) { /* Bounded authored progress, not a CAS retry loop. */ }\n#endif\n#ifdef AO_CONTROL_WRONG_PUBLISHED_RETURN\n    return ac_work.phase == AC_PUBLISHED ? AC_INCOMPLETE : AC_INCOMPLETE;\n#elif defined(AO_CONTROL_WRONG_HALTED_RETURN)\n    return ac_work.phase == AC_PUBLISHED ? AC_RETURNED : AC_RETURNED;\n#else\n    return ac_work.phase == AC_PUBLISHED ? AC_RETURNED : AC_INCOMPLETE;\n#endif\n}\n",
+          "before_pin": {
+            "bytes": 844,
+            "sha256": "feb8df7fcb4d50b0a5149c37905e81631e1a6e554bd439624923b4ca63b2bbb7"
+          },
+          "id": "c-entry-controls",
+          "new_first_line": 460,
+          "new_last_line": 475,
+          "new_span": [
+            19520,
+            20149
+          ],
+          "old_first_line": 395,
+          "old_last_line": 416,
+          "old_span": [
+            16595,
+            17439
+          ],
+          "reason": "Remove rejected old AO driver-control branches, preserve the exact ordinary while/final return expressions, and add only C1 pre-admission authored-call/C2 suppressed-return controls. Baseline admission/driver behavior stays unchanged."
+        }
+      ],
+      "source_path": "experiments/usb-browser-switch/activation-ordinary-entry-fixture/core.c",
+      "spans_half_open": true,
+      "unchanged_spans": [
+        {
+          "bytes": 44,
+          "new_span": [
+            0,
+            44
+          ],
+          "old_span": [
+            0,
+            44
+          ],
+          "sha256": "9fe23d9219ab2fd3f85e587e831c1879624b6ce5d1035b37913ac4794a731799"
+        },
+        {
+          "bytes": 1171,
+          "new_span": [
+            284,
+            1455
+          ],
+          "old_span": [
+            240,
+            1411
+          ],
+          "sha256": "304a83c2d5c208d76547d73efe9ee30704b7763584f7206bf1af9a68b9f0334f"
+        },
+        {
+          "bytes": 9546,
+          "new_span": [
+            1662,
+            11208
+          ],
+          "old_span": [
+            1453,
+            10999
+          ],
+          "sha256": "4f916b0f7d48ea9c2a0bfd87d5ce41feb8e7d4a910733fdd6ac808dc09db43e3"
+        },
+        {
+          "bytes": 861,
+          "new_span": [
+            11421,
+            12282
+          ],
+          "old_span": [
+            11092,
+            11953
+          ],
+          "sha256": "c259ad56628c9486886ebe809b09751e0fc9a26bb2ffde3c12ca277a6e44650f"
+        },
+        {
+          "bytes": 960,
+          "new_span": [
+            12885,
+            13845
+          ],
+          "old_span": [
+            11992,
+            12952
+          ],
+          "sha256": "735c214db6e94e72ea2d4ffb8274ed6696bf65077eca452336957c92e4f02d5c"
+        },
+        {
+          "bytes": 3330,
+          "new_span": [
+            16190,
+            19520
+          ],
+          "old_span": [
+            13265,
+            16595
+          ],
+          "sha256": "53f86bea0c6d879201f1b3c761a3ddb770d7e6528c6377561cfbb0255d307d82"
+        },
+        {
+          "bytes": 4832,
+          "new_span": [
+            20149,
+            24981
+          ],
+          "old_span": [
+            17439,
+            22271
+          ],
+          "sha256": "3e521562c8ad40958fc60342c56a0f68994f22a2ce225ff5ece8235b0f2e9bd0"
+        }
+      ]
+    },
+    "core.h": {
+      "complete_unified_diff": "--- predecessor/core.h\n+++ successor/core.h\n@@ -10,18 +10,29 @@\n     defined(AC_CONTROL_SECOND_ADMISSION) || defined(AC_CONTROL_BINDING_AS_SLOT) || \\\n     defined(AC_CONTROL_NARROW_PROCESS) || defined(AC_CONTROL_RESELECT_AT_RECORD) || \\\n     defined(AC_CONTROL_STOP_ON_CORE_PC) || defined(AC_CONTROL_REFRESH_NEGATIVE) || \\\n-    defined(AC_CONTROL_EXPOSE_RAW_SELECTION)\n-#error \"the predecessor fixture and its controls are excluded from this witness\"\n-#endif\n-#if (defined(AO_CONTROL_OMIT_DRIVER) || defined(AO_CONTROL_STOP_AFTER_SELECTION_RAW) || \\\n-     defined(AO_CONTROL_WRONG_PUBLISHED_RETURN) || defined(AO_CONTROL_WRONG_HALTED_RETURN) || \\\n-     defined(AO_CONTROL_OMIT_COMMIT_PHASE_GUARDS)) && !defined(AO_WITNESS_SETUP)\n-#error \"ordinary witness controls require authored setup\"\n-#endif\n-#if (defined(AO_CONTROL_OMIT_DRIVER) + defined(AO_CONTROL_STOP_AFTER_SELECTION_RAW) + \\\n-     defined(AO_CONTROL_WRONG_PUBLISHED_RETURN) + defined(AO_CONTROL_WRONG_HALTED_RETURN) + \\\n-     defined(AO_CONTROL_OMIT_COMMIT_PHASE_GUARDS)) > 1\n-#error \"one exact ordinary witness control per executable\"\n+    defined(AC_CONTROL_EXPOSE_RAW_SELECTION) || defined(AO_CONTROL_OMIT_DRIVER) || \\\n+    defined(AO_CONTROL_STOP_AFTER_SELECTION_RAW) || defined(AO_CONTROL_WRONG_PUBLISHED_RETURN) || \\\n+    defined(AO_CONTROL_WRONG_HALTED_RETURN) || defined(AO_CONTROL_OMIT_COMMIT_PHASE_GUARDS) || \\\n+    defined(RC_FIXTURE) || defined(RC_CONTROL_ORIGINAL_BEFORE_METADATA) || \\\n+    defined(RC_CONTROL_LITERAL_AS_INSTRUCTION) || defined(RC_CONTROL_ERASE_CLEANUP_FAILURE) || \\\n+    defined(RC_CONTROL_TOKEN_EVIDENCE_ALIAS) || defined(RC_CONTROL_WARNING_AS_REFUSAL)\n+#error \"predecessor fixtures and controls are excluded from this provider witness\"\n+#endif\n+#if (defined(AP_CONTROL_EARLY_PROVIDER) || defined(AP_CONTROL_WRONG_SUPPRESSED_RETURN) || \\\n+     defined(AP_CONTROL_OMIT_UNBLAMED) || defined(AP_CONTROL_ALTERNATE_CONTEXT) || \\\n+     defined(AP_CONTROL_DECOY_WRITE) || defined(AP_CONTROL_REPLACE_CLOSE_RETURN) || \\\n+     defined(AP_CONTROL_REPEAT_SHORT_WRITE) || defined(AP_CONTROL_NARROW_OPEN_TOKEN)) && !defined(AO_WITNESS_SETUP)\n+#error \"provider witness controls require authored setup\"\n+#endif\n+#if (defined(AP_CONTROL_EARLY_PROVIDER) + defined(AP_CONTROL_WRONG_SUPPRESSED_RETURN) + \\\n+     defined(AP_CONTROL_OMIT_UNBLAMED) + defined(AP_CONTROL_ALTERNATE_CONTEXT) + \\\n+     defined(AP_CONTROL_DECOY_WRITE) + defined(AP_CONTROL_REPLACE_CLOSE_RETURN) + \\\n+     defined(AP_CONTROL_REPEAT_SHORT_WRITE) + defined(AP_CONTROL_NARROW_OPEN_TOKEN)) > 1\n+#error \"one exact provider witness control per executable\"\n+#endif\n+#ifdef AP_CONTROL_ALTERNATE_CONTEXT\n+/* Fixed authored live alternate binding; no setter/accessor or new engine authority. */\n+extern void *const ap_control_alternate_context;\n #endif\n \n #define MA_MODULES 4u\n@@ -58,9 +69,23 @@\n     char id[AC_ID_BYTES];\n } ac_owner;\n typedef struct { int64_t raw; int failure_errno; } ac_io_value;\n+/* Callbacks receive copies; no private owner/event/raw pointer is exposed. */\n+typedef struct {\n+    int64_t accepted_open_token;\n+    size_t requested_length;\n+    char payload[AC_ID_BYTES];\n+} ap_write_args;\n+typedef struct {\n+    ac_io_value (*open)(void *context, ac_owner owner_value);\n+    ac_io_value (*write)(void *context, ap_write_args args_value);\n+    ac_io_value (*sync)(void *context, int64_t accepted_open_token);\n+    ac_io_value (*close)(void *context, int64_t accepted_open_token);\n+    void (*unblamed)(void *context);\n+} ap_provider_table;\n typedef struct {\n     uintptr_t pc, lr, fp;\n-    ac_io_value open, write, sync, close;\n+    const ap_provider_table *providers;\n+    void *context;\n } ac_request;\n typedef struct {\n     ac_event_kind kind;\n@@ -136,8 +161,9 @@\n     bool violation;\n } ac_auxiliary;\n \n-/* Ordinary synchronous progression with stable authored inputs through return.\n- * No private driver, native provider or frozen consumer is called by the witness. */\n+/* Ordinary synchronous progression with stable authored request/table/code/model\n+ * storage through return. Context may append its bounded transcript and schedule\n+ * one authored nested loser. No private API, native provider or consumer is called. */\n ac_request_result ac_run(const ac_request *request);\n void ac_observe(ac_snapshot *out);\n /* Address-only standalone evidence anchor; neither harness nor core invokes it. */\n",
+      "destination": "core.h",
+      "new": {
+        "bytes": 8461,
+        "sha256": "a1c1f13832a8bdb55ba9a2d4379ff8c6cb689bd70826575497d13402430faa38"
+      },
+      "old": {
+        "bytes": 6907,
+        "sha256": "89cee41d2247cfedf00ef424def1979ca6ffe7aaf78957615420208d89a991be"
+      },
+      "replacements": [
+        {
+          "after": "#if defined(AC_FIXTURE) || defined(AC_CONTROL_SELECT_BEFORE_CAS) || \\\n    defined(AC_CONTROL_SECOND_ADMISSION) || defined(AC_CONTROL_BINDING_AS_SLOT) || \\\n    defined(AC_CONTROL_NARROW_PROCESS) || defined(AC_CONTROL_RESELECT_AT_RECORD) || \\\n    defined(AC_CONTROL_STOP_ON_CORE_PC) || defined(AC_CONTROL_REFRESH_NEGATIVE) || \\\n    defined(AC_CONTROL_EXPOSE_RAW_SELECTION) || defined(AO_CONTROL_OMIT_DRIVER) || \\\n    defined(AO_CONTROL_STOP_AFTER_SELECTION_RAW) || defined(AO_CONTROL_WRONG_PUBLISHED_RETURN) || \\\n    defined(AO_CONTROL_WRONG_HALTED_RETURN) || defined(AO_CONTROL_OMIT_COMMIT_PHASE_GUARDS) || \\\n    defined(RC_FIXTURE) || defined(RC_CONTROL_ORIGINAL_BEFORE_METADATA) || \\\n    defined(RC_CONTROL_LITERAL_AS_INSTRUCTION) || defined(RC_CONTROL_ERASE_CLEANUP_FAILURE) || \\\n    defined(RC_CONTROL_TOKEN_EVIDENCE_ALIAS) || defined(RC_CONTROL_WARNING_AS_REFUSAL)\n#error \"predecessor fixtures and controls are excluded from this provider witness\"\n#endif\n#if (defined(AP_CONTROL_EARLY_PROVIDER) || defined(AP_CONTROL_WRONG_SUPPRESSED_RETURN) || \\\n     defined(AP_CONTROL_OMIT_UNBLAMED) || defined(AP_CONTROL_ALTERNATE_CONTEXT) || \\\n     defined(AP_CONTROL_DECOY_WRITE) || defined(AP_CONTROL_REPLACE_CLOSE_RETURN) || \\\n     defined(AP_CONTROL_REPEAT_SHORT_WRITE) || defined(AP_CONTROL_NARROW_OPEN_TOKEN)) && !defined(AO_WITNESS_SETUP)\n#error \"provider witness controls require authored setup\"\n#endif\n#if (defined(AP_CONTROL_EARLY_PROVIDER) + defined(AP_CONTROL_WRONG_SUPPRESSED_RETURN) + \\\n     defined(AP_CONTROL_OMIT_UNBLAMED) + defined(AP_CONTROL_ALTERNATE_CONTEXT) + \\\n     defined(AP_CONTROL_DECOY_WRITE) + defined(AP_CONTROL_REPLACE_CLOSE_RETURN) + \\\n     defined(AP_CONTROL_REPEAT_SHORT_WRITE) + defined(AP_CONTROL_NARROW_OPEN_TOKEN)) > 1\n#error \"one exact provider witness control per executable\"\n#endif\n#ifdef AP_CONTROL_ALTERNATE_CONTEXT\n/* Fixed authored live alternate binding; no setter/accessor or new engine authority. */\nextern void *const ap_control_alternate_context;\n#endif\n\n",
+          "after_pin": {
+            "bytes": 1997,
+            "sha256": "7fd7a5a24dd20ed30716ae07c3bf661e93d2de804252a79aa7b330a7e18fc7fc"
+          },
+          "before": "#if defined(AC_FIXTURE) || defined(AC_CONTROL_SELECT_BEFORE_CAS) || \\\n    defined(AC_CONTROL_SECOND_ADMISSION) || defined(AC_CONTROL_BINDING_AS_SLOT) || \\\n    defined(AC_CONTROL_NARROW_PROCESS) || defined(AC_CONTROL_RESELECT_AT_RECORD) || \\\n    defined(AC_CONTROL_STOP_ON_CORE_PC) || defined(AC_CONTROL_REFRESH_NEGATIVE) || \\\n    defined(AC_CONTROL_EXPOSE_RAW_SELECTION)\n#error \"the predecessor fixture and its controls are excluded from this witness\"\n#endif\n#if (defined(AO_CONTROL_OMIT_DRIVER) || defined(AO_CONTROL_STOP_AFTER_SELECTION_RAW) || \\\n     defined(AO_CONTROL_WRONG_PUBLISHED_RETURN) || defined(AO_CONTROL_WRONG_HALTED_RETURN) || \\\n     defined(AO_CONTROL_OMIT_COMMIT_PHASE_GUARDS)) && !defined(AO_WITNESS_SETUP)\n#error \"ordinary witness controls require authored setup\"\n#endif\n#if (defined(AO_CONTROL_OMIT_DRIVER) + defined(AO_CONTROL_STOP_AFTER_SELECTION_RAW) + \\\n     defined(AO_CONTROL_WRONG_PUBLISHED_RETURN) + defined(AO_CONTROL_WRONG_HALTED_RETURN) + \\\n     defined(AO_CONTROL_OMIT_COMMIT_PHASE_GUARDS)) > 1\n#error \"one exact ordinary witness control per executable\"\n#endif\n\n",
+          "before_pin": {
+            "bytes": 1095,
+            "sha256": "d6dd613a18825c72f9fe46e930f5157627d0333a3cd6402606026caba676c091"
+          },
+          "id": "h-configuration",
+          "new_first_line": 9,
+          "new_last_line": 37,
+          "new_span": [
+            169,
+            2166
+          ],
+          "old_first_line": 9,
+          "old_last_line": 26,
+          "old_span": [
+            169,
+            1264
+          ],
+          "reason": "Reject old AC/AO/RC fixture controls, retain core-side MA rejection, and require authored setup plus exactly one AP control. Declare only C4 fixed external const context binding; no setter/accessor."
+        },
+        {
+          "after": "typedef struct { int64_t raw; int failure_errno; } ac_io_value;\n/* Callbacks receive copies; no private owner/event/raw pointer is exposed. */\ntypedef struct {\n    int64_t accepted_open_token;\n    size_t requested_length;\n    char payload[AC_ID_BYTES];\n} ap_write_args;\ntypedef struct {\n    ac_io_value (*open)(void *context, ac_owner owner_value);\n    ac_io_value (*write)(void *context, ap_write_args args_value);\n    ac_io_value (*sync)(void *context, int64_t accepted_open_token);\n    ac_io_value (*close)(void *context, int64_t accepted_open_token);\n    void (*unblamed)(void *context);\n} ap_provider_table;\ntypedef struct {\n    uintptr_t pc, lr, fp;\n    const ap_provider_table *providers;\n    void *context;\n} ac_request;\n",
+          "after_pin": {
+            "bytes": 729,
+            "sha256": "d6b13a3496f812c8b80973139358f44d51ce3afa5de1d2d8b58ec99f0fb72b42"
+          },
+          "before": "typedef struct { int64_t raw; int failure_errno; } ac_io_value;\ntypedef struct {\n    uintptr_t pc, lr, fp;\n    ac_io_value open, write, sync, close;\n} ac_request;\n",
+          "before_pin": {
+            "bytes": 163,
+            "sha256": "1ca242ffd433ecd0b4eb7f66c15560f6337f99dad758fdca22d82b2065dc6a51"
+          },
+          "id": "h-provider-values",
+          "new_first_line": 71,
+          "new_last_line": 89,
+          "new_span": [
+            3220,
+            3949
+          ],
+          "old_first_line": 60,
+          "old_last_line": 64,
+          "old_span": [
+            2318,
+            2481
+          ],
+          "reason": "Preserve ac_io_value, introduce exact typed provider and write-argument value layouts, replace only scalar I/O request fields with table/context bindings. Owner/event/result/public snapshot layouts stay unchanged."
+        },
+        {
+          "after": "/* Ordinary synchronous progression with stable authored request/table/code/model\n * storage through return. Context may append its bounded transcript and schedule\n * one authored nested loser. No private API, native provider or consumer is called. */\n",
+          "after_pin": {
+            "bytes": 252,
+            "sha256": "5ac8dbcea58a1860e18ba4aeb3f4468856bbff4d6bb69733b8ab3ed12ed2397d"
+          },
+          "before": "/* Ordinary synchronous progression with stable authored inputs through return.\n * No private driver, native provider or frozen consumer is called by the witness. */\n",
+          "before_pin": {
+            "bytes": 166,
+            "sha256": "9388c19a329b53c95901cfadeea9542d256f74ae3e2a1902157ec12b369ae765"
+          },
+          "id": "h-lifetime-comment",
+          "new_first_line": 164,
+          "new_last_line": 166,
+          "new_span": [
+            6301,
+            6553
+          ],
+          "old_first_line": 139,
+          "old_last_line": 140,
+          "old_span": [
+            4833,
+            4999
+          ],
+          "reason": "State stable table/code/model and bounded authored context mutation; no public private-step or provider-control API."
+        }
+      ],
+      "source_path": "experiments/usb-browser-switch/activation-ordinary-entry-fixture/core.h",
+      "spans_half_open": true,
+      "unchanged_spans": [
+        {
+          "bytes": 169,
+          "new_span": [
+            0,
+            169
+          ],
+          "old_span": [
+            0,
+            169
+          ],
+          "sha256": "541da4e305815e505df19361e7c97d6b141caa6e86280c67b5e966e3679a2ba0"
+        },
+        {
+          "bytes": 1054,
+          "new_span": [
+            2166,
+            3220
+          ],
+          "old_span": [
+            1264,
+            2318
+          ],
+          "sha256": "b81d8833cc6a86e5e240e47c82202098c6eed52ec489c7d9a5c138569b854531"
+        },
+        {
+          "bytes": 2352,
+          "new_span": [
+            3949,
+            6301
+          ],
+          "old_span": [
+            2481,
+            4833
+          ],
+          "sha256": "62ccf8bf1bfccbf97a1a6a4358e1b90c80b17c6c45e545e028b7c0e03815d198"
+        },
+        {
+          "bytes": 1908,
+          "new_span": [
+            6553,
+            8461
+          ],
+          "old_span": [
+            4999,
+            6907
+          ],
+          "sha256": "65847549f46e8242ade63c7d67ceb046a9cffc482c84114f13c9cae2f5d668bb"
+        }
+      ]
+    }
+  },
+  "invariants": [
+    "The original strong CAS ac_admit_internal body, private phase admission, selection/reader calls, enter, record, next, publish and public observer are unchanged bytes outside complete listed replacements.",
+    "No callback is validated or invoked before winning baseline admission. A nested or repeated loser returns before request/table/context field reads or binding writes.",
+    "Only reached provider function presence is required; table and context pointers are captured once. A nonnull pointer is authored custody, not arbitrary lifetime proof.",
+    "All callback arguments are by value; no pointer to private owner/event/raw storage is passed. A callback result is an authored pair, never ambient errno or a native syscall.",
+    "Event entry precedes call; baseline immediate ordinary return capture precedes raw availability then unchanged authoritative domain recording. No observer exposes partial working/raw state.",
+    "Missing reached callback halts Active incomplete; open refusal completes, returned write errors/short writes continue through sync/close. No reset/retry/reclamation or second authority.",
+    "Every old/new core/header byte is covered exactly by preserved spans or explicit replacement spans. Six retained reader fragments/types are reused unchanged; no extractor is run.",
+    "Existing excluded private APIs remain guarded source text but AC_FIXTURE is rejected. Old AO controls remain rejected even where old guarded commit lines are retained.",
+    "Callback implementations, bounded external journals and the fixed alternate-context definition are harness-owned and must be pinned in the complete root ledger before build.",
+    "No compiler, callback/runtime, actual DSO/installer/target, native provider, firmware/device, signal/concurrent publication or live composition execution has occurred."
+  ],
+  "plan": {
+    "bytes": 29618,
+    "path": "experiments/usb-browser-switch/activation-ordinary-provider-plan/provider-plan.json",
+    "sha256": "a49b860e413b00657f0ee35b27261369ad8bade69bd0d7a2c70ea7fd1c44ab1f"
+  },
+  "reader_inputs": [
+    {
+      "bytes": 2994,
+      "name": "readers/readers.inc",
+      "path": "experiments/usb-browser-switch/activation-ordinary-entry-fixture/private/run-c7e9634d431c4d789d4c366093adc9aa/work/generated/readers.inc",
+      "sha256": "352048162f452f794136f8b90555783df101feacbf7550e3f4020bd6ef7ab140"
+    },
+    {
+      "bytes": 5369,
+      "name": "readers/receipt-types.h",
+      "path": "experiments/usb-browser-switch/activation-ordinary-entry-fixture/private/run-c7e9634d431c4d789d4c366093adc9aa/work/generated/receipt-types.h",
+      "sha256": "c97454db2aba6e942eb05241bbf80d67ffd8eecb5108927da69600a6a1d15f40"
+    },
+    {
+      "bytes": 2865,
+      "name": "reference/reader-extraction.json",
+      "path": "experiments/usb-browser-switch/activation-attempt-attribution-fixture/reader-extraction.json",
+      "sha256": "c0170cbc03f9b7489146ff1670b609f8af6fc92f41892746a518e5d81482ba0b"
+    }
+  ],
+  "runtime_gate": "CLOSED",
+  "schema": 1,
+  "scope": "Complete byte-segment transformation from frozen ordinary-entry engine to separately versioned offline authored providers; no compiler/runtime or predecessor replay.",
+  "status": "source-written-not-built"
+}

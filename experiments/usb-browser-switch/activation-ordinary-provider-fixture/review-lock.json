@@ -1,0 +1,34 @@
+{
+  "files": {
+    "core.c": {
+      "bytes": 24981,
+      "sha256": "eca23b77d5e064a7015dd3f912e5652a7d61df196ce936b3fbf1934e4a4819d1"
+    },
+    "core.h": {
+      "bytes": 8461,
+      "sha256": "a1c1f13832a8bdb55ba9a2d4379ff8c6cb689bd70826575497d13402430faa38"
+    },
+    "run-tests.py": {
+      "bytes": 43111,
+      "sha256": "417d4d7679f212e39cb0279ccf567150c980f487954c69f7d4793df832f78a35"
+    },
+    "source-ledger.json": {
+      "bytes": 73134,
+      "sha256": "dfc586a5d9ccfeb28527d7b39b824991af5a5eac698ecf2b8d8f3f46c10de098"
+    },
+    "source-transform.json": {
+      "bytes": 46763,
+      "sha256": "aa00a824fbab1e8c0fb7b2fd991ccaf8afb2f8f78cbb69756d20f8abc35e5643"
+    },
+    "test-contract.json": {
+      "bytes": 25995,
+      "sha256": "a2954157b402739efbfaf82f6090c357720e275228a3ceb259acb9f910a2079f"
+    },
+    "test_provider.c": {
+      "bytes": 42414,
+      "sha256": "16b5610facb8e4380b44747a42f29656738f732185791e9810acae40ad2af868"
+    }
+  },
+  "schema": 1,
+  "status": "reviewed-before-build"
+}

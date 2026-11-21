@@ -1,0 +1,83 @@
+{
+  "accepted_scope": [
+    "Fourteen ordinary selectors plus eight control baselines and eight exact singleton controls per plain and ASan/UBSan mode: sixty future processes,270 summed assertions and30 distinct names per candidate mode.",
+    "Five unchanged setup-only APIs, six retained reader fragments, sole terminal CAS, ordinary driver and acquire-gated completion.",
+    "Fixed authored callback table/context copied after admission; branch-local validation; copied owner/write args and full int64 token including zero; by-value return/error pair separate from raw/receipt/completion.",
+    "Three callback nesting locations and genuine NULL inner request: one bounded same-thread ordinary loser; no arbitrary reentrancy.",
+    "Fresh method-bound ac_receive evidence uses only a noinline,noclone attribute; new four-object dependency review must precede runtime."
+  ],
+  "limits": [
+    "Prepared-return journal is written before C return and is not private raw/record telemetry. Exact internal ordering requires source/method evidence.",
+    "Existing LL/SC retry, libc/canary/sanitizer and lifetime limits remain; no signal or general quiescence proof.",
+    "Ownership is not causation; every live gate remains CLOSED."
+  ],
+  "not_executed": [
+    "compiler",
+    "callbacks/nesting/runtime matrix",
+    "old retention/audit replay",
+    "native provider",
+    "DSO/installer",
+    "signals/concurrency",
+    "emulator/device"
+  ],
+  "resolved_before_first_build": [
+    "Runner requires exact transform core/header file set, plan and reader pins.",
+    "Projection nesting flag is explicitly configured scope, not a preflight execution claim.",
+    "Harness authored failure sentinels aligned71/72/73 with frozen plan; C6 remains93.",
+    "All dormant fields included in exact duplicate-write normalization; tables mutable only during setup and stable through entry.",
+    "Contract status, new callback/context array schema and exact270/30 assertion counts frozen. Drafts remain private."
+  ],
+  "review_lock": {
+    "bytes": 1021,
+    "sha256": "fb455b55f0f26287d007e01e765198030e7705435b1aa92762553daa0ec2c398"
+  },
+  "reviewed_files": {
+    "core.c": {
+      "bytes": 24981,
+      "sha256": "eca23b77d5e064a7015dd3f912e5652a7d61df196ce936b3fbf1934e4a4819d1"
+    },
+    "core.h": {
+      "bytes": 8461,
+      "sha256": "a1c1f13832a8bdb55ba9a2d4379ff8c6cb689bd70826575497d13402430faa38"
+    },
+    "run-tests.py": {
+      "bytes": 43111,
+      "sha256": "417d4d7679f212e39cb0279ccf567150c980f487954c69f7d4793df832f78a35"
+    },
+    "source-ledger.json": {
+      "bytes": 73134,
+      "sha256": "dfc586a5d9ccfeb28527d7b39b824991af5a5eac698ecf2b8d8f3f46c10de098"
+    },
+    "source-transform.json": {
+      "bytes": 46763,
+      "sha256": "aa00a824fbab1e8c0fb7b2fd991ccaf8afb2f8f78cbb69756d20f8abc35e5643"
+    },
+    "test-contract.json": {
+      "bytes": 25995,
+      "sha256": "a2954157b402739efbfaf82f6090c357720e275228a3ceb259acb9f910a2079f"
+    },
+    "test_provider.c": {
+      "bytes": 42414,
+      "sha256": "16b5610facb8e4380b44747a42f29656738f732185791e9810acae40ad2af868"
+    }
+  },
+  "reviewers": [
+    {
+      "agent": "dso_core_impl",
+      "result": "Reviewed exact fourteen selectors/eight baselines/eight singleton controls, macro-independent harness and complete runner custody/schema; source only.",
+      "role": "independent harness/control and runner reviewer"
+    },
+    {
+      "agent": "dso_loader_impl",
+      "result": "Accepted sole admission, winner binding, branch-local calls, copied args/full tokens, exact old engine bodies, final frozen source/ledger/lock and report schema; source only.",
+      "role": "independent core/header, runner and final ledger reviewer"
+    },
+    {
+      "result": "Read complete new core/header/harness/runner and frozen plan, compared thirteen exact old function bodies and complete runner segment map; all eight controls have single owned failure predicates. Syntax/pins checked without program execution.",
+      "role": "root integration"
+    }
+  ],
+  "runtime_gate": "CLOSED",
+  "schema": 1,
+  "status": "passed"
+}

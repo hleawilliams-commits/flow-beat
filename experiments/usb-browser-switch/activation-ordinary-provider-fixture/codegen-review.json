@@ -1,0 +1,866 @@
+{
+  "generated": {
+    "readers.inc": {
+      "bytes": 2994,
+      "sha256": "352048162f452f794136f8b90555783df101feacbf7550e3f4020bd6ef7ab140"
+    },
+    "receipt-types.h": {
+      "bytes": 5369,
+      "sha256": "c97454db2aba6e942eb05241bbf80d67ffd8eecb5108927da69600a6a1d15f40"
+    }
+  },
+  "guard_failure_review": "Read-only independent review of four fresh preflight objects: ELF decoding matched all 50 selected ALLOC|EXEC method extents/body hashes and every printed instruction word. Stack protection is retained. Plain ma_generated_index guard mismatch 0x448 -> 0x478 reaches __stack_chk_fail at 0x480. Plain ac_receive has 0xbe8 -> 0xd94 -> 0xd98 (standalone), or 0xc58 -> 0xe04 -> 0xe08 (setup). Both sanitized objects have ac_admit_internal 0x6e0 -> 0x73c and ma_generated_index 0xdec -> 0xe50 -> 0xe60; sanitized ac_receive has 0x25bc -> 0x2b8c -> 0x2b94 (standalone), or 0x284c -> 0x2e20 -> 0x2e28 (setup). These concrete mismatch exits are outside the selected ordinary returning path, not a blanket call whitelist or signal guarantee. Plain direct undefined dependencies are memcpy, memset, memcmp, __stack_chk_guard and __stack_chk_fail. Sanitized objects retain ASan/UBSan shadow/type/bounds checks, stack allocation/free, report/abort and global registration/unregistration dependencies; setup also has __asan_report_store16. No transitive implementation has been proved safe. Plain metadata commands returned0 with empty stderr. Sanitized metadata commands returned0 with the exact retained75-byte readelf warning. Independent ELF decoding confirms section7 .rela.fini_array.00099 (SHT_RELA, flags64, link28, info6, alignment8, one24-byte entry) targets section6 .fini_array.00099 (SHT_FINI_ARRAY, WA, alignment8, one8-byte cell), with sole offset0 ABS64 relocation via symbol2/.text to the defined32-byte _GLOBAL__sub_D_00099_0_rc_lookup at0x35fc (standalone) or0x4944 (setup). Finalizer hashes respectively93dc1fdac77d08608297625dab39f1d707b4a53fc2c47624b950935413f626ac and e9351143b752607a639e956643a2dc40c462c30d7d5368321eb967ac684771dd. This is metadata-only classification; no readelf-cause, compiler/runtime-diagnostic allowance or runtime-success inference is made.",
+  "limitations": [
+    "Only retained preflight bytes were inspected. No compiler, disassembler, fixture executable, callback, old audit or prior matrix was invoked by this review. The four preflight objects remain compile-only here.",
+    "Parent review of this exact record remains required before new candidate/control execution. Every live/native/device gate remains CLOSED.",
+    "Global-function inspection shows the ordinary ac_run/ac_observe and exact retained reader exports; only setup adds exactly ac_model_stage_module, ac_model_commit_module, ac_model_stage_generated, ac_model_commit_generated and ac_model_add_cell. No private scheduler/injector/reset/diagnostic API is compiled.",
+    "Thirteen old/new source bodies were independently compared by exact byte spans and hashes: ac_admit_internal, ac_enter, ac_model_add_cell, ac_model_commit_generated, ac_model_commit_module, ac_model_stage_generated, ac_model_stage_module, ac_next, ac_observe, ac_publish_internal, ac_record, ac_select_values and ac_step_internal. This is source equality, not machine-code identity across configurations.",
+    "Exact reused readers.inc/receipt-types.h bytes are bound below. No SDK consumer, native frame/file provider, DSO, installer or generated target body is included or invoked. Authored metadata and cells are not live provenance.",
+    "LDAR/STLR and the LDAXR/STLXR retry loop do not establish signal safety, wait-free behavior, bounded completion, native visibility, coherent multi-slot snapshots, general concurrent invocation/publication or participation of outside writers.",
+    "Provider table/code/context/request/model custody is authored and stable during each synchronous outer call. C by-value aggregate copies and full-width tokens do not prove arbitrary callback code/lifetime, interposition, callback quiescence or reclamation.",
+    "Callback ordinary return, raw availability, authoritative recorded return, public completion and real persistence are distinct. No native syscall, filesystem recovery or fault-causation conclusion follows from the authored providers.",
+    "Exceptions, nonlocal/forced exits, real signals, interrupted-PC unwind, general reentrancy/concurrency, loader behavior and physical timing are excluded. Canary and sanitizer failure paths remain dependencies, not evidence for those scopes.",
+    "The eight mutant configurations and nested callback outcomes require their new runtime cases; no such outcome is claimed by preflight."
+  ],
+  "method_reviews": {
+    "setup-asan-ubsan": {
+      "ac_admit_internal": {
+        "extent": {
+          "body_sha256": "b49587fcb99a87a366d858f8b7ef41c55bf45786aadb1cb65785e38c160bce3a",
+          "section": 1,
+          "size": 376,
+          "value": 1480
+        },
+        "observations": [
+          "The preserved strong-CAS source body is compiled as an acquire/release exclusive loop. Plain LDAXR 0x290, STLXR 0x298 and retry branch 0x29c -> 0x290; sanitized LDAXR 0x67c, STLXR 0x684 and retry branch 0x688 -> 0x67c. The retry is a real emitted loop; no bounded-completion or wait-free claim is made.",
+          "Only the successful comparison reaches work clearing and request-pointer storage: plain 0x2a8 guards memset at 0x2c0 and store at 0x2c8; sanitized 0x69c guards memset at 0x6b0 and store at 0x6b8. The losing path returns without dereferencing the request. Sanitizer stack instrumentation and its canary guard add dependencies before and after the CAS.",
+          "This extent/body hash binds the observations to the retained object. Independent ELF decoding matched all printed instruction words within this exact ALLOC|EXEC method extent."
+        ]
+      },
+      "ac_model_add_cell": {
+        "extent": {
+          "body_sha256": "57e07e1bd59f2fc0e88464fcf92c8233e1fc7cabc320de4ef490fdc8a8723590",
+          "section": 1,
+          "size": 780,
+          "value": 17976
+        },
+        "observations": [
+          "The setup-only method checks Virgin before the fixed 64-cell capacity, returned-length domain and duplicate-key checks. Plain state load/branch 0x1740/0x1744; sanitized 0x4644/0x4648. Accepted numeric key/value/read-result cells are stored in the bounded array.",
+          "Only modeled integer-keyed frame cells are introduced. This function neither dereferences a native frame pointer nor provides native-read or signal guarantees.",
+          "This extent/body hash binds the observations to the retained object. Independent ELF decoding matched all printed instruction words within this exact ALLOC|EXEC method extent."
+        ]
+      },
+      "ac_model_commit_generated": {
+        "extent": {
+          "body_sha256": "a4cbab49f827c60a17c5a88a23afb26e56036de8ede8d5d6f80bbb556852ef35",
+          "section": 1,
+          "size": 620,
+          "value": 17356
+        },
+        "observations": [
+          "The setup-only method checks Virgin and staged/one-use flags before acquire-checking and release-publishing the generated record. Plain state load 0x169c, acquire 0x1704, release 0x172c; sanitized 0x43d8, 0x4544, 0x45e0.",
+          "These serial eligibility checks do not synchronize nonparticipating writers or turn authored metadata into a live installer receipt.",
+          "This extent/body hash binds the observations to the retained object. Independent ELF decoding matched all printed instruction words within this exact ALLOC|EXEC method extent."
+        ]
+      },
+      "ac_model_commit_module": {
+        "extent": {
+          "body_sha256": "6a2d900ad68a9840e65c01f5887c2312162611aa7781e60656ada61353a0aed6",
+          "section": 1,
+          "size": 624,
+          "value": 15384
+        },
+        "observations": [
+          "The setup-only method checks Virgin, index, staged and one-use commit flags before acquire-checking the slot and release-publishing committed. Plain state load 0x1440, acquire 0x14ac, release 0x14d4; sanitized 0x3c24, 0x3d94, 0x3e30.",
+          "The Virgin eligibility read is not a second admission CAS. Serial setup-before-entry is required; this does not establish safe concurrent setup during another thread's admission.",
+          "This extent/body hash binds the observations to the retained object. Independent ELF decoding matched all printed instruction words within this exact ALLOC|EXEC method extent."
+        ]
+      },
+      "ac_model_stage_generated": {
+        "extent": {
+          "body_sha256": "0b5c60934239ba2740efce52c9f43f32ecba6eb37e573713794271acb608c755",
+          "section": 1,
+          "size": 1348,
+          "value": 16008
+        },
+        "observations": [
+          "The setup-only method checks Virgin and the fixed slot limit before one-use stage/type/process/interval validation. Plain state load/guard 0x14e8/0x14fc; sanitized 0x3ea4/0x3eb8. Community values copy canonical ID bytes; Core remains a typed identity without a fabricated Community ID.",
+          "It stages only authored numeric metadata. No mapping, relocation, executable-code publication, installer or native ownership claim is performed.",
+          "This extent/body hash binds the observations to the retained object. Independent ELF decoding matched all printed instruction words within this exact ALLOC|EXEC method extent."
+        ]
+      },
+      "ac_model_stage_module": {
+        "extent": {
+          "body_sha256": "1eaa1bfb93a7352691709f8803841c1daca2fe05ef3ae79fabe5cae1f027a3eb",
+          "section": 1,
+          "size": 904,
+          "value": 14480
+        },
+        "observations": [
+          "The setup-only method reads Virgin before model storage writes and validates bounded index, one-use stage flag, nonnull canonical ID, nonzero process identity and increasing interval before copying the module payload. Plain state load/guard at 0x1314/0x1328; sanitized 0x38a8/0x38bc.",
+          "All 33 canonical ID bytes and identity/bounds are staged before commit. This is a serial pre-entry authored API, not a production loader or an independent concurrent writer protocol.",
+          "This extent/body hash binds the observations to the retained object. Independent ELF decoding matched all printed instruction words within this exact ALLOC|EXEC method extent."
+        ]
+      },
+      "ac_observe": {
+        "extent": {
+          "body_sha256": "4c873911a038e354105ae6cc887e30b623e022c2af2d3efcd7eb5ab66384bbd7",
+          "section": 1,
+          "size": 288,
+          "value": 14192
+        },
+        "observations": [
+          "The preserved observer first zeroes its caller-provided 512-byte output, acquire-loads the public state, and copies the 504-byte final payload only after observing OrdinaryReturned=2. Active observations retain no working/raw payload. Its libc copying dependency remains explicit.",
+          "This method does not read the private mutable attempt to expose callback intermediates. The acquire/copy shape is a method-local observation, not a general concurrency or signal-safety proof.",
+          "Observed LDAR 0x379c; comparison with 2 at 0x37cc; payload-copy call 0x3878 follows only the successful state branch. Initial memset call is 0x378c; output shadow/type checks are retained.",
+          "This extent/body hash binds the observations to the retained object. Independent ELF decoding matched all printed instruction words within this exact ALLOC|EXEC method extent."
+        ]
+      },
+      "ac_publish_internal": {
+        "extent": {
+          "body_sha256": "4001770693716682699b68db06d81f284baa38982a9c4d9aeb6233a26961ed43",
+          "section": 1,
+          "size": 76,
+          "value": 492
+        },
+        "observations": [
+          "The preserved source copies the complete 504-byte result with memcpy, writes private phase Published, then release-stores public OrdinaryReturned=2. Plain call/store at 0x250/0x264; sanitized 0x214/0x228. The same ordering is visible in standalone and setup objects.",
+          "Publication does not drain callbacks or establish arbitrary provider lifetime. This is the selected synchronous ordinary-return path; nonlocal exits and interrupted publication are outside the witness.",
+          "This extent/body hash binds the observations to the retained object. Independent ELF decoding matched all printed instruction words within this exact ALLOC|EXEC method extent."
+        ]
+      },
+      "ac_receive": {
+        "extent": {
+          "body_sha256": "4203c7e3b79a66b10a4791481811b2f8c00cbc7c504da4a8f73da82be684ba86",
+          "section": 1,
+          "size": 2164,
+          "value": 9656
+        },
+        "observations": [
+          "Five ordinary indirect BLR sites select CLOSE, UNBLAMED, OPEN, WRITE and FSYNC respectively. Each reached branch checks the captured table and its selected function before invoking it; absent reached functions branch to halt without ordinary callback-return capture.",
+          "OPEN passes x0=context and x1 pointing to a caller-created 56-byte aggregate copy of the selected owner. WRITE similarly passes a separate caller-created 56-byte aggregate containing the accepted int64 OPEN token, requested length and all 33 payload bytes. This is the AArch64 lowering of C by-value aggregates; the engine passes no pointer to its private owner/event/raw object.",
+          "WRITE loads the accepted token from the fixed authoritative OPEN receipt and copies the entered WRITE event payload before the call; FSYNC and CLOSE load the same full-width x1 token. The nonnegative OPEN acceptance is enforced by the existing record/next path, not by a second provider admission.",
+          "For each I/O branch the ordinary returned x0/x1 pair is stored in raw.io before joining the common raw.available and RAW_AVAILABLE phase stores. UNBLAMED marks availability only after its void call returns. Return capture and later authoritative domain recording remain separate stages.",
+          "The copied aggregates live through the synchronous call only. Escaping an aggregate address, invalid table/context storage, interposition, nonreturning callbacks, exceptions/signals/nonlocal exits and arbitrary lifetime are outside this review.",
+          "Observed BLRs CLOSE 0x2704, UNBLAMED 0x27e4, OPEN 0x296c, WRITE 0x2c60, FSYNC 0x2d80. I/O raw pair stores 0x270c/0x297c/0x2c70/0x2d88 join 0x27fc, then raw.available 0x2808 and phase 0x2810. The canary mismatch at 0x284c reaches fail call 0x2e28. OPEN and WRITE again use separate caller aggregate copies; all follow-up tokens remain full-width. ASan shadow/type/bounds checks and failure handlers are retained.",
+          "This extent/body hash binds the observations to the retained object. Independent ELF decoding matched all printed instruction words within this exact ALLOC|EXEC method extent."
+        ]
+      },
+      "ac_run": {
+        "extent": {
+          "body_sha256": "a762d082281e62b55e1041e0810893fe7e32305c50889bbb61510999899d9e2e",
+          "section": 1,
+          "size": 2372,
+          "value": 11820
+        },
+        "observations": [
+          "The ordinary entry calls ac_admit_internal before reading the provider table or context fields. Its failed-admission branch returns AC_SUPPRESSED=0 before binding writes or dispatch. A winning NULL request takes the explicit NULL-binding branch and subsequently halts incomplete through the selector.",
+          "The admitted ordinary loop drives entry, receive, record, next and publication. The emitted phase comparison maps Published to AC_RETURNED=2 and other terminal halt to AC_INCOMPLETE=3. There is no private scheduler entry or reset in this object.",
+          "The branch-local callback validation and actual nested loser behavior remain future runtime observations at this preflight stage. Machine-code ordering alone does not prove arbitrary callback safety or completion.",
+          "Observed entry at 0x2e2c: admission call 0x2e3c; failed branch 0x2e44 -> 0x374c; provider/context reads 0x2e6c/0x2e90 and stores 0x2e74/0x2e98; receive call 0x2f44; publication call 0x2f64; ordinary loop back-edge to 0x2eb8. Request shadow/type checks lie after successful admission.",
+          "This extent/body hash binds the observations to the retained object. Independent ELF decoding matched all printed instruction words within this exact ALLOC|EXEC method extent."
+        ]
+      },
+      "ac_select_values": {
+        "extent": {
+          "body_sha256": "52f9595d45314450ff37e1f593d1eb8668c8cbca32143d6281c84f5f39f8fc04",
+          "section": 1,
+          "size": 4888,
+          "value": 4768
+        },
+        "observations": [
+          "The preserved wrapper drives the bounded value selector using the exact reused owner and snapshot readers. PC/LR and integer-keyed authored frame-cell values remain distinct from live native memory reads; candidate count, frame-cell count, snapshot count and canonical identity checks remain bounded in source.",
+          "The setup configuration includes the declared authored cell-store lookup, while standalone has no setup mutators and an empty cell source. Sanitizer variants contain additional bounds/type/shadow checks. No callback table or native file provider is dispatched from this method.",
+          "Reader call sites: snapshot 0x148c; owner resolution 0x16f0 and 0x1a48. Additional memset/memcpy calls 0x235c/0x2414 and the setup cell-store path account for different codegen from standalone.",
+          "This extent/body hash binds the observations to the retained object. Independent ELF decoding matched all printed instruction words within this exact ALLOC|EXEC method extent."
+        ]
+      },
+      "ma_generated_index": {
+        "extent": {
+          "body_sha256": "f479bd2d6df2f0c24a5cc12da49415458490576444cfbdc5e595331314f7d6a1",
+          "section": 1,
+          "size": 700,
+          "value": 2984
+        },
+        "observations": [
+          "The exact reused method calls rc_lookup, accepts only the Community owner kind, and resolves its copied identity against committed module slots by full process identity and all 33 ID bytes. It refuses ambiguous duplicate matches. Plain acquire 0x3f4 and memcmp(33) 0x418; sanitized 0xd4c and 0xd98.",
+          "The method has a concrete stack-canary mismatch edge: plain 0x448 -> 0x478 -> __stack_chk_fail at 0x480; sanitized 0xdec -> 0xe50 -> __stack_chk_fail at 0xe60. These guard-failure edges are retained and classified separately from normal return, not deleted or treated as arbitrary permitted calls.",
+          "Generated Core ownership is not converted into a Community blame identity. This reader does not install code, resolve live loaders, or establish native fault causation.",
+          "This extent/body hash binds the observations to the retained object. Independent ELF decoding matched all printed instruction words within this exact ALLOC|EXEC method extent."
+        ]
+      },
+      "ma_module_snapshot": {
+        "extent": {
+          "body_sha256": "a1eefa6dda5af1988db51c4773b66f9c85dee0123a8ce4e4a9e29423ab5b9eeb",
+          "section": 1,
+          "size": 820,
+          "value": 3684
+        },
+        "observations": [
+          "The exact reused snapshot checks index/output, clears the output, then acquire-loads the fixed committed slot before copying index, 64-bit process identity, bounds and full 33-byte ID. Plain acquire 0x4d8; sanitized 0xee8.",
+          "The immutable-slot lifetime premise is authored for this offline witness. Output copying and sanitizer checks do not establish concurrent writer safety, signal suitability or reclamation.",
+          "This extent/body hash binds the observations to the retained object. Independent ELF decoding matched all printed instruction words within this exact ALLOC|EXEC method extent."
+        ]
+      },
+      "ma_owner_index": {
+        "extent": {
+          "body_sha256": "5f5778bdb01ddb2d21c46cef9eb8e13575eab8287f63c8c312b6e9704a5fa084",
+          "section": 1,
+          "size": 264,
+          "value": 4504
+        },
+        "observations": [
+          "The exact reused method scans committed module envelopes in index order before generated fallback for the same candidate address. Plain acquire 0x58c with fallback call 0x5bc; sanitized 0x123c with fallback call 0x1294. The bounds comparisons remain half-open.",
+          "This is per-address module-first precedence, not permanent non-overlap or a coherent multi-slot snapshot. Generated Core misses may continue through the selector to later candidates.",
+          "This extent/body hash binds the observations to the retained object. Independent ELF decoding matched all printed instruction words within this exact ALLOC|EXEC method extent."
+        ]
+      },
+      "rc_lookup": {
+        "extent": {
+          "body_sha256": "1efbec9b7c05e1d18ce8afb1175d68eac787a0e2584b4a654b6f4e1174f516b5",
+          "section": 1,
+          "size": 600,
+          "value": 2384
+        },
+        "observations": [
+          "The exact reused reader scans four fixed record slots, acquire-loads committed before inspecting immutable instruction ranges, accepts only half-open island/trampoline instruction intervals, and copies the 216-byte metadata on a match. Plain acquire 0x308; sanitized 0xa34.",
+          "Plain success calls memcpy at 0x368; instrumentation adds sanitizer dependencies in the sanitized extent. Literal storage and whole pool/page ownership are not inferred. Per-slot acquire does not produce one coherent snapshot of all slots.",
+          "This extent/body hash binds the observations to the retained object. Independent ELF decoding matched all printed instruction words within this exact ALLOC|EXEC method extent."
+        ]
+      }
+    },
+    "setup-plain": {
+      "ac_admit_internal": {
+        "extent": {
+          "body_sha256": "7ebd6ef9c0a68c34734b4577dc480d40762cebfb1638dc6c55eb37d0beb6969b",
+          "section": 1,
+          "size": 104,
+          "value": 628
+        },
+        "observations": [
+          "The preserved strong-CAS source body is compiled as an acquire/release exclusive loop. Plain LDAXR 0x290, STLXR 0x298 and retry branch 0x29c -> 0x290; sanitized LDAXR 0x67c, STLXR 0x684 and retry branch 0x688 -> 0x67c. The retry is a real emitted loop; no bounded-completion or wait-free claim is made.",
+          "Only the successful comparison reaches work clearing and request-pointer storage: plain 0x2a8 guards memset at 0x2c0 and store at 0x2c8; sanitized 0x69c guards memset at 0x6b0 and store at 0x6b8. The losing path returns without dereferencing the request. Sanitizer stack instrumentation and its canary guard add dependencies before and after the CAS.",
+          "This extent/body hash binds the observations to the retained object. Independent ELF decoding matched all printed instruction words within this exact ALLOC|EXEC method extent."
+        ]
+      },
+      "ac_model_add_cell": {
+        "extent": {
+          "body_sha256": "58cab49445697274b010d40ad3bff7ec8566357bc0d3e3cad868af0454a841bd",
+          "section": 1,
+          "size": 200,
+          "value": 5940
+        },
+        "observations": [
+          "The setup-only method checks Virgin before the fixed 64-cell capacity, returned-length domain and duplicate-key checks. Plain state load/branch 0x1740/0x1744; sanitized 0x4644/0x4648. Accepted numeric key/value/read-result cells are stored in the bounded array.",
+          "Only modeled integer-keyed frame cells are introduced. This function neither dereferences a native frame pointer nor provides native-read or signal guarantees.",
+          "This extent/body hash binds the observations to the retained object. Independent ELF decoding matched all printed instruction words within this exact ALLOC|EXEC method extent."
+        ]
+      },
+      "ac_model_commit_generated": {
+        "extent": {
+          "body_sha256": "bb463e6009b7f63444d197c66b1ab860352afc47b8bb68ea2bd2b8d783f73f04",
+          "section": 1,
+          "size": 164,
+          "value": 5776
+        },
+        "observations": [
+          "The setup-only method checks Virgin and staged/one-use flags before acquire-checking and release-publishing the generated record. Plain state load 0x169c, acquire 0x1704, release 0x172c; sanitized 0x43d8, 0x4544, 0x45e0.",
+          "These serial eligibility checks do not synchronize nonparticipating writers or turn authored metadata into a live installer receipt.",
+          "This extent/body hash binds the observations to the retained object. Independent ELF decoding matched all printed instruction words within this exact ALLOC|EXEC method extent."
+        ]
+      },
+      "ac_model_commit_module": {
+        "extent": {
+          "body_sha256": "447222a1e9b570389aa59336e2daad623d07f0057fb07bf6d9f7a60149130514",
+          "section": 1,
+          "size": 168,
+          "value": 5172
+        },
+        "observations": [
+          "The setup-only method checks Virgin, index, staged and one-use commit flags before acquire-checking the slot and release-publishing committed. Plain state load 0x1440, acquire 0x14ac, release 0x14d4; sanitized 0x3c24, 0x3d94, 0x3e30.",
+          "The Virgin eligibility read is not a second admission CAS. Serial setup-before-entry is required; this does not establish safe concurrent setup during another thread's admission.",
+          "This extent/body hash binds the observations to the retained object. Independent ELF decoding matched all printed instruction words within this exact ALLOC|EXEC method extent."
+        ]
+      },
+      "ac_model_stage_generated": {
+        "extent": {
+          "body_sha256": "16d5452e52d5dce18e4cac0dbd12cd47009a2feed29e7b9501f30d1cc96991f1",
+          "section": 1,
+          "size": 436,
+          "value": 5340
+        },
+        "observations": [
+          "The setup-only method checks Virgin and the fixed slot limit before one-use stage/type/process/interval validation. Plain state load/guard 0x14e8/0x14fc; sanitized 0x3ea4/0x3eb8. Community values copy canonical ID bytes; Core remains a typed identity without a fabricated Community ID.",
+          "It stages only authored numeric metadata. No mapping, relocation, executable-code publication, installer or native ownership claim is performed.",
+          "This extent/body hash binds the observations to the retained object. Independent ELF decoding matched all printed instruction words within this exact ALLOC|EXEC method extent."
+        ]
+      },
+      "ac_model_stage_module": {
+        "extent": {
+          "body_sha256": "cef8460d203181473308abbc212b9fc060e7335a3bcc6a15602b233949aa4aaa",
+          "section": 1,
+          "size": 312,
+          "value": 4860
+        },
+        "observations": [
+          "The setup-only method reads Virgin before model storage writes and validates bounded index, one-use stage flag, nonnull canonical ID, nonzero process identity and increasing interval before copying the module payload. Plain state load/guard at 0x1314/0x1328; sanitized 0x38a8/0x38bc.",
+          "All 33 canonical ID bytes and identity/bounds are staged before commit. This is a serial pre-entry authored API, not a production loader or an independent concurrent writer protocol.",
+          "This extent/body hash binds the observations to the retained object. Independent ELF decoding matched all printed instruction words within this exact ALLOC|EXEC method extent."
+        ]
+      },
+      "ac_observe": {
+        "extent": {
+          "body_sha256": "0426972d33172311e1b3b544ae90f4e75c6ecc75bd712c59bbc3673e68a8a574",
+          "section": 1,
+          "size": 108,
+          "value": 4752
+        },
+        "observations": [
+          "The preserved observer first zeroes its caller-provided 512-byte output, acquire-loads the public state, and copies the 504-byte final payload only after observing OrdinaryReturned=2. Active observations retain no working/raw payload. Its libc copying dependency remains explicit.",
+          "This method does not read the private mutable attempt to expose callback intermediates. The acquire/copy shape is a method-local observation, not a general concurrency or signal-safety proof.",
+          "Observed LDAR 0x12bc; comparison with 2 at 0x12c4; payload-copy call 0x12f0 follows only the successful state branch. Initial memset call is 0x12ac.",
+          "This extent/body hash binds the observations to the retained object. Independent ELF decoding matched all printed instruction words within this exact ALLOC|EXEC method extent."
+        ]
+      },
+      "ac_publish_internal": {
+        "extent": {
+          "body_sha256": "d605ff2381710ede17368395e54472dcbc2c5486bbf48726028722a03887494b",
+          "section": 1,
+          "size": 76,
+          "value": 552
+        },
+        "observations": [
+          "The preserved source copies the complete 504-byte result with memcpy, writes private phase Published, then release-stores public OrdinaryReturned=2. Plain call/store at 0x250/0x264; sanitized 0x214/0x228. The same ordering is visible in standalone and setup objects.",
+          "Publication does not drain callbacks or establish arbitrary provider lifetime. This is the selected synchronous ordinary-return path; nonlocal exits and interrupted publication are outside the witness.",
+          "This extent/body hash binds the observations to the retained object. Independent ELF decoding matched all printed instruction words within this exact ALLOC|EXEC method extent."
+        ]
+      },
+      "ac_receive": {
+        "extent": {
+          "body_sha256": "ce6fb04495ff37505c9aba7702a907343e5674ed357eb9ba8e63764c2794b6d5",
+          "section": 1,
+          "size": 872,
+          "value": 2724
+        },
+        "observations": [
+          "Five ordinary indirect BLR sites select CLOSE, UNBLAMED, OPEN, WRITE and FSYNC respectively. Each reached branch checks the captured table and its selected function before invoking it; absent reached functions branch to halt without ordinary callback-return capture.",
+          "OPEN passes x0=context and x1 pointing to a caller-created 56-byte aggregate copy of the selected owner. WRITE similarly passes a separate caller-created 56-byte aggregate containing the accepted int64 OPEN token, requested length and all 33 payload bytes. This is the AArch64 lowering of C by-value aggregates; the engine passes no pointer to its private owner/event/raw object.",
+          "WRITE loads the accepted token from the fixed authoritative OPEN receipt and copies the entered WRITE event payload before the call; FSYNC and CLOSE load the same full-width x1 token. The nonnegative OPEN acceptance is enforced by the existing record/next path, not by a second provider admission.",
+          "For each I/O branch the ordinary returned x0/x1 pair is stored in raw.io before joining the common raw.available and RAW_AVAILABLE phase stores. UNBLAMED marks availability only after its void call returns. Return capture and later authoritative domain recording remain separate stages.",
+          "The copied aggregates live through the synchronous call only. Escaping an aggregate address, invalid table/context storage, interposition, nonreturning callbacks, exceptions/signals/nonlocal exits and arbitrary lifetime are outside this review.",
+          "Observed BLRs CLOSE 0xb5c, UNBLAMED 0xc14, OPEN 0xcc8, WRITE 0xd80, FSYNC 0xdcc. I/O raw pair stores 0xb64/0xcd8/0xd88/0xdd4 join 0xc2c, then raw.available 0xc38 and phase 0xc40. The canary mismatch at 0xc58 reaches fail call 0xe08. The same caller-copy construction and full-width token loads are retained.",
+          "This extent/body hash binds the observations to the retained object. Independent ELF decoding matched all printed instruction words within this exact ALLOC|EXEC method extent."
+        ]
+      },
+      "ac_run": {
+        "extent": {
+          "body_sha256": "7db325ac7f82a73bffcd6b4908c5f4e93a3f858774b0ab91404a0459e9e29e36",
+          "section": 1,
+          "size": 1156,
+          "value": 3596
+        },
+        "observations": [
+          "The ordinary entry calls ac_admit_internal before reading the provider table or context fields. Its failed-admission branch returns AC_SUPPRESSED=0 before binding writes or dispatch. A winning NULL request takes the explicit NULL-binding branch and subsequently halts incomplete through the selector.",
+          "The admitted ordinary loop drives entry, receive, record, next and publication. The emitted phase comparison maps Published to AC_RETURNED=2 and other terminal halt to AC_INCOMPLETE=3. There is no private scheduler entry or reset in this object.",
+          "The branch-local callback validation and actual nested loser behavior remain future runtime observations at this preflight stage. Machine-code ordering alone does not prove arbitrary callback safety or completion.",
+          "Observed entry at 0xe0c: admission call 0xe1c; failed branch 0xe24 -> 0x1254; provider/context reads 0xe30/0xe3c and stores 0xe38/0xe44; receive call 0xeb0; publication call 0xed0; ordinary loop back-edge to 0xe64.",
+          "This extent/body hash binds the observations to the retained object. Independent ELF decoding matched all printed instruction words within this exact ALLOC|EXEC method extent."
+        ]
+      },
+      "ac_select_values": {
+        "extent": {
+          "body_sha256": "31713fdcbe5446a1e195e8ca8d626a7f9ae14c95c669f5b09f38c44ae2cc474a",
+          "section": 1,
+          "size": 1244,
+          "value": 1480
+        },
+        "observations": [
+          "The preserved wrapper drives the bounded value selector using the exact reused owner and snapshot readers. PC/LR and integer-keyed authored frame-cell values remain distinct from live native memory reads; candidate count, frame-cell count, snapshot count and canonical identity checks remain bounded in source.",
+          "The setup configuration includes the declared authored cell-store lookup, while standalone has no setup mutators and an empty cell source. Sanitizer variants contain additional bounds/type/shadow checks. No callback table or native file provider is dispatched from this method.",
+          "Reader call sites: snapshot 0x708; owner resolution 0x79c and 0xa58. The setup-only value-cell branch accounts for the larger extent; the wrapper source body remains unchanged.",
+          "This extent/body hash binds the observations to the retained object. Independent ELF decoding matched all printed instruction words within this exact ALLOC|EXEC method extent."
+        ]
+      },
+      "ma_generated_index": {
+        "extent": {
+          "body_sha256": "a3fa95e7f0af76aea44c7d6c299dad8acedb4f85a0d8374790248eb50affb996",
+          "section": 1,
+          "size": 252,
+          "value": 904
+        },
+        "observations": [
+          "The exact reused method calls rc_lookup, accepts only the Community owner kind, and resolves its copied identity against committed module slots by full process identity and all 33 ID bytes. It refuses ambiguous duplicate matches. Plain acquire 0x3f4 and memcmp(33) 0x418; sanitized 0xd4c and 0xd98.",
+          "The method has a concrete stack-canary mismatch edge: plain 0x448 -> 0x478 -> __stack_chk_fail at 0x480; sanitized 0xdec -> 0xe50 -> __stack_chk_fail at 0xe60. These guard-failure edges are retained and classified separately from normal return, not deleted or treated as arbitrary permitted calls.",
+          "Generated Core ownership is not converted into a Community blame identity. This reader does not install code, resolve live loaders, or establish native fault causation.",
+          "This extent/body hash binds the observations to the retained object. Independent ELF decoding matched all printed instruction words within this exact ALLOC|EXEC method extent."
+        ]
+      },
+      "ma_module_snapshot": {
+        "extent": {
+          "body_sha256": "715fd34a69f2de25ea63fdee21e423b5d733d9dd96762e7fc7a54f806eb1e5a5",
+          "section": 1,
+          "size": 228,
+          "value": 1156
+        },
+        "observations": [
+          "The exact reused snapshot checks index/output, clears the output, then acquire-loads the fixed committed slot before copying index, 64-bit process identity, bounds and full 33-byte ID. Plain acquire 0x4d8; sanitized 0xee8.",
+          "The immutable-slot lifetime premise is authored for this offline witness. Output copying and sanitizer checks do not establish concurrent writer safety, signal suitability or reclamation.",
+          "This extent/body hash binds the observations to the retained object. Independent ELF decoding matched all printed instruction words within this exact ALLOC|EXEC method extent."
+        ]
+      },
+      "ma_owner_index": {
+        "extent": {
+          "body_sha256": "529f64e61004d33277b3b2a841da874ca10843da2ffab75494ead7ad5f00e944",
+          "section": 1,
+          "size": 96,
+          "value": 1384
+        },
+        "observations": [
+          "The exact reused method scans committed module envelopes in index order before generated fallback for the same candidate address. Plain acquire 0x58c with fallback call 0x5bc; sanitized 0x123c with fallback call 0x1294. The bounds comparisons remain half-open.",
+          "This is per-address module-first precedence, not permanent non-overlap or a coherent multi-slot snapshot. Generated Core misses may continue through the selector to later candidates.",
+          "This extent/body hash binds the observations to the retained object. Independent ELF decoding matched all printed instruction words within this exact ALLOC|EXEC method extent."
+        ]
+      },
+      "rc_lookup": {
+        "extent": {
+          "body_sha256": "2bec6db4019a9223af8f9ac5ebdb82b08429f76f1c9c9bab46ed7f2262b8fc85",
+          "section": 1,
+          "size": 172,
+          "value": 732
+        },
+        "observations": [
+          "The exact reused reader scans four fixed record slots, acquire-loads committed before inspecting immutable instruction ranges, accepts only half-open island/trampoline instruction intervals, and copies the 216-byte metadata on a match. Plain acquire 0x308; sanitized 0xa34.",
+          "Plain success calls memcpy at 0x368; instrumentation adds sanitizer dependencies in the sanitized extent. Literal storage and whole pool/page ownership are not inferred. Per-slot acquire does not produce one coherent snapshot of all slots.",
+          "This extent/body hash binds the observations to the retained object. Independent ELF decoding matched all printed instruction words within this exact ALLOC|EXEC method extent."
+        ]
+      }
+    },
+    "standalone-asan-ubsan": {
+      "ac_admit_internal": {
+        "extent": {
+          "body_sha256": "b49587fcb99a87a366d858f8b7ef41c55bf45786aadb1cb65785e38c160bce3a",
+          "section": 1,
+          "size": 376,
+          "value": 1480
+        },
+        "observations": [
+          "The preserved strong-CAS source body is compiled as an acquire/release exclusive loop. Plain LDAXR 0x290, STLXR 0x298 and retry branch 0x29c -> 0x290; sanitized LDAXR 0x67c, STLXR 0x684 and retry branch 0x688 -> 0x67c. The retry is a real emitted loop; no bounded-completion or wait-free claim is made.",
+          "Only the successful comparison reaches work clearing and request-pointer storage: plain 0x2a8 guards memset at 0x2c0 and store at 0x2c8; sanitized 0x69c guards memset at 0x6b0 and store at 0x6b8. The losing path returns without dereferencing the request. Sanitizer stack instrumentation and its canary guard add dependencies before and after the CAS.",
+          "This extent/body hash binds the observations to the retained object. Independent ELF decoding matched all printed instruction words within this exact ALLOC|EXEC method extent."
+        ]
+      },
+      "ac_observe": {
+        "extent": {
+          "body_sha256": "f061425b7a2119b1894281b8a80ddb50e00554a92c03d4423f15ea60f467fab8",
+          "section": 1,
+          "size": 288,
+          "value": 13532
+        },
+        "observations": [
+          "The preserved observer first zeroes its caller-provided 512-byte output, acquire-loads the public state, and copies the 504-byte final payload only after observing OrdinaryReturned=2. Active observations retain no working/raw payload. Its libc copying dependency remains explicit.",
+          "This method does not read the private mutable attempt to expose callback intermediates. The acquire/copy shape is a method-local observation, not a general concurrency or signal-safety proof.",
+          "Observed LDAR 0x3508; comparison with 2 at 0x3538; payload-copy call 0x35e4 follows only the successful state branch. Initial memset call is 0x34f8; output shadow/type checks are retained.",
+          "This extent/body hash binds the observations to the retained object. Independent ELF decoding matched all printed instruction words within this exact ALLOC|EXEC method extent."
+        ]
+      },
+      "ac_publish_internal": {
+        "extent": {
+          "body_sha256": "4001770693716682699b68db06d81f284baa38982a9c4d9aeb6233a26961ed43",
+          "section": 1,
+          "size": 76,
+          "value": 492
+        },
+        "observations": [
+          "The preserved source copies the complete 504-byte result with memcpy, writes private phase Published, then release-stores public OrdinaryReturned=2. Plain call/store at 0x250/0x264; sanitized 0x214/0x228. The same ordering is visible in standalone and setup objects.",
+          "Publication does not drain callbacks or establish arbitrary provider lifetime. This is the selected synchronous ordinary-return path; nonlocal exits and interrupted publication are outside the witness.",
+          "This extent/body hash binds the observations to the retained object. Independent ELF decoding matched all printed instruction words within this exact ALLOC|EXEC method extent."
+        ]
+      },
+      "ac_receive": {
+        "extent": {
+          "body_sha256": "9b5c03e90ec900652ce3dd7c0bb64d74e8bd558c57b6ea7f73f1b9e9936037bb",
+          "section": 1,
+          "size": 2160,
+          "value": 9000
+        },
+        "observations": [
+          "Five ordinary indirect BLR sites select CLOSE, UNBLAMED, OPEN, WRITE and FSYNC respectively. Each reached branch checks the captured table and its selected function before invoking it; absent reached functions branch to halt without ordinary callback-return capture.",
+          "OPEN passes x0=context and x1 pointing to a caller-created 56-byte aggregate copy of the selected owner. WRITE similarly passes a separate caller-created 56-byte aggregate containing the accepted int64 OPEN token, requested length and all 33 payload bytes. This is the AArch64 lowering of C by-value aggregates; the engine passes no pointer to its private owner/event/raw object.",
+          "WRITE loads the accepted token from the fixed authoritative OPEN receipt and copies the entered WRITE event payload before the call; FSYNC and CLOSE load the same full-width x1 token. The nonnegative OPEN acceptance is enforced by the existing record/next path, not by a second provider admission.",
+          "For each I/O branch the ordinary returned x0/x1 pair is stored in raw.io before joining the common raw.available and RAW_AVAILABLE phase stores. UNBLAMED marks availability only after its void call returns. Return capture and later authoritative domain recording remain separate stages.",
+          "The copied aggregates live through the synchronous call only. Escaping an aggregate address, invalid table/context storage, interposition, nonreturning callbacks, exceptions/signals/nonlocal exits and arbitrary lifetime are outside this review.",
+          "Observed BLRs CLOSE 0x2474, UNBLAMED 0x2554, OPEN 0x26dc, WRITE 0x29cc, FSYNC 0x2aec. I/O raw pair stores 0x247c/0x26ec/0x29dc/0x2af4 join 0x256c, then raw.available 0x2578 and phase 0x2580. The canary mismatch at 0x25bc reaches fail call 0x2b94. OPEN copy 0x26b8\u20130x26d4 and WRITE copy 0x29a8\u20130x29c4 use caller storage; WRITE loads the full accepted token at 0x27ec. ASan shadow poisoning/unpoisoning and failure handlers remain visible.",
+          "This extent/body hash binds the observations to the retained object. Independent ELF decoding matched all printed instruction words within this exact ALLOC|EXEC method extent."
+        ]
+      },
+      "ac_run": {
+        "extent": {
+          "body_sha256": "7b8e950839b241a9254f75cd3c03194ae956b00bd01a053b5533d7922cac606e",
+          "section": 1,
+          "size": 2372,
+          "value": 11160
+        },
+        "observations": [
+          "The ordinary entry calls ac_admit_internal before reading the provider table or context fields. Its failed-admission branch returns AC_SUPPRESSED=0 before binding writes or dispatch. A winning NULL request takes the explicit NULL-binding branch and subsequently halts incomplete through the selector.",
+          "The admitted ordinary loop drives entry, receive, record, next and publication. The emitted phase comparison maps Published to AC_RETURNED=2 and other terminal halt to AC_INCOMPLETE=3. There is no private scheduler entry or reset in this object.",
+          "The branch-local callback validation and actual nested loser behavior remain future runtime observations at this preflight stage. Machine-code ordering alone does not prove arbitrary callback safety or completion.",
+          "Observed entry at 0x2b98: admission call 0x2ba8; failed branch 0x2bb0 -> 0x34b8; provider/context reads 0x2bd8/0x2bfc and stores 0x2be0/0x2c04; receive call 0x2cb0; publication call 0x2cd0; ordinary loop back-edge to 0x2c24. Request shadow/type checks lie after successful admission.",
+          "This extent/body hash binds the observations to the retained object. Independent ELF decoding matched all printed instruction words within this exact ALLOC|EXEC method extent."
+        ]
+      },
+      "ac_select_values": {
+        "extent": {
+          "body_sha256": "e7b4059bb861c4d2e30888d2040f487cb4f33eef59a3452469ad8c8a54d07e4f",
+          "section": 1,
+          "size": 4232,
+          "value": 4768
+        },
+        "observations": [
+          "The preserved wrapper drives the bounded value selector using the exact reused owner and snapshot readers. PC/LR and integer-keyed authored frame-cell values remain distinct from live native memory reads; candidate count, frame-cell count, snapshot count and canonical identity checks remain bounded in source.",
+          "The setup configuration includes the declared authored cell-store lookup, while standalone has no setup mutators and an empty cell source. Sanitizer variants contain additional bounds/type/shadow checks. No callback table or native file provider is dispatched from this method.",
+          "Reader call sites: snapshot 0x1488; owner resolution 0x16f4 and 0x1a3c. Additional memset/memcpy calls 0x20c8/0x2180 and sanitizer checks are real dependencies, not erased from the review.",
+          "This extent/body hash binds the observations to the retained object. Independent ELF decoding matched all printed instruction words within this exact ALLOC|EXEC method extent."
+        ]
+      },
+      "ma_generated_index": {
+        "extent": {
+          "body_sha256": "f479bd2d6df2f0c24a5cc12da49415458490576444cfbdc5e595331314f7d6a1",
+          "section": 1,
+          "size": 700,
+          "value": 2984
+        },
+        "observations": [
+          "The exact reused method calls rc_lookup, accepts only the Community owner kind, and resolves its copied identity against committed module slots by full process identity and all 33 ID bytes. It refuses ambiguous duplicate matches. Plain acquire 0x3f4 and memcmp(33) 0x418; sanitized 0xd4c and 0xd98.",
+          "The method has a concrete stack-canary mismatch edge: plain 0x448 -> 0x478 -> __stack_chk_fail at 0x480; sanitized 0xdec -> 0xe50 -> __stack_chk_fail at 0xe60. These guard-failure edges are retained and classified separately from normal return, not deleted or treated as arbitrary permitted calls.",
+          "Generated Core ownership is not converted into a Community blame identity. This reader does not install code, resolve live loaders, or establish native fault causation.",
+          "This extent/body hash binds the observations to the retained object. Independent ELF decoding matched all printed instruction words within this exact ALLOC|EXEC method extent."
+        ]
+      },
+      "ma_module_snapshot": {
+        "extent": {
+          "body_sha256": "a1eefa6dda5af1988db51c4773b66f9c85dee0123a8ce4e4a9e29423ab5b9eeb",
+          "section": 1,
+          "size": 820,
+          "value": 3684
+        },
+        "observations": [
+          "The exact reused snapshot checks index/output, clears the output, then acquire-loads the fixed committed slot before copying index, 64-bit process identity, bounds and full 33-byte ID. Plain acquire 0x4d8; sanitized 0xee8.",
+          "The immutable-slot lifetime premise is authored for this offline witness. Output copying and sanitizer checks do not establish concurrent writer safety, signal suitability or reclamation.",
+          "This extent/body hash binds the observations to the retained object. Independent ELF decoding matched all printed instruction words within this exact ALLOC|EXEC method extent."
+        ]
+      },
+      "ma_owner_index": {
+        "extent": {
+          "body_sha256": "5f5778bdb01ddb2d21c46cef9eb8e13575eab8287f63c8c312b6e9704a5fa084",
+          "section": 1,
+          "size": 264,
+          "value": 4504
+        },
+        "observations": [
+          "The exact reused method scans committed module envelopes in index order before generated fallback for the same candidate address. Plain acquire 0x58c with fallback call 0x5bc; sanitized 0x123c with fallback call 0x1294. The bounds comparisons remain half-open.",
+          "This is per-address module-first precedence, not permanent non-overlap or a coherent multi-slot snapshot. Generated Core misses may continue through the selector to later candidates.",
+          "This extent/body hash binds the observations to the retained object. Independent ELF decoding matched all printed instruction words within this exact ALLOC|EXEC method extent."
+        ]
+      },
+      "rc_lookup": {
+        "extent": {
+          "body_sha256": "1efbec9b7c05e1d18ce8afb1175d68eac787a0e2584b4a654b6f4e1174f516b5",
+          "section": 1,
+          "size": 600,
+          "value": 2384
+        },
+        "observations": [
+          "The exact reused reader scans four fixed record slots, acquire-loads committed before inspecting immutable instruction ranges, accepts only half-open island/trampoline instruction intervals, and copies the 216-byte metadata on a match. Plain acquire 0x308; sanitized 0xa34.",
+          "Plain success calls memcpy at 0x368; instrumentation adds sanitizer dependencies in the sanitized extent. Literal storage and whole pool/page ownership are not inferred. Per-slot acquire does not produce one coherent snapshot of all slots.",
+          "This extent/body hash binds the observations to the retained object. Independent ELF decoding matched all printed instruction words within this exact ALLOC|EXEC method extent."
+        ]
+      }
+    },
+    "standalone-plain": {
+      "ac_admit_internal": {
+        "extent": {
+          "body_sha256": "7ebd6ef9c0a68c34734b4577dc480d40762cebfb1638dc6c55eb37d0beb6969b",
+          "section": 1,
+          "size": 104,
+          "value": 628
+        },
+        "observations": [
+          "The preserved strong-CAS source body is compiled as an acquire/release exclusive loop. Plain LDAXR 0x290, STLXR 0x298 and retry branch 0x29c -> 0x290; sanitized LDAXR 0x67c, STLXR 0x684 and retry branch 0x688 -> 0x67c. The retry is a real emitted loop; no bounded-completion or wait-free claim is made.",
+          "Only the successful comparison reaches work clearing and request-pointer storage: plain 0x2a8 guards memset at 0x2c0 and store at 0x2c8; sanitized 0x69c guards memset at 0x6b0 and store at 0x6b8. The losing path returns without dereferencing the request. Sanitizer stack instrumentation and its canary guard add dependencies before and after the CAS.",
+          "This extent/body hash binds the observations to the retained object. Independent ELF decoding matched all printed instruction words within this exact ALLOC|EXEC method extent."
+        ]
+      },
+      "ac_observe": {
+        "extent": {
+          "body_sha256": "0426972d33172311e1b3b544ae90f4e75c6ecc75bd712c59bbc3673e68a8a574",
+          "section": 1,
+          "size": 108,
+          "value": 4640
+        },
+        "observations": [
+          "The preserved observer first zeroes its caller-provided 512-byte output, acquire-loads the public state, and copies the 504-byte final payload only after observing OrdinaryReturned=2. Active observations retain no working/raw payload. Its libc copying dependency remains explicit.",
+          "This method does not read the private mutable attempt to expose callback intermediates. The acquire/copy shape is a method-local observation, not a general concurrency or signal-safety proof.",
+          "Observed LDAR 0x124c; comparison with 2 at 0x1254; payload-copy call 0x1280 follows only the successful state branch. Initial memset call is 0x123c.",
+          "This extent/body hash binds the observations to the retained object. Independent ELF decoding matched all printed instruction words within this exact ALLOC|EXEC method extent."
+        ]
+      },
+      "ac_publish_internal": {
+        "extent": {
+          "body_sha256": "d605ff2381710ede17368395e54472dcbc2c5486bbf48726028722a03887494b",
+          "section": 1,
+          "size": 76,
+          "value": 552
+        },
+        "observations": [
+          "The preserved source copies the complete 504-byte result with memcpy, writes private phase Published, then release-stores public OrdinaryReturned=2. Plain call/store at 0x250/0x264; sanitized 0x214/0x228. The same ordering is visible in standalone and setup objects.",
+          "Publication does not drain callbacks or establish arbitrary provider lifetime. This is the selected synchronous ordinary-return path; nonlocal exits and interrupted publication are outside the witness.",
+          "This extent/body hash binds the observations to the retained object. Independent ELF decoding matched all printed instruction words within this exact ALLOC|EXEC method extent."
+        ]
+      },
+      "ac_receive": {
+        "extent": {
+          "body_sha256": "86f400fd6dfdf2c301252c4e37f795424116b3cc5575ba327ce0d3ed44b4171d",
+          "section": 1,
+          "size": 872,
+          "value": 2612
+        },
+        "observations": [
+          "Five ordinary indirect BLR sites select CLOSE, UNBLAMED, OPEN, WRITE and FSYNC respectively. Each reached branch checks the captured table and its selected function before invoking it; absent reached functions branch to halt without ordinary callback-return capture.",
+          "OPEN passes x0=context and x1 pointing to a caller-created 56-byte aggregate copy of the selected owner. WRITE similarly passes a separate caller-created 56-byte aggregate containing the accepted int64 OPEN token, requested length and all 33 payload bytes. This is the AArch64 lowering of C by-value aggregates; the engine passes no pointer to its private owner/event/raw object.",
+          "WRITE loads the accepted token from the fixed authoritative OPEN receipt and copies the entered WRITE event payload before the call; FSYNC and CLOSE load the same full-width x1 token. The nonnegative OPEN acceptance is enforced by the existing record/next path, not by a second provider admission.",
+          "For each I/O branch the ordinary returned x0/x1 pair is stored in raw.io before joining the common raw.available and RAW_AVAILABLE phase stores. UNBLAMED marks availability only after its void call returns. Return capture and later authoritative domain recording remain separate stages.",
+          "The copied aggregates live through the synchronous call only. Escaping an aggregate address, invalid table/context storage, interposition, nonreturning callbacks, exceptions/signals/nonlocal exits and arbitrary lifetime are outside this review.",
+          "Observed BLRs CLOSE 0xaec, UNBLAMED 0xba4, OPEN 0xc58, WRITE 0xd10, FSYNC 0xd5c. I/O raw pair stores 0xaf4/0xc68/0xd18/0xd64 join 0xbbc, then raw.available 0xbc8 and phase 0xbd0. The canary mismatch at 0xbe8 reaches fail call 0xd98. WRITE token load 0xca8, complete copy 0xcd4\u20130xd00; OPEN aggregate copy 0xc28\u20130xc44.",
+          "This extent/body hash binds the observations to the retained object. Independent ELF decoding matched all printed instruction words within this exact ALLOC|EXEC method extent."
+        ]
+      },
+      "ac_run": {
+        "extent": {
+          "body_sha256": "7429103519f677be64b9cdbdab625586efc0b7e06613cab9f8dd4c5a1b035d5e",
+          "section": 1,
+          "size": 1156,
+          "value": 3484
+        },
+        "observations": [
+          "The ordinary entry calls ac_admit_internal before reading the provider table or context fields. Its failed-admission branch returns AC_SUPPRESSED=0 before binding writes or dispatch. A winning NULL request takes the explicit NULL-binding branch and subsequently halts incomplete through the selector.",
+          "The admitted ordinary loop drives entry, receive, record, next and publication. The emitted phase comparison maps Published to AC_RETURNED=2 and other terminal halt to AC_INCOMPLETE=3. There is no private scheduler entry or reset in this object.",
+          "The branch-local callback validation and actual nested loser behavior remain future runtime observations at this preflight stage. Machine-code ordering alone does not prove arbitrary callback safety or completion.",
+          "Observed entry at 0xd9c: admission call 0xdac; failed branch 0xdb4 -> 0x11e4; provider/context reads 0xdc0/0xdcc and stores 0xdc8/0xdd4; receive call 0xe40; publication call 0xe60; ordinary loop back-edge to 0xdf4.",
+          "This extent/body hash binds the observations to the retained object. Independent ELF decoding matched all printed instruction words within this exact ALLOC|EXEC method extent."
+        ]
+      },
+      "ac_select_values": {
+        "extent": {
+          "body_sha256": "79f1d0dabfa3f4f7a55c1f341cdf42601e9504bd450ebf777f8146560599b1cc",
+          "section": 1,
+          "size": 1132,
+          "value": 1480
+        },
+        "observations": [
+          "The preserved wrapper drives the bounded value selector using the exact reused owner and snapshot readers. PC/LR and integer-keyed authored frame-cell values remain distinct from live native memory reads; candidate count, frame-cell count, snapshot count and canonical identity checks remain bounded in source.",
+          "The setup configuration includes the declared authored cell-store lookup, while standalone has no setup mutators and an empty cell source. Sanitizer variants contain additional bounds/type/shadow checks. No callback table or native file provider is dispatched from this method.",
+          "Reader call sites: snapshot 0x6e4; owner resolution 0x778 and 0x9e0. The source bounds are visibly checked in the method, including candidate 18 and cell 32 counters.",
+          "This extent/body hash binds the observations to the retained object. Independent ELF decoding matched all printed instruction words within this exact ALLOC|EXEC method extent."
+        ]
+      },
+      "ma_generated_index": {
+        "extent": {
+          "body_sha256": "a3fa95e7f0af76aea44c7d6c299dad8acedb4f85a0d8374790248eb50affb996",
+          "section": 1,
+          "size": 252,
+          "value": 904
+        },
+        "observations": [
+          "The exact reused method calls rc_lookup, accepts only the Community owner kind, and resolves its copied identity against committed module slots by full process identity and all 33 ID bytes. It refuses ambiguous duplicate matches. Plain acquire 0x3f4 and memcmp(33) 0x418; sanitized 0xd4c and 0xd98.",
+          "The method has a concrete stack-canary mismatch edge: plain 0x448 -> 0x478 -> __stack_chk_fail at 0x480; sanitized 0xdec -> 0xe50 -> __stack_chk_fail at 0xe60. These guard-failure edges are retained and classified separately from normal return, not deleted or treated as arbitrary permitted calls.",
+          "Generated Core ownership is not converted into a Community blame identity. This reader does not install code, resolve live loaders, or establish native fault causation.",
+          "This extent/body hash binds the observations to the retained object. Independent ELF decoding matched all printed instruction words within this exact ALLOC|EXEC method extent."
+        ]
+      },
+      "ma_module_snapshot": {
+        "extent": {
+          "body_sha256": "715fd34a69f2de25ea63fdee21e423b5d733d9dd96762e7fc7a54f806eb1e5a5",
+          "section": 1,
+          "size": 228,
+          "value": 1156
+        },
+        "observations": [
+          "The exact reused snapshot checks index/output, clears the output, then acquire-loads the fixed committed slot before copying index, 64-bit process identity, bounds and full 33-byte ID. Plain acquire 0x4d8; sanitized 0xee8.",
+          "The immutable-slot lifetime premise is authored for this offline witness. Output copying and sanitizer checks do not establish concurrent writer safety, signal suitability or reclamation.",
+          "This extent/body hash binds the observations to the retained object. Independent ELF decoding matched all printed instruction words within this exact ALLOC|EXEC method extent."
+        ]
+      },
+      "ma_owner_index": {
+        "extent": {
+          "body_sha256": "529f64e61004d33277b3b2a841da874ca10843da2ffab75494ead7ad5f00e944",
+          "section": 1,
+          "size": 96,
+          "value": 1384
+        },
+        "observations": [
+          "The exact reused method scans committed module envelopes in index order before generated fallback for the same candidate address. Plain acquire 0x58c with fallback call 0x5bc; sanitized 0x123c with fallback call 0x1294. The bounds comparisons remain half-open.",
+          "This is per-address module-first precedence, not permanent non-overlap or a coherent multi-slot snapshot. Generated Core misses may continue through the selector to later candidates.",
+          "This extent/body hash binds the observations to the retained object. Independent ELF decoding matched all printed instruction words within this exact ALLOC|EXEC method extent."
+        ]
+      },
+      "rc_lookup": {
+        "extent": {
+          "body_sha256": "2bec6db4019a9223af8f9ac5ebdb82b08429f76f1c9c9bab46ed7f2262b8fc85",
+          "section": 1,
+          "size": 172,
+          "value": 732
+        },
+        "observations": [
+          "The exact reused reader scans four fixed record slots, acquire-loads committed before inspecting immutable instruction ranges, accepts only half-open island/trampoline instruction intervals, and copies the 216-byte metadata on a match. Plain acquire 0x308; sanitized 0xa34.",
+          "Plain success calls memcpy at 0x368; instrumentation adds sanitizer dependencies in the sanitized extent. Literal storage and whole pool/page ownership are not inferred. Per-slot acquire does not produce one coherent snapshot of all slots.",
+          "This extent/body hash binds the observations to the retained object. Independent ELF decoding matched all printed instruction words within this exact ALLOC|EXEC method extent."
+        ]
+      }
+    }
+  },
+  "preflight": {
+    "setup-asan-ubsan": {
+      "build/setup/asan-ubsan/configuration.json": {
+        "bytes": 383,
+        "sha256": "133e079026f1db2b14c155d6f839f10c45f2ef0c94173dc494d3e12764159d40"
+      },
+      "build/setup/asan-ubsan/core-disassembly.txt": {
+        "bytes": 256838,
+        "sha256": "8be5ab550cfa1b3bc5d9cc0bb6e18fd67b5dd726e10ac70ed7800f8991601a33"
+      },
+      "build/setup/asan-ubsan/core-elf.txt": {
+        "bytes": 312271,
+        "sha256": "e379d9157705845ca94e781b59d420de3fd32c532f040a2d31ee4eb1c3ae15b1"
+      },
+      "build/setup/asan-ubsan/core-metadata-review.json": {
+        "bytes": 1505,
+        "sha256": "be3184e22fa736661b8be3369d44d9b188817d6e545080abc578706180e1fbcb"
+      },
+      "build/setup/asan-ubsan/core-methods.json": {
+        "bytes": 2553,
+        "sha256": "0ae186c1f7fba871040abb224549c9bb3927a0202f2166deb4a3353a26ff71e9"
+      },
+      "build/setup/asan-ubsan/core-symbols.json": {
+        "bytes": 22209,
+        "sha256": "f1ee4ebbd0b929f5e2aa6543d04fc08cd4819675f2f3bb597745a9f61bdde1e2"
+      },
+      "build/setup/asan-ubsan/core-undefined.json": {
+        "bytes": 4699,
+        "sha256": "9e731d2288a9ffc671c752f35140c5ad9cf985d2190e1d0fd2dafb29eccb11ac"
+      },
+      "build/setup/asan-ubsan/core.o": {
+        "bytes": 189456,
+        "sha256": "5600c074992eac1224a7c7a6fb56b8ae323372d7938a60e3c9c62d0e7e3a7f92"
+      }
+    },
+    "setup-plain": {
+      "build/setup/plain/configuration.json": {
+        "bytes": 314,
+        "sha256": "fd6a56e0b69c6c4ee3caf7d2301d86ebc70cff3318baa404277b8fbd57c2dc19"
+      },
+      "build/setup/plain/core-disassembly.txt": {
+        "bytes": 76835,
+        "sha256": "8714a49718712d204f8870e4bd897cb4b5be5afc0a9662e6e8b61573627ca8ef"
+      },
+      "build/setup/plain/core-elf.txt": {
+        "bytes": 113964,
+        "sha256": "ab28066ae37c8232a4447de1b61764ce0470c36ae1fa4d9ba8dd0d3305a200e8"
+      },
+      "build/setup/plain/core-metadata-review.json": {
+        "bytes": 480,
+        "sha256": "cb3399da3455cbf0cae047c98044cfd0262609191b43fd535819ee029aa00d89"
+      },
+      "build/setup/plain/core-methods.json": {
+        "bytes": 2540,
+        "sha256": "6c273a86cc8f3a9031ab1462d7ba14b18ffe4e38741f6b7b20fced9b8261b08f"
+      },
+      "build/setup/plain/core-symbols.json": {
+        "bytes": 15149,
+        "sha256": "2a38dd1dcf5c2d6391d6e194485a6fea030e560c06c398103308447c447b7092"
+      },
+      "build/setup/plain/core-undefined.json": {
+        "bytes": 835,
+        "sha256": "c7c50af383552fea2d860cec26ef851daf4689f4710a421de32e8cb86cf9c33c"
+      },
+      "build/setup/plain/core.o": {
+        "bytes": 71184,
+        "sha256": "6c63945d83ddd0570f504acaffa58a27eb3c3e00b968f4a51d3fbb496d0c0b48"
+      }
+    },
+    "standalone-asan-ubsan": {
+      "build/standalone/asan-ubsan/configuration.json": {
+        "bytes": 356,
+        "sha256": "e9211a219948c2d5940f6b0f3fb7a9c3ef0d1d35f9e58bfd209398b75e0cefc0"
+      },
+      "build/standalone/asan-ubsan/core-disassembly.txt": {
+        "bytes": 187395,
+        "sha256": "2ec4cd5203e8812c3d425f719fe4c9df1acbdc74da6c806beda25407447ceb84"
+      },
+      "build/standalone/asan-ubsan/core-elf.txt": {
+        "bytes": 228189,
+        "sha256": "1d671dbfb20f2fc2aa7cf90f7879b35aa47ba14d99ab0826a0d389d044939380"
+      },
+      "build/standalone/asan-ubsan/core-metadata-review.json": {
+        "bytes": 1510,
+        "sha256": "4b1a6bd99c78cd1c7d2d658e820595c24b949e38ce2f905a0e768641decb8c84"
+      },
+      "build/standalone/asan-ubsan/core-methods.json": {
+        "bytes": 1673,
+        "sha256": "eeca179532ac7f084b4731e46371fa04fe160c5ae3fa783cdf2e2dd8bb742b47"
+      },
+      "build/standalone/asan-ubsan/core-symbols.json": {
+        "bytes": 20289,
+        "sha256": "269f30aefbbf39ea3c660b525bc3f91d0e76b43ad2606f9d8ea6605d3b0459ba"
+      },
+      "build/standalone/asan-ubsan/core-undefined.json": {
+        "bytes": 4541,
+        "sha256": "068aa3d83efdab1ab4666909314087428aaaffcbb2376d15b0795be1212c6124"
+      },
+      "build/standalone/asan-ubsan/core.o": {
+        "bytes": 137520,
+        "sha256": "f7cb06242355e0a9f82f2b0d85af65cf9a31f9155ec3143ca0fc218022c24ee6"
+      }
+    },
+    "standalone-plain": {
+      "build/standalone/plain/configuration.json": {
+        "bytes": 287,
+        "sha256": "2008176a2fd12e353b9a0b1e01435a3a6bf0eaee6eb5af6c6485191e318f0114"
+      },
+      "build/standalone/plain/core-disassembly.txt": {
+        "bytes": 59475,
+        "sha256": "47c9d3b3127030c62403b599f4a8650e5810828047aef88d5743931c977cc96e"
+      },
+      "build/standalone/plain/core-elf.txt": {
+        "bytes": 98261,
+        "sha256": "7cb8587811b6c8f3bf374b62e6323ac2074b82494a6818705594706ff289fe45"
+      },
+      "build/standalone/plain/core-metadata-review.json": {
+        "bytes": 484,
+        "sha256": "8c4d174dd7fe4d784a41982910dc25cf05c9adf57c774e9db0895db72f385a49"
+      },
+      "build/standalone/plain/core-methods.json": {
+        "bytes": 1666,
+        "sha256": "a2d38b1b2c3f2fa231a8b50da1563de634a1680d344589a9ad744337495f085a"
+      },
+      "build/standalone/plain/core-symbols.json": {
+        "bytes": 13395,
+        "sha256": "3beda265798fc477f9b4a1d825c32cfc0687fd686595c50b5276b0e6628f5e78"
+      },
+      "build/standalone/plain/core-undefined.json": {
+        "bytes": 835,
+        "sha256": "c7c50af383552fea2d860cec26ef851daf4689f4710a421de32e8cb86cf9c33c"
+      },
+      "build/standalone/plain/core.o": {
+        "bytes": 60536,
+        "sha256": "80de2354f98adc2551b04bd8f63319a233cb20587b45a9d1cf0c6d07afc9890d"
+      }
+    }
+  },
+  "review_lock": {
+    "bytes": 1021,
+    "sha256": "fb455b55f0f26287d007e01e765198030e7705435b1aa92762553daa0ec2c398"
+  },
+  "runtime_gate": "CLOSED",
+  "schema": 1,
+  "status": "reviewed-before-candidate-runtime"
+}

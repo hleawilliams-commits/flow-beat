@@ -1,0 +1,1867 @@
+{
+  "baseline_commit": "88c4d3bf494af14516d3178d8c84643a77e202f3",
+  "complete_engine_coverage": "Every old/new core/header byte is covered by preserved or exact replacement spans in source-transform.json. Parent sources remain unchanged.",
+  "excluded": "No private stepping/inspection/refusal/diagnostic API, second admission, frozen volatile consumer, native provider, DSO/installer, signal/nonlocal exit, concurrent publication, production/live composition.",
+  "executed_before_freeze": {
+    "callback_or_matrix": false,
+    "compiler": false,
+    "device": false,
+    "old_passing_audit": false
+  },
+  "groups": [
+    {
+      "change": "Create separately named activation-ordinary-provider-fixture with full byte-segment transformation ledger against frozen ordinary-entry core/header. Preserve parent untouched. Reject AC_FIXTURE, old AC/AO/MA/RC controls; expose only five setup APIs plus ordinary entry/observer and existing address-only reader anchor.",
+      "id": "T1"
+    },
+    {
+      "change": "Add typed provider table/write-argument value types; replace scalar I/O request fields with table/context pointers. Keep return/state/owner/event/result semantics, full IDs and immutable completion layout. Capture two winning bindings only after sole admission, no request reads in loser.",
+      "id": "T2"
+    },
+    {
+      "change": "Replace only UNBLAMED and four I/O value-source cases in ac_receive with branch-local typed calls and immediate raw-value capture. Retain selection branch, event-before-call/record-after-return phase order. Missing reached provider halts before raw availability.",
+      "id": "T3"
+    },
+    {
+      "change": "Supply successful recorded OPEN raw as int64_t token to subsequent callbacks. Copy owner/write arguments into value objects; no private-state pointers escape. Preserve ac_record domains, next-branch sequence, ordinary driver and release/acquire observer.",
+      "id": "T4"
+    },
+    {
+      "change": "Authored harness supplies fixed tables/contexts, immutable setup/request values, bounded transcripts and guarded nested ordinary loser calls; no native provider or actual frame reads. Normal contexts are not alternate engine authority.",
+      "id": "T5"
+    },
+    {
+      "change": "Add eight mutually exclusive safe control macros only in separately named successor, each with dedicated baseline, exact singleton failure set and no unsafe pointer/undefined race/nonlocal exit. Controls do not modify expected assertion constants.",
+      "id": "T6"
+    },
+    {
+      "change": "Freeze complete source ledger, exact reader hashes, setup symbol surface, harness case names and control assertions before any future first build. Retain fresh compilation/method/dependency review before future runtime; no claim from old codegen alone. New plan retention and audit execute only local source copying/validation.",
+      "id": "T7"
+    }
+  ],
+  "harness": {
+    "case_groups": [
+      {
+        "expected": "Actual ac_run RETURNED and public completed exact owner/events. Callback order OPEN,WRITE,FSYNC,CLOSE; exact context, full owner, exact payload32/zero tail, and unchanged int64 token. Success errno sentinels ignored. Callback public observations Active/no payload.",
+        "id": "G1",
+        "selectors": [
+          "provider-generated-fd-zero",
+          "provider-wide-open-token"
+        ],
+        "setup": "Use committed module3/full process0x100000001/32-character ID, generated binding0; prepare all five setup calls before entry. Fixed callbacks receive owner/write values. Tokens are 0 or 0x100000001; all returned operations succeed."
+      },
+      {
+        "expected": "Only selected callbacks run once. No-owner completes SELECTION/UNBLAMED with no fabricated I/O value; open refusal completes SELECTION/OPEN with captured71 and known_failure.",
+        "id": "G2",
+        "selectors": [
+          "provider-no-owner",
+          "provider-open-refusal"
+        ],
+        "setup": "No-owner table has only unblamed; open-refusal table has only open returning {-1,71}. Other callbacks NULL and unused."
+      },
+      {
+        "expected": "Returned short/write failures retain correct raw/error and still invoke/record sync and close. Invalid returned domain and missing reached callback return INCOMPLETE/Active/no payload. Invalid case records callback prepared_return33; missing case has no WRITE invocation. These are different from returned -1 and native cancellation.",
+        "id": "G3",
+        "selectors": [
+          "provider-short-sync-error",
+          "provider-write-error",
+          "provider-invalid-write",
+          "provider-missing-write"
+        ],
+        "setup": "Valid owner/open0. Returns: write31/sync-1/error72/close0; write-1/error73/sync0/close0; invalid write33; or NULL reached write callback. For first two use length32."
+      },
+      {
+        "expected": "Nested actual return SUPPRESSED, all nested callback counts zero, public state Active/no payload before and after. Outer callback completes, preserves winning binding/arguments and returns exact completed result. No nested model/setup mutation or concurrent call.",
+        "id": "G4",
+        "selectors": [
+          "nested-unblamed",
+          "nested-open",
+          "nested-write",
+          "nested-null"
+        ],
+        "setup": "Exactly one guarded nested call from selected ordinary callback. Distinct live nested request/table/context has callbacks which would log if entered. NULL variant nested from open passes genuine NULL. All outer storage stable."
+      },
+      {
+        "expected": "Repeat SUPPRESSED and no new provider calls; public snapshot unchanged fieldwise, including immutable completion if present. Prior caller source mutation after return does not alter copied owner/receipt.",
+        "id": "G5",
+        "selectors": [
+          "repeat-after-returned",
+          "repeat-after-incomplete"
+        ],
+        "setup": "First provider call completes or has missing reached write. After that outer return, record and change the original caller-owned ID source array and first request pc/lr/fp fields, retaining before/after values. Do not change the already copied model, provider tables, code or live contexts. Then repeat using a distinct fully live request/table/context; all pointers stay valid and there is no reset/model publication."
+      }
+    ],
+    "check_counts": {
+      "candidate_selectors_per_mode": 22,
+      "control_baselines": 8,
+      "controls_per_mode": 8,
+      "distinct_assertion_names": 30,
+      "fresh_runtime_processes": 60,
+      "normal_selectors": 14,
+      "summed_assertions_per_mode": 270
+    },
+    "closed_evidence_schema": {
+      "closed_objects": true,
+      "hex33": "Exactly 66 lowercase hexadecimal characters encoding all 33 bytes; no NUL trimming.",
+      "objects": {
+        "call_record": {
+          "after": "request",
+          "before": "request",
+          "null_request": "bool",
+          "returned": "enum[0,1,2,3]",
+          "snapshot": "snapshot"
+        },
+        "callback_record": {
+          "context_id": "uint32",
+          "entry_observed": "bool",
+          "entry_snapshot": "snapshot",
+          "exit_observed": "bool",
+          "exit_snapshot": "snapshot",
+          "has_prepared_return": "bool",
+          "kind": "enum[0,1,2,3,4,5]",
+          "nested_after": "snapshot",
+          "nested_attempted": "bool",
+          "nested_before": "snapshot",
+          "nested_call_index": "uint32",
+          "nested_null": "bool",
+          "nested_return": "enum[0,1,2,3]",
+          "owner_arg": "owner",
+          "prepared_return": "io_value",
+          "prepared_void_return": "bool",
+          "token_arg": "int64",
+          "write_arg": "write_arg"
+        },
+        "configuration": {
+          "close": "io_value",
+          "id": "uint32",
+          "nested_kind": "int32",
+          "nested_null": "bool",
+          "nested_request_present": "bool",
+          "observe": "bool",
+          "open": "io_value",
+          "sync": "io_value",
+          "write": "io_value"
+        },
+        "context": {
+          "after": "configuration",
+          "before": "configuration",
+          "invocations": "uint32[6]",
+          "nested_started": "bool",
+          "table_after": "table",
+          "table_before": "table"
+        },
+        "event": {
+          "entered": "bool",
+          "errno_valid": "bool",
+          "error_number": "int32",
+          "kind": "enum[0,1,2,3,4,5]",
+          "payload_hex": "hex33",
+          "raw": "int64",
+          "requested_length": "uint64",
+          "returned_recorded": "bool"
+        },
+        "io_value": {
+          "failure_errno": "int32",
+          "raw": "int64"
+        },
+        "mutation": {
+          "id_after_hex": "hex33",
+          "id_before_hex": "hex33",
+          "performed": "bool",
+          "request_after": "request",
+          "request_before": "request"
+        },
+        "normalization": {
+          "indices": "uint32[0..12]",
+          "valid": "bool"
+        },
+        "owner": {
+          "id_hex": "hex33",
+          "index": "uint32",
+          "kind": "enum[0,1]",
+          "process_id": "uint64"
+        },
+        "request": {
+          "context_id": "uint32",
+          "fp": "uint64",
+          "lr": "uint64",
+          "pc": "uint64",
+          "table_id": "uint32"
+        },
+        "result": {
+          "event_count": "uint[0,6]",
+          "events": "event[6]",
+          "known_failure": "bool",
+          "owner": "owner",
+          "selection_known": "bool",
+          "short_write": "bool",
+          "violation": "bool"
+        },
+        "setup_record": {
+          "hi": "uint64",
+          "id_hex": "hex33",
+          "index": "uint32",
+          "island_hi": "uint64",
+          "island_lo": "uint64",
+          "kind": "enum[0,1,2]",
+          "lo": "uint64",
+          "operation": "enum[stage-module,commit-module,stage-generated,commit-generated]",
+          "process_id": "uint64",
+          "returned": "bool",
+          "trampoline_hi": "uint64",
+          "trampoline_lo": "uint64"
+        },
+        "snapshot": {
+          "has_payload": "bool",
+          "result": "result",
+          "state": "enum[0,1,2]"
+        },
+        "table": {
+          "close": "bool",
+          "open": "bool",
+          "sync": "bool",
+          "unblamed": "bool",
+          "write": "bool"
+        },
+        "write_arg": {
+          "accepted_open_token": "int64",
+          "payload_hex": "hex33",
+          "requested_length": "uint64"
+        }
+      },
+      "private_fields": {
+        "callbacks": "callback_record[0..12]",
+        "caller_id_after_hex": "hex33",
+        "caller_id_before_hex": "hex33",
+        "calls": "call_record[1..3]",
+        "contexts": "context[4]",
+        "expected_owner": "owner",
+        "initial_snapshot": "snapshot",
+        "mutation": "mutation",
+        "normalization": "normalization",
+        "setup": "setup_record[0..16]"
+      },
+      "private_keys": [
+        "schema",
+        "selector",
+        "checks",
+        "check_names",
+        "failures",
+        "failed_checks",
+        "source_scope",
+        "caller_id_before_hex",
+        "caller_id_after_hex",
+        "expected_owner",
+        "initial_snapshot",
+        "setup",
+        "calls",
+        "callbacks",
+        "contexts",
+        "mutation",
+        "normalization"
+      ],
+      "source_scope": {
+        "attempt_observation": "public-entry-return-and-callback-boundaries",
+        "callback_return_evidence": "prepared-before-C-return-not-private-raw-telemetry",
+        "evidence_io": "stdio-report-only",
+        "native_fault_provider_functions_present": false,
+        "providers": "authored-c-callbacks-only",
+        "signals": false,
+        "threads": false
+      },
+      "summary_keys": [
+        "schema",
+        "selector",
+        "checks",
+        "check_names",
+        "failures",
+        "failed_checks"
+      ],
+      "validation_scope": "Shape validation permits deliberate safe-control outcomes without adding semantic state/count/result predicates. Prepared callback values are recorded before C return; only the separate final public receipt establishes engine completion. Context/table IDs identify fixed authored objects by pointer equality; no native address is serialized."
+    },
+    "control_definitions": [
+      {
+        "expected_failure_set": [
+          "suppressed-entry-does-not-call-provider"
+        ],
+        "id": "C1",
+        "macro": "AP_CONTROL_EARLY_PROVIDER",
+        "mutation": "Before original ac_begin_internal in ac_run, for a nonnull request/table/unblamed pointer call that unblamed(context) once. Preserve original CAS/driver. The first Community table has unblamed NULL; the post-completion repeated request has a live spy unblamed.",
+        "name": "provider-before-admission",
+        "oracle": "Assert repeated context invocation count0; mutant has1. Separate actual repeat SUPPRESSED/public unchanged assertions still pass. This witnesses premature invocation; absence of all pre-CAS field loads still requires source/method review.",
+        "safety": "Only valid stable pointers; no native operation or nested recursion. The dedicated post-completion unblamed spy only logs invocation: no Active-state assertion, observer or nesting, avoiding a second intentional failure.",
+        "selector": "control-suppressed-provider"
+      },
+      {
+        "expected_failure_set": [
+          "nested-entry-returns-suppressed"
+        ],
+        "id": "C2",
+        "macro": "AP_CONTROL_WRONG_SUPPRESSED_RETURN",
+        "mutation": "In ac_run only, map original result AC_SUPPRESSED to AC_RETURNED on the early nonadmitted return; do not drive, change state or touch providers.",
+        "name": "nested-loser-return",
+        "oracle": "Dedicated open callback nested ordinary call records wrong actual enum; nested count0 and outer exact completion remain passing.",
+        "safety": "No second admission or provider access.",
+        "selector": "control-nested-return"
+      },
+      {
+        "expected_failure_set": [
+          "unblamed-callback-is-invoked-once"
+        ],
+        "id": "C3",
+        "macro": "AP_CONTROL_OMIT_UNBLAMED",
+        "mutation": "Skip only actual unblamed(context) call, then retain normal raw-available/record/complete path.",
+        "name": "omit-unblamed-call",
+        "oracle": "No-owner callback count should1, mutant0. Exact public SELECTION/UNBLAMED completion and returned enum remain passing. The invocation assertion alone owns absent callback observations; do not add a generic observation-count assertion that fails when this callback is intentionally omitted.",
+        "safety": "Omission of authored callback only.",
+        "selector": "control-unblamed-dispatch"
+      },
+      {
+        "expected_failure_set": [
+          "callback-receives-bound-context"
+        ],
+        "id": "C4",
+        "macro": "AP_CONTROL_ALTERNATE_CONTEXT",
+        "mutation": "Only for CLOSE dispatch, pass a separately declared live alternate authored context instead of captured context. Both contexts return identical {0,0}; no new callback/table authority or accessor.",
+        "name": "alternate-context",
+        "oracle": "Aggregate transcript across both fixed contexts shows one close to alternate; single semantic assertion checks context identity. Count/order/arguments/return/completion checks use aggregate and remain passing.",
+        "safety": "Dedicated control-only const pointer to live alternate context configured before entry; no invalid pointer. Pin the exact fixed alternate-context symbol and binding in the future complete transformation ledger; no added setup API.",
+        "selector": "control-bound-context"
+      },
+      {
+        "expected_failure_set": [
+          "write-callback-receives-recorded-payload"
+        ],
+        "id": "C5",
+        "macro": "AP_CONTROL_DECOY_WRITE",
+        "mutation": "Only the by-value write argument payload changes to a separate same-length canonical decoy before callback. Preserve private event payload, requested length and callback returned count.",
+        "name": "decoy-write-value",
+        "oracle": "Compare transcript write bytes to public entered/recorded payload. All tokens/lengths/counts/completion fields still pass. Full byte compare belongs solely to this assertion.",
+        "safety": "Defined local value copy, no caller/private pointer mutation.",
+        "selector": "control-write-payload"
+      },
+      {
+        "expected_failure_set": [
+          "close-receipt-matches-callback-return"
+        ],
+        "id": "C6",
+        "macro": "AP_CONTROL_REPLACE_CLOSE_RETURN",
+        "mutation": "After actual close callback returns {-1,93} into local ac_io_value, replace consumed pair with {0,0} before raw capture. Actual callback prepared_return transcript remains truthful; no alteration of callback/journal.",
+        "name": "replace-close-return",
+        "oracle": "One composite assertion checks close raw/error and known_failure against expected {-1,93}. Other checks cover invariant identity/order/count/return/state and remain passing. No duplicate generic known_failure assertion.",
+        "safety": "Last event avoids continuation masking; no retry.",
+        "selector": "control-close-return"
+      },
+      {
+        "expected_failure_set": [
+          "short-write-dispatch-is-single-attempt"
+        ],
+        "id": "C7",
+        "macro": "AP_CONTROL_REPEAT_SHORT_WRITE",
+        "mutation": "After first WRITE callback returns31 for requested32, call the same callback once more with the exact args, consume its same returned pair and continue normal sync/close. Fixed provider has capacity for both and returns31 both times.",
+        "name": "repeat-short-write",
+        "oracle": "One assertion checks exactly one WRITE invocation. Other sequence/argument/result checks collapse the declared identical duplicate for unaffected comparisons; transcript retains both actual calls. Duplicate normalization is the exact same bounded comparison in baseline and mutant, independent of any control macro; retain and reject other kind/order/argument differences, and never rewrite the transcript.",
+        "safety": "Two finite authored calls, no loop/native retry or extra admission.",
+        "selector": "control-short-write-once"
+      },
+      {
+        "expected_failure_set": [
+          "accepted-open-token-reaches-followup-callbacks"
+        ],
+        "id": "C8",
+        "macro": "AP_CONTROL_NARROW_OPEN_TOKEN",
+        "mutation": "Only subsequent provider argument construction narrows the accepted positive OPEN token0x100000001 through uint32_t before widening to int64_t. Authoritative OPEN receipt remains unchanged.",
+        "name": "narrow-open-token",
+        "oracle": "One composite assertion checks WRITE/FSYNC/CLOSE received full token. Callbacks return unchanged values independent of token; public receipts, context, order and payload checks remain passing.",
+        "safety": "Defined unsigned narrowing on authored integer; no real descriptor operation.",
+        "selector": "control-wide-token"
+      }
+    ],
+    "controls": {
+      "alternate-context": {
+        "expected_failures": [
+          "callback-receives-bound-context"
+        ],
+        "macro": "AP_CONTROL_ALTERNATE_CONTEXT",
+        "safety": "Dedicated control-only const pointer to live alternate context configured before entry; no invalid pointer. Pin the exact fixed alternate-context symbol and binding in the future complete transformation ledger; no added setup API.",
+        "selector": "control-bound-context"
+      },
+      "decoy-write-value": {
+        "expected_failures": [
+          "write-callback-receives-recorded-payload"
+        ],
+        "macro": "AP_CONTROL_DECOY_WRITE",
+        "safety": "Defined local value copy, no caller/private pointer mutation.",
+        "selector": "control-write-payload"
+      },
+      "narrow-open-token": {
+        "expected_failures": [
+          "accepted-open-token-reaches-followup-callbacks"
+        ],
+        "macro": "AP_CONTROL_NARROW_OPEN_TOKEN",
+        "safety": "Defined unsigned narrowing on authored integer; no real descriptor operation.",
+        "selector": "control-wide-token"
+      },
+      "nested-loser-return": {
+        "expected_failures": [
+          "nested-entry-returns-suppressed"
+        ],
+        "macro": "AP_CONTROL_WRONG_SUPPRESSED_RETURN",
+        "safety": "No second admission or provider access.",
+        "selector": "control-nested-return"
+      },
+      "omit-unblamed-call": {
+        "expected_failures": [
+          "unblamed-callback-is-invoked-once"
+        ],
+        "macro": "AP_CONTROL_OMIT_UNBLAMED",
+        "safety": "Omission of authored callback only.",
+        "selector": "control-unblamed-dispatch"
+      },
+      "provider-before-admission": {
+        "expected_failures": [
+          "suppressed-entry-does-not-call-provider"
+        ],
+        "macro": "AP_CONTROL_EARLY_PROVIDER",
+        "safety": "Only valid stable pointers; no native operation or nested recursion. The dedicated post-completion unblamed spy only logs invocation: no Active-state assertion, observer or nesting, avoiding a second intentional failure.",
+        "selector": "control-suppressed-provider"
+      },
+      "repeat-short-write": {
+        "expected_failures": [
+          "short-write-dispatch-is-single-attempt"
+        ],
+        "macro": "AP_CONTROL_REPEAT_SHORT_WRITE",
+        "safety": "Two finite authored calls, no loop/native retry or extra admission.",
+        "selector": "control-short-write-once"
+      },
+      "replace-close-return": {
+        "expected_failures": [
+          "close-receipt-matches-callback-return"
+        ],
+        "macro": "AP_CONTROL_REPLACE_CLOSE_RETURN",
+        "safety": "Last event avoids continuation masking; no retry.",
+        "selector": "control-close-return"
+      }
+    },
+    "fixed_alternate_binding": "Harness strong void *const ap_control_alternate_context=&contexts[2]; only the C4 core config references it.",
+    "new_code": "Harness is newly authored; no predecessor harness object is reused. The same newly compiled harness object per sanitizer mode links candidate and all eight controls.",
+    "oracle_rules": [
+      "Candidate and all eight controls use the identical harness object, without control-specific preprocessor branches.",
+      "Provider tables are mutable authored setup storage, then unchanged through entry and return; the engine receives const pointers. Context script/binding fields stay stable, while invocation counts, one nested guard and the separate callback journal may change.",
+      "Each safe control changes only its separately compiled core; baseline and mutant use the same named assertion set, exact singleton failure list and shape schema.",
+      "C1 repeated spy records invocation only, with no observer or nested call.",
+      "C3 invocation assertion alone owns absent callback observations; the common observed-boundary check quantifies only actual observed callbacks.",
+      "C4 context identity uses the aggregate transcript across the primary and fixed alternate contexts.",
+      "C5 payload, C6 close receipt/known-failure fields and C8 follow-up token checks each have a sole semantic owner.",
+      "C7 normalization permits exactly one adjacent field-identical WRITE duplicate for unaffected checks, equally in candidate and control, while preserving the unmodified callback transcript; other differences remain failures.",
+      "G5 mutates the original caller ID/request coordinates only after the first outer return. Model copies, tables, code and context configurations stay unchanged.",
+      "Same-thread nested losers are bounded authored calls; no general callback quiescence, interruption, signal, race or concurrent visibility claim."
+    ],
+    "selectors": {
+      "control-bound-context": {
+        "checks": [
+          "initial-public-state-is-virgin",
+          "authored-setup-succeeds",
+          "ordinary-call-inputs-and-bindings-stay-stable",
+          "observed-callback-boundaries-have-empty-active-state",
+          "ordinary-provider-entry-returns-returned",
+          "public-completion-matches-authored-return-values",
+          "callback-sequence-and-prepared-values-match",
+          "callback-receives-bound-context",
+          "callback-receives-copied-owner-and-length",
+          "write-callback-receives-recorded-payload",
+          "accepted-open-token-reaches-followup-callbacks",
+          "report-bounds-respected"
+        ],
+        "group": "C4"
+      },
+      "control-close-return": {
+        "checks": [
+          "initial-public-state-is-virgin",
+          "authored-setup-succeeds",
+          "ordinary-call-inputs-and-bindings-stay-stable",
+          "observed-callback-boundaries-have-empty-active-state",
+          "ordinary-provider-entry-returns-returned",
+          "close-control-preserves-other-completion-fields",
+          "close-receipt-matches-callback-return",
+          "callback-sequence-and-prepared-values-match",
+          "callback-receives-bound-context",
+          "callback-receives-copied-owner-and-length",
+          "write-callback-receives-recorded-payload",
+          "accepted-open-token-reaches-followup-callbacks",
+          "report-bounds-respected"
+        ],
+        "group": "C6"
+      },
+      "control-nested-return": {
+        "checks": [
+          "initial-public-state-is-virgin",
+          "authored-setup-succeeds",
+          "ordinary-call-inputs-and-bindings-stay-stable",
+          "observed-callback-boundaries-have-empty-active-state",
+          "exactly-one-guarded-nested-call-occurs",
+          "nested-entry-returns-suppressed",
+          "nested-loser-invokes-no-provider",
+          "nested-boundaries-preserve-empty-active-state",
+          "outer-provider-entry-completes-after-nested-loser",
+          "callback-sequence-and-prepared-values-match",
+          "callback-receives-bound-context",
+          "callback-receives-copied-owner-and-length",
+          "write-callback-receives-recorded-payload",
+          "accepted-open-token-reaches-followup-callbacks",
+          "report-bounds-respected"
+        ],
+        "group": "C2"
+      },
+      "control-short-write-once": {
+        "checks": [
+          "initial-public-state-is-virgin",
+          "authored-setup-succeeds",
+          "ordinary-call-inputs-and-bindings-stay-stable",
+          "observed-callback-boundaries-have-empty-active-state",
+          "ordinary-provider-entry-returns-returned",
+          "public-completion-matches-authored-return-values",
+          "callback-sequence-and-prepared-values-match",
+          "callback-receives-bound-context",
+          "callback-receives-copied-owner-and-length",
+          "write-callback-receives-recorded-payload",
+          "accepted-open-token-reaches-followup-callbacks",
+          "short-write-dispatch-is-single-attempt",
+          "report-bounds-respected"
+        ],
+        "group": "C7"
+      },
+      "control-suppressed-provider": {
+        "checks": [
+          "initial-public-state-is-virgin",
+          "authored-setup-succeeds",
+          "ordinary-call-inputs-and-bindings-stay-stable",
+          "observed-callback-boundaries-have-empty-active-state",
+          "first-provider-attempt-has-expected-terminal-state",
+          "terminal-repeat-returns-suppressed",
+          "terminal-repeat-preserves-public-snapshot",
+          "suppressed-entry-does-not-call-provider",
+          "report-bounds-respected"
+        ],
+        "group": "C1"
+      },
+      "control-unblamed-dispatch": {
+        "checks": [
+          "initial-public-state-is-virgin",
+          "authored-setup-succeeds",
+          "ordinary-call-inputs-and-bindings-stay-stable",
+          "observed-callback-boundaries-have-empty-active-state",
+          "ordinary-provider-entry-returns-returned",
+          "public-completion-matches-authored-return-values",
+          "unblamed-callback-is-invoked-once",
+          "report-bounds-respected"
+        ],
+        "group": "C3"
+      },
+      "control-wide-token": {
+        "checks": [
+          "initial-public-state-is-virgin",
+          "authored-setup-succeeds",
+          "ordinary-call-inputs-and-bindings-stay-stable",
+          "observed-callback-boundaries-have-empty-active-state",
+          "ordinary-provider-entry-returns-returned",
+          "public-completion-matches-authored-return-values",
+          "callback-sequence-and-prepared-values-match",
+          "callback-receives-bound-context",
+          "callback-receives-copied-owner-and-length",
+          "write-callback-receives-recorded-payload",
+          "accepted-open-token-reaches-followup-callbacks",
+          "report-bounds-respected"
+        ],
+        "group": "C8"
+      },
+      "control-write-payload": {
+        "checks": [
+          "initial-public-state-is-virgin",
+          "authored-setup-succeeds",
+          "ordinary-call-inputs-and-bindings-stay-stable",
+          "observed-callback-boundaries-have-empty-active-state",
+          "ordinary-provider-entry-returns-returned",
+          "public-completion-matches-authored-return-values",
+          "callback-sequence-and-prepared-values-match",
+          "callback-receives-bound-context",
+          "callback-receives-copied-owner-and-length",
+          "write-callback-receives-recorded-payload",
+          "accepted-open-token-reaches-followup-callbacks",
+          "report-bounds-respected"
+        ],
+        "group": "C5"
+      },
+      "nested-null": {
+        "checks": [
+          "initial-public-state-is-virgin",
+          "authored-setup-succeeds",
+          "ordinary-call-inputs-and-bindings-stay-stable",
+          "observed-callback-boundaries-have-empty-active-state",
+          "exactly-one-guarded-nested-call-occurs",
+          "nested-entry-returns-suppressed",
+          "nested-loser-invokes-no-provider",
+          "nested-boundaries-preserve-empty-active-state",
+          "outer-provider-entry-completes-after-nested-loser",
+          "callback-sequence-and-prepared-values-match",
+          "callback-receives-bound-context",
+          "callback-receives-copied-owner-and-length",
+          "write-callback-receives-recorded-payload",
+          "accepted-open-token-reaches-followup-callbacks",
+          "report-bounds-respected"
+        ],
+        "group": "G4"
+      },
+      "nested-open": {
+        "checks": [
+          "initial-public-state-is-virgin",
+          "authored-setup-succeeds",
+          "ordinary-call-inputs-and-bindings-stay-stable",
+          "observed-callback-boundaries-have-empty-active-state",
+          "exactly-one-guarded-nested-call-occurs",
+          "nested-entry-returns-suppressed",
+          "nested-loser-invokes-no-provider",
+          "nested-boundaries-preserve-empty-active-state",
+          "outer-provider-entry-completes-after-nested-loser",
+          "callback-sequence-and-prepared-values-match",
+          "callback-receives-bound-context",
+          "callback-receives-copied-owner-and-length",
+          "write-callback-receives-recorded-payload",
+          "accepted-open-token-reaches-followup-callbacks",
+          "report-bounds-respected"
+        ],
+        "group": "G4"
+      },
+      "nested-unblamed": {
+        "checks": [
+          "initial-public-state-is-virgin",
+          "authored-setup-succeeds",
+          "ordinary-call-inputs-and-bindings-stay-stable",
+          "observed-callback-boundaries-have-empty-active-state",
+          "exactly-one-guarded-nested-call-occurs",
+          "nested-entry-returns-suppressed",
+          "nested-loser-invokes-no-provider",
+          "nested-boundaries-preserve-empty-active-state",
+          "outer-provider-entry-completes-after-nested-loser",
+          "callback-sequence-and-prepared-values-match",
+          "callback-receives-bound-context",
+          "callback-receives-copied-owner-and-length",
+          "write-callback-receives-recorded-payload",
+          "accepted-open-token-reaches-followup-callbacks",
+          "report-bounds-respected"
+        ],
+        "group": "G4"
+      },
+      "nested-write": {
+        "checks": [
+          "initial-public-state-is-virgin",
+          "authored-setup-succeeds",
+          "ordinary-call-inputs-and-bindings-stay-stable",
+          "observed-callback-boundaries-have-empty-active-state",
+          "exactly-one-guarded-nested-call-occurs",
+          "nested-entry-returns-suppressed",
+          "nested-loser-invokes-no-provider",
+          "nested-boundaries-preserve-empty-active-state",
+          "outer-provider-entry-completes-after-nested-loser",
+          "callback-sequence-and-prepared-values-match",
+          "callback-receives-bound-context",
+          "callback-receives-copied-owner-and-length",
+          "write-callback-receives-recorded-payload",
+          "accepted-open-token-reaches-followup-callbacks",
+          "report-bounds-respected"
+        ],
+        "group": "G4"
+      },
+      "provider-generated-fd-zero": {
+        "checks": [
+          "initial-public-state-is-virgin",
+          "authored-setup-succeeds",
+          "ordinary-call-inputs-and-bindings-stay-stable",
+          "observed-callback-boundaries-have-empty-active-state",
+          "ordinary-provider-entry-returns-returned",
+          "public-completion-matches-authored-return-values",
+          "callback-sequence-and-prepared-values-match",
+          "callback-receives-bound-context",
+          "callback-receives-copied-owner-and-length",
+          "write-callback-receives-recorded-payload",
+          "accepted-open-token-reaches-followup-callbacks",
+          "report-bounds-respected"
+        ],
+        "group": "G1"
+      },
+      "provider-invalid-write": {
+        "checks": [
+          "initial-public-state-is-virgin",
+          "authored-setup-succeeds",
+          "ordinary-call-inputs-and-bindings-stay-stable",
+          "observed-callback-boundaries-have-empty-active-state",
+          "invalid-or-missing-provider-returns-incomplete",
+          "incomplete-provider-exposes-no-public-payload",
+          "invalid-write-retains-prepared-return-transcript",
+          "callback-receives-bound-context",
+          "callback-receives-copied-owner-and-length",
+          "write-callback-receives-recorded-payload",
+          "accepted-open-token-reaches-followup-callbacks",
+          "report-bounds-respected"
+        ],
+        "group": "G3"
+      },
+      "provider-missing-write": {
+        "checks": [
+          "initial-public-state-is-virgin",
+          "authored-setup-succeeds",
+          "ordinary-call-inputs-and-bindings-stay-stable",
+          "observed-callback-boundaries-have-empty-active-state",
+          "invalid-or-missing-provider-returns-incomplete",
+          "incomplete-provider-exposes-no-public-payload",
+          "missing-write-has-no-callback-invocation",
+          "callback-receives-bound-context",
+          "callback-receives-copied-owner-and-length",
+          "write-callback-receives-recorded-payload",
+          "accepted-open-token-reaches-followup-callbacks",
+          "report-bounds-respected"
+        ],
+        "group": "G3"
+      },
+      "provider-no-owner": {
+        "checks": [
+          "initial-public-state-is-virgin",
+          "authored-setup-succeeds",
+          "ordinary-call-inputs-and-bindings-stay-stable",
+          "observed-callback-boundaries-have-empty-active-state",
+          "ordinary-provider-entry-returns-returned",
+          "public-completion-matches-authored-return-values",
+          "callback-sequence-and-prepared-values-match",
+          "callback-receives-bound-context",
+          "callback-receives-copied-owner-and-length",
+          "write-callback-receives-recorded-payload",
+          "accepted-open-token-reaches-followup-callbacks",
+          "report-bounds-respected"
+        ],
+        "group": "G2"
+      },
+      "provider-open-refusal": {
+        "checks": [
+          "initial-public-state-is-virgin",
+          "authored-setup-succeeds",
+          "ordinary-call-inputs-and-bindings-stay-stable",
+          "observed-callback-boundaries-have-empty-active-state",
+          "ordinary-provider-entry-returns-returned",
+          "public-completion-matches-authored-return-values",
+          "callback-sequence-and-prepared-values-match",
+          "callback-receives-bound-context",
+          "callback-receives-copied-owner-and-length",
+          "write-callback-receives-recorded-payload",
+          "accepted-open-token-reaches-followup-callbacks",
+          "report-bounds-respected"
+        ],
+        "group": "G2"
+      },
+      "provider-short-sync-error": {
+        "checks": [
+          "initial-public-state-is-virgin",
+          "authored-setup-succeeds",
+          "ordinary-call-inputs-and-bindings-stay-stable",
+          "observed-callback-boundaries-have-empty-active-state",
+          "ordinary-provider-entry-returns-returned",
+          "public-completion-matches-authored-return-values",
+          "callback-sequence-and-prepared-values-match",
+          "callback-receives-bound-context",
+          "callback-receives-copied-owner-and-length",
+          "write-callback-receives-recorded-payload",
+          "accepted-open-token-reaches-followup-callbacks",
+          "report-bounds-respected"
+        ],
+        "group": "G3"
+      },
+      "provider-wide-open-token": {
+        "checks": [
+          "initial-public-state-is-virgin",
+          "authored-setup-succeeds",
+          "ordinary-call-inputs-and-bindings-stay-stable",
+          "observed-callback-boundaries-have-empty-active-state",
+          "ordinary-provider-entry-returns-returned",
+          "public-completion-matches-authored-return-values",
+          "callback-sequence-and-prepared-values-match",
+          "callback-receives-bound-context",
+          "callback-receives-copied-owner-and-length",
+          "write-callback-receives-recorded-payload",
+          "accepted-open-token-reaches-followup-callbacks",
+          "report-bounds-respected"
+        ],
+        "group": "G1"
+      },
+      "provider-write-error": {
+        "checks": [
+          "initial-public-state-is-virgin",
+          "authored-setup-succeeds",
+          "ordinary-call-inputs-and-bindings-stay-stable",
+          "observed-callback-boundaries-have-empty-active-state",
+          "ordinary-provider-entry-returns-returned",
+          "public-completion-matches-authored-return-values",
+          "callback-sequence-and-prepared-values-match",
+          "callback-receives-bound-context",
+          "callback-receives-copied-owner-and-length",
+          "write-callback-receives-recorded-payload",
+          "accepted-open-token-reaches-followup-callbacks",
+          "report-bounds-respected"
+        ],
+        "group": "G3"
+      },
+      "repeat-after-incomplete": {
+        "checks": [
+          "initial-public-state-is-virgin",
+          "authored-setup-succeeds",
+          "ordinary-call-inputs-and-bindings-stay-stable",
+          "observed-callback-boundaries-have-empty-active-state",
+          "first-provider-attempt-has-expected-terminal-state",
+          "post-return-caller-source-mutation-is-real",
+          "terminal-repeat-returns-suppressed",
+          "terminal-repeat-preserves-public-snapshot",
+          "suppressed-entry-does-not-call-provider",
+          "report-bounds-respected"
+        ],
+        "group": "G5"
+      },
+      "repeat-after-returned": {
+        "checks": [
+          "initial-public-state-is-virgin",
+          "authored-setup-succeeds",
+          "ordinary-call-inputs-and-bindings-stay-stable",
+          "observed-callback-boundaries-have-empty-active-state",
+          "first-provider-attempt-has-expected-terminal-state",
+          "post-return-caller-source-mutation-is-real",
+          "terminal-repeat-returns-suppressed",
+          "terminal-repeat-preserves-public-snapshot",
+          "suppressed-entry-does-not-call-provider",
+          "report-bounds-respected"
+        ],
+        "group": "G5"
+      }
+    },
+    "stable_lifetime": "Static authored tables are configured before entry and accessed via const provider pointers; script fields, request and model stay unchanged through return. Only bounded journals, counters, one nesting guard and public observations mutate. No native operation."
+  },
+  "limits": [
+    "Structured callback return errors are authored values, not ambient errno, EINTR handling or actual crash persistence.",
+    "Selection/frame cells stay authored; no actual DSO/installer, native file/frame provider, firmware/device, signal/nonlocal exit, concurrent publication or production/live composition.",
+    "LL/SC admission retry, libc memcpy/memset/memcmp, canary-failure edges and sanitizer dependencies remain unproved for signal safety; no bounded/wait-free admission.",
+    "No arbitrary DSO/slot/code custody, nonparticipating-writer coordination, loader/interposition, native visibility, callback quiescence, reclamation or recovery proof.",
+    "Quarantine, official cores/protections/packages remain unchanged. Ownership is not fault causation. Every live gate remains CLOSED."
+  ],
+  "preserved_method_bodies": {
+    "ac_admit_internal": {
+      "bytes": 504,
+      "new_span": [
+        10460,
+        10964
+      ],
+      "old_span": [
+        10251,
+        10755
+      ],
+      "sha256": "950cebda88fdf09a54898df2542a765c64ac6430af6569aaf1f4045e860a10e8"
+    },
+    "ac_enter": {
+      "bytes": 701,
+      "new_span": [
+        11580,
+        12281
+      ],
+      "old_span": [
+        11251,
+        11952
+      ],
+      "sha256": "5c1a89f06cb7ec966717dd72eb5037085576fd204dede70094650868cf633fcc"
+    },
+    "ac_model_add_cell": {
+      "bytes": 462,
+      "new_span": [
+        24146,
+        24608
+      ],
+      "old_span": [
+        21436,
+        21898
+      ],
+      "sha256": "5a744d97fd1aa38d9ef3ab8341e1c5446ad02689e0efe78822cabf651a4619a3"
+    },
+    "ac_model_commit_generated": {
+      "bytes": 523,
+      "new_span": [
+        23617,
+        24140
+      ],
+      "old_span": [
+        20907,
+        21430
+      ],
+      "sha256": "9eafccbf0f50d630fb1206797261930f29994bec77912541809f112b764bdd93"
+    },
+    "ac_model_commit_module": {
+      "bytes": 502,
+      "new_span": [
+        21959,
+        22461
+      ],
+      "old_span": [
+        19249,
+        19751
+      ],
+      "sha256": "8bfab25b75203058b75ebf1af0b848b68ca694bc16b67ab878191096bd931666"
+    },
+    "ac_model_stage_generated": {
+      "bytes": 1144,
+      "new_span": [
+        22467,
+        23611
+      ],
+      "old_span": [
+        19757,
+        20901
+      ],
+      "sha256": "70907933f62dd721ce2f86a1997de6af0b566431f7875b48253587cb1ad988aa"
+    },
+    "ac_model_stage_module": {
+      "bytes": 563,
+      "new_span": [
+        21390,
+        21953
+      ],
+      "old_span": [
+        18680,
+        19243
+      ],
+      "sha256": "193e790d9ee6d24fc8bd09a775609f5efaf95037f4ae37c8f10168e9e45c5d79"
+    },
+    "ac_next": {
+      "bytes": 664,
+      "new_span": [
+        18076,
+        18740
+      ],
+      "old_span": [
+        15151,
+        15815
+      ],
+      "sha256": "6f7f32fd6ecb935a06c8ba93f337f91045cfa3feac5ee87289820129093f9c43"
+    },
+    "ac_observe": {
+      "bytes": 652,
+      "new_span": [
+        20180,
+        20832
+      ],
+      "old_span": [
+        17470,
+        18122
+      ],
+      "sha256": "6a451aea8644c2711bbdcde0bc091224760d65375b26155740a7bf092c02adde"
+    },
+    "ac_publish_internal": {
+      "bytes": 182,
+      "new_span": [
+        18788,
+        18970
+      ],
+      "old_span": [
+        15863,
+        16045
+      ],
+      "sha256": "95c104a9aeb6b750fb8c05482fab41e9300ae249cf307f39f6d6c9fc744a87e8"
+    },
+    "ac_record": {
+      "bytes": 1732,
+      "new_span": [
+        16331,
+        18063
+      ],
+      "old_span": [
+        13406,
+        15138
+      ],
+      "sha256": "cdc14bab236867c7c80470c45367f361a5db44683a8ed323b8fee60868c0fddf"
+    },
+    "ac_select_values": {
+      "bytes": 296,
+      "new_span": [
+        9585,
+        9881
+      ],
+      "old_span": [
+        9376,
+        9672
+      ],
+      "sha256": "27cdf8fd0673d7010a7a62a90c57cf62022443d4c5480151da0cd3e2060d7538"
+    },
+    "ac_step_internal": {
+      "bytes": 536,
+      "new_span": [
+        18983,
+        19519
+      ],
+      "old_span": [
+        16058,
+        16594
+      ],
+      "sha256": "f82cb9a996770b75207277eecd1393d793d00bc011a60a0aa1bbcc0d1a52ced4"
+    }
+  },
+  "provider_contract": {
+    "binding": "The table and context are captured once only after successful admission. No binding refresh at dispatch or after nested return. Context may be NULL if the selected authored callback accepts it; the planned runtime harness uses actual live nonnull contexts. A pointer is not dereferenced merely to validate it.",
+    "branch_local_validation": "Immediately before each required dispatch, test the captured table and the reached function pointer. Missing required table/function halts Active/INCOMPLETE without a callback return, raw-available state for that operation, authoritative returned receipt or public completion. Unused callbacks may be NULL: no-owner needs only unblamed; open -1 needs no later callbacks. No global all-functions validator or second admission.",
+    "dispatch_order": [
+      "ac_enter marks the selected event entered, clears raw availability and prepares WRITE length/payload before any required callback.",
+      "ac_receive performs one branch-local callback call. An I/O result is assigned immediately by value to a local ac_io_value, then copied into raw.io without any intervening callback or error getter; publish raw.available/AC_RAW_AVAILABLE only after ordinary callback return. Void unblamed gets raw availability only after it returns.",
+      "ac_record alone validates returned domains, marks returned_recorded, captures error_number only for raw==-1, and sets independent known_failure/short_write flags. The callback-return pair and this authoritative receipt are different stages.",
+      "Only after OPEN has been recorded with nonnegative raw does the next dispatch consume that exact int64_t token from the accepted OPEN receipt; never narrow it to int or treat zero as failure. WRITE/FSYNC/CLOSE use that saved accepted value, never re-call open.",
+      "Preserve branch continuation: open -1 completes after OPEN; returned write -1/short still leads to FSYNC then CLOSE; invalid domain halts before recording that event or later calls.",
+      "Only after all selected operations return and record does ac_publish_internal copy the complete result then release-store OrdinaryReturned. ac_observe remains acquire-gated and returns no working/raw payload during callbacks."
+    ],
+    "entry": "Retain ac_run(const ac_request *) and its ordinary loop/return mapping. A future request retains pc/lr/fp but replaces authored open/write/sync/close fields with const ap_provider_table *providers and void *context. Only the winning ac_begin_internal path copies those pointer values into private winning bindings after ac_admit_internal succeeds and before driving. NULL request stores NULL bindings without dereference and retains the selected NULL-input failure path. Suppressed callers return before reading any request field, table field or context storage.",
+    "errors": "failure_errno is an explicitly authored integer returned in the same ac_io_value. It is not a read of ambient errno, errno TLS, native syscall result or retry instruction. Nonfailure return ignores this field in the authoritative receipt. A callback-prepared pair, actual by-value return, private raw capture, authoritative receipt and public completion must not be conflated.",
+    "journal": "Callbacks append only to their own bounded authored transcript, including invocation kind, context identity and argument values; a journal entry labelled prepared_return is written before the callback's C return and is not itself proof the outer engine captured/recorded it. Completed receipts and exact source/future method review corroborate the path. Incomplete cases expose no private partial state. No private observer/step/inspection/refusal API is added.",
+    "lifetime": "The outer request/table/registry and callback code remain unchanged throughout the synchronous entry. Context mutation is limited to bounded transcript, nesting guard and recorded public/nested results; no free/unload, table swap, model publication, source request mutation, reset or arbitrary recursion. Repeated-entry tests mutate only caller-owned source values after first return. Winning bindings are not used by suppressed later entries. This is not quiescence or reclamation proof.",
+    "nesting": "A designated unblamed/open/write callback sets its one-use local nesting flag before making exactly one synchronous ac_run call, with either a distinct stable valid request/table/context or genuine NULL. The nested call must return SUPPRESSED at the same terminal CAS before request/provider access. It neither drives nor changes winning bindings, selector, raw or working state. Callback may call public ac_observe before/after this nested call: Active/no payload. Outer callback then returns its authored value and ordinary outer progression resumes.",
+    "nonreturn": "Nonreturning/nonlocal callbacks are not executed or modeled as successful returns. Source reasoning leaves the attempt Active and entered-but-no-recorded-return unknown if control never returns; no cleanup, recovery or signal-safety conclusion.",
+    "selection": "Keep exact six retained reader fragments, selector/cell path, full 64-bit process identity and canonical 33-byte ID unchanged. Complete authored module/generated/cell setup before entry using only the five AO_WITNESS_SETUP APIs. Both commit Virgin checks remain intact. A generated binding is not a module index; per-slot acquires are not a coherent snapshot.",
+    "signatures": [
+      "ac_io_value open(void *context, ac_owner owner_value)",
+      "ac_io_value write(void *context, ap_write_args args_value)",
+      "ac_io_value sync(void *context, int64_t accepted_open_token)",
+      "ac_io_value close(void *context, int64_t accepted_open_token)",
+      "void unblamed(void *context)"
+    ],
+    "table": "One fixed const table per authored context, with typed open/write/sync/close callbacks returning ac_io_value by value and void unblamed(void *context). Callback code and table/context/request/model storage remain live through the outer ordinary return, including any nested loser. These pointers are authored custody, not proof of arbitrary DSO/code/pointee lifetime.",
+    "write_args": "ap_write_args is a value struct containing int64_t accepted_open_token, size_t requested_length and char payload[33]. Build a zero-initialized local value from the entered WRITE receipt. Pass the copied owner and write args by value so no callback receives a pointer to private working owner/event/raw state. The full 33 canonical owner bytes and write bytes/length stay distinct."
+  },
+  "reader_extraction": "Exact retained copies only. The old extraction script, compiler, matrix and auditor are never invoked by the successor runner.",
+  "retained_plan": {
+    "bytes": 29618,
+    "sha256": "a49b860e413b00657f0ee35b27261369ad8bade69bd0d7a2c70ea7fd1c44ab1f"
+  },
+  "runner_provenance": {
+    "adaptations": [
+      "New provider plan/source pins, 22 candidate selectors plus eight singleton controls, 270 summed/30 distinct assertions, and closed callback/context/normalization schema.",
+      "Fresh ac_receive method extent adds indirect callback dispatch and by-value return inspection to the existing admission/driver/reader/publication/dependency review.",
+      "Exact transform file set, plan pin and retained reader pins required before build; additive artifact and source custody inherited.",
+      "Fresh four-object standalone/setup preflight; external independent method review before runtime; candidate reuses only its own setup object and controls share only its own macro-independent harness object.",
+      "Scope flags describe configured authored nesting; preflight does not claim callback execution."
+    ],
+    "closure": "UUID packet and exclusive lock; full immutable source/command/stream/artifact inventories; preserve failures, no successful-command/process replay. Every additive artifact refresh first checks all prior artifacts.",
+    "complete_segment_map": [
+      {
+        "kind": "equal",
+        "new": {
+          "bytes": 63,
+          "sha256": "59342efa0257e114a91e8811de0d46f38358a0984824ca0b861cf754635b94b8"
+        },
+        "new_span": [
+          0,
+          63
+        ],
+        "old": {
+          "bytes": 63,
+          "sha256": "59342efa0257e114a91e8811de0d46f38358a0984824ca0b861cf754635b94b8"
+        },
+        "old_span": [
+          0,
+          63
+        ]
+      },
+      {
+        "kind": "replace",
+        "new": {
+          "bytes": 80,
+          "sha256": "f42ab9ea9de9e1bc4d161069b6b6bc6f9eeb7e3f5415d96ece27bdccc6810c23"
+        },
+        "new_span": [
+          63,
+          143
+        ],
+        "old": {
+          "bytes": 83,
+          "sha256": "30f688858723282798abd82a9098eeccfbff0bc4be75eeb655684ced9316e3fd"
+        },
+        "old_span": [
+          63,
+          146
+        ]
+      },
+      {
+        "kind": "equal",
+        "new": {
+          "bytes": 357,
+          "sha256": "0f9fdc781fdc68baa3568a1b9574624162db2b60858daa09fdac869af9b24606"
+        },
+        "new_span": [
+          143,
+          500
+        ],
+        "old": {
+          "bytes": 357,
+          "sha256": "0f9fdc781fdc68baa3568a1b9574624162db2b60858daa09fdac869af9b24606"
+        },
+        "old_span": [
+          146,
+          503
+        ]
+      },
+      {
+        "kind": "replace",
+        "new": {
+          "bytes": 360,
+          "sha256": "568613da68b8da1a0172d2a756cf83e75f5bd24db666f11d3709d4378faacbf0"
+        },
+        "new_span": [
+          500,
+          860
+        ],
+        "old": {
+          "bytes": 362,
+          "sha256": "6566543c8af6f1263343001b1fa69e447ccfa8011721cce5f6a18224897a32ad"
+        },
+        "old_span": [
+          503,
+          865
+        ]
+      },
+      {
+        "kind": "equal",
+        "new": {
+          "bytes": 85,
+          "sha256": "2682f97b8323f77c33eceda43d5504bfe9135222a5f15100537823df47c53d5b"
+        },
+        "new_span": [
+          860,
+          945
+        ],
+        "old": {
+          "bytes": 85,
+          "sha256": "2682f97b8323f77c33eceda43d5504bfe9135222a5f15100537823df47c53d5b"
+        },
+        "old_span": [
+          865,
+          950
+        ]
+      },
+      {
+        "kind": "replace",
+        "new": {
+          "bytes": 216,
+          "sha256": "fb40adbde64205298b1209dcbba169b944b02162df2508b3f9f7b3cef1a9dc32"
+        },
+        "new_span": [
+          945,
+          1161
+        ],
+        "old": {
+          "bytes": 202,
+          "sha256": "543fe4c8c414c347bf213fd77dbc66628d9d4ead941aeba7a463afc7a5f63ad3"
+        },
+        "old_span": [
+          950,
+          1152
+        ]
+      },
+      {
+        "kind": "equal",
+        "new": {
+          "bytes": 661,
+          "sha256": "6fc6c68c8d9258be413ba3a9bda3fb492bd596599da3200d6a2dbe1decff74f3"
+        },
+        "new_span": [
+          1161,
+          1822
+        ],
+        "old": {
+          "bytes": 661,
+          "sha256": "6fc6c68c8d9258be413ba3a9bda3fb492bd596599da3200d6a2dbe1decff74f3"
+        },
+        "old_span": [
+          1152,
+          1813
+        ]
+      },
+      {
+        "kind": "replace",
+        "new": {
+          "bytes": 1054,
+          "sha256": "eb3461a98777472e710168f67dbe380de751871ec23d0844c0321852ab5c8be7"
+        },
+        "new_span": [
+          1822,
+          2876
+        ],
+        "old": {
+          "bytes": 684,
+          "sha256": "f4d3c96e3d009f788bf34b93824081cd2c6e19d37ebed38c71416327d47fdb09"
+        },
+        "old_span": [
+          1813,
+          2497
+        ]
+      },
+      {
+        "kind": "equal",
+        "new": {
+          "bytes": 194,
+          "sha256": "c21ea3d369d8ac49805a93a4f78e11716bfc9f36ecbfc0a01304ba09b27ed7f9"
+        },
+        "new_span": [
+          2876,
+          3070
+        ],
+        "old": {
+          "bytes": 194,
+          "sha256": "c21ea3d369d8ac49805a93a4f78e11716bfc9f36ecbfc0a01304ba09b27ed7f9"
+        },
+        "old_span": [
+          2497,
+          2691
+        ]
+      },
+      {
+        "kind": "replace",
+        "new": {
+          "bytes": 104,
+          "sha256": "c1f33b6da6a54804fe47fea1f37b338ad53e344bc24e0b46cb9cab41ce21765c"
+        },
+        "new_span": [
+          3070,
+          3174
+        ],
+        "old": {
+          "bytes": 84,
+          "sha256": "26a4a11e47ff2386d9fa3b1d36585938948e41a72d98c5da6b300284a4ce28c2"
+        },
+        "old_span": [
+          2691,
+          2775
+        ]
+      },
+      {
+        "kind": "equal",
+        "new": {
+          "bytes": 11955,
+          "sha256": "656db6268f81f4dff49275037f8acd45e2a99a8571dd4ce25958d772e9454e89"
+        },
+        "new_span": [
+          3174,
+          15129
+        ],
+        "old": {
+          "bytes": 11955,
+          "sha256": "656db6268f81f4dff49275037f8acd45e2a99a8571dd4ce25958d772e9454e89"
+        },
+        "old_span": [
+          2775,
+          14730
+        ]
+      },
+      {
+        "kind": "replace",
+        "new": {
+          "bytes": 55,
+          "sha256": "79909e1cfab44c272b5061d8a08913d197f5bd5d76050328a5510b6fa07cf378"
+        },
+        "new_span": [
+          15129,
+          15184
+        ],
+        "old": {
+          "bytes": 55,
+          "sha256": "4dec0981b1399720a8fcc3f47e79a83d00698cf07a4b5d88e4f8152ae6bfb4aa"
+        },
+        "old_span": [
+          14730,
+          14785
+        ]
+      },
+      {
+        "kind": "equal",
+        "new": {
+          "bytes": 156,
+          "sha256": "1dd1f51c6eb454056ce4249c0772ff124196924ef743c4774dd04a30e9947d0e"
+        },
+        "new_span": [
+          15184,
+          15340
+        ],
+        "old": {
+          "bytes": 156,
+          "sha256": "1dd1f51c6eb454056ce4249c0772ff124196924ef743c4774dd04a30e9947d0e"
+        },
+        "old_span": [
+          14785,
+          14941
+        ]
+      },
+      {
+        "kind": "replace",
+        "new": {
+          "bytes": 90,
+          "sha256": "0b7050d4e8c41a788021a5a6adb415bb66ca51cfbe22d736b04c6b13671baee5"
+        },
+        "new_span": [
+          15340,
+          15430
+        ],
+        "old": {
+          "bytes": 90,
+          "sha256": "4291cf62123807f6f6f57ebb350ef48a62f0d89120df5a36b2cf1144219f1475"
+        },
+        "old_span": [
+          14941,
+          15031
+        ]
+      },
+      {
+        "kind": "equal",
+        "new": {
+          "bytes": 723,
+          "sha256": "fbecbae4d0c7c74d9287f48ca931d8df7d2f70434d3b1f53a1ad4e744777eee6"
+        },
+        "new_span": [
+          15430,
+          16153
+        ],
+        "old": {
+          "bytes": 723,
+          "sha256": "fbecbae4d0c7c74d9287f48ca931d8df7d2f70434d3b1f53a1ad4e744777eee6"
+        },
+        "old_span": [
+          15031,
+          15754
+        ]
+      },
+      {
+        "kind": "insert",
+        "new": {
+          "bytes": 684,
+          "sha256": "d95490fe8225e67fdf0dd5842cd03660743bb40f9e8a1da8ef8fff3564e6eff2"
+        },
+        "new_span": [
+          16153,
+          16837
+        ],
+        "old": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "old_span": [
+          15754,
+          15754
+        ]
+      },
+      {
+        "kind": "equal",
+        "new": {
+          "bytes": 1363,
+          "sha256": "a37db5458742e04f245e957e3458fe43b6b365ab0b5469d9fbcf513723c18f2e"
+        },
+        "new_span": [
+          16837,
+          18200
+        ],
+        "old": {
+          "bytes": 1363,
+          "sha256": "a37db5458742e04f245e957e3458fe43b6b365ab0b5469d9fbcf513723c18f2e"
+        },
+        "old_span": [
+          15754,
+          17117
+        ]
+      },
+      {
+        "kind": "replace",
+        "new": {
+          "bytes": 615,
+          "sha256": "49b2610163d9ec99414d1a68dfaf955f5d48bb0b6888ec7d8d9917cfcbcf0a7b"
+        },
+        "new_span": [
+          18200,
+          18815
+        ],
+        "old": {
+          "bytes": 587,
+          "sha256": "f7e15b7bccf8617c345f64d687217ac3655f468df90868b03d35fd8bd5f2d979"
+        },
+        "old_span": [
+          17117,
+          17704
+        ]
+      },
+      {
+        "kind": "equal",
+        "new": {
+          "bytes": 147,
+          "sha256": "746b465437255b31123b58b134f2518ce5b0a650674c111c781d540df8a73bab"
+        },
+        "new_span": [
+          18815,
+          18962
+        ],
+        "old": {
+          "bytes": 147,
+          "sha256": "746b465437255b31123b58b134f2518ce5b0a650674c111c781d540df8a73bab"
+        },
+        "old_span": [
+          17704,
+          17851
+        ]
+      },
+      {
+        "kind": "replace",
+        "new": {
+          "bytes": 1001,
+          "sha256": "954ebf8262438cddaeb65f08d23a4305488e36c29f16ac67075278bdd197f3cc"
+        },
+        "new_span": [
+          18962,
+          19963
+        ],
+        "old": {
+          "bytes": 193,
+          "sha256": "863562a2cc89c907c327949b8f82da6ab8851bb450f547f84f22b1e75469b5d3"
+        },
+        "old_span": [
+          17851,
+          18044
+        ]
+      },
+      {
+        "kind": "equal",
+        "new": {
+          "bytes": 96,
+          "sha256": "aba85821b49875553138786f2300024e4b3c9a3d3a38e0c2d3d2e94e71efa463"
+        },
+        "new_span": [
+          19963,
+          20059
+        ],
+        "old": {
+          "bytes": 96,
+          "sha256": "aba85821b49875553138786f2300024e4b3c9a3d3a38e0c2d3d2e94e71efa463"
+        },
+        "old_span": [
+          18044,
+          18140
+        ]
+      },
+      {
+        "kind": "replace",
+        "new": {
+          "bytes": 154,
+          "sha256": "16382dc120d3f6825a4c45c351414856c280aad192d45a52c22c24fcb7b4fbb7"
+        },
+        "new_span": [
+          20059,
+          20213
+        ],
+        "old": {
+          "bytes": 154,
+          "sha256": "8a15fafad9b510b4aad9acded2c032997d3ad80dea70c3a164c75b74e78534de"
+        },
+        "old_span": [
+          18140,
+          18294
+        ]
+      },
+      {
+        "kind": "equal",
+        "new": {
+          "bytes": 5136,
+          "sha256": "3664e10a0146825fcc08be2228aec5929ed7365872338383e102e97eadc29dcc"
+        },
+        "new_span": [
+          20213,
+          25349
+        ],
+        "old": {
+          "bytes": 5136,
+          "sha256": "3664e10a0146825fcc08be2228aec5929ed7365872338383e102e97eadc29dcc"
+        },
+        "old_span": [
+          18294,
+          23430
+        ]
+      },
+      {
+        "kind": "replace",
+        "new": {
+          "bytes": 82,
+          "sha256": "9ccf319514e97e31678d780320ef758338ead4f39fdb89f496327fec3250aa4c"
+        },
+        "new_span": [
+          25349,
+          25431
+        ],
+        "old": {
+          "bytes": 82,
+          "sha256": "22a0175a97999a8f05f4aa613c11585a9becfbb5c71c41220a2cd8cb1a85a29f"
+        },
+        "old_span": [
+          23430,
+          23512
+        ]
+      },
+      {
+        "kind": "equal",
+        "new": {
+          "bytes": 7536,
+          "sha256": "86cf30d233317468a36c664a5d9b712c4e302bfd19881390e17857b1a51a68e4"
+        },
+        "new_span": [
+          25431,
+          32967
+        ],
+        "old": {
+          "bytes": 7536,
+          "sha256": "86cf30d233317468a36c664a5d9b712c4e302bfd19881390e17857b1a51a68e4"
+        },
+        "old_span": [
+          23512,
+          31048
+        ]
+      },
+      {
+        "kind": "replace",
+        "new": {
+          "bytes": 187,
+          "sha256": "4443d005994553b28b0b4eed73318b41f8d01abbb849dafa4e6928d108f5c715"
+        },
+        "new_span": [
+          32967,
+          33154
+        ],
+        "old": {
+          "bytes": 187,
+          "sha256": "ef355befddd37750e1dcc512a4dec0f5a4be10110ed7dc58df69e91690de0f8f"
+        },
+        "old_span": [
+          31048,
+          31235
+        ]
+      },
+      {
+        "kind": "equal",
+        "new": {
+          "bytes": 220,
+          "sha256": "211b5f6fd9c99c048ccaaf226ec4a1d0850ad18e339ff7e264046219189e5387"
+        },
+        "new_span": [
+          33154,
+          33374
+        ],
+        "old": {
+          "bytes": 220,
+          "sha256": "211b5f6fd9c99c048ccaaf226ec4a1d0850ad18e339ff7e264046219189e5387"
+        },
+        "old_span": [
+          31235,
+          31455
+        ]
+      },
+      {
+        "kind": "replace",
+        "new": {
+          "bytes": 480,
+          "sha256": "21cd552c4248ce5c5a9770c1341c9fc2a9f0ef7fd50b6a06bbf5bbed2747d8c8"
+        },
+        "new_span": [
+          33374,
+          33854
+        ],
+        "old": {
+          "bytes": 480,
+          "sha256": "a36ac652bd47af5fdba12828f03b273c4d1f737c23a1691e39002c115037977d"
+        },
+        "old_span": [
+          31455,
+          31935
+        ]
+      },
+      {
+        "kind": "equal",
+        "new": {
+          "bytes": 57,
+          "sha256": "4db64bf3893e2d93d56f1d708862a84e2a138d85620b08a08cad4d02400c3bcf"
+        },
+        "new_span": [
+          33854,
+          33911
+        ],
+        "old": {
+          "bytes": 57,
+          "sha256": "4db64bf3893e2d93d56f1d708862a84e2a138d85620b08a08cad4d02400c3bcf"
+        },
+        "old_span": [
+          31935,
+          31992
+        ]
+      },
+      {
+        "kind": "replace",
+        "new": {
+          "bytes": 134,
+          "sha256": "599a8e8e7e61f3c843425f9c0ed79e6acc8f0139271dc32428771b56ea7af418"
+        },
+        "new_span": [
+          33911,
+          34045
+        ],
+        "old": {
+          "bytes": 134,
+          "sha256": "3d8f1d327c188368f9caf2aa7cfa2a7db7757f35a8d4665788ab9f2d8e726639"
+        },
+        "old_span": [
+          31992,
+          32126
+        ]
+      },
+      {
+        "kind": "equal",
+        "new": {
+          "bytes": 320,
+          "sha256": "8bab3a3d7f57df4010f38bd0216d18880b36df471a26ab5665dbd31b27fafafa"
+        },
+        "new_span": [
+          34045,
+          34365
+        ],
+        "old": {
+          "bytes": 320,
+          "sha256": "8bab3a3d7f57df4010f38bd0216d18880b36df471a26ab5665dbd31b27fafafa"
+        },
+        "old_span": [
+          32126,
+          32446
+        ]
+      },
+      {
+        "kind": "replace",
+        "new": {
+          "bytes": 165,
+          "sha256": "9c28e7441929062f3129b039d0df17e7bea1bdfc9c9953237b8c59f126425b62"
+        },
+        "new_span": [
+          34365,
+          34530
+        ],
+        "old": {
+          "bytes": 165,
+          "sha256": "09a9adb527371836cd608b164b0f399f4e253d5983bc98dce0cb3de2080c9280"
+        },
+        "old_span": [
+          32446,
+          32611
+        ]
+      },
+      {
+        "kind": "equal",
+        "new": {
+          "bytes": 2613,
+          "sha256": "08334715af43f0ff071c9a7383627a52dffc975666ed849ec6b3114b5c18a9db"
+        },
+        "new_span": [
+          34530,
+          37143
+        ],
+        "old": {
+          "bytes": 2613,
+          "sha256": "08334715af43f0ff071c9a7383627a52dffc975666ed849ec6b3114b5c18a9db"
+        },
+        "old_span": [
+          32611,
+          35224
+        ]
+      },
+      {
+        "kind": "replace",
+        "new": {
+          "bytes": 94,
+          "sha256": "d5ce2bbdaf0d7bea13adde5785c5c6c19cd97976c7e908b243dcfc76a5fa1977"
+        },
+        "new_span": [
+          37143,
+          37237
+        ],
+        "old": {
+          "bytes": 94,
+          "sha256": "020fd22ecb8fceb28af6e8e67936d87680bc6170a8b8e124a879d564a57cc0eb"
+        },
+        "old_span": [
+          35224,
+          35318
+        ]
+      },
+      {
+        "kind": "equal",
+        "new": {
+          "bytes": 1687,
+          "sha256": "c587465e7a2de8b0d17a5f0ded2a3d2e1490757f9553f397b7f2481850f2fbca"
+        },
+        "new_span": [
+          37237,
+          38924
+        ],
+        "old": {
+          "bytes": 1687,
+          "sha256": "c587465e7a2de8b0d17a5f0ded2a3d2e1490757f9553f397b7f2481850f2fbca"
+        },
+        "old_span": [
+          35318,
+          37005
+        ]
+      },
+      {
+        "kind": "replace",
+        "new": {
+          "bytes": 331,
+          "sha256": "bc4a9414a74a4197efa1bd4e5cc500c234b3afe43fc63652d83334bb17b8690c"
+        },
+        "new_span": [
+          38924,
+          39255
+        ],
+        "old": {
+          "bytes": 151,
+          "sha256": "f1a9f1d0b60e38bec5f2be4ad0380430c2c67a87897b15ad8414052d554caf37"
+        },
+        "old_span": [
+          37005,
+          37156
+        ]
+      },
+      {
+        "kind": "equal",
+        "new": {
+          "bytes": 1800,
+          "sha256": "1cda806dfa42b604cb0e9f231968d36c29f53d16d18d48e0383f644a1c687817"
+        },
+        "new_span": [
+          39255,
+          41055
+        ],
+        "old": {
+          "bytes": 1800,
+          "sha256": "1cda806dfa42b604cb0e9f231968d36c29f53d16d18d48e0383f644a1c687817"
+        },
+        "old_span": [
+          37156,
+          38956
+        ]
+      },
+      {
+        "kind": "replace",
+        "new": {
+          "bytes": 160,
+          "sha256": "5a75e26e32ddbd0615ca3b2d94674bb76e00fe050679a5e4a76fa809456777a4"
+        },
+        "new_span": [
+          41055,
+          41215
+        ],
+        "old": {
+          "bytes": 111,
+          "sha256": "586a9bf549ac087c7f80ff2c6ad6be17f4cea870c5f2c023c0197c63c4c65762"
+        },
+        "old_span": [
+          38956,
+          39067
+        ]
+      },
+      {
+        "kind": "equal",
+        "new": {
+          "bytes": 1896,
+          "sha256": "b92fcc04c776348db0381be554c45cb11ec87f8a8cfdc4043058dd9e8f4dcc41"
+        },
+        "new_span": [
+          41215,
+          43111
+        ],
+        "old": {
+          "bytes": 1896,
+          "sha256": "b92fcc04c776348db0381be554c45cb11ec87f8a8cfdc4043058dd9e8f4dcc41"
+        },
+        "old_span": [
+          39067,
+          40963
+        ]
+      }
+    ],
+    "configuration": "Pinned GCC7.5 Linux AArch64 C11 image; pull never/network none/read-only root; plain and ASan/UBSan leak1. Only owned offline packet artifacts/reports writable.",
+    "diagnostics": "Empty compiler/link streams; strict runtime stderr/diagnostics; exact object-derived FINI_ARRAY metadata exception only, with new method/dependency review.",
+    "new": {
+      "bytes": 43111,
+      "sha256": "417d4d7679f212e39cb0279ccf567150c980f487954c69f7d4793df832f78a35"
+    },
+    "old": {
+      "bytes": 40963,
+      "sha256": "1c5b5549a43e6e4ec060541af6c91374c3793cdad562c5bb885dce6a38e726c3"
+    },
+    "source": "activation-ordinary-entry-fixture/run-tests.py",
+    "timeout": "45 seconds per owned command; partial output capture, own process-group/container cleanup only. No bounded/wait-free admission claim.",
+    "unchanged_bounded_elf_parser": {
+      "bytes": 6924,
+      "sha256": "6279f7fbdc785a245af9343866ec15e150792baee3271631f0ad9bbcf52926e5"
+    }
+  },
+  "runtime_gate": "CLOSED",
+  "schema": 1,
+  "setup_only_surface": [
+    "ac_model_stage_module",
+    "ac_model_commit_module",
+    "ac_model_stage_generated",
+    "ac_model_commit_generated",
+    "ac_model_add_cell"
+  ],
+  "source_files": {
+    "core.c": {
+      "bytes": 24981,
+      "sha256": "eca23b77d5e064a7015dd3f912e5652a7d61df196ce936b3fbf1934e4a4819d1"
+    },
+    "core.h": {
+      "bytes": 8461,
+      "sha256": "a1c1f13832a8bdb55ba9a2d4379ff8c6cb689bd70826575497d13402430faa38"
+    },
+    "run-tests.py": {
+      "bytes": 43111,
+      "sha256": "417d4d7679f212e39cb0279ccf567150c980f487954c69f7d4793df832f78a35"
+    },
+    "source-transform.json": {
+      "bytes": 46763,
+      "sha256": "aa00a824fbab1e8c0fb7b2fd991ccaf8afb2f8f78cbb69756d20f8abc35e5643"
+    },
+    "test-contract.json": {
+      "bytes": 25995,
+      "sha256": "a2954157b402739efbfaf82f6090c357720e275228a3ceb259acb9f910a2079f"
+    },
+    "test_provider.c": {
+      "bytes": 42414,
+      "sha256": "16b5610facb8e4380b44747a42f29656738f732185791e9810acae40ad2af868"
+    }
+  },
+  "status": "complete-source-transformation-before-first-build",
+  "transformation_ledger": "source-transform.json",
+  "unchanged_reader_inputs": [
+    {
+      "bytes": 2994,
+      "name": "readers/readers.inc",
+      "path": "experiments/usb-browser-switch/activation-ordinary-entry-fixture/private/run-c7e9634d431c4d789d4c366093adc9aa/work/generated/readers.inc",
+      "sha256": "352048162f452f794136f8b90555783df101feacbf7550e3f4020bd6ef7ab140"
+    },
+    {
+      "bytes": 5369,
+      "name": "readers/receipt-types.h",
+      "path": "experiments/usb-browser-switch/activation-ordinary-entry-fixture/private/run-c7e9634d431c4d789d4c366093adc9aa/work/generated/receipt-types.h",
+      "sha256": "c97454db2aba6e942eb05241bbf80d67ffd8eecb5108927da69600a6a1d15f40"
+    },
+    {
+      "bytes": 2865,
+      "name": "reference/reader-extraction.json",
+      "path": "experiments/usb-browser-switch/activation-attempt-attribution-fixture/reader-extraction.json",
+      "sha256": "c0170cbc03f9b7489146ff1670b609f8af6fc92f41892746a518e5d81482ba0b"
+    }
+  ]
+}
