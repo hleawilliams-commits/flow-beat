@@ -1,0 +1,394 @@
+{
+  "activity": {
+    "compiler_or_disassembler_invoked": false,
+    "native_callback_or_file_witness_executed": false,
+    "packet_modified": false,
+    "previous_audit_or_matrix_replayed": false,
+    "reviewed_code_imported": false,
+    "runner_or_helper_invoked": false
+  },
+  "attempted_supervisors": 40,
+  "auditor": {
+    "bytes": 70759,
+    "sha256": "4a4dce3fe5c458e470b348da71fc68f3e050ba55e3395f592a70e43e18621e3f"
+  },
+  "auditor_copied_before_invocation": true,
+  "auditor_evidence": {
+    "auditor.py": {
+      "bytes": 70759,
+      "sha256": "4a4dce3fe5c458e470b348da71fc68f3e050ba55e3395f592a70e43e18621e3f"
+    },
+    "execution.json": {
+      "bytes": 285,
+      "sha256": "d4324256afcd0aaf96e9f17cb2a726fe9e4d5d5c3b58b8da903fbcdc51b2eca6"
+    },
+    "invocation.json": {
+      "bytes": 1407,
+      "sha256": "799a885aab975221c31e320d26c183eb9da0ca2bd5a29034e2767913517690cc"
+    },
+    "launch.py": {
+      "bytes": 1088,
+      "sha256": "a5e14460ed99358116b5a29ab0f62f76fb520816afba048aaaeaf2158c9e725e"
+    },
+    "result.json": {
+      "bytes": 10961,
+      "sha256": "90ea37e3f4426187f958e4c6134ba1499b071a118f983c6510de00f2085b96f3"
+    },
+    "source-review.json": {
+      "bytes": 609,
+      "sha256": "5ad3f6663486395d9d51ebf295ee5d025a43bdc989e852e54d34c5f5c9245244"
+    },
+    "stderr.bin": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stdout.bin": {
+      "bytes": 166,
+      "sha256": "d11237e74733d6ebc4e4000e539ca63ab1ca183ba7c9396877cb0b4ef98fd35a"
+    }
+  },
+  "auditor_execution": {
+    "auditor_unchanged": true,
+    "returncode": 0,
+    "stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stdout": {
+      "bytes": 166,
+      "sha256": "d11237e74733d6ebc4e4000e539ca63ab1ca183ba7c9396877cb0b4ef98fd35a"
+    }
+  },
+  "auditor_unchanged": true,
+  "builds": {
+    "ELF_files_including_copies": 72,
+    "build_artifacts": 204,
+    "compiled_objects": 22,
+    "configurations": 16
+  },
+  "closure": {
+    "packet_directories": 223,
+    "packet_files_including_both_stage_projections_and_checkpoint": 816,
+    "retained_before_final_result": 813,
+    "work_files": 295
+  },
+  "controls_per_mode": 6,
+  "corrected_auditor_first_invocation_passed": true,
+  "distinct_candidate_names": 22,
+  "first_build_and_matrix": {
+    "build": {
+      "invocation.json": {
+        "bytes": 480,
+        "sha256": "583a19882f88000d04170486823d0b795c1f6d303d8f219c97385fb29d93be82"
+      },
+      "outcome.json": {
+        "bytes": 18,
+        "sha256": "df4d721d233a2334088d2d2e0110346ae9e509ff46bf0b379fbcfa85c715af4d"
+      },
+      "stderr.bin": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout.bin": {
+        "bytes": 345,
+        "sha256": "e4915ee87ee90776c215f2d3fd86778424c080af377e3e997a1a8cc7ef568f2c"
+      }
+    },
+    "built_source_change": false,
+    "children": 40,
+    "compiler_or_runtime_failure": false,
+    "leak_detection": true,
+    "parent_supervisors_separate_from_child_count": true,
+    "passing_predecessor_replay": false,
+    "runtime": {
+      "invocation.json": {
+        "bytes": 984,
+        "sha256": "7172dad5eb67a123de19aa2e9159aa5117dc34205ef9b18dc89237756f6e1db1"
+      },
+      "outcome.json": {
+        "bytes": 18,
+        "sha256": "df4d721d233a2334088d2d2e0110346ae9e509ff46bf0b379fbcfa85c715af4d"
+      },
+      "stderr.bin": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout.bin": {
+        "bytes": 364,
+        "sha256": "0e25907de414e4a47aab7c3bfa277a5112f7204e191e2b2d9159214abad7cd1e"
+      }
+    }
+  },
+  "fresh_codegen_review": {
+    "bytes": 662991,
+    "sha256": "c1887be2763b92d29b15487bf4ae7ffefb84d94bbcf91a6c5ff2f6b85c4519ea"
+  },
+  "fresh_witness_children": 40,
+  "independent_source_and_control_reviews": [
+    "Prebuild source/ledger/controls accepted by root, provider author, runner reviewer and independent harness reviewer before first build; supplemental lock closure independently read afterward.",
+    "Fresh selected-method, native-leaf and target ABI review accepted before runtime.",
+    "Independent final claim/source review read all 40 retained outcomes without execution; same enum versus lexical-order issue was separately corrected before the second auditor version."
+  ],
+  "inputs": 35,
+  "limits": [
+    "Checks are structural byte/evidence assertions, not new semantic test executions.",
+    "Binary fields are decoded from retained Linux AArch64 typedef/layout evidence; C padding bytes are retained but are not interpreted as value evidence.",
+    "No fault/signal/concurrency, transitive libc/canary, arbitrary module/descriptor, durability, native firmware or recovery proof."
+  ],
+  "live_gate": "CLOSED",
+  "native_layout_review": {
+    "bytes": 4032,
+    "sha256": "0f2ba661e5a52539dc3dd93be9e5d617788bf80f1589a4b6f7b55323b0e298f2"
+  },
+  "native_observation_limits": {
+    "EINTR_executed": false,
+    "actual_close_failure_executed": false,
+    "actual_provider_close_count": 24,
+    "actual_provider_close_results": [
+      0
+    ],
+    "collision_open_errno": "EEXIST (17)",
+    "count_scope": "Provider open/close callbacks only; supervisor/report/observer operations are separate.",
+    "failed_external_cleanup_executed": false,
+    "missing_return_executed": false,
+    "native_fd_zero_executed": false,
+    "native_short_write_executed": false,
+    "observed_open_descriptors": [
+      3
+    ],
+    "one_direct_libc_call_per_leaf_is_not_kernel_syscall_count": true,
+    "post_open_query_refusal_executed": false,
+    "readonly_fsync_results": [
+      0
+    ],
+    "readonly_write_errno": "EBADF (9)",
+    "successful_open_count": 32
+  },
+  "new_commands": 120,
+  "output_streams": 240,
+  "ownership_is_fault_causation": false,
+  "prebuild_history": [
+    "READONLY fsync retains actual0/-1 pair without requiring success.",
+    "Repeat mutates actual first.pc/lr/fp after ordinary return.",
+    "Unexpected actual native failure cannot masquerade as a singleton control success; actual close failure fails the common oracle without retry.",
+    "Guessed nlink_t8 assertion removed before any build; bounded native reporting and fresh target layout review required.",
+    "Draft contract status becomes frozen only after review; prior bytes preserved."
+  ],
+  "prebuild_source_review": {
+    "bytes": 5439,
+    "sha256": "bfe61f80165e585ac8a7c00d1651e0faf7997bd5187aeb5efd3503a73cb9bf16"
+  },
+  "prior_auditor_refusal": {
+    "correction": "One comparison now uses sorted(SELECTORS), plus two comments. Enum-index, command-order and all value/control checks remain exact.",
+    "evidence": {
+      "auditor.py": {
+        "bytes": 70571,
+        "sha256": "a56e38ea1db6c840d010f95afee44732b02d4d7af24c69108f92fdd7308c6f70"
+      },
+      "execution.json": {
+        "bytes": 286,
+        "sha256": "a225796b3727432160f4bf1303c047cc05a57eb3edc63fe170bca7d31b0c5d47"
+      },
+      "invocation.json": {
+        "bytes": 1407,
+        "sha256": "f30fb6d2b2f28069b8595d3afe758c12f949c07dca3671dd15adaf592013d227"
+      },
+      "launch.py": {
+        "bytes": 1088,
+        "sha256": "b2a0dbdeb612b6f88c438d5dd3435d9316fc10c452c3711a9dfaf2b3a9adfb98"
+      },
+      "source-review.json": {
+        "bytes": 523,
+        "sha256": "8f48cb6e5e56f1187fffa729360a407a562cfddd74dc73fe5f7f029f35da0a8c"
+      },
+      "stderr.bin": {
+        "bytes": 2574,
+        "sha256": "4a90f2edce2562c0defbd037709a992c8090aecdd63567909d46a056bc749b37"
+      },
+      "stdout.bin": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "execution": {
+      "auditor_unchanged": true,
+      "returncode": 1,
+      "stderr": {
+        "bytes": 2574,
+        "sha256": "4a90f2edce2562c0defbd037709a992c8090aecdd63567909d46a056bc749b37"
+      },
+      "stdout": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "fixture_or_runtime_change": false,
+    "reason": "Exact sorted JSON selector-key order was incorrectly equated with the separate authored C enum order."
+  },
+  "private_result": {
+    "bytes": 789848,
+    "sha256": "e41f2d2395c81e0ce85b4396c1576a3fc4fb98f5e3e217ef2e78d6795f0fd675"
+  },
+  "provider_method_review": {
+    "bytes": 196811,
+    "sha256": "af69f6ca6c9c2bc555fabb95613874bf59e8b4bac62ae5915c6ffb84d44da8a2"
+  },
+  "publication_path_check_history": {
+    "cause": "Broad prefix scan also matched the fixed /tmp/of-witness-XXXXXX source template.",
+    "correction": "Permit only the exact frozen C declaration while refusing actual private path prefixes in every public file; source bytes unchanged.",
+    "custody": "Retrospectively copied exact inline source and tool-return diagnostic; no pre-invocation source file or original shell stream receipt is claimed. The initial check is not rerun.",
+    "evidence": {
+      "history.json": {
+        "bytes": 530,
+        "sha256": "90da5c39137821f5ca2c5353fe70834fcce64b1abc9a3ff8766f94cef158ddc7"
+      },
+      "initial-check-reconstructed.py": {
+        "bytes": 758,
+        "sha256": "761d32165c6c6701fd65eb2bd100ce6efc53b2ad266f4b2b2ba9aca8d729a64c"
+      },
+      "tool-diagnostic.txt": {
+        "bytes": 127,
+        "sha256": "aa2d4ab15f2b7c562a0cd9719740a468d842f647ab69f73e563e579009d8bd7b"
+      }
+    },
+    "final_rule": "Reject concrete six-character generated directory names; allow only the authored XXXXXX template and incomplete diagnostic prefixes. No raw report paths, identity values or PIDs are published.",
+    "first_correction_refusal": {
+      "evidence": {
+        "check.py": {
+          "bytes": 986,
+          "sha256": "6dafaffe69ef22627e531b3e14916d92b1d15920bf1e21ead8a15af37cb394b4"
+        },
+        "execution.json": {
+          "bytes": 18,
+          "sha256": "8869ca5e7f3ae989b151917c32f706ea8b83fd8d2ab5fd425117c4860c4e595f"
+        },
+        "invocation.json": {
+          "bytes": 495,
+          "sha256": "e55be81e5abedbdace98db3cb4cdcf12b4aa33158436c010564c0de2b46b6714"
+        },
+        "stderr.bin": {
+          "bytes": 445,
+          "sha256": "ed46d63a7caf04c890a558a6b550c4b0924922ba8e295ce3ea0053f6f1283e81"
+        },
+        "stdout.bin": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "reason": "The prefix-only check also matched its own explanatory diagnostic text in verification.json; no actual generated path was present."
+    },
+    "status": "initial read-only check refused an authored template, not private data"
+  },
+  "publication_preparation_refusal": {
+    "evidence": {
+      "execution.json": {
+        "bytes": 18,
+        "sha256": "8869ca5e7f3ae989b151917c32f706ea8b83fd8d2ab5fd425117c4860c4e595f"
+      },
+      "invocation.json": {
+        "bytes": 491,
+        "sha256": "4c038ca4536c9f9613fe0ae0335cce0a68fb7c5462d9d2d3f610819a127f856b"
+      },
+      "publish.py": {
+        "bytes": 22403,
+        "sha256": "80e57231864a37bcb2a576c5f9f40e49ecf8ab1964076765c620ce59924e75b1"
+      },
+      "stderr.bin": {
+        "bytes": 2680,
+        "sha256": "07ad7ca4d5e7c21db45ae97f79130d4b8d197565e6b817250c353a10bb9014bd"
+      },
+      "stdout.bin": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "reason": "Wrong review stream/exit filenames refused before public writes; use actual .txt streams and invocation.json exit without replay."
+  },
+  "quarantine_changed": false,
+  "review_evidence": {
+    "input-manifest.json": {
+      "bytes": 32787,
+      "sha256": "3e4e79ab24c5d17a6d62ebdd01a95346b6592406f41cdab504d068f5422c3c46"
+    },
+    "invocation.json": {
+      "bytes": 905,
+      "sha256": "2576182faf8c963b78661ce3c3795130d84f6e271f5de92fcd0e3af0881b6f18"
+    },
+    "mechanical-method-review.json": {
+      "bytes": 8911695,
+      "sha256": "538da12521a4f8e9d6090a3ff4acb2899c6a8fad4d659e0d136318ce2c9c9232"
+    },
+    "pre-invocation-input-pins.json": {
+      "bytes": 33069,
+      "sha256": "8a9d8a688a7b7f65c7d21e972b3137c4ed996fb1f5b45a93bd90f0703f2008fa"
+    },
+    "stderr.txt": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stdout.txt": {
+      "bytes": 316,
+      "sha256": "6fbf3dd67bdf37ba7f3b0bd9872dd4845d17683aad6c077df77f689bf887d931"
+    },
+    "write-review.py": {
+      "bytes": 27065,
+      "sha256": "76f7edd7940ef4256a98d85f3639ba43d26ff72be7a32958d4ef014617040225"
+    }
+  },
+  "review_lock": {
+    "bytes": 1555,
+    "sha256": "0e1bfd432c1980df7c8e6d2731589f4393bffff76607eee2afbdd5235f07b71d"
+  },
+  "runtime_gate": "CLOSED",
+  "sanitized_result": {
+    "bytes": 184553,
+    "sha256": "3d0c0323435a32d7ae7bccd367f80a97a9c99ecefdfa0537fcb59ee38cc76b29"
+  },
+  "schema": 1,
+  "scope": "Offline ordinary-file witness: new runtime evidence plus independent retained-byte verification",
+  "semantic_assertions_per_candidate_mode": 126,
+  "source_ledger": {
+    "bytes": 8114,
+    "sha256": "bfdeb71756881135541b0cb5016ef9dc081985d8a431ce5ed402c773c1214900"
+  },
+  "status": "passed",
+  "structural_audit_assertions": 463495,
+  "target_layout": {
+    "child_after_cleanup_offset": 1720,
+    "child_cleanup_offset": 4720,
+    "child_first_offset": 696,
+    "child_initial_offset": 184,
+    "child_precleanup_offset": 2248,
+    "child_report_bytes": 4760,
+    "child_second_offset": 1208,
+    "cleanup_bytes": 40,
+    "dev_bytes": 8,
+    "handoff_bytes": 72,
+    "identity_bytes": 40,
+    "ino_bytes": 8,
+    "mode_bytes": 4,
+    "nlink_bytes": 4,
+    "off_bytes": 8,
+    "provider_report_bytes": 2472,
+    "snapshot_bytes": 512,
+    "uid_bytes": 4
+  },
+  "target_typedef_basis": {
+    "native_bytes": {
+      "dev_t": 8,
+      "ino_t": 8,
+      "mode_t": 4,
+      "nlink_t": 4,
+      "off_t": 8,
+      "uid_t": 4
+    },
+    "typedefs": {
+      "dev_t": "__dev_t",
+      "ino_t": "__ino_t",
+      "mode_t": "__mode_t",
+      "nlink_t": "__nlink_t",
+      "off_t": "__off_t",
+      "uid_t": "__uid_t"
+    }
+  }
+}

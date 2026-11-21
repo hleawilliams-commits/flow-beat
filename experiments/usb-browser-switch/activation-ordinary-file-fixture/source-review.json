@@ -1,0 +1,82 @@
+{
+  "gate": "Runtime remains disabled until separately retained fresh method/dependency/layout review binds complete preflight artifacts.",
+  "history": "Saved provider/runner/harness/contract drafts remain private. No compiler/runtime failure or predecessor replay has occurred at this source freeze.",
+  "prebuild_corrections": [
+    "READONLY fsync retains actual0/-1 pair without requiring success.",
+    "Repeat mutates actual first.pc/lr/fp after ordinary return.",
+    "Unexpected actual native failure cannot masquerade as a singleton control success; actual close failure fails the common oracle without retry.",
+    "Guessed nlink_t8 assertion removed before any build; bounded native reporting and fresh target layout review required.",
+    "Draft contract status becomes frozen only after review; prior bytes preserved."
+  ],
+  "review_lock": {
+    "bytes": 1555,
+    "sha256": "0e1bfd432c1980df7c8e6d2731589f4393bffff76607eee2afbdd5235f07b71d"
+  },
+  "reviewers": [
+    {
+      "findings": [
+        "Read full runner: exact prior plan/source pins, no extraction or predecessor execution, all candidate/control objects compiled before built-preflight; runtime resume checks complete packet/work closure and fresh codegen review; private raw reports separated from public summaries.",
+        "Read all four provider/leaf files: fixed complete table/context; actual native open int held before queries; exact full token+range+VerifiedHeld gate precedes narrowing/follow-up; immediate raw/error capture precedes explicit errno clobber; close marks unknown entered and never retries; external cleanup only still held with no actual close.",
+        "Read whole current supervisor/harness through main: same-Linux fresh exec child receives directory/report capabilities; all authored model preparation precedes sole engine entry; report frozen before cleanup; no new explicit child output fd after entry; post-exit observation bound to known file identity; bounded fixed-name unlink and empty-dir removal; no recursive cleanup.",
+        "Reviewed six control partition oracles: affected content/custody/native count/receipt obligations belong to their single composite; generic prepared-to-public comparison does not convert supplied returns into actual native outcomes.",
+        "Root caught READONLY fsync raw0 assumption and required actual 0/-1 pair to remain accepted; actual close failures and other unexpected native results must refuse a successful witness, not masquerade as safe control activation. Independent reviewer additionally caught unchanged first.fp in repeat; all corrections occur before first build and drafts must remain.",
+        "Evidence limitations: selected provider/parent calls have raw/error journals; fd_inventory/handshake/exec preparation has overall success/exit evidence, not individual full syscall receipts. Child report cannot acknowledge its own output operation; parent size/read/normal-exit evidence remains separate. Ephemeral container containment is not cleanup acknowledgement. Ordinary libc calls/codegen do not prove transitive libc/canary, signals, nonlocal exits, arbitrary callbacks, native visibility, DSO/loader or recovery."
+      ],
+      "name": "root",
+      "sources": {
+        "core.c": {
+          "bytes": 24981,
+          "sha256": "eca23b77d5e064a7015dd3f912e5652a7d61df196ce936b3fbf1934e4a4819d1"
+        },
+        "core.h": {
+          "bytes": 8461,
+          "sha256": "a1c1f13832a8bdb55ba9a2d4379ff8c6cb689bd70826575497d13402430faa38"
+        },
+        "file_provider.c": {
+          "bytes": 15746,
+          "sha256": "58061c9dd54c790de4387d431b8cb297e9c02c46f0963555e691bbcaa42eb5d0"
+        },
+        "file_provider.h": {
+          "bytes": 4935,
+          "sha256": "2793df346c64a71aef23ce0419a8296cd8ec326fd45659c61c7a989cfedf09c8"
+        },
+        "native_leaf.c": {
+          "bytes": 2944,
+          "sha256": "9033bfe9cf854a495cfb7056fb7627fe371e7961e792589d59b99fcfc4064669"
+        },
+        "native_leaf.h": {
+          "bytes": 833,
+          "sha256": "55e4a5ed78d023fb652002d7bface8421a71b690033f9f3cf02ed21cc72cc348"
+        },
+        "run-tests.py": {
+          "bytes": 40318,
+          "sha256": "323f5526f36aece7f6ecc87f1e8d32d72061e817bf7527923285ff20390eaefe"
+        },
+        "source-transform.json": {
+          "bytes": 4347,
+          "sha256": "ef012ad7b2857aa5d35105a958ae21a0df437d9665e24aadff3bcedd399bc5d3"
+        },
+        "test-contract.json": {
+          "bytes": 13838,
+          "sha256": "e2219b8ec939a28f9485fc862dc62e7198fe011596645ea52941e971487fc000"
+        },
+        "test_file.c": {
+          "bytes": 52620,
+          "sha256": "7806fe81ec19e05ae8baa52f387c4c434c7824b3e012c8da8c7bff8535194908"
+        }
+      }
+    },
+    {
+      "name": "dso_core_impl",
+      "review": "Independent full runner and harness/control review; actual fp mutation and unrelated native-error masking corrected before freeze. Provider author, not independent reviewer of its own files."
+    },
+    {
+      "name": "ordinary_file_runner",
+      "review": "Independent provider/native leaf and full harness/control/schema review; fourteen nine-check selectors and six exact singletons. Runner author, not independent reviewer of own runner."
+    }
+  ],
+  "runtime_gate": "CLOSED",
+  "schema": 1,
+  "scope": "Independent source and control review before first compiler invocation; no runtime claim.",
+  "status": "passed"
+}

@@ -1,0 +1,312 @@
+{
+  "configuration": "AO_WITNESS_SETUP",
+  "controls": {
+    "consume-ambient-error": {
+      "expected_failures": [
+        "native-failure-pair-survives-instrumentation"
+      ],
+      "macro": "OF_CONTROL_CONSUME_AMBIENT_ERROR",
+      "safety": "Actual native -1/EEXIST remains required by the common native oracle; only consumed prepared/public errno changes after the declared clobber. The dedicated composite owns the pair correspondence.",
+      "selector": "control-error-pair"
+    },
+    "corrupt-reported-token": {
+      "expected_failures": [
+        "native-open-token-and-custody-correspond"
+      ],
+      "macro": "OF_CONTROL_CORRUPT_REPORTED_TOKEN",
+      "safety": "The raw opened descriptor stays saved and verified. The combined gate rejects the augmented supplied token before any narrowing/native follow-up. The dedicated composite owns follow-up absence, Held cleanup and empty file consequences.",
+      "selector": "control-open-token"
+    },
+    "decoy-owned-write": {
+      "expected_failures": [
+        "owned-write-preserves-copied-bytes"
+      ],
+      "macro": "OF_CONTROL_DECOY_OWNED_WRITE",
+      "safety": "The sole actual full32 write still uses the owned descriptor; only its canonical decoy bytes and observed content differ. The dedicated composite owns both byte comparisons.",
+      "selector": "control-file-bytes"
+    },
+    "extra-owned-write": {
+      "expected_failures": [
+        "terminal-provider-writes-once"
+      ],
+      "macro": "OF_CONTROL_EXTRA_OWNED_WRITE",
+      "safety": "Two actual full32 writes use the same held descriptor and truthful original payload. The first pair remains supplied. The dedicated composite owns write count and observed64 versus32 extent; no raw transcript is normalized.",
+      "selector": "control-write-once"
+    },
+    "omit-native-close": {
+      "expected_failures": [
+        "close-receipt-has-native-call-evidence"
+      ],
+      "macro": "OF_CONTROL_OMIT_NATIVE_CLOSE",
+      "safety": "The journal honestly records a supplied success while retaining Held custody. External cleanup closes that saved held descriptor once after frozen evidence. The dedicated composite owns native close presence and the changed cleanup obligation.",
+      "selector": "control-close-call"
+    },
+    "omit-native-sync": {
+      "expected_failures": [
+        "sync-receipt-has-native-call-evidence"
+      ],
+      "macro": "OF_CONTROL_OMIT_NATIVE_SYNC",
+      "safety": "The journal honestly records a supplied success with no native fsync. The dedicated composite owns native presence/origin/receipt correspondence; actual close still must return0.",
+      "selector": "control-sync-call"
+    }
+  },
+  "evidence_schema": {
+    "child_report": "Native pointer-free static-zero envelope with fixed magic/sizeof; raw .child.bin retained separately. Bounded reporting-width assertions and native round-trip checks preserve actual types; no specific dev_t/ino_t/nlink_t width is assumed. Resolve exact scalar/layout widths from new retained target preflight evidence before runtime. JSON retains every populated callback/native/query cell, every public six-slot event array and all custody/cleanup values. No body claims its own completed report write.",
+    "integer_policy": "Native dev_t/ino_t/uid_t/nlink_t/mode_t/off_t fields are compared in their native types first, then checked for lossless uintmax_t/intmax_t reporting. Size values are nonnegative when present.",
+    "preexec_scope": "The successful allowlist boolean covers the actual child-side pre-exec close sweep and post-exec verification. Individual pre-exec close/fcntl/exec preparation outcomes are not separate retained native receipts; failures terminate as infrastructure before engine entry.",
+    "private_keys": [
+      "schema",
+      "selector",
+      "checks",
+      "check_names",
+      "failures",
+      "failed_checks",
+      "source_scope",
+      "input",
+      "supervisor",
+      "child",
+      "parent_file",
+      "parent_cleanup",
+      "binary_layout"
+    ],
+    "report_io_scope": "The child writes its envelope once then returns through main. Parent confirms normal child exit0, exact report file type/owner/link/size, and one exact-size pread before using it. JSON output completion is independently reflected by supervisor exit; neither report asserts its own completed write.",
+    "source_scope": "isolated-Linux-owned-temporary-file; authored-owner-model; ordinary-synchronous-callbacks"
+  },
+  "limits": {
+    "failure_cleanup_rule": "No retry or recursive cleanup; a failed supervisor may leave owned temporary names to container containment. That containment is not acknowledged cleanup or recovery.",
+    "identity_oracle_note": "Snapshot equality is fieldwise across all six event slots/full33-byte IDs. Parent post-exit observation provides separate owned file facts and does not establish prior callback completion or persistence durability.",
+    "known_close_failure_rule": "Any reached actual provider close returning-1 fails the common oracle while preserving unknown custody and no retry; readonly actual fsync may return0 or-1, with the full returned pair retained. Other reached native writes/sync/close must have their planned ordinary outcomes.",
+    "maximum_owned_file_bytes": 64,
+    "native_fault_context": false,
+    "native_frames": false,
+    "ordinary_calls_per_child": 2,
+    "owned_file_names": 1,
+    "parent_read_bytes": 65,
+    "production_paths": false,
+    "provider_callback_records": 8,
+    "provider_native_records": 8,
+    "provider_query_records": 4,
+    "report_bytes": 1048576,
+    "source_authoring_execution": "No compiler, child, provider, native file case, or matrix has been executed by writing this contract.",
+    "supervisor_native_records": 48,
+    "threads_or_signals": false
+  },
+  "schema": 1,
+  "scope": "Fresh ordinary child entry with fixed authored owners and one private capability-owned file; supervisor observation and cleanup are separate.",
+  "selectors": {
+    "collision-refusal": {
+      "checks": [
+        "supervisor-owned-isolated-custody",
+        "fresh-child-ordinary-entry-public-state",
+        "native-calls-use-owned-descriptors",
+        "prepared-values-match-public-receipts",
+        "provider-journals-have-bounded-custody",
+        "post-exit-observation-is-owned-and-bounded",
+        "external-cleanup-does-not-rewrite-attempt",
+        "native-identity-conversions-are-exact",
+        "exclusive-collision-preserves-owned-sentinel"
+      ],
+      "group": "G2"
+    },
+    "control-close-call": {
+      "checks": [
+        "supervisor-owned-isolated-custody",
+        "fresh-child-ordinary-entry-public-state",
+        "native-calls-use-owned-descriptors",
+        "prepared-values-match-public-receipts",
+        "provider-journals-have-bounded-custody",
+        "post-exit-observation-is-owned-and-bounded",
+        "external-cleanup-does-not-rewrite-attempt",
+        "native-identity-conversions-are-exact",
+        "close-receipt-has-native-call-evidence"
+      ],
+      "group": "C5"
+    },
+    "control-error-pair": {
+      "checks": [
+        "supervisor-owned-isolated-custody",
+        "fresh-child-ordinary-entry-public-state",
+        "native-calls-use-owned-descriptors",
+        "prepared-values-match-public-receipts",
+        "provider-journals-have-bounded-custody",
+        "post-exit-observation-is-owned-and-bounded",
+        "external-cleanup-does-not-rewrite-attempt",
+        "native-identity-conversions-are-exact",
+        "native-failure-pair-survives-instrumentation"
+      ],
+      "group": "C1"
+    },
+    "control-file-bytes": {
+      "checks": [
+        "supervisor-owned-isolated-custody",
+        "fresh-child-ordinary-entry-public-state",
+        "native-calls-use-owned-descriptors",
+        "prepared-values-match-public-receipts",
+        "provider-journals-have-bounded-custody",
+        "post-exit-observation-is-owned-and-bounded",
+        "external-cleanup-does-not-rewrite-attempt",
+        "native-identity-conversions-are-exact",
+        "owned-write-preserves-copied-bytes"
+      ],
+      "group": "C3"
+    },
+    "control-open-token": {
+      "checks": [
+        "supervisor-owned-isolated-custody",
+        "fresh-child-ordinary-entry-public-state",
+        "native-calls-use-owned-descriptors",
+        "prepared-values-match-public-receipts",
+        "provider-journals-have-bounded-custody",
+        "post-exit-observation-is-owned-and-bounded",
+        "external-cleanup-does-not-rewrite-attempt",
+        "native-identity-conversions-are-exact",
+        "native-open-token-and-custody-correspond"
+      ],
+      "group": "C2"
+    },
+    "control-sync-call": {
+      "checks": [
+        "supervisor-owned-isolated-custody",
+        "fresh-child-ordinary-entry-public-state",
+        "native-calls-use-owned-descriptors",
+        "prepared-values-match-public-receipts",
+        "provider-journals-have-bounded-custody",
+        "post-exit-observation-is-owned-and-bounded",
+        "external-cleanup-does-not-rewrite-attempt",
+        "native-identity-conversions-are-exact",
+        "sync-receipt-has-native-call-evidence"
+      ],
+      "group": "C4"
+    },
+    "control-write-once": {
+      "checks": [
+        "supervisor-owned-isolated-custody",
+        "fresh-child-ordinary-entry-public-state",
+        "native-calls-use-owned-descriptors",
+        "prepared-values-match-public-receipts",
+        "provider-journals-have-bounded-custody",
+        "post-exit-observation-is-owned-and-bounded",
+        "external-cleanup-does-not-rewrite-attempt",
+        "native-identity-conversions-are-exact",
+        "terminal-provider-writes-once"
+      ],
+      "group": "C6"
+    },
+    "file-direct": {
+      "checks": [
+        "supervisor-owned-isolated-custody",
+        "fresh-child-ordinary-entry-public-state",
+        "native-calls-use-owned-descriptors",
+        "prepared-values-match-public-receipts",
+        "provider-journals-have-bounded-custody",
+        "post-exit-observation-is-owned-and-bounded",
+        "external-cleanup-does-not-rewrite-attempt",
+        "native-identity-conversions-are-exact",
+        "direct-owner-reaches-owned-file"
+      ],
+      "group": "G1"
+    },
+    "file-generated": {
+      "checks": [
+        "supervisor-owned-isolated-custody",
+        "fresh-child-ordinary-entry-public-state",
+        "native-calls-use-owned-descriptors",
+        "prepared-values-match-public-receipts",
+        "provider-journals-have-bounded-custody",
+        "post-exit-observation-is-owned-and-bounded",
+        "external-cleanup-does-not-rewrite-attempt",
+        "native-identity-conversions-are-exact",
+        "generated-owner-reaches-owned-file"
+      ],
+      "group": "G1"
+    },
+    "opaque-no-owner": {
+      "checks": [
+        "supervisor-owned-isolated-custody",
+        "fresh-child-ordinary-entry-public-state",
+        "native-calls-use-owned-descriptors",
+        "prepared-values-match-public-receipts",
+        "provider-journals-have-bounded-custody",
+        "post-exit-observation-is-owned-and-bounded",
+        "external-cleanup-does-not-rewrite-attempt",
+        "native-identity-conversions-are-exact",
+        "opaque-no-owner-creates-no-file"
+      ],
+      "group": "G4"
+    },
+    "readonly-write-error": {
+      "checks": [
+        "supervisor-owned-isolated-custody",
+        "fresh-child-ordinary-entry-public-state",
+        "native-calls-use-owned-descriptors",
+        "prepared-values-match-public-receipts",
+        "provider-journals-have-bounded-custody",
+        "post-exit-observation-is-owned-and-bounded",
+        "external-cleanup-does-not-rewrite-attempt",
+        "native-identity-conversions-are-exact",
+        "readonly-native-error-still-syncs-and-closes"
+      ],
+      "group": "G2"
+    },
+    "repeat-after-completion": {
+      "checks": [
+        "supervisor-owned-isolated-custody",
+        "fresh-child-ordinary-entry-public-state",
+        "native-calls-use-owned-descriptors",
+        "prepared-values-match-public-receipts",
+        "provider-journals-have-bounded-custody",
+        "post-exit-observation-is-owned-and-bounded",
+        "external-cleanup-does-not-rewrite-attempt",
+        "native-identity-conversions-are-exact",
+        "terminal-repeat-preserves-copied-owner-and-single-file"
+      ],
+      "group": "G5"
+    },
+    "supplied-close-refusal": {
+      "checks": [
+        "supervisor-owned-isolated-custody",
+        "fresh-child-ordinary-entry-public-state",
+        "native-calls-use-owned-descriptors",
+        "prepared-values-match-public-receipts",
+        "provider-journals-have-bounded-custody",
+        "post-exit-observation-is-owned-and-bounded",
+        "external-cleanup-does-not-rewrite-attempt",
+        "native-identity-conversions-are-exact",
+        "supplied-close-refusal-retains-held-custody"
+      ],
+      "group": "G3"
+    },
+    "supplied-invalid-write-result": {
+      "checks": [
+        "supervisor-owned-isolated-custody",
+        "fresh-child-ordinary-entry-public-state",
+        "native-calls-use-owned-descriptors",
+        "prepared-values-match-public-receipts",
+        "provider-journals-have-bounded-custody",
+        "post-exit-observation-is-owned-and-bounded",
+        "external-cleanup-does-not-rewrite-attempt",
+        "native-identity-conversions-are-exact",
+        "invalid-supplied-write-keeps-public-attempt-incomplete"
+      ],
+      "group": "G3"
+    }
+  },
+  "status": "source-frozen-not-executed",
+  "summary_counts": {
+    "candidate_selectors_per_mode": 14,
+    "control_baselines": 6,
+    "controls_per_mode": 6,
+    "distinct_assertion_names": 22,
+    "fresh_witness_children": 40,
+    "normal_selectors": 8,
+    "summed_assertions_per_mode": 126
+  },
+  "summary_keys": [
+    "schema",
+    "selector",
+    "checks",
+    "check_names",
+    "failures",
+    "failed_checks"
+  ]
+}

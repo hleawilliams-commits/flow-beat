@@ -1,0 +1,164 @@
+{
+  "limits": [
+    "DWARF describes compiler types; it is independently compared across both new objects and target preprocessor. It is not live native-memory validation.",
+    "Native child report uses fixed same-build producer/consumer and exact-size validation; no portable cross-ABI wire format is claimed."
+  ],
+  "native_layout": {
+    "ac_snapshot": {
+      "members": {
+        "has_payload": 4,
+        "result": 8,
+        "state": 0
+      },
+      "size": 512
+    },
+    "child_report": {
+      "members": {
+        "after_cleanup": 1720,
+        "bytes": 8,
+        "calls": 2232,
+        "cleanup_ok": 32,
+        "complete_table": 25,
+        "directory_fd": 36,
+        "external_cleanup": 4720,
+        "first": 696,
+        "first_return": 2236,
+        "freeze_ok": 31,
+        "generated_commit": 30,
+        "generated_stage": 29,
+        "infrastructure": 20,
+        "inherited_fd_list_valid": 24,
+        "initial": 184,
+        "magic": 0,
+        "model_commit": 28,
+        "model_stage": 27,
+        "owner_after": 77,
+        "owner_before": 44,
+        "precleanup": 2248,
+        "prepared": 26,
+        "repeat_context_unchanged": 33,
+        "repeat_request": 160,
+        "report_fd": 40,
+        "request_after": 136,
+        "request_before": 112,
+        "second": 1208,
+        "second_return": 2240,
+        "selector": 16
+      },
+      "size": 4760
+    },
+    "dev_t": {
+      "members": {},
+      "size": 8
+    },
+    "handoff": {
+      "members": {
+        "directory": 24,
+        "directory_fd": 12,
+        "magic": 0,
+        "report_fd": 16,
+        "selector": 8,
+        "uid": 64
+      },
+      "size": 72
+    },
+    "ino_t": {
+      "members": {},
+      "size": 8
+    },
+    "mode_t": {
+      "members": {},
+      "size": 4
+    },
+    "nlink_t": {
+      "members": {},
+      "size": 4
+    },
+    "of_cleanup_record": {
+      "members": {
+        "after": 12,
+        "attempted": 2,
+        "before": 8,
+        "descriptor": 4,
+        "eligible": 1,
+        "requested": 0,
+        "result": 16
+      },
+      "size": 40
+    },
+    "of_identity": {
+      "members": {
+        "device": 0,
+        "inode": 8,
+        "links": 20,
+        "mode": 24,
+        "size": 32,
+        "uid": 16
+      },
+      "size": 40
+    },
+    "of_report": {
+      "members": {
+        "callback_count": 116,
+        "callbacks": 136,
+        "creation_identity": 72,
+        "creation_identity_available": 64,
+        "custody": 52,
+        "directory_validated": 1,
+        "expected_directory": 8,
+        "expected_uid": 48,
+        "file_callback_count": 120,
+        "frozen": 2,
+        "has_saved_descriptor": 56,
+        "infrastructure": 112,
+        "mode": 4,
+        "native": 1416,
+        "native_count": 128,
+        "queries": 2120,
+        "query_count": 132,
+        "saved_descriptor": 60,
+        "setup_complete": 0,
+        "unblamed_count": 124
+      },
+      "size": 2472
+    },
+    "off_t": {
+      "members": {},
+      "size": 8
+    },
+    "request_value": {
+      "members": {
+        "fp": 16,
+        "lr": 8,
+        "pc": 0
+      },
+      "size": 24
+    },
+    "uid_t": {
+      "members": {},
+      "size": 4
+    }
+  },
+  "pins": {
+    "expanded": {
+      "bytes": 102333,
+      "sha256": "a2a4f0197ef800a21fc9f0fce164d1cf7a5221f0bebe7afdf8e213f23a4357bb"
+    },
+    "macros": {
+      "bytes": 62466,
+      "sha256": "9b241b2024d792971af7220aeb0cb11e20783792370ff216825ffbc034ba17c5"
+    },
+    "plain_object": {
+      "bytes": 201416,
+      "sha256": "c5baa472098e8d3b9fac1a02b2b512f6de358c3db569b89b92e88dc9cb5a0a1a"
+    },
+    "sanitized_object": {
+      "bytes": 464400,
+      "sha256": "59593a2a4470a69c886c594ac48fea16099e214af6bc3ee8a2d743e7bd10ebff"
+    }
+  },
+  "prior_guessed_nlink_8": "Unexecuted draft retained; actual target nlink_t is unsigned int, four bytes. No compiler failure or runtime evidence is inferred.",
+  "schema": 1,
+  "scope": "fresh target header/macros and ELF DWARF metadata only; no native witness executed",
+  "status": "passed"
+}

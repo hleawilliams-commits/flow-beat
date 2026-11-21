@@ -1,0 +1,50 @@
+{
+  "files": {
+    "core.c": {
+      "bytes": 24981,
+      "sha256": "eca23b77d5e064a7015dd3f912e5652a7d61df196ce936b3fbf1934e4a4819d1"
+    },
+    "core.h": {
+      "bytes": 8461,
+      "sha256": "a1c1f13832a8bdb55ba9a2d4379ff8c6cb689bd70826575497d13402430faa38"
+    },
+    "file_provider.c": {
+      "bytes": 15746,
+      "sha256": "58061c9dd54c790de4387d431b8cb297e9c02c46f0963555e691bbcaa42eb5d0"
+    },
+    "file_provider.h": {
+      "bytes": 4935,
+      "sha256": "2793df346c64a71aef23ce0419a8296cd8ec326fd45659c61c7a989cfedf09c8"
+    },
+    "native_leaf.c": {
+      "bytes": 2944,
+      "sha256": "9033bfe9cf854a495cfb7056fb7627fe371e7961e792589d59b99fcfc4064669"
+    },
+    "native_leaf.h": {
+      "bytes": 833,
+      "sha256": "55e4a5ed78d023fb652002d7bface8421a71b690033f9f3cf02ed21cc72cc348"
+    },
+    "run-tests.py": {
+      "bytes": 40318,
+      "sha256": "323f5526f36aece7f6ecc87f1e8d32d72061e817bf7527923285ff20390eaefe"
+    },
+    "source-ledger.json": {
+      "bytes": 8114,
+      "sha256": "bfdeb71756881135541b0cb5016ef9dc081985d8a431ce5ed402c773c1214900"
+    },
+    "source-transform.json": {
+      "bytes": 4347,
+      "sha256": "ef012ad7b2857aa5d35105a958ae21a0df437d9665e24aadff3bcedd399bc5d3"
+    },
+    "test-contract.json": {
+      "bytes": 13838,
+      "sha256": "e2219b8ec939a28f9485fc862dc62e7198fe011596645ea52941e971487fc000"
+    },
+    "test_file.c": {
+      "bytes": 52620,
+      "sha256": "7806fe81ec19e05ae8baa52f387c4c434c7824b3e012c8da8c7bff8535194908"
+    }
+  },
+  "schema": 1,
+  "status": "reviewed-before-build"
+}

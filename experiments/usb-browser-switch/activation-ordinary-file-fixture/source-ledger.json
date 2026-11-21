@@ -1,0 +1,182 @@
+{
+  "authorship": {
+    "file_provider.c": "New fixed ordinary provider/context and six safe provider-only control branches.",
+    "file_provider.h": "New bounded native/provider record and custody types; no engine change.",
+    "native_leaf.c": "New one-call ordinary libc leaves and raw/error capture; target ABI preconditions.",
+    "native_leaf.h": "New internal native leaf declarations; stable provider-owned result storage.",
+    "run-tests.py": "Separately authored custody/build/review/run driver using predecessor only as read-only source reference.",
+    "source-transform.json": "Whole-file unchanged engine plus complete seven-group new-source ledger; no source extraction.",
+    "test-contract.json": "New fourteen-selector and six-singleton contract; draft status changed only before first build.",
+    "test_file.c": "New same-Linux supervisor/exec child, fixed capability handoff, fieldwise public observations, exact control oracles, binary/JSON evidence and external cleanup."
+  },
+  "basis": {
+    "bytes": 34893,
+    "path": "experiments/usb-browser-switch/activation-ordinary-file-plan/file-custody-plan.json",
+    "sha256": "42538c8af0124a17e66fbc10e0ae6355e2ffd66b6a1b341563ebd6bbdf793530"
+  },
+  "compiled_surface": {
+    "configuration": "AO_WITNESS_SETUP",
+    "private_apis": false,
+    "second_admission": false,
+    "setup_only": [
+      "ac_model_stage_module",
+      "ac_model_commit_module",
+      "ac_model_stage_generated",
+      "ac_model_commit_generated",
+      "ac_model_add_cell"
+    ]
+  },
+  "custody": {
+    "close": "UnknownEntered before actual call; failed/unknown return never retried or used through saved token",
+    "directory": "same-Linux parent-owned fresh0700 directory, literal witness.dat only",
+    "external_cleanup": "one separately recorded close only while held and no actual close entered, after entry/provider evidence frozen",
+    "native_descriptors": "actual int open results held before validation; full token/range/equality/VerifiedHeld before narrowing",
+    "observation": "identity-checked parent readback only after confirmed child exit; no durability/recovery inference"
+  },
+  "exact_reader_inputs": [
+    {
+      "bytes": 2994,
+      "name": "generated/readers.inc",
+      "path": "experiments/usb-browser-switch/activation-ordinary-provider-fixture/private/run-11ea3682fcc34d33b9034c6e041aee30/work/generated/readers.inc",
+      "sha256": "352048162f452f794136f8b90555783df101feacbf7550e3f4020bd6ef7ab140"
+    },
+    {
+      "bytes": 5369,
+      "name": "generated/receipt-types.h",
+      "path": "experiments/usb-browser-switch/activation-ordinary-provider-fixture/private/run-11ea3682fcc34d33b9034c6e041aee30/work/generated/receipt-types.h",
+      "sha256": "c97454db2aba6e942eb05241bbf80d67ffd8eecb5108927da69600a6a1d15f40"
+    }
+  ],
+  "exclusions": [
+    "native crash paths",
+    "CM_BLAME",
+    "CM_CRASHES",
+    "native frames",
+    "callback nesting",
+    "concurrent publication",
+    "signals/nonlocal exits",
+    "DSO/installer",
+    "firmware/emulator/device",
+    "production/live integration"
+  ],
+  "fresh_preflight_requirements": [
+    "Resolve actual target typedef widths/layout from retained native preprocessing before runtime; no host ctypes inference.",
+    "Review every newly compiled method and direct libc/canary/sanitizer dependencies before runtime.",
+    "All candidate/control builds precede runtime; candidate core/native leaf/harness objects reused unchanged for provider-only controls."
+  ],
+  "reader_fragments": [
+    "ma_module type plus ma_modules storage",
+    "rc_record type plus records storage",
+    "rc_lookup",
+    "ma_module_snapshot",
+    "ma_generated_index",
+    "ma_owner_index"
+  ],
+  "runtime_gate": "CLOSED",
+  "schema": 1,
+  "semantic_cases": {
+    "control_baselines": 6,
+    "controls": 6,
+    "distinct_names": 22,
+    "executed_before_freeze": 0,
+    "modes": 2,
+    "ordinary": 8,
+    "planned_fresh_exec_children": 40,
+    "summed_assertions_per_mode": 126
+  },
+  "source_files": {
+    "core.c": {
+      "bytes": 24981,
+      "sha256": "eca23b77d5e064a7015dd3f912e5652a7d61df196ce936b3fbf1934e4a4819d1"
+    },
+    "core.h": {
+      "bytes": 8461,
+      "sha256": "a1c1f13832a8bdb55ba9a2d4379ff8c6cb689bd70826575497d13402430faa38"
+    },
+    "file_provider.c": {
+      "bytes": 15746,
+      "sha256": "58061c9dd54c790de4387d431b8cb297e9c02c46f0963555e691bbcaa42eb5d0"
+    },
+    "file_provider.h": {
+      "bytes": 4935,
+      "sha256": "2793df346c64a71aef23ce0419a8296cd8ec326fd45659c61c7a989cfedf09c8"
+    },
+    "native_leaf.c": {
+      "bytes": 2944,
+      "sha256": "9033bfe9cf854a495cfb7056fb7627fe371e7961e792589d59b99fcfc4064669"
+    },
+    "native_leaf.h": {
+      "bytes": 833,
+      "sha256": "55e4a5ed78d023fb652002d7bface8421a71b690033f9f3cf02ed21cc72cc348"
+    },
+    "run-tests.py": {
+      "bytes": 40318,
+      "sha256": "323f5526f36aece7f6ecc87f1e8d32d72061e817bf7527923285ff20390eaefe"
+    },
+    "source-transform.json": {
+      "bytes": 4347,
+      "sha256": "ef012ad7b2857aa5d35105a958ae21a0df437d9665e24aadff3bcedd399bc5d3"
+    },
+    "test-contract.json": {
+      "bytes": 13838,
+      "sha256": "e2219b8ec939a28f9485fc862dc62e7198fe011596645ea52941e971487fc000"
+    },
+    "test_file.c": {
+      "bytes": 52620,
+      "sha256": "7806fe81ec19e05ae8baa52f387c4c434c7824b3e012c8da8c7bff8535194908"
+    }
+  },
+  "source_groups": [
+    {
+      "change": "Copy core.c/core.h and generated reader/type inputs byte for byte into the future packet; no transformation or old harness reuse. Preserve sole admission/driver/publication, six fragments, five setup functions and exact compile surface.",
+      "id": "T1",
+      "name": "Exact frozen engine custody"
+    },
+    {
+      "change": "Add separately named ordinary C11 native leaf/provider files with complete const typed table and one stable context. No source mutation to engine; one actual syscall per selected leaf except the explicitly separate C6 extra call.",
+      "id": "T2",
+      "name": "Fixed provider and native leaves"
+    },
+    {
+      "change": "New parent/harness preparation owns fresh directory, fixed single-component file and separate fd identities. Explicit child dircap transfer, exclusive file policy and after-open held custody precede validation.",
+      "id": "T3",
+      "name": "Owned temporary capability"
+    },
+    {
+      "change": "Add bounded value/origin/custody journals outside engine: immediate native pair, checked int64 conversion, prepared pair versus engine/public result, and no private state inspection.",
+      "id": "T4",
+      "name": "Raw/error/token receipts"
+    },
+    {
+      "change": "Parent post-exit fixed-name observation and child held-fd cleanup have separate receipts. Close uncertainty never touches the numeric descriptor again. No recursive cleanup/retry or claim of durable recovery.",
+      "id": "T5",
+      "name": "External observer and cleanup"
+    },
+    {
+      "change": "New eight-selector harness, six control baselines and six singleton mutants; every case fresh process/directory and at most one fixed file (no-owner none; collision setup-owned), all native safety predicates intact. No general nesting, concurrency, crash or native frame providers.",
+      "id": "T6",
+      "name": "Witness and exact controls"
+    },
+    {
+      "change": "Future pin isolated Linux AArch64 GCC7.5 lineage/image/header/libc; review source/control ledger before first build. Compile ordinary standalone and setup-only variants, check method ordering and dependencies, then first new40-process matrix with leak detection. Retain all failures without predecessor replay.",
+      "id": "T7",
+      "name": "Build, method and retention contract"
+    }
+  ],
+  "unchanged_engine": {
+    "core.c": {
+      "mode": "unchanged",
+      "pin": {
+        "bytes": 24981,
+        "sha256": "eca23b77d5e064a7015dd3f912e5652a7d61df196ce936b3fbf1934e4a4819d1"
+      }
+    },
+    "core.h": {
+      "mode": "unchanged",
+      "pin": {
+        "bytes": 8461,
+        "sha256": "a1c1f13832a8bdb55ba9a2d4379ff8c6cb689bd70826575497d13402430faa38"
+      }
+    }
+  }
+}

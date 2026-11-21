@@ -1,0 +1,92 @@
+{
+  "files": {
+    "core.c": {
+      "mode": "unchanged",
+      "pin": {
+        "bytes": 24981,
+        "sha256": "eca23b77d5e064a7015dd3f912e5652a7d61df196ce936b3fbf1934e4a4819d1"
+      }
+    },
+    "core.h": {
+      "mode": "unchanged",
+      "pin": {
+        "bytes": 8461,
+        "sha256": "a1c1f13832a8bdb55ba9a2d4379ff8c6cb689bd70826575497d13402430faa38"
+      }
+    }
+  },
+  "new_sources": [
+    "file_provider.h",
+    "file_provider.c",
+    "native_leaf.h",
+    "native_leaf.c",
+    "test_file.c",
+    "test-contract.json"
+  ],
+  "plan": {
+    "bytes": 34893,
+    "path": "experiments/usb-browser-switch/activation-ordinary-file-plan/file-custody-plan.json",
+    "sha256": "42538c8af0124a17e66fbc10e0ae6355e2ffd66b6a1b341563ebd6bbdf793530"
+  },
+  "reader_inputs": [
+    {
+      "bytes": 2994,
+      "name": "generated/readers.inc",
+      "path": "experiments/usb-browser-switch/activation-ordinary-provider-fixture/private/run-11ea3682fcc34d33b9034c6e041aee30/work/generated/readers.inc",
+      "sha256": "352048162f452f794136f8b90555783df101feacbf7550e3f4020bd6ef7ab140"
+    },
+    {
+      "bytes": 5369,
+      "name": "generated/receipt-types.h",
+      "path": "experiments/usb-browser-switch/activation-ordinary-provider-fixture/private/run-11ea3682fcc34d33b9034c6e041aee30/work/generated/receipt-types.h",
+      "sha256": "c97454db2aba6e942eb05241bbf80d67ffd8eecb5108927da69600a6a1d15f40"
+    }
+  ],
+  "runner_scaffold": {
+    "bytes": 43111,
+    "execution": "Read as source only; never imported or invoked",
+    "path": "experiments/usb-browser-switch/activation-ordinary-provider-fixture/run-tests.py",
+    "sha256": "417d4d7679f212e39cb0279ccf567150c980f487954c69f7d4793df832f78a35"
+  },
+  "runtime_gate": "CLOSED",
+  "schema": 1,
+  "scope": "Exact engine/header/readers; separately authored ordinary file provider, native leaves, supervisor/harness, and custody runner. No installer/native crash path or production integration.",
+  "source_groups": [
+    {
+      "change": "Copy core.c/core.h and generated reader/type inputs byte for byte into the future packet; no transformation or old harness reuse. Preserve sole admission/driver/publication, six fragments, five setup functions and exact compile surface.",
+      "id": "T1",
+      "name": "Exact frozen engine custody"
+    },
+    {
+      "change": "Add separately named ordinary C11 native leaf/provider files with complete const typed table and one stable context. No source mutation to engine; one actual syscall per selected leaf except the explicitly separate C6 extra call.",
+      "id": "T2",
+      "name": "Fixed provider and native leaves"
+    },
+    {
+      "change": "New parent/harness preparation owns fresh directory, fixed single-component file and separate fd identities. Explicit child dircap transfer, exclusive file policy and after-open held custody precede validation.",
+      "id": "T3",
+      "name": "Owned temporary capability"
+    },
+    {
+      "change": "Add bounded value/origin/custody journals outside engine: immediate native pair, checked int64 conversion, prepared pair versus engine/public result, and no private state inspection.",
+      "id": "T4",
+      "name": "Raw/error/token receipts"
+    },
+    {
+      "change": "Parent post-exit fixed-name observation and child held-fd cleanup have separate receipts. Close uncertainty never touches the numeric descriptor again. No recursive cleanup/retry or claim of durable recovery.",
+      "id": "T5",
+      "name": "External observer and cleanup"
+    },
+    {
+      "change": "New eight-selector harness, six control baselines and six singleton mutants; every case fresh process/directory and at most one fixed file (no-owner none; collision setup-owned), all native safety predicates intact. No general nesting, concurrency, crash or native frame providers.",
+      "id": "T6",
+      "name": "Witness and exact controls"
+    },
+    {
+      "change": "Future pin isolated Linux AArch64 GCC7.5 lineage/image/header/libc; review source/control ledger before first build. Compile ordinary standalone and setup-only variants, check method ordering and dependencies, then first new40-process matrix with leak detection. Retain all failures without predecessor replay.",
+      "id": "T7",
+      "name": "Build, method and retention contract"
+    }
+  ],
+  "status": "source-written-not-built"
+}
