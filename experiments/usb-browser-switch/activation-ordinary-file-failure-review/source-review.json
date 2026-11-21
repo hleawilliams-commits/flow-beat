@@ -1,0 +1,288 @@
+{
+  "draft_corrections": {
+    "before_retention": true,
+    "changes": [
+      "Repeat-case executions distinguish one selector in two modes.",
+      "Precleanup provider freeze precedes external cleanup; enclosing child report write follows both."
+    ],
+    "prior_sources_changed": false
+  },
+  "new_runtime_cases": 0,
+  "prior_tested_sources_changed": false,
+  "reviews": {
+    "harness-source-review.json": {
+      "review": {
+        "activity": {
+          "auditor_invoked": false,
+          "new_compiler_or_runtime": false,
+          "new_native_provider_or_device_action": false,
+          "previous_audit_capture_or_matrix_replayed": false,
+          "public_files_modified": false,
+          "retainer_invoked": false,
+          "reviewed_script_imported": false
+        },
+        "precise_limits": [
+          {
+            "first_line": 169,
+            "last_line": 212,
+            "limit": "Descriptor enumeration and early handoff errors do not provide complete per-call receipts or a completed early-failure envelope.",
+            "source": "witness/test_file.c"
+          },
+          {
+            "first_line": 259,
+            "last_line": 272,
+            "limit": "Provider freeze precedes cleanup; the complete child envelope write follows both. Missing returns before write cannot yield its ordinary export.",
+            "source": "witness/test_file.c"
+          },
+          {
+            "first_line": 394,
+            "last_line": 406,
+            "limit": "Normal exit zero precedes report acceptance. Signaled wait status is rejected before child_status assignment; nonzero ordinary exit is retained without accepting its binary report.",
+            "source": "witness/test_file.c"
+          },
+          {
+            "first_line": 407,
+            "last_line": 464,
+            "limit": "Observer/name cleanup requires independent identity. Missing creation acceptance refuses ordinary path cleanup; failure label does not establish recovery or complete resource cleanup.",
+            "source": "witness/test_file.c"
+          },
+          {
+            "first_line": 330,
+            "last_line": 349,
+            "limit": "Cleanup Boolean success describes protocol progression; actual close raw/error and before/after custody remain separate. No unknown-token operation is authorized.",
+            "source": "witness/file_provider.c"
+          },
+          {
+            "first_line": 282,
+            "last_line": 320,
+            "limit": "Exception kill/container removal is infrastructure containment; none was executed by the first passing matrix, and it is not a native missing-return recovery contract.",
+            "source": "witness/run-tests.py"
+          }
+        ],
+        "proposed_control_review": [
+          {
+            "finding": "Safe as a proposed report-evidence control only while its independent immutable identity receipt and disposition facts remain unchanged. A later plan must name the exact corrupted field and give this composite sole ownership of its reported consequences.",
+            "id": "raw-query-provenance",
+            "oracle": "validation-veto-preserves-native-query-evidence"
+          },
+          {
+            "finding": "Changing only supplied -2 to -1 yields ordinary recorded OPEN failure/completion without attempt write/sync/close. The composite must own actual return, payload/state and event differences; held cleanup remains eligible.",
+            "id": "refusal-domain",
+            "oracle": "validation-veto-remains-terminal-incomplete"
+          },
+          {
+            "finding": "Honest omission retains a known-held descriptor until child exit. No close/probe/reuse occurs, and exit containment is never reported as acknowledged cleanup. The composite must own cleanup protocol/attempt/outcome/disposition differences.",
+            "id": "omit-held-cleanup",
+            "oracle": "held-validation-refusal-has-explicit-cleanup"
+          }
+        ],
+        "resolved_pre_retention_findings": [
+          {
+            "id": "provider-freeze-order",
+            "initial_review_sha256": "0fac4fbee42e4420ea90be71e975cb82ff9a016f098d3fbba9a83529e7f2d278",
+            "issue": "Initial missing-return obtained wording placed frozen reports after cleanup.",
+            "resolution": "Final wording correctly freezes the provider report after ac_run and before external cleanup, then writes the encompassing child envelope after both.",
+            "status": "resolved"
+          },
+          {
+            "id": "repeat-case-wording",
+            "initial_readme_sha256": "dc383c1c4515c069d3e2b4496099be9804c537a754f80e63906c48ab09731dfb",
+            "resolution": "README now describes two repeat cases across modes instead of two different selectors.",
+            "status": "resolved"
+          }
+        ],
+        "result": {
+          "boundaries": 9,
+          "historical_controls": 6,
+          "line_anchors": 29,
+          "new_fixed_matrix_count": false,
+          "new_runtime_cases": 0,
+          "proposed_controls": 3,
+          "reused_sources": 25
+        },
+        "retention_review": [
+          "Read the complete helper without importing or invoking it. It contains no subprocess, compiler, loader, native provider or matrix invocation.",
+          "Root and every opened directory component use O_NOFOLLOW; retained inputs must be stable regular files with exact lengths/hashes.",
+          "New UUID packet and O_EXCL writes prevent overwriting; public result existence refuses replay.",
+          "All 25 sources plus review/README/helper are retained; anchor-index hashes inclusive line bytes; private result excludes its own hash and final file inventory is checked before public projection.",
+          "Public projection strips absolute source origins. Helper inventory closes regular files only; an independent auditor must additionally verify expected directory closure."
+        ],
+        "reviewed_inputs": {
+          "README.md": {
+            "bytes": 8164,
+            "sha256": "fc313e61a926f730bc8d8835c77883b321f1c4a424665f5b9ff5c13ded652ea9"
+          },
+          "failure-custody-review.json": {
+            "bytes": 31555,
+            "sha256": "5e6f36579c1525ddb4b7e0595dc437e6dd28934029992ea6f342fb262b273383"
+          },
+          "retain-source.py": {
+            "bytes": 12411,
+            "sha256": "ce714f95d06db44b21c413aa8f34127d73b7af71731d5f0e62164d7698b158ed"
+          }
+        },
+        "reviewer_role": "Harness author independently read the newly authored review and retention helper; this is source review, not an executed retention/byte audit.",
+        "runtime_gate": "CLOSED",
+        "schema": 1,
+        "scope": "Independent source-only harness/report/cleanup and retention review before first retention",
+        "selected_boundary_review": [
+          "A consumed-validation veto follows genuine successful open/fd/name queries. It cannot rewrite actual native outcomes or promote normal creation acceptance merely to satisfy parent observation.",
+          "Saved fd stays HeldUnvalidated. Existing {-2,7104} remains an invalid-domain value yielding actual terminal incomplete return and no public payload.",
+          "The separate immutable raw-identity receipt must retain successful matching identities independently of the consumed veto; parent observation uses its own capability after normal termination.",
+          "Only the designated consumed-validation diagnostic may be expected; unrelated infrastructure, query, identity, capacity or argument failures remain rejected.",
+          "Held cleanup is a one-shot known-owned disposition because no actual close entered. Raw result, custody and public snapshot remain separate; unknown-close policy modeling is explicitly not selected."
+        ],
+        "source_checks": [
+          "All 25 declared source lengths and SHA-256 pins match local retained bytes; all 29 inclusive line anchors resolve within their declared source.",
+          "Engine/helper/header and previous witness bytes remain unchanged; the proposed successor has not been implemented.",
+          "The nine boundaries distinguish successful setup, real native outcomes, supplied values, public engine completion, downstream export, observer identity and separate cleanup.",
+          "Historical counts are 40 fresh witness children, 40 supervisors, 42 ordinary calls, two suppressed repeats; 32 successful provider opens all fd3, 24 provider closes and eight held-cleanup closes all zero.",
+          "Native close failure, missing returns, post-open query refusal, failed observer/report/cleanup, short writes, EINTR and fd zero remain unexecuted."
+        ],
+        "status": "passed"
+      },
+      "source": {
+        "bytes": 7518,
+        "sha256": "b0ccd3e7eeb12270138f45030f037f4a9cd080e00f595ca633523695c27c1ace"
+      }
+    },
+    "provider-source-review.json": {
+      "review": {
+        "activity": {
+          "compiler_or_disassembler_invoked": false,
+          "device_or_emulator_access": false,
+          "native_file_witness_or_provider_invoked": false,
+          "new_sdk_git_capture": false,
+          "previous_capture_matrix_or_audit_replayed": false,
+          "prior_sources_modified": false,
+          "retention_or_audit_invoked": false,
+          "reviewed_helper_imported": false,
+          "reviewed_helper_invoked": false,
+          "writes": [
+            "private/provider-source-review.json"
+          ]
+        },
+        "basis": {
+          "branch": "codex/az-mods-handoff-2026-10-16",
+          "commit": "08449a3ae4752696230d6756734599ee3bba08a8",
+          "git_status": "Only unrelated deck-lights/ untracked before this new review work."
+        },
+        "coverage": {
+          "boundary_rows_reviewed": 9,
+          "expected_new_retention_files": 30,
+          "expected_new_retention_inputs": 28,
+          "findings_reviewed": 8,
+          "historical_control_partitions": 6,
+          "line_anchor_bounds_read_and_matched": 29,
+          "new_native_provider_invocations": 0,
+          "new_runtime_cases": 0,
+          "proposed_controls_reviewed": 3,
+          "reused_source_pins_read_and_matched": 25
+        },
+        "findings": [
+          {
+            "anchors": [
+              "open-custody",
+              "validate-created",
+              "token-eligibility"
+            ],
+            "detail": "The actual int descriptor is saved and HeldUnvalidated established before validation helpers. Successful fd/name observations precede VerifiedHeld promotion. Failed validation retains the saved descriptor and returns the distinct infrastructure pair {-2,7104}; no negative native open is invented.",
+            "id": "custody-before-validation",
+            "result": "pass"
+          },
+          {
+            "anchors": [
+              "engine-record",
+              "engine-publication",
+              "provider-prepared"
+            ],
+            "detail": "The unchanged engine rejects OPEN<-1 before authoritative recording, stays ActiveIncomplete, returns AC_INCOMPLETE and exposes no unfinished payload. Prepared callback output is not proof of caller recording or public completion. A future {-1,7104} control instead records ordinary failure and completes without follow-up file callbacks.",
+            "id": "invalid-return-boundary",
+            "result": "pass"
+          },
+          {
+            "anchors": [
+              "leaf-capture",
+              "close-dispatch",
+              "provider-cleanup"
+            ],
+            "detail": "UnknownEntered precedes actual close entry, and only actual raw0 yields ClosedReturned. A returned error remains UnknownAfterCloseReturn. Cleanup permits only still-held unvalidated/verified custody once. The unused CloseEntered enum is correctly excluded from observed-state claims. No actual native close failure or missing return is claimed.",
+            "id": "unknown-versus-held",
+            "result": "pass"
+          },
+          {
+            "anchors": [
+              "harness-export",
+              "supervisor-report",
+              "supervisor-json"
+            ],
+            "detail": "Final text now distinguishes provider freeze after ac_run/before external cleanup from the child envelope written after both. Normal exit0 and parent exact-size pread remain separate acceptance evidence; the child cannot acknowledge its own report write. Abnormal/nonzero exits supply no completed accepted-envelope proof.",
+            "id": "export-and-acceptance",
+            "result": "pass-after-precision-correction"
+          },
+          {
+            "anchors": [
+              "supervisor-observer",
+              "validate-created"
+            ],
+            "detail": "The current parent requires creation_identity_available, which refused validation never sets. The future independent raw-identity receipt must preserve genuine successful fd/name query identities for checked parent observation without falsely promoting accepted creation or VerifiedHeld.",
+            "id": "parent-identity-prerequisite",
+            "result": "pass"
+          },
+          {
+            "detail": "All three controls are proposed only. Report-provenance corruption preserves an independent unmodified identity receipt and actual native calls; refusal normalization changes only the prepared domain; omitted eligible cleanup truthfully reports no actual close and treats process-exit closure solely as containment. No control licenses unknown-token operations or weakens path/token checks. Dedicated composite oracles and matrix counts remain for a later plan.",
+            "id": "future-control-safety",
+            "result": "pass"
+          },
+          {
+            "detail": "The final README correctly calls the two per-mode repeat executions repeat-case executions, not two distinct selectors. Historical 40 children, 42 ordinary calls and two suppressed repeats are separate from this source review, which executes zero new cases. Existing native-result/control distinctions and finite observed fd3/close0 limits are maintained.",
+            "id": "historical-count-scope",
+            "result": "pass-after-precision-correction"
+          },
+          {
+            "detail": "The complete helper is a narrow textual adaptation of the prior source-only retainer: new document/status/directory and review-input labels, with baseline_commit only. It retains nofollow regular local sources, checks exact pins and line spans, creates exclusive new files, closes input/artifact inventories and projects a sanitized result. It imports no subprocess/compiler/native-provider or prior executable helper; no script was imported or invoked during this review.",
+            "id": "retainer-behavior",
+            "result": "pass"
+          },
+          {
+            "detail": "All 25 declared reused file byte lengths and hashes match current retained originals; all 29 anchor bounds resolve within their pinned sources and selected semantic excerpts support the stated boundary claims. Whole frozen engine/header/readers are reused. This primitive source inspection is not a replay of predecessor machine-code, runtime or audit procedures.",
+            "id": "source-closure",
+            "result": "pass"
+          }
+        ],
+        "remaining_limits": [
+          "No implementation authorization, native query-failure/close-error/missing-return execution, arbitrary fd or callback lifetime, signal/nonlocal/concurrent safety, transitive libc behavior, durability, recovery or live composition proof.",
+          "Future raw identity receipt schema, exact control implementation, matrix count and singleton oracle partitions must be reviewed in a separate source-only plan before implementation.",
+          "Ownership remains distinct from fault causation; quarantine and all live gates remain unchanged."
+        ],
+        "reviewed_inputs": {
+          "README.md": {
+            "bytes": 8164,
+            "sha256": "fc313e61a926f730bc8d8835c77883b321f1c4a424665f5b9ff5c13ded652ea9"
+          },
+          "failure-custody-review.json": {
+            "bytes": 31555,
+            "sha256": "5e6f36579c1525ddb4b7e0595dc437e6dd28934029992ea6f342fb262b273383"
+          },
+          "retain-source.py": {
+            "bytes": 12411,
+            "sha256": "ce714f95d06db44b21c413aa8f34127d73b7af71731d5f0e62164d7698b158ed"
+          }
+        },
+        "reviewer": "independent-provider-source-review",
+        "runtime_gate": "CLOSED",
+        "schema": 1,
+        "scope": "Read-only source and retained-evidence mapping review before new retention; no reviewed helper, compiler, native provider, runtime matrix or auditor invocation.",
+        "status": "passed"
+      },
+      "source": {
+        "bytes": 7061,
+        "sha256": "210b5c0df8c6615fa49acc24f55cbc7d93fc5d734be204076aae95865ee4261c"
+      }
+    }
+  },
+  "runtime_gate": "CLOSED",
+  "schema": 1,
+  "scope": "Independent source/control/retention review before first new retention; no runtime execution",
+  "status": "passed"
+}

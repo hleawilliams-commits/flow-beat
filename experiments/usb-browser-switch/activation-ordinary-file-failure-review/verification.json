@@ -1,0 +1,158 @@
+{
+  "activity": {
+    "concurrency": false,
+    "dso_or_installer": false,
+    "firmware_emulator_or_device": false,
+    "new_adapter_or_native_provider": false,
+    "new_callback_or_nesting": false,
+    "new_compiler_or_disassembler": false,
+    "new_runtime_cases": 0,
+    "new_sdk_git_reads": 0,
+    "previous_successful_capture_audit_or_matrix_replayed": false,
+    "prior_tested_source_changed": false,
+    "production_or_live": false,
+    "signal_or_nonlocal_exit": false
+  },
+  "audit": {
+    "assertion_kind": "Structural assertions, not runtime cases",
+    "auditor": {
+      "bytes": 44100,
+      "sha256": "fc6927c5f2cb411a3d7914276d292140de2488dae5fd1a5d882cba7cf0f76aeb"
+    },
+    "auditor_copied_before_invocation": true,
+    "auditor_unchanged": true,
+    "execution": {
+      "bytes": 45,
+      "sha256": "0d7b697169d522f405b6bbed956a26828cbc2457f3de9cb22fe1a91033de80b4"
+    },
+    "first_actual_invocation_passed": true,
+    "independent_source_reviews": [
+      {
+        "bytes": 5046,
+        "file": "auditor-source-review.json",
+        "sha256": "e737e3127b1d6104856f8d472c56aec54dc1462c97ca2651b1666568fa25338c"
+      },
+      {
+        "bytes": 4564,
+        "file": "auditor-harness-review.json",
+        "sha256": "1d620a20e73999ceed1402edb2232b9a59c2088a261502b98ffe973280777e87"
+      }
+    ],
+    "invocation": {
+      "bytes": 1219,
+      "sha256": "a44d9b1bcb850bfc04c4a571a94005b280ebefae73ce86db51dbd8ce60eb4655"
+    },
+    "launch_source": {
+      "bytes": 1225,
+      "sha256": "6ab89e6b249f790e83bf558858622537f10c49c30af4c9a7b712bd39f0a391a7"
+    },
+    "prior_audit_replayed": false,
+    "result": {
+      "bytes": 42293,
+      "sha256": "b6a57d6214f598160b8ffb3671429a37013f361956e8f1d1141ef2f091c68871"
+    },
+    "retained_prior_report_pairs_read_only": 40,
+    "stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stdout": {
+      "bytes": 85,
+      "sha256": "4e4fceb940795a318addfcb06a3d6dae2b2c57bef285a969dfc1f3388e06971e"
+    },
+    "structural_assertions": 47355
+  },
+  "audit_preparation_failure": {
+    "auditor_invoked": false,
+    "cause": "Reviewer output had not yet been written when launch preparation read it.",
+    "custody_limit": "Wrapper text and diagnostic were retained retrospectively; no pre-invocation wrapper copy or original standalone stdout/stderr capture is claimed.",
+    "diagnostic_summary": {
+      "bytes": 236,
+      "sha256": "e5380db592a112a3db92f9bc28580c500d457ff344c62d86e7a060033ddadbb4"
+    },
+    "failure_record": {
+      "bytes": 905,
+      "sha256": "a47474c7ed91032435389b4a800b21c02cf1eab4a729e0131e5448b4b3ede450"
+    },
+    "recovery": "Both completed reviewer notes were pinned into a fresh directory; launcher saved before first actual auditor invocation.",
+    "retrospective_wrapper": {
+      "bytes": 1146,
+      "sha256": "14a10bf581a138c331aab348eecbae1d9f40fa273eafc7cb233c26dbb2f8f01b"
+    },
+    "stage": "Before auditor invocation"
+  },
+  "limits": [
+    "No actual close error, missing return, query refusal or failed cleanup was executed by this slice.",
+    "Selected future extension is known-held consumed-validation refusal, not unknown-close execution.",
+    "Old actual close results were zero; supplied close refusal is pre-call known-held custody.",
+    "Cleanup Boolean protocol return, native raw/error, public completion, report export, observer and parent cleanup remain separate.",
+    "No durability, signal safety, arbitrary custody/interposition, quiescence, recovery or fault-causation proof.",
+    "LL/SC retry/libc/canary/sanitizer dependencies and every prior live gate remain."
+  ],
+  "next_scope": "Next make a separately scoped source-only consumed-validation refusal plan. Reuse the frozen ordinary-file witness and failure-custody review without replay. Specify a separately versioned ordinary successor that retains actual successful open/fd/name query outcomes and independent raw identity custody, then applies an explicit consumed-validation veto before VerifiedHeld promotion. Preserve HeldUnvalidated, the existing {-2,7104} invalid-domain return, public ActiveIncomplete/no payload and one external held cleanup attempt. Define exact report/envelope/parent-observer changes so rejected validation is never recast as accepted creation. Pin a finite selector/baseline matrix and three exact singleton controls for query-evidence corruption, -2-to--1 normalization and omitted held cleanup, with each composite owning its changed consequences and independent identity evidence protecting observation. Keep unrelated setup/query/capacity/argument/report/cleanup errors refused. No implementation, compiler, native I/O, callbacks/runtime, signals/nonlocal exits, nesting/concurrency, DSO/installer, firmware/device, production or live action is authorized in this plan slice. Do not manufacture real close failure or operate on an unknown/possibly closed token. Preserve sole admission, immutable completion, five setup-only APIs, opaque unblamed, all frozen bytes/failure packets, LL/SC/libc/canary limits, quarantine and every closed live gate; ownership is not causation.",
+  "ownership_is_fault_causation": false,
+  "pre_retention_corrections": {
+    "description": [
+      "One repeat selector executed in each mode gives two repeat-case executions.",
+      "Provider report freezes before cleanup; child envelope writes after cleanup."
+    ],
+    "record": {
+      "bytes": 257,
+      "sha256": "9fbfb6b4ce2a1b75513bcd93859fa2b93a72d6704d539ad57351a60886370ff4"
+    },
+    "retained_drafts": {
+      "pre-review-correction-README.md": {
+        "bytes": 8169,
+        "sha256": "dc383c1c4515c069d3e2b4496099be9804c537a754f80e63906c48ab09731dfb"
+      },
+      "pre-review-correction-failure-custody-review.json": {
+        "bytes": 31481,
+        "sha256": "0fac4fbee42e4420ea90be71e975cb82ff9a016f098d3fbba9a83529e7f2d278"
+      }
+    }
+  },
+  "quarantine_changed": false,
+  "retention": {
+    "first_invocation_passed": true,
+    "line_byte_anchors": 29,
+    "new_review_inputs": 3,
+    "packet_directories": 6,
+    "packet_files": 30,
+    "private_result": {
+      "bytes": 15785,
+      "sha256": "4b47bacb1c5754d08ddf08f7457f9fa716af715ce8f1181ce6e32388fb33e340"
+    },
+    "public_result": {
+      "bytes": 9540,
+      "sha256": "70d89d5525293d041a2dc30667999251a5f87c69626dbcc2355c2527893c031b"
+    },
+    "retained_inputs": 28,
+    "reused_inputs": 25
+  },
+  "review": {
+    "boundary_mappings": 9,
+    "findings": 8,
+    "historical_control_partitions": 6,
+    "independent_source_reviews": [
+      {
+        "bytes": 7061,
+        "file": "provider-source-review.json",
+        "sha256": "210b5c0df8c6615fa49acc24f55cbc7d93fc5d734be204076aae95865ee4261c"
+      },
+      {
+        "bytes": 7518,
+        "file": "harness-source-review.json",
+        "sha256": "b0ccd3e7eeb12270138f45030f037f4a9cd080e00f595ca633523695c27c1ace"
+      }
+    ],
+    "proposed_unexecuted_controls": 3,
+    "source_review": {
+      "bytes": 17060,
+      "sha256": "e891153c03e047268d340e2c60967a2a5a29e10080585c54dc6ce7e8dfb6d46f"
+    }
+  },
+  "runtime_gate": "CLOSED",
+  "schema": 1,
+  "scope": "Source-only ordinary-file failure-custody review",
+  "status": "passed"
+}
