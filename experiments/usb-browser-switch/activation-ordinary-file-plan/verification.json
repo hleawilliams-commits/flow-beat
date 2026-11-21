@@ -1,0 +1,196 @@
+{
+  "completed_predecessor_replay": false,
+  "draft_history": {
+    "auditor_source_correction": "Source review caught overlapping literal substitution counts before invocation; three nonoverlapping substitutions with counts2,4,1 now reconstruct the exact helper. Original draft retained. No failed audit execution occurred.",
+    "pre_retention_contract_corrections": [
+      "C2 sole composite owns empty-file size/content consequence",
+      "Explicit same-Linux supervisor/fork-exec capability inheritance",
+      "Observer nofollow/CLOEXEC and identity-before-read",
+      "Preopened explicit child report fds and saved-token unknown-close wording"
+    ],
+    "prior_drafts_retained": true,
+    "unexecuted_auditor_first_draft": {
+      "bytes": 43656,
+      "sha256": "49d064fbabe4903a4ef598c1179b80cbceefc89a958e770f1e0688065b3825ab"
+    }
+  },
+  "future_scope": {
+    "case_groups": 5,
+    "control_baselines": 6,
+    "count_excludes": "Parent supervisors and build/metadata/source-audit commands",
+    "executed": 0,
+    "fresh_exec_witness_children": 40,
+    "modes": [
+      "plain",
+      "asan-ubsan"
+    ],
+    "ordinary_selectors": 8,
+    "singleton_controls": 6,
+    "source_groups": 7
+  },
+  "implementation_callback_nesting_native_or_live_execution": false,
+  "limitations": [
+    "Structural audit assertions are not runtime cases or evidence of native callback execution.",
+    "The future file/provider boundary, native ABI/libc binding, method ordering and actual filesystem/descriptor outcomes remain unimplemented.",
+    "Prepared callback pairs, captured native pairs, public receipts, post-exit bytes and external cleanup have distinct authority.",
+    "Close error/missing-return custody remains unknown; no retry/reset/reopen, numeric-token reuse or recovery proof.",
+    "No native frame/crash-file provider, signals/nonlocal exits, arbitrary callback/DSO lifetime, loader/interposition, concurrent publication, quiescence or nonparticipating-writer proof.",
+    "LL/SC admission retry and libc/canary/sanitizer dependencies remain.",
+    "Quarantine, official protections and every live gate stay closed; ownership is not causation."
+  ],
+  "new_sdk_git_reads": 0,
+  "retained_byte_audit": {
+    "auditor": {
+      "bytes": 43550,
+      "sha256": "00fccac3ca6c1619edb094a2f5c9d84a0406289a0d343723da234ee5d658711a"
+    },
+    "auditor_copied_before_invocation": true,
+    "auditor_unchanged": true,
+    "counts": {
+      "anchors": 19,
+      "case_groups": 5,
+      "control_baselines_planned": 6,
+      "future_witness_children": 40,
+      "new_plan_inputs": 3,
+      "new_runtime_processes": 0,
+      "new_sdk_git_reads": 0,
+      "ordinary_selectors_planned": 8,
+      "packet_directories": 7,
+      "packet_files": 22,
+      "reused_inputs": 17,
+      "singleton_controls_planned": 6,
+      "source_groups": 7,
+      "total_inputs": 20
+    },
+    "execution": {
+      "bytes": 1574,
+      "sha256": "e1cf7e2579185de641ee3392d6e6b1cb81745dd0173f1c4285a51f1aa346bc91"
+    },
+    "first_invocation_passed": true,
+    "helper_static_review": {
+      "functions": 14,
+      "helper_executed": false,
+      "import_statements": 9,
+      "qualification": "AST and frozen source review; qualified re.compile/fullmatch are regex calls, not code evaluation",
+      "qualified_call_forms": 71
+    },
+    "historical_metadata": {
+      "prior_codegen_reaudited": false,
+      "prior_runtime_or_auditor_replayed": false,
+      "scope": "Retained source and metadata links only"
+    },
+    "launcher": {
+      "bytes": 1494,
+      "sha256": "307c3382fc130b314a1dafacc023d825343946abbd9329030e713e5365a2ba1f"
+    },
+    "limitations": [
+      "Structural counts are not runtime cases or semantic execution proof.",
+      "Future design claims were independently reviewed and frozen; this audit checks their byte identity, anchors, metadata and conservative scope.",
+      "No new libc/ABI, fd custody, native errno, persistence, signal, nonlocal-exit, concurrency, lifetime or recovery evidence.",
+      "Historical source/codegen/runtime/audit results are pinned references only; none is replayed."
+    ],
+    "new_sources": {
+      "README.md": {
+        "bytes": 8164,
+        "sha256": "776e85fec5ffa5ea83e2389a3770f63b519f52b9ec278e76f21381a73a9e6639"
+      },
+      "file-custody-plan.json": {
+        "bytes": 34893,
+        "sha256": "42538c8af0124a17e66fbc10e0ae6355e2ffd66b6a1b341563ebd6bbdf793530"
+      },
+      "retain-source.py": {
+        "bytes": 12370,
+        "sha256": "a126c9d3f435765c1a203df20fb3dd5f54c98a6c293364231fd8f992519e6b57"
+      }
+    },
+    "private_result": {
+      "bytes": 11506,
+      "sha256": "e52fca03d0136885302f7215fb924fed6eb762d941c57b30d4d9971df7aa52e4"
+    },
+    "procedures_executed": {
+      "compiler": false,
+      "device": false,
+      "fixture": false,
+      "native_provider": false,
+      "old_audit_or_matrix": false,
+      "retainer": false
+    },
+    "public_result": {
+      "bytes": 7088,
+      "sha256": "fdeb321afeb8656effe326313ea7abc13a94e5fe20db73ea96e96917585ccf9f"
+    },
+    "result": {
+      "bytes": 2667,
+      "sha256": "31401a67a066ac4eec1b8ef293c15054f59ef4c7381dd85de47d9bb0a794668e"
+    },
+    "runtime_gate": "CLOSED",
+    "schema": 1,
+    "scope": "Independent retained-byte/source-only ordinary-file custody plan audit; no execution replay",
+    "source_review": {
+      "bytes": 1017,
+      "sha256": "7423b881a1eeadb69a50d41835d10d1486889eaa800c53e6339515c87abfd7cb"
+    },
+    "status": "passed",
+    "stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stdout": {
+      "bytes": 164,
+      "sha256": "3983e65789fdbb8d7ae1c711af8a7c2e55bfc4b9ce03968862e9069f01029e1a"
+    },
+    "structural_audit_assertions": 10657
+  },
+  "retention": {
+    "anchors": 19,
+    "execution": {
+      "bytes": 2050,
+      "sha256": "aaca069a731dccadec0c3c6bdc2ab52a8254d6981ed3e3e31112634ec24eebfa"
+    },
+    "inputs_unchanged": true,
+    "launcher": {
+      "bytes": 1318,
+      "sha256": "96fb8c7b47a19d3be4cc90f071c0588e36c2da967c1b77e6f52e709c6e051219"
+    },
+    "new_plan_inputs": 3,
+    "packet_files": 22,
+    "private_result_sha256": "e52fca03d0136885302f7215fb924fed6eb762d941c57b30d4d9971df7aa52e4",
+    "public_result": {
+      "bytes": 7088,
+      "sha256": "fdeb321afeb8656effe326313ea7abc13a94e5fe20db73ea96e96917585ccf9f"
+    },
+    "reused_inputs": 17,
+    "status": "first invocation passed",
+    "stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stdout": {
+      "bytes": 165,
+      "sha256": "9d5d69b54f25b1bfe6d24145a00d869699151db6766175cdd5e95e3bcef380eb"
+    },
+    "total_inputs": 20
+  },
+  "reviewed_sources": {
+    "README.md": {
+      "bytes": 8164,
+      "sha256": "776e85fec5ffa5ea83e2389a3770f63b519f52b9ec278e76f21381a73a9e6639"
+    },
+    "file-custody-plan.json": {
+      "bytes": 34893,
+      "sha256": "42538c8af0124a17e66fbc10e0ae6355e2ffd66b6a1b341563ebd6bbdf793530"
+    },
+    "retain-source.py": {
+      "bytes": 12370,
+      "sha256": "a126c9d3f435765c1a203df20fb3dd5f54c98a6c293364231fd8f992519e6b57"
+    }
+  },
+  "runtime_gate": "CLOSED",
+  "schema": 1,
+  "scope": "Source-only ordinary-file custody plan; no implementation or runtime execution",
+  "source_review": {
+    "bytes": 8136,
+    "sha256": "f3ec9afa5b218f9e88b6171daf48ae7be205eb16f35320a8496f51d7d96707c7"
+  },
+  "status": "passed"
+}

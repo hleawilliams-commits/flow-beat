@@ -1,0 +1,449 @@
+{
+  "anchors": [
+    {
+      "first_line": 71,
+      "id": "callback-types",
+      "last_line": 89,
+      "reason": "Copied typed provider arguments and by-value return/error; opaque unblamed.",
+      "source": "engine/core.h"
+    },
+    {
+      "first_line": 249,
+      "id": "engine-admission",
+      "last_line": 275,
+      "reason": "Sole terminal CAS precedes request/provider binding; loser returns first.",
+      "source": "engine/core.c"
+    },
+    {
+      "first_line": 276,
+      "id": "event-entry",
+      "last_line": 293,
+      "reason": "Entered event precedes provider call; copied payload and cleared raw latch.",
+      "source": "engine/core.c"
+    },
+    {
+      "first_line": 294,
+      "id": "accepted-token",
+      "last_line": 302,
+      "reason": "Full authoritative int64 OPEN token without native descriptor provenance.",
+      "source": "engine/core.c"
+    },
+    {
+      "first_line": 303,
+      "id": "callback-dispatch",
+      "last_line": 387,
+      "reason": "Reached-only validation; synchronous callbacks and private capture after return.",
+      "source": "engine/core.c"
+    },
+    {
+      "first_line": 343,
+      "id": "copy-write",
+      "last_line": 361,
+      "reason": "Copied token/length/payload passed by value, no private event pointer.",
+      "source": "engine/core.c"
+    },
+    {
+      "first_line": 388,
+      "id": "record-domains",
+      "last_line": 424,
+      "reason": "Raw value validation then authoritative receipt/error/short flags.",
+      "source": "engine/core.c"
+    },
+    {
+      "first_line": 425,
+      "id": "next-operations",
+      "last_line": 441,
+      "reason": "One selected write followed by sync and close after recorded ordinary return.",
+      "source": "engine/core.c"
+    },
+    {
+      "first_line": 442,
+      "id": "driver-publication",
+      "last_line": 486,
+      "reason": "Immutable result release publication, ordinary return and public acquire observer.",
+      "source": "engine/core.c"
+    },
+    {
+      "first_line": 507,
+      "id": "setup-only",
+      "last_line": 565,
+      "reason": "Five bounded setup APIs with Virgin eligibility; no concurrent writer contract.",
+      "source": "engine/core.c"
+    },
+    {
+      "first_line": 44,
+      "id": "authored-identity",
+      "last_line": 64,
+      "reason": "Canonical fixture identity is copied but syntax is broader than SDK admission.",
+      "source": "engine/core.c"
+    },
+    {
+      "first_line": 38,
+      "id": "native-path-policy",
+      "last_line": 65,
+      "reason": "Selected crash paths and existing safety policy names.",
+      "source": "sdk/community.c"
+    },
+    {
+      "first_line": 1540,
+      "id": "native-unblamed",
+      "last_line": 1554,
+      "reason": "Opaque live-mod/time/append/write/sync/close native operation.",
+      "source": "sdk/community.c"
+    },
+    {
+      "first_line": 1561,
+      "id": "native-consumer",
+      "last_line": 1587,
+      "reason": "Volatile attempted-once consumer, frame lookup and ignored persistence returns.",
+      "source": "sdk/community.c"
+    },
+    {
+      "first_line": 3,
+      "id": "reader-layouts",
+      "last_line": 20,
+      "reason": "Two unchanged layout/storage fragments.",
+      "source": "generated/readers.inc"
+    },
+    {
+      "first_line": 22,
+      "id": "generated-reader",
+      "last_line": 33,
+      "reason": "Exact rc_lookup function.",
+      "source": "generated/readers.inc"
+    },
+    {
+      "first_line": 35,
+      "id": "module-snapshot",
+      "last_line": 45,
+      "reason": "Exact immutable module snapshot function.",
+      "source": "generated/readers.inc"
+    },
+    {
+      "first_line": 47,
+      "id": "generated-index",
+      "last_line": 63,
+      "reason": "Exact generated identity resolution function.",
+      "source": "generated/readers.inc"
+    },
+    {
+      "first_line": 65,
+      "id": "module-first-owner",
+      "last_line": 82,
+      "reason": "Exact module-first reader function.",
+      "source": "generated/readers.inc"
+    }
+  ],
+  "baseline_commit": "2e3ad64a5c0e3ee58de6dbd93a5c3ce50dc77d1e",
+  "case_groups": [
+    {
+      "expected": "One actual exclusive open, write, sync and close. Actual ac_run RETURNED and public immutable owner/receipts correspond to native pairs. Parent post-exit bytes equal copied ID; direct/generated selection remains authored. Required native-success expectations are refused on unexpected returns, not normalized.",
+      "id": "G1",
+      "selectors": [
+        "file-direct",
+        "file-generated"
+      ],
+      "setup": "Fresh empty capability, one fixed 32-byte canonical authored ID, direct module or resolved generated ownership; all provider functions fixed and valid."
+    },
+    {
+      "expected": "Collision returns native -1/EEXIST, publishes OPEN failure and invokes no write/sync/close callbacks; sentinel stays unchanged. Readonly actual write returns -1/EBADF, then real sync/close ordinary results are retained and recorded; file remains empty. No native close-error result is forced or assumed.",
+      "id": "G2",
+      "selectors": [
+        "collision-refusal",
+        "readonly-write-error"
+      ],
+      "setup": "Collision: parent-created sole owned sentinel under same capability; ordinary OPEN O_EXCL must refuse. Readonly: only file open mode becomes O_RDONLY; still actual fresh exclusive creation and valid owned descriptor."
+    },
+    {
+      "expected": "Close-refusal engine completes known_failure with no native close; precleanup report shows Held and separate external cleanup calls actual close once. Invalid WRITE returns INCOMPLETE/Active/no public payload after actual write, with no sync/close callbacks; held descriptor is externally closed once. Parent content and cleanup receipts remain separate. Neither seam is a native failure observation.",
+      "id": "G3",
+      "selectors": [
+        "supplied-close-refusal",
+        "supplied-invalid-write-result"
+      ],
+      "setup": "Same actual owned file path; first case suppresses native close and supplies tagged {-1,OF_CLOSE_REFUSAL}; second retains actual successful WRITE pair then supplies requested_length+1 tagged SuppliedInvalid."
+    },
+    {
+      "expected": "RETURNED with SELECTION/UNBLAMED only; file-provider/native counts zero and post-exit fixed filename absent. Parent directory setup/absence observation is separately labeled. No clock/live-mod/native append/quarantine inference.",
+      "id": "G4",
+      "selectors": [
+        "opaque-no-owner"
+      ],
+      "setup": "Fresh empty capability but authored no-owner selection; fixed unblamed callback only records an opaque ordinary invocation, without native calls."
+    },
+    {
+      "expected": "Repeated actual return SUPPRESSED, no provider/native work, no new file, immutable public completion unchanged. Cleanup/parent observation occur after this repeat and cannot reset/reopen the attempt.",
+      "id": "G5",
+      "selectors": [
+        "repeat-after-completion"
+      ],
+      "setup": "Complete one actual file entry; freeze result, then mutate caller-owned source ID and request pc/lr/fp after return while keeping copied model/table/context stable. Make one repeated ac_run with distinct live request/table/context."
+    }
+  ],
+  "contract": {
+    "abi": "Before a future first build, pin the compiler/image, native headers/libc/binding and source ledger. Compile-time checks require the selected Linux AArch64 int/size_t/ssize_t/int64 widths and ranges (32-bit int and 64-bit size_t, ssize_t and int64_t), and prove native count/descriptor widening is exact. File identities remain in their native dev_t/ino_t types for comparisons; any report conversion must be checked against the pinned types. No current ABI, libc/transitive call, interposition, signal-safety or bounded-time proof is claimed.",
+    "binding_limits": "Owner/module/generated/frame-cell values remain authored. IDs are data only and do not establish SDK admission. Table/code/context custody is fixed for this ordinary process, not arbitrary DSO lifetime, callback quiescence or external-writer coordination. Keep opaque unblamed, original volatile consumer, official cores, quarantine and CM_BLAME/CM_CRASHES untouched.",
+    "bounds": "Preallocate provider journals and reports before entry: maximum eight provider/native operation records covers one OPEN, two writes only in C6, one FSYNC, one CLOSE; use separate fixed query and cleanup records. No allocation/log I/O/formatting inside callbacks or native capture. Exact capacity accounting and overflow refusal must be frozen before first build; exhaustion is infrastructure failure with retained custody, never dropped evidence. Parent readback is at most65 bytes for at most64 expected payload bytes.",
+    "cleanup_names": "After evidence/observation retention, parent cleanup targets only its fixed owned child name via directory capability, and then its exact owned empty directory after identity checks. No recursive deletion or cleanup of unexpected entries. Any cleanup refusal/error leaves explicit outstanding custody; do not convert it to engine success or suppress the report. Confirmation of child termination is required before cleanup; retrying or broadening deletion is outside this plan.",
+    "close": "Mark CloseEntered before the one actual close call and capture its result/error before instrumentation. Actual0 becomes ClosedReturned. Actual-1 becomes UnknownAfterCloseReturn regardless of platform-specific release semantics; no fstat/read/write/close/reuse of that numeric descriptor follows. Entered-without-return stays UnknownEntered, though signals/nonlocal exits/timeouts are not passing planned executions. Neither completion nor close failure permits retry, reopening or reclamation. Actual close-error behavior is unexecuted unless it occurs naturally and is retained; no double-close manufactures it. The no-reuse rule forbids intentionally operating through the old saved token or treating any subsequent numeric reuse as old custody; it is not a claim that the OS or transitive runtime never allocates that number again. Prepare all explicit child evidence/output descriptors before entry and do no further explicit child fd acquisition afterward, including report output. Retained libc/sanitizer/interposition limitations remain.",
+    "directory_capability": "For each future process, the ordinary parent runner creates one new private directory under its dedicated isolated temporary root, mode0700 subject to stricter umask, verifies its actual owner/type and opens/holds a no-follow directory descriptor. It retains a separate parent capability across the child lifetime. The child receives only that declared directory fd, immutable expected directory identity and the fixed single-component name witness.dat; owner IDs/request values never choose a path. No absolute provider path, traversal, symlink, recursive cleanup or preexisting user file is accepted. The witness excludes participating external writers and uses fresh process/directory identities, without claiming exclusion of arbitrary same-UID actors or interposition. Parent/child descriptor inheritance or transfer must be explicit, with no unintended fd aliases and checked child directory fstat against the declared identity before entry. The parent supervisor runs inside the same pinned isolated Linux instance as its witness child. Use explicit fork/exec inheritance of the declared directory and preopened report descriptors, with an exact allowed-fd list and reviewed CLOEXEC handling before child entry; do not pass a Mac/host fd integer through a container command. The supervisor never invokes the attempt engine; the exec child starts its fresh terminal state.",
+    "entry": "Use the exact frozen ordinary-provider core.c/core.h and six reader/type fragments (two layout/storage fragments and four functions). Compile AO_WITNESS_SETUP only, excluding AC_FIXTURE and every old control. One synchronous ac_run per process may win; a designated later repeat may only be suppressed. No nesting, extra admission/reset, private stepping/inspection/refusal/diagnostic APIs, native frames or mutable publication.",
+    "error_policy": "The fixture makes no caller-entry errno preservation guarantee. A declared bounded instrumentation probe may assign a distinct authored errno sentinel only after the native pair is safely captured; normal callback values still come from that pair. Native failure errno, provider refusal sentinel, supplied seam value and infrastructure failure are explicitly separate origins. The engine still accepts its existing int failure_errno field and publishes error_number only for raw==-1; an engine errno_valid flag alone does not identify native origin.",
+    "evidence_channels": "Prepare bounded child report storage and every explicit output descriptor before entry; freeze entry/custody snapshots before writing those reports. Report I/O is outside provider callbacks and has separate raw outcomes, never an engine receipt. Keep the parent directory capability alive independently until after confirmed termination and checked observation/cleanup. Incomplete/failed reports preserve the packet and refuse evidence completion; no retry of the terminal attempt.",
+    "external_cleanup": "After ac_run returns, freeze its return/public snapshot and provider-custody report before cleanup. Separately labeled child cleanup may call close exactly once only for its saved OwnedHeldUnvalidated/VerifiedHeld descriptor for which no actual close has entered (e.g. supplied pre-call close refusal or domain-invalid WRITE result). It captures its own native pair; error becomes unknown with no retry. ClosedReturned or unknown-close descriptors are never touched again. Child process exit is containment, not an explicit close acknowledgement or recovery proof. A parent waits for confirmed child termination before any readback; a timeout/wait failure is infrastructure failure, not ordinary completion.",
+    "file_policy": "The provider's selected actual call is openat(dirfd,\"witness.dat\",O_WRONLY|O_CREAT|O_EXCL|O_NOFOLLOW|O_CLOEXEC,0600), with no O_TRUNC. This custody policy deliberately differs from SDK CM_BLAME open/O_TRUNC and proves no SDK crash persistence. One readonly-error selector substitutes O_RDONLY for O_WRONLY. One collision selector has the parent create the sole owned sentinel file first; the provider is expected to refuse with actual -1/EEXIST while preserving it. No successful provider creation is claimed for that selector.",
+    "native_pair": "A small separately named native leaf performs exactly one selected call, assigns its raw native return, then on raw==-1 captures errno before journal/observer/instrumentation/next-call work. A success pair has error_valid=false and canonical error_value0. The provider context retains native_entered and native_returned with the exact pair. No callback journal labels a pre-call refusal or supplied result as a native return. Source and later method review must establish the immediate capture; a shared leaf/oracle does not independently execute a missing capture path.",
+    "open_custody": "The native leaf captures the real int openat return and its failure errno immediately. On success, install the actual descriptor in context as OwnedHeldUnvalidated before any fstat or journal helper, so later validation failure cannot lose it. Then fstat it and use a no-follow fstatat of the fixed name through the held directory capability; require matching native dev_t/ino_t, a regular file, expected ownership and one link, retaining both actual query outcomes. These checks rely on the declared absence of participating external writers, not an atomic name/descriptor snapshot. A successful validation moves to VerifiedHeld. Unexpected validation failure supplies a deliberately domain-invalid callback raw=-2, tagged InfrastructureRefusal, to halt the unchanged engine; actual successful open remains separately retained and outside cleanup owns the held fd. This is an infrastructure failure, not a native open error or a passing case.",
+    "post_exit_observer": "Only after confirmed termination, the parent may inspect fixed witness.dat through its separately held directory fd, checking regular-file identity, link count and bounded size, then performing bounded readback (maximum65 bytes; unexpected short/read/query/error outcomes refuse exact-content claims). It never uses the child's numeric fd. Parent observations and their raw/errors cannot retroactively alter callback/engine receipts. Readback establishes selected post-exit bytes only, not durability, crash-recovery or persisted blame. Every observer fd has its own once-only close receipt and uncertainty handling. Compare the observer-opened descriptor to the previously reported successful creation identity (or parent collision-sentinel identity); no-owner requires only genuine ENOENT. A mismatched or unreported identity is infrastructure failure and refuses readback/cleanup. Its read-only observer open requires O_NOFOLLOW|O_CLOEXEC through the held directory capability, and fstat identity agreement before any read.",
+    "provider_surface": "Add only separately named witness provider/native-leaf/harness files. Fixed code and a const complete five-function table, stable context/request/authored model and copied arguments live through the outer return. A pre-entry harness check establishes complete stable reachable file callbacks before any winning OPEN. This is a fixture preparation prerequisite, not a new engine authority or a change to reached-only validation. Unblamed remains authored void work without native clock, path or quarantine effects.",
+    "receipts": "Keep distinct: engine event entry; provider callback entry; native call entered; actual native raw/error captured; callback supplied pair prepared; ordinary callback return; engine private raw capture; authoritative returned_recorded receipt; public acquire-gated completion. Provider journals do not claim to observe private engine stages or callback return at their prepared-return log. The actual ac_run return and public snapshot are separate observations; in-call observer can expose only Active/no payload. No new private API or second once flag.",
+    "seams": "Only explicitly declared witness seams may supply a pre-call close refusal (no native close, fd remains Held) or replace one actual WRITE result with invalid raw=requested_length+1 (actual native pair retained, engine halts). These are synthetic supplied values, not native errors/short writes. All safety/custody predicates remain intact in every control. No arbitrary callback, signal, loader, native frame, concurrent publisher or device work.",
+    "sync": "Call fsync once on the same validated owned descriptor and capture raw/error. Returned -1 remains a failure receipt and still precedes close. Actual successful fsync alone proves neither directory-entry nor crash durability. No helper substitution, write retry or extra sync repairs failure.",
+    "tokens": "A successful actual native int fd>=0 is widened exactly to int64_t. Before every actual write/fsync/close, a single combined provider eligibility predicate requires 0<=token<=INT_MAX, equality to that exact saved descriptor and VerifiedHeld with no prior close attempt. Only then cast to int. Zero is valid if actually returned; no forced native-fd-zero witness is selected in this first scope. Int representability alone never establishes custody. Refused tokens trigger no native call and supply tagged ProviderRefusal {-1,OF_TOKEN_REFUSAL}, with OF_TOKEN_REFUSAL an authored sentinel whose origin tag is retained separately and never called native errno.",
+    "write": "Receive ap_write_args by value, validate its full token/custody, bounded requested length and canonical copied bytes. The ordinary leaf performs one write(fd,payload,requested_length), captures ssize_t/raw/error exactly, and returns its pair. Short or failed returns are not retried or completed; the frozen engine continues to sync then close after ordinary returned records. The readonly selector calls write on its own valid O_RDONLY-created file and expects a genuine -1/EBADF; no stale, foreign or deliberately double-closed fd is used. Any unexpected native outcome is retained and refuses the declared case expectation."
+  },
+  "future_matrix": {
+    "control_baselines": 6,
+    "count_unit": "Fresh exec witness children; parent supervisors, compile/metadata commands and source audits are separate counts, not runtime selectors.",
+    "executed_processes": 0,
+    "leak_detection": true,
+    "modes": [
+      "plain",
+      "asan-ubsan"
+    ],
+    "ordinary_selectors": 8,
+    "processes_per_mode": 20,
+    "singleton_controls": 6,
+    "supervisor_location": "Same pinned isolated Linux instance as each child; explicit fork/exec fd inheritance.",
+    "total_processes": 40
+  },
+  "next_scope": "Next implement a separately versioned offline C11 ordinary-file witness from the retained activation-ordinary-file-plan. Freeze and independently review the complete source ledger, unchanged engine/header and six reader/type fragments, fixed native leaf/provider table/context, descriptor/path custody, setup-only symbol surface, eight ordinary selectors, six control baselines and six exact singleton controls before first build. Use only a pinned isolated Linux AArch64 host process and its fresh owned disposable directory/file capability; owner/module/frame inputs remain authored. Keep actual native raw/error capture, supplied callback values, public receipts, post-exit file observation and external cleanup as separate evidence. Never send corrupt or out-of-range tokens to native I/O, retry close/write, touch CM_BLAME/CM_CRASHES, or infer durability, signal safety or fault causation. Preserve the sole admission, no private APIs, no callback nesting/concurrency/DSO/installer/firmware/device/production/live composition. Retain every failed attempt and existing bytes; no passing predecessor replay. All live gates and quarantine remain unchanged.",
+  "non_execution": {
+    "callback_or_nesting": false,
+    "compiler": false,
+    "concurrent_publication": false,
+    "dso_installer": false,
+    "firmware_emulator_device": false,
+    "handler_signal_nonlocal_exit": false,
+    "native_frame_or_file_provider": false,
+    "new_sdk_git_reads": 0,
+    "old_capture_matrix_audit_replay": false,
+    "production_or_live_composition": false,
+    "runtime_matrix": false,
+    "source_transformer": false
+  },
+  "runtime_gate": "CLOSED",
+  "safe_controls": [
+    {
+      "expected_failure_set": [
+        "native-failure-pair-survives-instrumentation"
+      ],
+      "id": "C1",
+      "mutation": "On genuine owned collision OPEN -1/EEXIST, preserve leaf's immediate native pair, then after the declared errno-clobber probe supply ambient errno instead of saved error. Native raw and journal stay truthful.",
+      "name": "consume-ambient-error",
+      "oracle": "One composite owns native-pair versus prepared/supplied/public error correspondence, including known_failure fields. All other assertions ignore the affected error field and check safety/order/identity. The control tests pair consumption, not independent runtime proof of the leaf's initial errno capture.",
+      "safety": "Only owned exclusive-open refusal and local errno assignment; no extra native operation.",
+      "selector": "control-error-pair"
+    },
+    {
+      "expected_failure_set": [
+        "native-open-token-and-custody-correspond"
+      ],
+      "id": "C2",
+      "mutation": "After actual successful owned OPEN and validation, preserve actual int fd/custody but add 2^32 to the supplied nonnegative int64 token. The unchanged combined range/equality/Held gate refuses all later callback native calls before narrowing; each returns tagged ProviderRefusal.",
+      "name": "corrupt-reported-token",
+      "oracle": "One composite owns raw versus supplied token, follow-up refusal/native absence, affected engine receipts and Held cleanup disposition. Unaffected assertions require no invalid/foreign fd reaches a syscall. Baseline exact token causes normal calls; mutant has no native write/sync/close and external cleanup closes actual held fd once. The same sole composite also owns the mutant empty post-exit file size/content versus baseline ID bytes; unaffected file checks are limited to identity/type and the allowed bound, not exact content/size.",
+      "safety": "No corrupted token reaches native I/O; deliberate bad reporting is value-only, actual descriptor remains owned. This does not execute an unsafe narrowing path.",
+      "selector": "control-open-token"
+    },
+    {
+      "expected_failure_set": [
+        "owned-write-preserves-copied-bytes"
+      ],
+      "id": "C3",
+      "mutation": "Only the local native WRITE payload becomes a distinct same-length canonical decoy. Retain original copied args and actual native called bytes separately; call remains on the owned descriptor and returns real result.",
+      "name": "decoy-owned-write",
+      "oracle": "One composite owns copied args versus actual call bytes and post-exit file content. Other assertions check count/length/token/actual-pair correspondence and do not duplicate byte expectations.",
+      "safety": "Bounded same-length write in disposable owned file only; no private engine/caller pointer mutation.",
+      "selector": "control-file-bytes"
+    },
+    {
+      "expected_failure_set": [
+        "sync-receipt-has-native-call-evidence"
+      ],
+      "id": "C4",
+      "mutation": "Skip only the actual native fsync and supply tagged {0,0}; native_entered/returned remain false. Continue to real close. Preserve honest call-origin journal.",
+      "name": "omit-native-sync",
+      "oracle": "One composite owns actual-call presence/origin and receipt correspondence. Other assertions use the supplied pair without claiming native success; exact file content and close remain passing.",
+      "safety": "Omission only; no synthetic value is labeled actual native0 or durability.",
+      "selector": "control-sync-call"
+    },
+    {
+      "expected_failure_set": [
+        "close-receipt-has-native-call-evidence"
+      ],
+      "id": "C5",
+      "mutation": "Skip actual native close, leave verified descriptor Held, supply tagged {0,0}; external cleanup independently closes it once after frozen entry evidence.",
+      "name": "omit-native-close",
+      "oracle": "One composite owns provider close-call presence/origin and precleanup custody/external close obligation. Actual ac_run/public completion remains ordinary RETURNED; other assertions compare real external cleanup separately and never infer provider close from it.",
+      "safety": "No double-close or stale fd; original actual descriptor is held until the single external cleanup call.",
+      "selector": "control-close-call"
+    },
+    {
+      "expected_failure_set": [
+        "terminal-provider-writes-once"
+      ],
+      "id": "C6",
+      "mutation": "After a full actual first WRITE and retained pair, perform one extra bounded identical native write on the same still-owned fd; preserve both native records and supply the first pair unchanged. No loop.",
+      "name": "extra-owned-write",
+      "oracle": "One composite owns native write count and resulting file extent/content; all other comparisons use the designated first pair. Any shape comparison normalizes only this exact identical duplicate symmetrically in baseline/mutant, retains the raw transcript, and refuses unrelated differences.",
+      "safety": "Exactly two bounded writes within the same disposable file; this is a deliberate extra-call control, not an error retry or permission to alter production behavior.",
+      "selector": "control-write-once"
+    }
+  ],
+  "schema": 1,
+  "scope": "Source-only ordinary-file custody plan",
+  "sdk_commit": "3e0c5cb010454228f4ee63226b60d060494eeaae",
+  "source_groups": [
+    {
+      "change": "Copy core.c/core.h and generated reader/type inputs byte for byte into the future packet; no transformation or old harness reuse. Preserve sole admission/driver/publication, six fragments, five setup functions and exact compile surface.",
+      "id": "T1",
+      "name": "Exact frozen engine custody"
+    },
+    {
+      "change": "Add separately named ordinary C11 native leaf/provider files with complete const typed table and one stable context. No source mutation to engine; one actual syscall per selected leaf except the explicitly separate C6 extra call.",
+      "id": "T2",
+      "name": "Fixed provider and native leaves"
+    },
+    {
+      "change": "New parent/harness preparation owns fresh directory, fixed single-component file and separate fd identities. Explicit child dircap transfer, exclusive file policy and after-open held custody precede validation.",
+      "id": "T3",
+      "name": "Owned temporary capability"
+    },
+    {
+      "change": "Add bounded value/origin/custody journals outside engine: immediate native pair, checked int64 conversion, prepared pair versus engine/public result, and no private state inspection.",
+      "id": "T4",
+      "name": "Raw/error/token receipts"
+    },
+    {
+      "change": "Parent post-exit fixed-name observation and child held-fd cleanup have separate receipts. Close uncertainty never touches the numeric descriptor again. No recursive cleanup/retry or claim of durable recovery.",
+      "id": "T5",
+      "name": "External observer and cleanup"
+    },
+    {
+      "change": "New eight-selector harness, six control baselines and six singleton mutants; every case fresh process/directory and at most one fixed file (no-owner none; collision setup-owned), all native safety predicates intact. No general nesting, concurrency, crash or native frame providers.",
+      "id": "T6",
+      "name": "Witness and exact controls"
+    },
+    {
+      "change": "Future pin isolated Linux AArch64 GCC7.5 lineage/image/header/libc; review source/control ledger before first build. Compile ordinary standalone and setup-only variants, check method ordering and dependencies, then first new40-process matrix with leak detection. Retain all failures without predecessor replay.",
+      "id": "T7",
+      "name": "Build, method and retention contract"
+    }
+  ],
+  "sources": [
+    {
+      "bytes": 102070,
+      "name": "sdk/community.c",
+      "path": "experiments/usb-browser-switch/activation-unwind-policy/private/capture-4d7eb81ff4e04f6099c87eaa42bc66d3/inputs/sdk/src/azmod/community.c",
+      "sha256": "4b2b72e2b623dcb1ecb0ef108a473815adab45a516a6aa13adb6cce512b80866"
+    },
+    {
+      "bytes": 16431,
+      "name": "fault/operating-contract.json",
+      "path": "experiments/usb-browser-switch/activation-fault-reader-contract/operating-contract.json",
+      "sha256": "d6879db76a09b3c3e475f6ec7d69d0a0087dafd2eafde3ae2896a55b092a263f"
+    },
+    {
+      "bytes": 24981,
+      "name": "engine/core.c",
+      "path": "experiments/usb-browser-switch/activation-ordinary-provider-fixture/core.c",
+      "sha256": "eca23b77d5e064a7015dd3f912e5652a7d61df196ce936b3fbf1934e4a4819d1"
+    },
+    {
+      "bytes": 8461,
+      "name": "engine/core.h",
+      "path": "experiments/usb-browser-switch/activation-ordinary-provider-fixture/core.h",
+      "sha256": "a1c1f13832a8bdb55ba9a2d4379ff8c6cb689bd70826575497d13402430faa38"
+    },
+    {
+      "bytes": 8111,
+      "name": "engine/README.md",
+      "path": "experiments/usb-browser-switch/activation-ordinary-provider-fixture/README.md",
+      "sha256": "b689bb36a418004e6294e36892713614aeb098a9ec26b34909d680917f72778c"
+    },
+    {
+      "bytes": 69461,
+      "name": "engine/codegen-review.json",
+      "path": "experiments/usb-browser-switch/activation-ordinary-provider-fixture/codegen-review.json",
+      "sha256": "495d48c25210f3d1d9f3d828fb31cbf002125fd46ed6b86082ebc4a58254a808"
+    },
+    {
+      "bytes": 245147,
+      "name": "engine/result.json",
+      "path": "experiments/usb-browser-switch/activation-ordinary-provider-fixture/result.json",
+      "sha256": "91e6a0061bda5dafa0f4cd4e9d056bbadee09833aad37d45270504b658eba29c"
+    },
+    {
+      "bytes": 8933,
+      "name": "engine/verification.json",
+      "path": "experiments/usb-browser-switch/activation-ordinary-provider-fixture/verification.json",
+      "sha256": "6b3f990d58eb4a6a44470d805ed9d741da6f6ce57d0b720582227e187d55237c"
+    },
+    {
+      "bytes": 25995,
+      "name": "engine/test-contract.json",
+      "path": "experiments/usb-browser-switch/activation-ordinary-provider-fixture/test-contract.json",
+      "sha256": "a2954157b402739efbfaf82f6090c357720e275228a3ceb259acb9f910a2079f"
+    },
+    {
+      "bytes": 2994,
+      "name": "generated/readers.inc",
+      "path": "experiments/usb-browser-switch/activation-ordinary-provider-fixture/private/run-11ea3682fcc34d33b9034c6e041aee30/work/generated/readers.inc",
+      "sha256": "352048162f452f794136f8b90555783df101feacbf7550e3f4020bd6ef7ab140"
+    },
+    {
+      "bytes": 5369,
+      "name": "generated/receipt-types.h",
+      "path": "experiments/usb-browser-switch/activation-ordinary-provider-fixture/private/run-11ea3682fcc34d33b9034c6e041aee30/work/generated/receipt-types.h",
+      "sha256": "c97454db2aba6e942eb05241bbf80d67ffd8eecb5108927da69600a6a1d15f40"
+    },
+    {
+      "bytes": 46763,
+      "name": "engine/source-transform.json",
+      "path": "experiments/usb-browser-switch/activation-ordinary-provider-fixture/source-transform.json",
+      "sha256": "aa00a824fbab1e8c0fb7b2fd991ccaf8afb2f8f78cbb69756d20f8abc35e5643"
+    },
+    {
+      "bytes": 24628,
+      "name": "review/provider-review.json",
+      "path": "experiments/usb-browser-switch/activation-native-provider-review/provider-review.json",
+      "sha256": "ba50c773928f0a0de47021edad9d5dcf91d0f439585947467deeb14f2111219c"
+    },
+    {
+      "bytes": 11579,
+      "name": "review/README.md",
+      "path": "experiments/usb-browser-switch/activation-native-provider-review/README.md",
+      "sha256": "2cad78f83b16cbea3f51986bb55bb3423894f0d0cd4a6a44c8eebb498e79edea"
+    },
+    {
+      "bytes": 7034,
+      "name": "review/result.json",
+      "path": "experiments/usb-browser-switch/activation-native-provider-review/result.json",
+      "sha256": "3e373fee6aef8a5543200c84c0b51ff58747d2fc8facd85ef0c9cc3c0fdc779a"
+    },
+    {
+      "bytes": 6004,
+      "name": "review/verification.json",
+      "path": "experiments/usb-browser-switch/activation-native-provider-review/verification.json",
+      "sha256": "5effa6037cc355d82f147829841ed63b7e944e32726147e34b1c863c8f91f2c6"
+    },
+    {
+      "bytes": 12368,
+      "name": "reference/retain-source.py",
+      "path": "experiments/usb-browser-switch/activation-ordinary-provider-plan/retain-source.py",
+      "sha256": "050e605782a1984af940c852f91077d9c082561ae8f8da968698f95d6c22661c"
+    }
+  ],
+  "status": "source-planned-not-implemented"
+}

@@ -1,0 +1,112 @@
+{
+  "activity": {
+    "ad_hoc_local_pin_and_anchor_bound_comparison": true,
+    "auditor_import_or_execution": false,
+    "compiler_or_runtime_matrix": false,
+    "firmware_emulator_or_device_access": false,
+    "native_provider_or_callback_execution": false,
+    "new_sdk_git_capture": false,
+    "old_capture_or_matrix_or_audit_replay": false,
+    "predecessor_source_mutation": false,
+    "production_or_live_composition": false,
+    "retention_helper_import_or_execution": false,
+    "review_document_creation_only": true,
+    "source_and_metadata_reads": true
+  },
+  "conclusion": "Pass for this source-only plan before its first retention. The corrections are present in the exact three reviewed input pins. This authorizes no runtime result or gate reopening.",
+  "control_review": {
+    "C1": "Only saved native failure-pair consumption changes after the declared errno-clobber probe; its sole composite owns affected error correspondence. This does not independently execute a missing initial errno capture.",
+    "C2": "A value-only high token cannot reach native I/O because all range/equality/Held checks stay active; the actual descriptor remains held for one external close.",
+    "C3": "A bounded same-length decoy write stays within the owned file; the sole composite owns actual call bytes and post-exit content.",
+    "C4": "Omitted native sync has truthful absent native-call evidence and tagged supplied success; real close continues and no durability claim follows.",
+    "C5": "Omitted native close leaves Held custody until one separately recorded external close; engine completion is not a provider-close acknowledgement.",
+    "C6": "Exactly one additional bounded identical write is allowed only as the control. The sole composite owns count and resulting content/extent; any normalization is symmetric, preserves raw records and rejects unrelated differences.",
+    "exact_singleton_failure_sets_reviewed": true,
+    "unsafe_descriptor_control_selected": false
+  },
+  "findings_corrected": [
+    {
+      "id": "C2-composite-owns-empty-content",
+      "resolution": "The sole native-open-token-and-custody-correspond oracle now owns the mutant empty post-exit file content/size as well as token reporting, follow-up refusal/native absence, affected receipts and Held cleanup. Other file checks are limited to unchanged identity/type and allowed bounds, avoiding a collateral exact-content failure."
+    },
+    {
+      "id": "same-linux-supervisor-and-inheritance",
+      "resolution": "The parent supervisor is explicitly inside the same pinned isolated Linux instance. A fresh exec child receives only reviewed allowed directory/report descriptors and immutable identity through explicit fork/exec inheritance and CLOEXEC handling. No Mac/host fd integer crosses a container command; the supervisor never invokes the attempt engine."
+    },
+    {
+      "id": "report-fds-and-unknown-close",
+      "resolution": "Every explicit child report/output descriptor is prepared before entry. No further explicit child fd acquisition follows entry. Unknown close forbids reuse of the saved custody token; it does not claim the OS or transitive runtime never reuses its numeric value."
+    },
+    {
+      "id": "observer-and-case-custody",
+      "resolution": "The independent parent observer requires nofollow/CLOEXEC and opened-descriptor identity agreement before any read. All future cases use a fresh process/directory and at most one fixed file; collision owns its sentinel and no-owner has no file."
+    }
+  ],
+  "inputs": {
+    "README.md": {
+      "bytes": 8164,
+      "sha256": "776e85fec5ffa5ea83e2389a3770f63b519f52b9ec278e76f21381a73a9e6639"
+    },
+    "file-custody-plan.json": {
+      "bytes": 34893,
+      "sha256": "42538c8af0124a17e66fbc10e0ae6355e2ffd66b6a1b341563ebd6bbdf793530"
+    },
+    "retain-source.py": {
+      "bytes": 12370,
+      "sha256": "a126c9d3f435765c1a203df20fb3dd5f54c98a6c293364231fd8f992519e6b57"
+    }
+  },
+  "remaining_limits": [
+    "No file-provider adapter, callback/native syscall, compiler, standalone object or witness process has been implemented or executed by this review.",
+    "Compiler/image/header/libc bindings, ABI and checked native identity conversions, finite journals, complete source transformations and exact implemented oracle partitions still require review before a future first build.",
+    "The eventual ordinary native outcomes are not guaranteed by source planning. Unexpected open/query/write/sync/close/readback/report/cleanup outcomes remain retained infrastructure or case failures, never normalized to expected success.",
+    "Close-return failure or missing return remains unknown, with no retry or operation through the old saved token. Process exit is containment, not explicit close acknowledgement or recovery proof.",
+    "Post-exit bytes and successful fsync establish neither SDK crash persistence nor crash/directory durability, fault causation or recovery.",
+    "Authored owner/frame values and fixed callback custody do not establish native frame visibility, arbitrary DSO/interposition lifetime, callback quiescence, external-writer exclusion, concurrent publication, signals or nonlocal-exit safety.",
+    "All production, firmware, emulator, physical-device and live-composition gates remain closed; official cores, quarantine and every predecessor source/evidence packet are preserved."
+  ],
+  "result": "pass",
+  "retention_helper_review": {
+    "child_execution_or_dynamic_code_loading_found": false,
+    "limitation": "This source review is not the future retained-byte audit and does not claim an executed helper result.",
+    "new_sdk_git_reads": 0,
+    "prior_result_overwrite_or_success_replay_permitted": false,
+    "private_inventory_and_sanitized_public_projection_checked": true,
+    "regular_file_stability_and_exclusive_output_checked": true,
+    "retains_local_pinned_bytes_only": true,
+    "reviewed_as_source_only": true,
+    "reviewed_script_imported_or_invoked": false,
+    "source_names_and_ancestor_access_checked": true
+  },
+  "review_scope": [
+    "Complete final source-only file-custody plan, README and retention helper, including all seven source groups, five case groups and six singleton controls.",
+    "Preservation boundary against frozen ordinary-provider core/header and exact retained reader/type inputs: sole admission, winner binding, branch-local providers, event domains/order, private versus public completion and five setup-only methods.",
+    "Successful native descriptor held before validation; raw return/error capture; full-token representability, exact identity and custody before narrowing; close uncertainty and separate external cleanup.",
+    "Same isolated Linux supervisor with explicit fork/exec allowed-fd inheritance; preopened child report channels; confirmed termination before independent fixed-name observation and bounded owned cleanup.",
+    "Helper source-only behavior, nofollow ancestor/source traversal, stable regular-file reads, exclusive packet/public output, exact source/anchor retention and closed private/public inventory projection."
+  ],
+  "reviewer": "Independent core/source reviewer /root/dso_core_impl",
+  "runtime_gate": "CLOSED",
+  "schema": 1,
+  "source_observations": {
+    "all_anchor_sources_and_line_bounds_valid": true,
+    "all_reused_source_bytes_and_sha256_match": true,
+    "anchor_count": 19,
+    "case_group_count": 5,
+    "control_baselines_planned": 6,
+    "counts_scope": "The 17 reused sources plus three current plan inputs and 19 line-byte anchors describe the future first retention. Forty future fresh exec witness children exclude supervisors, compiler/metadata commands and audits. No count is runtime coverage.",
+    "expected_retention_inputs": 20,
+    "expected_retention_packet_files": 22,
+    "ordinary_selectors_planned": 8,
+    "planned_fresh_exec_witness_children": 40,
+    "planned_modes": [
+      "plain",
+      "asan-ubsan"
+    ],
+    "planned_processes_executed": 0,
+    "reused_source_pin_count": 17,
+    "singleton_controls_planned": 6,
+    "source_group_count": 7
+  },
+  "status": "reviewed-before-retention"
+}
