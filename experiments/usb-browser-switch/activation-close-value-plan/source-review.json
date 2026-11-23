@@ -1,0 +1,34 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Source-only ordinary-close value-classifier plan; reviews precede first retention and audit",
+  "runtime_gate": "CLOSED",
+  "new_runtime_cases": 0,
+  "prior_tested_sources_changed": false,
+  "plan_sha256": "027b11d3dc2a102b4d742129bbbbdb4b906a6bca47eba41ac2a5939065807c89",
+  "readme_sha256": "a1d0a47908f37c0f1d69d14d4e4aec652f6bced401fbc8e6ce3340a07c6bc609",
+  "helper_sha256": "191dcbf783ccf1ddece9245e869e68aef9f1d24cc90df265e49a5154c9550045",
+  "reviews": [
+    {
+      "reviewer": "close_source_review",
+      "status": "passed",
+      "kind": "exact stage/schema/selector and future-control semantic review",
+      "findings": "45 ordinary selectors, five baselines and five singleton controls per mode are consistent. Historical eligibility excludes omission. Single parent gate precedes logical payload access; canonical outputs and independent acknowledgments are explicit."
+    },
+    {
+      "reviewer": "publication_review",
+      "status": "passed",
+      "kind": "independent control and auditor-source review",
+      "auditor_sha256": "e5c238fabd06389066b4d4214f7882cd480998d0a43e0bd682ce86f723592d60",
+      "findings": "All 23 pins and 28 anchor bounds match. Five helper substitutions recover frozen predecessor. No masking repair or duplicate composite; v2 audit checks full parent tuple without classifier evaluation."
+    }
+  ],
+  "draft_corrections": [
+    "Pinned exact prior image/toolchain and distinguished future count from executed coverage.",
+    "Added full canonical parent outputs/facts availability and fixed post-gate logical consumption scope.",
+    "Fixed captured branch mapping, output-only eligibility, stage7 C2 arm, matching stale held basis and mixed parent acknowledgments.",
+    "Clarified README invalid-slot inclusion and final algorithm wording."
+  ],
+  "auditor_preparation": "Unexecuted v1 structural parent schema was superseded by separately saved v2 after the plan's exact parent outputs were expanded. Both drafts are retained. No auditor invocation failed.",
+  "review_message_custody": "Metadata records agent review responses after receipt and makes no original transport-stream custody claim."
+}

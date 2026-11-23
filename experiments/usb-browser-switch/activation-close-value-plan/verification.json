@@ -1,0 +1,112 @@
+{
+  "activity": "Source-only plan; first independent read-only byte audit",
+  "anchors": 28,
+  "audit_launch_receipt_pin": {
+    "bytes": 645,
+    "sha256": "6feea26a9766fca8e65ca550bf7dc676e0e5b156b6a6f7e9bbc132be94192a17"
+  },
+  "audit_result_pin": {
+    "bytes": 1846,
+    "sha256": "bdb09f7c43907185b74bdbc5e2adb46529ebebb3d4e7ecd5fbab6801f9843bf7"
+  },
+  "auditor_copied_before_invocation": true,
+  "auditor_unchanged": true,
+  "compiled_or_executed_retained_input": false,
+  "compiler_native_io_callback_matrix_or_device_execution": false,
+  "executing_auditor": {
+    "bytes": 26334,
+    "sha256": "e5c238fabd06389066b4d4214f7882cd480998d0a43e0bd682ce86f723592d60"
+  },
+  "first_invocation_passed": true,
+  "future_processes": 110,
+  "helper_review": {
+    "exact_label_adaptation": true,
+    "original_helper_sha256": "4cb0f7278c4575ce6132220eea0fc9d3fc97103357520129dac000bb4b146751",
+    "qualified_regex_compile_allowed": true,
+    "syntax_only": true
+  },
+  "inputs": 26,
+  "limits": [
+    "Byte closure does not establish semantics or runtime behavior.",
+    "Source semantic claims require the separate independent review.",
+    "Historical counts are retained evidence, not new runtime cases.",
+    "No child close, process termination, signal or native operation is invoked."
+  ],
+  "old_capture_matrix_or_audit_replay": false,
+  "packet_directories": 6,
+  "packet_files": 28,
+  "plan": {
+    "bytes": 71244,
+    "sha256": "027b11d3dc2a102b4d742129bbbbdb4b906a6bca47eba41ac2a5939065807c89"
+  },
+  "planned_matrix_structure": {
+    "classifier_evaluation": false,
+    "dedicated_baselines": 5,
+    "executed": 0,
+    "expectation_tuples": "Explicit authored values checked structurally, not inferred from inputs",
+    "future_processes": 110,
+    "modes": 2,
+    "ordinary_selectors": 45,
+    "singleton_controls": 5
+  },
+  "preparation_history": {
+    "audit_v1_executed": false,
+    "audit_v2_first_invocation_passed": true,
+    "drafts": {
+      "audit-source-v1.py": {
+        "bytes": 24480,
+        "sha256": "86f3052b6eea6eefd9f21d90efa916351734e8a0f7d48c1e56f1642a84540047"
+      },
+      "audit-source-v2.py": {
+        "bytes": 26334,
+        "sha256": "e5c238fabd06389066b4d4214f7882cd480998d0a43e0bd682ce86f723592d60"
+      },
+      "plan-before-branch-precision.json": {
+        "bytes": 69734,
+        "sha256": "205297fb68209d0b88a8dbc79da0deb54e259aef08711cbb239eac95f156762e"
+      },
+      "plan-before-final-wording.json": {
+        "bytes": 71132,
+        "sha256": "3e1fbc09f750b91ed0c2811cb651fa879b67955c8e285a2d3ab2d72b8b0e1582"
+      },
+      "plan-before-output-contract.json": {
+        "bytes": 64194,
+        "sha256": "1826a33d29fabd044fb46af9c4c56b98ee69a3f0e77d28b5a46f9b58fd301965"
+      },
+      "plan-before-toolchain-and-limit.json": {
+        "bytes": 63513,
+        "sha256": "6fb41f0dd467294ea53b75ed90f7fb8da5a46cb5c4dabcedeee906b63dcadef2"
+      },
+      "readme-before-count-wording.md": {
+        "bytes": 7551,
+        "sha256": "56a954fa8e09f0c11724c7c1ec256789299eb9cf2ea339a6aeaa4cba129aaca6"
+      }
+    },
+    "note": "Earlier plan drafts and unexecuted auditor v1 remain private; v2 changes only parent-output structural checks for the final exact schema. No classifier evaluated.",
+    "retention_or_audit_failures": 0,
+    "scope": "Pre-retention source/oracle precision and unexecuted auditor schema alignment"
+  },
+  "private_result": {
+    "bytes": 15086,
+    "sha256": "8b5afb18a73075b7841c68634d7763becc0f178dad9b8ce45e75dc4c9c5c1cdf"
+  },
+  "public_result": {
+    "bytes": 8922,
+    "sha256": "3aa1c25eef7580c248f7d9fea927cc998c56eeceee61e94c67c3f15c293afd9d"
+  },
+  "retention_launch_receipt_pin": {
+    "bytes": 849,
+    "sha256": "5f033dfdc11ddfb9e93fea1548a7514a870510dd858eca3409944d4371aab70a"
+  },
+  "reused_inputs": 23,
+  "runtime_cases": 0,
+  "runtime_gate": "CLOSED",
+  "schema": 1,
+  "scope": "New source-only plan retention byte audit; no predecessor audit replay",
+  "source_review_pin": {
+    "bytes": 2205,
+    "sha256": "1d8d831a63d16c8b631e7da6c97f3f9ed338cba2172870d3f4f982dee5d221a4"
+  },
+  "status": "passed",
+  "structural_assertions": 4154
+}

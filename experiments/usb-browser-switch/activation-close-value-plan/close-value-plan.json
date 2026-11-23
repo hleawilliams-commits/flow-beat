@@ -1,0 +1,1962 @@
+{
+  "anchors": [
+    {
+      "first_line": 17,
+      "id": "leaf-result-capture",
+      "last_line": 23,
+      "reason": "Raw and valid errno precede captured-return marker; marker is before helper/leaf return.",
+      "source": "witness/native_leaf.c"
+    },
+    {
+      "first_line": 55,
+      "id": "leaf-close",
+      "last_line": 61,
+      "reason": "Entered is stored before libc close; no retry; errno captured immediately on -1.",
+      "source": "witness/native_leaf.c"
+    },
+    {
+      "first_line": 31,
+      "id": "custody-types",
+      "last_line": 73,
+      "reason": "Custody and raw evidence are separate; OF_CLOSE_ENTERED exists but selected code uses conservative UNKNOWN_ENTERED.",
+      "source": "witness/file_provider.h"
+    },
+    {
+      "first_line": 108,
+      "id": "cleanup-and-receipt-storage",
+      "last_line": 151,
+      "reason": "Separate frozen report, raw identity, consumed decision and mutable cleanup custody.",
+      "source": "witness/file_provider.h"
+    },
+    {
+      "first_line": 67,
+      "id": "callback-preparation",
+      "last_line": 78,
+      "reason": "Prepared return is not an outer return or recording acknowledgement.",
+      "source": "witness/file_provider.c"
+    },
+    {
+      "first_line": 107,
+      "id": "token-gate",
+      "last_line": 113,
+      "reason": "Follow-up operation needs full token range/equality plus VerifiedHeld.",
+      "source": "witness/file_provider.c"
+    },
+    {
+      "first_line": 115,
+      "id": "independent-identity",
+      "last_line": 170,
+      "reason": "Actual successful queries copied before explicit veto; rejected validation never becomes accepted creation.",
+      "source": "witness/file_provider.c"
+    },
+    {
+      "first_line": 191,
+      "id": "actual-open-custody",
+      "last_line": 216,
+      "reason": "Actual successful int held before veto; C2 changes supplied value only.",
+      "source": "witness/file_provider.c"
+    },
+    {
+      "first_line": 267,
+      "id": "provider-close",
+      "last_line": 285,
+      "reason": "Supplied refusal precedes close; unknown custody set before native leaf; returned raw determines conservative disposition.",
+      "source": "witness/file_provider.c"
+    },
+    {
+      "first_line": 286,
+      "id": "opaque-unblamed",
+      "last_line": 296,
+      "reason": "Opaque authored branch and fixed provider table unchanged.",
+      "source": "witness/file_provider.c"
+    },
+    {
+      "first_line": 332,
+      "id": "freeze",
+      "last_line": 350,
+      "reason": "Precleanup copy occurs before external cleanup; only query mirror is corruptible.",
+      "source": "witness/file_provider.c"
+    },
+    {
+      "first_line": 351,
+      "id": "held-cleanup",
+      "last_line": 373,
+      "reason": "Known held eligibility, terminal request, unknown-before-call and honest omission control.",
+      "source": "witness/file_provider.c"
+    },
+    {
+      "first_line": 20,
+      "id": "envelope-types",
+      "last_line": 80,
+      "reason": "Version 2 and separate child/supervisor evidence fields.",
+      "source": "witness/test_file.c"
+    },
+    {
+      "first_line": 254,
+      "id": "child-order",
+      "last_line": 299,
+      "reason": "Synchronous ordinary return then freeze, cleanup, observe and export; child cannot self-ack write.",
+      "source": "witness/test_file.c"
+    },
+    {
+      "first_line": 300,
+      "id": "envelope-shape",
+      "last_line": 310,
+      "reason": "Shape checks bound counts and version; do not establish raw identity or complete acceptance.",
+      "source": "witness/test_file.c"
+    },
+    {
+      "first_line": 412,
+      "id": "wait-and-read",
+      "last_line": 427,
+      "reason": "Normal exit zero and exact report size/read/bindings precede report_valid.",
+      "source": "witness/test_file.c"
+    },
+    {
+      "first_line": 428,
+      "id": "raw-parent-basis",
+      "last_line": 441,
+      "reason": "Raw identity and consumed veto checked after structural report_valid; accepted creation must be absent.",
+      "source": "witness/test_file.c"
+    },
+    {
+      "first_line": 442,
+      "id": "parent-observation",
+      "last_line": 456,
+      "reason": "Parent uses own observer descriptor and separate read/close outcomes.",
+      "source": "witness/test_file.c"
+    },
+    {
+      "first_line": 457,
+      "id": "parent-name-cleanup",
+      "last_line": 483,
+      "reason": "Identity rechecks and fixed unlink/remove separate from child close; failure preserves unresolved names.",
+      "source": "witness/test_file.c"
+    },
+    {
+      "first_line": 488,
+      "id": "semantic-setup",
+      "last_line": 502,
+      "reason": "Structural report_valid is only one term in later setup oracle.",
+      "source": "witness/test_file.c"
+    },
+    {
+      "first_line": 515,
+      "id": "held-veto-and-bounds",
+      "last_line": 538,
+      "reason": "Provider held state and operation counts constrain new witness to OPEN.",
+      "source": "witness/test_file.c"
+    },
+    {
+      "first_line": 539,
+      "id": "truthful-cleanup",
+      "last_line": 557,
+      "reason": "Shared truthful-record check accepts honest omission but rejects returned errors in this finite witness.",
+      "source": "witness/test_file.c"
+    },
+    {
+      "first_line": 558,
+      "id": "exact-composites",
+      "last_line": 589,
+      "reason": "Three existing control composites isolate query export, normalization and omission consequences.",
+      "source": "witness/test_file.c"
+    },
+    {
+      "first_line": 247,
+      "id": "sole-admission",
+      "last_line": 267,
+      "reason": "One terminal CAS before request/provider reads; no new admission proposed.",
+      "source": "witness/core.c"
+    },
+    {
+      "first_line": 388,
+      "id": "raw-record",
+      "last_line": 437,
+      "reason": "Domain refusal and receipt progression do not establish native resource disposition.",
+      "source": "witness/core.c"
+    },
+    {
+      "first_line": 440,
+      "id": "public-completion",
+      "last_line": 490,
+      "reason": "Ordinary run and acquire-gated public observation unchanged.",
+      "source": "witness/core.c"
+    },
+    {
+      "first_line": 508,
+      "id": "setup-surface",
+      "last_line": 565,
+      "reason": "Five setup-only APIs remain unchanged.",
+      "source": "witness/core.c"
+    },
+    {
+      "first_line": 826,
+      "id": "main-assessment",
+      "last_line": 846,
+      "reason": "Assessment can run after report_valid even if subsequent supervisor validation failed.",
+      "source": "witness/test_file.c"
+    }
+  ],
+  "baseline_commit": "940e2efca33ad2144bd06981ffafa8c9c34111ff",
+  "before_first_build": [
+    "Freeze all new sources, input ledger, immutable authored table, enum/marker layout, runner command plan and five exact controls. Independently review matrix/oracle partition and no hidden gate repair.",
+    "Bind reused source/reference pins without compiling or running prior engine/reader/native witness. Record every failed preparation/build/runtime/audit attempt separately without editing executed bytes.",
+    "New implementation requires separate authorization; this plan runs no classifier or matrix."
+  ],
+  "canonical_header": {
+    "bindings_ok": 1,
+    "conversions_ok": 1,
+    "exit_zero": 1,
+    "frozen_hold_basis": 0,
+    "normal_exit": 1,
+    "parent_observe": 1,
+    "parent_remove": 1,
+    "parent_unlink": 1,
+    "policy_verdict": 1,
+    "present": 1,
+    "provenance_ok": 1,
+    "setup_ok": 1,
+    "shape_size_read_ok": 1,
+    "version": 1,
+    "wait_exact": 1
+  },
+  "control_baselines_and_singletons": [
+    {
+      "baseline": {
+        "classification": "EnteredWithoutCapture",
+        "helper_return_ack": false,
+        "historical_eligibility": false,
+        "native_outcome": "Unavailable",
+        "status": "Valid"
+      },
+      "composite": "close-result-requires-captured-return",
+      "expected_mutant": {
+        "classification": "CapturedZero",
+        "helper_return_ack": false,
+        "historical_eligibility": false,
+        "native_outcome": "Zero",
+        "status": "Valid"
+      },
+      "id": "C1",
+      "local_delta": {},
+      "macro": "CD_CONTROL_ZERO_DEFAULT",
+      "mutation": "At the sole complete-capture classification branch replace captured==1 with (captured==1 || raw==0). Input validity remains unchanged. Do not add a second stage/captured veto after that branch.",
+      "name": "zero-default",
+      "ownership": "Own full classification/native_outcome/historical_eligibility/helper acknowledgement tuple; no shared semantic equality on this tuple.",
+      "route": "local",
+      "selector": "control-zero-default",
+      "template": "entered"
+    },
+    {
+      "baseline": {
+        "classification": "HelperReturnedError",
+        "helper_return_ack": true,
+        "historical_eligibility": false,
+        "native_outcome": "Error",
+        "status": "Valid"
+      },
+      "composite": "returned-error-never-reopens-custody",
+      "expected_mutant": {
+        "classification": "HeldFresh",
+        "helper_return_ack": true,
+        "historical_eligibility": true,
+        "native_outcome": "Error",
+        "status": "Valid"
+      },
+      "id": "C2",
+      "local_delta": {},
+      "macro": "CD_CONTROL_ERROR_TO_HELD",
+      "mutation": "Only in the complete-error stage7 classification arm replace the tuple HelperReturnedError/Error/eligible=false/helper=true with HeldFresh/Error/eligible=true/helper=true. Preserve raw/error and request-used input; no later request-used repair or second eligibility veto.",
+      "name": "error-to-held",
+      "ownership": "Own incorrect class and inert historical eligibility together; unchanged evidence is separately checked.",
+      "route": "local",
+      "selector": "control-error-to-held",
+      "template": "returned-eintr"
+    },
+    {
+      "baseline": {
+        "child": null,
+        "child_available": false,
+        "frozen_hold_basis": "exact input copy; not current disposition",
+        "logical_payload_consumptions": 0,
+        "parent_acknowledgments": "exact authored input copy",
+        "parent_facts_available": true,
+        "policy_verdict": "exact input copy; excluded from gate",
+        "status": "Valid"
+      },
+      "composite": "unaccepted-report-cannot-supply-child-outcome",
+      "expected_mutant": {
+        "child": {
+          "classification": "HelperReturnedZero",
+          "helper_return_ack": true,
+          "historical_eligibility": false,
+          "native_outcome": "Zero",
+          "status": "Valid"
+        },
+        "child_available": true,
+        "frozen_hold_basis": "exact input copy; not current disposition",
+        "logical_payload_consumptions": 1,
+        "parent_acknowledgments": "exact authored input copy",
+        "parent_facts_available": true,
+        "policy_verdict": "exact input copy; excluded from gate",
+        "status": "Valid"
+      },
+      "header_delta": {
+        "provenance_ok": 0
+      },
+      "id": "C3",
+      "local_delta": {},
+      "macro": "CD_CONTROL_REPORT_GATE",
+      "mutation": "Omit the entire single acceptance conjunction branch. All other gate flags are1. Range/header domain checks remain; private accessor and child validator contain no duplicate acceptance veto.",
+      "name": "report-gate-bypass",
+      "ownership": "Own child availability, complete projected tuple and actual logical accessor count; parent acknowledgments and header truth unchanged.",
+      "route": "parent",
+      "selector": "control-report-gate",
+      "template": "returned-zero"
+    },
+    {
+      "baseline": {
+        "child": {
+          "classification": "NonDispatch",
+          "helper_return_ack": true,
+          "historical_eligibility": false,
+          "native_outcome": "Unavailable",
+          "status": "Valid"
+        },
+        "child_available": true,
+        "frozen_hold_basis": "exact input copy; not current disposition",
+        "logical_payload_consumptions": 1,
+        "parent_acknowledgments": "exact authored input copy",
+        "parent_facts_available": true,
+        "policy_verdict": "exact input copy; excluded from gate",
+        "status": "Valid"
+      },
+      "composite": "parent-cleanup-does-not-ack-child-close",
+      "expected_mutant": {
+        "child": {
+          "classification": "HelperReturnedZero",
+          "helper_return_ack": true,
+          "historical_eligibility": false,
+          "native_outcome": "Zero",
+          "status": "Valid"
+        },
+        "child_available": true,
+        "frozen_hold_basis": "exact input copy; not current disposition",
+        "logical_payload_consumptions": 1,
+        "parent_acknowledgments": "exact authored input copy",
+        "parent_facts_available": true,
+        "policy_verdict": "exact input copy; excluded from gate",
+        "status": "Valid"
+      },
+      "header_delta": {},
+      "id": "C4",
+      "local_delta": {},
+      "macro": "CD_CONTROL_PARENT_CLEANUP",
+      "mutation": "Only after accepted child projection, when independent parent_unlink==1, replace projected child classification/native_outcome with HelperReturnedZero/Zero. Preserve source evidence, request-used, helper=true, eligibility=false and parent facts; no later zero/capture repair.",
+      "name": "parent-cleanup-laundering",
+      "ownership": "Own the entire projected child tuple; parent acknowledgments/one accessor call stay in shared unchanged facts.",
+      "route": "parent",
+      "selector": "control-parent-cleanup",
+      "template": "omitted"
+    },
+    {
+      "baseline": {
+        "classification": "NonDispatch",
+        "helper_return_ack": true,
+        "historical_eligibility": false,
+        "native_outcome": "Unavailable",
+        "status": "Valid"
+      },
+      "composite": "omission-is-not-missing-return",
+      "expected_mutant": {
+        "classification": "EnteredWithoutCapture",
+        "helper_return_ack": true,
+        "historical_eligibility": false,
+        "native_outcome": "Unavailable",
+        "status": "Valid"
+      },
+      "id": "C5",
+      "local_delta": {},
+      "macro": "CD_CONTROL_OMISSION",
+      "mutation": "Replace only NonDispatch classification with EnteredWithoutCapture for requested, unattempted, unentered, uncaptured held evidence. Preserve raw fields, helper acknowledgment and false eligibility.",
+      "name": "omission-as-missing-return",
+      "ownership": "Own class and all tuple consequences; no generic output-consistency assertion duplicates this composite.",
+      "route": "local",
+      "selector": "control-omission",
+      "template": "omitted"
+    }
+  ],
+  "frozen_preservation": "No predecessor file changes, no older passing capture/audit/matrix replay. Existing engine/header, native leaves, six reader/type fragments, sole admission, immutable completion, five setup-only APIs and opaque unblamed stay frozen and are not linked or called by this separate candidate.",
+  "limits": [
+    "All prior frozen bytes, failures, quarantine and protections remain unchanged; every live gate CLOSED.",
+    "No native frame/crash-file provider, CM_BLAME/CM_CRASHES/startup/quarantine operation, callback nesting/concurrency, DSO/installer, signal/nonlocal exit, firmware/emulator/device, production/live composition or release.",
+    "LL/SC retry, libc/canary/sanitizer dependencies, arbitrary DSO/slot/callback custody, nonparticipating writers, loader/interposition, native visibility, quiescence and recovery remain unresolved.",
+    "Ownership is not fault causation. No durability, persistence or recovery claim. No executed process count or runtime assertion count is established by this plan; 110 processes are specified for future separate authorization.",
+    "No actual native close failure, EINTR, missing return, report rejection, process death or recovery is manufactured or proved by authored values.",
+    "No implementation, compiler, callback/native/runtime/process-termination, signals/nonlocal exits, nesting/concurrency, DSO/installer, firmware/device, production/live work in this slice."
+  ],
+  "matrix": {
+    "assertions": "No semantic assertion count is claimed before implementation. Every process checks unchanged authored inputs and no infrastructure error. Ordinary selectors check their own complete expected projection. Each dedicated baseline/control checks one named owning composite; no generic full-output or duplicate cross-composite invariant shadows its changed fields.",
+    "candidate_processes_per_mode": 50,
+    "control_acceptance": "For each mode, first exact baseline candidate passes, then one macro variant on same selector fails exactly its named composite with all shared truthful facts passing. Different controls never compose. Nonzero exit without exact failed-name set, unexpected diagnostic, malformed output or additional failure is refused.",
+    "control_builds": "Candidate and five named single-macro variants per mode; reject multiple control macros. Compile new classifier/case accessor as separate translation units with private accessor noinline/noclone and no LTO. Harness/case data remain identical across control variants. Exact build commands and codegen method review must be frozen/reviewed before first later build.",
+    "dedicated_baselines_per_mode": 5,
+    "environment": "Later separately authorized offline Linux AArch64 ordinary host only, using existing pinned toolchain/image; no disposable native file or forked I/O witness required. Each selector starts a fresh process; counter begins zero and is never reset.",
+    "executed": 0,
+    "future_fresh_processes_total": 110,
+    "modes": [
+      "plain",
+      "asan-ubsan"
+    ],
+    "ordinary_selectors_per_mode": 45,
+    "pinned_image": {
+      "Architecture": "arm64",
+      "Id": "sha256:c7e3893c4f03e0ff30555c2120b3d9ec53834eaa2c8ce376a2da09b70fd23a90",
+      "Os": "linux"
+    },
+    "pinned_toolchain": {
+      "target": "aarch64-linux-gnu",
+      "version": {
+        "bytes": 249,
+        "sha256": "839d24fe4997381909209a1cbf9a3d59e68a6637f6e7c02ebf39b4fcacf612c2"
+      }
+    },
+    "processes_per_mode": 55,
+    "singleton_controls_per_mode": 5
+  },
+  "non_execution": {
+    "callback_or_concurrency": false,
+    "compiler": false,
+    "device_or_live": false,
+    "implementation": false,
+    "native_io_experiment": false,
+    "new_sdk_git_reads": 0,
+    "note": "Local plan authoring/retention and new independent byte audit only.",
+    "process_termination_experiment": false,
+    "runtime_matrix": false
+  },
+  "ordinary_selectors": [
+    {
+      "expected": {
+        "classification": "HeldFresh",
+        "helper_return_ack": false,
+        "historical_eligibility": true,
+        "native_outcome": "Unavailable",
+        "status": "Valid"
+      },
+      "group": "local-stage",
+      "local_delta": {},
+      "route": "local",
+      "selector": "local-held-u",
+      "semantic_composite": "case-exact-projection",
+      "template": "held-u"
+    },
+    {
+      "expected": {
+        "classification": "HeldFresh",
+        "helper_return_ack": false,
+        "historical_eligibility": true,
+        "native_outcome": "Unavailable",
+        "status": "Valid"
+      },
+      "group": "local-stage",
+      "local_delta": {},
+      "route": "local",
+      "selector": "local-held-v",
+      "semantic_composite": "case-exact-projection",
+      "template": "held-v"
+    },
+    {
+      "expected": {
+        "classification": "NonDispatch",
+        "helper_return_ack": true,
+        "historical_eligibility": false,
+        "native_outcome": "Unavailable",
+        "status": "Valid"
+      },
+      "group": "local-stage",
+      "local_delta": {},
+      "route": "local",
+      "selector": "local-omitted",
+      "semantic_composite": "case-exact-projection",
+      "template": "omitted"
+    },
+    {
+      "expected": {
+        "classification": "UnknownBeforeLeaf",
+        "helper_return_ack": false,
+        "historical_eligibility": false,
+        "native_outcome": "Unavailable",
+        "status": "Valid"
+      },
+      "group": "local-stage",
+      "local_delta": {},
+      "route": "local",
+      "selector": "local-armed",
+      "semantic_composite": "case-exact-projection",
+      "template": "armed"
+    },
+    {
+      "expected": {
+        "classification": "EnteredWithoutCapture",
+        "helper_return_ack": false,
+        "historical_eligibility": false,
+        "native_outcome": "Unavailable",
+        "status": "Valid"
+      },
+      "group": "local-stage",
+      "local_delta": {},
+      "route": "local",
+      "selector": "local-entered",
+      "semantic_composite": "case-exact-projection",
+      "template": "entered"
+    },
+    {
+      "expected": {
+        "classification": "PartialCapture",
+        "helper_return_ack": false,
+        "historical_eligibility": false,
+        "native_outcome": "Unavailable",
+        "status": "Valid"
+      },
+      "group": "local-stage",
+      "local_delta": {},
+      "route": "local",
+      "selector": "local-partial-raw",
+      "semantic_composite": "case-exact-projection",
+      "template": "partial-raw"
+    },
+    {
+      "expected": {
+        "classification": "PartialCapture",
+        "helper_return_ack": false,
+        "historical_eligibility": false,
+        "native_outcome": "Unavailable",
+        "status": "Valid"
+      },
+      "group": "local-stage",
+      "local_delta": {},
+      "route": "local",
+      "selector": "local-partial-valid",
+      "semantic_composite": "case-exact-projection",
+      "template": "partial-valid"
+    },
+    {
+      "expected": {
+        "classification": "PartialCapture",
+        "helper_return_ack": false,
+        "historical_eligibility": false,
+        "native_outcome": "Unavailable",
+        "status": "Valid"
+      },
+      "group": "local-stage",
+      "local_delta": {},
+      "route": "local",
+      "selector": "local-partial-error",
+      "semantic_composite": "case-exact-projection",
+      "template": "partial-error"
+    },
+    {
+      "expected": {
+        "classification": "CapturedZero",
+        "helper_return_ack": false,
+        "historical_eligibility": false,
+        "native_outcome": "Zero",
+        "status": "Valid"
+      },
+      "group": "local-stage",
+      "local_delta": {},
+      "route": "local",
+      "selector": "local-captured-zero",
+      "semantic_composite": "case-exact-projection",
+      "template": "captured-zero"
+    },
+    {
+      "expected": {
+        "classification": "CapturedError",
+        "helper_return_ack": false,
+        "historical_eligibility": false,
+        "native_outcome": "Error",
+        "status": "Valid"
+      },
+      "group": "local-stage",
+      "local_delta": {},
+      "route": "local",
+      "selector": "local-captured-error",
+      "semantic_composite": "case-exact-projection",
+      "template": "captured-error"
+    },
+    {
+      "expected": {
+        "classification": "DispositionZero",
+        "helper_return_ack": false,
+        "historical_eligibility": false,
+        "native_outcome": "Zero",
+        "status": "Valid"
+      },
+      "group": "local-stage",
+      "local_delta": {},
+      "route": "local",
+      "selector": "local-stored-zero",
+      "semantic_composite": "case-exact-projection",
+      "template": "stored-zero"
+    },
+    {
+      "expected": {
+        "classification": "DispositionError",
+        "helper_return_ack": false,
+        "historical_eligibility": false,
+        "native_outcome": "Error",
+        "status": "Valid"
+      },
+      "group": "local-stage",
+      "local_delta": {},
+      "route": "local",
+      "selector": "local-stored-error",
+      "semantic_composite": "case-exact-projection",
+      "template": "stored-error"
+    },
+    {
+      "expected": {
+        "classification": "HelperReturnedZero",
+        "helper_return_ack": true,
+        "historical_eligibility": false,
+        "native_outcome": "Zero",
+        "status": "Valid"
+      },
+      "group": "local-stage",
+      "local_delta": {},
+      "route": "local",
+      "selector": "local-returned-zero",
+      "semantic_composite": "case-exact-projection",
+      "template": "returned-zero"
+    },
+    {
+      "expected": {
+        "classification": "HelperReturnedError",
+        "helper_return_ack": true,
+        "historical_eligibility": false,
+        "native_outcome": "Error",
+        "status": "Valid"
+      },
+      "group": "local-stage",
+      "local_delta": {},
+      "route": "local",
+      "selector": "local-returned-eintr",
+      "semantic_composite": "case-exact-projection",
+      "template": "returned-eintr"
+    },
+    {
+      "expected": {
+        "child": {
+          "classification": "HelperReturnedZero",
+          "helper_return_ack": true,
+          "historical_eligibility": false,
+          "native_outcome": "Zero",
+          "status": "Valid"
+        },
+        "child_available": true,
+        "frozen_hold_basis": "exact input copy; not current disposition",
+        "logical_payload_consumptions": 1,
+        "parent_acknowledgments": "exact authored input copy",
+        "parent_facts_available": true,
+        "policy_verdict": "exact input copy; excluded from gate",
+        "status": "Valid"
+      },
+      "group": "parent-acceptance",
+      "header_delta": {},
+      "local_delta": {},
+      "route": "parent",
+      "selector": "parent-accepted-zero",
+      "semantic_composite": "case-exact-projection",
+      "template": "returned-zero"
+    },
+    {
+      "expected": {
+        "child": {
+          "classification": "HelperReturnedError",
+          "helper_return_ack": true,
+          "historical_eligibility": false,
+          "native_outcome": "Error",
+          "status": "Valid"
+        },
+        "child_available": true,
+        "frozen_hold_basis": "exact input copy; not current disposition",
+        "logical_payload_consumptions": 1,
+        "parent_acknowledgments": "exact authored input copy",
+        "parent_facts_available": true,
+        "policy_verdict": "exact input copy; excluded from gate",
+        "status": "Valid"
+      },
+      "group": "parent-acceptance",
+      "header_delta": {
+        "parent_observe": 0,
+        "parent_remove": 0,
+        "parent_unlink": 2,
+        "policy_verdict": 0
+      },
+      "local_delta": {},
+      "route": "parent",
+      "selector": "parent-accepted-error",
+      "semantic_composite": "case-exact-projection",
+      "template": "returned-eintr"
+    },
+    {
+      "expected": {
+        "child": {
+          "classification": "NonDispatch",
+          "helper_return_ack": true,
+          "historical_eligibility": false,
+          "native_outcome": "Unavailable",
+          "status": "Valid"
+        },
+        "child_available": true,
+        "frozen_hold_basis": "exact input copy; not current disposition",
+        "logical_payload_consumptions": 1,
+        "parent_acknowledgments": "exact authored input copy",
+        "parent_facts_available": true,
+        "policy_verdict": "exact input copy; excluded from gate",
+        "status": "Valid"
+      },
+      "group": "parent-acceptance",
+      "header_delta": {},
+      "local_delta": {},
+      "route": "parent",
+      "selector": "parent-accepted-omission",
+      "semantic_composite": "case-exact-projection",
+      "template": "omitted"
+    },
+    {
+      "expected": {
+        "child": {
+          "classification": "NonDispatch",
+          "helper_return_ack": true,
+          "historical_eligibility": false,
+          "native_outcome": "Unavailable",
+          "status": "Valid"
+        },
+        "child_available": true,
+        "frozen_hold_basis": "exact input copy; not current disposition",
+        "logical_payload_consumptions": 1,
+        "parent_acknowledgments": "exact authored input copy",
+        "parent_facts_available": true,
+        "policy_verdict": "exact input copy; excluded from gate",
+        "status": "Valid"
+      },
+      "group": "parent-acceptance",
+      "header_delta": {
+        "policy_verdict": 2
+      },
+      "local_delta": {},
+      "route": "parent",
+      "selector": "parent-truthful-policy-fail",
+      "semantic_composite": "case-exact-projection",
+      "template": "omitted"
+    },
+    {
+      "expected": {
+        "child": {
+          "classification": "HelperReturnedZero",
+          "helper_return_ack": true,
+          "historical_eligibility": false,
+          "native_outcome": "Zero",
+          "status": "Valid"
+        },
+        "child_available": true,
+        "frozen_hold_basis": "exact input copy; not current disposition",
+        "logical_payload_consumptions": 1,
+        "parent_acknowledgments": "exact authored input copy",
+        "parent_facts_available": true,
+        "policy_verdict": "exact input copy; excluded from gate",
+        "status": "Valid"
+      },
+      "group": "parent-acceptance",
+      "header_delta": {
+        "frozen_hold_basis": 1
+      },
+      "local_delta": {
+        "basis": 1
+      },
+      "route": "parent",
+      "selector": "parent-stale-frozen-held",
+      "semantic_composite": "case-exact-projection",
+      "template": "returned-zero"
+    },
+    {
+      "expected": {
+        "child": null,
+        "child_available": false,
+        "frozen_hold_basis": "exact input copy; not current disposition",
+        "logical_payload_consumptions": 0,
+        "parent_acknowledgments": "exact authored input copy",
+        "parent_facts_available": true,
+        "policy_verdict": "exact input copy; excluded from gate",
+        "status": "Valid"
+      },
+      "group": "parent-gate",
+      "header_delta": {
+        "present": 0
+      },
+      "local_delta": {},
+      "route": "parent",
+      "selector": "parent-gate-present",
+      "semantic_composite": "case-exact-projection",
+      "template": "returned-zero"
+    },
+    {
+      "expected": {
+        "child": null,
+        "child_available": false,
+        "frozen_hold_basis": "exact input copy; not current disposition",
+        "logical_payload_consumptions": 0,
+        "parent_acknowledgments": "exact authored input copy",
+        "parent_facts_available": true,
+        "policy_verdict": "exact input copy; excluded from gate",
+        "status": "Valid"
+      },
+      "group": "parent-gate",
+      "header_delta": {
+        "wait_exact": 0
+      },
+      "local_delta": {},
+      "route": "parent",
+      "selector": "parent-gate-wait_exact",
+      "semantic_composite": "case-exact-projection",
+      "template": "returned-zero"
+    },
+    {
+      "expected": {
+        "child": null,
+        "child_available": false,
+        "frozen_hold_basis": "exact input copy; not current disposition",
+        "logical_payload_consumptions": 0,
+        "parent_acknowledgments": "exact authored input copy",
+        "parent_facts_available": true,
+        "policy_verdict": "exact input copy; excluded from gate",
+        "status": "Valid"
+      },
+      "group": "parent-gate",
+      "header_delta": {
+        "normal_exit": 0
+      },
+      "local_delta": {},
+      "route": "parent",
+      "selector": "parent-gate-normal_exit",
+      "semantic_composite": "case-exact-projection",
+      "template": "returned-zero"
+    },
+    {
+      "expected": {
+        "child": null,
+        "child_available": false,
+        "frozen_hold_basis": "exact input copy; not current disposition",
+        "logical_payload_consumptions": 0,
+        "parent_acknowledgments": "exact authored input copy",
+        "parent_facts_available": true,
+        "policy_verdict": "exact input copy; excluded from gate",
+        "status": "Valid"
+      },
+      "group": "parent-gate",
+      "header_delta": {
+        "exit_zero": 0
+      },
+      "local_delta": {},
+      "route": "parent",
+      "selector": "parent-gate-exit_zero",
+      "semantic_composite": "case-exact-projection",
+      "template": "returned-zero"
+    },
+    {
+      "expected": {
+        "child": null,
+        "child_available": false,
+        "frozen_hold_basis": "exact input copy; not current disposition",
+        "logical_payload_consumptions": 0,
+        "parent_acknowledgments": "exact authored input copy",
+        "parent_facts_available": true,
+        "policy_verdict": "exact input copy; excluded from gate",
+        "status": "Valid"
+      },
+      "group": "parent-gate",
+      "header_delta": {
+        "shape_size_read_ok": 0
+      },
+      "local_delta": {},
+      "route": "parent",
+      "selector": "parent-gate-shape_size_read_ok",
+      "semantic_composite": "case-exact-projection",
+      "template": "returned-zero"
+    },
+    {
+      "expected": {
+        "child": null,
+        "child_available": false,
+        "frozen_hold_basis": "exact input copy; not current disposition",
+        "logical_payload_consumptions": 0,
+        "parent_acknowledgments": "exact authored input copy",
+        "parent_facts_available": true,
+        "policy_verdict": "exact input copy; excluded from gate",
+        "status": "Valid"
+      },
+      "group": "parent-gate",
+      "header_delta": {
+        "bindings_ok": 0
+      },
+      "local_delta": {},
+      "route": "parent",
+      "selector": "parent-gate-bindings_ok",
+      "semantic_composite": "case-exact-projection",
+      "template": "returned-zero"
+    },
+    {
+      "expected": {
+        "child": null,
+        "child_available": false,
+        "frozen_hold_basis": "exact input copy; not current disposition",
+        "logical_payload_consumptions": 0,
+        "parent_acknowledgments": "exact authored input copy",
+        "parent_facts_available": true,
+        "policy_verdict": "exact input copy; excluded from gate",
+        "status": "Valid"
+      },
+      "group": "parent-gate",
+      "header_delta": {
+        "provenance_ok": 0
+      },
+      "local_delta": {},
+      "route": "parent",
+      "selector": "parent-gate-provenance_ok",
+      "semantic_composite": "case-exact-projection",
+      "template": "returned-zero"
+    },
+    {
+      "expected": {
+        "child": null,
+        "child_available": false,
+        "frozen_hold_basis": "exact input copy; not current disposition",
+        "logical_payload_consumptions": 0,
+        "parent_acknowledgments": "exact authored input copy",
+        "parent_facts_available": true,
+        "policy_verdict": "exact input copy; excluded from gate",
+        "status": "Valid"
+      },
+      "group": "parent-gate",
+      "header_delta": {
+        "conversions_ok": 0
+      },
+      "local_delta": {},
+      "route": "parent",
+      "selector": "parent-gate-conversions_ok",
+      "semantic_composite": "case-exact-projection",
+      "template": "returned-zero"
+    },
+    {
+      "expected": {
+        "child": null,
+        "child_available": false,
+        "frozen_hold_basis": "exact input copy; not current disposition",
+        "logical_payload_consumptions": 0,
+        "parent_acknowledgments": "exact authored input copy",
+        "parent_facts_available": true,
+        "policy_verdict": "exact input copy; excluded from gate",
+        "status": "Valid"
+      },
+      "group": "parent-gate",
+      "header_delta": {
+        "setup_ok": 0
+      },
+      "local_delta": {},
+      "route": "parent",
+      "selector": "parent-gate-setup_ok",
+      "semantic_composite": "case-exact-projection",
+      "template": "returned-zero"
+    },
+    {
+      "expected": {
+        "child": null,
+        "child_available": false,
+        "frozen_hold_basis": "exact input copy; not current disposition",
+        "logical_payload_consumptions": 0,
+        "parent_acknowledgments": "exact authored input copy",
+        "parent_facts_available": true,
+        "policy_verdict": "exact input copy; excluded from gate",
+        "status": "Valid"
+      },
+      "group": "parent-gate",
+      "header_delta": {
+        "provenance_ok": 0
+      },
+      "local_delta": {
+        "stage": 99
+      },
+      "route": "parent",
+      "selector": "parent-hidden-malformed",
+      "semantic_composite": "case-exact-projection",
+      "template": "returned-zero"
+    },
+    {
+      "expected": {
+        "classification": "Unavailable",
+        "helper_return_ack": false,
+        "historical_eligibility": false,
+        "native_outcome": "Unavailable",
+        "status": "InvalidEvidence"
+      },
+      "group": "invalid-local",
+      "local_delta": {
+        "stage": 99
+      },
+      "route": "local",
+      "selector": "invalid-unknown-stage",
+      "semantic_composite": "case-exact-projection",
+      "template": "returned-zero"
+    },
+    {
+      "expected": {
+        "classification": "Unavailable",
+        "helper_return_ack": false,
+        "historical_eligibility": false,
+        "native_outcome": "Unavailable",
+        "status": "InvalidEvidence"
+      },
+      "group": "invalid-local",
+      "local_delta": {
+        "entered": 0
+      },
+      "route": "local",
+      "selector": "invalid-returned-without-entered",
+      "semantic_composite": "case-exact-projection",
+      "template": "returned-zero"
+    },
+    {
+      "expected": {
+        "classification": "Unavailable",
+        "helper_return_ack": false,
+        "historical_eligibility": false,
+        "native_outcome": "Unavailable",
+        "status": "InvalidEvidence"
+      },
+      "group": "invalid-local",
+      "local_delta": {
+        "error_number": 5,
+        "error_valid": 1
+      },
+      "route": "local",
+      "selector": "invalid-zero-valid-error",
+      "semantic_composite": "case-exact-projection",
+      "template": "returned-zero"
+    },
+    {
+      "expected": {
+        "classification": "Unavailable",
+        "helper_return_ack": false,
+        "historical_eligibility": false,
+        "native_outcome": "Unavailable",
+        "status": "InvalidEvidence"
+      },
+      "group": "invalid-local",
+      "local_delta": {
+        "error_valid": 0
+      },
+      "route": "local",
+      "selector": "invalid-error-without-validity",
+      "semantic_composite": "case-exact-projection",
+      "template": "returned-eintr"
+    },
+    {
+      "expected": {
+        "classification": "Unavailable",
+        "helper_return_ack": false,
+        "historical_eligibility": false,
+        "native_outcome": "Unavailable",
+        "status": "InvalidEvidence"
+      },
+      "group": "invalid-local",
+      "local_delta": {
+        "custody": 0
+      },
+      "route": "local",
+      "selector": "invalid-postdispatch-held",
+      "semantic_composite": "case-exact-projection",
+      "template": "entered"
+    },
+    {
+      "expected": {
+        "classification": "Unavailable",
+        "helper_return_ack": false,
+        "historical_eligibility": false,
+        "native_outcome": "Unavailable",
+        "status": "InvalidEvidence"
+      },
+      "group": "invalid-local",
+      "local_delta": {
+        "custody": 3
+      },
+      "route": "local",
+      "selector": "invalid-closed-without-capture",
+      "semantic_composite": "case-exact-projection",
+      "template": "entered"
+    },
+    {
+      "expected": {
+        "classification": "Unavailable",
+        "helper_return_ack": false,
+        "historical_eligibility": false,
+        "native_outcome": "Unavailable",
+        "status": "InvalidEvidence"
+      },
+      "group": "invalid-local",
+      "local_delta": {
+        "helper_returned": 1
+      },
+      "route": "local",
+      "selector": "invalid-premature-helper-ack",
+      "semantic_composite": "case-exact-projection",
+      "template": "captured-zero"
+    },
+    {
+      "expected": {
+        "classification": "Unavailable",
+        "helper_return_ack": false,
+        "historical_eligibility": false,
+        "native_outcome": "Unavailable",
+        "status": "InvalidEvidence"
+      },
+      "group": "invalid-local",
+      "local_delta": {
+        "raw": 2
+      },
+      "route": "local",
+      "selector": "invalid-raw-domain",
+      "semantic_composite": "case-exact-projection",
+      "template": "returned-zero"
+    },
+    {
+      "expected": {
+        "classification": "Unavailable",
+        "helper_return_ack": false,
+        "historical_eligibility": false,
+        "native_outcome": "Unavailable",
+        "status": "InvalidEvidence"
+      },
+      "group": "invalid-local",
+      "local_delta": {
+        "error_number": 4
+      },
+      "route": "local",
+      "selector": "invalid-partial-order",
+      "semantic_composite": "case-exact-projection",
+      "template": "partial-raw"
+    },
+    {
+      "expected": {
+        "classification": "Unavailable",
+        "helper_return_ack": false,
+        "historical_eligibility": false,
+        "native_outcome": "Unavailable",
+        "status": "InvalidEvidence"
+      },
+      "group": "invalid-local",
+      "local_delta": {
+        "entered": 2
+      },
+      "route": "local",
+      "selector": "invalid-marker-domain",
+      "semantic_composite": "case-exact-projection",
+      "template": "entered"
+    },
+    {
+      "expected": {
+        "classification": "Unavailable",
+        "helper_return_ack": false,
+        "historical_eligibility": false,
+        "native_outcome": "Unavailable",
+        "status": "InvalidEvidence"
+      },
+      "group": "invalid-local",
+      "local_delta": {
+        "label": 0
+      },
+      "route": "local",
+      "selector": "invalid-label-domain",
+      "semantic_composite": "case-exact-projection",
+      "template": "held-u"
+    },
+    {
+      "expected": {
+        "classification": "Unavailable",
+        "helper_return_ack": false,
+        "historical_eligibility": false,
+        "native_outcome": "Unavailable",
+        "status": "InvalidEvidence"
+      },
+      "group": "invalid-local",
+      "local_delta": {
+        "version": 2
+      },
+      "route": "local",
+      "selector": "invalid-version-domain",
+      "semantic_composite": "case-exact-projection",
+      "template": "held-u"
+    },
+    {
+      "expected": {
+        "child": null,
+        "child_available": false,
+        "frozen_hold_basis": 0,
+        "logical_payload_consumptions": 0,
+        "parent_acknowledgments": {
+          "observe": 0,
+          "remove": 0,
+          "unlink": 0
+        },
+        "parent_facts_available": false,
+        "policy_verdict": 0,
+        "status": "InvalidHeader"
+      },
+      "group": "invalid-header",
+      "header_delta": {
+        "policy_verdict": 3
+      },
+      "local_delta": {},
+      "route": "parent",
+      "selector": "invalid-parent-header",
+      "semantic_composite": "case-exact-projection",
+      "template": "returned-zero"
+    },
+    {
+      "expected": {
+        "child": null,
+        "child_available": false,
+        "frozen_hold_basis": 0,
+        "logical_payload_consumptions": 0,
+        "parent_acknowledgments": {
+          "observe": 0,
+          "remove": 0,
+          "unlink": 0
+        },
+        "parent_facts_available": false,
+        "policy_verdict": 0,
+        "status": "InvalidHeader"
+      },
+      "group": "invalid-header",
+      "header_delta": {
+        "parent_unlink": 3
+      },
+      "local_delta": {},
+      "route": "parent",
+      "selector": "invalid-parent-ack",
+      "semantic_composite": "case-exact-projection",
+      "template": "returned-zero"
+    },
+    {
+      "expected": {
+        "child": null,
+        "child_available": false,
+        "frozen_hold_basis": "exact input copy; not current disposition",
+        "logical_payload_consumptions": 1,
+        "parent_acknowledgments": "exact authored input copy",
+        "parent_facts_available": true,
+        "policy_verdict": "exact input copy; excluded from gate",
+        "status": "InvalidChildEvidence"
+      },
+      "group": "invalid-child",
+      "header_delta": {},
+      "local_delta": {
+        "captured": 0
+      },
+      "route": "parent",
+      "selector": "invalid-parent-payload",
+      "semantic_composite": "case-exact-projection",
+      "template": "returned-zero"
+    },
+    {
+      "expected": {
+        "child": null,
+        "child_available": false,
+        "frozen_hold_basis": 0,
+        "logical_payload_consumptions": 0,
+        "parent_acknowledgments": {
+          "observe": 0,
+          "remove": 0,
+          "unlink": 0
+        },
+        "parent_facts_available": false,
+        "policy_verdict": 0,
+        "status": "InvalidSlot"
+      },
+      "group": "invalid-slot",
+      "header_delta": {},
+      "local_delta": {},
+      "route": "parent",
+      "selector": "invalid-slot",
+      "semantic_composite": "case-exact-projection",
+      "slot_override": "one past fixed table length",
+      "template": "returned-zero"
+    }
+  ],
+  "parent_projection": {
+    "canonical_outputs": {
+      "InvalidChildEvidence": "Valid accepted header with malformed child returns InvalidChildEvidence; child zero/unavailable; consumptions1; parent_facts_available=true with valid header facts copied. A local InvalidEvidence tuple is not exposed as an available child.",
+      "InvalidHeader": "status InvalidHeader; child_available=false; child zero; consumptions0; parent_facts_available=false and every copied parent/policy/frozen field zero. Invalid uint32 marker/tag never creates invalid C bool storage.",
+      "InvalidSlot": "Validate header first, then slot range. Valid header with invalid slot returns InvalidSlot; child zero/unavailable; consumptions0; parent_facts_available=false and all copied fields zero.",
+      "ValidAvailable": "status Valid; child_available=true; exact local semantic tuple; consumptions1; parent_facts_available=true with exact valid header facts copied.",
+      "ValidUnavailable": "status Valid; child_available=false; child storage all-zero/Unavailable; consumptions0; parent_facts_available=true with exact authored parent_observe/unlink/remove, policy_verdict and frozen_hold_basis copied."
+    },
+    "child_validation": "Validate/classify only the accessed record. Malformed accepted payload returns InvalidChildEvidence, no child outcome, exactly one logical consumption. This value model does not parse actual wire reports or accept stopped snapshots from the frozen witness.",
+    "distinct_acceptance": "shape_size_read_ok/bindings_ok correspond only to structural facts. Provenance/conversions/setup remain separate gate conditions. policy_verdict is copied but excluded; truthful failed policy controls remain eligible evidence. Parent operation acknowledgments and frozen held basis are copied independently and never change child classification or helper/native acknowledgments.",
+    "domains": "version1; every gate term uint32 in{0,1}; verdict0=Unchecked/1=Pass/2=Fail; frozen_hold_basis0/1; each parent ack0=Unavailable/1=ReturnedZero/2=ReturnedError. All well-typed predicate vectors are allowed, including one false with other terms true; these are authored conditions, not a reconstruction of a real execution chronology.",
+    "entry": "Parent entry accepts only header by value and bounded slot index. It must not receive, copy, validate, classify or hash a child payload aggregate before the gate. Local route is separate and must not decode that same child as a pre-gate convenience.",
+    "frozen_hold_basis": "0/1 use the same HeldUnvalidated/VerifiedHeld historical labels as local basis, never current custody. This header value is independently copied and cannot decide the child result; this plan does not authenticate arbitrary cross-record histories. The stale-held selector uses matching starting basis1 in both header and child with child current custodyClosedReturned.",
+    "gate": "After header scalar domains and slot range safety only, one conjunction of all nine terms decides evidence use. False returns canonical Valid/Unavailable with zero logical payload consumptions, including when hidden child values are contradictory. No false provenance input is an input-domain error.",
+    "gate_terms": [
+      "present",
+      "wait_exact",
+      "normal_exit",
+      "exit_zero",
+      "shape_size_read_ok",
+      "bindings_ok",
+      "provenance_ok",
+      "conversions_ok",
+      "setup_ok"
+    ],
+    "header_template": {
+      "bindings_ok": 1,
+      "conversions_ok": 1,
+      "exit_zero": 1,
+      "frozen_hold_basis": 0,
+      "normal_exit": 1,
+      "parent_observe": 1,
+      "parent_remove": 1,
+      "parent_unlink": 1,
+      "policy_verdict": 1,
+      "present": 1,
+      "provenance_ok": 1,
+      "setup_ok": 1,
+      "shape_size_read_ok": 1,
+      "version": 1,
+      "wait_exact": 1
+    },
+    "limits": "Logical accessor consumption is a source-level ordinary-call observation, not proof of no compiler aggregate move, speculative CPU read, data race, native visibility or interrupt-safe snapshot. Private tables/counter are fixture-only; no general concurrent reader protocol.",
+    "reader": "Only after the gate call one private noninline fixed-table accessor. It increments a process-local unsigned logical-read counter exactly once and copies the selected local record by value. The accessor only enforces bounded index/storage safety, never repeats evidence acceptance. No callback, runtime pointer argument or external provider is introduced.",
+    "slot_table": "One immutable local-record slot for every candidate selector in listed order, followed by no extra hidden slot. Dedicated baseline/control uses the same slot. Invalid-slot selector passes table length. Fixed private storage initialized before entry; no publication/write/reuse protocol is claimed."
+  },
+  "runtime_gate": "CLOSED",
+  "schema": 1,
+  "scope": "Source-only ordinary-close inert value-classifier plan",
+  "shared_oracle_partition": {
+    "C1_owned": "Full local semantic tuple including false zero acknowledgment; no separate complete-capture output check.",
+    "C2_owned": "Full error disposition/eligibility/helper/native tuple; no late request-count repair.",
+    "C3_owned": "Child availability/tuple and logical reader count together; parent facts/header truth still shared.",
+    "C4_owned": "Full child semantic tuple; parent acknowledgments and unchanged one-consumption count shared.",
+    "C5_owned": "Full local semantic tuple, including classification with preserved false eligibility/helper fact; no generic request/entry output coherence duplication.",
+    "always": "Selector identity, bounds/domain status as specified, source-input immutability, unchanged raw/error/request evidence, stable independent parent header/acks, no unexpected diagnostic/infrastructure failure.",
+    "hidden_input_custody": "Parent harness passes header and slot only. It must not pre-copy/hash/validate/classify hidden child records before projection. After projection, a separate test-only table comparison may verify bytes against immutable authored fixtures; it is outside classifier logical-consumption scope and cannot establish absence of all memory reads. No callbacks or pointer input are needed.",
+    "malformed": "Controls use valid input rows and do not disable domain/stage input checks. Malformed separate ordinary selectors stay refused; hidden malformed payload under false gate is never consumed and returns Unavailable, not InvalidChildEvidence."
+  },
+  "source_groups": [
+    {
+      "future": "New bounded value header and complete explicit validation table; unsigned integer tags/markers rather than invalid _Bool representations.",
+      "future_files": [
+        "values.h"
+      ],
+      "id": "G1"
+    },
+    {
+      "future": "Separate local classifier with stage validation, sole captured-result decision and inert historical eligibility; no engine integration or new once guard.",
+      "future_files": [
+        "classifier.c"
+      ],
+      "id": "G2"
+    },
+    {
+      "future": "Parent header/slot-only entry, one evidence gate and private fixed authored payload accessor; no whole payload aggregate before gate.",
+      "future_files": [
+        "classifier.c",
+        "case_data.c"
+      ],
+      "id": "G3"
+    },
+    {
+      "future": "Immutable authored case table and one logical-access counter per fresh process; no runtime input resource or callbacks.",
+      "future_files": [
+        "case_data.c"
+      ],
+      "id": "G4"
+    },
+    {
+      "future": "Finite single-selector harness and five singleton compile-time controls, shared truthful facts and exactly one owning semantic composite per baseline.",
+      "future_files": [
+        "test_values.c",
+        "test-contract.json"
+      ],
+      "id": "G5"
+    },
+    {
+      "future": "New isolated-host runner and retained commands/reports/codegen review; full ledger and independent prebuild review before any later compiler/runtime authorization.",
+      "future_files": [
+        "run-tests.py",
+        "source-ledger.json"
+      ],
+      "id": "G6"
+    }
+  ],
+  "sources": [
+    {
+      "bytes": 32279,
+      "name": "review/close-disposition-review.json",
+      "path": "experiments/usb-browser-switch/activation-close-disposition-review/close-disposition-review.json",
+      "sha256": "d90b16ceb82f399cbf2f3a9f8161715275526af2e94eeb21615758151cad5c92"
+    },
+    {
+      "bytes": 7729,
+      "name": "review/README.md",
+      "path": "experiments/usb-browser-switch/activation-close-disposition-review/README.md",
+      "sha256": "bcf2933a90eed2aa89b87ffc2f9ab9b9dc16e30b33a362c269da89efc7774799"
+    },
+    {
+      "bytes": 1640,
+      "name": "review/source-review.json",
+      "path": "experiments/usb-browser-switch/activation-close-disposition-review/source-review.json",
+      "sha256": "1453b7318b26a660b14ac738fd8b28255bc8ba73ce149cdea5fe782ff7d8dee8"
+    },
+    {
+      "bytes": 10530,
+      "name": "review/result.json",
+      "path": "experiments/usb-browser-switch/activation-close-disposition-review/result.json",
+      "sha256": "3392640d30d257933d380bc917a273bfecf5fc31a1f670dca9e8729279e0c287"
+    },
+    {
+      "bytes": 3326,
+      "name": "review/verification.json",
+      "path": "experiments/usb-browser-switch/activation-close-disposition-review/verification.json",
+      "sha256": "4fba96c63bee2c091fcd09f8f79beb6032f4355f9bb395c7132f71edd9216982"
+    },
+    {
+      "bytes": 24981,
+      "name": "witness/core.c",
+      "path": "experiments/usb-browser-switch/activation-consumed-validation-fixture/core.c",
+      "sha256": "eca23b77d5e064a7015dd3f912e5652a7d61df196ce936b3fbf1934e4a4819d1"
+    },
+    {
+      "bytes": 8461,
+      "name": "witness/core.h",
+      "path": "experiments/usb-browser-switch/activation-consumed-validation-fixture/core.h",
+      "sha256": "a1c1f13832a8bdb55ba9a2d4379ff8c6cb689bd70826575497d13402430faa38"
+    },
+    {
+      "bytes": 18292,
+      "name": "witness/file_provider.c",
+      "path": "experiments/usb-browser-switch/activation-consumed-validation-fixture/file_provider.c",
+      "sha256": "a98d69a46214f6d9215b9de41a67643f3efe533b9190c5f0fcd83b265d9d862f"
+    },
+    {
+      "bytes": 5990,
+      "name": "witness/file_provider.h",
+      "path": "experiments/usb-browser-switch/activation-consumed-validation-fixture/file_provider.h",
+      "sha256": "3d478e98f9dba224b5e4e161b8a562172ec8cd6916eae6ad0b603cf83eb0e5ad"
+    },
+    {
+      "bytes": 2944,
+      "name": "witness/native_leaf.c",
+      "path": "experiments/usb-browser-switch/activation-consumed-validation-fixture/native_leaf.c",
+      "sha256": "9033bfe9cf854a495cfb7056fb7627fe371e7961e792589d59b99fcfc4064669"
+    },
+    {
+      "bytes": 833,
+      "name": "witness/native_leaf.h",
+      "path": "experiments/usb-browser-switch/activation-consumed-validation-fixture/native_leaf.h",
+      "sha256": "55e4a5ed78d023fb652002d7bface8421a71b690033f9f3cf02ed21cc72cc348"
+    },
+    {
+      "bytes": 42924,
+      "name": "witness/test_file.c",
+      "path": "experiments/usb-browser-switch/activation-consumed-validation-fixture/test_file.c",
+      "sha256": "d3130e45d8228040f05accfab2a99acf9f14a44ce0ff07a5344c496d4ed3e0f7"
+    },
+    {
+      "bytes": 14643,
+      "name": "witness/test-contract.json",
+      "path": "experiments/usb-browser-switch/activation-consumed-validation-fixture/test-contract.json",
+      "sha256": "2d8c4359198c56731ec42dedf614b9bb4b4f6ac6d59d9bbc94d91e127d55aece"
+    },
+    {
+      "bytes": 23592,
+      "name": "witness/verification.json",
+      "path": "experiments/usb-browser-switch/activation-consumed-validation-fixture/verification.json",
+      "sha256": "b2eaca74d6dbb8623ed1091ecf9fec48929df1568bcfedd32beb61040e5ab86e"
+    },
+    {
+      "bytes": 429542,
+      "name": "witness/codegen-review.json",
+      "path": "experiments/usb-browser-switch/activation-consumed-validation-fixture/codegen-review.json",
+      "sha256": "e93268e863ec32a598a3a5c40a8f595a76bd06c69a83fc8a729cace43f291ebe"
+    },
+    {
+      "bytes": 31555,
+      "name": "failure-review/failure-custody-review.json",
+      "path": "experiments/usb-browser-switch/activation-ordinary-file-failure-review/failure-custody-review.json",
+      "sha256": "5e6f36579c1525ddb4b7e0595dc437e6dd28934029992ea6f342fb262b273383"
+    },
+    {
+      "bytes": 2994,
+      "name": "generated/readers.inc",
+      "path": "experiments/usb-browser-switch/activation-ordinary-provider-fixture/private/run-11ea3682fcc34d33b9034c6e041aee30/work/generated/readers.inc",
+      "sha256": "352048162f452f794136f8b90555783df101feacbf7550e3f4020bd6ef7ab140"
+    },
+    {
+      "bytes": 5369,
+      "name": "generated/receipt-types.h",
+      "path": "experiments/usb-browser-switch/activation-ordinary-provider-fixture/private/run-11ea3682fcc34d33b9034c6e041aee30/work/generated/receipt-types.h",
+      "sha256": "c97454db2aba6e942eb05241bbf80d67ffd8eecb5108927da69600a6a1d15f40"
+    },
+    {
+      "bytes": 13962,
+      "name": "evidence/ordinary-plain.json",
+      "path": "experiments/usb-browser-switch/activation-consumed-validation-fixture/private/run-296bd84a7b7e49258d7e5e651cf4e534/work/evidence/candidate/plain/consumed-validation-veto/report.json",
+      "sha256": "0e73c02b31ab961b1d127748ccd656bd2f0a263737e5e0e4ddc2bcc78f884e11"
+    },
+    {
+      "bytes": 14033,
+      "name": "evidence/normalized-plain.json",
+      "path": "experiments/usb-browser-switch/activation-consumed-validation-fixture/private/run-296bd84a7b7e49258d7e5e651cf4e534/work/evidence/normalize-refusal/plain/control-refusal-domain/report.json",
+      "sha256": "3034847edf14bf9528f9a320289d079ff98a3779efcbf32351e30866ef0350b5"
+    },
+    {
+      "bytes": 14007,
+      "name": "evidence/omission-plain.json",
+      "path": "experiments/usb-browser-switch/activation-consumed-validation-fixture/private/run-296bd84a7b7e49258d7e5e651cf4e534/work/evidence/omit-held-cleanup/plain/control-held-cleanup/report.json",
+      "sha256": "167328d78fa12be5300de21ee2589e44fe92e7cdf6c5ace28ef1ea0666ca40ea"
+    },
+    {
+      "bytes": 14007,
+      "name": "evidence/omission-sanitized.json",
+      "path": "experiments/usb-browser-switch/activation-consumed-validation-fixture/private/run-296bd84a7b7e49258d7e5e651cf4e534/work/evidence/omit-held-cleanup/asan-ubsan/control-held-cleanup/report.json",
+      "sha256": "1d037cbe03030612280d4d3961057fcb87b82a185c952609e9e7835aa9d723a6"
+    },
+    {
+      "bytes": 98119,
+      "name": "witness/result.json",
+      "path": "experiments/usb-browser-switch/activation-consumed-validation-fixture/result.json",
+      "sha256": "35e4f0a5275f43e71188466117e56e0ec276beac1849677738ada1ad6c6fc597"
+    }
+  ],
+  "status": "source-planned-not-implemented",
+  "templates": {
+    "armed": {
+      "attempted": 1,
+      "basis": 0,
+      "captured": 0,
+      "custody": 2,
+      "entered": 0,
+      "error_number": 0,
+      "error_valid": 0,
+      "helper_returned": 0,
+      "label": 1,
+      "raw": 0,
+      "requested": 1,
+      "stage": 2,
+      "version": 1
+    },
+    "captured-error": {
+      "attempted": 1,
+      "basis": 0,
+      "captured": 1,
+      "custody": 2,
+      "entered": 1,
+      "error_number": 5,
+      "error_valid": 1,
+      "helper_returned": 0,
+      "label": 1,
+      "raw": -1,
+      "requested": 1,
+      "stage": 5,
+      "version": 1
+    },
+    "captured-zero": {
+      "attempted": 1,
+      "basis": 0,
+      "captured": 1,
+      "custody": 2,
+      "entered": 1,
+      "error_number": 0,
+      "error_valid": 0,
+      "helper_returned": 0,
+      "label": 1,
+      "raw": 0,
+      "requested": 1,
+      "stage": 5,
+      "version": 1
+    },
+    "entered": {
+      "attempted": 1,
+      "basis": 0,
+      "captured": 0,
+      "custody": 2,
+      "entered": 1,
+      "error_number": 0,
+      "error_valid": 0,
+      "helper_returned": 0,
+      "label": 1,
+      "raw": 0,
+      "requested": 1,
+      "stage": 3,
+      "version": 1
+    },
+    "held-u": {
+      "attempted": 0,
+      "basis": 0,
+      "captured": 0,
+      "custody": 0,
+      "entered": 0,
+      "error_number": 0,
+      "error_valid": 0,
+      "helper_returned": 0,
+      "label": 1,
+      "raw": 0,
+      "requested": 0,
+      "stage": 0,
+      "version": 1
+    },
+    "held-v": {
+      "attempted": 0,
+      "basis": 1,
+      "captured": 0,
+      "custody": 1,
+      "entered": 0,
+      "error_number": 0,
+      "error_valid": 0,
+      "helper_returned": 0,
+      "label": 1,
+      "raw": 0,
+      "requested": 0,
+      "stage": 0,
+      "version": 1
+    },
+    "omitted": {
+      "attempted": 0,
+      "basis": 0,
+      "captured": 0,
+      "custody": 0,
+      "entered": 0,
+      "error_number": 0,
+      "error_valid": 0,
+      "helper_returned": 1,
+      "label": 1,
+      "raw": 0,
+      "requested": 1,
+      "stage": 1,
+      "version": 1
+    },
+    "partial-error": {
+      "attempted": 1,
+      "basis": 0,
+      "captured": 0,
+      "custody": 2,
+      "entered": 1,
+      "error_number": 4,
+      "error_valid": 1,
+      "helper_returned": 0,
+      "label": 1,
+      "raw": -1,
+      "requested": 1,
+      "stage": 4,
+      "version": 1
+    },
+    "partial-raw": {
+      "attempted": 1,
+      "basis": 0,
+      "captured": 0,
+      "custody": 2,
+      "entered": 1,
+      "error_number": 0,
+      "error_valid": 0,
+      "helper_returned": 0,
+      "label": 1,
+      "raw": -1,
+      "requested": 1,
+      "stage": 4,
+      "version": 1
+    },
+    "partial-valid": {
+      "attempted": 1,
+      "basis": 0,
+      "captured": 0,
+      "custody": 2,
+      "entered": 1,
+      "error_number": 0,
+      "error_valid": 1,
+      "helper_returned": 0,
+      "label": 1,
+      "raw": -1,
+      "requested": 1,
+      "stage": 4,
+      "version": 1
+    },
+    "returned-eintr": {
+      "attempted": 1,
+      "basis": 0,
+      "captured": 1,
+      "custody": 4,
+      "entered": 1,
+      "error_number": 4,
+      "error_valid": 1,
+      "helper_returned": 1,
+      "label": 1,
+      "raw": -1,
+      "requested": 1,
+      "stage": 7,
+      "version": 1
+    },
+    "returned-zero": {
+      "attempted": 1,
+      "basis": 0,
+      "captured": 1,
+      "custody": 3,
+      "entered": 1,
+      "error_number": 0,
+      "error_valid": 0,
+      "helper_returned": 1,
+      "label": 1,
+      "raw": 0,
+      "requested": 1,
+      "stage": 7,
+      "version": 1
+    },
+    "stored-error": {
+      "attempted": 1,
+      "basis": 0,
+      "captured": 1,
+      "custody": 4,
+      "entered": 1,
+      "error_number": 5,
+      "error_valid": 1,
+      "helper_returned": 0,
+      "label": 1,
+      "raw": -1,
+      "requested": 1,
+      "stage": 6,
+      "version": 1
+    },
+    "stored-zero": {
+      "attempted": 1,
+      "basis": 0,
+      "captured": 1,
+      "custody": 3,
+      "entered": 1,
+      "error_number": 0,
+      "error_valid": 0,
+      "helper_returned": 0,
+      "label": 1,
+      "raw": 0,
+      "requested": 1,
+      "stage": 6,
+      "version": 1
+    }
+  },
+  "value_schema": {
+    "captured_branch_mapping": "After the sole captured-result branch, native outcome is Zero when raw0 and Error when raw-1. For each outcome, stage7 selects HelperReturnedZero/Error, stage6 selects DispositionZero/Error, and every other stage selects CapturedZero/Error. Input validation makes the other-stage arm stage5 in candidates; C1 deliberately admits stage3 and therefore deterministically yields CapturedZero. Helper acknowledgement still copies the already validated helper_returned marker. No later captured/stage veto.",
+    "complete_tuples": [
+      [
+        0,
+        0,
+        0
+      ],
+      [
+        -1,
+        1,
+        4
+      ],
+      [
+        -1,
+        1,
+        5
+      ]
+    ],
+    "consistency": "Every stage-table input relation is conjunctive validation; the derived eligibility column is excluded from input validation and output repair. Basis1 requires held custody1 where table says held; basis0 requires0. Captured-before-promotion accepts UnknownPre even with raw0/-1. HelperReturned is an authored caller-observed fact, never a helper self-ack.",
+    "error_scope": "4 and5 are authored EINTR/EIO-labelled sentinels, never actual errno capture or an exhaustive native errno domain. Other complete errors are InvalidEvidence in this finite prototype.",
+    "forbidden": "No descriptor, address, callback, function pointer, syscall dispatcher, provider adapter, native memory reader, whole engine or live capability.",
+    "invalid": "Any unknown tag/version/label/marker, unsupported tuple, or stage/flag/custody contradiction returns canonical InvalidEvidence with no outcome/eligibility/ack. Partial tuples remain nonauthoritative and are not treated as contradictory complete receipts.",
+    "local_algorithm_contract": [
+      "Validate input domains and exact stage relation first.",
+      "One captured==1 classification branch selects native Zero/Error; C1 changes this branch only. No later phase check may silently repair that control.",
+      "Without capture classify HeldFresh, NonDispatch, UnknownBeforeLeaf, EnteredWithoutCapture or PartialCapture from the validated stage.",
+      "Only HeldFresh has historical eligibility true. Omission has consumed its one request and remains false despite held obligation.",
+      "After complete error, use captured_branch_mapping for the exact stage-specific Error tuple with false eligibility. C2 replaces only the stage7 error tuple; no later independent request-used veto masks it.",
+      "Keep helper-return acknowledgment separate: true only for valid omission or stage7. No inferred syscall dispatch, no native cleanup action."
+    ],
+    "local_fields": {
+      "basis": "uint32 0=HeldUnvalidated,1=VerifiedHeld historical starting basis",
+      "custody": "uint32 0=HeldUnvalidated,1=VerifiedHeld,2=UnknownPre,3=ClosedReturned,4=UnknownAfterReturn",
+      "error_number": "int32; exact admitted tuples below, not read from ambient errno",
+      "label": "uint32 inert1..4, never fd/address/capability",
+      "raw": "int64 storage; only -1 or0 admitted in this finite authored model",
+      "requested_attempted_entered_captured_helper_returned_error_valid": "each uint32 exactly0 or1; no invalid C bool values",
+      "stage": "uint32 0..7 per exact table",
+      "version": "uint32 exactly1"
+    },
+    "output": "Status, exact classification, native_outcome(Unavailable/Zero/Error), inert historical_eligibility, helper_return_ack; no resource-operation permission. Input label/basis and copied raw/error evidence remain separate unchanged data.",
+    "partial_tuples": [
+      [
+        0,
+        0,
+        0
+      ],
+      [
+        -1,
+        0,
+        0
+      ],
+      [
+        -1,
+        1,
+        0
+      ],
+      [
+        -1,
+        1,
+        4
+      ],
+      [
+        -1,
+        1,
+        5
+      ]
+    ],
+    "result_layout": {
+      "canonical_zero": "All result tag/marker storage initialized to zero, then exact status/fields assigned. JSON child:null denotes zeroed child value storage with no child availability, not a pointer field.",
+      "classification_tags": {
+        "CapturedError": 7,
+        "CapturedZero": 6,
+        "DispositionError": 9,
+        "DispositionZero": 8,
+        "EnteredWithoutCapture": 4,
+        "HeldFresh": 1,
+        "HelperReturnedError": 11,
+        "HelperReturnedZero": 10,
+        "NonDispatch": 2,
+        "PartialCapture": 5,
+        "Unavailable": 0,
+        "UnknownBeforeLeaf": 3
+      },
+      "local": "Exactly status, classification, native_outcome, historical_eligibility, helper_return_ack. No pointer or capability member. Valid semantic tuples are listed per selector. InvalidEvidence zeros every semantic field; status distinguishes refusal.",
+      "native_outcome_tags": {
+        "Error": 2,
+        "Unavailable": 0,
+        "Zero": 1
+      },
+      "status_tags": {
+        "InvalidChildEvidence": 5,
+        "InvalidEvidence": 2,
+        "InvalidHeader": 3,
+        "InvalidSlot": 4,
+        "Unavailable": 0,
+        "Valid": 1
+      }
+    },
+    "stage_table": [
+      {
+        "attempted": 0,
+        "captured": 0,
+        "custody": "Held matching basis",
+        "eligibility": true,
+        "entered": 0,
+        "helper_returned": 0,
+        "name": "HeldFresh",
+        "raw_error": "canonical zero/false/zero",
+        "requested": 0,
+        "stage": 0
+      },
+      {
+        "attempted": 0,
+        "captured": 0,
+        "custody": "Held matching basis",
+        "eligibility": false,
+        "entered": 0,
+        "helper_returned": 1,
+        "name": "HeldOmitted",
+        "raw_error": "canonical zero/false/zero",
+        "requested": 1,
+        "stage": 1
+      },
+      {
+        "attempted": 1,
+        "captured": 0,
+        "custody": "UnknownPre",
+        "eligibility": false,
+        "entered": 0,
+        "helper_returned": 0,
+        "name": "ArmedUnknown",
+        "raw_error": "canonical zero/false/zero",
+        "requested": 1,
+        "stage": 2
+      },
+      {
+        "attempted": 1,
+        "captured": 0,
+        "custody": "UnknownPre",
+        "eligibility": false,
+        "entered": 1,
+        "helper_returned": 0,
+        "name": "EnteredNoCapture",
+        "raw_error": "canonical zero/false/zero",
+        "requested": 1,
+        "stage": 3
+      },
+      {
+        "attempted": 1,
+        "captured": 0,
+        "custody": "UnknownPre",
+        "eligibility": false,
+        "entered": 1,
+        "helper_returned": 0,
+        "name": "PartialCapture",
+        "raw_error": "one exact nonauthoritative partial tuple",
+        "requested": 1,
+        "stage": 4
+      },
+      {
+        "attempted": 1,
+        "captured": 1,
+        "custody": "UnknownPre",
+        "eligibility": false,
+        "entered": 1,
+        "helper_returned": 0,
+        "name": "CapturedBeforePromotion",
+        "raw_error": "complete zero or error pair",
+        "requested": 1,
+        "stage": 5
+      },
+      {
+        "attempted": 1,
+        "captured": 1,
+        "custody": "ClosedReturned for zero; UnknownAfterReturn for error",
+        "eligibility": false,
+        "entered": 1,
+        "helper_returned": 0,
+        "name": "DispositionStoredBeforeHelperReturn",
+        "raw_error": "complete zero or error pair",
+        "requested": 1,
+        "stage": 6
+      },
+      {
+        "attempted": 1,
+        "captured": 1,
+        "custody": "ClosedReturned for zero; UnknownAfterReturn for error",
+        "eligibility": false,
+        "entered": 1,
+        "helper_returned": 1,
+        "name": "HelperReturned",
+        "raw_error": "complete zero or error pair",
+        "requested": 1,
+        "stage": 7
+      }
+    ],
+    "stage_table_eligibility": "eligibility is candidate derived output only, never an input or input-validity predicate. All remaining row fields constrain input relations. A control may corrupt output without being repaired by output validation.",
+    "tuple_order": [
+      "raw",
+      "error_valid",
+      "error_number"
+    ]
+  }
+}
