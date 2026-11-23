@@ -1,0 +1,32 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "scope": "Source-only close disposition review; independent reviews before first retention",
+  "runtime_gate": "CLOSED",
+  "new_runtime_cases": 0,
+  "prior_tested_sources_changed": false,
+  "reviews": [
+    {
+      "reviewer": "close_source_review",
+      "kind": "source and future-control semantic review",
+      "status": "passed",
+      "review_sha256": "d90b16ceb82f399cbf2f3a9f8161715275526af2e94eeb21615758151cad5c92",
+      "readme_sha256": "bcf2933a90eed2aa89b87ffc2f9ab9b9dc16e30b33a362c269da89efc7774799",
+      "helper_sha256": "4cb0f7278c4575ce6132220eea0fc9d3fc97103357520129dac000bb4b146751",
+      "findings": "28 anchors support separate captured native return, helper return, custody, structural report availability and semantic acceptance. Five inert controls each own one composite. No implementation authorized."
+    },
+    {
+      "reviewer": "publication_review",
+      "kind": "independent auditor-source and scope review",
+      "status": "passed",
+      "auditor_sha256": "5156dff629b3d8dfb3feb82cf182d42384571cf83bf4c58fd2f394fe72b1e0d1",
+      "helper_sha256": "4cb0f7278c4575ce6132220eea0fc9d3fc97103357520129dac000bb4b146751",
+      "findings": "Exact three-label helper adaptation; all 28 pins and anchors match. Auditor does not execute retained sources. No blocker."
+    }
+  ],
+  "draft_corrections": [
+    "F7 double negative corrected before retention.",
+    "C3 explicitly states inert input and no callback."
+  ],
+  "review_message_custody": "This metadata records received agent reviews after receipt; it does not claim independent transport-stream capture."
+}

@@ -1,0 +1,89 @@
+{
+  "activity": "Source-only review; independent read-only byte audit on new retention packet",
+  "anchors": 28,
+  "audit_launch_receipt_pin": {
+    "bytes": 647,
+    "sha256": "fd14d5801a711bbc1a52923ea1f26967c3bdd34a6bc3a0d81d92b3a9e3d56663"
+  },
+  "audit_result_pin": {
+    "bytes": 1525,
+    "sha256": "59fd4ce1f46543516af925a142d2b4a907872018c51f706c4668ded21db89562"
+  },
+  "auditor_copied_before_invocation": true,
+  "auditor_unchanged": true,
+  "compiled_or_executed_retained_input": false,
+  "compiler_native_io_callback_matrix_or_device_execution": false,
+  "executing_auditor": {
+    "bytes": 15703,
+    "sha256": "5156dff629b3d8dfb3feb82cf182d42384571cf83bf4c58fd2f394fe72b1e0d1"
+  },
+  "first_invocation_passed": true,
+  "future_controls_proposed": 5,
+  "helper_review": {
+    "exact_label_adaptation": true,
+    "original_helper_sha256": "ce714f95d06db44b21c413aa8f34127d73b7af71731d5f0e62164d7698b158ed",
+    "qualified_regex_compile_allowed": true,
+    "syntax_only": true
+  },
+  "historical_report_reads": 4,
+  "inputs": 31,
+  "limits": [
+    "Byte closure does not establish semantics or runtime behavior.",
+    "Source semantic claims require the separate independent review.",
+    "Historical counts are retained evidence, not new runtime cases.",
+    "No child close, process termination, signal or native operation is invoked."
+  ],
+  "old_capture_matrix_or_audit_replay": false,
+  "packet_directories": 6,
+  "packet_files": 33,
+  "preparation_history": {
+    "corrections": [
+      "F7 double negative removed.",
+      "C3 safety wording explicitly excludes callback execution."
+    ],
+    "draft_pin": {
+      "bytes": 32286,
+      "sha256": "0f8791a0d4850d4f0c9b9337c70e2d4baf248ed75358ac3b62995cc915290f4f"
+    },
+    "final_review_pin": {
+      "bytes": 32279,
+      "sha256": "d90b16ceb82f399cbf2f3a9f8161715275526af2e94eeb21615758151cad5c92"
+    },
+    "read_only_inspection_diagnostic": {
+      "custody_limit": "Retrospective note after tool response; no claim to original command stdout/stderr file custody.",
+      "message": "zsh:1: cannot create temp file for here document: operation not permitted",
+      "phase": "Read-only source-inspection shell preparation before Python ran",
+      "resolution": "Used a quoted python -c source-inspection call; no predecessor procedure replay."
+    },
+    "runtime_gate": "CLOSED",
+    "schema": 1,
+    "scope": "Source preparation only; no retention or audit failure"
+  },
+  "private_result": {
+    "bytes": 17965,
+    "sha256": "a828bac291ef5d21da3a6fed7fae2d9813a34091a6a4118931ca70fc96bfa3ec"
+  },
+  "public_result": {
+    "bytes": 10530,
+    "sha256": "3392640d30d257933d380bc917a273bfecf5fc31a1f670dca9e8729279e0c287"
+  },
+  "retention_launch_receipt_pin": {
+    "bytes": 859,
+    "sha256": "5c684c1fc27f160627779a98d7a0231f9e4f713ff916ae2b0f799ba1d52e20b5"
+  },
+  "reused_inputs": 28,
+  "review": {
+    "bytes": 32279,
+    "sha256": "d90b16ceb82f399cbf2f3a9f8161715275526af2e94eeb21615758151cad5c92"
+  },
+  "runtime_cases": 0,
+  "runtime_gate": "CLOSED",
+  "schema": 1,
+  "scope": "New source-only review retention byte audit; no predecessor audit replay",
+  "source_review_pin": {
+    "bytes": 1640,
+    "sha256": "1453b7318b26a660b14ac738fd8b28255bc8ba73ce149cdea5fe782ff7d8dee8"
+  },
+  "status": "passed",
+  "structural_assertions": 2343
+}

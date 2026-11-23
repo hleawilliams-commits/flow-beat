@@ -1,0 +1,644 @@
+{
+  "anchors": [
+    {
+      "first_line": 17,
+      "id": "leaf-result-capture",
+      "last_line": 23,
+      "reason": "Raw and valid errno precede captured-return marker; marker is before helper/leaf return.",
+      "source": "witness/native_leaf.c"
+    },
+    {
+      "first_line": 55,
+      "id": "leaf-close",
+      "last_line": 61,
+      "reason": "Entered is stored before libc close; no retry; errno captured immediately on -1.",
+      "source": "witness/native_leaf.c"
+    },
+    {
+      "first_line": 31,
+      "id": "custody-types",
+      "last_line": 73,
+      "reason": "Custody and raw evidence are separate; OF_CLOSE_ENTERED exists but selected code uses conservative UNKNOWN_ENTERED.",
+      "source": "witness/file_provider.h"
+    },
+    {
+      "first_line": 108,
+      "id": "cleanup-and-receipt-storage",
+      "last_line": 151,
+      "reason": "Separate frozen report, raw identity, consumed decision and mutable cleanup custody.",
+      "source": "witness/file_provider.h"
+    },
+    {
+      "first_line": 67,
+      "id": "callback-preparation",
+      "last_line": 78,
+      "reason": "Prepared return is not an outer return or recording acknowledgement.",
+      "source": "witness/file_provider.c"
+    },
+    {
+      "first_line": 107,
+      "id": "token-gate",
+      "last_line": 113,
+      "reason": "Follow-up operation needs full token range/equality plus VerifiedHeld.",
+      "source": "witness/file_provider.c"
+    },
+    {
+      "first_line": 115,
+      "id": "independent-identity",
+      "last_line": 170,
+      "reason": "Actual successful queries copied before explicit veto; rejected validation never becomes accepted creation.",
+      "source": "witness/file_provider.c"
+    },
+    {
+      "first_line": 191,
+      "id": "actual-open-custody",
+      "last_line": 216,
+      "reason": "Actual successful int held before veto; C2 changes supplied value only.",
+      "source": "witness/file_provider.c"
+    },
+    {
+      "first_line": 267,
+      "id": "provider-close",
+      "last_line": 285,
+      "reason": "Supplied refusal precedes close; unknown custody set before native leaf; returned raw determines conservative disposition.",
+      "source": "witness/file_provider.c"
+    },
+    {
+      "first_line": 286,
+      "id": "opaque-unblamed",
+      "last_line": 296,
+      "reason": "Opaque authored branch and fixed provider table unchanged.",
+      "source": "witness/file_provider.c"
+    },
+    {
+      "first_line": 332,
+      "id": "freeze",
+      "last_line": 350,
+      "reason": "Precleanup copy occurs before external cleanup; only query mirror is corruptible.",
+      "source": "witness/file_provider.c"
+    },
+    {
+      "first_line": 351,
+      "id": "held-cleanup",
+      "last_line": 373,
+      "reason": "Known held eligibility, terminal request, unknown-before-call and honest omission control.",
+      "source": "witness/file_provider.c"
+    },
+    {
+      "first_line": 20,
+      "id": "envelope-types",
+      "last_line": 80,
+      "reason": "Version 2 and separate child/supervisor evidence fields.",
+      "source": "witness/test_file.c"
+    },
+    {
+      "first_line": 254,
+      "id": "child-order",
+      "last_line": 299,
+      "reason": "Synchronous ordinary return then freeze, cleanup, observe and export; child cannot self-ack write.",
+      "source": "witness/test_file.c"
+    },
+    {
+      "first_line": 300,
+      "id": "envelope-shape",
+      "last_line": 310,
+      "reason": "Shape checks bound counts and version; do not establish raw identity or complete acceptance.",
+      "source": "witness/test_file.c"
+    },
+    {
+      "first_line": 412,
+      "id": "wait-and-read",
+      "last_line": 427,
+      "reason": "Normal exit zero and exact report size/read/bindings precede report_valid.",
+      "source": "witness/test_file.c"
+    },
+    {
+      "first_line": 428,
+      "id": "raw-parent-basis",
+      "last_line": 441,
+      "reason": "Raw identity and consumed veto checked after structural report_valid; accepted creation must be absent.",
+      "source": "witness/test_file.c"
+    },
+    {
+      "first_line": 442,
+      "id": "parent-observation",
+      "last_line": 456,
+      "reason": "Parent uses own observer descriptor and separate read/close outcomes.",
+      "source": "witness/test_file.c"
+    },
+    {
+      "first_line": 457,
+      "id": "parent-name-cleanup",
+      "last_line": 483,
+      "reason": "Identity rechecks and fixed unlink/remove separate from child close; failure preserves unresolved names.",
+      "source": "witness/test_file.c"
+    },
+    {
+      "first_line": 488,
+      "id": "semantic-setup",
+      "last_line": 502,
+      "reason": "Structural report_valid is only one term in later setup oracle.",
+      "source": "witness/test_file.c"
+    },
+    {
+      "first_line": 515,
+      "id": "held-veto-and-bounds",
+      "last_line": 538,
+      "reason": "Provider held state and operation counts constrain new witness to OPEN.",
+      "source": "witness/test_file.c"
+    },
+    {
+      "first_line": 539,
+      "id": "truthful-cleanup",
+      "last_line": 557,
+      "reason": "Shared truthful-record check accepts honest omission but rejects returned errors in this finite witness.",
+      "source": "witness/test_file.c"
+    },
+    {
+      "first_line": 558,
+      "id": "exact-composites",
+      "last_line": 589,
+      "reason": "Three existing control composites isolate query export, normalization and omission consequences.",
+      "source": "witness/test_file.c"
+    },
+    {
+      "first_line": 247,
+      "id": "sole-admission",
+      "last_line": 267,
+      "reason": "One terminal CAS before request/provider reads; no new admission proposed.",
+      "source": "witness/core.c"
+    },
+    {
+      "first_line": 388,
+      "id": "raw-record",
+      "last_line": 437,
+      "reason": "Domain refusal and receipt progression do not establish native resource disposition.",
+      "source": "witness/core.c"
+    },
+    {
+      "first_line": 440,
+      "id": "public-completion",
+      "last_line": 490,
+      "reason": "Ordinary run and acquire-gated public observation unchanged.",
+      "source": "witness/core.c"
+    },
+    {
+      "first_line": 508,
+      "id": "setup-surface",
+      "last_line": 565,
+      "reason": "Five setup-only APIs remain unchanged.",
+      "source": "witness/core.c"
+    },
+    {
+      "first_line": 826,
+      "id": "main-assessment",
+      "last_line": 846,
+      "reason": "Assessment can run after report_valid even if subsequent supervisor validation failed.",
+      "source": "witness/test_file.c"
+    }
+  ],
+  "baseline_commit": "d1386b8d51cce3f59a2e83dc2022c4d632d38bd1",
+  "boundary_map": [
+    {
+      "anchors": [
+        "leaf-result-capture",
+        "leaf-close"
+      ],
+      "boundary": "native leaf",
+      "fact": "entered=true precedes libc close. Native raw and immediate valid errno are stored before returned=true. returned marks captured native outcome, not return from of_finish_native, of_leaf_close or the provider.",
+      "id": "B1"
+    },
+    {
+      "anchors": [
+        "provider-close",
+        "held-cleanup"
+      ],
+      "boundary": "provider custody",
+      "fact": "UNKNOWN_ENTERED is stored even before leaf entry. A stop in that interval leaves conservative unknown custody without proving libc dispatch. Returned zero becomes CLOSED_RETURNED; returned error becomes UNKNOWN_AFTER_CLOSE_RETURN.",
+      "id": "B2"
+    },
+    {
+      "anchors": [
+        "callback-preparation",
+        "actual-open-custody",
+        "raw-record",
+        "public-completion"
+      ],
+      "boundary": "supplied and authoritative values",
+      "fact": "Callback prepared-return, supplied value, engine raw/receipt and immutable public completion remain distinct. C2 completes an OPEN failure while actual held resource obligation survives.",
+      "id": "B3"
+    },
+    {
+      "anchors": [
+        "independent-identity",
+        "freeze",
+        "child-order"
+      ],
+      "boundary": "frozen evidence",
+      "fact": "Precleanup report and independent successful raw identity are copied before external cleanup. Frozen HeldUnvalidated cannot replace later cleanup outcome. complete is a serial validity marker, not atomic publication.",
+      "id": "B4"
+    },
+    {
+      "anchors": [
+        "held-cleanup",
+        "truthful-cleanup"
+      ],
+      "boundary": "external cleanup",
+      "fact": "One request is recorded. Only known held custody permits its sole native close. Boolean true means protocol progression; ineligible and omitted paths can return true without native close. No failure or missing return permits retry.",
+      "id": "B5"
+    },
+    {
+      "anchors": [
+        "child-order"
+      ],
+      "boundary": "child export",
+      "fact": "Enclosing report includes post-cleanup result only after ordinary helper return. pwrite is later still. Full captured native return or cleanup call may precede an export failure. A missing envelope cannot identify which earlier stage stopped.",
+      "id": "B6"
+    },
+    {
+      "anchors": [
+        "wait-and-read",
+        "envelope-shape"
+      ],
+      "boundary": "parent wait and structural envelope",
+      "fact": "waitpid must identify child and WIFEXITED; then status is stored and exit0 required. Signaled status is not copied into child_status. Exact fstat size/pread, version, selector, count bounds and fd bindings precede report_valid.",
+      "id": "B7"
+    },
+    {
+      "anchors": [
+        "raw-parent-basis",
+        "semantic-setup",
+        "main-assessment",
+        "exact-composites"
+      ],
+      "boundary": "semantic evidence use",
+      "fact": "report_valid means structural envelope availability only. Raw identity/veto, absent accepted creation, observer/conversion/setup and expected-result checks are later. main may assess after a later supervisor failure. Policy-control failure is separately reported; it is not automatically a malformed envelope.",
+      "id": "B8"
+    },
+    {
+      "anchors": [
+        "raw-parent-basis",
+        "parent-observation"
+      ],
+      "boundary": "parent-owned observation",
+      "fact": "Parent uses its own capabilities and independent raw identity; child numeric descriptor is only reported evidence, never a parent handle. Empty file observation and observer close acknowledge only parent operations.",
+      "id": "B9"
+    },
+    {
+      "anchors": [
+        "parent-name-cleanup"
+      ],
+      "boundary": "parent-owned cleanup",
+      "fact": "Checked fixed-name unlink, empty-directory removal and parent descriptor closes are separate acknowledgements. They neither prove child close nor persistence, durability, recovery or absence of earlier interruption.",
+      "id": "B10"
+    }
+  ],
+  "disposition_map": [
+    {
+      "disposition": "Retain local held obligation; at most the existing one eligible cleanup request before any attempt. This is a conditional local protocol rule, not a permission obtained from a later parent report.",
+      "evidence": "Known held, no close admission/dispatch, no captured return; ordinary current local custodian still owns descriptor.",
+      "id": "D1",
+      "observed": "Consumed-veto precleanup in every child; omission leaves held without dispatch.",
+      "prohibited": "No follow-up provider I/O from HeldUnvalidated; no second request, no parent use of saved child fd."
+    },
+    {
+      "disposition": "Unknown; no operation through saved token, including close/retry/probe. Preserve uncertainty and any ordinary evidence only.",
+      "evidence": "UnknownEntered set before leaf, or leaf entered with no complete native return capture.",
+      "id": "D2",
+      "observed": "Source-only stopped-boundary reasoning, not executed interruption.",
+      "prohibited": "Do not infer syscall dispatch from conservative custody or entered marker; do not infer zero return from zero-filled storage."
+    },
+    {
+      "disposition": "Native close returned zero at capture boundary; retire token from use. Provider CLOSED_RETURNED and exported cleanup acknowledgement require their own downstream evidence.",
+      "evidence": "Native zero result completely captured, with error_valid false; separate later provider/helper return stages may or may not be known.",
+      "id": "D3",
+      "observed": "12 external closes zero with ordinary downstream export; no capture-only stopped stage observed.",
+      "prohibited": "No descriptor reuse/probe/retry or durability/recovery inference."
+    },
+    {
+      "disposition": "Returned error with unknown resource disposition; no operation through saved token, including an EINTR retry. Preserve captured error without treating it as still-held or successfully closed.",
+      "evidence": "Native -1 and valid saved error captured.",
+      "id": "D4",
+      "observed": "Unexecuted in retained matrix; policy reasoning only.",
+      "prohibited": "No actual close-error manufacturing, no close/probe on possibly closed token."
+    },
+    {
+      "disposition": "No authoritative downstream child outcome in that evidence channel. Do not inspect unaccepted payload to recover a child stage or derive token permission. Preserve independently known parent facts separately.",
+      "evidence": "Absent report, failed wait/normal-exit requirement, malformed envelope or unaccepted identity/bindings.",
+      "id": "D5",
+      "observed": "Failure paths source-only; passing matrix does not exercise them.",
+      "prohibited": "No inference of missing close return, failure, success, resource leak or causal stage from absence alone; no automatic path cleanup from rejected identity."
+    }
+  ],
+  "evidence_basis": {
+    "first_matrix": "Retained GCC 7.5 Linux AArch64 C11 first matrix; no replay. 14 fresh exec children historically, four candidate selectors and three singleton controls per mode; 32 summed candidate assertions/8 distinct names per mode.",
+    "historical_outcomes": "All 14 successful opens fd3; all 42 provider queries zero; all 12 actual external closes zero. Two omission controls contain no close dispatch. These are retained results, not newly executed cases.",
+    "selected_report_reads": [
+      "ordinary-plain",
+      "normalized-plain",
+      "omission-plain",
+      "omission-sanitized"
+    ],
+    "unexecuted": "No actual close/query error, fd0, missing return, failed export/cleanup, abnormal termination or report rejection was exercised by that matrix."
+  },
+  "findings": [
+    {
+      "id": "F1",
+      "text": "An entered marker is conservative intent before a libc call. UnknownEntered is earlier still. Neither proves a native operation actually ran."
+    },
+    {
+      "id": "F2",
+      "text": "The returned flag is captured native result validity. It is set before ordinary C helper/leaf return. Partial raw/error stores without it are incomplete and cannot be consumed as a result."
+    },
+    {
+      "id": "F3",
+      "text": "The frozen precleanup HeldUnvalidated state is intentionally stale after external close. Public ActiveIncomplete has no payload and conveys no native cleanup disposition."
+    },
+    {
+      "id": "F4",
+      "text": "The C2 normalized OPEN-failure completion proves neither native open failure nor removal of the held cleanup obligation. All 33-byte ID and full-width identity copies stay separate."
+    },
+    {
+      "id": "F5",
+      "text": "The two C3 omission controls record requested/eligible but attempted=false, entered=false and returned=false, with zero raw/error and unchanged held state. They are non-dispatch controls; they provide no missing-return observation."
+    },
+    {
+      "id": "F6",
+      "text": "Existing shared cleanup_truthful rejects actual returned error; it accepts only returned-zero or honest omission. The new review does not loosen that witness oracle to accept untested native error."
+    },
+    {
+      "id": "F7",
+      "text": "A captured native outcome, provider custody transition, cleanup out-copy and child pwrite have distinct boundaries. An absent downstream report cannot disambiguate any of them; a completed write may also fail later acceptance."
+    },
+    {
+      "id": "F8",
+      "text": "Structural report_valid precedes raw identity and later observer/oracle checks. It must not be described as whole-run acceptance. A valid control report may truthfully contain a failed policy composite."
+    },
+    {
+      "id": "F9",
+      "text": "Parent post-exit observation/unlink can succeed in both normal-close and omission controls, so those acknowledgements cannot discriminate child close dispatch or success."
+    },
+    {
+      "id": "F10",
+      "text": "KnownHeld eligibility refers to the ordinary local custodian before its one request. An accepted post-exit child report is historical evidence, never a live capability or permission to close the saved numeric fd."
+    }
+  ],
+  "future_boundary": {
+    "minimal_inputs": [
+      "Bounded inert resource label, local custody phase (HeldUnvalidated/VerifiedHeld/ArmedUnknown/UnknownAfterReturn/ClosedReturned), one-request status, leaf-entered marker, captured-return validity and authored raw/error pair.",
+      "Separate parent wait/envelope/provenance/semantic eligibility values and separately copied parent observation/cleanup acknowledgements. No actual report parser or transport is added."
+    ],
+    "name": "ordinary close disposition value classifier",
+    "next_step": "Separately scoped source-only plan must pin value schema, valid/invalid combinations, snapshot stage semantics, acceptance predicate, finite selectors/baselines and exact control composites before any implementation.",
+    "not_proven": "Authored stopped values are not native missing returns, signal delivery, process termination, errno behavior or asynchronous state capture. No concurrency or native lifetime proof follows.",
+    "outputs": [
+      "Local historical classification and one-cleanup eligibility value, never an executable permission.",
+      "Captured native return classification separate from provider/helper ordinary return acknowledgement.",
+      "Parent-visible child classification only when the explicitly planned acceptance predicate permits it; otherwise Unavailable without consuming child payload.",
+      "Parent operation acknowledgement values remain an independent product and never promote child close evidence."
+    ],
+    "required_cases": [
+      "Known held/no request; known held/honest requested-but-omitted close; conservative ArmedUnknown before leaf entry; leaf entered/no complete capture; partial result stores without captured marker; captured zero before provider promotion; returned-zero with downstream report; captured -1 including authored EINTR sentinel; stale frozen-held plus later closed receipt; absent and structurally valid but semantically refused report; independent parent cleanup success with child omission/unknown; malformed contradictory value combinations."
+    ],
+    "required_refusals": [
+      "Unknown enum/invalid domain or contradictory complete receipt combinations return InvalidEvidence with no eligibility.",
+      "No false native-zero from zero defaults; no error-to-held transition; no reset/reopen/retry.",
+      "Report availability, provenance and expected witness verdict are distinct fields; a control verdict alone does not erase an otherwise truthful accepted report. Exact predicate and no-payload-read behavior require the later plan.",
+      "No scope leakage into legacy engine/provider/report ABI. Frozen sole admission/completion and five setup APIs remain untouched."
+    ],
+    "scope": "An inert, total value-only classifier of authored local receipt stages plus a separate parent report-acceptance projection. No descriptor, address, native function pointer, provider callback, syscall dispatcher or external resource capability is accepted or returned.",
+    "status": "selected-for-separate-source-only-plan; no implementation or executed cases"
+  },
+  "limits": [
+    "All prior frozen bytes, failures, quarantine and protections remain unchanged; every live gate CLOSED.",
+    "No native frame/crash-file provider, CM_BLAME/CM_CRASHES/startup/quarantine operation, callback nesting/concurrency, DSO/installer, signal/nonlocal exit, firmware/emulator/device, production/live composition or release.",
+    "LL/SC retry, libc/canary/sanitizer dependencies, arbitrary DSO/slot/callback custody, nonparticipating writers, loader/interposition, native visibility, quiescence and recovery remain unresolved.",
+    "Ownership is not fault causation. No durability, persistence or recovery claim. No new process count or runtime assertion count follows from proposed cases or controls."
+  ],
+  "non_execution": {
+    "callback_or_runtime_matrix": false,
+    "compiler": false,
+    "native_io_experiment": false,
+    "new_sdk_git_reads": 0,
+    "note": "Only local source/evidence reads, new review retention and independent byte audit are in scope.",
+    "prior_passing_procedure_replay": false,
+    "process_termination_experiment": false,
+    "source_or_device_integration": false
+  },
+  "proposed_controls": [
+    {
+      "baseline": "Same value is Unknown, captured-result unavailable, no cleanup eligibility.",
+      "id": "C1",
+      "mutation": "Only replace captured-return-required zero classification with raw==0 classification for an authored entered/no captured-return value whose raw storage is zero.",
+      "owned_consequences": "False zero acknowledgement and every derived completed-close classification are checked here; shared input/provenance checks remain unchanged.",
+      "safety": "Inert values only, no real close.",
+      "sole_composite": "close-result-requires-captured-return"
+    },
+    {
+      "baseline": "Returned error remains unknown and ineligible, with captured error preserved.",
+      "id": "C2",
+      "mutation": "Only map a valid authored returned -1/error receipt to held/cleanup-eligible instead of UnknownAfterReturn.",
+      "owned_consequences": "Incorrect held class and derived eligibility are owned here; raw/error truth is separately preserved.",
+      "safety": "No error injection into libc; no syscall dispatcher.",
+      "sole_composite": "returned-error-never-reopens-custody"
+    },
+    {
+      "baseline": "Parent child outcome Unavailable; no child payload consumption; independent parent facts unchanged.",
+      "id": "C3",
+      "mutation": "Only bypass the one planned parent evidence-acceptance veto for an explicitly unaccepted report carrying an otherwise valid authored closed-zero payload.",
+      "owned_consequences": "Payload-consumption counter/value and falsely exposed child classification belong here, avoiding a hidden duplicate veto.",
+      "safety": "Authored inert input only; no actual failed export, callback or terminated child.",
+      "sole_composite": "unaccepted-report-cannot-supply-child-outcome"
+    },
+    {
+      "baseline": "Parent cleanup acknowledged independently; child remains non-dispatch and has no captured close result.",
+      "id": "C4",
+      "mutation": "Only promote child close acknowledgement when an independent authored parent unlink acknowledgement is true, while accepted child evidence records honest non-dispatch.",
+      "owned_consequences": "False child acknowledgement and any projected close class belong here; parent operation facts remain identical.",
+      "safety": "No file or parent process operations.",
+      "sole_composite": "parent-cleanup-does-not-ack-child-close"
+    },
+    {
+      "baseline": "Explicit NonDispatch with unchanged held historical obligation; not a missing-return class.",
+      "id": "C5",
+      "mutation": "Only relabel requested/eligible but unattempted/unentered/unreturned held evidence as entered-with-missing-return.",
+      "owned_consequences": "Misclassification and any derived unknown/eligibility label belong here; raw fields stay truthful and shared malformed-input refusal stays active.",
+      "safety": "No actual interruption; finite authored values only.",
+      "sole_composite": "omission-is-not-missing-return"
+    }
+  ],
+  "runtime_gate": "CLOSED",
+  "schema": 1,
+  "scope": "Source-only ordinary-close disposition and report-acceptance review",
+  "sources": [
+    {
+      "bytes": 24981,
+      "name": "witness/core.c",
+      "path": "experiments/usb-browser-switch/activation-consumed-validation-fixture/core.c",
+      "sha256": "eca23b77d5e064a7015dd3f912e5652a7d61df196ce936b3fbf1934e4a4819d1"
+    },
+    {
+      "bytes": 8461,
+      "name": "witness/core.h",
+      "path": "experiments/usb-browser-switch/activation-consumed-validation-fixture/core.h",
+      "sha256": "a1c1f13832a8bdb55ba9a2d4379ff8c6cb689bd70826575497d13402430faa38"
+    },
+    {
+      "bytes": 18292,
+      "name": "witness/file_provider.c",
+      "path": "experiments/usb-browser-switch/activation-consumed-validation-fixture/file_provider.c",
+      "sha256": "a98d69a46214f6d9215b9de41a67643f3efe533b9190c5f0fcd83b265d9d862f"
+    },
+    {
+      "bytes": 5990,
+      "name": "witness/file_provider.h",
+      "path": "experiments/usb-browser-switch/activation-consumed-validation-fixture/file_provider.h",
+      "sha256": "3d478e98f9dba224b5e4e161b8a562172ec8cd6916eae6ad0b603cf83eb0e5ad"
+    },
+    {
+      "bytes": 2944,
+      "name": "witness/native_leaf.c",
+      "path": "experiments/usb-browser-switch/activation-consumed-validation-fixture/native_leaf.c",
+      "sha256": "9033bfe9cf854a495cfb7056fb7627fe371e7961e792589d59b99fcfc4064669"
+    },
+    {
+      "bytes": 833,
+      "name": "witness/native_leaf.h",
+      "path": "experiments/usb-browser-switch/activation-consumed-validation-fixture/native_leaf.h",
+      "sha256": "55e4a5ed78d023fb652002d7bface8421a71b690033f9f3cf02ed21cc72cc348"
+    },
+    {
+      "bytes": 42924,
+      "name": "witness/test_file.c",
+      "path": "experiments/usb-browser-switch/activation-consumed-validation-fixture/test_file.c",
+      "sha256": "d3130e45d8228040f05accfab2a99acf9f14a44ce0ff07a5344c496d4ed3e0f7"
+    },
+    {
+      "bytes": 14643,
+      "name": "witness/test-contract.json",
+      "path": "experiments/usb-browser-switch/activation-consumed-validation-fixture/test-contract.json",
+      "sha256": "2d8c4359198c56731ec42dedf614b9bb4b4f6ac6d59d9bbc94d91e127d55aece"
+    },
+    {
+      "bytes": 325779,
+      "name": "witness/source-ledger.json",
+      "path": "experiments/usb-browser-switch/activation-consumed-validation-fixture/source-ledger.json",
+      "sha256": "aca1a0da0a9e23ed5e0ec32a142dfbbb1986c25d017d9ce6dbbe09348d5b96d4"
+    },
+    {
+      "bytes": 33965,
+      "name": "witness/source-review.json",
+      "path": "experiments/usb-browser-switch/activation-consumed-validation-fixture/source-review.json",
+      "sha256": "871713f635d8cfc35d4cba2770ac51bdfb118248a41626aa0da29a3c7e125b6a"
+    },
+    {
+      "bytes": 1701,
+      "name": "witness/review-lock.json",
+      "path": "experiments/usb-browser-switch/activation-consumed-validation-fixture/review-lock.json",
+      "sha256": "12ee19d904b2436bcf9f902d1b95a264b8dfac5c721b97ffdd6940a010e6bf0c"
+    },
+    {
+      "bytes": 98119,
+      "name": "witness/result.json",
+      "path": "experiments/usb-browser-switch/activation-consumed-validation-fixture/result.json",
+      "sha256": "35e4f0a5275f43e71188466117e56e0ec276beac1849677738ada1ad6c6fc597"
+    },
+    {
+      "bytes": 23592,
+      "name": "witness/verification.json",
+      "path": "experiments/usb-browser-switch/activation-consumed-validation-fixture/verification.json",
+      "sha256": "b2eaca74d6dbb8623ed1091ecf9fec48929df1568bcfedd32beb61040e5ab86e"
+    },
+    {
+      "bytes": 429542,
+      "name": "witness/codegen-review.json",
+      "path": "experiments/usb-browser-switch/activation-consumed-validation-fixture/codegen-review.json",
+      "sha256": "e93268e863ec32a598a3a5c40a8f595a76bd06c69a83fc8a729cace43f291ebe"
+    },
+    {
+      "bytes": 47212,
+      "name": "witness/native-layout-review.json",
+      "path": "experiments/usb-browser-switch/activation-consumed-validation-fixture/native-layout-review.json",
+      "sha256": "af7cc0a8a781b495f6aa53e4376df7655797a3882f49e57ac8b1805cb7c20e88"
+    },
+    {
+      "bytes": 11000,
+      "name": "witness/review-history.json",
+      "path": "experiments/usb-browser-switch/activation-consumed-validation-fixture/review-history.json",
+      "sha256": "9e1463e6eb7417c9c444dece2e2bd2b395e56abb9da7f1215fbbc6683b5502cb"
+    },
+    {
+      "bytes": 8946,
+      "name": "witness/README.md",
+      "path": "experiments/usb-browser-switch/activation-consumed-validation-fixture/README.md",
+      "sha256": "b451b50f895243b3578c61d3bc2025bbf9ac09846023f97e7ca9aa69dbabc349"
+    },
+    {
+      "bytes": 31555,
+      "name": "failure-review/failure-custody-review.json",
+      "path": "experiments/usb-browser-switch/activation-ordinary-file-failure-review/failure-custody-review.json",
+      "sha256": "5e6f36579c1525ddb4b7e0595dc437e6dd28934029992ea6f342fb262b273383"
+    },
+    {
+      "bytes": 8164,
+      "name": "failure-review/README.md",
+      "path": "experiments/usb-browser-switch/activation-ordinary-file-failure-review/README.md",
+      "sha256": "fc313e61a926f730bc8d8835c77883b321f1c4a424665f5b9ff5c13ded652ea9"
+    },
+    {
+      "bytes": 7270,
+      "name": "failure-review/verification.json",
+      "path": "experiments/usb-browser-switch/activation-ordinary-file-failure-review/verification.json",
+      "sha256": "455e2993133970af9ead182523e02b492c347928f3c03086c491f707470af4f7"
+    },
+    {
+      "bytes": 36522,
+      "name": "plan/consumed-validation-plan.json",
+      "path": "experiments/usb-browser-switch/activation-consumed-validation-plan/consumed-validation-plan.json",
+      "sha256": "0a76e2977f96c8aee82e2e9c12728fe53ee5dc4c9bb33d1666349a2fe4301c06"
+    },
+    {
+      "bytes": 2994,
+      "name": "generated/readers.inc",
+      "path": "experiments/usb-browser-switch/activation-ordinary-provider-fixture/private/run-11ea3682fcc34d33b9034c6e041aee30/work/generated/readers.inc",
+      "sha256": "352048162f452f794136f8b90555783df101feacbf7550e3f4020bd6ef7ab140"
+    },
+    {
+      "bytes": 5369,
+      "name": "generated/receipt-types.h",
+      "path": "experiments/usb-browser-switch/activation-ordinary-provider-fixture/private/run-11ea3682fcc34d33b9034c6e041aee30/work/generated/receipt-types.h",
+      "sha256": "c97454db2aba6e942eb05241bbf80d67ffd8eecb5108927da69600a6a1d15f40"
+    },
+    {
+      "bytes": 459564,
+      "name": "evidence/first-matrix-result.json",
+      "path": "experiments/usb-browser-switch/activation-consumed-validation-fixture/private/run-296bd84a7b7e49258d7e5e651cf4e534/result-4fef9aa20b6d41779c65cb633beb3de3.json",
+      "sha256": "69cf81e56ddb7cd2cef4174bc835ca5a72e4a720248fec65d9689fd6fb6cd67d"
+    },
+    {
+      "bytes": 13962,
+      "name": "evidence/ordinary-plain.json",
+      "path": "experiments/usb-browser-switch/activation-consumed-validation-fixture/private/run-296bd84a7b7e49258d7e5e651cf4e534/work/evidence/candidate/plain/consumed-validation-veto/report.json",
+      "sha256": "0e73c02b31ab961b1d127748ccd656bd2f0a263737e5e0e4ddc2bcc78f884e11"
+    },
+    {
+      "bytes": 14033,
+      "name": "evidence/normalized-plain.json",
+      "path": "experiments/usb-browser-switch/activation-consumed-validation-fixture/private/run-296bd84a7b7e49258d7e5e651cf4e534/work/evidence/normalize-refusal/plain/control-refusal-domain/report.json",
+      "sha256": "3034847edf14bf9528f9a320289d079ff98a3779efcbf32351e30866ef0350b5"
+    },
+    {
+      "bytes": 14007,
+      "name": "evidence/omission-plain.json",
+      "path": "experiments/usb-browser-switch/activation-consumed-validation-fixture/private/run-296bd84a7b7e49258d7e5e651cf4e534/work/evidence/omit-held-cleanup/plain/control-held-cleanup/report.json",
+      "sha256": "167328d78fa12be5300de21ee2589e44fe92e7cdf6c5ace28ef1ea0666ca40ea"
+    },
+    {
+      "bytes": 14007,
+      "name": "evidence/omission-sanitized.json",
+      "path": "experiments/usb-browser-switch/activation-consumed-validation-fixture/private/run-296bd84a7b7e49258d7e5e651cf4e534/work/evidence/omit-held-cleanup/asan-ubsan/control-held-cleanup/report.json",
+      "sha256": "1d037cbe03030612280d4d3961057fcb87b82a185c952609e9e7835aa9d723a6"
+    }
+  ],
+  "status": "source-reviewed-not-integrated"
+}
