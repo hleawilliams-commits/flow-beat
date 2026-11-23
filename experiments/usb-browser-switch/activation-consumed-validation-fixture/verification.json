@@ -1,0 +1,799 @@
+{
+  "activity": {
+    "compiler_or_disassembler_invoked": false,
+    "native_callback_or_file_witness_executed": false,
+    "packet_modified": false,
+    "previous_audit_or_matrix_replayed": false,
+    "reviewed_code_imported": false,
+    "runner_or_helper_invoked": false
+  },
+  "attempted_supervisors": 14,
+  "auditor": {
+    "bytes": 76664,
+    "sha256": "4582e54609f9d8817769fa28f75a98cb7dbe24b7ee13b7b2046606033cb31c95"
+  },
+  "auditor_copied_before_invocation": true,
+  "auditor_evidence": {
+    "auditor-v2-harness-review.json": {
+      "bytes": 3009,
+      "sha256": "a3f3ada3558028ebb946566d990745bf80452f1242e096632ce6def6c965b31f"
+    },
+    "auditor-v2-root-review.json": {
+      "bytes": 1015,
+      "sha256": "e7977660444be6d2480f528a75cf605464ca3cf7a222d7e65ce042c3f3fb6bbf"
+    },
+    "auditor.py": {
+      "bytes": 76664,
+      "sha256": "4582e54609f9d8817769fa28f75a98cb7dbe24b7ee13b7b2046606033cb31c95"
+    },
+    "exit.json": {
+      "bytes": 315,
+      "sha256": "ef310b02c640b2d834f3fb4833586ac2a6d84a707562b07d01f0e7168a414131"
+    },
+    "invocation.json": {
+      "bytes": 1505,
+      "sha256": "f7438e95fcb74ec158d31664b20128489ef28eebd485d2d3a9a72f38c68b63e4"
+    },
+    "launcher.py": {
+      "bytes": 1835,
+      "sha256": "ddc6fb90b06f59b66e494f93eecb9cef50b879005779427822f19d3accb45afd"
+    },
+    "result.json": {
+      "bytes": 21766,
+      "sha256": "90c3bef4e1e7ad2e168372b75653e9438e69c035c636822a3ec586f6459d29a4"
+    },
+    "stderr.bin": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stdout.bin": {
+      "bytes": 166,
+      "sha256": "27306046b1dd511406b6a6400dcaa8466776a4d8d6eb62ff352543f0d1fa314f"
+    }
+  },
+  "auditor_execution": {
+    "auditor_unchanged": true,
+    "launcher_unchanged": true,
+    "returncode": 0,
+    "stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stdout": {
+      "bytes": 166,
+      "sha256": "27306046b1dd511406b6a6400dcaa8466776a4d8d6eb62ff352543f0d1fa314f"
+    }
+  },
+  "auditor_unchanged": true,
+  "builds": {
+    "ELF_files_including_copies": 42,
+    "build_artifacts": 132,
+    "compiled_objects": 16,
+    "configurations": 10
+  },
+  "closure": {
+    "packet_directories": 129,
+    "packet_files_including_both_stage_projections_and_checkpoint": 505,
+    "retained_before_final_result": 502,
+    "work_files": 172
+  },
+  "controls_per_mode": 3,
+  "corrected_auditor_first_invocation_passed": true,
+  "distinct_candidate_names": 8,
+  "fresh_witness_children": 14,
+  "history": "review-history.json",
+  "inputs": 43,
+  "limits": [
+    "Checks are structural byte/evidence assertions, not new semantic test executions.",
+    "Binary fields are decoded from retained Linux AArch64 typedef/layout evidence; C padding bytes are retained but are not interpreted as value evidence.",
+    "No fault/signal/concurrency, transitive libc/canary, arbitrary module/descriptor, durability, native firmware or recovery proof."
+  ],
+  "new_commands": 71,
+  "no_previous_passing_audit_or_matrix_replay": true,
+  "output_streams": 142,
+  "packet": "run-296bd84a7b7e49258d7e5e651cf4e534",
+  "private_result": {
+    "bytes": 459564,
+    "sha256": "69cf81e56ddb7cd2cef4174bc835ca5a72e4a720248fec65d9689fd6fb6cd67d"
+  },
+  "runtime_gate": "CLOSED",
+  "runtime_partition_totals": {
+    "actual_external_cleanup_calls": 12,
+    "actual_native_open_calls": 14,
+    "actual_native_query_calls": 42,
+    "actual_provider_write_sync_close_unblamed_calls": 0,
+    "cleanup_omitted": 2,
+    "copied_query_raw_mutated": 2,
+    "ordinary_calls": 14,
+    "public_completed": 2
+  },
+  "runtime_value_facts": [
+    {
+      "actual_external_cleanup_calls": 1,
+      "actual_native_open_calls": 1,
+      "actual_native_query_calls": 3,
+      "actual_provider_write_sync_close_unblamed_calls": 0,
+      "cleanup_omitted": false,
+      "copied_query_raw_mutated": false,
+      "mode": "plain",
+      "ordinary_calls": 1,
+      "public_completed": false,
+      "selector": "consumed-validation-veto",
+      "variant": "candidate"
+    },
+    {
+      "actual_external_cleanup_calls": 1,
+      "actual_native_open_calls": 1,
+      "actual_native_query_calls": 3,
+      "actual_provider_write_sync_close_unblamed_calls": 0,
+      "cleanup_omitted": false,
+      "copied_query_raw_mutated": false,
+      "mode": "plain",
+      "ordinary_calls": 1,
+      "public_completed": false,
+      "selector": "control-query-evidence",
+      "variant": "candidate"
+    },
+    {
+      "actual_external_cleanup_calls": 1,
+      "actual_native_open_calls": 1,
+      "actual_native_query_calls": 3,
+      "actual_provider_write_sync_close_unblamed_calls": 0,
+      "cleanup_omitted": false,
+      "copied_query_raw_mutated": false,
+      "mode": "plain",
+      "ordinary_calls": 1,
+      "public_completed": false,
+      "selector": "control-refusal-domain",
+      "variant": "candidate"
+    },
+    {
+      "actual_external_cleanup_calls": 1,
+      "actual_native_open_calls": 1,
+      "actual_native_query_calls": 3,
+      "actual_provider_write_sync_close_unblamed_calls": 0,
+      "cleanup_omitted": false,
+      "copied_query_raw_mutated": false,
+      "mode": "plain",
+      "ordinary_calls": 1,
+      "public_completed": false,
+      "selector": "control-held-cleanup",
+      "variant": "candidate"
+    },
+    {
+      "actual_external_cleanup_calls": 1,
+      "actual_native_open_calls": 1,
+      "actual_native_query_calls": 3,
+      "actual_provider_write_sync_close_unblamed_calls": 0,
+      "cleanup_omitted": false,
+      "copied_query_raw_mutated": true,
+      "mode": "plain",
+      "ordinary_calls": 1,
+      "public_completed": false,
+      "selector": "control-query-evidence",
+      "variant": "corrupt-query-export"
+    },
+    {
+      "actual_external_cleanup_calls": 1,
+      "actual_native_open_calls": 1,
+      "actual_native_query_calls": 3,
+      "actual_provider_write_sync_close_unblamed_calls": 0,
+      "cleanup_omitted": false,
+      "copied_query_raw_mutated": false,
+      "mode": "plain",
+      "ordinary_calls": 1,
+      "public_completed": true,
+      "selector": "control-refusal-domain",
+      "variant": "normalize-refusal"
+    },
+    {
+      "actual_external_cleanup_calls": 0,
+      "actual_native_open_calls": 1,
+      "actual_native_query_calls": 3,
+      "actual_provider_write_sync_close_unblamed_calls": 0,
+      "cleanup_omitted": true,
+      "copied_query_raw_mutated": false,
+      "mode": "plain",
+      "ordinary_calls": 1,
+      "public_completed": false,
+      "selector": "control-held-cleanup",
+      "variant": "omit-held-cleanup"
+    },
+    {
+      "actual_external_cleanup_calls": 1,
+      "actual_native_open_calls": 1,
+      "actual_native_query_calls": 3,
+      "actual_provider_write_sync_close_unblamed_calls": 0,
+      "cleanup_omitted": false,
+      "copied_query_raw_mutated": false,
+      "mode": "asan-ubsan",
+      "ordinary_calls": 1,
+      "public_completed": false,
+      "selector": "consumed-validation-veto",
+      "variant": "candidate"
+    },
+    {
+      "actual_external_cleanup_calls": 1,
+      "actual_native_open_calls": 1,
+      "actual_native_query_calls": 3,
+      "actual_provider_write_sync_close_unblamed_calls": 0,
+      "cleanup_omitted": false,
+      "copied_query_raw_mutated": false,
+      "mode": "asan-ubsan",
+      "ordinary_calls": 1,
+      "public_completed": false,
+      "selector": "control-query-evidence",
+      "variant": "candidate"
+    },
+    {
+      "actual_external_cleanup_calls": 1,
+      "actual_native_open_calls": 1,
+      "actual_native_query_calls": 3,
+      "actual_provider_write_sync_close_unblamed_calls": 0,
+      "cleanup_omitted": false,
+      "copied_query_raw_mutated": false,
+      "mode": "asan-ubsan",
+      "ordinary_calls": 1,
+      "public_completed": false,
+      "selector": "control-refusal-domain",
+      "variant": "candidate"
+    },
+    {
+      "actual_external_cleanup_calls": 1,
+      "actual_native_open_calls": 1,
+      "actual_native_query_calls": 3,
+      "actual_provider_write_sync_close_unblamed_calls": 0,
+      "cleanup_omitted": false,
+      "copied_query_raw_mutated": false,
+      "mode": "asan-ubsan",
+      "ordinary_calls": 1,
+      "public_completed": false,
+      "selector": "control-held-cleanup",
+      "variant": "candidate"
+    },
+    {
+      "actual_external_cleanup_calls": 1,
+      "actual_native_open_calls": 1,
+      "actual_native_query_calls": 3,
+      "actual_provider_write_sync_close_unblamed_calls": 0,
+      "cleanup_omitted": false,
+      "copied_query_raw_mutated": true,
+      "mode": "asan-ubsan",
+      "ordinary_calls": 1,
+      "public_completed": false,
+      "selector": "control-query-evidence",
+      "variant": "corrupt-query-export"
+    },
+    {
+      "actual_external_cleanup_calls": 1,
+      "actual_native_open_calls": 1,
+      "actual_native_query_calls": 3,
+      "actual_provider_write_sync_close_unblamed_calls": 0,
+      "cleanup_omitted": false,
+      "copied_query_raw_mutated": false,
+      "mode": "asan-ubsan",
+      "ordinary_calls": 1,
+      "public_completed": true,
+      "selector": "control-refusal-domain",
+      "variant": "normalize-refusal"
+    },
+    {
+      "actual_external_cleanup_calls": 0,
+      "actual_native_open_calls": 1,
+      "actual_native_query_calls": 3,
+      "actual_provider_write_sync_close_unblamed_calls": 0,
+      "cleanup_omitted": true,
+      "copied_query_raw_mutated": false,
+      "mode": "asan-ubsan",
+      "ordinary_calls": 1,
+      "public_completed": false,
+      "selector": "control-held-cleanup",
+      "variant": "omit-held-cleanup"
+    }
+  ],
+  "sanitized_result": {
+    "bytes": 98119,
+    "sha256": "35e4f0a5275f43e71188466117e56e0ec276beac1849677738ada1ad6c6fc597"
+  },
+  "schema": 1,
+  "scope": "Independent retained-byte audit of this new consumed-validation fixture only",
+  "semantic_assertions_per_candidate_mode": 32,
+  "status": "passed",
+  "structural_audit_assertions": 272020,
+  "target_layout": {
+    "child_after_cleanup_offset": 1152,
+    "child_cleanup_offset": 4488,
+    "child_consumed_validation_offset": 4480,
+    "child_first_offset": 640,
+    "child_initial_offset": 128,
+    "child_owner_offset": 44,
+    "child_precleanup_offset": 1672,
+    "child_raw_identity_offset": 4144,
+    "child_report_bytes": 4528,
+    "child_request_after_offset": 104,
+    "child_request_before_offset": 80,
+    "child_return_offset": 1668,
+    "child_version_offset": 16,
+    "cleanup_bytes": 40,
+    "decision_bytes": 4,
+    "dev_bytes": 8,
+    "handoff_bytes": 80,
+    "identity_bytes": 40,
+    "ino_bytes": 8,
+    "mode_bytes": 4,
+    "nlink_bytes": 4,
+    "off_bytes": 8,
+    "provider_report_bytes": 2472,
+    "raw_receipt_bytes": 336,
+    "snapshot_bytes": 512,
+    "uid_bytes": 4
+  },
+  "target_typedef_basis": {
+    "dwarf_objects": {
+      "asan-ubsan": {
+        "object": {
+          "bytes": 391576,
+          "sha256": "4457bb86815d8d90be6a5a61dcc94960c04abbccdaba9013c5ac98701b09743b"
+        },
+        "types": {
+          "ac_event": {
+            "bytes": 72,
+            "offsets": {
+              "entered": 4,
+              "errno_valid": 16,
+              "error_number": 20,
+              "kind": 0,
+              "payload": 32,
+              "raw": 8,
+              "requested_length": 24,
+              "returned_recorded": 5
+            }
+          },
+          "ac_owner": {
+            "bytes": 56,
+            "offsets": {
+              "id": 16,
+              "index": 4,
+              "kind": 0,
+              "process_id": 8
+            }
+          },
+          "ac_result": {
+            "bytes": 504,
+            "offsets": {
+              "event_count": 68,
+              "events": 72,
+              "known_failure": 64,
+              "owner": 8,
+              "selection_known": 0,
+              "short_write": 65,
+              "violation": 66
+            }
+          },
+          "ac_snapshot": {
+            "bytes": 512,
+            "offsets": {
+              "has_payload": 4,
+              "result": 8,
+              "state": 0
+            }
+          },
+          "child_report": {
+            "bytes": 4528,
+            "offsets": {
+              "after_cleanup": 1152,
+              "bytes": 8,
+              "calls": 1664,
+              "cleanup_ok": 34,
+              "complete_table": 29,
+              "consumed_validation": 4480,
+              "directory_fd": 36,
+              "external_cleanup": 4488,
+              "first": 640,
+              "first_return": 1668,
+              "freeze_ok": 33,
+              "infrastructure": 24,
+              "inherited_fd_list_valid": 28,
+              "initial": 128,
+              "magic": 0,
+              "model_commit": 32,
+              "model_stage": 31,
+              "owner": 44,
+              "precleanup": 1672,
+              "prepared": 30,
+              "raw_identity": 4144,
+              "report_fd": 40,
+              "request_after": 104,
+              "request_before": 80,
+              "selector": 20,
+              "version": 16
+            }
+          },
+          "handoff": {
+            "bytes": 80,
+            "offsets": {
+              "bytes": 8,
+              "directory": 32,
+              "directory_fd": 24,
+              "magic": 0,
+              "report_fd": 28,
+              "selector": 20,
+              "uid": 72,
+              "version": 16
+            }
+          },
+          "of_callback_record": {
+            "bytes": 160,
+            "offsets": {
+              "custody_after": 152,
+              "custody_before": 148,
+              "entered": 4,
+              "native_count": 144,
+              "native_first": 140,
+              "operation": 0,
+              "origin": 8,
+              "owner_argument": 32,
+              "payload_argument": 104,
+              "prepared": 5,
+              "requested_length": 96,
+              "supplied": 16,
+              "token_argument": 88
+            }
+          },
+          "of_cleanup_record": {
+            "bytes": 40,
+            "offsets": {
+              "after": 12,
+              "attempted": 2,
+              "before": 8,
+              "descriptor": 4,
+              "eligible": 1,
+              "requested": 0,
+              "result": 16
+            }
+          },
+          "of_consumed_validation_record": {
+            "bytes": 4,
+            "offsets": {
+              "authored_veto": 2,
+              "consumed_valid": 3,
+              "evaluated": 0,
+              "raw_valid": 1
+            }
+          },
+          "of_identity": {
+            "bytes": 40,
+            "offsets": {
+              "device": 0,
+              "inode": 8,
+              "links": 20,
+              "mode": 24,
+              "size": 32,
+              "uid": 16
+            }
+          },
+          "of_native_identity_receipt": {
+            "bytes": 336,
+            "offsets": {
+              "by_fd": 160,
+              "by_name": 248,
+              "complete": 0,
+              "directory_fd": 4,
+              "expected_directory": 16,
+              "expected_uid": 12,
+              "fixed_name": 56,
+              "open_record": 72,
+              "opened_fd": 8
+            }
+          },
+          "of_native_record": {
+            "bytes": 88,
+            "offsets": {
+              "creation_mode": 12,
+              "descriptor": 4,
+              "flags": 8,
+              "operation": 0,
+              "payload": 24,
+              "requested_length": 16,
+              "result": 64
+            }
+          },
+          "of_native_result": {
+            "bytes": 24,
+            "offsets": {
+              "entered": 0,
+              "error_number": 20,
+              "error_valid": 16,
+              "raw": 8,
+              "returned": 1
+            }
+          },
+          "of_query_record": {
+            "bytes": 88,
+            "offsets": {
+              "descriptor": 4,
+              "flags": 8,
+              "identity": 48,
+              "identity_available": 40,
+              "kind": 0,
+              "result": 16
+            }
+          },
+          "of_report": {
+            "bytes": 2472,
+            "offsets": {
+              "callback_count": 116,
+              "callbacks": 136,
+              "creation_identity": 72,
+              "creation_identity_available": 64,
+              "custody": 52,
+              "directory_validated": 1,
+              "expected_directory": 8,
+              "expected_uid": 48,
+              "file_callback_count": 120,
+              "frozen": 2,
+              "has_saved_descriptor": 56,
+              "infrastructure": 112,
+              "mode": 4,
+              "native": 1416,
+              "native_count": 128,
+              "queries": 2120,
+              "query_count": 132,
+              "saved_descriptor": 60,
+              "setup_complete": 0,
+              "unblamed_count": 124
+            }
+          },
+          "request_value": {
+            "bytes": 24,
+            "offsets": {
+              "fp": 16,
+              "lr": 8,
+              "pc": 0
+            }
+          }
+        }
+      },
+      "plain": {
+        "object": {
+          "bytes": 176992,
+          "sha256": "b2124b621c8f790bb7de11a1199cd980da83f365c06498f1ccb273bbace6b345"
+        },
+        "types": {
+          "ac_event": {
+            "bytes": 72,
+            "offsets": {
+              "entered": 4,
+              "errno_valid": 16,
+              "error_number": 20,
+              "kind": 0,
+              "payload": 32,
+              "raw": 8,
+              "requested_length": 24,
+              "returned_recorded": 5
+            }
+          },
+          "ac_owner": {
+            "bytes": 56,
+            "offsets": {
+              "id": 16,
+              "index": 4,
+              "kind": 0,
+              "process_id": 8
+            }
+          },
+          "ac_result": {
+            "bytes": 504,
+            "offsets": {
+              "event_count": 68,
+              "events": 72,
+              "known_failure": 64,
+              "owner": 8,
+              "selection_known": 0,
+              "short_write": 65,
+              "violation": 66
+            }
+          },
+          "ac_snapshot": {
+            "bytes": 512,
+            "offsets": {
+              "has_payload": 4,
+              "result": 8,
+              "state": 0
+            }
+          },
+          "child_report": {
+            "bytes": 4528,
+            "offsets": {
+              "after_cleanup": 1152,
+              "bytes": 8,
+              "calls": 1664,
+              "cleanup_ok": 34,
+              "complete_table": 29,
+              "consumed_validation": 4480,
+              "directory_fd": 36,
+              "external_cleanup": 4488,
+              "first": 640,
+              "first_return": 1668,
+              "freeze_ok": 33,
+              "infrastructure": 24,
+              "inherited_fd_list_valid": 28,
+              "initial": 128,
+              "magic": 0,
+              "model_commit": 32,
+              "model_stage": 31,
+              "owner": 44,
+              "precleanup": 1672,
+              "prepared": 30,
+              "raw_identity": 4144,
+              "report_fd": 40,
+              "request_after": 104,
+              "request_before": 80,
+              "selector": 20,
+              "version": 16
+            }
+          },
+          "handoff": {
+            "bytes": 80,
+            "offsets": {
+              "bytes": 8,
+              "directory": 32,
+              "directory_fd": 24,
+              "magic": 0,
+              "report_fd": 28,
+              "selector": 20,
+              "uid": 72,
+              "version": 16
+            }
+          },
+          "of_callback_record": {
+            "bytes": 160,
+            "offsets": {
+              "custody_after": 152,
+              "custody_before": 148,
+              "entered": 4,
+              "native_count": 144,
+              "native_first": 140,
+              "operation": 0,
+              "origin": 8,
+              "owner_argument": 32,
+              "payload_argument": 104,
+              "prepared": 5,
+              "requested_length": 96,
+              "supplied": 16,
+              "token_argument": 88
+            }
+          },
+          "of_cleanup_record": {
+            "bytes": 40,
+            "offsets": {
+              "after": 12,
+              "attempted": 2,
+              "before": 8,
+              "descriptor": 4,
+              "eligible": 1,
+              "requested": 0,
+              "result": 16
+            }
+          },
+          "of_consumed_validation_record": {
+            "bytes": 4,
+            "offsets": {
+              "authored_veto": 2,
+              "consumed_valid": 3,
+              "evaluated": 0,
+              "raw_valid": 1
+            }
+          },
+          "of_identity": {
+            "bytes": 40,
+            "offsets": {
+              "device": 0,
+              "inode": 8,
+              "links": 20,
+              "mode": 24,
+              "size": 32,
+              "uid": 16
+            }
+          },
+          "of_native_identity_receipt": {
+            "bytes": 336,
+            "offsets": {
+              "by_fd": 160,
+              "by_name": 248,
+              "complete": 0,
+              "directory_fd": 4,
+              "expected_directory": 16,
+              "expected_uid": 12,
+              "fixed_name": 56,
+              "open_record": 72,
+              "opened_fd": 8
+            }
+          },
+          "of_native_record": {
+            "bytes": 88,
+            "offsets": {
+              "creation_mode": 12,
+              "descriptor": 4,
+              "flags": 8,
+              "operation": 0,
+              "payload": 24,
+              "requested_length": 16,
+              "result": 64
+            }
+          },
+          "of_native_result": {
+            "bytes": 24,
+            "offsets": {
+              "entered": 0,
+              "error_number": 20,
+              "error_valid": 16,
+              "raw": 8,
+              "returned": 1
+            }
+          },
+          "of_query_record": {
+            "bytes": 88,
+            "offsets": {
+              "descriptor": 4,
+              "flags": 8,
+              "identity": 48,
+              "identity_available": 40,
+              "kind": 0,
+              "result": 16
+            }
+          },
+          "of_report": {
+            "bytes": 2472,
+            "offsets": {
+              "callback_count": 116,
+              "callbacks": 136,
+              "creation_identity": 72,
+              "creation_identity_available": 64,
+              "custody": 52,
+              "directory_validated": 1,
+              "expected_directory": 8,
+              "expected_uid": 48,
+              "file_callback_count": 120,
+              "frozen": 2,
+              "has_saved_descriptor": 56,
+              "infrastructure": 112,
+              "mode": 4,
+              "native": 1416,
+              "native_count": 128,
+              "queries": 2120,
+              "query_count": 132,
+              "saved_descriptor": 60,
+              "setup_complete": 0,
+              "unblamed_count": 124
+            }
+          },
+          "request_value": {
+            "bytes": 24,
+            "offsets": {
+              "fp": 16,
+              "lr": 8,
+              "pc": 0
+            }
+          }
+        }
+      }
+    },
+    "native_bytes": {
+      "dev_t": 8,
+      "ino_t": 8,
+      "mode_t": 4,
+      "nlink_t": 4,
+      "off_t": 8,
+      "uid_t": 4
+    },
+    "typedefs": {
+      "dev_t": "__dev_t",
+      "ino_t": "__ino_t",
+      "mode_t": "__mode_t",
+      "nlink_t": "__nlink_t",
+      "off_t": "__off_t",
+      "uid_t": "__uid_t"
+    }
+  }
+}

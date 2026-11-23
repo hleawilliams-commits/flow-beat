@@ -1,0 +1,1909 @@
+{
+  "independent_review": {
+    "bytes": 782882,
+    "sha256": "9fd771132e12fe4833a049f8ec50299c2a489e72169167d69fa14cbdd9aa5781"
+  },
+  "limits": [
+    "All57 compiled harness method extents are bound; methods inlined into main or supervise are reviewed there, not invented as standalone symbols.",
+    "Harness compiled once per mode is reused byte-identically in all three controls; no additional harness implementation compiled.",
+    "No old suite, target execution, compiler, disassembler or prior audit was invoked by this review.",
+    "The fixture does not test actual failed query or close, missing return, abnormal child exit or recovery."
+  ],
+  "metadata_diagnostics": {
+    "exception_applied": false,
+    "fini_metadata": [
+      {
+        "alignment": 8,
+        "entry_size": 24,
+        "flags": 64,
+        "index": 7,
+        "info": 6,
+        "link": 28,
+        "name": ".rela.fini_array.00099",
+        "relocations": [
+          {
+            "addend": 41704,
+            "offset": 0,
+            "symbol_index": 2,
+            "symbol_name": "",
+            "symbol_section": 1,
+            "symbol_value": 0,
+            "type": 257
+          }
+        ],
+        "target": {
+          "alignment": 8,
+          "flags": 3,
+          "name": ".fini_array.00099",
+          "size": 8,
+          "type": "SHT_FINI_ARRAY"
+        },
+        "type": "SHT_RELA"
+      }
+    ],
+    "inspection_stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "note": "ASan FINI_ARRAY relocation targets defined32-byte finalizer at0xa2e8; no parser warning or implementation-cause claim.",
+    "observed": false
+  },
+  "native_typedefs": {
+    "asan-ubsan": {
+      "dev_t": {
+        "bytes": 8,
+        "type": "dev_t"
+      },
+      "ino_t": {
+        "bytes": 8,
+        "type": "ino_t"
+      },
+      "mode_t": {
+        "bytes": 4,
+        "type": "mode_t"
+      },
+      "nlink_t": {
+        "bytes": 4,
+        "type": "nlink_t"
+      },
+      "off_t": {
+        "bytes": 8,
+        "type": "off_t"
+      },
+      "uid_t": {
+        "bytes": 4,
+        "type": "uid_t"
+      }
+    },
+    "plain": {
+      "dev_t": {
+        "bytes": 8,
+        "type": "dev_t"
+      },
+      "ino_t": {
+        "bytes": 8,
+        "type": "ino_t"
+      },
+      "mode_t": {
+        "bytes": 4,
+        "type": "mode_t"
+      },
+      "nlink_t": {
+        "bytes": 4,
+        "type": "nlink_t"
+      },
+      "off_t": {
+        "bytes": 8,
+        "type": "off_t"
+      },
+      "uid_t": {
+        "bytes": 4,
+        "type": "uid_t"
+      }
+    }
+  },
+  "review": {
+    "by_mode": {
+      "asan-ubsan": {
+        "child_after_cleanup_offset": 1152,
+        "child_cleanup_offset": 4488,
+        "child_consumed_validation_offset": 4480,
+        "child_first_offset": 640,
+        "child_initial_offset": 128,
+        "child_owner_offset": 44,
+        "child_precleanup_offset": 1672,
+        "child_raw_identity_offset": 4144,
+        "child_report_bytes": 4528,
+        "child_request_after_offset": 104,
+        "child_request_before_offset": 80,
+        "child_return_offset": 1668,
+        "child_version_offset": 16,
+        "cleanup_bytes": 40,
+        "decision_bytes": 4,
+        "dev_bytes": 8,
+        "handoff_bytes": 80,
+        "identity_bytes": 40,
+        "ino_bytes": 8,
+        "mode_bytes": 4,
+        "nlink_bytes": 4,
+        "off_bytes": 8,
+        "provider_report_bytes": 2472,
+        "raw_receipt_bytes": 336,
+        "snapshot_bytes": 512,
+        "uid_bytes": 4
+      },
+      "plain": {
+        "child_after_cleanup_offset": 1152,
+        "child_cleanup_offset": 4488,
+        "child_consumed_validation_offset": 4480,
+        "child_first_offset": 640,
+        "child_initial_offset": 128,
+        "child_owner_offset": 44,
+        "child_precleanup_offset": 1672,
+        "child_raw_identity_offset": 4144,
+        "child_report_bytes": 4528,
+        "child_request_after_offset": 104,
+        "child_request_before_offset": 80,
+        "child_return_offset": 1668,
+        "child_version_offset": 16,
+        "cleanup_bytes": 40,
+        "decision_bytes": 4,
+        "dev_bytes": 8,
+        "handoff_bytes": 80,
+        "identity_bytes": 40,
+        "ino_bytes": 8,
+        "mode_bytes": 4,
+        "nlink_bytes": 4,
+        "off_bytes": 8,
+        "provider_report_bytes": 2472,
+        "raw_receipt_bytes": 336,
+        "snapshot_bytes": 512,
+        "uid_bytes": 4
+      }
+    },
+    "header_inputs": {
+      "compiler-config-stderr.txt": {
+        "bytes": 1082,
+        "sha256": "5d6118462084f4b37e841b9e728d78c7dce5f971efeef28a7a6f85bb42735a82"
+      },
+      "compiler-config-stdout.txt": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "libc-loader-sha256-stderr.txt": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "libc-loader-sha256-stdout.txt": {
+        "bytes": 192,
+        "sha256": "8022294893566d4497b46b54997996f3e5c342444becae542376b9fb161f7fd6"
+      },
+      "libc-version-stderr.txt": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "libc-version-stdout.txt": {
+        "bytes": 11,
+        "sha256": "3d17a2089e3588d04c5ee18a5cdaf352029945df7f1a76b2d5ae632926160338"
+      },
+      "native-leaf-expanded.txt": {
+        "bytes": 103228,
+        "sha256": "6624c622740aec352cf8f753476e506b3ea53300c2780404e2d5fa5cafdd8f21"
+      },
+      "native-leaf-macros.txt": {
+        "bytes": 62466,
+        "sha256": "5b07c04e3d171d2e46c15e1819418e94e55dc9a7b99c2d7c04eb0e7cc6278ad6"
+      },
+      "test-file-expanded.txt": {
+        "bytes": 280811,
+        "sha256": "ef40d845a99f1616427d2bdb41e6c709a8e8bf94778729814f5b5f390ceafdd5"
+      }
+    },
+    "limitations": [
+      "Same-build pointer-free local envelope only; not a portable wire ABI.",
+      "DWARF/layout and method review do not execute callbacks or native I/O and do not prove runtime success.",
+      "Direct call dependencies are not kernel/transitive operation counts or signal-safety guarantees.",
+      "Native identity/code/data are private retained evidence; public summaries must not expose raw identities or temporary paths."
+    ],
+    "object_inputs": {
+      "asan-ubsan": {
+        "bytes": 391576,
+        "sha256": "4457bb86815d8d90be6a5a61dcc94960c04abbccdaba9013c5ac98701b09743b"
+      },
+      "plain": {
+        "bytes": 176992,
+        "sha256": "b2124b621c8f790bb7de11a1199cd980da83f365c06498f1ccb273bbace6b345"
+      }
+    },
+    "observations": [
+      "Fresh both-mode object DWARF agrees exactly for all required types/members and native typedef widths; full metadata retained outside runner-native_layout below.",
+      "New child report4528 bytes, handoff80, raw receipt336 and decision4; precleanup offset1672/raw4144/decision4480/cleanup4488. Old report size is not reused.",
+      "Target dev_t/ino_t/off_t are8 bytes and uid_t/nlink_t/mode_t4; expanded target header typedef chains agree with object DWARF.",
+      "Observed native identity40, public snapshot512, provider report2472, cleanup40; complete33-byte ID arrays and four Boolean decision bytes remain distinct.",
+      "Both compiled child pwrite sites and parent pread/size gates use4528; version2 check remains distinct from summary schema1.",
+      "Initial retained-byte inspection returned0 with empty stderr; no FINI_ARRAY diagnostic exception was needed or applied."
+    ],
+    "spec_pin": {
+      "bytes": 4364,
+      "sha256": "17563378fa12ced883fcb6660bd4fe02e716704b6ea59324be64bdd3a849f6fa"
+    },
+    "status": "reviewed-before-runtime"
+  },
+  "runtime_gate": "CLOSED",
+  "schema": 1,
+  "source_pins": {
+    "core.h": {
+      "bytes": 8461,
+      "sha256": "a1c1f13832a8bdb55ba9a2d4379ff8c6cb689bd70826575497d13402430faa38"
+    },
+    "file_provider.h": {
+      "bytes": 5990,
+      "sha256": "3d478e98f9dba224b5e4e161b8a562172ec8cd6916eae6ad0b603cf83eb0e5ad"
+    },
+    "native-layout-spec.json": {
+      "bytes": 4364,
+      "sha256": "17563378fa12ced883fcb6660bd4fe02e716704b6ea59324be64bdd3a849f6fa"
+    },
+    "test_file.c": {
+      "bytes": 42924,
+      "sha256": "d3130e45d8228040f05accfab2a99acf9f14a44ce0ff07a5344c496d4ed3e0f7"
+    }
+  },
+  "status": "reviewed-before-runtime",
+  "type_layouts": {
+    "asan-ubsan": {
+      "ac_event": {
+        "bytes": 72,
+        "members": {
+          "entered": {
+            "bytes": 1,
+            "offset": 4,
+            "type": "_Bool"
+          },
+          "errno_valid": {
+            "bytes": 1,
+            "offset": 16,
+            "type": "_Bool"
+          },
+          "error_number": {
+            "bytes": 4,
+            "offset": 20,
+            "type": "int"
+          },
+          "kind": {
+            "bytes": 4,
+            "offset": 0,
+            "type": "ac_event_kind"
+          },
+          "payload": {
+            "bytes": 33,
+            "count": 33,
+            "element": {
+              "bytes": 1,
+              "type": "char"
+            },
+            "offset": 32,
+            "type": "DW_TAG_array_type"
+          },
+          "raw": {
+            "bytes": 8,
+            "offset": 8,
+            "type": "int64_t"
+          },
+          "requested_length": {
+            "bytes": 8,
+            "offset": 24,
+            "type": "size_t"
+          },
+          "returned_recorded": {
+            "bytes": 1,
+            "offset": 5,
+            "type": "_Bool"
+          }
+        }
+      },
+      "ac_io_value": {
+        "bytes": 16,
+        "members": {
+          "failure_errno": {
+            "bytes": 4,
+            "offset": 8,
+            "type": "int"
+          },
+          "raw": {
+            "bytes": 8,
+            "offset": 0,
+            "type": "int64_t"
+          }
+        }
+      },
+      "ac_owner": {
+        "bytes": 56,
+        "members": {
+          "id": {
+            "bytes": 33,
+            "count": 33,
+            "element": {
+              "bytes": 1,
+              "type": "char"
+            },
+            "offset": 16,
+            "type": "DW_TAG_array_type"
+          },
+          "index": {
+            "bytes": 4,
+            "offset": 4,
+            "type": "uint32_t"
+          },
+          "kind": {
+            "bytes": 4,
+            "offset": 0,
+            "type": "ac_owner_kind"
+          },
+          "process_id": {
+            "bytes": 8,
+            "offset": 8,
+            "type": "uint64_t"
+          }
+        }
+      },
+      "ac_result": {
+        "bytes": 504,
+        "members": {
+          "event_count": {
+            "bytes": 4,
+            "offset": 68,
+            "type": "unsigned int"
+          },
+          "events": {
+            "bytes": 432,
+            "count": 6,
+            "element": {
+              "bytes": 72,
+              "type": "ac_event"
+            },
+            "offset": 72,
+            "type": "DW_TAG_array_type"
+          },
+          "known_failure": {
+            "bytes": 1,
+            "offset": 64,
+            "type": "_Bool"
+          },
+          "owner": {
+            "bytes": 56,
+            "offset": 8,
+            "type": "ac_owner"
+          },
+          "selection_known": {
+            "bytes": 1,
+            "offset": 0,
+            "type": "_Bool"
+          },
+          "short_write": {
+            "bytes": 1,
+            "offset": 65,
+            "type": "_Bool"
+          },
+          "violation": {
+            "bytes": 1,
+            "offset": 66,
+            "type": "_Bool"
+          }
+        }
+      },
+      "ac_snapshot": {
+        "bytes": 512,
+        "members": {
+          "has_payload": {
+            "bytes": 1,
+            "offset": 4,
+            "type": "_Bool"
+          },
+          "result": {
+            "bytes": 504,
+            "offset": 8,
+            "type": "ac_result"
+          },
+          "state": {
+            "bytes": 4,
+            "offset": 0,
+            "type": "ac_state"
+          }
+        }
+      },
+      "child_report": {
+        "bytes": 4528,
+        "members": {
+          "after_cleanup": {
+            "bytes": 512,
+            "offset": 1152,
+            "type": "ac_snapshot"
+          },
+          "bytes": {
+            "bytes": 8,
+            "offset": 8,
+            "type": "size_t"
+          },
+          "calls": {
+            "bytes": 4,
+            "offset": 1664,
+            "type": "unsigned int"
+          },
+          "cleanup_ok": {
+            "bytes": 1,
+            "offset": 34,
+            "type": "_Bool"
+          },
+          "complete_table": {
+            "bytes": 1,
+            "offset": 29,
+            "type": "_Bool"
+          },
+          "consumed_validation": {
+            "bytes": 4,
+            "offset": 4480,
+            "type": "of_consumed_validation_record"
+          },
+          "directory_fd": {
+            "bytes": 4,
+            "offset": 36,
+            "type": "int"
+          },
+          "external_cleanup": {
+            "bytes": 40,
+            "offset": 4488,
+            "type": "of_cleanup_record"
+          },
+          "first": {
+            "bytes": 512,
+            "offset": 640,
+            "type": "ac_snapshot"
+          },
+          "first_return": {
+            "bytes": 4,
+            "offset": 1668,
+            "type": "ac_request_result"
+          },
+          "freeze_ok": {
+            "bytes": 1,
+            "offset": 33,
+            "type": "_Bool"
+          },
+          "infrastructure": {
+            "bytes": 4,
+            "offset": 24,
+            "type": "unsigned int"
+          },
+          "inherited_fd_list_valid": {
+            "bytes": 1,
+            "offset": 28,
+            "type": "_Bool"
+          },
+          "initial": {
+            "bytes": 512,
+            "offset": 128,
+            "type": "ac_snapshot"
+          },
+          "magic": {
+            "bytes": 8,
+            "offset": 0,
+            "type": "uint64_t"
+          },
+          "model_commit": {
+            "bytes": 1,
+            "offset": 32,
+            "type": "_Bool"
+          },
+          "model_stage": {
+            "bytes": 1,
+            "offset": 31,
+            "type": "_Bool"
+          },
+          "owner": {
+            "bytes": 33,
+            "count": 33,
+            "element": {
+              "bytes": 1,
+              "type": "char"
+            },
+            "offset": 44,
+            "type": "DW_TAG_array_type"
+          },
+          "precleanup": {
+            "bytes": 2472,
+            "offset": 1672,
+            "type": "of_report"
+          },
+          "prepared": {
+            "bytes": 1,
+            "offset": 30,
+            "type": "_Bool"
+          },
+          "raw_identity": {
+            "bytes": 336,
+            "offset": 4144,
+            "type": "of_native_identity_receipt"
+          },
+          "report_fd": {
+            "bytes": 4,
+            "offset": 40,
+            "type": "int"
+          },
+          "request_after": {
+            "bytes": 24,
+            "offset": 104,
+            "type": "request_value"
+          },
+          "request_before": {
+            "bytes": 24,
+            "offset": 80,
+            "type": "request_value"
+          },
+          "selector": {
+            "bytes": 4,
+            "offset": 20,
+            "type": "unsigned int"
+          },
+          "version": {
+            "bytes": 4,
+            "offset": 16,
+            "type": "unsigned int"
+          }
+        }
+      },
+      "handoff": {
+        "bytes": 80,
+        "members": {
+          "bytes": {
+            "bytes": 8,
+            "offset": 8,
+            "type": "size_t"
+          },
+          "directory": {
+            "bytes": 40,
+            "offset": 32,
+            "type": "of_identity"
+          },
+          "directory_fd": {
+            "bytes": 4,
+            "offset": 24,
+            "type": "int"
+          },
+          "magic": {
+            "bytes": 8,
+            "offset": 0,
+            "type": "uint64_t"
+          },
+          "report_fd": {
+            "bytes": 4,
+            "offset": 28,
+            "type": "int"
+          },
+          "selector": {
+            "bytes": 4,
+            "offset": 20,
+            "type": "unsigned int"
+          },
+          "uid": {
+            "bytes": 4,
+            "offset": 72,
+            "type": "uid_t"
+          },
+          "version": {
+            "bytes": 4,
+            "offset": 16,
+            "type": "unsigned int"
+          }
+        }
+      },
+      "of_callback_record": {
+        "bytes": 160,
+        "members": {
+          "custody_after": {
+            "bytes": 4,
+            "offset": 152,
+            "type": "of_custody"
+          },
+          "custody_before": {
+            "bytes": 4,
+            "offset": 148,
+            "type": "of_custody"
+          },
+          "entered": {
+            "bytes": 1,
+            "offset": 4,
+            "type": "_Bool"
+          },
+          "native_count": {
+            "bytes": 4,
+            "offset": 144,
+            "type": "unsigned int"
+          },
+          "native_first": {
+            "bytes": 4,
+            "offset": 140,
+            "type": "unsigned int"
+          },
+          "operation": {
+            "bytes": 4,
+            "offset": 0,
+            "type": "of_operation"
+          },
+          "origin": {
+            "bytes": 4,
+            "offset": 8,
+            "type": "of_origin"
+          },
+          "owner_argument": {
+            "bytes": 56,
+            "offset": 32,
+            "type": "ac_owner"
+          },
+          "payload_argument": {
+            "bytes": 33,
+            "count": 33,
+            "element": {
+              "bytes": 1,
+              "type": "char"
+            },
+            "offset": 104,
+            "type": "DW_TAG_array_type"
+          },
+          "prepared": {
+            "bytes": 1,
+            "offset": 5,
+            "type": "_Bool"
+          },
+          "requested_length": {
+            "bytes": 8,
+            "offset": 96,
+            "type": "size_t"
+          },
+          "supplied": {
+            "bytes": 16,
+            "offset": 16,
+            "type": "ac_io_value"
+          },
+          "token_argument": {
+            "bytes": 8,
+            "offset": 88,
+            "type": "int64_t"
+          }
+        }
+      },
+      "of_cleanup_record": {
+        "bytes": 40,
+        "members": {
+          "after": {
+            "bytes": 4,
+            "offset": 12,
+            "type": "of_custody"
+          },
+          "attempted": {
+            "bytes": 1,
+            "offset": 2,
+            "type": "_Bool"
+          },
+          "before": {
+            "bytes": 4,
+            "offset": 8,
+            "type": "of_custody"
+          },
+          "descriptor": {
+            "bytes": 4,
+            "offset": 4,
+            "type": "int"
+          },
+          "eligible": {
+            "bytes": 1,
+            "offset": 1,
+            "type": "_Bool"
+          },
+          "requested": {
+            "bytes": 1,
+            "offset": 0,
+            "type": "_Bool"
+          },
+          "result": {
+            "bytes": 24,
+            "offset": 16,
+            "type": "of_native_result"
+          }
+        }
+      },
+      "of_consumed_validation_record": {
+        "bytes": 4,
+        "members": {
+          "authored_veto": {
+            "bytes": 1,
+            "offset": 2,
+            "type": "_Bool"
+          },
+          "consumed_valid": {
+            "bytes": 1,
+            "offset": 3,
+            "type": "_Bool"
+          },
+          "evaluated": {
+            "bytes": 1,
+            "offset": 0,
+            "type": "_Bool"
+          },
+          "raw_valid": {
+            "bytes": 1,
+            "offset": 1,
+            "type": "_Bool"
+          }
+        }
+      },
+      "of_identity": {
+        "bytes": 40,
+        "members": {
+          "device": {
+            "bytes": 8,
+            "offset": 0,
+            "type": "dev_t"
+          },
+          "inode": {
+            "bytes": 8,
+            "offset": 8,
+            "type": "ino_t"
+          },
+          "links": {
+            "bytes": 4,
+            "offset": 20,
+            "type": "nlink_t"
+          },
+          "mode": {
+            "bytes": 4,
+            "offset": 24,
+            "type": "mode_t"
+          },
+          "size": {
+            "bytes": 8,
+            "offset": 32,
+            "type": "off_t"
+          },
+          "uid": {
+            "bytes": 4,
+            "offset": 16,
+            "type": "uid_t"
+          }
+        }
+      },
+      "of_native_identity_receipt": {
+        "bytes": 336,
+        "members": {
+          "by_fd": {
+            "bytes": 88,
+            "offset": 160,
+            "type": "of_query_record"
+          },
+          "by_name": {
+            "bytes": 88,
+            "offset": 248,
+            "type": "of_query_record"
+          },
+          "complete": {
+            "bytes": 1,
+            "offset": 0,
+            "type": "_Bool"
+          },
+          "directory_fd": {
+            "bytes": 4,
+            "offset": 4,
+            "type": "int"
+          },
+          "expected_directory": {
+            "bytes": 40,
+            "offset": 16,
+            "type": "of_identity"
+          },
+          "expected_uid": {
+            "bytes": 4,
+            "offset": 12,
+            "type": "uid_t"
+          },
+          "fixed_name": {
+            "bytes": 12,
+            "count": 12,
+            "element": {
+              "bytes": 1,
+              "type": "char"
+            },
+            "offset": 56,
+            "type": "DW_TAG_array_type"
+          },
+          "open_record": {
+            "bytes": 88,
+            "offset": 72,
+            "type": "of_native_record"
+          },
+          "opened_fd": {
+            "bytes": 4,
+            "offset": 8,
+            "type": "int"
+          }
+        }
+      },
+      "of_native_record": {
+        "bytes": 88,
+        "members": {
+          "creation_mode": {
+            "bytes": 4,
+            "offset": 12,
+            "type": "mode_t"
+          },
+          "descriptor": {
+            "bytes": 4,
+            "offset": 4,
+            "type": "int"
+          },
+          "flags": {
+            "bytes": 4,
+            "offset": 8,
+            "type": "int"
+          },
+          "operation": {
+            "bytes": 4,
+            "offset": 0,
+            "type": "of_operation"
+          },
+          "payload": {
+            "bytes": 33,
+            "count": 33,
+            "element": {
+              "bytes": 1,
+              "type": "char"
+            },
+            "offset": 24,
+            "type": "DW_TAG_array_type"
+          },
+          "requested_length": {
+            "bytes": 8,
+            "offset": 16,
+            "type": "size_t"
+          },
+          "result": {
+            "bytes": 24,
+            "offset": 64,
+            "type": "of_native_result"
+          }
+        }
+      },
+      "of_native_result": {
+        "bytes": 24,
+        "members": {
+          "entered": {
+            "bytes": 1,
+            "offset": 0,
+            "type": "_Bool"
+          },
+          "error_number": {
+            "bytes": 4,
+            "offset": 20,
+            "type": "int"
+          },
+          "error_valid": {
+            "bytes": 1,
+            "offset": 16,
+            "type": "_Bool"
+          },
+          "raw": {
+            "bytes": 8,
+            "offset": 8,
+            "type": "int64_t"
+          },
+          "returned": {
+            "bytes": 1,
+            "offset": 1,
+            "type": "_Bool"
+          }
+        }
+      },
+      "of_query_record": {
+        "bytes": 88,
+        "members": {
+          "descriptor": {
+            "bytes": 4,
+            "offset": 4,
+            "type": "int"
+          },
+          "flags": {
+            "bytes": 4,
+            "offset": 8,
+            "type": "int"
+          },
+          "identity": {
+            "bytes": 40,
+            "offset": 48,
+            "type": "of_identity"
+          },
+          "identity_available": {
+            "bytes": 1,
+            "offset": 40,
+            "type": "_Bool"
+          },
+          "kind": {
+            "bytes": 4,
+            "offset": 0,
+            "type": "of_query_kind"
+          },
+          "result": {
+            "bytes": 24,
+            "offset": 16,
+            "type": "of_native_result"
+          }
+        }
+      },
+      "of_report": {
+        "bytes": 2472,
+        "members": {
+          "callback_count": {
+            "bytes": 4,
+            "offset": 116,
+            "type": "unsigned int"
+          },
+          "callbacks": {
+            "bytes": 1280,
+            "count": 8,
+            "element": {
+              "bytes": 160,
+              "type": "of_callback_record"
+            },
+            "offset": 136,
+            "type": "DW_TAG_array_type"
+          },
+          "creation_identity": {
+            "bytes": 40,
+            "offset": 72,
+            "type": "of_identity"
+          },
+          "creation_identity_available": {
+            "bytes": 1,
+            "offset": 64,
+            "type": "_Bool"
+          },
+          "custody": {
+            "bytes": 4,
+            "offset": 52,
+            "type": "of_custody"
+          },
+          "directory_validated": {
+            "bytes": 1,
+            "offset": 1,
+            "type": "_Bool"
+          },
+          "expected_directory": {
+            "bytes": 40,
+            "offset": 8,
+            "type": "of_identity"
+          },
+          "expected_uid": {
+            "bytes": 4,
+            "offset": 48,
+            "type": "uid_t"
+          },
+          "file_callback_count": {
+            "bytes": 4,
+            "offset": 120,
+            "type": "unsigned int"
+          },
+          "frozen": {
+            "bytes": 1,
+            "offset": 2,
+            "type": "_Bool"
+          },
+          "has_saved_descriptor": {
+            "bytes": 1,
+            "offset": 56,
+            "type": "_Bool"
+          },
+          "infrastructure": {
+            "bytes": 4,
+            "offset": 112,
+            "type": "of_infrastructure"
+          },
+          "mode": {
+            "bytes": 4,
+            "offset": 4,
+            "type": "of_mode"
+          },
+          "native": {
+            "bytes": 704,
+            "count": 8,
+            "element": {
+              "bytes": 88,
+              "type": "of_native_record"
+            },
+            "offset": 1416,
+            "type": "DW_TAG_array_type"
+          },
+          "native_count": {
+            "bytes": 4,
+            "offset": 128,
+            "type": "unsigned int"
+          },
+          "queries": {
+            "bytes": 352,
+            "count": 4,
+            "element": {
+              "bytes": 88,
+              "type": "of_query_record"
+            },
+            "offset": 2120,
+            "type": "DW_TAG_array_type"
+          },
+          "query_count": {
+            "bytes": 4,
+            "offset": 132,
+            "type": "unsigned int"
+          },
+          "saved_descriptor": {
+            "bytes": 4,
+            "offset": 60,
+            "type": "int"
+          },
+          "setup_complete": {
+            "bytes": 1,
+            "offset": 0,
+            "type": "_Bool"
+          },
+          "unblamed_count": {
+            "bytes": 4,
+            "offset": 124,
+            "type": "unsigned int"
+          }
+        }
+      },
+      "request_value": {
+        "bytes": 24,
+        "members": {
+          "fp": {
+            "bytes": 8,
+            "offset": 16,
+            "type": "uintptr_t"
+          },
+          "lr": {
+            "bytes": 8,
+            "offset": 8,
+            "type": "uintptr_t"
+          },
+          "pc": {
+            "bytes": 8,
+            "offset": 0,
+            "type": "uintptr_t"
+          }
+        }
+      }
+    },
+    "plain": {
+      "ac_event": {
+        "bytes": 72,
+        "members": {
+          "entered": {
+            "bytes": 1,
+            "offset": 4,
+            "type": "_Bool"
+          },
+          "errno_valid": {
+            "bytes": 1,
+            "offset": 16,
+            "type": "_Bool"
+          },
+          "error_number": {
+            "bytes": 4,
+            "offset": 20,
+            "type": "int"
+          },
+          "kind": {
+            "bytes": 4,
+            "offset": 0,
+            "type": "ac_event_kind"
+          },
+          "payload": {
+            "bytes": 33,
+            "count": 33,
+            "element": {
+              "bytes": 1,
+              "type": "char"
+            },
+            "offset": 32,
+            "type": "DW_TAG_array_type"
+          },
+          "raw": {
+            "bytes": 8,
+            "offset": 8,
+            "type": "int64_t"
+          },
+          "requested_length": {
+            "bytes": 8,
+            "offset": 24,
+            "type": "size_t"
+          },
+          "returned_recorded": {
+            "bytes": 1,
+            "offset": 5,
+            "type": "_Bool"
+          }
+        }
+      },
+      "ac_io_value": {
+        "bytes": 16,
+        "members": {
+          "failure_errno": {
+            "bytes": 4,
+            "offset": 8,
+            "type": "int"
+          },
+          "raw": {
+            "bytes": 8,
+            "offset": 0,
+            "type": "int64_t"
+          }
+        }
+      },
+      "ac_owner": {
+        "bytes": 56,
+        "members": {
+          "id": {
+            "bytes": 33,
+            "count": 33,
+            "element": {
+              "bytes": 1,
+              "type": "char"
+            },
+            "offset": 16,
+            "type": "DW_TAG_array_type"
+          },
+          "index": {
+            "bytes": 4,
+            "offset": 4,
+            "type": "uint32_t"
+          },
+          "kind": {
+            "bytes": 4,
+            "offset": 0,
+            "type": "ac_owner_kind"
+          },
+          "process_id": {
+            "bytes": 8,
+            "offset": 8,
+            "type": "uint64_t"
+          }
+        }
+      },
+      "ac_result": {
+        "bytes": 504,
+        "members": {
+          "event_count": {
+            "bytes": 4,
+            "offset": 68,
+            "type": "unsigned int"
+          },
+          "events": {
+            "bytes": 432,
+            "count": 6,
+            "element": {
+              "bytes": 72,
+              "type": "ac_event"
+            },
+            "offset": 72,
+            "type": "DW_TAG_array_type"
+          },
+          "known_failure": {
+            "bytes": 1,
+            "offset": 64,
+            "type": "_Bool"
+          },
+          "owner": {
+            "bytes": 56,
+            "offset": 8,
+            "type": "ac_owner"
+          },
+          "selection_known": {
+            "bytes": 1,
+            "offset": 0,
+            "type": "_Bool"
+          },
+          "short_write": {
+            "bytes": 1,
+            "offset": 65,
+            "type": "_Bool"
+          },
+          "violation": {
+            "bytes": 1,
+            "offset": 66,
+            "type": "_Bool"
+          }
+        }
+      },
+      "ac_snapshot": {
+        "bytes": 512,
+        "members": {
+          "has_payload": {
+            "bytes": 1,
+            "offset": 4,
+            "type": "_Bool"
+          },
+          "result": {
+            "bytes": 504,
+            "offset": 8,
+            "type": "ac_result"
+          },
+          "state": {
+            "bytes": 4,
+            "offset": 0,
+            "type": "ac_state"
+          }
+        }
+      },
+      "child_report": {
+        "bytes": 4528,
+        "members": {
+          "after_cleanup": {
+            "bytes": 512,
+            "offset": 1152,
+            "type": "ac_snapshot"
+          },
+          "bytes": {
+            "bytes": 8,
+            "offset": 8,
+            "type": "size_t"
+          },
+          "calls": {
+            "bytes": 4,
+            "offset": 1664,
+            "type": "unsigned int"
+          },
+          "cleanup_ok": {
+            "bytes": 1,
+            "offset": 34,
+            "type": "_Bool"
+          },
+          "complete_table": {
+            "bytes": 1,
+            "offset": 29,
+            "type": "_Bool"
+          },
+          "consumed_validation": {
+            "bytes": 4,
+            "offset": 4480,
+            "type": "of_consumed_validation_record"
+          },
+          "directory_fd": {
+            "bytes": 4,
+            "offset": 36,
+            "type": "int"
+          },
+          "external_cleanup": {
+            "bytes": 40,
+            "offset": 4488,
+            "type": "of_cleanup_record"
+          },
+          "first": {
+            "bytes": 512,
+            "offset": 640,
+            "type": "ac_snapshot"
+          },
+          "first_return": {
+            "bytes": 4,
+            "offset": 1668,
+            "type": "ac_request_result"
+          },
+          "freeze_ok": {
+            "bytes": 1,
+            "offset": 33,
+            "type": "_Bool"
+          },
+          "infrastructure": {
+            "bytes": 4,
+            "offset": 24,
+            "type": "unsigned int"
+          },
+          "inherited_fd_list_valid": {
+            "bytes": 1,
+            "offset": 28,
+            "type": "_Bool"
+          },
+          "initial": {
+            "bytes": 512,
+            "offset": 128,
+            "type": "ac_snapshot"
+          },
+          "magic": {
+            "bytes": 8,
+            "offset": 0,
+            "type": "uint64_t"
+          },
+          "model_commit": {
+            "bytes": 1,
+            "offset": 32,
+            "type": "_Bool"
+          },
+          "model_stage": {
+            "bytes": 1,
+            "offset": 31,
+            "type": "_Bool"
+          },
+          "owner": {
+            "bytes": 33,
+            "count": 33,
+            "element": {
+              "bytes": 1,
+              "type": "char"
+            },
+            "offset": 44,
+            "type": "DW_TAG_array_type"
+          },
+          "precleanup": {
+            "bytes": 2472,
+            "offset": 1672,
+            "type": "of_report"
+          },
+          "prepared": {
+            "bytes": 1,
+            "offset": 30,
+            "type": "_Bool"
+          },
+          "raw_identity": {
+            "bytes": 336,
+            "offset": 4144,
+            "type": "of_native_identity_receipt"
+          },
+          "report_fd": {
+            "bytes": 4,
+            "offset": 40,
+            "type": "int"
+          },
+          "request_after": {
+            "bytes": 24,
+            "offset": 104,
+            "type": "request_value"
+          },
+          "request_before": {
+            "bytes": 24,
+            "offset": 80,
+            "type": "request_value"
+          },
+          "selector": {
+            "bytes": 4,
+            "offset": 20,
+            "type": "unsigned int"
+          },
+          "version": {
+            "bytes": 4,
+            "offset": 16,
+            "type": "unsigned int"
+          }
+        }
+      },
+      "handoff": {
+        "bytes": 80,
+        "members": {
+          "bytes": {
+            "bytes": 8,
+            "offset": 8,
+            "type": "size_t"
+          },
+          "directory": {
+            "bytes": 40,
+            "offset": 32,
+            "type": "of_identity"
+          },
+          "directory_fd": {
+            "bytes": 4,
+            "offset": 24,
+            "type": "int"
+          },
+          "magic": {
+            "bytes": 8,
+            "offset": 0,
+            "type": "uint64_t"
+          },
+          "report_fd": {
+            "bytes": 4,
+            "offset": 28,
+            "type": "int"
+          },
+          "selector": {
+            "bytes": 4,
+            "offset": 20,
+            "type": "unsigned int"
+          },
+          "uid": {
+            "bytes": 4,
+            "offset": 72,
+            "type": "uid_t"
+          },
+          "version": {
+            "bytes": 4,
+            "offset": 16,
+            "type": "unsigned int"
+          }
+        }
+      },
+      "of_callback_record": {
+        "bytes": 160,
+        "members": {
+          "custody_after": {
+            "bytes": 4,
+            "offset": 152,
+            "type": "of_custody"
+          },
+          "custody_before": {
+            "bytes": 4,
+            "offset": 148,
+            "type": "of_custody"
+          },
+          "entered": {
+            "bytes": 1,
+            "offset": 4,
+            "type": "_Bool"
+          },
+          "native_count": {
+            "bytes": 4,
+            "offset": 144,
+            "type": "unsigned int"
+          },
+          "native_first": {
+            "bytes": 4,
+            "offset": 140,
+            "type": "unsigned int"
+          },
+          "operation": {
+            "bytes": 4,
+            "offset": 0,
+            "type": "of_operation"
+          },
+          "origin": {
+            "bytes": 4,
+            "offset": 8,
+            "type": "of_origin"
+          },
+          "owner_argument": {
+            "bytes": 56,
+            "offset": 32,
+            "type": "ac_owner"
+          },
+          "payload_argument": {
+            "bytes": 33,
+            "count": 33,
+            "element": {
+              "bytes": 1,
+              "type": "char"
+            },
+            "offset": 104,
+            "type": "DW_TAG_array_type"
+          },
+          "prepared": {
+            "bytes": 1,
+            "offset": 5,
+            "type": "_Bool"
+          },
+          "requested_length": {
+            "bytes": 8,
+            "offset": 96,
+            "type": "size_t"
+          },
+          "supplied": {
+            "bytes": 16,
+            "offset": 16,
+            "type": "ac_io_value"
+          },
+          "token_argument": {
+            "bytes": 8,
+            "offset": 88,
+            "type": "int64_t"
+          }
+        }
+      },
+      "of_cleanup_record": {
+        "bytes": 40,
+        "members": {
+          "after": {
+            "bytes": 4,
+            "offset": 12,
+            "type": "of_custody"
+          },
+          "attempted": {
+            "bytes": 1,
+            "offset": 2,
+            "type": "_Bool"
+          },
+          "before": {
+            "bytes": 4,
+            "offset": 8,
+            "type": "of_custody"
+          },
+          "descriptor": {
+            "bytes": 4,
+            "offset": 4,
+            "type": "int"
+          },
+          "eligible": {
+            "bytes": 1,
+            "offset": 1,
+            "type": "_Bool"
+          },
+          "requested": {
+            "bytes": 1,
+            "offset": 0,
+            "type": "_Bool"
+          },
+          "result": {
+            "bytes": 24,
+            "offset": 16,
+            "type": "of_native_result"
+          }
+        }
+      },
+      "of_consumed_validation_record": {
+        "bytes": 4,
+        "members": {
+          "authored_veto": {
+            "bytes": 1,
+            "offset": 2,
+            "type": "_Bool"
+          },
+          "consumed_valid": {
+            "bytes": 1,
+            "offset": 3,
+            "type": "_Bool"
+          },
+          "evaluated": {
+            "bytes": 1,
+            "offset": 0,
+            "type": "_Bool"
+          },
+          "raw_valid": {
+            "bytes": 1,
+            "offset": 1,
+            "type": "_Bool"
+          }
+        }
+      },
+      "of_identity": {
+        "bytes": 40,
+        "members": {
+          "device": {
+            "bytes": 8,
+            "offset": 0,
+            "type": "dev_t"
+          },
+          "inode": {
+            "bytes": 8,
+            "offset": 8,
+            "type": "ino_t"
+          },
+          "links": {
+            "bytes": 4,
+            "offset": 20,
+            "type": "nlink_t"
+          },
+          "mode": {
+            "bytes": 4,
+            "offset": 24,
+            "type": "mode_t"
+          },
+          "size": {
+            "bytes": 8,
+            "offset": 32,
+            "type": "off_t"
+          },
+          "uid": {
+            "bytes": 4,
+            "offset": 16,
+            "type": "uid_t"
+          }
+        }
+      },
+      "of_native_identity_receipt": {
+        "bytes": 336,
+        "members": {
+          "by_fd": {
+            "bytes": 88,
+            "offset": 160,
+            "type": "of_query_record"
+          },
+          "by_name": {
+            "bytes": 88,
+            "offset": 248,
+            "type": "of_query_record"
+          },
+          "complete": {
+            "bytes": 1,
+            "offset": 0,
+            "type": "_Bool"
+          },
+          "directory_fd": {
+            "bytes": 4,
+            "offset": 4,
+            "type": "int"
+          },
+          "expected_directory": {
+            "bytes": 40,
+            "offset": 16,
+            "type": "of_identity"
+          },
+          "expected_uid": {
+            "bytes": 4,
+            "offset": 12,
+            "type": "uid_t"
+          },
+          "fixed_name": {
+            "bytes": 12,
+            "count": 12,
+            "element": {
+              "bytes": 1,
+              "type": "char"
+            },
+            "offset": 56,
+            "type": "DW_TAG_array_type"
+          },
+          "open_record": {
+            "bytes": 88,
+            "offset": 72,
+            "type": "of_native_record"
+          },
+          "opened_fd": {
+            "bytes": 4,
+            "offset": 8,
+            "type": "int"
+          }
+        }
+      },
+      "of_native_record": {
+        "bytes": 88,
+        "members": {
+          "creation_mode": {
+            "bytes": 4,
+            "offset": 12,
+            "type": "mode_t"
+          },
+          "descriptor": {
+            "bytes": 4,
+            "offset": 4,
+            "type": "int"
+          },
+          "flags": {
+            "bytes": 4,
+            "offset": 8,
+            "type": "int"
+          },
+          "operation": {
+            "bytes": 4,
+            "offset": 0,
+            "type": "of_operation"
+          },
+          "payload": {
+            "bytes": 33,
+            "count": 33,
+            "element": {
+              "bytes": 1,
+              "type": "char"
+            },
+            "offset": 24,
+            "type": "DW_TAG_array_type"
+          },
+          "requested_length": {
+            "bytes": 8,
+            "offset": 16,
+            "type": "size_t"
+          },
+          "result": {
+            "bytes": 24,
+            "offset": 64,
+            "type": "of_native_result"
+          }
+        }
+      },
+      "of_native_result": {
+        "bytes": 24,
+        "members": {
+          "entered": {
+            "bytes": 1,
+            "offset": 0,
+            "type": "_Bool"
+          },
+          "error_number": {
+            "bytes": 4,
+            "offset": 20,
+            "type": "int"
+          },
+          "error_valid": {
+            "bytes": 1,
+            "offset": 16,
+            "type": "_Bool"
+          },
+          "raw": {
+            "bytes": 8,
+            "offset": 8,
+            "type": "int64_t"
+          },
+          "returned": {
+            "bytes": 1,
+            "offset": 1,
+            "type": "_Bool"
+          }
+        }
+      },
+      "of_query_record": {
+        "bytes": 88,
+        "members": {
+          "descriptor": {
+            "bytes": 4,
+            "offset": 4,
+            "type": "int"
+          },
+          "flags": {
+            "bytes": 4,
+            "offset": 8,
+            "type": "int"
+          },
+          "identity": {
+            "bytes": 40,
+            "offset": 48,
+            "type": "of_identity"
+          },
+          "identity_available": {
+            "bytes": 1,
+            "offset": 40,
+            "type": "_Bool"
+          },
+          "kind": {
+            "bytes": 4,
+            "offset": 0,
+            "type": "of_query_kind"
+          },
+          "result": {
+            "bytes": 24,
+            "offset": 16,
+            "type": "of_native_result"
+          }
+        }
+      },
+      "of_report": {
+        "bytes": 2472,
+        "members": {
+          "callback_count": {
+            "bytes": 4,
+            "offset": 116,
+            "type": "unsigned int"
+          },
+          "callbacks": {
+            "bytes": 1280,
+            "count": 8,
+            "element": {
+              "bytes": 160,
+              "type": "of_callback_record"
+            },
+            "offset": 136,
+            "type": "DW_TAG_array_type"
+          },
+          "creation_identity": {
+            "bytes": 40,
+            "offset": 72,
+            "type": "of_identity"
+          },
+          "creation_identity_available": {
+            "bytes": 1,
+            "offset": 64,
+            "type": "_Bool"
+          },
+          "custody": {
+            "bytes": 4,
+            "offset": 52,
+            "type": "of_custody"
+          },
+          "directory_validated": {
+            "bytes": 1,
+            "offset": 1,
+            "type": "_Bool"
+          },
+          "expected_directory": {
+            "bytes": 40,
+            "offset": 8,
+            "type": "of_identity"
+          },
+          "expected_uid": {
+            "bytes": 4,
+            "offset": 48,
+            "type": "uid_t"
+          },
+          "file_callback_count": {
+            "bytes": 4,
+            "offset": 120,
+            "type": "unsigned int"
+          },
+          "frozen": {
+            "bytes": 1,
+            "offset": 2,
+            "type": "_Bool"
+          },
+          "has_saved_descriptor": {
+            "bytes": 1,
+            "offset": 56,
+            "type": "_Bool"
+          },
+          "infrastructure": {
+            "bytes": 4,
+            "offset": 112,
+            "type": "of_infrastructure"
+          },
+          "mode": {
+            "bytes": 4,
+            "offset": 4,
+            "type": "of_mode"
+          },
+          "native": {
+            "bytes": 704,
+            "count": 8,
+            "element": {
+              "bytes": 88,
+              "type": "of_native_record"
+            },
+            "offset": 1416,
+            "type": "DW_TAG_array_type"
+          },
+          "native_count": {
+            "bytes": 4,
+            "offset": 128,
+            "type": "unsigned int"
+          },
+          "queries": {
+            "bytes": 352,
+            "count": 4,
+            "element": {
+              "bytes": 88,
+              "type": "of_query_record"
+            },
+            "offset": 2120,
+            "type": "DW_TAG_array_type"
+          },
+          "query_count": {
+            "bytes": 4,
+            "offset": 132,
+            "type": "unsigned int"
+          },
+          "saved_descriptor": {
+            "bytes": 4,
+            "offset": 60,
+            "type": "int"
+          },
+          "setup_complete": {
+            "bytes": 1,
+            "offset": 0,
+            "type": "_Bool"
+          },
+          "unblamed_count": {
+            "bytes": 4,
+            "offset": 124,
+            "type": "unsigned int"
+          }
+        }
+      },
+      "request_value": {
+        "bytes": 24,
+        "members": {
+          "fp": {
+            "bytes": 8,
+            "offset": 16,
+            "type": "uintptr_t"
+          },
+          "lr": {
+            "bytes": 8,
+            "offset": 8,
+            "type": "uintptr_t"
+          },
+          "pc": {
+            "bytes": 8,
+            "offset": 0,
+            "type": "uintptr_t"
+          }
+        }
+      }
+    }
+  }
+}

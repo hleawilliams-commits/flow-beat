@@ -1,0 +1,120 @@
+{
+  "files": {
+    "core.c": {
+      "mode": "unchanged",
+      "pin": {
+        "bytes": 24981,
+        "sha256": "eca23b77d5e064a7015dd3f912e5652a7d61df196ce936b3fbf1934e4a4819d1"
+      }
+    },
+    "core.h": {
+      "mode": "unchanged",
+      "pin": {
+        "bytes": 8461,
+        "sha256": "a1c1f13832a8bdb55ba9a2d4379ff8c6cb689bd70826575497d13402430faa38"
+      }
+    },
+    "native_leaf.c": {
+      "mode": "unchanged",
+      "pin": {
+        "bytes": 2944,
+        "sha256": "9033bfe9cf854a495cfb7056fb7627fe371e7961e792589d59b99fcfc4064669"
+      }
+    },
+    "native_leaf.h": {
+      "mode": "unchanged",
+      "pin": {
+        "bytes": 833,
+        "sha256": "55e4a5ed78d023fb652002d7bface8421a71b690033f9f3cf02ed21cc72cc348"
+      }
+    }
+  },
+  "limits": [
+    "Exact frozen engine/header/native-leaf pair and six retained reader/type fragments; no prior procedure replay.",
+    "New provider/harness source transformations are completely enumerated by the separately reviewed source ledger before first build.",
+    "All live gates and quarantine remain unchanged."
+  ],
+  "plan": {
+    "bytes": 36522,
+    "path": "experiments/usb-browser-switch/activation-consumed-validation-plan/consumed-validation-plan.json",
+    "sha256": "0a76e2977f96c8aee82e2e9c12728fe53ee5dc4c9bb33d1666349a2fe4301c06"
+  },
+  "reader_inputs": [
+    {
+      "bytes": 2994,
+      "name": "generated/readers.inc",
+      "path": "experiments/usb-browser-switch/activation-ordinary-provider-fixture/private/run-11ea3682fcc34d33b9034c6e041aee30/work/generated/readers.inc",
+      "sha256": "352048162f452f794136f8b90555783df101feacbf7550e3f4020bd6ef7ab140"
+    },
+    {
+      "bytes": 5369,
+      "name": "generated/receipt-types.h",
+      "path": "experiments/usb-browser-switch/activation-ordinary-provider-fixture/private/run-11ea3682fcc34d33b9034c6e041aee30/work/generated/receipt-types.h",
+      "sha256": "c97454db2aba6e942eb05241bbf80d67ffd8eecb5108927da69600a6a1d15f40"
+    }
+  ],
+  "runtime_gate": "CLOSED",
+  "schema": 1,
+  "scope": "Source-only custody declaration; no source extraction, compiler, callback or runtime invocation.",
+  "source_groups": [
+    {
+      "change": "Copy exact pinned bytes. Keep sole admission, ordinary driver, public observer, six reader/type fragments and five setup-only APIs. Verify source equality and selected-method/symbol/dependency evidence in the future successor without replaying predecessor suites.",
+      "files": [
+        "core.c",
+        "core.h",
+        "native_leaf.c",
+        "native_leaf.h",
+        "generated/readers.inc",
+        "generated/receipt-types.h"
+      ],
+      "id": "S1"
+    },
+    {
+      "change": "Separately version the provider context/report contract, add one fixed raw-identity receipt and one consumed-validation decision, and replace the allowed control surface with exactly three mutually exclusive new controls. All old control macros and private engine modes remain refused.",
+      "files": [
+        "file_provider.h"
+      ],
+      "id": "S2"
+    },
+    {
+      "change": "Before native open, reserve/prove unused one-shot raw-receipt storage alongside existing native/query capacities. Retain native int fd as HeldUnvalidated immediately after successful open. Perform both existing fd/name queries. After both succeed and existing identity predicates pass, copy the independent receipt, mark it complete last, record evaluated/raw-valid/veto/consumed-false, and return false before creation_identity assignment or VerifiedHeld promotion. The existing open refusal supplies {-2,7104} with OF_INFRA_FILE_VALIDATION and OF_INFRASTRUCTURE_REFUSAL. Real query failure does not receive the consumed-veto marker or completed receipt.",
+      "files": [
+        "file_provider.c"
+      ],
+      "id": "S3"
+    },
+    {
+      "change": "Extend the pure bounded freeze output to copy provider report, immutable raw receipt and consumed-validation decision into distinct sibling envelope fields before cleanup. C1 changes only the export copy's file-fd query raw0 to-1 after the copy; context/report originals and raw receipt remain intact. C2 changes only supplied raw-2 to-1 after veto; error7104/origin remain. C3 omits only the eligible cleanup native-close body, honestly keeping requested/eligible true, attempted false, unentered result and unchanged HeldUnvalidated; no compensating close.",
+      "files": [
+        "file_provider.c",
+        "file_provider.h"
+      ],
+      "id": "S4"
+    },
+    {
+      "change": "Use a new versioned child-report/handoff contract and pointer-free raw receipt/decision fields, retain exact same-Linux inherited capability validation, direct authored owner setup, one ordinary ac_run, separate actual return/public snapshots, freeze before cleanup and enclosing envelope write afterward. New ABI sizes/offsets must be measured and independently reviewed before future runtime; old4760 bytes are not reused.",
+      "files": [
+        "test_file.c"
+      ],
+      "id": "S5"
+    },
+    {
+      "change": "Parent accepts only matching normal exit0 and exact new report envelope. Select explicit RAW_IDENTITY_AFTER_CONSUMED_VETO observation basis; require independent receipt, decision and no accepted creation. Validate expected directory/fixed-name binding and raw identities, then retain parent nofollow name query, own observer open/fstat/bounded pread/close, identity recheck, fixed unlink and empty-directory removal. Never use child saved fd as a parent capability. Partition all assertions as below; harness has no control-dependent branch.",
+      "files": [
+        "test_file.c"
+      ],
+      "id": "S6"
+    },
+    {
+      "change": "Pin isolated image and new finite14-child matrix, exact three provider controls and one harness object, source transformations and complete ledger before first build. Separate raw binary/JSON reports, compiler/metadata output, command identities, independent byte audit and sanitized projection. Preserve failed attempts and prior bytes; no predecessor runtime/capture/audit replay.",
+      "files": [
+        "run-tests.py",
+        "test-contract.json",
+        "source-ledger.json",
+        "review-lock.json"
+      ],
+      "id": "S7"
+    }
+  ],
+  "status": "source-written-not-built"
+}

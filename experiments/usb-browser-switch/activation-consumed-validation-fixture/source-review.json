@@ -1,0 +1,565 @@
+{
+  "independent_reviews": {
+    "contract-source-review.json": {
+      "pin": {
+        "bytes": 4906,
+        "sha256": "a49c0046038ada2a88dd48e807868de652cb96ad73c1d9d6ca2850156f512f81"
+      },
+      "review": {
+        "activity": {
+          "compiler": false,
+          "device": false,
+          "native_provider": false,
+          "old_audit_or_capture_replay": false,
+          "reviewed_program_import": false,
+          "runtime": false
+        },
+        "findings": [
+          {
+            "anchor": "run-tests.py:156-229,278-297",
+            "claim": "Exclusive fresh packet/lock; only a successful built-preflight checkpoint can resume. Resume reconstructs exact file and directory closure including prior result/projection, retains immutable origins and refuses changed or removed artifacts.",
+            "id": "R1",
+            "result": "pass"
+          },
+          {
+            "anchor": "run-tests.py:298-348,599-619",
+            "claim": "Every command records argv/environment and complete output streams/return status. Timeouts preserve partial/drained output and separate cleanup receipts. Failure produces terminal failed checkpoint; no automatic old procedure replay.",
+            "id": "R2",
+            "result": "pass"
+          },
+          {
+            "anchor": "run-tests.py:182-271",
+            "claim": "All11 sources include exact native-layout-spec; lock, source ledger, independent source-review and frozen plan/source pins precede build. Generated retained reader/header bytes are copied, without running an extractor.",
+            "id": "R3",
+            "result": "pass"
+          },
+          {
+            "anchor": "run-tests.py:350-460",
+            "claim": "Pinned offline Linux AArch64 image/GCC7.5 configuration; standalone core compile-only in both modes. New provider configurations build independently while candidate core/native-leaf/harness objects are reused byte-for-byte. Link/disassembly preserve exact objects; no readelf diagnostic exception is applied by runner.",
+            "id": "R4",
+            "result": "pass"
+          },
+          {
+            "anchor": "run-tests.py:462-514",
+            "claim": "Manual source/codegen review binds all new object methods and full preflight artifacts before any witness invocation. Native ABI review must bind frozen layout spec, fresh both-mode harness objects and provenance headers; exact26 size/offset keys and equal layouts are required.",
+            "id": "R5",
+            "result": "pass"
+          },
+          {
+            "anchor": "run-tests.py:515-568",
+            "claim": "Every variant/selector uses a fresh isolated container and same-Linux supervisor/fresh exec child. Four candidates plus three controls per mode; exact ordered8 names and exact singleton failure/exit pair required. Closed JSON/binary pair retained; binary size and JSON layout equal reviewed values. Nested report validator is structural only, not independent semantic proof.",
+            "id": "R6",
+            "result": "pass"
+          },
+          {
+            "anchor": "test-contract.json; test_file.c:assess,evidence",
+            "claim": "Explicit enum indexes0/1/2/3 are independent of sorted JSON command order. Schema1 summary/version2 envelope, authored direct-owner inputs, limits65/48/8/8/4 and all26 binary_layout keys agree with serializer. Four candidate selectors sum32 assertions per mode; three controls each own one different final composite.",
+            "id": "R7",
+            "result": "pass"
+          },
+          {
+            "anchor": "test-contract.json:oracle_partition; test_file.c:raw_identity_valid,cleanup_truthful,terminal_incomplete",
+            "claim": "C1 corruptible mirror is absent from safety authority; C2 supplied -2/-1 and public payload effects are owned only by terminal composite; C3 absent close is truthful shared shape but explicit-cleanup composite fails. Shared checks still reject unrelated setup/native/observer/cleanup failures.",
+            "id": "R8",
+            "result": "pass"
+          }
+        ],
+        "inputs": {
+          "native-layout-spec.json": {
+            "bytes": 4364,
+            "sha256": "17563378fa12ced883fcb6660bd4fe02e716704b6ea59324be64bdd3a849f6fa"
+          },
+          "run-tests.py": {
+            "bytes": 43405,
+            "sha256": "50df90ce23e5ddc15426a30c24117e3cbc056dd12dd05740dc9ea484e6a834ef"
+          },
+          "source-transform.json": {
+            "bytes": 6250,
+            "sha256": "28965dc6de0df3e1738d2c3f296662a4676d0167057d8b9f71595c7907655782"
+          },
+          "test-contract.json": {
+            "bytes": 14643,
+            "sha256": "2d8c4359198c56731ec42dedf614b9bb4b4f6ac6d59d9bbc94d91e127d55aece"
+          },
+          "test_file.c": {
+            "bytes": 42924,
+            "sha256": "d3130e45d8228040f05accfab2a99acf9f14a44ce0ff07a5344c496d4ed3e0f7"
+          }
+        },
+        "limits": [
+          "Source review does not establish emitted ABI, libc call behavior, runtime outcomes, signal safety or arbitrary custody.",
+          "Fresh native-layout/codegen review remains required before runtime.",
+          "Runtime semantic oracle is authored C parent; independent binary/JSON and native outcome reconstruction is deferred to new retained-byte audit.",
+          "Same-Linux process containment after omitted held cleanup is distinct from acknowledged native close."
+        ],
+        "result": "pass",
+        "review_type": "Independent runner/contract source review by harness author; no reviewed program imported or invoked.",
+        "schema": 1,
+        "status": "reviewed-before-build"
+      }
+    },
+    "harness-source-review.json": {
+      "pin": {
+        "bytes": 7743,
+        "sha256": "8d2b82f83e1bf4567a33deca3fc0ba77733ee75b9310a2fb31734dbb821db768"
+      },
+      "review": {
+        "activity": {
+          "compiler": false,
+          "old_capture_matrix_audit_replay": false,
+          "provider_native_io": false,
+          "reviewed_script_import": false,
+          "reviewed_source_mutation": false,
+          "runtime": false,
+          "source_delta_read": true,
+          "source_read": true
+        },
+        "findings": [
+          {
+            "assessment": "A same-Linux supervisor creates a new owned directory and exclusive report files, writes a bounded handoff, forks and execs one child with only the intended directory/report descriptors inherited. The child records descriptor inventory, full provider table readiness, setup and one direct authored module stage/commit, then calls ordinary ac_run exactly once. The owner is a full-width process identity with the fixed canonical 32-character ID. No private engine API, old selector, nested call or concurrent provider is invoked.",
+            "id": "H1",
+            "result": "accepted",
+            "subject": "Fresh ordinary child and stable setup"
+          },
+          {
+            "assessment": "Final envelope version 2 and new magic values are checked before use. The actual directory/report descriptor bindings are compared immediately after the exact-size child report read. Before fixed-name observation the parent independently checks the raw receipt against its own expected directory/uid, actual successful OPEN and fd/name query pairs, saved native int descriptor, exact flags/mode and empty owned regular identities. The consumed decision must be the explicit veto and accepted creation must remain absent/zero. No child opened_fd is used as a parent native-I/O capability.",
+            "id": "H2",
+            "result": "accepted",
+            "subject": "Parent capability and independent identity gate"
+          },
+          {
+            "assessment": "Only projected_queries_faithful compares the two post-open exported query records to the independent receipt. It compares every declared query/result/identity field. Shared raw-native checks use the receipt and the unchanged directory query; conversion checks do not require projected raw/errno consistency. Therefore the exact export raw0 to raw-1 mutation with entered/returned true and invalid error fields fails only the query composite. It cannot alter parent observation or cleanup authority.",
+            "id": "H3",
+            "result": "accepted",
+            "subject": "C1 query projection partition"
+          },
+          {
+            "assessment": "Only terminal_incomplete requires supplied raw-2/error7104/origin, AC_INCOMPLETE and the empty Active snapshot. Shared operation checks count the same single OPEN callback and actual successful native OPEN/query records. Cleanup checks compare first versus post-cleanup snapshots for either state. The unchanged core's supplied -1 branch instead returns a completed two-event failure payload and therefore fails the domain composite without a duplicated baseline-only requirement. Future raw evidence still needs independent verification of that exact consequence, not failure-count-only acceptance.",
+            "id": "H4",
+            "result": "accepted",
+            "subject": "C2 supplied-domain partition"
+          },
+          {
+            "assessment": "cleanup_truthful binds the cleanup descriptor and HeldUnvalidated input and enforces attempted/entered/returned agreement. Its attempted branch requires actual raw0/error-invalid0 and ClosedReturned; its unattempted branch requires zero unused result fields and HeldUnvalidated. Only explicit_cleanup requires a real attempt. Thus the omission control fails exactly its composite. No retry, probe, duplication or operation through possibly closed custody is added; an unexpected actual close failure cannot be treated as the intended control.",
+            "id": "H5",
+            "result": "accepted",
+            "subject": "C3 cleanup shape and unknown-token safety"
+          },
+          {
+            "assessment": "The child records actual return/public snapshot, freezes three separate outputs, performs external held cleanup, observes again, then writes the enclosing binary envelope. Normal waited exit zero and exact report size precede parent acceptance. The parent evaluates all five shared and three composite assertions. No enclosing report claims to acknowledge its own pwrite or final JSON output. Parent observer reads an empty file using its own descriptor, closes once, rechecks identity before fixed unlink, and removes only the owned empty directory.",
+            "id": "H6",
+            "result": "accepted",
+            "subject": "Evidence order and supervisor checks"
+          },
+          {
+            "assessment": "The harness contains no conditional use of any of the three provider control macros. Four selector names choose fresh executions of the same focused boundary; all run the same eight assertions in the specified order. Candidate success requires all eight; each control is expected to fail only its corresponding composite. Infrastructure and output failures remain distinct nonaccepted exits.",
+            "id": "H7",
+            "result": "accepted",
+            "subject": "Macro-independent singleton harness"
+          },
+          {
+            "assessment": "The layout specification lists every envelope, native identity, raw-receipt, decision, cleanup and public snapshot field required for fresh target artifact review. C source only bounds native reporting widths and checks value conversions; it does not reuse the old 4760-byte envelope or guess nlink_t width. The serializer emits the new sizeof/offsetof data, complete used provider/raw receipt records and fixed public event arrays. Identity and snapshot comparison is fieldwise; unspecified struct padding is not used as a semantic equality oracle.",
+            "id": "H8",
+            "result": "accepted",
+            "subject": "Native layout and binary/JSON evidence"
+          }
+        ],
+        "independence": "Reviewer authored the provider files, not the harness or native-layout specification. Acceptance is an independent review of the harness/specification; it is not an independent review of the reviewer's own provider implementation.",
+        "limits": [
+          "This review is source-only and no build or native operation has been invoked by the reviewer.",
+          "Fresh retained target header/DWARF layout and all selected method/dependency evidence must be reviewed before first runtime.",
+          "A source review does not establish actual successful queries, file emptiness, returned native cleanup, sanitizer behavior, durable persistence or recovery.",
+          "Pre-exec descriptor preparation is retained as bounded source and overall success/exit facts, not a complete per-call native journal.",
+          "Signals, nonlocal exits, concurrency, arbitrary DSO/interposition, live/device integration and unknown-return recovery remain outside the fixture."
+        ],
+        "result": "pass",
+        "reviewed_final_corrections": [
+          "Envelope version changed from draft 1 to 2, consistent with a separately versioned report.",
+          "Parent verifies child directory_fd and report_fd equal its actual inherited capability bindings immediately after envelope decoding and before raw receipt/path observation."
+        ],
+        "reviewed_inputs": {
+          "native-layout-spec.json": {
+            "bytes": 4364,
+            "sha256": "17563378fa12ced883fcb6660bd4fe02e716704b6ea59324be64bdd3a849f6fa"
+          },
+          "test_file.c": {
+            "bytes": 42924,
+            "sha256": "d3130e45d8228040f05accfab2a99acf9f14a44ce0ff07a5344c496d4ed3e0f7"
+          }
+        },
+        "schema": 1,
+        "scope": "Independent source review of the consumed-validation witness harness and native-layout evidence specification",
+        "status": "reviewed-before-first-build",
+        "supporting_inputs": {
+          "file_provider.c": {
+            "bytes": 18292,
+            "sha256": "a98d69a46214f6d9215b9de41a67643f3efe533b9190c5f0fcd83b265d9d862f"
+          },
+          "file_provider.h": {
+            "bytes": 5990,
+            "sha256": "3d478e98f9dba224b5e4e161b8a562172ec8cd6916eae6ad0b603cf83eb0e5ad"
+          }
+        }
+      }
+    },
+    "ledger-source-review.json": {
+      "pin": {
+        "bytes": 4232,
+        "sha256": "9a3a05edb02cafc98790e3738a9a7d3bdd861f5400e643ca11f0c5012f131690"
+      },
+      "review": {
+        "activity": {
+          "compiler": false,
+          "local_source_and_json_reads": true,
+          "locked_source_mutation": false,
+          "native_provider_io": false,
+          "predecessor_matrix_or_capture_replay": false,
+          "primitive_hash_line_reconstruction": true,
+          "retainer_or_auditor_invocation": false,
+          "reviewed_script_import": false,
+          "runtime": false
+        },
+        "basis": {
+          "bytes": 36522,
+          "plan": "activation-consumed-validation-plan/consumed-validation-plan.json",
+          "sha256": "0a76e2977f96c8aee82e2e9c12728fe53ee5dc4c9bb33d1666349a2fe4301c06"
+        },
+        "findings": [
+          "All eleven predecessor and successor full lengths/digests match actual current local bytes. The new layout specification is explicitly an insertion from the empty predecessor.",
+          "Every block's old/new half-open line intervals begin at the preceding endpoints, stay within bounds and jointly cover the entire file with no gaps or overlaps. The recomputed excerpt pins match, and equal/delete/insert/replace operations agree with their actual bytes.",
+          "All eleven complete unified diffs reproduce exactly using line endings preserved and direct concatenation of the difflib output; no newline normalization or invented EOF data is applied.",
+          "The four frozen engine/header/leaf files have one equal block and empty diff. The two separately retained reader/type inputs match their declared pins and the exact plan source entries. No extractor or predecessor check was invoked.",
+          "The seven ledger source groups match the frozen plan verbatim. The source-transform declaration has the same groups, plan pin, reader inputs and unchanged-file pins.",
+          "The review lock contains exactly the eleven source files plus source-ledger.json and every pin matches current bytes. The locked ledger has no self-hash; the lock supplies its pin.",
+          "Custody, observer, serial raw-receipt validity, setup-only compiled surface and exclusions match the reviewed plan and harness. Four candidate selectors produce 32 candidate assertions per mode; three separate controls and two modes specify fourteen future children, not observed executions."
+        ],
+        "independence": "The reviewer did not author the top-level ledger, lock, runner, contract or harness. The reviewer authored the provider files; those implementation semantics have separate independent peer reviews. This record verifies complete ledger correspondence rather than replacing those reviews.",
+        "limits": [
+          "Source-only correspondence is not compiler/codegen, ABI, native I/O or runtime proof.",
+          "New retained preflight outputs and complete selected-method/native-layout review must precede first runtime.",
+          "All live, device, signal, concurrency and recovery gates remain closed."
+        ],
+        "result": "pass",
+        "reviewed_inputs": {
+          "review-lock.json": {
+            "bytes": 1701,
+            "sha256": "12ee19d904b2436bcf9f902d1b95a264b8dfac5c721b97ffdd6940a010e6bf0c"
+          },
+          "source-ledger.json": {
+            "bytes": 325779,
+            "sha256": "aca1a0da0a9e23ed5e0ec32a142dfbbb1986c25d017d9ce6dbbe09348d5b96d4"
+          }
+        },
+        "schema": 1,
+        "scope": "Independent source/line-block/complete-diff and review-lock correspondence review of the newly authored fixture ledger",
+        "status": "reviewed-before-first-build",
+        "verified": {
+          "blocks_by_file": {
+            "core.c": 1,
+            "core.h": 1,
+            "file_provider.c": 41,
+            "file_provider.h": 13,
+            "native-layout-spec.json": 1,
+            "native_leaf.c": 1,
+            "native_leaf.h": 1,
+            "run-tests.py": 53,
+            "source-transform.json": 25,
+            "test-contract.json": 61,
+            "test_file.c": 125
+          },
+          "exact_reader_inputs": [
+            {
+              "bytes": 2994,
+              "name": "generated/readers.inc",
+              "sha256": "352048162f452f794136f8b90555783df101feacbf7550e3f4020bd6ef7ab140"
+            },
+            {
+              "bytes": 5369,
+              "name": "generated/receipt-types.h",
+              "sha256": "c97454db2aba6e942eb05241bbf80d67ffd8eecb5108927da69600a6a1d15f40"
+            }
+          ],
+          "exact_unchanged_files": [
+            "core.c",
+            "core.h",
+            "native_leaf.c",
+            "native_leaf.h"
+          ],
+          "locked_files_including_ledger": 12,
+          "source_files": 11,
+          "source_groups": 7,
+          "total_contiguous_line_blocks": 323
+        }
+      }
+    },
+    "provider-source-review.json": {
+      "pin": {
+        "bytes": 5350,
+        "sha256": "d9747dd8d62a59eea4d05fddbe1495046ecea62b316bd5929e6e1376fa5f5aba"
+      },
+      "review": {
+        "activity": {
+          "compiler": false,
+          "device": false,
+          "native_provider_invocation": false,
+          "prior_audit_replay": false,
+          "runtime": false,
+          "source_capture": false
+        },
+        "findings": [
+          {
+            "anchor": "file_provider.c:183-205",
+            "claim": "Unused receipt, native slot and two-query capacity precede native open; actual returned nonnegative descriptor is saved as HeldUnvalidated before validation. The retained leaf is exact predecessor source.",
+            "id": "P1",
+            "result": "pass"
+          },
+          {
+            "anchor": "file_provider.c:115-170",
+            "claim": "Both actual query results and identity predicates precede raw receipt copy; complete is set last. Four decision fields distinguish successful raw validation from the authored consumed veto. No creation identity assignment or VerifiedHeld promotion follows.",
+            "id": "P2",
+            "result": "pass"
+          },
+          {
+            "anchor": "file_provider.c:207-220",
+            "claim": "Baseline supplies infrastructure {-2,7104}; C2 modifies only supplied raw to -1 after completed raw receipt plus consumed-veto tuple. Frozen core consequently halts baseline before public payload, while C2 records ordinary OPEN failure and completes. This is source reasoning, not execution.",
+            "id": "P3",
+            "result": "pass"
+          },
+          {
+            "anchor": "file_provider.c:332-349",
+            "claim": "Distinct sibling outputs copy the original report, raw receipt and decision before C1 changes only exported queries[1].result.raw. Context and trusted receipt remain unchanged; parent safety does not consult the changed projection.",
+            "id": "P4",
+            "result": "pass"
+          },
+          {
+            "anchor": "file_provider.c:351-372",
+            "claim": "Separate one-shot cleanup acts only on known held custody. It marks unknown before the close and retains returned uncertainty, never retries. C3 omits only the eligible close body with honest requested/eligible/unattempted/unchanged-held receipt.",
+            "id": "P5",
+            "result": "pass"
+          },
+          {
+            "anchor": "file_provider.h:8-20,117-158",
+            "claim": "Old controls are refused, new controls mutually exclusive. Raw receipt is serial source evidence rather than admission/publication authority; zero context and nonaliasing freeze outputs are explicit preconditions fulfilled by harness sibling storage.",
+            "id": "P6",
+            "result": "pass"
+          },
+          {
+            "anchor": "test_file.c:raw_identity_valid; supervise; assess",
+            "claim": "Immediate envelope descriptor binding and raw receipt validation precede parent path observation; parent never performs I/O with the child opened descriptor. C1 projection, C2 return/payload domain and C3 explicit cleanup are separately owned by the final three composite assertions. Shared predicates retain real failure refusal without masking controls.",
+            "id": "P7",
+            "result": "pass"
+          }
+        ],
+        "inputs": {
+          "core.c": {
+            "bytes": 24981,
+            "sha256": "eca23b77d5e064a7015dd3f912e5652a7d61df196ce936b3fbf1934e4a4819d1"
+          },
+          "core.h": {
+            "bytes": 8461,
+            "sha256": "a1c1f13832a8bdb55ba9a2d4379ff8c6cb689bd70826575497d13402430faa38"
+          },
+          "file_provider.c": {
+            "bytes": 18292,
+            "sha256": "a98d69a46214f6d9215b9de41a67643f3efe533b9190c5f0fcd83b265d9d862f"
+          },
+          "file_provider.h": {
+            "bytes": 5990,
+            "sha256": "3d478e98f9dba224b5e4e161b8a562172ec8cd6916eae6ad0b603cf83eb0e5ad"
+          },
+          "native-layout-spec.json": {
+            "bytes": 4364,
+            "sha256": "17563378fa12ced883fcb6660bd4fe02e716704b6ea59324be64bdd3a849f6fa"
+          },
+          "native_leaf.c": {
+            "bytes": 2944,
+            "sha256": "9033bfe9cf854a495cfb7056fb7627fe371e7961e792589d59b99fcfc4064669"
+          },
+          "native_leaf.h": {
+            "bytes": 833,
+            "sha256": "55e4a5ed78d023fb652002d7bface8421a71b690033f9f3cf02ed21cc72cc348"
+          },
+          "source-transform.json": {
+            "bytes": 6250,
+            "sha256": "28965dc6de0df3e1738d2c3f296662a4676d0167057d8b9f71595c7907655782"
+          },
+          "test_file.c": {
+            "bytes": 42924,
+            "sha256": "d3130e45d8228040f05accfab2a99acf9f14a44ce0ff07a5344c496d4ed3e0f7"
+          }
+        },
+        "limitations": [
+          "No compile, ABI/codegen, callback or native file result established by this review.",
+          "Exact fresh target layout and method evidence remain required before first runtime.",
+          "Retained write/sync/close callbacks and other mode definitions are not selected by this bounded consumed-veto matrix.",
+          "Unknown close/missing return, signals, native fault paths, arbitrary file or descriptor custody and recovery remain unexecuted gates.",
+          "Provider log prepared fields precede callback return; public return/snapshot observations are separate."
+        ],
+        "plan": {
+          "bytes": 36522,
+          "path": "experiments/usb-browser-switch/activation-consumed-validation-plan/consumed-validation-plan.json",
+          "sha256": "0a76e2977f96c8aee82e2e9c12728fe53ee5dc4c9bb33d1666349a2fe4301c06"
+        },
+        "result": "pass",
+        "reviewer_role": {
+          "author_of_new_harness": true,
+          "author_of_reviewed_provider": false,
+          "review_type": "independent provider source review plus harness integration cross-check"
+        },
+        "schema": 1,
+        "scope": "Independent source-only provider/header review by harness author; no compiler, runtime, native provider, prior audit or capture replay.",
+        "status": "reviewed-before-build"
+      }
+    },
+    "runner-contract-cross-review.json": {
+      "pin": {
+        "bytes": 3820,
+        "sha256": "f66786cce0bfb2cc4d3dfe1bc1e658c3ca636ddc41e0dee3218cac9da4678b8d"
+      },
+      "review": {
+        "findings": [
+          "Native provider saves actual int descriptor HeldUnvalidated before validation. New receipt reserve precedes open; successful raw open and fd/name queries are copied complete-last independently of consumed veto.",
+          "Complete fixed table and exact sole engine admission remain; full-width checked token gate before narrowing is preserved. Selected file-validation refusal does not promote creation identity or custody.",
+          "C1 changes only copied post-open query raw0 to-1. Parent path safety consumes independent raw receipt; error/entered/returned and native values remain truthful outside copied control field.",
+          "C2 changes only supplied raw-2 to-1 with error7104/origin infrastructure unchanged. Frozen engine records two events and completes; the shared harness checks remain independent of public-return expectations.",
+          "C3 skips eligible cleanup native body before attempted. Requested/eligible and held descriptor remain; no compensating close or token probe exists. Shared cleanup shape accepts only truthful unattempted zeros while dedicated composite requires attempted.",
+          "Harness has no control macros, uses one ordinary entry per fresh exec child, separates static output siblings, requires actual normal child termination and exact report identity/size, and checks inherited directory/report fd equality before raw-identity path observation.",
+          "Parent observer uses its own checked fd and empty-file observation, then fixed name/directory removal. Unknown returned native errors refuse; no retry, recursive cleanup, signal, firmware or device work.",
+          "Selector enum indices are explicit0/1/2/3 and distinct from sorted contract iteration. Eight assertions run for each of four candidate selectors and matching three controls per mode;14 child executions and14 supervisors are planned.",
+          "Native envelope version2/spec is separately locked as11th source;26 measured layout keys require fresh both-mode target object/header review with spec pin. Positive sizes and nonnegative offsets are distinguished.",
+          "AST syntax parse and JSON correspondence are source checks only; no runner import/invocation or old audit/matrix replay occurred."
+        ],
+        "inputs": {
+          "file_provider.c": {
+            "bytes": 18292,
+            "sha256": "a98d69a46214f6d9215b9de41a67643f3efe533b9190c5f0fcd83b265d9d862f"
+          },
+          "file_provider.h": {
+            "bytes": 5990,
+            "sha256": "3d478e98f9dba224b5e4e161b8a562172ec8cd6916eae6ad0b603cf83eb0e5ad"
+          },
+          "native-layout-spec.json": {
+            "bytes": 4364,
+            "sha256": "17563378fa12ced883fcb6660bd4fe02e716704b6ea59324be64bdd3a849f6fa"
+          },
+          "run-tests.py": {
+            "bytes": 43405,
+            "sha256": "50df90ce23e5ddc15426a30c24117e3cbc056dd12dd05740dc9ea484e6a834ef"
+          },
+          "source-transform.json": {
+            "bytes": 6250,
+            "sha256": "28965dc6de0df3e1738d2c3f296662a4676d0167057d8b9f71595c7907655782"
+          },
+          "test-contract.json": {
+            "bytes": 14643,
+            "sha256": "2d8c4359198c56731ec42dedf614b9bb4b4f6ac6d59d9bbc94d91e127d55aece"
+          },
+          "test_file.c": {
+            "bytes": 42924,
+            "sha256": "d3130e45d8228040f05accfab2a99acf9f14a44ce0ff07a5344c496d4ed3e0f7"
+          }
+        },
+        "limitations": [
+          "Actual compile/codegen/runtime is pending root authorization after source freeze.",
+          "C11/ABI/native return claims remain prospective until new retained artifacts; no host layout inferred.",
+          "Ownership is not fault causation; all live gates, quarantine and prior failure packets remain unchanged."
+        ],
+        "runtime_gate": "CLOSED",
+        "schema": 1,
+        "scope": "Independent complete source reading of stable provider/header and harness; runner/contract author cross-check. No target compilation, codegen extraction, native I/O witness or predecessor execution.",
+        "status": "passed-source-only"
+      }
+    }
+  },
+  "limits": [
+    "Source review is not native execution, ABI/codegen, sanitizer or recovery evidence.",
+    "No native crash path, frames, callback nesting/concurrency, DSO/installer, signals/nonlocal exits, firmware/emulator/device, production/live observer or release.",
+    "Ownership is not fault causation; arbitrary lifetime/interposition/nonparticipating writers/native visibility and recovery remain unresolved."
+  ],
+  "phase": "before-first-build",
+  "review_lock": {
+    "bytes": 1701,
+    "sha256": "12ee19d904b2436bcf9f902d1b95a264b8dfac5c721b97ffdd6940a010e6bf0c"
+  },
+  "reviewed_sources": {
+    "core.c": {
+      "bytes": 24981,
+      "sha256": "eca23b77d5e064a7015dd3f912e5652a7d61df196ce936b3fbf1934e4a4819d1"
+    },
+    "core.h": {
+      "bytes": 8461,
+      "sha256": "a1c1f13832a8bdb55ba9a2d4379ff8c6cb689bd70826575497d13402430faa38"
+    },
+    "file_provider.c": {
+      "bytes": 18292,
+      "sha256": "a98d69a46214f6d9215b9de41a67643f3efe533b9190c5f0fcd83b265d9d862f"
+    },
+    "file_provider.h": {
+      "bytes": 5990,
+      "sha256": "3d478e98f9dba224b5e4e161b8a562172ec8cd6916eae6ad0b603cf83eb0e5ad"
+    },
+    "native-layout-spec.json": {
+      "bytes": 4364,
+      "sha256": "17563378fa12ced883fcb6660bd4fe02e716704b6ea59324be64bdd3a849f6fa"
+    },
+    "native_leaf.c": {
+      "bytes": 2944,
+      "sha256": "9033bfe9cf854a495cfb7056fb7627fe371e7961e792589d59b99fcfc4064669"
+    },
+    "native_leaf.h": {
+      "bytes": 833,
+      "sha256": "55e4a5ed78d023fb652002d7bface8421a71b690033f9f3cf02ed21cc72cc348"
+    },
+    "run-tests.py": {
+      "bytes": 43405,
+      "sha256": "50df90ce23e5ddc15426a30c24117e3cbc056dd12dd05740dc9ea484e6a834ef"
+    },
+    "source-ledger.json": {
+      "bytes": 325779,
+      "sha256": "aca1a0da0a9e23ed5e0ec32a142dfbbb1986c25d017d9ce6dbbe09348d5b96d4"
+    },
+    "source-transform.json": {
+      "bytes": 6250,
+      "sha256": "28965dc6de0df3e1738d2c3f296662a4676d0167057d8b9f71595c7907655782"
+    },
+    "test-contract.json": {
+      "bytes": 14643,
+      "sha256": "2d8c4359198c56731ec42dedf614b9bb4b4f6ac6d59d9bbc94d91e127d55aece"
+    },
+    "test_file.c": {
+      "bytes": 42924,
+      "sha256": "d3130e45d8228040f05accfab2a99acf9f14a44ce0ff07a5344c496d4ed3e0f7"
+    }
+  },
+  "root_review": {
+    "corrections_before_freeze": [
+      "Preserved initial harness version1 and moved to explicit version2.",
+      "Added immediate child/parent directory and report descriptor equality before raw-receipt/path observation.",
+      "Allowed valid zero ABI offsets while retaining strictly positive sizes; added native layout spec to eleven locked sources."
+    ],
+    "findings": [
+      "Native int custody precedes instrumentation and genuine fd/name queries. Separate receipt is completed before consumed veto; no accepted creation identity or VerifiedHeld promotion.",
+      "Single fixed complete provider table and stable context reach ordinary ac_run only through existing sole admission; copied full-width owner remains authored.",
+      "Three controls touch respectively only exported query raw, supplied open raw, or eligible cleanup body; shared eight-oracle partition leaves each effect with one composite.",
+      "Immediate envelope version/size/descriptor binding and raw-identity validation precede parent fixed-name observation. Parent uses own descriptors, never child saved token.",
+      "Independent ledger review covers all eleven files, contiguous full line-block mapping and exact diffs plus frozen reader inputs. All compile-relevant sources and layout spec are locked.",
+      "Four candidates and three controls per mode are source specifications only. First build and fresh target codegen/ABI review still precede runtime."
+    ],
+    "scope": "Complete provider/header, complete harness and final runner delta/contract read; source ledger authored by root and separately checked by provider author.",
+    "unchanged": [
+      "core.c",
+      "core.h",
+      "native_leaf.c",
+      "native_leaf.h",
+      "six retained reader/type fragments",
+      "sole terminal admission",
+      "immutable completion",
+      "five setup-only APIs",
+      "opaque unblamed boundary",
+      "all previous failure packets, quarantine and closed live gates"
+    ]
+  },
+  "runtime_gate": "CLOSED",
+  "schema": 1,
+  "status": "passed"
+}

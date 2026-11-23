@@ -1,0 +1,286 @@
+{
+  "custody_limits": [
+    "Private raw scripts, reports, paths, command streams and native file identities are not published. These inventories bind their retained bytes only.",
+    "Preparation and reviewer failures do not become native or runtime failures. Source-only reviews are distinct from test executions."
+  ],
+  "first_auditor_failure": {
+    "correction": {
+      "cause": "The unchanged error: diagnostic regular expression matched the identifier suffix in two saved_error:0 ternary expressions. These are retained preprocessor source bytes, not emitted compiler diagnostics.",
+      "command_name": "test-file-expanded",
+      "corrected_auditor": {
+        "bytes": 76664,
+        "sha256": "4582e54609f9d8817769fa28f75a98cb7dbe24b7ee13b7b2046606033cb31c95"
+      },
+      "diff_pin": {
+        "bytes": 1743,
+        "sha256": "a819260df77c0711198cdacea26601efff106afd61a0ffc9d24f65adb159e016"
+      },
+      "exact_exception_spans": [
+        {
+          "end_byte_exclusive": 213951,
+          "expression_ascii": "raw<0?saved_error:0",
+          "frozen_test_file_line": 95,
+          "occurrences": 1,
+          "start_byte_inclusive": 213932
+        },
+        {
+          "end_byte_exclusive": 228497,
+          "expression_ascii": "written<0?saved_error:0",
+          "frozen_test_file_line": 295,
+          "occurrences": 1,
+          "start_byte_inclusive": 228474
+        }
+      ],
+      "failed_packet": "audit-a472d69b9b784707bc68c8aabd03f0bd",
+      "failed_stderr": {
+        "bytes": 1775,
+        "sha256": "e0561fe99419798119cf24c614bae01e6b485d955f5ffa53bb9be3650edc5a28"
+      },
+      "no_execution": [
+        "no auditor invocation",
+        "no compiler or disassembler invocation",
+        "no runner or native provider invocation",
+        "no matrix or prior audit replay"
+      ],
+      "original_auditor": {
+        "bytes": 75692,
+        "sha256": "bfa505e0159094822332c7d293003d9e53f24164bd905cc9081371a678cb80e3"
+      },
+      "rule": "Only this exact command and full stream pin receive the two exact span/count/width checks. Only those expression spans are replaced by spaces in a temporary diagnostic scan buffer. The unchanged diagnostic pattern scans every remaining byte; other commands scan their complete original stdout.",
+      "schema": 1,
+      "scope": "auditor-only exact retained preprocessing lexical exception; no tested source or packet change",
+      "status": "unexecuted-correction-for-independent-source-review",
+      "stream": "commands/0009-test-file-expanded/stdout.bin",
+      "stream_pin": {
+        "bytes": 280811,
+        "sha256": "ef40d845a99f1616427d2bdb41e6c709a8e8bf94778729814f5b5f390ceafdd5"
+      },
+      "unchanged_checks": [
+        "original stdout/receipt pin equality",
+        "stderr diagnostic and empty-stream requirements",
+        "return codes",
+        "exact argv and isolation",
+        "source and artifact equality",
+        "ELF/method/layout/report checks",
+        "complete packet closure and projections"
+      ]
+    },
+    "correction_source_review": {
+      "auditor-v2-harness-review.json": {
+        "bytes": 3009,
+        "sha256": "a3f3ada3558028ebb946566d990745bf80452f1242e096632ce6def6c965b31f"
+      },
+      "auditor-v2-root-review.json": {
+        "bytes": 1015,
+        "sha256": "e7977660444be6d2480f528a75cf605464ca3cf7a222d7e65ce042c3f3fb6bbf"
+      }
+    },
+    "packet": {
+      "auditor-harness-review.json": {
+        "bytes": 5756,
+        "sha256": "0bfe4d617170e49ab7dab8c65fb2a10defd3dbaa4a18c8d612ff519e8bf87c79"
+      },
+      "auditor-root-source-review.json": {
+        "bytes": 1808,
+        "sha256": "c1506079432b0f9143535fe92e2500c559233f4a6f293d6a15c2f6563f925b85"
+      },
+      "auditor.py": {
+        "bytes": 75692,
+        "sha256": "bfa505e0159094822332c7d293003d9e53f24164bd905cc9081371a678cb80e3"
+      },
+      "exit.json": {
+        "bytes": 316,
+        "sha256": "bcfa60c5b7f630f9b82db44fb085620cd6ca2643010430c45f4d9f1618ba7d01"
+      },
+      "invocation.json": {
+        "bytes": 1506,
+        "sha256": "2fa282e122642dff05f1e25ffd33e225ba34b5a81794442419108a71757cafcb"
+      },
+      "launcher.py": {
+        "bytes": 1836,
+        "sha256": "0474660f988e2badca1a2e7df6567e570c586b65704666b0d7d89b97464c9804"
+      },
+      "stderr.bin": {
+        "bytes": 1775,
+        "sha256": "e0561fe99419798119cf24c614bae01e6b485d955f5ffa53bb9be3650edc5a28"
+      },
+      "stdout.bin": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "reason": "Diagnostic text scan matched two identifier suffixes in retained preprocessor source, not compiler diagnostics."
+  },
+  "first_build_and_runtime": {
+    "build": {
+      "exit.json": {
+        "bytes": 286,
+        "sha256": "0537efd0dc844314c18a67bd9150f9221dcbdd41ab385a0bbb50339855096d5a"
+      },
+      "invocation.json": {
+        "bytes": 934,
+        "sha256": "39164f64788316e1a84bf8cddb5114627e7b43b04c2707122df985f19ad6b40a"
+      },
+      "launcher.py": {
+        "bytes": 1776,
+        "sha256": "dcd7b38734db7efe8dc298e4b55fd50a7f7d8a986699face51eb7a94d5f8f277"
+      },
+      "stderr.bin": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout.bin": {
+        "bytes": 345,
+        "sha256": "736f67e2b99b16ba64b26b9d127150e66bccd86ae0579ba91845c1d5f65212df"
+      }
+    },
+    "built_source_change": false,
+    "compiler_or_runtime_failure": false,
+    "previous_passing_matrix_replay": false,
+    "runtime": {
+      "exit.json": {
+        "bytes": 286,
+        "sha256": "c8602349a1376a84c406f5bc325618990260f2dd23fed2d4cc09045b468c42b8"
+      },
+      "invocation.json": {
+        "bytes": 1244,
+        "sha256": "075f607e22e6c7109059e596be8d06e05ac7e67d62bbecf8037e8990277d9ac2"
+      },
+      "launcher.py": {
+        "bytes": 2115,
+        "sha256": "f3b35cfa97a773c11019fc09d9abbd987e5642f9c831d6890e9d2cfa993553c5"
+      },
+      "stderr.bin": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout.bin": {
+        "bytes": 370,
+        "sha256": "12d9861ee04bdca4f0adb8f8b2c05a77f98cd8dfc10e6e1650378900f6238cfc"
+      }
+    }
+  },
+  "fresh_codegen_reviews": {
+    "codegen-composition-custody.json": {
+      "bytes": 1155,
+      "sha256": "146fc9d3c6014cea843aad75723332a1442b2a09cf5e5a08d7cff587aec85427"
+    },
+    "core-codegen-independent-review.json": {
+      "bytes": 2931,
+      "sha256": "972e9f17cd60c196f2d8686f7962b4ada7fac5a01a51cf32f00016f68eefe2de"
+    },
+    "core-codegen-review.json": {
+      "bytes": 109277,
+      "sha256": "0f2471ef7f2fac0205275fb6494b583b1fd05168a1ef7e04df8728be76eabea8"
+    },
+    "harness-codegen-review.json": {
+      "bytes": 782882,
+      "sha256": "9fd771132e12fe4833a049f8ec50299c2a489e72169167d69fa14cbdd9aa5781"
+    },
+    "provider-codegen-review.json": {
+      "bytes": 1118156,
+      "sha256": "ca9e4b4c916653a42bb18417582bacc47e1e5778cb414745a03baafeb24143cb"
+    }
+  },
+  "metadata_composition_failure": {
+    "corrected_packet": {
+      "exit.json": {
+        "bytes": 284,
+        "sha256": "2890c424f1a5b13d919c43b307a55a54725ea0a8206c6f6268c977ab75550931"
+      },
+      "invocation.json": {
+        "bytes": 623,
+        "sha256": "5311d47c3344efaf300f3aac657561c9c79bb15f00ac21fd6e5c90cd96138d38"
+      },
+      "launcher.py": {
+        "bytes": 1140,
+        "sha256": "55f42651655a3b61a335a2456af959249b63cd0304927dc946a599aaec4be0e4"
+      },
+      "stderr.bin": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout.bin": {
+        "bytes": 133,
+        "sha256": "06c9565c355a67bc5d7aa7b27577bc30c7556a63c0279e53dc05eaef9434334d"
+      },
+      "writer.py": {
+        "bytes": 4540,
+        "sha256": "536c47f3755dc766fcec99ea046f6e14ae08b29c5b06a0e7fa3fb91593863aaf"
+      }
+    },
+    "explanation": {
+      "correction": "Only the provider-specific metadata check now uses its actual status, explicit false execution fields and exact preflight hash. Other gates, fixture sources and compiled artifacts are unchanged.",
+      "failure": "The first composition writer assumed a top-level runtime_gate shared by all independent review schemas. The provider review instead uses execution.runtime_gate_at_pinned_preflight. KeyError occurred before output or target runtime.",
+      "new_writer": {
+        "bytes": 4540,
+        "sha256": "536c47f3755dc766fcec99ea046f6e14ae08b29c5b06a0e7fa3fb91593863aaf"
+      },
+      "old_writer": {
+        "bytes": 4084,
+        "sha256": "d7c2bf619d2fd74454b31b38056084f472429be0c2345832d4488b0f93ce87b9"
+      },
+      "outputs_before_failure": false,
+      "retained_failure": "codegen-composition-launch-7b8ec7e2b41341ed916342b8739499ab",
+      "schema": 1
+    },
+    "failed_packet": {
+      "exit.json": {
+        "bytes": 284,
+        "sha256": "bd896cba479c6be5e685520d33a8f2db3ddc6ebe10c5b6d61adb5dd1bf4c12ce"
+      },
+      "invocation.json": {
+        "bytes": 620,
+        "sha256": "1d38851092121e306a632deef29b2985d57c7c99ccd050be927e175b4b107be9"
+      },
+      "launcher.py": {
+        "bytes": 1137,
+        "sha256": "9605d404f6cab131e17aa9328cdaaf0f641d7f9bbacbea3506c33c04d18ba5ce"
+      },
+      "stderr.bin": {
+        "bytes": 391,
+        "sha256": "080731c6426a012ef253018a5cf04aecb9cfecf338c1333c691d35a83c15631d"
+      },
+      "stdout.bin": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "writer.py": {
+        "bytes": 4084,
+        "sha256": "d7c2bf619d2fd74454b31b38056084f472429be0c2345832d4488b0f93ce87b9"
+      }
+    }
+  },
+  "prebuild_reviews": {
+    "contract-source-review.json": {
+      "bytes": 4906,
+      "sha256": "a49c0046038ada2a88dd48e807868de652cb96ad73c1d9d6ca2850156f512f81"
+    },
+    "harness-source-review.json": {
+      "bytes": 7743,
+      "sha256": "8d2b82f83e1bf4567a33deca3fc0ba77733ee75b9310a2fb31734dbb821db768"
+    },
+    "ledger-source-review.json": {
+      "bytes": 4232,
+      "sha256": "9a3a05edb02cafc98790e3738a9a7d3bdd861f5400e643ca11f0c5012f131690"
+    },
+    "provider-source-review.json": {
+      "bytes": 5350,
+      "sha256": "d9747dd8d62a59eea4d05fddbe1495046ecea62b316bd5929e6e1376fa5f5aba"
+    },
+    "runner-contract-cross-review.json": {
+      "bytes": 3820,
+      "sha256": "f66786cce0bfb2cc4d3dfe1bc1e658c3ca636ddc41e0dee3218cac9da4678b8d"
+    }
+  },
+  "reviewer_interruption": {
+    "retained_note": {
+      "bytes": 717,
+      "sha256": "f5183a8dfb7b5ae36621bd8cfb23b42ab5bfad5f7fe812b509b3c8813edf1651"
+    },
+    "scope": "One remote compaction turn returned no completed codegen review. The retained diagnostic was copied after receipt; original transport streams are not claimed. A separate fresh reviewer completed the provider review."
+  },
+  "runtime_gate": "CLOSED",
+  "schema": 1,
+  "status": "retained"
+}

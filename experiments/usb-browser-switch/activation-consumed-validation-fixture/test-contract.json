@@ -1,0 +1,245 @@
+{
+  "authored_inputs": {
+    "frame_cells": 0,
+    "generated_records": 0,
+    "id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "module_index": 0,
+    "process_identity_u64_hex": "0x1234567887654321",
+    "range_begin_hex": "0x1000",
+    "range_end_exclusive_hex": "0x2000",
+    "request_fp_hex": "0x0",
+    "request_lr_hex": "0x0",
+    "request_pc_hex": "0x1010",
+    "scope": "Pure authored direct ownership; no native address provenance."
+  },
+  "configuration": "AO_WITNESS_SETUP",
+  "controls": {
+    "corrupt-query-export": {
+      "exact_change": "In freeze export after context report copied, change only precleanup.queries[1].result.raw from0 to-1. Index0 is directory,index1FILE_FD,index2FILE_NAME. Keep entered=true, returned=true, error_valid=false, error_number=0 and every other field unchanged. This is intentionally inconsistent reporting, not a native failure.",
+      "expected_failures": [
+        "validation-veto-preserves-native-query-evidence"
+      ],
+      "macro": "CV_CONTROL_CORRUPT_QUERY_EXPORT",
+      "safety": "No changes to context query records, raw receipt, validation tuple, saved fd/custody, supplied pair, native dispatcher or cleanup. Parent safety reads independent receipt. C1 alone owns projected raw/error inconsistency and mirror equality. Mutation must be reached exactly once.",
+      "selector": "control-query-evidence"
+    },
+    "normalize-refusal": {
+      "consequence": "Unchanged engine records SELECTION then OPEN -1/errno7104, returns AC_RETURNED with AC_ORDINARY_RETURNED/payload, copied owner, known_failuretrue, short_writefalse, violationfalse, exactly2recorded events and no subsequent callback. C2 composite owns this whole difference; external held cleanup and empty-file observation remain exact.",
+      "exact_change": "After consumed veto change only supplied OPEN raw-2 to-1; retain7104, infrastructure origin, actual successful open/queries and HeldUnvalidated. No engine changes.",
+      "expected_failures": [
+        "validation-veto-remains-terminal-incomplete"
+      ],
+      "macro": "CV_CONTROL_NORMALIZE_REFUSAL",
+      "safety": "A supplied ordinary OPEN failure does not mean no descriptor was acquired; independent raw receipt retains actualfd and parent observation basis. Never infer closure or omit cleanup.",
+      "selector": "control-refusal-domain"
+    },
+    "omit-held-cleanup": {
+      "exact_change": "Omit only eligible cleanup native-close body before attempted is set. Preserve cleanup_requested/requested=true, eligible=true, saved descriptor and before/afterHeldUnvalidated, default result entered/returnedfalse/raw0/errorinvalid0, return cleanup_ok=true as honest protocol progression.",
+      "expected_failures": [
+        "held-validation-refusal-has-explicit-cleanup"
+      ],
+      "macro": "CV_CONTROL_OMIT_HELD_CLEANUP",
+      "safety": "No compensating close, duplicate, probe, retry, injected native error or operation through token. Known-held descriptor remains until ordinary child exit; OS termination containment is not an acknowledged cleanup. Parent observes using own capability. Sole composite owns missing attempt/return and held-after differences.",
+      "selector": "control-held-cleanup"
+    }
+  },
+  "evidence_schema": {
+    "binary_layout_keys": [
+      "handoff_bytes",
+      "child_report_bytes",
+      "identity_bytes",
+      "provider_report_bytes",
+      "snapshot_bytes",
+      "cleanup_bytes",
+      "raw_receipt_bytes",
+      "decision_bytes",
+      "dev_bytes",
+      "ino_bytes",
+      "uid_bytes",
+      "nlink_bytes",
+      "mode_bytes",
+      "off_bytes",
+      "child_version_offset",
+      "child_precleanup_offset",
+      "child_raw_identity_offset",
+      "child_consumed_validation_offset",
+      "child_cleanup_offset",
+      "child_initial_offset",
+      "child_first_offset",
+      "child_after_cleanup_offset",
+      "child_return_offset",
+      "child_request_before_offset",
+      "child_request_after_offset",
+      "child_owner_offset"
+    ],
+    "binary_length_key": "child_report_bytes",
+    "child_report": "New pointer-free same-build magic/version/sizeof envelope. Native layout and every requested type/member offset require fresh target artifact review in both modes before runtime; no predecessor size or host typedef assumption. Raw .child.bin is retained separately from JSON.",
+    "child_report_schema": 2,
+    "cleanup_scope": "Cleanup protocol success is distinct from native close. Shared checks require truthful attempted/unattempted shapes; C3 alone requires actual attempt. Unknown actual close failures refuse the case with no retry, probe, saved-token operation or recovery inference.",
+    "integer_policy": "Compare native identity fields before checked lossless uintmax_t/intmax_t reporting; native descriptors retain int provenance. Full64 authored owner identity survives all copies; saved descriptor values are never inferred from constants.",
+    "native_layout_spec": {
+      "bytes": 4364,
+      "sha256": "17563378fa12ced883fcb6660bd4fe02e716704b6ea59324be64bdd3a849f6fa"
+    },
+    "observation_basis": "RAW_IDENTITY_AFTER_CONSUMED_VETO",
+    "preexec_scope": "The allowlist boolean covers child-side pre-exec close sweep and post-exec verification. Individual pre-exec close/fcntl/exec preparation outcomes are not separate retained native receipts; refusal occurs before ordinary entry.",
+    "private_keys": [
+      "schema",
+      "selector",
+      "checks",
+      "check_names",
+      "failures",
+      "failed_checks",
+      "source_scope",
+      "input",
+      "supervisor",
+      "child",
+      "parent_file",
+      "parent_cleanup",
+      "binary_layout"
+    ],
+    "raw_vs_projection": "Independent complete raw receipt is the path-observation authority; copied post-open query mirrors may differ only under C1. Raw success is never overwritten by consumed veto, supplied -2/-1, terminal state or cleanup.",
+    "report_io_scope": "The child envelope is frozen after provider export and external cleanup, then written once before ordinary main return. Parent requires normal child exit0, exact report-file identity/size and exact pread before consuming it. Child report-fd/directory-fd equality is checked before owned-file observation. Neither report asserts its own completed write.",
+    "source_scope": "isolated-Linux-owned-temporary-file; authored-direct-owner; consumed-validation-veto",
+    "summary_schema": 1
+  },
+  "limits": {
+    "failure_cleanup_rule": "No retry or recursive cleanup; failed supervisor custody remains explicit for diagnosis and container termination is not acknowledged cleanup or recovery.",
+    "finite_scope": "Only the supplied consumed-veto boundary runs; no genuine failed query, actual close failure, callback nesting, concurrent publication, signal/nonlocal exit, DSO/installer, native frame, quarantine/startup, emulator/device, production or live composition.",
+    "interpretation": "Authored ownership is not native provenance or fault causation. Successful empty-file observation and ordinary cleanup do not prove durability, signal safety, quiescence, loader/interposition behavior or recovery.",
+    "maximum_owned_file_bytes": 0,
+    "native_fault_context": false,
+    "native_frames": false,
+    "ordinary_calls_per_child": 1,
+    "owned_file_names": 1,
+    "parent_read_bytes": 65,
+    "production_paths": false,
+    "provider_callback_records": 8,
+    "provider_native_records": 8,
+    "provider_query_records": 4,
+    "report_bytes": 1048576,
+    "source_authoring_execution": "This contract and source specification execute no compiler, callback, native provider or matrix.",
+    "supervisor_native_records": 48,
+    "threads_or_signals": false,
+    "unchanged": "The sole terminal admission, exact engine/header and six retained reader/type fragments, native leaf pair, five setup APIs, quarantine and all closed live gates remain unchanged."
+  },
+  "oracle_partition": {
+    "composites": [
+      {
+        "id": "validation-veto-preserves-native-query-evidence",
+        "owns": "Exact fieldwise fidelity of both exported post-open query records to independent raw receipt including entered/returned/raw/error/identity availability/value/kind/descriptor/flags. Setup-directory query remains a shared unchanged setup check. No other assertion repeats corruptible post-open evidence fidelity."
+      },
+      {
+        "id": "validation-veto-remains-terminal-incomplete",
+        "owns": "Supplied pair exactly{-2,7104} with original infrastructure origin, AC_INCOMPLETE, public ActiveIncomplete/no payload/zero result. This one composite owns every C2 callback/return/state/payload/event/known_failure consequence. Other oracles use raw native receipt and custody, not these expectations."
+      },
+      {
+        "id": "held-validation-refusal-has-explicit-cleanup",
+        "owns": "Protocol requested and eligible for saved native descriptor from HeldUnvalidated, attempted=true, actual entered/returned0/errorinvalid0, afterClosedReturned. Owns all C3 absent-call/result/custody differences. Public unchanged across cleanup is shared equality, not baseline-specific state."
+      }
+    ],
+    "execution": "All eight assertions (five shared and three composites) are evaluated for every candidate and control witness execution by its supervisor after the child exits. Each candidate must pass all; each control must fail exactly its named composite with all seven others passing. The14 count refers to fresh exec children, not assertion hosts. Future assertion names/counts are a specification, not observed results.",
+    "masking_rule": "Do not reuse predecessor public_matches_prepared/native_owned/journal_valid/cleanup_valid wholesale: they assume accepted creation or duplicate control-dependent fields. Partition affected checks exactly while retaining unrelated infrastructure rejection. No control macro in harness; compile one harness object for all provider configurations.",
+    "shared": [
+      {
+        "id": "setup-and-envelope-custody",
+        "scope": "One valid same-Linux parent/child capability handoff, complete table, direct module stage/commit, initialVirgin, exact new envelope and normalexit0; structural counts/types/bounds only on corruptible post-open mirrors."
+      },
+      {
+        "id": "independent-native-identity",
+        "scope": "Raw receipt complete and correctly bound to actual saved int fd, successful OPEN and two genuine query pairs/identities; no report-mirror substitution; checked widening/narrowing and expected fixed-name/directory."
+      },
+      {
+        "id": "consumed-veto-retains-unaccepted-held",
+        "scope": "Exact consumed tuple, expected FILE_VALIDATION diagnostic, known saved descriptor and HeldUnvalidated, creation_identity_availablefalse/zero identity. Any unrelated infrastructure error fails."
+      },
+      {
+        "id": "ordinary-scope-and-operation-bound",
+        "scope": "Exactly one ac_run, one OPEN callback/prepared return, no write/sync/close/unblamed callback or provider native follow-up, exactly directory/fd/name queries; unchanged engine/header/readers/leaves and setup-only symbols. External cleanup is separate."
+      },
+      {
+        "id": "postexit-observation-and-error-refusal",
+        "scope": "Parent own checked observer returns empty file and successful fixed cleanup; after-cleanup public snapshot equals first for either returned state. Require truthful cleanup shape: requested/eligible=true, descriptor and before bound to known saved native fd/HeldUnvalidated; attempted equals entered and returned. If attempted, require genuine raw0/errorinvalid0 and afterClosedReturned. If unattempted, require zero unused raw/error fields and afterHeldUnvalidated. Do not require attempted=true here; that belongs solely to C3. No unknown-token operation. Projected query consistency belongs solely to C1, public result expectations solely to C2."
+      }
+    ]
+  },
+  "schema": 1,
+  "scope": "One ordinary entry consumes a validation veto after a genuine owned empty-file acquisition; actual query receipts, supplied values, public state, post-exit observation and external cleanup remain distinct.",
+  "selectors": {
+    "consumed-validation-veto": {
+      "checks": [
+        "setup-and-envelope-custody",
+        "independent-native-identity",
+        "consumed-veto-retains-unaccepted-held",
+        "ordinary-scope-and-operation-bound",
+        "postexit-observation-and-error-refusal",
+        "validation-veto-preserves-native-query-evidence",
+        "validation-veto-remains-terminal-incomplete",
+        "held-validation-refusal-has-explicit-cleanup"
+      ],
+      "group": "G1",
+      "selector_index": 0
+    },
+    "control-held-cleanup": {
+      "checks": [
+        "setup-and-envelope-custody",
+        "independent-native-identity",
+        "consumed-veto-retains-unaccepted-held",
+        "ordinary-scope-and-operation-bound",
+        "postexit-observation-and-error-refusal",
+        "validation-veto-preserves-native-query-evidence",
+        "validation-veto-remains-terminal-incomplete",
+        "held-validation-refusal-has-explicit-cleanup"
+      ],
+      "group": "C3",
+      "selector_index": 3
+    },
+    "control-query-evidence": {
+      "checks": [
+        "setup-and-envelope-custody",
+        "independent-native-identity",
+        "consumed-veto-retains-unaccepted-held",
+        "ordinary-scope-and-operation-bound",
+        "postexit-observation-and-error-refusal",
+        "validation-veto-preserves-native-query-evidence",
+        "validation-veto-remains-terminal-incomplete",
+        "held-validation-refusal-has-explicit-cleanup"
+      ],
+      "group": "C1",
+      "selector_index": 1
+    },
+    "control-refusal-domain": {
+      "checks": [
+        "setup-and-envelope-custody",
+        "independent-native-identity",
+        "consumed-veto-retains-unaccepted-held",
+        "ordinary-scope-and-operation-bound",
+        "postexit-observation-and-error-refusal",
+        "validation-veto-preserves-native-query-evidence",
+        "validation-veto-remains-terminal-incomplete",
+        "held-validation-refusal-has-explicit-cleanup"
+      ],
+      "group": "C2",
+      "selector_index": 2
+    }
+  },
+  "status": "source-frozen-not-executed",
+  "summary_counts": {
+    "candidate_selectors_per_mode": 4,
+    "control_baselines": 3,
+    "controls_per_mode": 3,
+    "distinct_assertion_names": 8,
+    "fresh_witness_children": 14,
+    "normal_selectors": 1,
+    "summed_assertions_per_mode": 32,
+    "supervisor_invocations": 14
+  },
+  "summary_keys": [
+    "schema",
+    "selector",
+    "checks",
+    "check_names",
+    "failures",
+    "failed_checks"
+  ]
+}

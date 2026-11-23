@@ -1,0 +1,201 @@
+{
+  "envelope": {
+    "handoff_magic_hex": "0x435648414e443031",
+    "pointer_free": true,
+    "report_magic_hex": "0x435646494c453031",
+    "same_build_only": true,
+    "summary_schema": 1,
+    "version": 2
+  },
+  "limits": [
+    "Same-build producer/consumer, not portable wire ABI.",
+    "No runtime/compiler action occurred while authoring this specification."
+  ],
+  "native_typedefs": [
+    "dev_t",
+    "ino_t",
+    "uid_t",
+    "nlink_t",
+    "mode_t",
+    "off_t"
+  ],
+  "required_types": {
+    "ac_event": [
+      "kind",
+      "entered",
+      "returned_recorded",
+      "raw",
+      "errno_valid",
+      "error_number",
+      "requested_length",
+      "payload"
+    ],
+    "ac_owner": [
+      "kind",
+      "index",
+      "process_id",
+      "id"
+    ],
+    "ac_result": [
+      "selection_known",
+      "owner",
+      "known_failure",
+      "short_write",
+      "violation",
+      "event_count",
+      "events"
+    ],
+    "ac_snapshot": [
+      "state",
+      "has_payload",
+      "result"
+    ],
+    "child_report": [
+      "magic",
+      "bytes",
+      "version",
+      "selector",
+      "infrastructure",
+      "inherited_fd_list_valid",
+      "complete_table",
+      "prepared",
+      "model_stage",
+      "model_commit",
+      "freeze_ok",
+      "cleanup_ok",
+      "directory_fd",
+      "report_fd",
+      "owner",
+      "request_before",
+      "request_after",
+      "initial",
+      "first",
+      "after_cleanup",
+      "calls",
+      "first_return",
+      "precleanup",
+      "raw_identity",
+      "consumed_validation",
+      "external_cleanup"
+    ],
+    "handoff": [
+      "magic",
+      "bytes",
+      "version",
+      "selector",
+      "directory_fd",
+      "report_fd",
+      "directory",
+      "uid"
+    ],
+    "of_callback_record": [
+      "operation",
+      "entered",
+      "prepared",
+      "origin",
+      "supplied",
+      "owner_argument",
+      "token_argument",
+      "requested_length",
+      "payload_argument",
+      "native_first",
+      "native_count",
+      "custody_before",
+      "custody_after"
+    ],
+    "of_cleanup_record": [
+      "requested",
+      "eligible",
+      "attempted",
+      "descriptor",
+      "before",
+      "after",
+      "result"
+    ],
+    "of_consumed_validation_record": [
+      "evaluated",
+      "raw_valid",
+      "authored_veto",
+      "consumed_valid"
+    ],
+    "of_identity": [
+      "device",
+      "inode",
+      "uid",
+      "links",
+      "mode",
+      "size"
+    ],
+    "of_native_identity_receipt": [
+      "complete",
+      "directory_fd",
+      "opened_fd",
+      "expected_uid",
+      "expected_directory",
+      "fixed_name",
+      "open_record",
+      "by_fd",
+      "by_name"
+    ],
+    "of_native_record": [
+      "operation",
+      "descriptor",
+      "flags",
+      "creation_mode",
+      "requested_length",
+      "payload",
+      "result"
+    ],
+    "of_native_result": [
+      "entered",
+      "returned",
+      "raw",
+      "error_valid",
+      "error_number"
+    ],
+    "of_query_record": [
+      "kind",
+      "descriptor",
+      "flags",
+      "result",
+      "identity_available",
+      "identity"
+    ],
+    "of_report": [
+      "setup_complete",
+      "directory_validated",
+      "frozen",
+      "mode",
+      "expected_directory",
+      "expected_uid",
+      "custody",
+      "has_saved_descriptor",
+      "saved_descriptor",
+      "creation_identity_available",
+      "creation_identity",
+      "infrastructure",
+      "callback_count",
+      "file_callback_count",
+      "unblamed_count",
+      "native_count",
+      "query_count",
+      "callbacks",
+      "native",
+      "queries"
+    ],
+    "request_value": [
+      "pc",
+      "lr",
+      "fp"
+    ]
+  },
+  "schema": 1,
+  "scope": "Required fresh Linux AArch64 native layout evidence; no new measured offsets or sizes exist yet.",
+  "status": "source-draft-not-compiled",
+  "verification_before_runtime": [
+    "Retain expanded target headers and macros, both mode harness object DWARF and exact source pins.",
+    "Independently derive sizeof and all requested member offsets from the fresh target artifacts; compare both modes and binary_layout serializer.",
+    "Do not substitute predecessor child_report4760 or guessed native typedef widths. Prior nlink_t4 is historical reference only.",
+    "Bind final measured native-layout review to the immutable preflight outputs before any runtime."
+  ]
+}
